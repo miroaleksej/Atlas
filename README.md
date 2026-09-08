@@ -1,3 +1,7 @@
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/miroaleksej/Atlas?quickstart=1)
+
+[![Reproduce Exoplanet G Example](https://github.com/miroaleksej/Atlas/actions/workflows/exoplanet-g-example.yml/badge.svg)](https://github.com/miroaleksej/Atlas/actions/workflows/exoplanet-g-example.yml)
+
 # Atlas
 
 
