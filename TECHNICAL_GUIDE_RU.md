@@ -1,5 +1,7 @@
 # Atlas 15.24.0: техническое руководство
 
+<img width="1672" height="941" alt="95b0327d-f6c9-47be-939e-ad2657c838cb" src="https://github.com/user-attachments/assets/2aa004d6-2371-42ee-9cce-41036d0b2ed8" />
+
 Это практическое руководство по запуску Atlas / Φ-Compiler / ScienceAtlas, поиску кандидатов научных законов, работе на стыке наук, проектированию экспериментов и расширению научного адресного пространства. Авторитетные ограничения системы определяют [MATHEMATICAL_CONTRACT.md](MATHEMATICAL_CONTRACT.md), [MATHEMATICAL_BOOK.md](MATHEMATICAL_BOOK.md) и [CLAIM_BOUNDARY.md](CLAIM_BOUNDARY.md).
 
 > Atlas генерирует и проверяет гипотезы, но не превращает хорошую аппроксимацию в научный закон. Продвижение возможно только через единый доказательный путь U0–U10. Отсутствующие доказательства означают `PENDING` или `NEEDS_EXPERIMENT`, а не подтверждение и не опровержение.
