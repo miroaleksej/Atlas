@@ -63,13 +63,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "654f9cb81d5d0653d82b0d379ef8dc916d8e5b69c3258c9a4d91477c21f8bd5c",
-      "size": 76165
+      "sha256": "5468063240d09c17689a58791db016b4573c6bab9abba12d7506fed399d8a92b",
+      "size": 74893
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "23049826b80f6981783bc438981207683b934ae273f2c767bf6e8f0bc042ea28",
-      "size": 60704
+      "sha256": "bf4d56ccbf5c038811b29ffa4ebec636e6b5a2295a1a8bcfc52177ae1b831a32",
+      "size": 59959
     },
     {
       "path": "capabilities.json",
@@ -1423,7 +1423,7 @@
     }
   ],
   "current_state_qualification_digest": "975f8c1e5a80fbf93feb0f4ecb84f8802c75110b53b94b545bd0dfae167ee74b",
-  "digest": "2a09e9b9b37d0233774ecadf692788604a844e922942f32a69bb165ae3602f3d",
+  "digest": "a48c1838e63d04d02d50bcf6e7f3477107f6f41b2ec8b2c12ca3eb3a289f66d4",
   "frontier_scan_digest": "167b4a90b1e246676166697b365966c7d77b45b7c494f620a14280ea6e8453bf",
   "low_frequency_gust_anomaly_digest": "9df11440defb554739a40e793d36d5ddb0457c8cb435ed783a21c0af3c2799ed",
   "owner": "RELEASE-CONTROLS/15.24.0",
