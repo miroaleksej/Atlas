@@ -19,12 +19,17 @@
     "verified_stop": "DEFERRED_RESOURCE"
   },
   "blind_real_physics_experiment_digest": "ad6aff3e74cc18b6ae996a845599be8d9f702c2ac0cf4ea3e5bd1084d91564a3",
-  "controlled_file_count": 278,
+  "controlled_file_count": 279,
   "controlled_files": [
     {
+      "path": ".github/workflows/exoplanet-g-example.yml",
+      "sha256": "ba6ca078b5cd2c82ae0e512c9b6d7c33ea171f3433af793691e18f9f0045d042",
+      "size": 3540
+    },
+    {
       "path": ".gitignore",
-      "sha256": "225b0f99bef9832432727640cd3b40b03a0ed0a6cba7d923e3c9f6b06f635287",
-      "size": 406
+      "sha256": "9abe1f21c99dd272eb9b9ab89e6e7e7e14acfb4b44f029a141f5ca383146a151",
+      "size": 425
     },
     {
       "path": "ACCEPTANCE_REPORT.md",
@@ -35,6 +40,11 @@
       "path": "CLAIM_BOUNDARY.md",
       "sha256": "bccef0786cec5436dc63eb00aac8aabd243d3ca37d687b08e48d58c6da0fba98",
       "size": 44528
+    },
+    {
+      "path": "LICENSE.md",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "size": 11357
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
@@ -53,8 +63,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "8fa693ddf85b3736f176a1bccd2b571474e6e462ce254109473c8e8b91b744a1",
-      "size": 40312
+      "sha256": "d7a74ea9de0a9e2cbdc61247d22846f85d9d205dca2f435850804092c30794b2",
+      "size": 41793
     },
     {
       "path": "capabilities.json",
@@ -423,8 +433,8 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "3b7995572bc719cdfe4aaba1337deb01a6ac90cd8d9ac3594b2bed50bad7bf0c",
-      "size": 23293
+      "sha256": "27c28a55a55c817f080b5248a85b930ebfa7b2d9d190b9c6f1e2eb73828ed7fe",
+      "size": 23268
     },
     {
       "path": "evaluation/dayabay_likelihood_qualification.py",
@@ -533,8 +543,8 @@
     },
     {
       "path": "evaluation/phi_bench.py",
-      "sha256": "ba7fc2efb386e250c88185efde1cfa737efdcba77a70bfc0f5fe54c41a03707a",
-      "size": 30541
+      "sha256": "a9303743875cd8742350bece29e490ce9afa175fa63ab89aa1e9a1d98da13eb6",
+      "size": 30953
     },
     {
       "path": "evaluation/phi_physical_exam.py",
@@ -558,13 +568,18 @@
     },
     {
       "path": "evaluation/read_only_audit.py",
-      "sha256": "3a9e79d92201606c530162797558304445cb60a3826db2d7d3ec89ce253ff2e4",
-      "size": 4139
+      "sha256": "da66926fd5fee80fa424541efec497dbc22e215a6fa5aac54fecf69058cda50c",
+      "size": 4254
     },
     {
       "path": "evaluation/reflexive_architecture_qualification.py",
       "sha256": "cf2a1547001ce77e25b70287fa42402d4a1b964162e7dd977ad9546f240c0d26",
       "size": 6808
+    },
+    {
+      "path": "evaluation/release_files.py",
+      "sha256": "a4beaee8e29450df09d19ec6160bbf805df63ab2f405d30b285e9541ad628ec3",
+      "size": 796
     },
     {
       "path": "evaluation/research_proof_qualification.py",
@@ -608,8 +623,8 @@
     },
     {
       "path": "evaluation/seal_audit.py",
-      "sha256": "a996223b3ab82bcc17230afafb32e553fdb42287f2ba6b8876d0bc9a005d6427",
-      "size": 4435
+      "sha256": "f892d73e2d6d07332318cab3551ab6d24bb40d36388818088ec7ed8d78549f5c",
+      "size": 4394
     },
     {
       "path": "evaluation/spin2_odd_gauge_patch_qualification.py",
@@ -640,6 +655,16 @@
       "path": "evaluation/unified_release_qualification.py",
       "sha256": "59fa0d564d2ec0c0289866a26478a3e141b4e536aeb84e4b30171edde142867e",
       "size": 31765
+    },
+    {
+      "path": "examples/data/exoplanets_g_dimension_nasa2018.csv",
+      "sha256": "cfbc072906fbc929d233dc76d6e771014fc34ca20629ed6c43f09f85edb8318b",
+      "size": 8148
+    },
+    {
+      "path": "examples/exoplanets_dimensional_birth_of_G.ipynb",
+      "sha256": "791ec2c27e67f70265d7222c96655ac847bae8aee15e0952353785a02980ea18",
+      "size": 22194
     },
     {
       "path": "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/ACCEPTANCE_REPORT.md",
@@ -815,31 +840,6 @@
       "path": "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/pyproject.toml",
       "sha256": "25ab74bb7c43768be98c1d123a35d83e1f75e9318b683015ab0e6b3715e6329d",
       "size": 480
-    },
-    {
-      "path": "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai.egg-info/PKG-INFO",
-      "sha256": "ea69f7967be4490ff2c1dbad7c4937edfc151567978d3d4c7339e69ef7f642ac",
-      "size": 202
-    },
-    {
-      "path": "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai.egg-info/SOURCES.txt",
-      "sha256": "33bf457461fc82224fd19c8b1967b137b5d6578a0b60ed779dc047ba0ceaa401",
-      "size": 876
-    },
-    {
-      "path": "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai.egg-info/dependency_links.txt",
-      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
-      "size": 1
-    },
-    {
-      "path": "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai.egg-info/entry_points.txt",
-      "sha256": "411f49222c5c54d17a1109b127f88fdab644829f94f3d51df00d1be691892390",
-      "size": 72
-    },
-    {
-      "path": "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai.egg-info/top_level.txt",
-      "sha256": "176c1558b4026ddaa68a5ed81bddeeaae7935c22a311c4c2c81b6889f5b108ec",
-      "size": 16
     },
     {
       "path": "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai/__init__.py",
@@ -1338,8 +1338,8 @@
     },
     {
       "path": "source/phi_compiler_owner.py",
-      "sha256": "fda44afbd957d7de5898515302a19dd2b6b49da2d7e98a59ac4ae8007384f3ab",
-      "size": 228757
+      "sha256": "f0b82a02de1164c6cafd91d5b6cda45bb89fc99e5a209c598af66a5f1001d618",
+      "size": 229057
     },
     {
       "path": "source/qpdtr_bridge.py",
@@ -1377,6 +1377,11 @@
       "size": 9135
     },
     {
+      "path": "tests/test_exoplanet_dimensional_closure_example.py",
+      "sha256": "7ff57d26e59ee6ba2f8d94d9068cb08da987e0991b664e3f88f84194e2aec4d8",
+      "size": 3681
+    },
+    {
       "path": "tests/test_permutation_eprocess_current.py",
       "sha256": "47e9507f831bca751f091ed2486dd142b591c7a03fe6d393432f41a6bafcf306",
       "size": 2181
@@ -1408,12 +1413,12 @@
     },
     {
       "path": "tests/test_unified_current.py",
-      "sha256": "38994014b0ed810286ee919a2da00758e8dfbc7cbb8c5ba1f4a094f6bad32969",
-      "size": 43823
+      "sha256": "9b7b8914d2a60ea7d3f69e53f671fb308e5ce2f1611c312a1c7c26ac72050917",
+      "size": 44430
     }
   ],
   "current_state_qualification_digest": "975f8c1e5a80fbf93feb0f4ecb84f8802c75110b53b94b545bd0dfae167ee74b",
-  "digest": "fe6fffa516bad8c1322c42ab6037dcd6c1e6247e38d39b877b4b43e8589eff23",
+  "digest": "9b99d28434ef9aa4cf7b9c0f5c08f0c7b7109ece38cd19192f2329494e6c6388",
   "frontier_scan_digest": "167b4a90b1e246676166697b365966c7d77b45b7c494f620a14280ea6e8453bf",
   "low_frequency_gust_anomaly_digest": "9df11440defb554739a40e793d36d5ddb0457c8cb435ed783a21c0af3c2799ed",
   "owner": "RELEASE-CONTROLS/15.24.0",

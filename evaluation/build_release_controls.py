@@ -8,6 +8,7 @@ from source.lawspace.schema import digest_payload
 from source.lawspace.domains import canonical_axis_count, DOMAIN_REGISTRIES
 from source.lawspace.runtime import LawSpaceRuntime
 from evaluation.unified_release_qualification import run_release_qualification
+from evaluation.release_files import is_local_artifact
 from source.lawspace.resident_cognitive import COMPONENT_SCHEMA_VERSION, STATE_SCHEMA_VERSION, AI_ACCEPTANCE_VERSION
 RELEASE='15.24.0'; OWNER='RELEASE-CONTROLS/15.24.0'
 EXCLUDE={'RELEASE_MANIFEST.json','HASHES.txt','FILE_TREE.md'}
@@ -21,7 +22,7 @@ def controlled(root):
  for p in root.rglob('*'):
   if not p.is_file(): continue
   rel=str(p.relative_to(root))
-  if rel in EXCLUDE or '.git' in p.parts or '__pycache__' in p.parts or '.pytest_cache' in p.parts or p.suffix in {'.pyc','.pyo'}: continue
+  if rel in EXCLUDE or is_local_artifact(p, root): continue
   rows.append({'path':rel,'sha256':sha(p),'size':p.stat().st_size})
  return sorted(rows,key=lambda x:x['path'])
 def run(root=None):

@@ -27,6 +27,7 @@ if str(ROOT) not in sys.path:
 from source import phi_compiler_owner as owner
 
 HYPOTHESES = ("H1", "H2", "H3", "H4", "H5", "H6")
+EXPECTED_TYPED_HANDLER_COUNT = 8
 
 
 def _json_default(obj: Any) -> Any:
@@ -227,6 +228,13 @@ def _handler_connectivity() -> Dict[str, Any]:
         trajectories.append(np.column_stack((xx, yy, zz)))
     results["open_qubit_bloch"] = owner.recover(owner.RecoveryRequest("open_qubit_bloch", owner.OpenQubitBlochObservation(tb, np.asarray(trajectories))))
 
+    results["causal_toller_distributional_vertex"] = owner.recover(
+        owner.RecoveryRequest(
+            "causal_toller_distributional_vertex",
+            owner.CoupledTollerWedgeObservation(),
+        )
+    )
+
     contract = owner.owner_connectivity_contract()
     entries = {}
     for kind, result in results.items():
@@ -243,8 +251,8 @@ def _handler_connectivity() -> Dict[str, Any]:
     }
     return {
         "registry_size": len(contract),
-        "expected_registry_size": 7,
-        "all_handlers_registered": len(contract) == 7,
+        "expected_registry_size": EXPECTED_TYPED_HANDLER_COUNT,
+        "all_handlers_registered": len(contract) == EXPECTED_TYPED_HANDLER_COUNT and set(entries) == set(contract),
         "within_family_all_pass": all(e["certificate_status"] == "PASS" for k, e in entries.items() if k != "cross_family_resonator"),
         "entries": entries,
         "registry_digest": hashlib.sha256(json.dumps(contract, sort_keys=True).encode()).hexdigest(),
@@ -318,7 +326,7 @@ def _source_separation_audit(
         not audit["adapter_algorithmic_definitions_present"],
         audit["unique_trial_ids"],
         audit["complete_trial_lattice"],
-        audit["registry_size"] == 7,
+        audit["registry_size"] == EXPECTED_TYPED_HANDLER_COUNT,
     ))
     return audit
 
@@ -373,7 +381,7 @@ def _build_report(
         },
         "typed_handler_connectivity": {
             "observed": connectivity["registry_size"],
-            "required": 7,
+            "required": connectivity["expected_registry_size"],
             "pass": connectivity["all_handlers_registered"] and connectivity["within_family_all_pass"],
         },
     }
@@ -476,7 +484,7 @@ def _simulate_private_closed_loop(controller: owner.CompiledController, calibrat
     measurement_variance=max(float(calibration.covariance[0,0]),1e-8)
     innovation_cov=controller.C_d@controller.estimator_covariance@controller.C_d.T+np.array([[measurement_variance]])
     for _ in range(steps):
-        y=float(controller.C_d@x)
+        y=float((controller.C_d@x).item())
         measurement=y+float(rng.normal(0.0,math.sqrt(measurement_variance)))
         xhat,innovation,_=owner.observer_step(controller,xhat,prev_u,measurement)
         u=owner.guarded_controller_action(controller,xhat,blend=0.75)

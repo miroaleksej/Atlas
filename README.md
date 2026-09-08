@@ -10,7 +10,7 @@
 <img width="1672" height="941" alt="5e93d208-575f-40f6-84d0-791e947515a5" src="https://github.com/user-attachments/assets/7aa093ac-ba6f-4095-b324-471cc82e4ec3" />
 
  · ![Python](https://img.shields.io/badge/python-3.11-blue)
- · ![License](https://img.shields.io/badge/license-MIT-green)
+ · ![License](https://img.shields.io/badge/license-Apache--2.0-green)
  · ![Stars](https://img.shields.io/github/stars/miroaleksej/Atlas)
 
  > "Do you have data but no formula? Atlas will iterate through all combinations of your variables, find dimensionless groups, and check whether they are constant across different systems. This works in physics, chemistry, biology — anywhere there are dimensions."
@@ -466,6 +466,25 @@ make targeted
 phi-compiler audit-read-only
 ```
 
+### Reproduce the exoplanet dimensional-closure example
+
+The repository includes a retrospective, non-discovery example that searches a
+frozen integer-exponent shell over exoplanet measurements and generates the
+dimension `L³ M⁻¹ T⁻²` before looking up `CONST-G` in the registry:
+
+```bash
+jupyter nbconvert \
+  --to notebook \
+  --execute examples/exoplanets_dimensional_birth_of_G.ipynb \
+  --output exoplanets_dimensional_birth_of_G.executed.ipynb \
+  --output-dir /tmp/atlas-notebook \
+  --ExecutePreprocessor.timeout=600
+```
+
+The input is [examples/data/exoplanets_g_dimension_nasa2018.csv](examples/data/exoplanets_g_dimension_nasa2018.csv).
+The expected receipt is `RETROSPECTIVE_DIMENSIONAL_CLOSURE_EXAMPLE_PASS`; it is
+a reproducibility control, not a new-law or independent world-evidence claim.
+
 ## Command-line interface
 
 The installed entry point is `phi-compiler`. The equivalent source invocation is `python -m interfaces.phi_compiler_cli`.
@@ -692,7 +711,7 @@ NUMEXPR_NUM_THREADS=1 \
 pytest -q -p no:cacheprovider
 ```
 
-The release has been qualified at 90/90 tests.
+The release has been qualified at 100/100 tests.
 
 ### Native experiment and qualification targets
 
@@ -830,4 +849,4 @@ For the inverse method:
 
 The manuscript’s appendix names `frozen_rule.py`, `inv.py`, `invent.py`, `ctrl.py`, `exp1.py`–`exp4.py`, and `kepler/` reproduction artifacts. Those belong to the manuscript package and are not claimed to be in this repository unless explicitly imported and sealed later.
 
-No `LICENSE` file is present in this snapshot. Possession of the source does not by itself grant redistribution or modification rights; obtain permission from the repository owner before external reuse.
+Atlas is distributed under the [Apache License 2.0](LICENSE.md).

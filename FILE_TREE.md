@@ -1,10 +1,12 @@
 # FILE TREE — CURRENT 15.24.0
 
-Controlled files: 278
+Controlled files: 279
 
+- `.github/workflows/exoplanet-g-example.yml`
 - `.gitignore`
 - `ACCEPTANCE_REPORT.md`
 - `CLAIM_BOUNDARY.md`
+- `LICENSE.md`
 - `MATHEMATICAL_BOOK.md`
 - `MATHEMATICAL_CONTRACT.md`
 - `Makefile`
@@ -111,6 +113,7 @@ Controlled files: 278
 - `evaluation/prospective_external_validation_qualification.py`
 - `evaluation/read_only_audit.py`
 - `evaluation/reflexive_architecture_qualification.py`
+- `evaluation/release_files.py`
 - `evaluation/research_proof_qualification.py`
 - `evaluation/resource_theory_qualification.py`
 - `evaluation/rotating_cubic_euler_qualification.py`
@@ -126,6 +129,8 @@ Controlled files: 278
 - `evaluation/t2k_likelihood_qualification.py`
 - `evaluation/theory_compiler_qualification.py`
 - `evaluation/unified_release_qualification.py`
+- `examples/data/exoplanets_g_dimension_nasa2018.csv`
+- `examples/exoplanets_dimensional_birth_of_G.ipynb`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/ACCEPTANCE_REPORT.md`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/INSTALL_INTO_ATLAS.md`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/INTEGRATION_MANIFEST.json`
@@ -161,11 +166,6 @@ Controlled files: 278
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/frontier003/RESULTS_TEMPLATE.csv`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/frontier003/RUN_MANIFEST.csv`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/pyproject.toml`
-- `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai.egg-info/PKG-INFO`
-- `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai.egg-info/SOURCES.txt`
-- `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai.egg-info/dependency_links.txt`
-- `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai.egg-info/entry_points.txt`
-- `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai.egg-info/top_level.txt`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai/__init__.py`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai/ai_lab.py`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai/ai_lab_cli.py`
@@ -273,6 +273,7 @@ Controlled files: 278
 - `tests/test_domain_plugin_architecture.py`
 - `tests/test_electronic_state_space_current.py`
 - `tests/test_epoch_genesis_autonomous.py`
+- `tests/test_exoplanet_dimensional_closure_example.py`
 - `tests/test_permutation_eprocess_current.py`
 - `tests/test_query_driven_research_current.py`
 - `tests/test_science_atlas_core.py`

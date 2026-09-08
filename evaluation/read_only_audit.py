@@ -19,6 +19,7 @@ if str(ROOT) not in sys.path:
 sys.dont_write_bytecode = True
 
 from source.lawspace.schema import digest_payload
+from evaluation.release_files import is_local_artifact
 
 RELEASE = "15.24.0"
 OWNER_ID = "READ-ONLY-AUDIT/15.24.0"
@@ -28,6 +29,8 @@ def _snapshot(root: Path) -> dict[str, Any]:
     files = {}
     dirs = []
     for p in sorted(root.rglob("*")):
+        if is_local_artifact(p, root):
+            continue
         rel = str(p.relative_to(root))
         if p.is_symlink():
             files[rel] = {"kind": "symlink", "target": os.readlink(p)}

@@ -6,6 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
 from source.lawspace.schema import digest_payload
 from evaluation.unified_release_qualification import run_release_qualification
+from evaluation.release_files import is_local_artifact
 RELEASE='15.24.0'; OWNER_ID='SEAL-AUDIT/15.24.0'
 REQUIRED=('README.md','MATHEMATICAL_BOOK.md','MATHEMATICAL_CONTRACT.md','CLAIM_BOUNDARY.md','ACCEPTANCE_REPORT.md','RELEASE_MANIFEST.json','HASHES.txt','FILE_TREE.md','pyproject.toml','Makefile','capabilities.json','invariants.json','reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json','reports/ATLAS_FRONTIER_SCAN_CURRENT.json','data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl')
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -24,7 +25,7 @@ def run(root=None):
  controlled_paths=sorted(str(row.get('path')) for row in manifest.get('controlled_files',[]))
  hash_mism=[r for r,h in hashes.items() if not (root/r).exists() or sha(root/r)!=h]
  hashes_complete_and_exact=sorted(hashes)==controlled_paths and all(hashes.get(row.get('path'))==row.get('sha256') for row in manifest.get('controlled_files',[]))
- actual_files=sorted(str(p.relative_to(root)) for p in root.rglob('*') if p.is_file() and '.git' not in p.parts and '__pycache__' not in p.parts and '.pytest_cache' not in p.parts and p.suffix not in {'.pyc','.pyo'})
+ actual_files=sorted(str(p.relative_to(root)) for p in root.rglob('*') if p.is_file() and not is_local_artifact(p,root))
  declared_files=sorted(controlled_paths+['RELEASE_MANIFEST.json','HASHES.txt','FILE_TREE.md'])
  unexpected_files=sorted(set(actual_files)-set(declared_files))
  undeclared_missing=sorted(set(declared_files)-set(actual_files))

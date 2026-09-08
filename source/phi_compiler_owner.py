@@ -35,6 +35,10 @@ from scipy.stats import chi2
 from source.lawspace.schema import GateCertificate
 from source.lawspace.formal_contracts import toller_distributional_vertex_contract
 
+# NumPy 2.4 removed the long-deprecated ``np.trapz`` alias. Keep the runtime
+# compatible with both the declared NumPy 1.26 floor and current releases.
+_numpy_trapezoid = np.trapezoid if hasattr(np, "trapezoid") else np.trapz
+
 SCHEMA = "phi-compiler-runtime/v4.1"
 OWNER_VERSION = "4.1.0"
 FAMILIES = (
@@ -243,7 +247,7 @@ class ExperimentSpec:
     def energy(self, dt: float = 0.025) -> float:
         t = np.arange(0.0, self.observation_time + 0.5 * dt, dt)
         u = experiment_input(t, self)
-        return float(np.trapz(u * u, t))
+        return float(_numpy_trapezoid(u * u, t))
 
     def safe(self) -> bool:
         return bool(
@@ -308,7 +312,7 @@ class HardwareExperimentSpec:
         self.validate()
         t = np.linspace(0.0, self.observation_time, max(int(samples), 256), endpoint=False)
         u = hardware_experiment_input(t, self)
-        return float(np.trapz(u * u, t))
+        return float(_numpy_trapezoid(u * u, t))
 
     def safe(self) -> bool:
         try:
@@ -1089,8 +1093,8 @@ def compile_guarded_lqr_controller(
     dare_residual = A_d.T @ riccati @ A_d - riccati - (A_d.T @ riccati @ B_d) @ np.linalg.solve(R + B_d.T @ riccati @ B_d, B_d.T @ riccati @ A_d) + Q
     dare_norm = float(np.linalg.norm(dare_residual, ord=2))
     p_inv = np.linalg.pinv(riccati)
-    input_shape = float(gain @ p_inv @ gain.T)
-    output_shape = float(C_d @ p_inv @ C_d.T)
+    input_shape = float((gain @ p_inv @ gain.T).item())
+    output_shape = float((C_d @ p_inv @ C_d.T).item())
     rho_input = safety_envelope.max_abs_drive**2 / max(input_shape, 1e-18)
     rho_output = safety_envelope.max_abs_response**2 / max(output_shape, 1e-18)
     invariant_level = 0.80 * min(rho_input, rho_output)
@@ -1122,7 +1126,8 @@ def guarded_controller_action(controller: CompiledController, state: NDArray[np.
         raise ValueError("State dimension does not match controller")
     if not 0.0 <= blend <= 1.0:
         raise ValueError("blend must be within [0,1]")
-    return float(np.clip(-float(blend * (controller.gain @ x)), -controller.input_limit, controller.input_limit))
+    feedback = float((controller.gain @ x).item())
+    return float(np.clip(-blend * feedback, -controller.input_limit, controller.input_limit))
 
 
 def observer_step(controller: CompiledController, state_estimate: NDArray[np.float64], previous_input: float, measurement: float) -> Tuple[NDArray[np.float64], float, NDArray[np.float64]]:
@@ -2134,7 +2139,7 @@ def recover_periodic_scalar_pde(obs: PeriodicScalarPDEObservation) -> HandlerRes
     coef, *_ = np.linalg.lstsq(X, y, rcond=None)
     diffusion = float(coef[0])
     pred = X[:, 0] * diffusion
-    mass = np.trapz(c, xg, axis=1)
+    mass = _numpy_trapezoid(c, xg, axis=1)
     mass_drift = float(np.max(np.abs(mass - mass[0])) / max(abs(mass[0]), 1e-12))
     cert = _certificate(
         "periodic_scalar_pde",

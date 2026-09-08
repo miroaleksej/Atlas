@@ -318,6 +318,18 @@ def test_every_current_source_module_imports_cleanly():
     assert len(set(modules)) == len(modules)
     assert failures == {}
 
+    # Exercise the integration path used by the all-offline benchmark. NumPy
+    # 2.4 no longer exposes the legacy np.trapz alias.
+    from source.phi_compiler_owner import candidate_experiment_specs
+    specs = candidate_experiment_specs()
+    assert specs and all(spec.safe() for spec in specs)
+
+    from evaluation.phi_bench import _handler_connectivity
+    connectivity = _handler_connectivity()
+    assert connectivity["registry_size"] == connectivity["expected_registry_size"] == 8
+    assert connectivity["all_handlers_registered"] is True
+    assert connectivity["within_family_all_pass"] is True
+
 
 def test_post118_identifiability_is_set_valued_and_relativistic_axis_active():
     result = LawSpaceAPI(ROOT).run_post118_configuration_identifiability_experiment_design()
