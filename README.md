@@ -9,7 +9,7 @@
  · ![License](https://img.shields.io/badge/license-MIT-green)
  · ![Stars](https://img.shields.io/github/stars/miroaleksej/Atlas)
 
- "Do you have data but no formula? Atlas will iterate through all combinations of your variables, find dimensionless groups, and check whether they are constant across different systems. This works in physics, chemistry, biology — anywhere there are dimensions."
+ > "Do you have data but no formula? Atlas will iterate through all combinations of your variables, find dimensionless groups, and check whether they are constant across different systems. This works in physics, chemistry, biology — anywhere there are dimensions."
 
 Atlas is a deterministic, evidence-gated research system for representing scientific quantities, laws, computational methods, hypotheses, experiments, and unresolved research frontiers in one content-addressed state. It combines exact dimensional algebra, adaptive subspace exploration, query-driven candidate generation, domain-specific scientific owners, reproducible numerical qualification, and a fail-closed promotion pipeline.
 
