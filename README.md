@@ -1,388 +1,392 @@
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/miroaleksej/Atlas?quickstart=1)
+[![Открыть в GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/miroaleksej/Atlas?quickstart=1)
 
-[![Reproduce Exoplanet G Example](https://github.com/miroaleksej/Atlas/actions/workflows/exoplanet-g-example.yml/badge.svg)](https://github.com/miroaleksej/Atlas/actions/workflows/exoplanet-g-example.yml)
+[![Воспроизвести пример Exoplanet G](https://github.com/miroaleksej/Atlas/actions/workflows/exoplanet-g-example.yml/badge.svg)](https://github.com/miroaleksej/Atlas/actions/workflows/exoplanet-g-example.yml)
 
 # Atlas
 
-
 **Φ-Compiler / ScienceAtlas — CURRENT 15.24.0**
 
-<img width="1672" height="941" alt="5e93d208-575f-40f6-84d0-791e947515a5" src="https://github.com/user-attachments/assets/7aa093ac-ba6f-4095-b324-471cc82e4ec3" />
+<img width="1672" height="941" alt="Atlas" src="https://github.com/user-attachments/assets/7aa093ac-ba6f-4095-b324-471cc82e4ec3" />
 
- · ![Python](https://img.shields.io/badge/python-3.11-blue)
- · ![License](https://img.shields.io/badge/license-Apache--2.0-green)
- · ![Stars](https://img.shields.io/github/stars/miroaleksej/Atlas)
+· ![Python](https://img.shields.io/badge/python-3.11-blue)
+· ![Лицензия](https://img.shields.io/badge/license-Apache--2.0-green)
+· ![Звёзды](https://img.shields.io/github/stars/miroaleksej/Atlas)
 
- > "Do you have data but no formula? Atlas will iterate through all combinations of your variables, find dimensionless groups, and check whether they are constant across different systems. This works in physics, chemistry, biology — anywhere there are dimensions."
+> «У вас есть данные, но нет формулы? Atlas переберёт сочетания переменных, найдёт безразмерные группы и проверит, остаются ли они постоянными в разных системах. Этот подход применим в физике, химии, биологии — везде, где существуют размерности».
 
-Atlas is a deterministic, evidence-gated research system for representing scientific quantities, laws, computational methods, hypotheses, experiments, and unresolved research frontiers in one content-addressed state. It combines exact dimensional algebra, adaptive subspace exploration, query-driven candidate generation, domain-specific scientific owners, reproducible numerical qualification, and a fail-closed promotion pipeline.
+Atlas — детерминированная исследовательская система с доказательными барьерами, предназначенная для представления научных величин, законов, вычислительных методов, гипотез, экспериментов и нерешённых исследовательских направлений в едином контентно-адресуемом состоянии. Она объединяет точную алгебру размерностей, адаптивное исследование подпространств, генерацию кандидатов по запросу, предметно-ориентированных научных владельцев, воспроизводимую численную квалификацию и конвейер продвижения, закрытый при недостатке доказательств.
 
-Atlas addresses a narrower and more rigorous question than “can an AI suggest an equation?”:
+Atlas отвечает на более узкий и строгий вопрос, чем «может ли ИИ предложить уравнение?»:
 
-> Can a scientific hypothesis be generated, typed, dimensionally qualified, compared with known derivations, bound to measurements, tested out of distribution, calibrated against the complete search procedure, and promoted only when every required evidence gate is satisfied?
+> Можно ли сгенерировать и типизировать научную гипотезу, проверить её размерности, сопоставить с известными выводами, связать с измерениями, испытать вне распределения, откалибровать относительно полной процедуры поиска и продвигать только после прохождения всех обязательных доказательных барьеров?
 
-The current release is a research system under qualification. It contains no automatically promoted new law and makes no AGI or consciousness claim.
+Текущий выпуск — исследовательская система в процессе квалификации. Он не содержит ни одного автоматически продвинутого нового закона и не заявляет о создании AGI или сознания.
 
-## Contents
+## Содержание
 
-- [What Atlas does](#what-atlas-does)
-- [Current certified snapshot](#current-certified-snapshot)
-- [Scientific claim boundary](#scientific-claim-boundary)
-- [Architecture](#architecture)
-- [Mathematical foundation](#mathematical-foundation)
+- [Возможности Atlas](#возможности-atlas)
+- [Текущий сертифицированный снимок](#текущий-сертифицированный-снимок)
+- [Границы научных утверждений](#границы-научных-утверждений)
+- [Архитектура](#архитектура)
+- [Математическая основа](#математическая-основа)
 - [Dimensional Closure v2.0](#dimensional-closure-v20)
-- [Research and promotion pipeline](#research-and-promotion-pipeline)
-- [Installation](#installation)
-- [Quick start](#quick-start)
-- [Command-line interface](#command-line-interface)
+- [Исследовательский конвейер и продвижение](#исследовательский-конвейер-и-продвижение)
+- [Установка](#установка)
+- [Быстрый старт](#быстрый-старт)
+- [Интерфейс командной строки](#интерфейс-командной-строки)
 - [Python API](#python-api)
-- [Data and state model](#data-and-state-model)
-- [Domain coverage](#domain-coverage)
-- [Extending Atlas](#extending-atlas)
-- [Hardware-facing workflows](#hardware-facing-workflows)
-- [Testing and release verification](#testing-and-release-verification)
-- [Repository map](#repository-map)
-- [Limitations](#limitations)
-- [Troubleshooting](#troubleshooting)
-- [Citation and provenance](#citation-and-provenance)
+- [Модель данных и состояния](#модель-данных-и-состояния)
+- [Охват предметных областей](#охват-предметных-областей)
+- [Расширение Atlas](#расширение-atlas)
+- [Работа с оборудованием](#работа-с-оборудованием)
+- [Тестирование и проверка выпуска](#тестирование-и-проверка-выпуска)
+- [Структура репозитория](#структура-репозитория)
+- [Ограничения](#ограничения)
+- [Устранение неполадок](#устранение-неполадок)
+- [Цитирование и происхождение](#цитирование-и-происхождение)
+- [Темы и сообщества](#темы-и-сообщества)
 
-## What Atlas does
+Подробное практическое руководство по запуску, поиску законов, междисциплинарным исследованиям, экспериментам и расширению системы: [TECHNICAL_GUIDE_RU.md](TECHNICAL_GUIDE_RU.md).
 
-Atlas provides six connected capabilities.
+## Возможности Atlas
 
-1. **Persistent scientific address space.** Scientific axes, quantity semantics, units, seven-dimensional SI dimensions, source-law passports, methods, bridges, assumptions, and validity domains are stored as typed records rather than unstructured prose.
-2. **Candidate generation.** The system explores combinations of registered axes and qualified source owners, preserves unresolved candidates, and can resume an open-ended fair-dovetail traversal from external state.
-3. **Exact dimensional reasoning.** Dimension matrices use exact rational arithmetic over the canonical basis `(L, M, T, I, Θ, N, J)`. Buckingham null spaces are not estimated with floating-point rank heuristics.
-4. **Data-facing research.** Given explicit observations and dimensions, Atlas can enumerate a finite subspace surface, freeze dimensionless coordinates, rank target collapse, and replay the entire candidate surface under target permutations.
-5. **Scientific adjudication.** A single U0–U10 promotion path separates structural eligibility from empirical evidence. Missing evidence remains pending; it is never silently converted into falsity or acceptance.
-6. **Reproducible release control.** Controlled files, canonical JSON digests, manifests, qualification reports, a seal audit, and a strict read-only audit define the shipped state.
+Atlas предоставляет шесть взаимосвязанных возможностей.
 
-Atlas is not a single symbolic-regression routine. It is an ownership and evidence architecture around catalog lookup, dimensional search, model compilation, numerical experiments, prior-art handling, world attestation, resident research state, and release verification.
+1. **Постоянное научное адресное пространство.** Научные оси, семантика величин, единицы, семимерные размерности СИ, паспорта исходных законов, методы, мосты, допущения и области применимости хранятся как типизированные записи, а не как неструктурированный текст.
+2. **Генерация кандидатов.** Система исследует сочетания зарегистрированных осей и квалифицированных исходных владельцев, сохраняет нерешённые кандидаты и может продолжать из внешнего состояния открытый справедливый обход (`fair-dovetail`).
+3. **Точные рассуждения о размерностях.** Матрицы размерностей используют точную рациональную арифметику в каноническом базисе `(L, M, T, I, Θ, N, J)`. Нуль-пространства Бекингема не оцениваются эвристиками ранга с плавающей точкой.
+4. **Исследование по данным.** Получив явные наблюдения и размерности, Atlas может перечислить конечную поверхность подпространств, зафиксировать безразмерные координаты, ранжировать коллапс целевой величины и повторить всю поверхность кандидатов при перестановках цели.
+5. **Научная экспертиза.** Единый путь продвижения U0–U10 отделяет структурную допустимость от эмпирических доказательств. Недостающие доказательства сохраняют статус ожидания и никогда молча не превращаются в опровержение или принятие.
+6. **Воспроизводимый контроль выпуска.** Контролируемые файлы, канонические дайджесты JSON, манифесты, отчёты квалификации, аудит печати и строгий аудит только для чтения определяют поставляемое состояние.
 
-## Current certified snapshot
+Atlas — не отдельная процедура символьной регрессии. Это архитектура владения и доказательств вокруг поиска по каталогу, размерностного поиска, компиляции моделей, численных экспериментов, учёта предшествующих работ, аттестации реальным миром, резидентного исследовательского состояния и проверки выпуска.
 
-The sealed 15.24.0 state contains:
+## Текущий сертифицированный снимок
 
-| Item | Current value |
+Запечатанное состояние 15.24.0 содержит:
+
+| Показатель | Текущее значение |
 |---|---:|
-| Canonical scientific axes | 655 |
-| Domain registries | 13 |
-| Qualified source-law/owner passports | 445 |
-| Computational methods | 24 |
-| Active frontier candidates | 4,106 |
-| Adaptive multidimensional subspaces | 3,706 |
-| Materialized U4 relational hypotheses | 447 |
-| U5 collapse/invariance passes | 0 |
-| World attestations | 0 |
-| Automatic law promotions | 0 |
+| Канонические научные оси | 655 |
+| Реестры предметных областей | 13 |
+| Квалифицированные паспорта исходных законов/владельцев | 445 |
+| Вычислительные методы | 24 |
+| Активные кандидаты исследовательского фронтира | 4 106 |
+| Адаптивные многомерные подпространства | 3 706 |
+| Материализованные реляционные гипотезы U4 | 447 |
+| Прохождения U5 по коллапсу/инвариантности | 0 |
+| Аттестации реальным миром | 0 |
+| Автоматические продвижения законов | 0 |
 
-The scalar-law census over the 3,706 adaptive subspaces contains 683 exact `p = 1` births and 14 distinct canonical π signatures. Within the 447 U4 records, 125 have a frozen `p = 1` candidate and 13 distinct signatures. Candidate count is therefore not treated as mathematical diversity.
+> **Не путайте научные оси и физические размерности.** В Atlas зарегистрировано 655 научных осей по 13 предметным областям. Число 7 означает только семь базовых компонентов вектора размерности СИ `(L, M, T, I, Θ, N, J)`. Поиск использует адаптивные локальные и междисциплинарные подпространства этих 655 осей, а не ограничивается семью координатами.
 
-The current query-driven synthetic control examined 50 subsets, found 19 one-dimensional null spaces, and deduplicated them to eight mathematical candidates. Without receiving a formula hint, it ranked `L²k/D` first for the Thiele-effectiveness control, with collapse score `0.1059285586`, and replayed the full search surface under 100 target permutations.
+Перепись скалярных законов по 3 706 адаптивным подпространствам содержит 683 точных рождения с `p = 1` и 14 различных канонических π-сигнатур. Среди 447 записей U4 у 125 зафиксирован кандидат `p = 1`, представленный 13 различными сигнатурами. Поэтому количество кандидатов не считается мерой математического разнообразия.
 
-The authoritative machine-readable state is [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json), [capabilities.json](capabilities.json), and [invariants.json](invariants.json). Human-readable acceptance evidence is in [ACCEPTANCE_REPORT.md](ACCEPTANCE_REPORT.md).
+Текущий синтетический контроль, управляемый запросом, исследовал 50 подмножеств, обнаружил 19 одномерных нуль-пространств и после устранения дубликатов получил восемь математических кандидатов. Не получая подсказки с формулой, система поставила `L²k/D` на первое место для контроля эффективности Тиле с оценкой коллапса `0.1059285586` и повторила полную поверхность поиска при 100 перестановках цели.
 
-## Scientific claim boundary
+Авторитетное машиночитаемое состояние находится в [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json), [capabilities.json](capabilities.json) и [invariants.json](invariants.json). Доказательства приёмки для человека приведены в [ACCEPTANCE_REPORT.md](ACCEPTANCE_REPORT.md).
 
-Atlas deliberately separates these statements:
+## Границы научных утверждений
 
-- a record exists;
-- a formula is dimensionally admissible;
-- a model is structurally lowerable;
-- a fit or collapse is good on one dataset;
-- a result transfers to a sealed regime;
-- a result replicates across independent systems;
-- the whole adaptive procedure survives null calibration;
-- a discriminating experiment supports the candidate;
-- a law candidate may be promoted.
+Atlas намеренно разделяет следующие утверждения:
 
-Only the last statement requires every applicable promotion gate. In particular:
+- запись существует;
+- формула допустима по размерности;
+- модель структурно сводима;
+- аппроксимация или коллапс хороши на одном наборе данных;
+- результат переносится в запечатанный режим;
+- результат воспроизводится в независимых системах;
+- вся адаптивная процедура выдерживает калибровку по нулевой модели;
+- различающий эксперимент поддерживает кандидата;
+- кандидат может быть продвинут до закона.
 
-- dimensional consistency is necessary, not sufficient;
-- a small residual is not a law;
-- a frozen π group is a candidate coordinate, not proof of universality;
-- literature overlap is not independent evidence;
-- absence from a literature search is not proof of novelty;
-- retrospective public-data reanalysis is not prospective world attestation;
-- synthetic controls verify machinery but do not establish a new physical law;
-- an unmaterialized or unevaluated hypothesis is unknown, not false;
-- an LLM may propose or explain records but may not stamp `ATLAS_NATIVE`, `ESTABLISHED_LAW`, `CONFIRMED_CONSTANT`, or `EXPERIMENT_PASS`.
+Только последнее утверждение требует прохождения всех применимых барьеров продвижения. В частности:
 
-The exact allowed claims are frozen in [CLAIM_BOUNDARY.md](CLAIM_BOUNDARY.md). Mathematical and ownership rules are defined by [MATHEMATICAL_CONTRACT.md](MATHEMATICAL_CONTRACT.md) and [MATHEMATICAL_BOOK.md](MATHEMATICAL_BOOK.md).
+- согласованность размерностей необходима, но недостаточна;
+- малая невязка ещё не является законом;
+- зафиксированная π-группа — координата-кандидат, а не доказательство универсальности;
+- совпадение с литературой не является независимым доказательством;
+- отсутствие результата в литературном поиске не доказывает новизну;
+- ретроспективный анализ открытых данных не является перспективной аттестацией реальным миром;
+- синтетические контроли проверяют механизм, но не устанавливают новый физический закон;
+- нематериализованная или неоценённая гипотеза неизвестна, а не ложна;
+- LLM может предлагать и объяснять записи, но не имеет права присваивать отметки `ATLAS_NATIVE`, `ESTABLISHED_LAW`, `CONFIRMED_CONSTANT` или `EXPERIMENT_PASS`.
 
-## Architecture
+Точные допустимые формулировки зафиксированы в [CLAIM_BOUNDARY.md](CLAIM_BOUNDARY.md). Математические правила и правила владения определены в [MATHEMATICAL_CONTRACT.md](MATHEMATICAL_CONTRACT.md) и [MATHEMATICAL_BOOK.md](MATHEMATICAL_BOOK.md).
 
-The main execution path is:
+## Архитектура
+
+Основной путь выполнения:
 
 ```text
-question or dataset
+вопрос или набор данных
         │
         ▼
-typed observables and owner passports
+типизированные наблюдаемые величины и паспорта владельцев
         │
         ▼
-adaptive scientific subspaces
+адаптивные научные подпространства
         │
-        ├── exact dimensional kernel ──► π coordinates / scalar candidates
-        ├── representation search ─────► executable formula or operator candidate
-        └── domain owners ─────────────► assumptions, limits, predictions
-        │
-        ▼
-frozen candidate + provenance + experiment contract
+        ├── точное ядро размерностей ──► π-координаты / скалярные кандидаты
+        ├── поиск представления ────────► исполняемая формула или оператор
+        └── предметные владельцы ───────► допущения, пределы, предсказания
         │
         ▼
-U0 … U10 fail-closed scientific promotion path
+зафиксированный кандидат + происхождение + контракт эксперимента
         │
-        ├── pending: preserve candidate and request missing evidence
-        ├── rejected/falsified: preserve receipt and reason
-        └── law candidate: only after all required gates pass
+        ▼
+закрытый при недостатке данных путь научного продвижения U0 … U10
+        │
+        ├── ожидание: сохранить кандидата и запросить доказательства
+        ├── отклонён/опровергнут: сохранить квитанцию и причину
+        └── кандидат в законы: только после прохождения всех барьеров
 ```
 
-### Catalog and ownership
+### Каталог и владение
 
-`LawSpaceRuntime` loads immutable release data into a `LawCatalog`. Every source law or scientific capability has an owner. An owner passport records its domain, typed symbols, quantity identifiers, formula, dimensions, assumptions, validity region, epistemic state, observables, uncertainty model, and provenance.
+`LawSpaceRuntime` загружает неизменяемые данные выпуска в `LawCatalog`. У каждого исходного закона или научного компонента есть владелец. Паспорт владельца хранит предметную область, типизированные символы, идентификаторы величин, формулу, размерности, допущения, область применимости, эпистемический статус, наблюдаемые величины, модель неопределённости и происхождение.
 
-This prevents the same printed symbol from being treated as the same physical quantity everywhere and prevents a cross-domain analogy from becoming an identity without a typed bridge. Bare symbols can be ambiguous. `focus_research_question` fails closed when a token maps to multiple quantities and requires a quantity ID or explicit registry entry.
+Это не позволяет считать один и тот же печатный символ одной физической величиной во всех контекстах и не даёт междисциплинарной аналогии стать тождеством без типизированного моста. Отдельные символы могут быть неоднозначны. `focus_research_question` закрывается с отказом, если токен соответствует нескольким величинам, и требует идентификатор величины либо явную запись реестра.
 
-### Canonical axes and candidate subspaces
+### Канонические оси и подпространства кандидатов
 
-The primary search space is a registry of scientific coordinates, not an unrestricted expression tree. Candidates bind subsets of axes to qualified owners. A finite run materializes a finite tranche; it does not declare the rest of the scientific space nonexistent.
+Основное пространство поиска — реестр научных координат, а не неограниченное дерево выражений. Кандидаты связывают подмножества осей с квалифицированными владельцами. Конечный запуск материализует конечную порцию, но не объявляет остальную часть научного пространства несуществующей.
 
-The fair-dovetail scheduler is append-only and resumable. It has no fixed global scientific step, pair-seed, node-visit, local-shell, or subspace-order ceiling. Per-call budgets bound computation only. Persistent traversal state is written outside the sealed repository.
+Планировщик справедливого чередования работает с дозаписью и поддерживает возобновление. У него нет фиксированного глобального предела на научный шаг, парное начальное состояние, посещения узлов, локальную оболочку или порядок подпространства. Бюджеты одного вызова ограничивают только вычисления. Постоянное состояние обхода записывается вне запечатанного репозитория.
 
-### Domain bridges
+### Междисциплинарные мосты
 
-Cross-domain bridges transfer typed structure while preserving source quantities and owners. A bridge may declare a validated symbolic dimension contract or a typed multi-object contract. It does not merge axes merely because their numerical shapes or symbols look similar.
+Мосты переносят типизированную структуру между областями, сохраняя исходные величины и владельцев. Мост может объявлять проверенный символьный контракт размерностей или типизированный многообъектный контракт. Он не объединяет оси лишь потому, что их численные формы или символы похожи.
 
-### Representation and theory compilation
+### Компиляция представлений и теорий
 
-Atlas can move from a typed record toward algebraic candidates, scalar π coordinates, operator grammars, domain equations, numerical intermediate representations, compiled theory artifacts, and discriminating experiment plans. Representation diagnostics do not acquire promotion authority merely because they execute successfully.
+Atlas может перейти от типизированной записи к алгебраическим кандидатам, скалярным π-координатам, грамматикам операторов, предметным уравнениям, численным промежуточным представлениям, скомпилированным артефактам теории и планам различающих экспериментов. Успешное выполнение диагностики представления само по себе не даёт ей полномочий на продвижение.
 
-### Resident research state
+### Резидентное исследовательское состояние
 
-The sealed tree is immutable. Long-running cognitive, traversal, and learning state lives under an external state root. The default is:
+Запечатанное дерево неизменяемо. Долгоживущее когнитивное состояние, состояние обхода и обучения находится во внешнем корне. По умолчанию:
 
 ```text
 ~/.local/state/phi-compiler/<release>/
 ```
 
-Set `PHI_STATE_DIR` to choose another external location. If `XDG_STATE_HOME` is set, Atlas uses `$XDG_STATE_HOME/phi-compiler/<release>/`. The runtime rejects mutable state paths inside the sealed release tree.
+Другой внешний путь задаётся через `PHI_STATE_DIR`. Если определена `XDG_STATE_HOME`, Atlas использует `$XDG_STATE_HOME/phi-compiler/<release>/`. Среда выполнения отклоняет пути изменяемого состояния внутри запечатанного дерева выпуска.
 
-Resident state is digest-bound. Restore operations require an explicit snapshot and can optionally require an expected SHA-256. Existing state is not overwritten unless `--overwrite-state` is given.
+Резидентное состояние связано дайджестом. Восстановление требует явного снимка и при необходимости ожидаемого SHA-256. Существующее состояние не перезаписывается без `--overwrite-state`.
 
-## Mathematical foundation
+## Математическая основа
 
-### Canonical dimension basis
+### Канонический базис размерностей
 
-Every physical dimension is a vector in the ordered SI basis
+Каждая физическая размерность представляется вектором в упорядоченном базисе СИ
 
 ```text
 B = (L, M, T, I, Θ, N, J)
 ```
 
-for length, mass, time, electric current, thermodynamic temperature, amount of substance, and luminous intensity. Legacy five-dimensional descriptors are accepted only at compatibility boundaries; the authoritative kernel is seven-dimensional.
+для длины, массы, времени, электрического тока, термодинамической температуры, количества вещества и силы света. Устаревшие пятимерные описания принимаются только на границах совместимости; авторитетное ядро семимерно.
 
-For quantities `q₁, …, qₙ`, Atlas forms the dimension matrix
+Для величин `q₁, …, qₙ` Atlas строит матрицу размерностей
 
 ```text
 D = [d(q₁) … d(qₙ)] ∈ ℚ^(7×n).
 ```
 
-If `r = rank(D)`, the number of independent dimensionless groups is
+Если `r = rank(D)`, число независимых безразмерных групп равно
 
 ```text
 p = n − r.
 ```
 
-The null space is computed over rational numbers. A null vector `a` defines
+Нуль-пространство вычисляется над рациональными числами. Нулевой вектор `a` определяет
 
 ```text
 Π = ∏ qᵢ^aᵢ.
 ```
 
-Atlas canonicalizes a one-dimensional null vector by clearing denominators, dividing by the integer gcd, and fixing the global sign. Equivalent candidates therefore share one π signature.
+Atlas канонизирует одномерный нулевой вектор: устраняет знаменатели, делит на целочисленный НОД и фиксирует общий знак. Поэтому эквивалентные кандидаты получают одну π-сигнатуру.
 
-### The three nullity regimes
+### Три режима нуль-дефектности
 
-- `p = 0`: the supplied quantities contain no dimensionless group. Classical dimensional analysis cannot close the relation from those quantities alone.
-- `p = 1`: the dimensionless group is unique up to scale and sign. Atlas may freeze `Π = C_DIMENSIONLESS` as a scalar candidate or `y = f(Π)` when a separate response is supplied.
-- `p > 1`: dimensional analysis supplies a family of coordinates but does not select the function relating them. Atlas marks the record `FUNCTION_FORM_REQUIRED_P_GT_1` and delegates representation search to a separately governed owner.
+- `p = 0`: среди предоставленных величин нет безразмерной группы. Классический размерностный анализ не может замкнуть отношение только по этим величинам.
+- `p = 1`: безразмерная группа единственна с точностью до масштаба и знака. Atlas может зафиксировать `Π = C_DIMENSIONLESS` как скалярный кандидат или `y = f(Π)`, если дана отдельная целевая величина.
+- `p > 1`: размерностный анализ даёт семейство координат, но не выбирает связывающую их функцию. Atlas помечает запись `FUNCTION_FORM_REQUIRED_P_GT_1` и передаёт поиск представления отдельно управляемому владельцу.
 
-Dimensionless or categorical coordinates are excluded from the physical rank count. Scientific-coordinate IDs are never reinterpreted as physical quantities unless a qualified owner supplies quantity semantics and a dimension.
+Безразмерные и категориальные координаты исключаются из физического ранга. Идентификаторы научных координат никогда не переосмысливаются как физические величины, если квалифицированный владелец не предоставил семантику и размерность.
 
-### Collapse metric
+### Метрика коллапса
 
-For positive paired coordinate and response values, the operational collapse score bins `log10(Π)`, computes the within-bin standard deviation of `ln(y)`, averages valid bins, and normalizes by the global standard deviation of `ln(y)`.
+Для положительных пар координаты и отклика рабочая оценка коллапса разбивает `log10(Π)` на интервалы, вычисляет внутри каждого интервала стандартное отклонение `ln(y)`, усредняет допустимые интервалы и нормирует результат на глобальное стандартное отклонение `ln(y)`.
 
-Lower is better. The current scalar utility owner uses `0.15` as its default threshold, but a passing score still requires out-of-distribution testing and null calibration before scientific promotion.
+Чем меньше значение, тем лучше. Текущий владелец скалярной полезности использует порог `0.15` по умолчанию, но даже прохождение порога требует проверки вне распределения и калибровки нулевой модели до научного продвижения.
 
 ## Dimensional Closure v2.0
 
-The methodological paper **“Dimensional Closure: Generating a Missing Observable from Data,” version 2.0** extends ordinary dimensional analysis in the reverse direction. Instead of assuming that the observable registry is complete, it asks whether a missing constant or axis can be constructed from measured dependence and then returned to the registry.
+Методическая статья **«Dimensional Closure: Generating a Missing Observable from Data» («Размерностное замыкание: получение отсутствующей наблюдаемой величины из данных»), версия 2.0** разворачивает обычный размерностный анализ в обратном направлении. Вместо предположения о полноте реестра наблюдаемых она спрашивает, можно ли построить отсутствующую константу или ось из измеренной зависимости, а затем вернуть её в реестр.
 
-This section describes the method and its intended Atlas integration. The current 15.24.0 production owner implements forward exact Buckingham-π birth from already registered, dimensioned quantities. It does **not yet expose the complete inverse missing-constant regression workflow below as a dedicated API owner**. The paper is a validated method specification and control suite; the shipped scalar-law census is a narrower forward implementation.
+Этот раздел описывает метод и предполагаемую интеграцию с Atlas. Производственный владелец версии 15.24.0 реализует прямое точное рождение π-групп Бекингема из уже зарегистрированных размерных величин. Он **пока не предоставляет полный обратный процесс регрессии отсутствующей константы как отдельного владельца API**. Статья задаёт проверенную спецификацию метода и набор контролей; поставляемая перепись скалярных законов реализует более узкий прямой процесс.
 
-### Problem statement
+### Постановка задачи
 
-Assume a power-law class
+Пусть задан класс степенных законов
 
 ```text
 y = C ∏ xⱼ^αⱼ,
 ```
 
-where `y` and `xⱼ` are measured, the exponents `αⱼ` are unknown, and `C` is absent from the input registry. Taking logarithms gives
+где `y` и `xⱼ` измерены, показатели `αⱼ` неизвестны, а `C` отсутствует во входном реестре. После логарифмирования:
 
 ```text
 ln y = β₀ + Σ αⱼ ln xⱼ + ε,
 C = exp(β₀).
 ```
 
-Once the exponent vector is fixed, the missing dimension is unique:
+После фиксации вектора показателей отсутствующая размерность определяется однозначно:
 
 ```text
 d(C) = d(y) − Σ αⱼ d(xⱼ).
 ```
 
-The value of the generated quantity is estimated from the same observations:
+Значение порождённой величины оценивается по тем же наблюдениям:
 
 ```text
 Ĉᵢ = yᵢ / ∏ xᵢⱼ^αⱼ.
 ```
 
-The method creates a typed candidate axis with a derived dimension, freezes it before validation, tests whether its estimated value is stable, and only then returns the candidate to the observable registry.
+Метод создаёт типизированную ось-кандидат с выведенной размерностью, фиксирует её до валидации, проверяет стабильность оценённого значения и только затем возвращает кандидата в реестр наблюдаемых.
 
-### Identifiability
+### Идентифицируемость
 
-The exponent vector and intercept are identifiable only when the log-design matrix `[1, ln x₁, …, ln xₘ]` has full column rank `m + 1`. Exact or near collinearity makes individual exponents unstable even when predictions are accurate. Independent predictor variation across broad ranges is essential.
+Вектор показателей и свободный член идентифицируемы лишь тогда, когда логарифмическая матрица плана `[1, ln x₁, …, ln xₘ]` имеет полный столбцовый ранг `m + 1`. Точная или почти точная коллинеарность делает отдельные показатели нестабильными даже при точных предсказаниях. Необходимо независимое изменение предикторов в широких диапазонах.
 
-If two missing constants occur only through a product, the data identify the product, not the factors. Dimensional closure can establish that a constant quantity of a particular dimension closes the observed relation; it cannot establish that the quantity is fundamental or uniquely decomposed.
+Если две отсутствующие константы входят только произведением, данные идентифицируют произведение, а не множители. Размерностное замыкание может установить, что наблюдаемое отношение замыкает постоянная величина определённой размерности, но не доказывает её фундаментальность или единственность разложения.
 
-### Six-step closure procedure
+### Шесть шагов замыкания
 
-1. **Fit the declared class.** Estimate `β₀` and `α` by ordinary least squares in log space, with data selection and transformations frozen.
-2. **Rationalize exponents.** Search bounded rational approximations with preregistered numerator, denominator, and tolerance limits.
-3. **Compute the missing dimension.** Apply `d(C) = d(y) − Σ αⱼd(xⱼ)` using exact rational dimension vectors.
-4. **Register the candidate axis before validation.** Store its dimension, estimated value, uncertainty, source variables, fit specification, and provenance. A nonsimple exponent does not stop this step.
-5. **Apply all acceptance criteria.** Measure residual quality, exponent simplicity, and cross-system constancy independently.
-6. **Recompute dimensional closure.** Add the generated quantity to the registry and verify that the augmented set has `p = 1` with the frozen identity.
+1. **Аппроксимировать заявленный класс.** Оценить `β₀` и `α` методом наименьших квадратов в логарифмическом пространстве при зафиксированных выборе данных и преобразованиях.
+2. **Рационализировать показатели.** Найти ограниченные рациональные приближения с предварительно зарегистрированными пределами числителя, знаменателя и допуска.
+3. **Вычислить отсутствующую размерность.** Применить `d(C) = d(y) − Σ αⱼd(xⱼ)` с точными рациональными векторами размерностей.
+4. **Зарегистрировать ось-кандидат до валидации.** Сохранить размерность, оценённое значение, неопределённость, исходные переменные, спецификацию аппроксимации и происхождение. Непростой показатель не останавливает этот шаг.
+5. **Применить все критерии приёмки.** Независимо измерить качество невязки, простоту показателей и постоянство между системами.
+6. **Повторно вычислить размерностное замыкание.** Добавить порождённую величину в реестр и проверить, что расширенный набор имеет `p = 1` с зафиксированным тождеством.
 
-The order is intentional. Rejecting an exponent merely because it looks unfamiliar conflates physical existence with notation preference or measurement uncertainty.
+Порядок выбран намеренно. Отклонение показателя лишь потому, что он выглядит непривычно, смешивает физическое существование с предпочтением обозначений или погрешностью измерения.
 
-### Three required acceptance criteria
+### Три обязательных критерия приёмки
 
-The paper freezes these default thresholds:
+В статье зафиксированы пороги по умолчанию:
 
-| Criterion | Meaning | Default |
+| Критерий | Смысл | Значение по умолчанию |
 |---|---|---:|
-| Residual | normalized log-space fit residual | `ρ* = 0.05` |
-| Simple exponents | rational bounds and approximation tolerance | `P = 4`, `Q = 2`, `tol = 0.02` |
-| Cross-system constancy | dispersion of `ln Ĉ` across independent systems | `σ* = 0.05` |
+| Невязка | нормированная невязка аппроксимации в лог-пространстве | `ρ* = 0.05` |
+| Простые показатели | рациональные границы и допуск приближения | `P = 4`, `Q = 2`, `tol = 0.02` |
+| Постоянство между системами | разброс `ln Ĉ` по независимым системам | `σ* = 0.05` |
 
-All three criteria are necessary.
+Необходимы все три критерия.
 
-- Residual control rejects noise and relations outside the declared model class.
-- Rational simplicity controls the complexity of the proposed exponent structure. An exponent of `1.37` can fit as well as a familiar law and still fail the frozen simple-exponent class.
-- Cross-system constancy detects hidden correlated variables and system-specific form factors. A hidden variable can produce small residuals and simple exponents within every system while shifting the inferred constant between systems.
+- Контроль невязки отвергает шум и зависимости вне заявленного класса моделей.
+- Рациональная простота ограничивает сложность предлагаемой структуры показателей. Показатель `1.37` может аппроксимировать не хуже знакомого закона, но всё равно не пройти зафиксированный класс простых показателей.
+- Постоянство между системами обнаруживает скрытые коррелированные переменные и специфичные для системы форм-факторы. Скрытая переменная может давать малые невязки и простые показатели внутри каждой системы, одновременно смещая выведенную константу между системами.
 
-The integer-dimension criterion used in version 1.0 was removed. It was redundant with exponent simplicity and incorrectly rejected valid half-integer laws such as the Kepler relation expressed with `G^−1/2`.
+Критерий целочисленной размерности из версии 1.0 удалён: он дублировал простоту показателей и ошибочно отвергал корректные законы с полуцелыми степенями, например соотношение Кеплера в записи с `G^−1/2`.
 
-### Control results reported by the paper
+### Контрольные результаты статьи
 
-The v2.0 study reports:
+Исследование v2.0 сообщает:
 
-- recovery of known dimensionless groups for Planck, ideal-gas, Stokes, Kepler, pendulum, Newton, Coulomb, and pipe-flow controls;
-- generation of the gravitational-constant dimension `L³ M⁻¹ T⁻²` without providing `G` or its dimension, with estimate `6.6925×10⁻¹¹` versus `6.674×10⁻¹¹` in the synthetic control;
-- a preregistered blind set of ten problems with 3 correct acceptances, 7 correct rejections, no false acceptances, and no misses;
-- rejection of pure noise, a non-power relation, a nonsimple exponent, system-dependent shape factors, and a worst-case correlated hidden variable;
-- a retrospective real-data run over 172 exoplanets around 132 stars, where the generated axis remained stable across four stellar groups with between-group dispersion `0.00085`, while the stellar-mass exponent failed the frozen simplicity tolerance;
-- a predeclared shell sequence for `y = f(Π)`: monomial, fractional power, rational Padé, then transcendental atoms.
+- восстановление известных безразмерных групп для контролей Планка, идеального газа, Стокса, Кеплера, маятника, Ньютона, Кулона и течения в трубе;
+- получение размерности гравитационной постоянной `L³ M⁻¹ T⁻²` без передачи `G` или её размерности, с оценкой `6.6925×10⁻¹¹` против `6.674×10⁻¹¹` в синтетическом контроле;
+- предварительно зарегистрированный слепой набор из десяти задач: 3 верных принятия, 7 верных отклонений, без ложных принятий и пропусков;
+- отклонение чистого шума, нестепенной зависимости, непростого показателя, системно-зависимых форм-факторов и наихудшего случая коррелированной скрытой переменной;
+- ретроспективный запуск на реальных данных о 172 экзопланетах у 132 звёзд: порождённая ось оставалась стабильной в четырёх группах звёзд с межгрупповым разбросом `0.00085`, но показатель массы звезды не прошёл зафиксированный допуск простоты;
+- заранее объявленную последовательность оболочек для `y = f(Π)`: моном, дробная степень, рациональная аппроксимация Паде, затем трансцендентные атомы.
 
-The real-data outcome is `ACCEPTED_WITH_NONSIMPLE_EXPONENT`, not discovery of a new law. The dataset was selected with knowledge of the contained physics, predictor mass variation was limited, stellar masses were model-derived, and no preregistered unseen-measurement run was performed.
+Результат на реальных данных имеет статус `ACCEPTED_WITH_NONSIMPLE_EXPONENT`, а не «открытие нового закона». Набор был выбран со знанием содержащейся в нём физики, диапазон масс предиктора был ограничен, массы звёзд получены из моделей, а предварительно зарегистрированный запуск на ранее неизвестных измерениях не выполнялся.
 
-### Adaptive multiplicity
+### Адаптивная множественность
 
-When many variable subsets or representations are searched, the displayed shortlist is not the statistical trial count. The complete frozen pipeline must be replayed on permuted targets. The familywise empirical level is
+При поиске по многим подмножествам переменных или представлениям размер показанного короткого списка не равен числу статистических испытаний. Полный зафиксированный конвейер должен быть повторён на переставленных целевых значениях. Семейный эмпирический уровень:
 
 ```text
 p_fw = (1 + #{Coll_null ≤ Coll_obs}) / (n_perm + 1).
 ```
 
-The resolution condition `1/(n_perm + 1) ≤ α` is mandatory. If it fails, the outcome is `INSUFFICIENT_NULL_RESOLUTION`, not pass. Atlas already enforces the same principle in query-driven search and in the U8 whole-pipeline null gate.
+Условие разрешения `1/(n_perm + 1) ≤ α` обязательно. При его нарушении результатом будет `INSUFFICIENT_NULL_RESOLUTION`, а не прохождение. Atlas уже применяет тот же принцип в поиске по запросу и в барьере U8 нулевой модели полного конвейера.
 
-### Integration target
+### Целевая интеграция
 
-A complete production integration of Dimensional Closure v2.0 should add a dedicated owner that:
+Полная производственная интеграция Dimensional Closure v2.0 должна добавить отдельного владельца, который:
 
-- accepts a declared target, predictors, dimensions, systems, uncertainties, and frozen thresholds;
-- checks positivity, log-design rank, conditioning, and predictor range;
-- fits and rationalizes exponents without reading a known answer;
-- emits a provisional generated-axis record before adjudication;
-- evaluates all three criteria and records every failed criterion;
-- runs the full adaptive permutation null when subsets were searched;
-- adds an accepted axis only through the existing dynamic-axis lifecycle and U0–U10 promotion authority;
-- preserves `ACCEPTED_WITH_NONSIMPLE_EXPONENT`, `INSUFFICIENT_NULL_RESOLUTION`, non-identifiable, and out-of-class outcomes explicitly.
+- принимает объявленные цель, предикторы, размерности, системы, неопределённости и зафиксированные пороги;
+- проверяет положительность, ранг и обусловленность логарифмической матрицы плана, а также диапазон предикторов;
+- аппроксимирует и рационализирует показатели, не считывая известный ответ;
+- выдаёт предварительную запись порождённой оси до экспертизы;
+- оценивает все три критерия и записывает каждый непройденный критерий;
+- запускает полную адаптивную перестановочную нулевую проверку при поиске по подмножествам;
+- добавляет принятую ось только через существующий жизненный цикл динамических осей и полномочия U0–U10;
+- явно сохраняет результаты `ACCEPTED_WITH_NONSIMPLE_EXPONENT`, `INSUFFICIENT_NULL_RESOLUTION`, неидентифицируемость и выход за класс.
 
-Until that owner exists, callers must not describe the current forward π census as automatic recovery of missing physical constants.
+До появления такого владельца текущую прямую перепись π-групп нельзя описывать как автоматическое восстановление отсутствующих физических констант.
 
-## Research and promotion pipeline
+## Исследовательский конвейер и продвижение
 
-### Query-driven research
+### Исследование по запросу
 
-`search_observations_for_law_candidates` accepts equally sized observation columns, a seven-component integer dimension for every feature, an optional response, explicit subset-size bounds, a display limit from 10 to 100, and optional permutation settings.
+`search_observations_for_law_candidates` принимает столбцы наблюдений одинаковой длины, семикомпонентную целочисленную размерность каждого признака, необязательный отклик, явные границы размера подмножества, лимит отображения от 10 до 100 и необязательные параметры перестановок.
 
-For every feature subset, it computes the exact dimensional null space. Only `p = 1` subsets produce scalar candidates. Mathematical duplicates are merged by canonical signature before ranking.
+Для каждого подмножества признаков вычисляется точное нуль-пространство размерностей. Скалярные кандидаты возникают только при `p = 1`. Математические дубликаты объединяются по канонической сигнатуре до ранжирования.
 
-Without a response, candidates are emitted as `Π = C_DIMENSIONLESS`. With a response, candidates are emitted as `target = f(Π)` and ranked by collapse. When permutations are requested, Atlas replays every deduplicated candidate, not only the displayed rows.
+Без отклика кандидаты выдаются как `Π = C_DIMENSIONLESS`. С откликом — как `target = f(Π)` и ранжируются по коллапсу. При запросе перестановок Atlas повторяет вычисление для каждого уникального кандидата, а не только для показанных строк.
 
-### Representation diagnostics
+### Диагностика представлений
 
-The π-genesis bridge can freeze a dimensionless coordinate and test bounded monomial/Laurent representations on separate FIT and SEAL partitions. It also provides a bounded Padé-in-`sqrt(Π)` adequacy diagnostic. These routines report representation adequacy only; they do not run the full promotion null and do not promote a law.
+Мост π-genesis может зафиксировать безразмерную координату и проверять ограниченные мономиальные/лореновские представления на раздельных выборках FIT и SEAL. Также предусмотрена ограниченная диагностика адекватности Паде по `sqrt(Π)`. Эти процедуры оценивают только адекватность представления: они не выполняют полную нулевую проверку продвижения и не продвигают закон.
 
-### U0–U10 promotion gates
+### Барьеры продвижения U0–U10
 
-| Gate | Requirement |
+| Барьер | Требование |
 |---|---|
-| U0 | record integrity and digest validity |
-| U1 | typed hypothesis/model binding |
-| U2 | exact dimensional qualification |
-| U3 | convention and artifact audit |
-| U4 | known-derivability and overlap audit |
-| U5 | collapse, invariance, or fit evidence |
-| U6 | distinct-regime out-of-distribution evidence |
-| U7 | cross-system replication |
-| U8 | whole-pipeline permutation null |
-| U9 | scientifically discriminating experiment |
-| U10 | numeric promotion core |
+| U0 | целостность записи и действительность дайджеста |
+| U1 | типизированная привязка гипотезы/модели |
+| U2 | точная размерностная квалификация |
+| U3 | аудит соглашений и артефактов |
+| U4 | аудит известной выводимости и совпадений |
+| U5 | доказательства коллапса, инвариантности или аппроксимации |
+| U6 | доказательства вне распределения в отдельном режиме |
+| U7 | воспроизведение между системами |
+| U8 | перестановочная нулевая проверка полного конвейера |
+| U9 | научно различающий эксперимент |
+| U10 | численное ядро продвижения |
 
-The current census reaches U4 for 447 hypotheses and stops at U5 because the required world evidence is absent. This is expected fail-closed behavior, not a system failure. Weighted scores may rank candidates only after hard gates. A score, AI statement, novelty claim, or expected-information-gain calculation cannot revive a falsified or non-identifiable model.
+Текущая перепись доходит до U4 для 447 гипотез и останавливается на U5 из-за отсутствия необходимых данных реального мира. Это ожидаемое закрытие при недостатке доказательств, а не сбой. Взвешенные оценки могут ранжировать кандидатов только после жёстких барьеров. Оценка, заявление ИИ, утверждение новизны или расчёт ожидаемой информационной ценности не могут реабилитировать опровергнутую или неидентифицируемую модель.
 
-### Evidence lifecycle
+### Жизненный цикл доказательств
 
 ```text
-candidate
-  → candidate-specific response projection
-  → frozen dataset/measurement contract
-  → executed measurement response
-  → held-out/OOD result
-  → independent verification bundle
-  → world attestation
-  → promotion receipt
+кандидат
+  → специфичная для кандидата проекция отклика
+  → зафиксированный контракт данных/измерения
+  → выполненный измерительный отклик
+  → результат на отложенных данных / вне распределения
+  → независимый пакет проверки
+  → аттестация реальным миром
+  → квитанция продвижения
 ```
 
-Digests prevent a post-reveal candidate, projection, dataset, or experiment from being substituted into an earlier receipt. A second manual attempt after failure requires explicit multiplicity and alpha accounting.
+Дайджесты не позволяют после раскрытия подменить кандидата, проекцию, набор данных или эксперимент в более ранней квитанции. Вторая ручная попытка после неудачи требует явного учёта множественности и уровня альфа.
 
-## Installation
+## Установка
 
-### Requirements
+### Требования
 
-- Python 3.11 or newer;
-- a POSIX-like shell for the supplied `Makefile` commands;
-- sufficient memory and CPU for the selected qualification route;
-- network access only for initial dependency installation or external scientific resolvers. Core replay uses local artifacts.
+- Python 3.11 или новее;
+- POSIX-совместимая оболочка для команд из `Makefile`;
+- достаточно памяти и процессорного времени для выбранного маршрута квалификации;
+- сеть нужна только для первоначальной установки зависимостей или внешних научных резолверов; основное воспроизведение использует локальные артефакты.
 
-Runtime dependencies are declared in [pyproject.toml](pyproject.toml): NumPy, SciPy, SymPy, PyYAML, cryptography, and pypdf.
+Зависимости среды выполнения перечислены в [pyproject.toml](pyproject.toml): NumPy, SciPy, SymPy, PyYAML, cryptography и pypdf.
 
-### Clone and create an environment
+### Клонирование и создание окружения
 
 ```bash
 git clone https://github.com/miroaleksej/Atlas.git
@@ -393,20 +397,20 @@ python -m pip install --upgrade pip
 python -m pip install -e .
 ```
 
-The repository is currently private, so cloning requires a GitHub identity with access.
+Если репозиторий закрыт, для клонирования нужна учётная запись GitHub с доступом.
 
-### Install the bundled AI research extension
+### Установка встроенного исследовательского AI-расширения
 
-Some autonomous Genesis and research-loop paths import the separately versioned `scienceatlas-ai` component. Install the release-pinned wheel without rebuilding it:
+Некоторые автономные пути Genesis и исследовательского цикла импортируют отдельно версионируемый компонент `scienceatlas-ai`. Установите привязанный к выпуску wheel без пересборки:
 
 ```bash
 python -m pip install --no-deps \
   ./extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/dist/scienceatlas_ai-0.10.0-py3-none-any.whl
 ```
 
-The component version (`0.10.0`), AI acceptance version (`15.10.5`), component schema (`6.0.0`), state schema (`5`), and Atlas system release (`15.24.0`) are separate identity axes by design.
+Версия компонента (`0.10.0`), версия AI-приёмки (`15.10.5`), схема компонента (`6.0.0`), схема состояния (`5`) и системный выпуск Atlas (`15.24.0`) намеренно являются разными осями идентичности.
 
-### Verify installation
+### Проверка установки
 
 ```bash
 phi-compiler --help
@@ -414,11 +418,11 @@ python -c "from source.lawspace.api import LawSpaceAPI; print(LawSpaceAPI('.').r
 make collect
 ```
 
-Expected release output is `15.24.0`.
+Ожидаемый выпуск: `15.24.0`.
 
-## Quick start
+## Быстрый старт
 
-### Inspect the law-space catalog
+### Просмотр каталога пространства законов
 
 ```bash
 phi-compiler --mode lawspace-query --query "Kepler" --limit 10
@@ -431,15 +435,15 @@ phi-compiler --mode lawspace-query \
   --limit 20
 ```
 
-### Search the candidate frontier
+### Поиск по фронтиру кандидатов
 
 ```bash
 phi-compiler --mode candidate-query --domain physics --limit 20
 ```
 
-Additional filters are available through `--generator`, `--category`, `--risk`, and `--source-owner`.
+Дополнительные фильтры: `--generator`, `--category`, `--risk` и `--source-owner`.
 
-### Run an autonomous research question without writing state
+### Автономный исследовательский вопрос без записи состояния
 
 ```bash
 phi-compiler research "What controls reaction-diffusion effectiveness?" \
@@ -447,9 +451,9 @@ phi-compiler research "What controls reaction-diffusion effectiveness?" \
   --output /tmp/atlas-research.json
 ```
 
-The command interprets the question and routes it through the resident scientific research cycle. A natural-language question alone does not constitute observational evidence.
+Команда интерпретирует вопрос и направляет его через резидентный научный исследовательский цикл. Сам по себе вопрос на естественном языке не является наблюдательным доказательством.
 
-### Run with explicit external persistent state
+### Запуск с явным внешним постоянным состоянием
 
 ```bash
 phi-compiler research "Find unresolved dimensionless transport coordinates" \
@@ -457,20 +461,18 @@ phi-compiler research "Find unresolved dimensionless transport coordinates" \
   --output /tmp/atlas-research-stateful.json
 ```
 
-Do not place `--state-dir` inside the repository.
+Не размещайте `--state-dir` внутри репозитория.
 
-### Run core checks
+### Основные проверки
 
 ```bash
 make targeted
 phi-compiler audit-read-only
 ```
 
-### Reproduce the exoplanet dimensional-closure example
+### Воспроизведение примера размерностного замыкания для экзопланет
 
-The repository includes a retrospective, non-discovery example that searches a
-frozen integer-exponent shell over exoplanet measurements and generates the
-dimension `L³ M⁻¹ T⁻²` before looking up `CONST-G` in the registry:
+Репозиторий содержит ретроспективный пример, не заявляющий об открытии. Он ищет по зафиксированной оболочке целых показателей на измерениях экзопланет и получает размерность `L³ M⁻¹ T⁻²` до обращения к `CONST-G` в реестре:
 
 ```bash
 jupyter nbconvert \
@@ -481,15 +483,13 @@ jupyter nbconvert \
   --ExecutePreprocessor.timeout=600
 ```
 
-The input is [examples/data/exoplanets_g_dimension_nasa2018.csv](examples/data/exoplanets_g_dimension_nasa2018.csv).
-The expected receipt is `RETROSPECTIVE_DIMENSIONAL_CLOSURE_EXAMPLE_PASS`; it is
-a reproducibility control, not a new-law or independent world-evidence claim.
+Входные данные: [examples/data/exoplanets_g_dimension_nasa2018.csv](examples/data/exoplanets_g_dimension_nasa2018.csv). Ожидаемая квитанция — `RETROSPECTIVE_DIMENSIONAL_CLOSURE_EXAMPLE_PASS`; это контроль воспроизводимости, а не новый закон или независимое доказательство реального мира.
 
-## Command-line interface
+## Интерфейс командной строки
 
-The installed entry point is `phi-compiler`. The equivalent source invocation is `python -m interfaces.phi_compiler_cli`.
+Устанавливаемая точка входа — `phi-compiler`. Эквивалентный запуск из исходного кода: `python -m interfaces.phi_compiler_cli`.
 
-### Modern commands
+### Современные команды
 
 ```text
 phi-compiler research QUESTION [--read-only-state] [--state-dir DIR] [--output FILE]
@@ -498,9 +498,9 @@ phi-compiler resident-state-restore --snapshot FILE [--expected-sha256 HEX]
 phi-compiler audit-read-only [--output FILE]
 ```
 
-`research` writes resident state by default. Use `--read-only-state` for exploratory or CI execution. `resident-state-restore` is digest-bound and external-only.
+`research` по умолчанию записывает резидентное состояние. Для исследовательского или CI-запуска используйте `--read-only-state`. `resident-state-restore` привязан к дайджесту и работает только с внешним состоянием.
 
-### Catalog and candidate modes
+### Режимы каталога и кандидатов
 
 ```text
 --mode lawspace
@@ -512,18 +512,18 @@ phi-compiler audit-read-only [--output FILE]
 --mode candidate-regenerate
 ```
 
-`candidate-scan` regenerates candidates in memory and compares their IDs and digests with the persisted ledger. `candidate-regenerate` writes generated state and should be used only when preparing a new snapshot.
+`candidate-scan` повторно создаёт кандидатов в памяти и сопоставляет их идентификаторы и дайджесты с сохранённым реестром. `candidate-regenerate` записывает созданное состояние и должен применяться только при подготовке нового снимка.
 
-### Computational-method modes
+### Режимы вычислительных методов
 
 ```text
 --mode quantum-method-query [--capability NAME] [--limit N]
 --mode quantum-method-scan  [--max-order N] [--combination-budget N]
 ```
 
-Omitting `--max-order` scans all registered method orders. A finite `--combination-budget` is a compute guard, not a scientific-space bound. If insufficient, Atlas exits with status 2 and reports `BLOCKED_INSUFFICIENT_COMBINATION_BUDGET`.
+Без `--max-order` сканируются все зарегистрированные порядки методов. Конечный `--combination-budget` — ограничитель вычислений, а не научного пространства. При недостаточном бюджете Atlas завершается с кодом 2 и сообщает `BLOCKED_INSUFFICIENT_COMBINATION_BUDGET`.
 
-### Qualification and hardware modes
+### Режимы квалификации и оборудования
 
 ```text
 --mode synthetic       [--repeats N] [--workers N] [--shard-size N]
@@ -536,13 +536,13 @@ Omitting `--max-order` scans all registered method orders. A finite `--combinati
 --mode all-offline
 ```
 
-With no command or mode, the CLI runs `all-offline`: law-space qualification, synthetic benchmarks, hardware digital twin, physical prebuild checks, and adapter contract checks. It does not run the real-device open-loop path. `--output FILE` writes JSON; otherwise JSON is printed to standard output.
+Без команды или режима CLI запускает `all-offline`: квалификацию пространства законов, синтетические тесты, цифровой двойник оборудования, предпостроечные проверки и проверки контракта адаптера. Реальное устройство в открытом контуре не запускается. `--output FILE` записывает JSON, иначе JSON выводится в стандартный поток.
 
 ## Python API
 
-`LawSpaceAPI` is the supported programmatic facade.
+`LawSpaceAPI` — поддерживаемый программный фасад.
 
-### Open a runtime and search entities
+### Открытие среды и поиск сущностей
 
 ```python
 from source.lawspace.api import LawSpaceAPI
@@ -555,7 +555,7 @@ for row in rows:
     print(row)
 ```
 
-### Focus a question with explicit observables
+### Фокусировка вопроса с явными наблюдаемыми
 
 ```python
 focus = api.focus_research_question(
@@ -566,9 +566,9 @@ focus = api.focus_research_question(
 print(focus["status"])
 ```
 
-Prefer quantity IDs. A short symbol such as `D`, `L`, or `k` may be ambiguous across owner passports and will fail closed.
+Предпочтительны идентификаторы величин. Короткий символ `D`, `L` или `k` может быть неоднозначен в паспортах владельцев, и обработка завершится безопасным отказом.
 
-### Search observations for dimensionless candidates
+### Поиск безразмерных кандидатов в наблюдениях
 
 ```python
 import numpy as np
@@ -601,9 +601,9 @@ print(result["candidates"][0])
 print(result["permutation_null"])
 ```
 
-All columns must have equal length. Collapse requires positive coordinate and target values. Every feature needs exactly seven integer dimension components.
+Все столбцы должны иметь одинаковую длину. Для коллапса нужны положительные значения координаты и цели. Каждый признак должен иметь ровно семь целочисленных компонентов размерности.
 
-### Inspect the frozen scalar-law census
+### Просмотр зафиксированной переписи скалярных законов
 
 ```python
 census = api.get_scalar_law_birth_current()
@@ -611,67 +611,67 @@ print(census["status"])
 print(census["summary"])
 ```
 
-The method verifies the embedded digest before returning the artifact.
+Перед возвратом артефакта метод проверяет встроенный дайджест.
 
-### API authority classes
+### Классы полномочий API
 
-- `READ_TOOLS`: catalog, contracts, current state, research, qualification, and diagnostics;
-- `MUTATION_TOOLS`: explicit state-changing research, ontology, axis, measurement, resident, and traversal operations;
-- `REGRESSION_TOOLS`: answer-bearing or post-freeze controls requiring `regression_mode=True`.
+- `READ_TOOLS`: каталог, контракты, текущее состояние, исследование, квалификация и диагностика;
+- `MUTATION_TOOLS`: явные операции изменения исследовательского состояния, онтологии, осей, измерений, резидентного состояния и обхода;
+- `REGRESSION_TOOLS`: контроли, содержащие ответ или выполняемые после фиксации, для которых требуется `regression_mode=True`.
 
-Regression surfaces are excluded from default blind research. AI proposals are restricted to pending states and cannot directly mutate the active scientific registry.
+Регрессионные поверхности исключены из слепого исследования по умолчанию. Предложения ИИ ограничены ожидающими состояниями и не могут напрямую изменять активный научный реестр.
 
-## Data and state model
+## Модель данных и состояния
 
-The repository stores typed artifacts for canonical and dynamic axes; quantity definitions and SI dimensions; source-law passports and constants; domain and integration manifests; active frontier candidates; computational methods and routes; evidence, trust, source snapshots, formal contracts; frozen research examples and measurement requests; and qualification reports.
+Репозиторий хранит типизированные артефакты канонических и динамических осей; определения величин и размерности СИ; паспорта исходных законов и константы; манифесты областей и интеграций; активные кандидаты фронтира; вычислительные методы и маршруты; доказательства, доверие, снимки источников и формальные контракты; зафиксированные исследовательские примеры и запросы измерений; отчёты квалификации.
 
-Records are content-addressed with canonical SHA-256 digests. Parent artifacts bind child identities so that a changed candidate, dataset, response projection, or result invalidates downstream receipts.
+Записи контентно адресуются каноническими дайджестами SHA-256. Родительские артефакты связывают идентичности дочерних, поэтому изменение кандидата, набора данных, проекции отклика или результата делает последующие квитанции недействительными.
 
-Mutable research state is excluded from the release seal. Configure it with:
+Изменяемое исследовательское состояние исключено из печати выпуска. Настройка:
 
 ```bash
 export PHI_STATE_DIR=/absolute/path/outside/Atlas
 ```
 
-Use a dedicated path per operator or environment. Back up both state JSON and its expected digest before migration.
+Используйте отдельный путь для каждого оператора или окружения. Перед миграцией сохраните JSON состояния и его ожидаемый дайджест.
 
-Generated controls are:
+Создаваемые контрольные файлы:
 
-- [HASHES.txt](HASHES.txt): controlled file hashes;
-- [FILE_TREE.md](FILE_TREE.md): controlled tree;
-- [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json): release identities, files, census, reports, and policies;
-- [capabilities.json](capabilities.json): executable capabilities and counts;
-- [invariants.json](invariants.json): negative and safety invariants.
+- [HASHES.txt](HASHES.txt) — хеши контролируемых файлов;
+- [FILE_TREE.md](FILE_TREE.md) — контролируемое дерево;
+- [RELEASE_MANIFEST.json](RELEASE_MANIFEST.json) — идентичности выпуска, файлы, перепись, отчёты и политики;
+- [capabilities.json](capabilities.json) — машиночитаемая перепись исполняемых возможностей;
+- [invariants.json](invariants.json) — машиночитаемые отрицательные инварианты и инварианты безопасности.
 
-Do not hand-edit generated digests. Change the source artifact, run qualification, and rebuild controls.
+Не редактируйте создаваемые дайджесты вручную. Измените исходный артефакт, выполните квалификацию и перестройте контроли.
 
-## Domain coverage
+## Охват предметных областей
 
-The passport catalog covers physics, mechanics, chemistry, astronomy, materials science, aeronautics and aerostation, mathematics, metrology, and systems/control, with additional registries and specialized owners providing the full 13-domain release census.
+Каталог паспортов охватывает физику, механику, химию, астрономию, материаловедение, авиацию и аэростатику, математику, метрологию и системы управления; дополнительные реестры и специализированные владельцы формируют полную перепись выпуска из 13 областей.
 
-Major executable owner families include exact axis/law-space search; mechanics and aeronautics; atomic electronic and many-body state spaces; nuclear binding/decay evidence; neutrino likelihoods; particle-space and collider qualification; black-hole, Einstein, tensor-geometry, and curvature-memory controls; quantum-vacuum/gravity intersections; pharmaceutical workflows; mathematical invention and theory compilation; experiment design; and cognitive, resident, knowledge-evolution, reflexive, developmental, and self-repair owners.
+Основные семейства исполняемых владельцев включают точный поиск по осям и пространству законов; механику и авиацию; атомные электронные и многочастичные пространства состояний; доказательства ядерного связывания и распада; нейтринные правдоподобия; пространство частиц и квалификацию коллайдеров; контроли чёрных дыр, Эйнштейна, тензорной геометрии и памяти кривизны; пересечения квантового вакуума и гравитации; фармацевтические процессы; математическое изобретение и компиляцию теорий; проектирование экспериментов; когнитивных, резидентных, эволюционных, рефлексивных, развивающихся и самовосстанавливающихся владельцев.
 
-An executable owner is not an empirically established result. Every output carries its own status and claim boundary.
+Исполняемый владелец не равен эмпирически установленному результату. Каждый вывод имеет собственный статус и границы утверждений.
 
-## Extending Atlas
+## Расширение Atlas
 
-### Add a domain plugin
+### Добавление предметного плагина
 
-`data/domains/*.json` is the declarative registration point. Start from `data/domains/domain_manifest.template.json.txt`.
+Декларативная точка регистрации — `data/domains/*.json`. Начните с `data/domains/domain_manifest.template.json.txt`.
 
-A manifest must provide `schema = phi-domain-plugin-manifest/v1`, a unique `domain_id`, `common_rules_owner = COMMON-SCIENTIFIC-RULES/1.0.0`, and domain-specific axes. It may name an importable owner module/class for equations, semantic transforms, compatibility logic, or experiments.
+Манифест должен содержать `schema = phi-domain-plugin-manifest/v1`, уникальный `domain_id`, `common_rules_owner = COMMON-SCIENTIFIC-RULES/1.0.0` и оси предметной области. Он может указывать импортируемый модуль/класс владельца уравнений, семантических преобразований, логики совместимости или экспериментов.
 
-Do not copy shared evidence, verification, novelty, information-gain, or promotion rules into a domain. Restart the process after changing a manifest; a frozen runtime never changes its axis space in place.
+Не копируйте в область общие правила доказательств, проверки, новизны, информационного выигрыша или продвижения. После изменения манифеста перезапустите процесс: зафиксированная среда никогда не меняет пространство осей на месте.
 
-### Add a source-law passport
+### Добавление паспорта исходного закона
 
-Include stable owner and quantity IDs, exact symbol dimensions, a parseable formula, assumptions, validity domain, uncertainty model, observables, controlled limits, and provenance. Add tests for parsing, dimensional consistency, owner registration, and bridges.
+Укажите стабильные идентификаторы владельца и величин, точные размерности символов, разбираемую формулу, допущения, область применимости, модель неопределённости, наблюдаемые, контролируемые пределы и происхождение. Добавьте тесты разбора, размерностной согласованности, регистрации владельца и мостов.
 
-### Add a representation grammar
+### Добавление грамматики представления
 
-A new grammar needs bounded enumeration, a complexity measure, separate fit and seal partitions, multiplicity/null accounting, and a promotion boundary. A diagnostic helper cannot become a live scientific grammar merely by registration.
+Новой грамматике нужны ограниченное перечисление, мера сложности, отдельные части FIT и SEAL, учёт множественности/нулевой модели и граница продвижения. Диагностический помощник не становится действующей научной грамматикой лишь в силу регистрации.
 
-### After any controlled change
+### После любого контролируемого изменения
 
 ```bash
 make collect
@@ -682,24 +682,24 @@ make seal-audit
 make audit-read-only
 ```
 
-## Hardware-facing workflows
+## Работа с оборудованием
 
-Hardware support is centered on [hardware/PHYSICAL_STAND.json](hardware/PHYSICAL_STAND.json), [hardware/PHYSICAL_STAND.md](hardware/PHYSICAL_STAND.md), and the RLC digital-twin circuit.
+Аппаратная поддержка сосредоточена в [hardware/PHYSICAL_STAND.json](hardware/PHYSICAL_STAND.json), [hardware/PHYSICAL_STAND.md](hardware/PHYSICAL_STAND.md) и схеме цифрового двойника RLC.
 
-The safety sequence is: run the digital twin; run prebuild qualification; validate the adapter/relay contract; verify host and expected serial; require operator approval; write raw output to the declared path; then evaluate it under the evidence rules.
+Безопасная последовательность: запустить цифровой двойник; выполнить предпостроечную квалификацию; проверить контракт адаптера/реле; сверить хост и ожидаемый серийный номер; получить разрешение оператора; записать сырой результат по объявленному пути; затем оценить его по доказательным правилам.
 
-`physical-open-loop` never runs as part of default `all-offline`. Do not use a real device unless its contract, serial, operating limits, isolation, and operator authorization have been independently checked.
+`physical-open-loop` никогда не входит в стандартный `all-offline`. Не используйте реальное устройство, пока независимо не проверены его контракт, серийный номер, рабочие пределы, изоляция и разрешение оператора.
 
-## Testing and release verification
+## Тестирование и проверка выпуска
 
-### Fast checks
+### Быстрые проверки
 
 ```bash
 make collect
 make targeted
 ```
 
-### Full pytest suite
+### Полный набор pytest
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 \
@@ -711,9 +711,9 @@ NUMEXPR_NUM_THREADS=1 \
 pytest -q -p no:cacheprovider
 ```
 
-The release has been qualified at 100/100 tests.
+Выпуск прошёл квалификацию: 100 из 100 тестов.
 
-### Native experiment and qualification targets
+### Встроенные цели экспериментов и квалификации
 
 ```bash
 make first-experiment
@@ -724,17 +724,17 @@ make self-repair
 make qualify
 ```
 
-These targets have different costs and mutation behavior. `frontier-scan`, `self-repair`, and `qualify` regenerate controlled reports or state and are release-maintenance operations.
+Эти цели различаются стоимостью и характером изменений. `frontier-scan`, `self-repair` и `qualify` пересоздают контролируемые отчёты или состояние и предназначены для сопровождения выпуска.
 
-### Heavy fresh-process replay
+### Тяжёлое воспроизведение в свежих процессах
 
 ```bash
 make full
 ```
 
-This prepares a replay plan, executes isolated batches, and aggregates `reports/FULL_HEAVY_REPLAY_CURRENT.json`.
+Команда готовит план воспроизведения, выполняет изолированные пакеты и агрегирует `reports/FULL_HEAVY_REPLAY_CURRENT.json`.
 
-### Rebuild and audit the release seal
+### Пересборка и аудит печати выпуска
 
 ```bash
 make release-controls
@@ -742,111 +742,117 @@ make seal-audit
 make audit-read-only
 ```
 
-`release-controls` regenerates the manifest, capabilities, invariants, hashes, and tree after an intentional controlled change. The seal audit reports `PASS_SEAL_AUDIT` when identities match. The strict audit verifies that read-only execution creates no bytecode, report, cache, or mutable state in the release and reports `PASS_READ_ONLY_AUDIT`.
+После намеренного контролируемого изменения `release-controls` пересоздаёт манифест, возможности, инварианты, хеши и дерево. Аудит печати сообщает `PASS_SEAL_AUDIT`, если идентичности совпадают. Строгий аудит подтверждает, что выполнение только для чтения не создаёт в выпуске байткод, отчёты, кеш или изменяемое состояние, и сообщает `PASS_READ_ONLY_AUDIT`.
 
-### Clean transient files
+### Очистка временных файлов
 
 ```bash
 make clean
 ```
 
-This removes caches, bytecode, and selected generated reports. Rebuild required reports and release controls afterward.
+Команда удаляет кеши, байткод и выбранные созданные отчёты. После неё заново создайте необходимые отчёты и контроли выпуска.
 
-## Repository map
+## Структура репозитория
 
 ```text
 Atlas/
-├── source/lawspace/        scientific owners, runtime, API, schemas, kernels
-├── interfaces/             command-line entry point
-├── evaluation/             qualification, replay, benchmarks, release controls
-├── tests/                  current-state behavioral and integrity tests
-├── data/                   axes, quantities, passports, domains, frontiers, evidence
-├── extensions/             separately versioned Atlas AI component
-├── hardware/               physical-stand contracts and digital twin
-├── external/               external adapters/artifacts included in the seal
-├── reports/                current qualification and diagnostic reports
-├── static/                 static resources
-├── MATHEMATICAL_BOOK.md     complete mathematical reference
-├── MATHEMATICAL_CONTRACT.md normative mathematical contract
-├── CLAIM_BOUNDARY.md        allowed and forbidden scientific claims
-├── ACCEPTANCE_REPORT.md     current acceptance evidence
-├── RELEASE_MANIFEST.json    release identity and controlled-file ledger
-├── capabilities.json        machine-readable capability census
-├── invariants.json          machine-readable safety invariants
-├── HASHES.txt               controlled SHA-256 list
-├── FILE_TREE.md             controlled repository tree
-├── Makefile                 standard operational targets
-└── pyproject.toml           Python package metadata and dependencies
+├── source/lawspace/        научные владельцы, среда, API, схемы, ядра
+├── interfaces/             точка входа командной строки
+├── evaluation/             квалификация, воспроизведение, тесты, контроли выпуска
+├── tests/                  поведенческие тесты и тесты целостности состояния
+├── data/                   оси, величины, паспорта, области, фронтиры, доказательства
+├── extensions/             отдельно версионируемый AI-компонент Atlas
+├── hardware/               контракты физического стенда и цифровой двойник
+├── external/               внешние адаптеры/артефакты, включённые в печать
+├── reports/                текущие отчёты квалификации и диагностики
+├── static/                 статические ресурсы
+├── MATHEMATICAL_BOOK.md     полный математический справочник
+├── MATHEMATICAL_CONTRACT.md нормативный математический контракт
+├── CLAIM_BOUNDARY.md        допустимые и запрещённые научные утверждения
+├── ACCEPTANCE_REPORT.md     текущие доказательства приёмки
+├── RELEASE_MANIFEST.json    идентичность выпуска и реестр файлов
+├── capabilities.json        машиночитаемая перепись возможностей
+├── invariants.json          машиночитаемые инварианты безопасности
+├── HASHES.txt               контролируемый список SHA-256
+├── FILE_TREE.md             контролируемое дерево репозитория
+├── Makefile                 стандартные рабочие цели
+└── pyproject.toml           метаданные пакета Python и зависимости
 ```
 
-Use [FILE_TREE.md](FILE_TREE.md) for the exact sealed file list.
+Точный список запечатанных файлов приведён в [FILE_TREE.md](FILE_TREE.md).
 
-## Limitations
+## Ограничения
 
-- No new universal physical law has been established.
-- No current candidate has passed U5–U10; there is no world attestation or automatic promotion.
-- The Dimensional Closure v2.0 inverse missing-constant workflow is documented but is not yet a dedicated production owner.
-- `p > 1` systems need an external representation principle or controlled function search.
-- Correlated hidden variables can mimic simple power laws without independent systems.
-- Poor predictor range and measurement error can bias recovered exponents.
-- Constants occurring only as a product cannot be individually identified.
-- Permutation counts must support the intended significance resolution.
-- The per-target permutation e-process is not an Atlas-wide global online error controller.
-- Search is open-ended in policy, but every actual run is finite and resource-bounded.
-- Quarantining known-law fixtures is not proof of novelty.
-- Domain coverage is broad but incomplete and depends on passport and evidence quality.
+- Новый универсальный физический закон не установлен.
+- Ни один текущий кандидат не прошёл U5–U10; отсутствуют аттестация реальным миром и автоматическое продвижение.
+- Обратный процесс поиска отсутствующей константы Dimensional Closure v2.0 документирован, но ещё не реализован как отдельный производственный владелец.
+- Системам с `p > 1` нужен внешний принцип представления или контролируемый поиск функций.
+- Коррелированные скрытые переменные могут имитировать простые степенные законы без независимых систем.
+- Узкий диапазон предикторов и ошибки измерения могут смещать восстановленные показатели.
+- Константы, входящие только произведением, нельзя идентифицировать по отдельности.
+- Число перестановок должно обеспечивать требуемое разрешение значимости.
+- Перестановочный e-процесс для отдельной цели не является глобальным онлайн-контроллером ошибок всего Atlas.
+- Поисковая политика открыта, но каждый реальный запуск конечен и ограничен ресурсами.
+- Карантин примеров известных законов не доказывает новизну.
+- Предметный охват широк, но неполон и зависит от качества паспортов и доказательств.
 
-## Troubleshooting
+## Устранение неполадок
 
 ### `ModuleNotFoundError: scienceatlas_ai`
 
-Install the bundled wheel shown in [Installation](#install-the-bundled-ai-research-extension).
+Установите встроенный wheel, как показано в разделе [Установка](#установка-встроенного-исследовательского-ai-расширения).
 
-### Research state path is rejected
+### Путь исследовательского состояния отклонён
 
-The path resolves inside the sealed repository. Set `PHI_STATE_DIR` or `--state-dir` to an absolute external directory.
+Путь разрешается внутри запечатанного репозитория. Задайте абсолютный внешний каталог через `PHI_STATE_DIR` или `--state-dir`.
 
-### A symbol is ambiguous
+### Символ неоднозначен
 
-Use the canonical quantity ID instead of a one-letter display symbol. Inspect passports with `lawspace-query` or API methods `get_quantity` and `resolve_symbol`.
+Используйте канонический идентификатор величины вместо однобуквенного обозначения. Просмотрите паспорта через `lawspace-query` либо методы API `get_quantity` и `resolve_symbol`.
 
-### No scalar candidate is returned
+### Скалярный кандидат не возвращён
 
-- `p = 0`: no dimensionless group exists in the supplied dimensions.
-- `p > 1`: dimensions do not select a unique scalar relation.
-- Dimensionless or untyped quantities may have been excluded from rank.
+- `p = 0`: в предоставленных размерностях нет безразмерной группы.
+- `p > 1`: размерности не выбирают единственное скалярное отношение.
+- Безразмерные или нетипизированные величины могли быть исключены из расчёта ранга.
 
-### Collapse scoring raises an error
+### Ошибка при оценке коллапса
 
-The metric requires positive paired values, equal column lengths, nonzero target log-variance, and enough populated logarithmic bins.
+Метрика требует положительных парных значений, одинаковой длины столбцов, ненулевой логарифмической дисперсии цели и достаточного числа заполненных логарифмических интервалов.
 
-### Permutation resolution is insufficient
+### Недостаточное перестановочное разрешение
 
-Increase `permutation_count` until `1/(n_perm + 1) ≤ α`. Insufficient resolution is not a pass.
+Увеличьте `permutation_count`, пока не выполнится `1/(n_perm + 1) ≤ α`. Недостаточное разрешение не считается прохождением.
 
-### Quantum method scan exits with code 2
+### Сканирование квантовых методов завершается с кодом 2
 
-Increase the explicit combination budget or omit it to scan the complete registered finite surface.
+Увеличьте явный бюджет сочетаний или опустите его, чтобы просканировать всю конечную зарегистрированную поверхность.
 
-### Seal audit fails after an edit
+### Аудит печати не проходит после изменения
 
-If intentional, run relevant tests and qualifications, then `make release-controls` and both audits. Otherwise inspect `git diff`, [HASHES.txt](HASHES.txt), and the manifest first.
+Если изменение намеренное, выполните необходимые тесты и квалификации, затем `make release-controls` и оба аудита. Иначе сначала проверьте `git diff`, [HASHES.txt](HASHES.txt) и манифест.
 
-## Citation and provenance
+## Цитирование и происхождение
 
-For the system, cite the exact release and manifest digest:
-
-```text
-Atlas / Φ-Compiler / ScienceAtlas, system release 15.24.0,
-RELEASE_MANIFEST.json and controlled SHA-256 ledger.
-```
-
-For the inverse method:
+Для системы указывайте точный выпуск и дайджест манифеста:
 
 ```text
-“Dimensional Closure: Generating a Missing Observable from Data,” version 2.0.
+Atlas / Φ-Compiler / ScienceAtlas, системный выпуск 15.24.0,
+RELEASE_MANIFEST.json и контролируемый реестр SHA-256.
 ```
 
-The manuscript’s appendix names `frozen_rule.py`, `inv.py`, `invent.py`, `ctrl.py`, `exp1.py`–`exp4.py`, and `kepler/` reproduction artifacts. Those belong to the manuscript package and are not claimed to be in this repository unless explicitly imported and sealed later.
+Для обратного метода:
 
-Atlas is distributed under the [Apache License 2.0](LICENSE.md).
+```text
+«Dimensional Closure: Generating a Missing Observable from Data», версия 2.0.
+```
+
+В приложении к рукописи названы воспроизводящие артефакты `frozen_rule.py`, `inv.py`, `invent.py`, `ctrl.py`, `exp1.py`–`exp4.py` и `kepler/`. Они относятся к пакету рукописи и не считаются частью этого репозитория, пока не будут явно импортированы и включены в печать.
+
+Atlas распространяется по лицензии [Apache License 2.0](LICENSE.md).
+
+## Темы и сообщества
+
+Проект может быть интересен исследователям, инженерам, преподавателям и сообществам России и других стран, работающим на пересечении научного ИИ, вычислительной физики, анализа размерностей, автоматизации открытий, метрологии и воспроизводимой науки.
+
+#Atlas #PhiCompiler #ScienceAtlas #ScientificAI #AIforScience #AutomatedDiscovery #DimensionalAnalysis #BuckinghamPi #SymbolicRegression #ComputationalPhysics #MathematicalPhysics #ScientificComputing #ReproducibleResearch #OpenScience #Physics #Mathematics #DataScience #MachineLearning #ResearchSoftware #НаучныйИИ #ИИдляНауки #АвтоматизацияНауки #НаучныеОткрытия #РазмерностныйАнализ #ТеоремаБекингема #ВычислительнаяФизика #МатематическаяФизика #ВычислительнаяНаука #ВоспроизводимаяНаука #ОткрытаяНаука #Физика #Математика #Метрология #МашинноеОбучение #АнализДанных #РоссийскаяНаука #УчёныеРоссии #ИсследователиРоссии #НаукаВРоссии #РАН #МГУ #МФТИ #НИЯУМИФИ #ИТМО #Сколтех #ВШЭ #СПбГУ #Иннополис #Сириус

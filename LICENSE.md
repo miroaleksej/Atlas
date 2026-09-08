@@ -1,3 +1,10 @@
+   Atlas / Φ-Compiler / ScienceAtlas
+
+   Copyright 2026 Миронов А.
+   Location: Moscow, Russian Federation
+   Contact: miro-aleksej@yandex.ru
+   SPDX-License-Identifier: Apache-2.0
+
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/

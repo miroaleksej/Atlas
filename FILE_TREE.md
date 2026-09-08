@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 15.24.0
 
-Controlled files: 279
+Controlled files: 280
 
 - `.github/workflows/exoplanet-g-example.yml`
 - `.gitignore`
@@ -11,6 +11,7 @@ Controlled files: 279
 - `MATHEMATICAL_CONTRACT.md`
 - `Makefile`
 - `README.md`
+- `TECHNICAL_GUIDE_RU.md`
 - `capabilities.json`
 - `data/axes/canonical_dynamic_axes.json`
 - `data/benchmarks/law_lattice_v0_2_mass_blind_partitions.json`

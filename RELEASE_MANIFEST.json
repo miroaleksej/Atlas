@@ -19,7 +19,7 @@
     "verified_stop": "DEFERRED_RESOURCE"
   },
   "blind_real_physics_experiment_digest": "ad6aff3e74cc18b6ae996a845599be8d9f702c2ac0cf4ea3e5bd1084d91564a3",
-  "controlled_file_count": 279,
+  "controlled_file_count": 280,
   "controlled_files": [
     {
       "path": ".github/workflows/exoplanet-g-example.yml",
@@ -43,8 +43,8 @@
     },
     {
       "path": "LICENSE.md",
-      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
-      "size": 11357
+      "sha256": "11306dece52aca51bcfcb0edda690504286d8e0a97147379eb8699b89abe3628",
+      "size": 11548
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
@@ -63,8 +63,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "d7a74ea9de0a9e2cbdc61247d22846f85d9d205dca2f435850804092c30794b2",
-      "size": 41793
+      "sha256": "654f9cb81d5d0653d82b0d379ef8dc916d8e5b69c3258c9a4d91477c21f8bd5c",
+      "size": 76165
+    },
+    {
+      "path": "TECHNICAL_GUIDE_RU.md",
+      "sha256": "23049826b80f6981783bc438981207683b934ae273f2c767bf6e8f0bc042ea28",
+      "size": 60704
     },
     {
       "path": "capabilities.json",
@@ -1418,7 +1423,7 @@
     }
   ],
   "current_state_qualification_digest": "975f8c1e5a80fbf93feb0f4ecb84f8802c75110b53b94b545bd0dfae167ee74b",
-  "digest": "9b99d28434ef9aa4cf7b9c0f5c08f0c7b7109ece38cd19192f2329494e6c6388",
+  "digest": "2a09e9b9b37d0233774ecadf692788604a844e922942f32a69bb165ae3602f3d",
   "frontier_scan_digest": "167b4a90b1e246676166697b365966c7d77b45b7c494f620a14280ea6e8453bf",
   "low_frequency_gust_anomaly_digest": "9df11440defb554739a40e793d36d5ddb0457c8cb435ed783a21c0af3c2799ed",
   "owner": "RELEASE-CONTROLS/15.24.0",
