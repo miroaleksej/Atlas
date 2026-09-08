@@ -53,8 +53,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "7b520c7f894024ff524460ce40e144a447c6bb262f9eb0a813962da93a60e2b0",
-      "size": 92496
+      "sha256": "8fa693ddf85b3736f176a1bccd2b571474e6e462ce254109473c8e8b91b744a1",
+      "size": 40312
     },
     {
       "path": "capabilities.json",
@@ -1413,7 +1413,7 @@
     }
   ],
   "current_state_qualification_digest": "975f8c1e5a80fbf93feb0f4ecb84f8802c75110b53b94b545bd0dfae167ee74b",
-  "digest": "369a4554d93092a438d1bdaed92175753f18472a856f21460c6f1bb71654fdaf",
+  "digest": "fe6fffa516bad8c1322c42ab6037dcd6c1e6247e38d39b877b4b43e8589eff23",
   "frontier_scan_digest": "167b4a90b1e246676166697b365966c7d77b45b7c494f620a14280ea6e8453bf",
   "low_frequency_gust_anomaly_digest": "9df11440defb554739a40e793d36d5ddb0457c8cb435ed783a21c0af3c2799ed",
   "owner": "RELEASE-CONTROLS/15.24.0",
