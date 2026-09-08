@@ -1,12 +1,13 @@
 # Atlas
 
- · ![Python](https://img.shields.io/badge/python-3.11-blue)
- · ![License](https://img.shields.io/badge/license-MIT-green)
- · ![Stars](https://img.shields.io/github/stars/miroaleksej/Atlas)
 
 **Φ-Compiler / ScienceAtlas — CURRENT 15.24.0**
 
 <img width="1672" height="941" alt="5e93d208-575f-40f6-84d0-791e947515a5" src="https://github.com/user-attachments/assets/7aa093ac-ba6f-4095-b324-471cc82e4ec3" />
+
+ · ![Python](https://img.shields.io/badge/python-3.11-blue)
+ · ![License](https://img.shields.io/badge/license-MIT-green)
+ · ![Stars](https://img.shields.io/github/stars/miroaleksej/Atlas)
 
 Atlas is a deterministic, evidence-gated research system for representing scientific quantities, laws, computational methods, hypotheses, experiments, and unresolved research frontiers in one content-addressed state. It combines exact dimensional algebra, adaptive subspace exploration, query-driven candidate generation, domain-specific scientific owners, reproducible numerical qualification, and a fail-closed promotion pipeline.
 
