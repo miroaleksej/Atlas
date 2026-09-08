@@ -1,7 +1,7 @@
 # Φ-Compiler / ScienceAtlas — CURRENT 15.24.0
 ## SCALAR LAW BIRTH + QUERY-DRIVEN RESEARCH — CURRENT 15.24.0
 
-
+<img width="1672" height="941" alt="5e93d208-575f-40f6-84d0-791e947515a5" src="https://github.com/user-attachments/assets/7aa093ac-ba6f-4095-b324-471cc82e4ec3" />
 
 15.24.0 restores the intended user-facing research path without deleting the open discovery frontier. `focus_research_question` maps an explicit question plus canonical/named observables into an auditable focused quantity neighborhood; ambiguous bare symbols fail closed. `search_observations_for_law_candidates` maps a supplied observation table and 7D quantity passports into a ranked list of 10–100 mathematical hypotheses. The output limit is never the multiplicity budget: receipts preserve the complete examined surface and whole-pipeline permutation null replays it.
 
