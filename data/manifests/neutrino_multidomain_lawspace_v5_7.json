@@ -1,0 +1,57 @@
+{
+  "claim_boundary": {
+    "finite_numerical_owners": "OWNER_BOUND",
+    "mathematical_theorems": "REGISTERED_WITH_DECLARED_SCOPE",
+    "new_law": "NOT_CLAIMED",
+    "physical_extra_dimension": "NOT_CLAIMED"
+  },
+  "declared_records": {
+    "constants": 1,
+    "known_laws": 21,
+    "quantities": 28
+  },
+  "edition": "2026-08-04",
+  "location": "data/source_snapshots/neutrino_multidomain_lawspace_v5_7.json",
+  "processed_records": {
+    "constants": 1,
+    "known_laws": 21,
+    "quantities": 28
+  },
+  "record_level_bibliography": "PRIMARY_SOURCE_ID_BOUND_PER_PASSPORT",
+  "sha256": "acc48250ccce1b337b19342e14b0e4dcc386fdbd52af98c21873325d5d575755",
+  "source_families": [
+    {
+      "id": "HABER-TAKAGI-2020",
+      "identifier": "arXiv:2009.03990",
+      "role": "Autonne–Takagi factorization"
+    },
+    {
+      "id": "FUJIKAWA-MAJORANA-2024",
+      "identifier": "arXiv:2405.18702",
+      "role": "complex-symmetric Majorana mass matrix"
+    },
+    {
+      "id": "PONTON-EXTRA-DIMENSIONS-2012",
+      "identifier": "arXiv:1207.3827",
+      "role": "KK fermions and boundary conditions"
+    },
+    {
+      "id": "GHERGHETTA-WARPED-2010",
+      "identifier": "arXiv:1008.2570",
+      "role": "warped bulk-field KK spectra"
+    },
+    {
+      "id": "DAYA-BAY-DATA-2025",
+      "identifier": "Zenodo:17587229",
+      "role": "reactor public data release"
+    },
+    {
+      "id": "T2K-DATA-2023",
+      "identifier": "Zenodo:7741399",
+      "role": "published likelihood profiles"
+    }
+  ],
+  "source_id": "NEUTRINO_MULTIDOMAIN_LAWSPACE_V5_7",
+  "source_type": "CURATED_PRIMARY_THEOREM_AND_OWNER_INTEGRATION",
+  "title": "Многодоменное нейтринное ядро: физика, математика, механика, химия, метрология и идентифицируемость"
+}

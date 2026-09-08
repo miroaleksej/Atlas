@@ -1,0 +1,14 @@
+{
+  "declared_records": {
+    "known_laws": 30
+  },
+  "edition": "v2.5",
+  "location": "data/source_snapshots/curated_core_v2_5.json",
+  "processed_records": {
+    "known_laws": 30
+  },
+  "sha256": "ffb3205f4c920f68a9524af5e804f4913c86657d77ee4984350baca6882b7cb7",
+  "source_id": "CURATED_CORE_V2_5",
+  "source_type": "CURATED_CANONICAL_SEED",
+  "title": "Встроенное ядро химических и метрологических отношений"
+}

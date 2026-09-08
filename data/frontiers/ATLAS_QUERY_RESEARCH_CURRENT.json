@@ -1,0 +1,325 @@
+{
+  "acceptance": {
+    "expected_unhinted_top_formula": "k * D^-1 * L^2",
+    "observed_top_collapse": 0.10592855862962716,
+    "observed_top_formula": "k * D^-1 * L^2",
+    "pass": true
+  },
+  "claim_boundary": {
+    "query_mode_replaces_discovery_frontier": false,
+    "return_limit_reduces_multiplicity": false,
+    "synthetic_control_is_new_law": false
+  },
+  "digest": "34cbf7c6a241f332bfc8bbe64d90028d442391a489a5d53703b5af22ded050ac",
+  "dimensional_scalar_law_census_summary": {
+    "no_dimensionful_quantity_projection_count": 2070,
+    "p0_count": 96,
+    "p1_frozen_formula_count": 683,
+    "p_gt_1_function_form_required_count": 857,
+    "subspace_count": 3706,
+    "u4_candidate_count": 447,
+    "u4_p1_frozen_formula_count": 125,
+    "u4_unique_pi_signature_count": 13,
+    "unique_pi_signature_count": 14,
+    "with_at_least_two_dimensionful_quantities": 1542,
+    "with_dimensionful_quantity_projection": 1636
+  },
+  "owner": "QUERY-DRIVEN-RESEARCH/1.0.0",
+  "schema": "phi-query-research-current/v1",
+  "source_candidate_ledger_sha256": "3aae0727dc524a4c2c27e371ed73e6e4745c1a1e1430c157b6a227791a4dab0a",
+  "status": "PASS_QUERY_DRIVEN_RESEARCH_SYNTHETIC_CONTROL",
+  "synthetic_reaction_diffusion_control": {
+    "candidates": [
+      {
+        "axis_names": [
+          "k",
+          "D",
+          "L"
+        ],
+        "candidate_equation": "eta = f(k * D^-1 * L^2)",
+        "collapse_score": 0.10592855862962716,
+        "complexity": 4,
+        "formula": "k * D^-1 * L^2",
+        "nullity": 1,
+        "pi_group": [
+          {
+            "exponent": 1,
+            "name": "k"
+          },
+          {
+            "exponent": -1,
+            "name": "D"
+          },
+          {
+            "exponent": 2,
+            "name": "L"
+          }
+        ],
+        "rank": 1,
+        "representation": "TARGET_AS_FUNCTION_OF_PI",
+        "scalar_equation_frozen": true,
+        "signature": "6280dbb0f3fd2c562e53ea9129b2ddc0c5d10db518dd1aa166e3595757468c20"
+      },
+      {
+        "axis_names": [
+          "k",
+          "L",
+          "rho",
+          "mu"
+        ],
+        "candidate_equation": "eta = f(k * L^2 * rho * mu^-1)",
+        "collapse_score": 0.4106017552624463,
+        "complexity": 5,
+        "formula": "k * L^2 * rho * mu^-1",
+        "nullity": 1,
+        "pi_group": [
+          {
+            "exponent": 1,
+            "name": "k"
+          },
+          {
+            "exponent": 2,
+            "name": "L"
+          },
+          {
+            "exponent": 1,
+            "name": "rho"
+          },
+          {
+            "exponent": -1,
+            "name": "mu"
+          }
+        ],
+        "rank": 2,
+        "representation": "TARGET_AS_FUNCTION_OF_PI",
+        "scalar_equation_frozen": true,
+        "signature": "4792f99793d3e15625c01b0757e35a1004fe7caa92dde364765c11ecacfd7893"
+      },
+      {
+        "axis_names": [
+          "k",
+          "L",
+          "v"
+        ],
+        "candidate_equation": "eta = f(k * L * v^-1)",
+        "collapse_score": 0.4627191322328634,
+        "complexity": 3,
+        "formula": "k * L * v^-1",
+        "nullity": 1,
+        "pi_group": [
+          {
+            "exponent": 1,
+            "name": "k"
+          },
+          {
+            "exponent": 1,
+            "name": "L"
+          },
+          {
+            "exponent": -1,
+            "name": "v"
+          }
+        ],
+        "rank": 3,
+        "representation": "TARGET_AS_FUNCTION_OF_PI",
+        "scalar_equation_frozen": true,
+        "signature": "230439fb1ebf8e6efcbe6c0063a85f4aa8ffc5298c86011fced99c47b333f5bc"
+      },
+      {
+        "axis_names": [
+          "k",
+          "D",
+          "v"
+        ],
+        "candidate_equation": "eta = f(k * D * v^-2)",
+        "collapse_score": 0.726683372133639,
+        "complexity": 4,
+        "formula": "k * D * v^-2",
+        "nullity": 1,
+        "pi_group": [
+          {
+            "exponent": 1,
+            "name": "k"
+          },
+          {
+            "exponent": 1,
+            "name": "D"
+          },
+          {
+            "exponent": -2,
+            "name": "v"
+          }
+        ],
+        "rank": 4,
+        "representation": "TARGET_AS_FUNCTION_OF_PI",
+        "scalar_equation_frozen": true,
+        "signature": "9b684df5c9aced87d495b9a94a3e3c86376de89146a117ffe6bc7be5de378603"
+      },
+      {
+        "axis_names": [
+          "D",
+          "rho",
+          "mu"
+        ],
+        "candidate_equation": "eta = f(D * rho * mu^-1)",
+        "collapse_score": 0.7776338170824604,
+        "complexity": 3,
+        "formula": "D * rho * mu^-1",
+        "nullity": 1,
+        "pi_group": [
+          {
+            "exponent": 1,
+            "name": "D"
+          },
+          {
+            "exponent": 1,
+            "name": "rho"
+          },
+          {
+            "exponent": -1,
+            "name": "mu"
+          }
+        ],
+        "rank": 5,
+        "representation": "TARGET_AS_FUNCTION_OF_PI",
+        "scalar_equation_frozen": true,
+        "signature": "61efe295aed581dcfda3336f19c0b3102258b3058dea840ef19f962ac639ec45"
+      },
+      {
+        "axis_names": [
+          "k",
+          "rho",
+          "v",
+          "mu"
+        ],
+        "candidate_equation": "eta = f(k * rho^-1 * v^-2 * mu)",
+        "collapse_score": 0.8435963304570552,
+        "complexity": 5,
+        "formula": "k * rho^-1 * v^-2 * mu",
+        "nullity": 1,
+        "pi_group": [
+          {
+            "exponent": 1,
+            "name": "k"
+          },
+          {
+            "exponent": -1,
+            "name": "rho"
+          },
+          {
+            "exponent": -2,
+            "name": "v"
+          },
+          {
+            "exponent": 1,
+            "name": "mu"
+          }
+        ],
+        "rank": 6,
+        "representation": "TARGET_AS_FUNCTION_OF_PI",
+        "scalar_equation_frozen": true,
+        "signature": "5e2e5e1a628bf8ac6b4e138fb286a292087834ad8a79549403582f1b1f45b197"
+      },
+      {
+        "axis_names": [
+          "L",
+          "rho",
+          "v",
+          "mu"
+        ],
+        "candidate_equation": "eta = f(L * rho * v * mu^-1)",
+        "collapse_score": 0.8735341293796696,
+        "complexity": 4,
+        "formula": "L * rho * v * mu^-1",
+        "nullity": 1,
+        "pi_group": [
+          {
+            "exponent": 1,
+            "name": "L"
+          },
+          {
+            "exponent": 1,
+            "name": "rho"
+          },
+          {
+            "exponent": 1,
+            "name": "v"
+          },
+          {
+            "exponent": -1,
+            "name": "mu"
+          }
+        ],
+        "rank": 7,
+        "representation": "TARGET_AS_FUNCTION_OF_PI",
+        "scalar_equation_frozen": true,
+        "signature": "50e80e3a17245a838fa8986e580128d66d0c006d8af50e848027637bb68782c3"
+      },
+      {
+        "axis_names": [
+          "D",
+          "L",
+          "v"
+        ],
+        "candidate_equation": "eta = f(D * L^-1 * v^-1)",
+        "collapse_score": 0.9570167167119193,
+        "complexity": 3,
+        "formula": "D * L^-1 * v^-1",
+        "nullity": 1,
+        "pi_group": [
+          {
+            "exponent": 1,
+            "name": "D"
+          },
+          {
+            "exponent": -1,
+            "name": "L"
+          },
+          {
+            "exponent": -1,
+            "name": "v"
+          }
+        ],
+        "rank": 8,
+        "representation": "TARGET_AS_FUNCTION_OF_PI",
+        "scalar_equation_frozen": true,
+        "signature": "f68cd5b498de31f3a92cfc6256da1f288010f9b77e6f36d96834bdbf1cd452fc"
+      }
+    ],
+    "claim_boundary": {
+      "all_examined_candidates_are_accounted_for": true,
+      "candidate_is_confirmed_law": false,
+      "query_mode_replaces_open_discovery_frontier": false,
+      "returned_count_is_multiplicity_count": false
+    },
+    "digest": "bff75c6f4936da0eab7af81ec6ca0173d1f1630a4c893ebba93c80f513e9880a",
+    "feature_names": [
+      "k",
+      "D",
+      "L",
+      "rho",
+      "v",
+      "mu"
+    ],
+    "owner": "QUERY-DRIVEN-RESEARCH/1.0.0",
+    "permutation_null": {
+      "entire_ranked_surface_replayed": true,
+      "familywise_empirical_p": 0.009900990099009901,
+      "observed_best_collapse": 0.10592855862962716,
+      "permutation_best_median": 0.8805863139523782,
+      "permutation_count": 100
+    },
+    "question": "What controls reaction-diffusion effectiveness across systems?",
+    "row_count": 360,
+    "schema": "phi-query-driven-research/v1",
+    "search_surface": {
+      "display_limit": 25,
+      "display_limit_is_search_budget": false,
+      "p1_groups_examined_total": 19,
+      "subsets_examined_total": 50,
+      "unique_mathematical_candidates_total": 8
+    },
+    "status": "QUERY_RESEARCH_COMPLETE",
+    "target_name": "eta"
+  }
+}

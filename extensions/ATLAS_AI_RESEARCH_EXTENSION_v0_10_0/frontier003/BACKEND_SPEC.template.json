@@ -1,0 +1,26 @@
+{
+  "backend_id": "replace-with-real-backend-id",
+  "backend_version": "1",
+  "model_family_id": "replace-with-one-model-family-id",
+  "architecture_id": "replace-with-one-architecture-id",
+  "scales": [
+    {"scale_id": "SMALL", "active_parameters": 1000000000},
+    {"scale_id": "REFERENCE", "active_parameters": 4000000000},
+    {"scale_id": "LARGE", "active_parameters": 16000000000}
+  ],
+  "supported_budget_capabilities": [
+    "ai.inference.reasoning_budget",
+    "ai.inference.verifier_budget",
+    "ai.memory.retrieval_budget",
+    "ai.world_model.rollout_budget",
+    "ai.active_information.probe_budget"
+  ],
+  "supported_regimes": [
+    "reasoning_verification",
+    "memory_long_horizon",
+    "agentic_world_information",
+    "mixed_open_ended"
+  ],
+  "real_measurement": false,
+  "notes": "Set real_measurement=true only for an actual audited inference/evaluation backend."
+}

@@ -1,0 +1,39 @@
+{
+  "base_axis_count": 654,
+  "dynamic_axis_count": 1,
+  "entries": [
+    {
+      "admission_digest": "2bdf45c18764414fbaca871ef6bb23f18036804207da415ff6cfe3c89cdadaf3",
+      "axis_definition": {
+        "allowed_values": [],
+        "axis_id": "renal_function_egfr",
+        "description_ru": "Расчётная скорость клубочковой фильтрации (eGFR) как измеримая ковариата функции почек для фармакокинетики, экспозиции и стратификации риска.",
+        "domain": "pharmaceutical",
+        "forbidden_for": [],
+        "provenance": "CANONICAL_DYNAMIC:SOURCE_ESTABLISHED:PHARMA-MISSING-AXIS-RENAL-FUNCTION-EGFR-v7.9:a9c49e9a9267ec27b5d0b03f70aa320e4858ca26fd622e6e59aa54dc659603f3",
+        "required_for": [],
+        "value_kind": "CONTINUOUS_RANGE"
+      },
+      "claim_boundary": {
+        "independent_dimension_claimed": false,
+        "new_law_established": false,
+        "new_physical_truth_created": false,
+        "registry_coordinate_canonicalized": true,
+        "v8_world_evidence_authorization_claimed": false
+      },
+      "evidence_digest": "a9c49e9a9267ec27b5d0b03f70aa320e4858ca26fd622e6e59aa54dc659603f3",
+      "promotion_route": "SOURCE_ESTABLISHED",
+      "proposal_id": "PHARMA-MISSING-AXIS-RENAL-FUNCTION-EGFR-v7.9",
+      "semantic_class": "INDEPENDENT_MEASURAND",
+      "validation_digest": "2663f297208ad03861f644d8b6988d83e04fe3dd21ddb370f91eaab9f0876819",
+      "verification_migration": {
+        "reason": "Canonical coordinate inheritance is schema continuity, not a renewed world-evidence promotion. v8 forbids self-signed WORLD provenance.",
+        "status": "INHERITED_V7_9_CANONICAL_COORDINATE_WORLD_REATTESTATION_REQUIRED_FOR_FUTURE_SOURCE_REPROMOTION",
+        "v7_9_axis_remains_addressable": true,
+        "v8_world_evidence_authorization_claimed": false
+      }
+    }
+  ],
+  "owner": "DYNAMIC-AXIS-PROMOTION/8.0.0",
+  "schema": "phi-canonical-dynamic-axis-registry/v8.0"
+}

@@ -1,0 +1,52 @@
+{
+  "R": {
+    "quantity": "additional_reasoning_traces",
+    "unit": "traces",
+    "B0": 8,
+    "budgets": {
+      "-1": 0,
+      "0": 8,
+      "1": 24
+    }
+  },
+  "V": {
+    "quantity": "verifier_evaluations",
+    "unit": "calls",
+    "B0": 4,
+    "budgets": {
+      "-1": 0,
+      "0": 4,
+      "1": 12
+    }
+  },
+  "M": {
+    "quantity": "retrievable_memory_tokens",
+    "unit": "tokens",
+    "B0": 32768,
+    "budgets": {
+      "-1": 0,
+      "0": 32768,
+      "1": 98304
+    }
+  },
+  "W": {
+    "quantity": "world_model_rollouts",
+    "unit": "rollouts",
+    "B0": 4,
+    "budgets": {
+      "-1": 0,
+      "0": 4,
+      "1": 12
+    }
+  },
+  "E": {
+    "quantity": "active_information_probes",
+    "unit": "probes",
+    "B0": 2,
+    "budgets": {
+      "-1": 0,
+      "0": 2,
+      "1": 6
+    }
+  }
+}

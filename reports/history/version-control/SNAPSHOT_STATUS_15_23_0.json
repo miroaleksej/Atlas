@@ -1,0 +1,64 @@
+{
+  "candidate_count": 4106,
+  "candidate_ledger_sha256": "3aae0727dc524a4c2c27e371ed73e6e4745c1a1e1430c157b6a227791a4dab0a",
+  "claim_boundary": {
+    "candidate_ledger_changed_by_snapshot": false,
+    "replay_complete_after_orchestration_fix": false,
+    "snapshot_is_sealed_release": false
+  },
+  "current_qualification_receipt": "reports/history/version-control/ATLAS_15_23_CURRENT_QUALIFICATION_AFTER_ORCHESTRATION.json",
+  "current_unique_prediction_class_count": "N_P(D_available)=1",
+  "digest": "b83172be6a050d03796fe41c3d370b5abfc5a60dcc775403fa0a8407c09f901b",
+  "full_replay_plan_digest": "e09bdc1a06995b02d63841eb7b88aa130f970389af3c88cda2ba249b29308b20",
+  "full_replay_plan_node_count": 88,
+  "joint_qualification_receipt": "reports/history/version-control/ATLAS_15_23_JOINT_QUALIFICATION.json",
+  "manual_lowering_collapse_pass_count": 0,
+  "manual_lowering_count": 1,
+  "measurement_request_sha256": "8f9bab090839452bbc89ddd799da16db686521ab5bfe9b984afa0d3f86d1e2bb",
+  "measurement_requests": "data/measurement_requests/ATLAS_MEASUREMENT_REQUESTS_CURRENT.json",
+  "post_orchestration_replay_pass_receipts": 6,
+  "post_orchestration_replay_receipts": [
+    {
+      "digest": "2d36a6afc6bcbb92721a86a424b6e33d5a12b4718c2126502e05438488720c45",
+      "file": "batch_000.json",
+      "status": "PASS"
+    },
+    {
+      "digest": "8c28c1181ee6c6b0ebb18b50b0054caf603ba5db4c06f118a909daf6beaf4c24",
+      "file": "batch_001.json",
+      "status": "PASS"
+    },
+    {
+      "digest": "828e523b2ee21f5cf85809855a7d76dcc2282bb9c6dd71654c6c72a97502ccc2",
+      "file": "batch_002.json",
+      "status": "PASS"
+    },
+    {
+      "digest": "6f171c78baae1158bb6991319759552afbf64418486785c111a6a667c0bd0816",
+      "file": "batch_003.json",
+      "status": "PASS"
+    },
+    {
+      "digest": "5d7c01c87db58d4fc5b71aa6e25fe1470a77a13712f46bbbb262e631217986bc",
+      "file": "batch_004.json",
+      "status": "PASS"
+    },
+    {
+      "digest": "a54e32772aa15ac591b41092e4a5b09e92ba2fa754670117bfc09dd8f676d92c",
+      "file": "batch_005.json",
+      "status": "PASS"
+    }
+  ],
+  "post_orchestration_replay_receipts_present": 6,
+  "reason": "Preserve all current work before conversation boundary. The scientific state is saved, but the post-orchestration full replay is incomplete and this snapshot must not be represented as a sealed release.",
+  "release": "15.23.0",
+  "schema": "phi-current-snapshot-status/v1",
+  "snapshot_file_count_including_status": 280,
+  "snapshot_kind": "CURRENT_SNAPSHOT_NOT_SEALED_AFTER_ORCHESTRATION_FIX",
+  "strict_single_forward_owner_complete": 14,
+  "structurally_addressable_union": 300,
+  "tree_digest_excluding_snapshot_status": "5e8c01044f62891d43029c3359260f34883e02b8c0b2e8e75d2f5e9a85bb9fd3",
+  "u4_count": 447,
+  "u5_count": 0,
+  "world_attestation_count": 0
+}

@@ -1,0 +1,75 @@
+{
+  "schema": "phi-snapshot-status/v1",
+  "release": "15.24.0",
+  "snapshot_kind": "CURRENT_SNAPSHOT_NOT_SEALED",
+  "title": "QUERY_DRIVEN_RESEARCH_AND_SCALAR_LAW_BIRTH",
+  "candidate_ledger_sha256": "3aae0727dc524a4c2c27e371ed73e6e4745c1a1e1430c157b6a227791a4dab0a",
+  "candidate_ledger_changed_by_query_mode": false,
+  "targeted_tests": {
+    "tests/test_query_driven_research_current.py": {
+      "passed": 2,
+      "failed": 0,
+      "status": "PASS"
+    }
+  },
+  "query_control": {
+    "status": "PASS_QUERY_DRIVEN_RESEARCH_SYNTHETIC_CONTROL",
+    "top_formula": "k * D^-1 * L^2",
+    "top_collapse": 0.10592855862962716,
+    "subsets_examined_total": 50,
+    "p1_groups_examined_total": 19,
+    "unique_mathematical_candidates_total": 8,
+    "display_limit": 25,
+    "display_limit_is_search_budget": false,
+    "permutation_count": 100,
+    "familywise_empirical_p": 0.009900990099009901,
+    "entire_ranked_surface_replayed": true
+  },
+  "scalar_law_birth_census": {
+    "no_dimensionful_quantity_projection_count": 2070,
+    "p0_count": 96,
+    "p1_frozen_formula_count": 683,
+    "p_gt_1_function_form_required_count": 857,
+    "subspace_count": 3706,
+    "u4_candidate_count": 447,
+    "u4_p1_frozen_formula_count": 125,
+    "u4_unique_pi_signature_count": 13,
+    "unique_pi_signature_count": 14,
+    "with_at_least_two_dimensionful_quantities": 1542,
+    "with_dimensionful_quantity_projection": 1636
+  },
+  "pi_genesis_diagnostic": {
+    "frozen_coordinate": "PI=L^2*k/D",
+    "primary_collapse_score": 0.10592855862962716,
+    "best_alternative_collapse_score": 0.30407690356902695,
+    "improvement_factor_vs_best_alternative": 2.8705847365696116,
+    "stratified_monomial_seal_nrmse": 1.000499497958121,
+    "stratified_laurent_seal_nrmse": 0.9791012943297895,
+    "stratified_bounded_rational_phi_seal_nrmse": 0.08508449336829374,
+    "cross_system_monomial_seal_nrmse": 2.197535666641113,
+    "cross_system_bounded_rational_phi_seal_nrmse": 0.35553843737705004,
+    "next_representation_step": "PREREGISTER_DIMENSIONLESS_TRANSFORM_GRAMMAR_FRACTIONAL_POWER_AND_RATIONAL_SATURATION_BEFORE_TRANSCENDENTAL_ATOMS"
+  },
+  "semantic_safety": {
+    "ambiguous_bare_symbols": "AMBIGUOUS_OBSERVABLES_REQUIRE_PASSPORTS",
+    "silent_ambiguous_resolution_allowed": false
+  },
+  "multiplicity_contract": {
+    "n_displayed_equals_n_tested": false,
+    "return_limit_reduces_multiplicity": false,
+    "permutation_null_replays_entire_search_surface": true
+  },
+  "pi_signature_deduplication": {
+    "query_mode_mathematical_signature_deduplication": "IMPLEMENTED",
+    "scalar_law_birth_unique_pi_classes": "MEASURED",
+    "global_u1_u2_birth_key": "DIAGNOSTIC_PROPOSAL_NOT_YET_GLOBAL_GATE",
+    "rationale": "candidate IDs with the same canonical Pi signature must not be counted as independent mathematical laws"
+  },
+  "claim_boundary": {
+    "synthetic_query_control_is_new_world_law": false,
+    "p1_frozen_formula_is_confirmed_law": false,
+    "genesis_diagnostic_is_world_evidence": false,
+    "full_current_replay_after_latest_15_24_changes_complete": false,
+    "sealed_release": false
+  }
+}

@@ -1,0 +1,554 @@
+{
+  "axes": [
+    {
+      "allowed_values": [],
+      "axis_id": "absorption_model",
+      "description_ru": "Предметная ось «absorption_model» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "active_moiety",
+      "description_ru": "Предметная ось «active_moiety» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "assay_cost",
+      "description_ru": "Стоимость аналитического или экспериментального измерения при явно заданной валюте и масштабе",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "CONTINUOUS_RANGE"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "assay_reproducibility",
+      "description_ru": "Численная характеристика воспроизводимости метода с явно указанной метрикой",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "CONTINUOUS_RANGE"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "benefit_risk_status",
+      "description_ru": "Предметная ось «benefit_risk_status» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "binding_kinetics",
+      "description_ru": "Предметная ось «binding_kinetics» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "bioavailability",
+      "description_ru": "Предметная ось «bioavailability» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "bioprocess_growth_rate",
+      "description_ru": "Удельная скорость роста или биомассообразования биотехнологического шасси при заданных условиях",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "CONTINUOUS_RANGE"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "cardiac_safety",
+      "description_ru": "Предметная ось «cardiac_safety» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "chelate_speciation",
+      "description_ru": "Химическая форма или специация металла и лиганда в исследуемой композиции",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "clearance",
+      "description_ru": "Предметная ось «clearance» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "clinical_endpoint",
+      "description_ru": "Предметная ось «clinical_endpoint» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "concentration_effect_model",
+      "description_ru": "Предметная ось «concentration_effect_model» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "contamination_risk",
+      "description_ru": "Распределение или оценка риска контаминации процесса при заданном режиме",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "DISTRIBUTION"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "diffusive_bioavailability",
+      "description_ru": "Экспериментально определяемая доля или скорость диффузионного выхода доступной формы из композиции",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "CONTINUOUS_RANGE"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "distribution_volume",
+      "description_ru": "Предметная ось «distribution_volume» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "dosage_form",
+      "description_ru": "Предметная ось «dosage_form» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "dose_regimen",
+      "description_ru": "Предметная ось «dose_regimen» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "dose_response_model",
+      "description_ru": "Предметная ось «dose_response_model» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "drug_drug_interaction",
+      "description_ru": "Предметная ось «drug_drug_interaction» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "drug_entity_type",
+      "description_ru": "Предметная ось «drug_entity_type» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "elimination_half_life",
+      "description_ru": "Предметная ось «elimination_half_life» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "evidence_phase",
+      "description_ru": "Предметная ось «evidence_phase» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "evidence_provenance",
+      "description_ru": "Предметная ось «evidence_provenance» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [
+        "COMPATIBLE",
+        "CONTEXT_DEPENDENT",
+        "INCOMPATIBLE",
+        "UNRESOLVED"
+      ],
+      "axis_id": "excipient_compatibility",
+      "description_ru": "Совместимость активной субстанции с вспомогательным веществом при заданных условиях",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "HIERARCHICAL_ENUM"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "exposure_metric",
+      "description_ru": "Предметная ось «exposure_metric» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "food_effect",
+      "description_ru": "Предметная ось «food_effect» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "formulation",
+      "description_ru": "Предметная ось «formulation» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [
+        "GASTRORESISTANT",
+        "PH_DEPENDENT_DELAYED",
+        "IMMEDIATE_RELEASE",
+        "NOT_GASTRORESISTANT",
+        "UNRESOLVED"
+      ],
+      "axis_id": "gastric_resistance",
+      "description_ru": "Поведение лекарственной формы в желудочной среде и режим последующего кишечного высвобождения",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "HIERARCHICAL_ENUM"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "genotoxicity",
+      "description_ru": "Предметная ось «genotoxicity» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "immunogenicity",
+      "description_ru": "Предметная ось «immunogenicity» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "indication",
+      "description_ru": "Предметная ось «indication» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "mechanism_of_action",
+      "description_ru": "Предметная ось «mechanism_of_action» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "metabolism_pathway",
+      "description_ru": "Предметная ось «metabolism_pathway» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "molecular_target",
+      "description_ru": "Предметная ось «molecular_target» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "off_target_liability",
+      "description_ru": "Предметная ось «off_target_liability» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "organ_toxicity",
+      "description_ru": "Предметная ось «organ_toxicity» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "pharmacodynamic_biomarker",
+      "description_ru": "Предметная ось «pharmacodynamic_biomarker» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "pharmacovigilance_signal",
+      "description_ru": "Предметная ось «pharmacovigilance_signal» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "plasma_protein_binding",
+      "description_ru": "Предметная ось «plasma_protein_binding» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "potency_metric",
+      "description_ru": "Предметная ось «potency_metric» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "release_profile",
+      "description_ru": "Временной или условно-зависимый профиль высвобождения лекарственной формы",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "SYMBOLIC_EXPRESSION"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "renal_excretion_fraction",
+      "description_ru": "Предметная ось «renal_excretion_fraction» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "route_of_administration",
+      "description_ru": "Предметная ось «route_of_administration» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "safety_pharmacology",
+      "description_ru": "Предметная ось «safety_pharmacology» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "selectivity",
+      "description_ru": "Количественная селективность к целевой мишени или фенотипу относительно явно заданных компараторов",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "CONTINUOUS_RANGE"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "selectivity_profile",
+      "description_ru": "Предметная ось «selectivity_profile» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "solubility",
+      "description_ru": "Растворимость активной субстанции при явно заданных среде, температуре, pH и единицах",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "CONTINUOUS_RANGE"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "solubilization_capacity",
+      "description_ru": "Количественная способность системы или солюбилизатора удерживать субстанцию в растворе при заданных условиях",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "CONTINUOUS_RANGE"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "storage_stability",
+      "description_ru": "Стабильность продукта как функция времени и условий хранения; диапазон задаётся с единицами и условиями",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "CONTINUOUS_RANGE"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "strength_unit",
+      "description_ru": "Предметная ось «strength_unit» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "synthetic_accessibility",
+      "description_ru": "Количественная или ранговая оценка синтетической доступности кандидата с указанной шкалой",
+      "forbidden_for": [],
+      "provenance": "PHARMACEUTICAL_SCHEMA_ENRICHMENT_V8_2",
+      "required_for": [],
+      "value_kind": "CONTINUOUS_RANGE"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "target_engagement",
+      "description_ru": "Предметная ось «target_engagement» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "target_population",
+      "description_ru": "Предметная ось «target_population» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "therapeutic_modality",
+      "description_ru": "Предметная ось «therapeutic_modality» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "therapeutic_window",
+      "description_ru": "Предметная ось «therapeutic_window» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "transporter_profile",
+      "description_ru": "Предметная ось «transporter_profile» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    },
+    {
+      "allowed_values": [],
+      "axis_id": "trial_design",
+      "description_ru": "Предметная ось «trial_design» в пространстве «pharmaceutical»",
+      "forbidden_for": [],
+      "provenance": "PDF_TASK_V2_6",
+      "required_for": [],
+      "value_kind": "TEXT"
+    }
+  ],
+  "axis_schema_version": "2.8.0",
+  "common_rules_owner": "COMMON-SCIENTIFIC-RULES/1.0.0",
+  "constraints": [],
+  "description_ru": "Фармацевтические исследования: идентичность препарата, механизм действия, PK/PD, безопасность, взаимодействия, клинические исходы и provenance доказательств",
+  "domain_id": "pharmaceutical",
+  "domain_role": "biomedical_science",
+  "entity_profiles": [],
+  "metadata": {
+    "generic_scientific_rules_implemented_in_domain_module": false,
+    "new_science_onboarding": "add one manifest under data/domains plus an optional domain-specific owner module; generic evidence/research/promotion rules remain common",
+    "purpose": "PHARMACEUTICAL_DOMAIN_SPECIFIC_SEMANTICS_ONLY"
+  },
+  "owner": {
+    "class": "PharmaceuticalDomainOwner",
+    "module": "source.lawspace.pharmaceutical"
+  },
+  "schema": "phi-domain-plugin-manifest/v1"
+}

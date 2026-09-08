@@ -1,0 +1,180 @@
+{
+  "ai_restore": {
+    "agi_claimed": false,
+    "architecture_restored": true,
+    "consciousness_claimed": false,
+    "historical_capability_snapshot_used": false,
+    "live_capability_count": 296,
+    "mutable_state_bundled_in_release": false,
+    "mutable_state_external_to_seal": true,
+    "open_architecture_obligations": [
+      "collective_coordination"
+    ],
+    "resident_learning_is_scientific_truth": false
+  },
+  "authoritative_research_kernel": "ADAPTIVE-RESEARCH-KERNEL/15.4.0",
+  "autonomous_epoch_genesis": {
+    "acceptance_compute_ceiling_permutations": 200,
+    "additive_to_research_loop": true,
+    "anytime_valid_e_process": false,
+    "exact_finite_permutation_p_gate": true,
+    "fresh_assessment_and_confirmation_epochs": true,
+    "global_online_fdr_control": false,
+    "new_scientific_law_established": false,
+    "next_required_permutations_at_resource_frontier": 319,
+    "owner": "epoch-genesis-director/0.1.0",
+    "research_loop_rewritten": false,
+    "resource_deferral_is_epistemic_rejection": false,
+    "scoped_evidence_fingerprint_boundary": "ResearchLoopOwner._acquire",
+    "sequential_per_target_union_bound": true
+  },
+  "blind_real_physics_experiment": {
+    "digest": "ad6aff3e74cc18b6ae996a845599be8d9f702c2ac0cf4ea3e5bd1084d91564a3",
+    "problem_id": "DLR-OLAF-FIRST-BLIND-REAL-PHYSICS-001",
+    "research_freeze_digest": "dfbf30932ac04998b4c00869649e00bec1b7ea437de8884497214115ffce77de",
+    "scientific_discovery_established": false,
+    "status": "PASS_FIRST_BLIND_REAL_PHYSICS_EXPERIMENT"
+  },
+  "core_convergence": {
+    "canonical_dimension_basis": [
+      "L",
+      "M",
+      "T",
+      "I",
+      "Theta",
+      "N",
+      "J"
+    ],
+    "exact_rational_dimension_kernel": true,
+    "legacy_5d_boundary_compatibility_only": true,
+    "parallel_symbolic_regression_core_added": false,
+    "whole_pipeline_permutation_null_required_before_promotion": true
+  },
+  "digest": "076513f05550417d3ce1bc2124a6839d56f4727ae3873b800ca4966a3ef279bf",
+  "fair_open_ended_dovetail": {
+    "continuation_candidate_count": 2175,
+    "finite_tranche_exhausts_scientific_space": false,
+    "fixed_axis_order_ceiling": null,
+    "fixed_global_step_ceiling": null,
+    "local_search_shell_fixed_maximum": null,
+    "mutable_runtime_state_external_to_seal": true,
+    "node_count": 3706,
+    "owner": "CandidateGenerationPipeline/6.27.0",
+    "preserved_15_13_candidate_count": 1005,
+    "state_digest": "1c04b9cb3c857ca58c3e5bb4beb8ed3dafae45dc3a679c9cc4e3ae435351708d",
+    "state_valid": true
+  },
+  "frontier_candidate_scan": {
+    "active_candidate_count": 4106,
+    "adaptive_subspace": {
+      "candidate_absent_from_literature_is_false": false,
+      "candidate_count": 3706,
+      "fixed_axis_order_ceiling": null,
+      "fixed_neighbor_visit_budget": null,
+      "lower_order_projection_required_before_higher_order_nomination": false,
+      "maximum_axis_order": 38,
+      "minimum_axis_order": 2,
+      "seed_count": 848
+    },
+    "candidate_class_counts": {
+      "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER": 3706,
+      "ALGEBRAIC_SOURCE_DERIVED_FRONTIER": 116,
+      "CROSS_DOMAIN_AXIS_FRONTIER": 256,
+      "OPERATOR_COMPOSITION_FRONTIER": 11,
+      "PROVISIONAL_RESEARCH_AXIS": 1,
+      "REAL_DATA_MECHANISM_COMPETITION": 5,
+      "RESEARCH_AXIS_PROPOSAL": 11
+    },
+    "digest": "167b4a90b1e246676166697b365966c7d77b45b7c494f620a14280ea6e8453bf",
+    "new_scientific_law_established": false,
+    "status": "PASS_ATLAS_FRONTIER_CANDIDATE_SCAN"
+  },
+  "low_frequency_gust_anomaly": {
+    "conditional_effective_input_ratio_4_8_hz": 0.8165672757732683,
+    "mean_residual_db_4_8_hz": 1.7612432509816798,
+    "new_physical_mechanism_established": false,
+    "status": "PASS_LOW_FREQUENCY_GUST_ANOMALY_PUBLIC_EVIDENCE_ANALYSIS"
+  },
+  "p2_closure": {
+    "conservation_canonicalization": "COMPOSITION_ADDITIVITY_REQUIRED",
+    "resident_restore_migration": "DIGEST_BOUND_EXTERNAL_ATOMIC_RESTORE",
+    "strict_read_only_audit": "TREE_BYTE_AND_DIRECTORY_IDENTITY_REQUIRED",
+    "version_axes": {
+      "ai_acceptance_version": "15.10.5",
+      "component_schema_version": "6.0.0",
+      "state_schema_version": "5",
+      "system_release": "15.24.0"
+    }
+  },
+  "permutation_eprocess": {
+    "atlas_wide_promotion_from_eprocess_crossing_alone": false,
+    "finite_group_normalization_exact": true,
+    "fresh_epoch_sample_reuse_refused": true,
+    "frozen_genesis_journal_orbit_scoring": true,
+    "global_online_controller": "UNIMPLEMENTED",
+    "orbit_calls_write_genesis_journal": false,
+    "owner": "permutation-eprocess-owner/0.1.0",
+    "per_target_only": true,
+    "qualification_status": "PASS_PERMUTATION_EPROCESS_15_20_0",
+    "s6_selected_demo_is_prospective_power_evidence": false,
+    "score": "equal mixture of (1+sealed_gain_bp)^q for q in {1,2,4,8}",
+    "type1_empirical_calibration_is_proof": false,
+    "type1_empirical_crossings": 15,
+    "type1_empirical_paths": 1000,
+    "ville_threshold_20_is_system_wide_guarantee": false
+  },
+  "preserved": {
+    "canonical_axis_count": 655,
+    "computational_method_count": 24,
+    "domain_registry_count": 13,
+    "known_law_count": 445,
+    "static_source_knowledge": true
+  },
+  "qualification_digest": "975f8c1e5a80fbf93feb0f4ecb84f8802c75110b53b94b545bd0dfae167ee74b",
+  "qualification_runtime_convergence": {
+    "candidate_false_count": 0,
+    "direct_numeric_core_can_bypass_unified_path": false,
+    "frontier_receipt_count": 4106,
+    "frontier_receipt_valid_count": 4106,
+    "prepromotion_ready_count": 0,
+    "promotion_allowed_count": 0,
+    "scientific_promotion_owner": "SCIENTIFIC-PROMOTION-CORE/9.2.0",
+    "whole_pipeline_null_required_before_law_candidate": true
+  },
+  "release": "15.24.0",
+  "removed": {
+    "ai_feynman_100_benchmark": true,
+    "historical_generated_candidates_frontiers_and_freezes": true,
+    "historical_reports_and_replays": true,
+    "persisted_synthetic_control_report": true
+  },
+  "schema": "phi-capabilities/current-v1",
+  "scientific_depth": {
+    "automatic_promotions": 0,
+    "candidate_world_binding_receipts": 2,
+    "executed_measurement_responses": 1,
+    "frozen_response_projection_contracts": 1,
+    "heldout_prediction_checks": 1,
+    "manual_candidate_prediction_lowerings": 1,
+    "manual_prediction_collapse_passes": 0,
+    "materialized_relational_hypotheses": 447,
+    "scientifically_discriminating_measurements": 0,
+    "u4_composable_multi_owner_complete": 286,
+    "u4_formal_derivability_pass": 447,
+    "u4_strict_single_forward_owner_complete": 14,
+    "u4_structurally_addressable_union": 300,
+    "u5_empirical_pass": 0,
+    "world_attestations": 0
+  },
+  "state": {
+    "active_frontier_candidate_count": 4106,
+    "baseline_candidate_registry_count": 0,
+    "current_research_report_count": 2,
+    "evidence_registry_count": 0,
+    "generated_quantum_route_count": 0,
+    "historical_calculation_receipts_restored": 0,
+    "historical_search_receipts_restored": 0
+  },
+  "status": "MANUAL_CANDIDATE_PREDICTION_LOWERING_HELDOUT_DIAGNOSTIC_SEALED",
+  "system": "Phi-Compiler / ScienceAtlas Manual Candidate Prediction Lowering + Held-Out Diagnostic"
+}

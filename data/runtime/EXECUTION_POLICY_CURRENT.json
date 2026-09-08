@@ -1,0 +1,13 @@
+{
+  "capture_mode": "TEMPFILE",
+  "cleanup_runtime_caches_after_replay": true,
+  "digest": "1bac12cdbe0054c085adda1496e21c350629ad98e71aa437201d3bb376aa5dfe",
+  "max_nodes_per_surface": 1,
+  "max_parallel_surfaces": 1,
+  "policy_id": "TRANSACTIONAL_SMALL_BATCH_FRESH_PROCESS_TEMPFILE",
+  "python_dont_write_bytecode": true,
+  "schema": "phi-runtime-execution-policy/v3",
+  "scientific_search_ceiling": null,
+  "source": "CURRENT_15_18_0_RUNTIME_ISOLATION",
+  "surface_timeout_seconds": 900
+}

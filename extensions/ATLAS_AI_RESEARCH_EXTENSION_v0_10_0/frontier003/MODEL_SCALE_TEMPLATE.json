@@ -1,0 +1,17 @@
+[
+  {
+    "model_scale_id": "SMALL",
+    "required_relation_to_ref": "P_active approximately P_ref/4",
+    "p_code": -1
+  },
+  {
+    "model_scale_id": "REFERENCE",
+    "required_relation_to_ref": "P_active = P_ref",
+    "p_code": 0
+  },
+  {
+    "model_scale_id": "LARGE",
+    "required_relation_to_ref": "P_active approximately 4*P_ref",
+    "p_code": 1
+  }
+]

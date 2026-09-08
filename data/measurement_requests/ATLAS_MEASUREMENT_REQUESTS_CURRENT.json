@@ -1,0 +1,210 @@
+{
+  "claim_boundary": {
+    "missing_public_measurement_means_candidate_false": false,
+    "n_p_is_optimization_target": false,
+    "these_requests_are_world_attestations": false,
+    "these_requests_establish_u5": false
+  },
+  "current_census": {
+    "current_exact_dataset_bound_single_owner_candidates": 6,
+    "current_unique_prediction_measurement_classes_on_available_dayabay_dlr_surface": 1,
+    "notation": "N_P(D_available)=1 for the presently executable Daya Bay/DLR measurement surface; this is not asserted for other future D.",
+    "single_forward_owner_complete": 14,
+    "structurally_addressable_union": 300,
+    "u4_candidates": 447
+  },
+  "digest": "c4584a8d25d49d4843434b0ddc9e000a0db0ae44d066bcd6c56bbc81d4e640e5",
+  "epistemic_status": "REQUESTED_NOT_AVAILABLE_IN_CURRENT_PUBLIC_ARTIFACTS",
+  "principle": {
+    "anti_gaming": "Distinct prediction classes count only when physically fixed candidate predictions differ by more than the preregistered measurement uncertainty/resolution; arbitrary lowering parameters cannot create classes.",
+    "discovery_frontier": "Open-ended hypothesis/axis exploration remains allowed without current measurement availability.",
+    "empirical_frontier": "U3-U5 empirical budget requires a structural path from candidate axes to prediction and measurement.",
+    "prediction_class_metric": "N_P(D) is dataset/experiment-contract dependent, not a portfolio-intrinsic scalar."
+  },
+  "release": "15.23.0",
+  "requests": [
+    {
+      "candidate_id": "SUBSPACE-6327D24DF96BC215054D",
+      "current_blocker": "gust_phase_unavailable_blocks_full_causal_kernel",
+      "current_public_artifact_has": [
+        "gust-to-WRBM magnitude information",
+        "frequency-domain WRBM magnitude anchors"
+      ],
+      "forward_owner_id": "AERO-LTI-PSD-PROPAGATION",
+      "purpose": "Make the gust-to-load route causally prediction-addressable rather than magnitude-only.",
+      "request_id": "DLR-REQUEST-CAUSAL-GUST-PSD-001",
+      "required_measurements": [
+        "gust input PSD Phi_w(f) on the experiment-relevant frequency grid",
+        "phase arg G_zw(f), or synchronized complex gust-to-WRBM transfer sufficient to reconstruct it"
+      ],
+      "success_condition": "A precommitted complex transfer/PSD prediction can be computed without phase synthesis or post-reveal fitting."
+    },
+    {
+      "candidate_id": "SUBSPACE-FE99A72332234051A83E",
+      "current_blocker": "complete synchronized x(t) and frozen K are not available in the current public artifact contract",
+      "current_public_artifact_has": [
+        "flap-command time histories/anchors",
+        "open/closed-loop WRBM observables"
+      ],
+      "forward_owner_id": "AERO-STATE-FEEDBACK-CONTROL",
+      "purpose": "Make the state-feedback route executable as u(t)=-Kx(t) rather than relying only on command/load summaries.",
+      "request_id": "DLR-REQUEST-STATE-FEEDBACK-001",
+      "required_measurements": [
+        "synchronized state vector x(t) used by the controller",
+        "frozen controller gain matrix K corresponding to the same run",
+        "synchronized control command u(t) with timestamps/normalization sufficient to verify u(t)=-Kx(t)"
+      ],
+      "success_condition": "A precommitted forward prediction can be replayed from x(t), K to u(t) and propagated to the measured response without refit."
+    }
+  ],
+  "schema": "phi-atlas-measurement-requests/v1",
+  "status": "CURRENT_EXTERNAL_MEASUREMENT_REQUESTS",
+  "strict_single_owner_candidates": {
+    "SUBSPACE-0F7BCAA86B7AFED82840": {
+      "axis_ids": [
+        "metrology.covariance_model",
+        "metrology.data_quality",
+        "metrology.measurement_model",
+        "metrology.quantity_kind",
+        "metrology.uncertainty_model"
+      ],
+      "owner": "POISSON-COUNTING-LIKELIHOOD"
+    },
+    "SUBSPACE-333C894753B4D59CF2D7": {
+      "axis_ids": [
+        "metrology.data_quality",
+        "metrology.dimension_vector",
+        "metrology.measurement_model",
+        "metrology.quantity_kind",
+        "metrology.unit_system"
+      ],
+      "owner": "POISSON-COUNTING-LIKELIHOOD"
+    },
+    "SUBSPACE-495D0B1B1819DAABC568": {
+      "axis_ids": [
+        "metrology.canonical_unit",
+        "metrology.data_quality",
+        "metrology.quantity_kind",
+        "metrology.traceability_chain",
+        "metrology.unit_system"
+      ],
+      "owner": "POISSON-COUNTING-LIKELIHOOD"
+    },
+    "SUBSPACE-4C9AC0127E6E1FF5E378": {
+      "axis_ids": [
+        "physics.boundary_geometry",
+        "physics.classical_quantum_regime",
+        "physics.conservation_structure",
+        "physics.equation_family",
+        "physics.geometry_dynamics",
+        "physics.interaction_sector",
+        "physics.locality",
+        "physics.observable_type",
+        "physics.physical_entity",
+        "physics.renormalization_status",
+        "physics.scale_regime",
+        "physics.semiclassical_order",
+        "physics.state_carrier"
+      ],
+      "owner": "QVAC-CASIMIR-EQUIVALENCE-MASS"
+    },
+    "SUBSPACE-4D4935620DF5F00286D2": {
+      "axis_ids": [
+        "aeronautics_and_aerostation.auxiliary_power",
+        "aeronautics_and_aerostation.energy_storage"
+      ],
+      "owner": "AEROSTAT-STORAGE-ENERGY-BALANCE"
+    },
+    "SUBSPACE-50F110AF3139413CC307": {
+      "axis_ids": [
+        "aeronautics_and_aerostation.envelope_area",
+        "aeronautics_and_aerostation.envelope_areal_density"
+      ],
+      "owner": "AEROSTAT-ENVELOPE-MASS"
+    },
+    "SUBSPACE-6327D24DF96BC215054D": {
+      "axis_ids": [
+        "aeronautics_and_aerostation.aeroservoelastic_state",
+        "aeronautics_and_aerostation.closed_loop_transfer"
+      ],
+      "owner": "AERO-LTI-PSD-PROPAGATION"
+    },
+    "SUBSPACE-64D5EC4140ACAED92B69": {
+      "axis_ids": [
+        "metrology.canonical_unit",
+        "metrology.data_quality",
+        "metrology.dimension_vector",
+        "metrology.quantity_kind",
+        "metrology.unit_system"
+      ],
+      "owner": "POISSON-COUNTING-LIKELIHOOD"
+    },
+    "SUBSPACE-7586844F64F7A790B740": {
+      "axis_ids": [
+        "metrology.data_quality",
+        "metrology.measurement_model",
+        "metrology.quantity_kind",
+        "metrology.traceability_chain",
+        "metrology.unit_system"
+      ],
+      "owner": "POISSON-COUNTING-LIKELIHOOD"
+    },
+    "SUBSPACE-77C395344B4C8019A0C8": {
+      "axis_ids": [
+        "metrology.covariance_model",
+        "metrology.measurement_model",
+        "metrology.quantity_kind",
+        "metrology.traceability_chain",
+        "metrology.uncertainty_model"
+      ],
+      "owner": "POISSON-COUNTING-LIKELIHOOD"
+    },
+    "SUBSPACE-800B81896160AC394784": {
+      "axis_ids": [
+        "mathematics.controlled_limit",
+        "mathematics.formal_language",
+        "mathematics.mathematical_entity",
+        "mathematics.proof_status",
+        "mathematics.regularity",
+        "mathematics.stability"
+      ],
+      "owner": "AUTONNE-TAKAGI-FACTORIZATION"
+    },
+    "SUBSPACE-914B203A9CA500EDFB4A": {
+      "axis_ids": [
+        "physics.algebra",
+        "physics.equation_family",
+        "physics.geometry_dynamics",
+        "physics.interaction_sector",
+        "physics.internal_symmetry",
+        "physics.linearity_state",
+        "physics.locality",
+        "physics.memory",
+        "physics.observable_type",
+        "physics.openness",
+        "physics.physical_entity",
+        "physics.scale_regime",
+        "physics.state_carrier"
+      ],
+      "owner": "BRANE-LOCALISATION-OVERLAP"
+    },
+    "SUBSPACE-BDF2127A4F76BFFC1936": {
+      "axis_ids": [
+        "systems_control.experiment_design",
+        "systems_control.identifiability",
+        "systems_control.inverse_problem",
+        "systems_control.model_failure_class",
+        "systems_control.system_model",
+        "systems_control.truth_access_boundary"
+      ],
+      "owner": "GEOMETRY-DISCRIMINATING-EXPERIMENT-DESIGN"
+    },
+    "SUBSPACE-FE99A72332234051A83E": {
+      "axis_ids": [
+        "aeronautics_and_aerostation.closed_loop_transfer",
+        "aeronautics_and_aerostation.control_authority"
+      ],
+      "owner": "AERO-STATE-FEEDBACK-CONTROL"
+    }
+  }
+}

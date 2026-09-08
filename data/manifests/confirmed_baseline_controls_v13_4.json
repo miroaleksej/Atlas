@@ -1,0 +1,19 @@
+{
+  "claim_boundary": {
+    "active_candidate_records": 0,
+    "historical_confirmed_control_count": 2771,
+    "restored_as_active_state": false
+  },
+  "declared_records": {
+    "historical_control_snapshot": 1
+  },
+  "edition": "13.4.0",
+  "location": "data/source_snapshots/confirmed_baseline_controls_v13_4.json",
+  "processed_records": {
+    "historical_control_snapshot": 1
+  },
+  "sha256": "54fce859711860fcef88453b609572a5d1c0c0c16f0521825ec769cc399e4699",
+  "source_id": "CONFIRMED_BASELINE_CONTROLS_V13_4",
+  "source_type": "ARCHIVED_CONFIRMED_SOURCE_CONTROL_BASELINE_SNAPSHOT",
+  "title": "Архивный provenance-снимок 2771 control anchors; не активный candidate registry"
+}

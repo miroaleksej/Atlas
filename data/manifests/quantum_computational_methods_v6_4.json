@@ -1,0 +1,25 @@
+{
+  "claim_boundary": {
+    "generic_full_state_1000": "BLOCKED",
+    "new_law": "NOT_APPLICABLE",
+    "universal_scale_claim": "NOT_CLAIMED"
+  },
+  "declared_records": {
+    "computational_methods": 24
+  },
+  "edition": "v6.4",
+  "location": "data/source_snapshots/quantum_computational_methods_v6_4.json",
+  "processed_records": {
+    "computational_methods": 24
+  },
+  "record_level_bibliography": "Each computational method passport stores its source class, cost model, limitations and error contract.",
+  "sha256": "00abaa4f6534765f092bddb9d71f03085e4e808c7789410de5ef1b28293a3b52",
+  "source_families": [
+    "PRIMARY_PAPER",
+    "OFFICIAL_DOCUMENTATION",
+    "ACTIVE_QPDTR_OWNER_INTEGRATION"
+  ],
+  "source_id": "QUANTUM_COMPUTATIONAL_METHODS_V6_4",
+  "source_type": "PRIMARY_PAPERS_OFFICIAL_DOCUMENTATION_AND_ACTIVE_QPDTR_OWNER_BINDINGS",
+  "title": "Канонический корпус методов квантовой информации и ресурсно-факторизованной классической эмуляции"
+}

@@ -1,0 +1,194 @@
+{
+  "binding_migration": {
+    "new_bound_active_candidate_ledger_sha256": "04dff911faa5c8571f2f2524650e66dece976c56007fb35ed3c892a283f37944",
+    "new_bound_candidate_record_count": 4106,
+    "prefreeze_literature_used": false,
+    "previous_bound_active_candidate_ledger_sha256": "3aae0727dc524a4c2c27e371ed73e6e4745c1a1e1430c157b6a227791a4dab0a",
+    "previous_bound_candidate_record_count": 4106,
+    "prior_art_candidate_reviews_modified": false,
+    "prior_art_classifications_modified": false,
+    "reason": "15.24.0 canonicalizes frozen optimizer summaries across compatible numeric-library builds without adding, deleting or reclassifying candidates; post-freeze prior-art reviews remain unchanged",
+    "release": "15.24.0"
+  },
+  "bound_active_candidate_ledger_sha256": "04dff911faa5c8571f2f2524650e66dece976c56007fb35ed3c892a283f37944",
+  "bound_candidate_record_count": 4106,
+  "candidate_reviews": [
+    {
+      "assessment": "Temperature dependence of reaction rates and joint uncertainty of Arrhenius parameters are established; the exact eight-axis Atlas subspace coupling activity model, mechanism/reaction class, directionality, reaction order, temperature dependence and metrological uncertainty was not established by the searched sources.",
+      "axis_order": 8,
+      "candidate_id": "SUBSPACE-0AD43039D84537DBDAEC",
+      "classification": "PARTIAL_OVERLAP",
+      "potential_problem": "Separate physical mechanism/regime changes from parameter/measurement uncertainty in kinetic inference.",
+      "sources": [
+        {
+          "relation": "KNOWN_COMPONENT",
+          "title": "The temperature-dependence of elementary reaction rates: beyond Arrhenius",
+          "url": "https://pubs.rsc.org/en/content/articlehtml/2008/cs/b704257b"
+        },
+        {
+          "relation": "KNOWN_COMPONENT",
+          "title": "Uncertainty of Arrhenius parameters",
+          "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/kin.20551"
+        }
+      ]
+    },
+    {
+      "assessment": "Uncertainty propagation in phase-equilibrium/CALPHAD calculations and chemical-potential estimation is established; the exact joint five-axis Atlas relation including composition measurement, stability condition, thermodynamic ensemble and uncertainty remains a candidate rather than an established new law.",
+      "axis_order": 5,
+      "candidate_id": "SUBSPACE-D483A0E3AFF1542004C6",
+      "classification": "PARTIAL_OVERLAP",
+      "potential_problem": "Determine whether inferred phase/stability boundaries are physical or uncertainty/model-sensitive.",
+      "sources": [
+        {
+          "relation": "KNOWN_COMPONENT",
+          "title": "Generalized method of sensitivity analysis for uncertainty quantification in Calphad calculations",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0364591622001079"
+        },
+        {
+          "relation": "KNOWN_COMPONENT",
+          "title": "Challenges in determining individual chemical potentials of system elements by Gibbs energy minimization",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0364591624000336"
+        },
+        {
+          "relation": "KNOWN_COMPONENT",
+          "title": "A method to determine experimental uncertainties from phase equilibria data of quaternary systems of hydrocarbons + water",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0378381296032268"
+        }
+      ]
+    },
+    {
+      "assessment": "Coupling between electrochemical kinetics, mass transport and hydrodynamic flow regimes is established and actively modeled. The Atlas candidate remains useful as a routing/reproduction candidate but is not novel on this evidence.",
+      "axis_order": 5,
+      "candidate_id": "SUBSPACE-73C997FEEFBF67ADAD5C",
+      "classification": "KNOWN_OVERLAP",
+      "potential_problem": "Separate intrinsic electrochemical kinetics from transport-limited and hydrodynamic effects.",
+      "sources": [
+        {
+          "relation": "DIRECT_OVERLAP",
+          "title": "Bridging the scales within transport-coupled kinetic models for heterogeneous electrocatalysis",
+          "url": "https://www.sciencedirect.com/science/article/pii/S2451910324001923"
+        },
+        {
+          "relation": "DIRECT_OVERLAP",
+          "title": "Phenomenological behavior coupling hydrodynamics and electrode kinetics in a flow electrochemical reactor",
+          "url": "https://www.sciencedirect.com/science/article/pii/S1385894718316486"
+        },
+        {
+          "relation": "DIRECT_OVERLAP",
+          "title": "Electrochemical flow cells for laboratory electrocatalysis: hydrodynamics, operando analysis, and automation",
+          "url": "https://www.sciencedirect.com/science/article/pii/S2451910326001134"
+        }
+      ]
+    },
+    {
+      "assessment": "Algebraic/group-theoretical structure of phase transitions and material/crystal phase symmetry is established within Landau and space-group approaches.",
+      "axis_order": 3,
+      "candidate_id": "SUBSPACE-9A1C65A53B4C5DD9CE1E",
+      "classification": "KNOWN_OVERLAP",
+      "potential_problem": "Classify allowed phase changes and symmetry-breaking structures using algebraic structure.",
+      "sources": [
+        {
+          "relation": "DIRECT_OVERLAP",
+          "title": "Group theory and phase transitions",
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/037843718290348X"
+        },
+        {
+          "relation": "DIRECT_OVERLAP",
+          "title": "Landau’s Theory of Phase Transitions",
+          "url": "https://doi.org/10.1007/978-3-642-80021-4_14"
+        },
+        {
+          "relation": "DIRECT_OVERLAP",
+          "title": "Symmetry methods and space group representations in the theory of phase transitions",
+          "url": "https://www.sciencedirect.com/science/article/pii/0898122188902350"
+        }
+      ]
+    },
+    {
+      "assessment": "pH measurement models and uncertainty budgets are established, and sampling is a recognized part of measurement uncertainty. This candidate is useful for metrological control rather than a new law claim.",
+      "axis_order": 3,
+      "candidate_id": "SUBSPACE-14D7E84B4023FD236C75",
+      "classification": "KNOWN_OVERLAP",
+      "potential_problem": "Separate chemical pH-regime behavior from measurement/sampling uncertainty.",
+      "sources": [
+        {
+          "relation": "DIRECT_OVERLAP",
+          "title": "Estimation of uncertainty in routine pH measurement",
+          "url": "https://doi.org/10.1007/s00769-002-0470-2"
+        },
+        {
+          "relation": "KNOWN_COMPONENT",
+          "title": "Measurement uncertainty from sampling and its role in validation of measurement procedures",
+          "url": "https://link.springer.com/article/10.1007/s00769-024-01575-0"
+        },
+        {
+          "relation": "DIRECT_OVERLAP",
+          "title": "pH Metrology",
+          "url": "https://www.nist.gov/programs-projects/ph-metrology"
+        }
+      ]
+    },
+    {
+      "assessment": "Related literature connects processing history to material memory/correlation structure and separately studies strong electronic/structural correlations. The searched sources did not establish the exact typed Atlas subspace joining electronic-correlation level, processing history, geometric structure, physical memory and correlation length. Absence of an exact match is neutral evidence and does not establish novelty or truth.",
+      "axis_order": 5,
+      "candidate_id": "SUBSPACE-F1376FE66616155908AA",
+      "classification": "NOVELTY_UNRESOLVED_RELATED_PRIOR_ART_ONLY",
+      "potential_problem": "Test whether a transferable memory/correlation-length coordinate can connect process history, geometry and correlated electronic/material response.",
+      "sources": [
+        {
+          "relation": "RELATED",
+          "title": "Thermodynamics of order and randomness in dopant distributions inferred from atomically resolved imaging",
+          "url": "https://www.nature.com/articles/s41524-021-00507-7"
+        },
+        {
+          "relation": "RELATED",
+          "title": "Memory formation in matter",
+          "url": "https://harvest.aps.org/v2/journals/articles/10.1103/RevModPhys.91.035002/fulltext"
+        },
+        {
+          "relation": "RELATED",
+          "title": "Jamming memory into acoustically trained dense suspensions under shear",
+          "url": "https://arxiv.org/abs/2404.15850"
+        },
+        {
+          "relation": "RELATED",
+          "title": "Thermal processing of thermogelling nanoemulsions as a route to tune material properties",
+          "url": "https://pubs.rsc.org/en/content/articlehtml/2018/sm/c8sm00814k"
+        }
+      ]
+    }
+  ],
+  "claim_boundary": {
+    "new_law_established": false,
+    "novelty_established_by_search_failure": false,
+    "reviewed_candidates_falsified_by_known_overlap": false,
+    "unreviewed_candidates_assigned_negative_status": false
+  },
+  "digest": "79f664863f4b770a8387026fd24d8da1f3620fc3de67a20cdc6f9dd89ed65853",
+  "owner": "ATLAS-POSTFREEZE-PRIOR-ART-REVIEW/15.11.0",
+  "release": "15.22.0",
+  "review_count": 6,
+  "schema": "phi-atlas-postfreeze-prior-art/v1",
+  "search_date": "2026-09-06",
+  "selection_policy": {
+    "absence_from_search_is_negative_evidence": false,
+    "known_overlap_deletes_candidate": false,
+    "prefreeze_literature_used": false,
+    "prior_art_classification_is_scientific_truth": false,
+    "reviewed_subset_is_complete_frontier": false,
+    "selection_after_candidate_freeze": true,
+    "selection_basis": [
+      "local axis order where practical",
+      "research priority",
+      "typed-hypothesis readiness",
+      "problem relevance",
+      "cross-domain transfer potential"
+    ]
+  },
+  "status": "PASS_POSTFREEZE_PRIOR_ART_REVIEW",
+  "summary": {
+    "KNOWN_OVERLAP": 3,
+    "NOVELTY_UNRESOLVED_RELATED_PRIOR_ART_ONLY": 1,
+    "PARTIAL_OVERLAP": 2
+  }
+}

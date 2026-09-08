@@ -1,0 +1,48 @@
+{
+  "claim_boundary": {
+    "known_reference_formula_import": "IMPLEMENTED",
+    "new_law": "NOT_CLAIMED",
+    "row_level_doi_normalization": "PARTIAL",
+    "scientific_truth_by_import": "NOT_CLAIMED"
+  },
+  "declared_records": {
+    "known_laws": 145
+  },
+  "edition": "2026-07-31",
+  "location": "data/source_snapshots/open_scientific_corpus_v2_8.json",
+  "processed_records": {
+    "known_laws": 145
+  },
+  "record_level_bibliography": "PARTIAL_SOURCE_FAMILY_PINNED",
+  "sha256": "43066519122c2815e45903d702622170ec01f3bdeddd534be7c5a404d029167b",
+  "source_families": [
+    {
+      "id": "PDG_2026",
+      "role": "physics reference family",
+      "url": "https://pdg.lbl.gov/2026/"
+    },
+    {
+      "id": "IUPAC_GOLD_BOOK_2025",
+      "role": "chemical terminology and canonical relations",
+      "url": "https://goldbook.iupac.org/"
+    },
+    {
+      "id": "NIST_WEBBOOK_SRD69_2025",
+      "role": "thermochemical and property evidence",
+      "url": "https://webbook.nist.gov/chemistry/"
+    },
+    {
+      "id": "OPEN_REACTION_DATABASE",
+      "role": "reaction data and schema",
+      "url": "https://github.com/open-reaction-database/ord-data"
+    },
+    {
+      "id": "OPENKIM",
+      "role": "interatomic models and tests",
+      "url": "https://openkim.org/"
+    }
+  ],
+  "source_id": "OPEN_SCIENTIFIC_CORPUS_V2_8",
+  "source_type": "CURATED_OPEN_PRIMARY_AND_STANDARD_SOURCES",
+  "title": "Расширенный открытый корпус известных уравнений и конститутивных моделей v2.8"
+}

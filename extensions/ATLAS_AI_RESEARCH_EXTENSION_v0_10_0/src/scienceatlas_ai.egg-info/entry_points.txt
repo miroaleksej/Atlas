@@ -1,0 +1,2 @@
+[console_scripts]
+scienceatlas-ai-lab = scienceatlas_ai.ai_lab_cli:main

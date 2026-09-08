@@ -1,0 +1,179 @@
+{
+  "c6_strong_fixture": {
+    "G0_gain_bp": [
+      0,
+      6159,
+      0,
+      447,
+      0,
+      2791
+    ],
+    "G1_gain_bp": [
+      0,
+      6159,
+      0,
+      447,
+      1122,
+      2791
+    ],
+    "G1_identity_e": {
+      "denominator": 2296417659710889418140956305869629553474259582272098925,
+      "numerator": 327353401766311072498564379881439057863292060997593
+    },
+    "g1_improvement_positions": [
+      4
+    ],
+    "orbit_average_e": {
+      "denominator": 1,
+      "numerator": 1
+    },
+    "y": [
+      11,
+      -3,
+      0,
+      20,
+      11,
+      4
+    ]
+  },
+  "checks": {
+    "c6_g1_strictly_expands_winner_search_on_strong_fixture": true,
+    "c6_group_laws_exact": true,
+    "evidence_is_explicitly_per_target_only": true,
+    "finite_group_orbit_average_e_is_exactly_one": true,
+    "live_genesis_journal_is_byte_stable_across_orbit_scoring": true,
+    "orbit_enumeration_order_does_not_change_identity_e": true,
+    "s6_group_laws_exact": true,
+    "s6_selected_demo_can_exceed_per_target_20_with_preregistered_exact_mixture": true,
+    "s6_selected_demo_has_unique_identity_maximum": true,
+    "three_fresh_signal_epochs_cross_per_target_threshold": true,
+    "type1_1000_path_empirical_crossing_rate_at_most_5pct": true
+  },
+  "claim_boundary": {
+    "atlas_wide_promotion_allowed_from_eprocess_crossing_alone": false,
+    "conditional_group_invariance_under_null_is_required_for_each_fresh_epoch": true,
+    "finite_group_identity_is_implementation_check": true,
+    "frozen_genesis_journal_required_for_orbit_scoring": true,
+    "global_online_controller": "UNIMPLEMENTED",
+    "per_target_only": true,
+    "s6_selected_fixture_is_prospective_power_evidence": false,
+    "system_wide_error_control": false,
+    "type1_empirical_calibration_is_proof": false,
+    "ville_threshold_20_is_system_wide_guarantee": false
+  },
+  "digest": "6dde9d28619bc43abe0b2ee505a76ca37361c4d1d9b565c6fb4860eefa6b014d",
+  "owner": "PERMUTATION-EPROCESS-QUALIFICATION/15.20.0",
+  "release": "15.20.0",
+  "s6_resolution_demo": {
+    "fixture_y": [
+      3,
+      7,
+      -10,
+      8,
+      -19,
+      -20
+    ],
+    "group_size": 720,
+    "identity_e": {
+      "denominator": 315141679465111877981607602167383272460737695273319648515861703,
+      "numerator": 6760434452348768027524521092144074067895461359319218961971989600
+    },
+    "identity_gain_bp": 9878,
+    "max_gain_bp": 9878,
+    "max_gain_multiplicity": 1,
+    "prospective_power_calibration": false,
+    "purpose": "RESOLUTION_CEILING_DEMONSTRATION_ONLY",
+    "real_data_selection_rule_permitted": false,
+    "reoriented_to_identity_after_scan": true,
+    "selected_after_exhaustive_orbit_scan": true
+  },
+  "schema": "scienceatlas-permutation-eprocess-qualification/v1",
+  "score": {
+    "offset_bp": 1,
+    "powers": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "schema": "scienceatlas-ai-gain-power-mixture-v1",
+    "weights": [
+      {
+        "denominator": 4,
+        "numerator": 1
+      },
+      {
+        "denominator": 4,
+        "numerator": 1
+      },
+      {
+        "denominator": 4,
+        "numerator": 1
+      },
+      {
+        "denominator": 4,
+        "numerator": 1
+      }
+    ]
+  },
+  "status": "PASS_PERMUTATION_EPROCESS_15_20_0",
+  "three_epoch_signal": {
+    "final_cumulative_e": {
+      "denominator": 13167010423991805937154111931432286717584527533705969187507990236856232908574728395688206207211186604173743305168736313084406082864707835706486602334341704897242674237328811198736,
+      "numerator": 1178532990691476122231658976216794275299849883615537207659131800426323552701374069193885901203472040422764974054403252209376686042160529320885414492724662511925228694695274261272997
+    },
+    "law": "y=2+3*x-2*z",
+    "per_target_threshold": {
+      "denominator": 1,
+      "numerator": 20
+    },
+    "trajectory": [
+      {
+        "crossed": false,
+        "cumulative_e": {
+          "denominator": 5338804243181264149301172168019305702787873598761131804809,
+          "numerator": 30128469833310607283891683709364559014871181747382813610833
+        },
+        "epoch_e": {
+          "denominator": 5338804243181264149301172168019305702787873598761131804809,
+          "numerator": 30128469833310607283891683709364559014871181747382813610833
+        }
+      },
+      {
+        "crossed": true,
+        "cumulative_e": {
+          "denominator": 2769214180169595377756303247875372997921041301932013074505494037739752182302994732333337224140270782789177116198594416,
+          "numerator": 58100156736027854019220034558828776971049575172426167171157157189260812845951279568121852824105129032222724874641320799
+        },
+        "epoch_e": {
+          "denominator": 518695583136700235092840405494869783127157536590224271831024,
+          "numerator": 1928413791257039530690540303517562438713764411816682744285103
+        }
+      },
+      {
+        "crossed": true,
+        "cumulative_e": {
+          "denominator": 13167010423991805937154111931432286717584527533705969187507990236856232908574728395688206207211186604173743305168736313084406082864707835706486602334341704897242674237328811198736,
+          "numerator": 1178532990691476122231658976216794275299849883615537207659131800426323552701374069193885901203472040422764974054403252209376686042160529320885414492724662511925228694695274261272997
+        },
+        "epoch_e": {
+          "denominator": 4754782247715276701964553328127209562180082712836924484457271,
+          "numerator": 20284506219940520285854601010360998985868265012441512638209403
+        }
+      }
+    ]
+  },
+  "type1_empirical_calibration": {
+    "crossing_rate": {
+      "denominator": 1000,
+      "numerator": 15
+    },
+    "crossings": 15,
+    "epochs_per_path": 3,
+    "group": "C6",
+    "is_mathematical_proof": false,
+    "paths": 1000,
+    "seed": 20260907,
+    "threshold": 20
+  }
+}

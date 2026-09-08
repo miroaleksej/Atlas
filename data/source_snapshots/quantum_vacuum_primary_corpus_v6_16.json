@@ -1,0 +1,67 @@
+{
+  "claim_boundary": {
+    "antigravity": "NOT_ESTABLISHED",
+    "literature_novelty": "NOT_ESTABLISHED_BY_ABSENCE_OF_A_SEARCH_HIT",
+    "local_negative_energy": "ALLOWED_IN_DECLARED_QFT_MODELS",
+    "net_negative_apparatus_mass": "NOT_INFERRED_FROM_LOCAL_CASIMIR_REGION",
+    "semiclassical_gravity": "EFFECTIVE_THEORY_NOT_FULL_QUANTUM_GRAVITY"
+  },
+  "edition": "2026-08-13",
+  "known_law_owner_ids": [
+    "QVAC-SEMICLASSICAL-EINSTEIN",
+    "QVAC-RENORMALIZED-CONSERVATION",
+    "QVAC-WALD-RENORMALIZATION-AMBIGUITY",
+    "QVAC-CASIMIR-BROWN-MACLAY",
+    "QVAC-FEWSTER-EVESON-QEI",
+    "QVAC-PFENNING-FORD-QAWEC",
+    "QVAC-CASIMIR-EQUIVALENCE-MASS"
+  ],
+  "methodology": {
+    "fixed_intersection_order_ceiling": null,
+    "full_apparatus_rule": "BOUNDARY_FIELD_STRESS_MUST_NOT_BE TREATED AS COMPLETE_ISOLATED_SYSTEM_STRESS_ENERGY",
+    "generation": "INTERSECT_ESTABLISHED_SOURCE_LAWS_THEN_DEDUCTIVE_CLOSURE",
+    "literature_role": "SOURCE_PROVENANCE_AND_POST_DERIVATION_NOVELTY_AUDIT_ONLY",
+    "qei_scope_rule": "MINKOWSKI_QEI_NOT_APPLIED_DIRECTLY_TO_STATIC_CASIMIR_GROUND_STATE; USE STATIC/BOUNDARY QAWEC",
+    "random_formula_generation": false
+  },
+  "primary_sources": [
+    {
+      "id": "WALD-1977-CMP54-1",
+      "identifier": "Robert M. Wald, The back reaction effect in particle creation in curved spacetime, Commun. Math. Phys. 54, 1-19 (1977), DOI 10.1007/BF01609833",
+      "role": "renormalized stress-energy and semiclassical backreaction consistency"
+    },
+    {
+      "id": "BROWN-MACLAY-1969-PR184-1272",
+      "identifier": "Lowell S. Brown and G. Jordan Maclay, Vacuum Stress between Conducting Plates: An Image Solution, Phys. Rev. 184, 1272 (1969), DOI 10.1103/PhysRev.184.1272",
+      "role": "electromagnetic Casimir stress tensor between ideal parallel conductors"
+    },
+    {
+      "id": "FEWSTER-EVESON-1998-PRD58-084010",
+      "identifier": "C. J. Fewster and S. P. Eveson, Bounds on negative energy densities in flat spacetime, Phys. Rev. D 58, 084010 (1998), arXiv:gr-qc/9805024",
+      "role": "4D quantum energy inequality for renormalized scalar-field energy density"
+    },
+    {
+      "id": "PFENNING-FORD-1997-1998-QI",
+      "identifier": "M. J. Pfenning and L. H. Ford, Scalar Field Quantum Inequalities in Static Spacetimes, arXiv:gr-qc/9710055; Quantum Inequality Restrictions on Negative Energy Densities in Curved Spacetimes, arXiv:gr-qc/9805037",
+      "role": "static-spacetime and reflecting-boundary QI/QAWEC validity"
+    },
+    {
+      "id": "FULLING-MILTON-ETAL-2007-PRD76-025004",
+      "identifier": "S. A. Fulling et al., How does Casimir energy fall?, Phys. Rev. D 76, 025004 (2007), arXiv:hep-th/0702091",
+      "role": "gravitational response of finite Casimir interaction energy"
+    },
+    {
+      "id": "MILTON-FULLING-ETAL-2007-0710.3841",
+      "identifier": "K. A. Milton et al., Gravitational and Inertial Mass of Casimir Energy, arXiv:0710.3841",
+      "role": "total apparatus mass including renormalized plate masses and Casimir interaction energy"
+    }
+  ],
+  "reused_gravity_owner_ids": [
+    "REL-05",
+    "REL-06",
+    "REL-08",
+    "REL-10"
+  ],
+  "scope": "renormalized quantum stress-energy, Casimir boundary vacuum and semiclassical gravity intersection",
+  "source_id": "QUANTUM_VACUUM_PRIMARY_CORPUS_V6_16"
+}

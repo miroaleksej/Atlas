@@ -1,0 +1,70 @@
+{
+  "schema": "phi-aero-gust-residual-prior-art-corpus/v6.24",
+  "corpus_role": "POST_DERIVATION_ONLY",
+  "literature_access_after_candidate_data_freeze": true,
+  "preliterature_execution_freeze_digest": "9c46e2df6e83be6627d55917b84e575dc93d003c1abc5db7cb987568cd2152bf",
+  "claim_boundary": "Finite post-freeze corpus for mechanism comparison only. It cannot establish world novelty and was not available to candidate fitting.",
+  "records": [
+    {
+      "record_id": "AERO-PA-2024-DLR-IFASD-107",
+      "title": "Wind Tunnel Testing Active Gust Load Alleviation of a Flexible Wing",
+      "source_locator": "https://elib.dlr.de/205523/1/IFASD-2024-107_Stalla.pdf",
+      "source_type": "PRIMARY_CONFERENCE_PAPER",
+      "publication_year": 2024,
+      "keywords": ["gust angle", "five hole probe", "WRBM", "low frequency overprediction", "first eigenfrequency 9 Hz", "structural model update", "aeroservoelastic model", "gust field", "calibration"],
+      "source_owner_ids": ["AERO-DISCRETE-GUST-LOAD", "AERO-AEROSERVOELASTIC-STATE-SPACE", "MET-006", "MEC-05"],
+      "independent_source_id": "DLR-IFASD-2024-107"
+    },
+    {
+      "record_id": "AERO-PA-2024-DLR-AIAA-LOEWNER",
+      "title": "Aeroservoelastic Modeling and Robust Control for Gust Load Alleviation of an Experimental Wing",
+      "source_locator": "https://elib.dlr.de/204045/1/AIAASciTech2024_3946909_Stalla.pdf",
+      "source_type": "PRIMARY_CONFERENCE_PAPER",
+      "publication_year": 2024,
+      "formula": "xdot_g=E_gust^-1 A_gust x_g + E_gust^-1 B_gust w_G(t); P_g^G=q_inf C_gust x_g",
+      "keywords": ["Loewner", "gust aerodynamics", "time delay", "phase shift", "Sears", "unsteady aerodynamic memory", "state space", "frequency response"],
+      "source_owner_ids": ["AERO-AEROSERVOELASTIC-STATE-SPACE", "NEW-03"],
+      "independent_source_id": "DLR-AIAASCITECH-2024-Olaf-Loewner"
+    },
+    {
+      "record_id": "AERO-PA-2024-DLR-GUST-GENERATOR",
+      "title": "Design and Experimental Characterization of a Gust-Generator Concept with Rotating-Slotted Cylinders in the Low-Speed Wind Tunnel DNW-NWB",
+      "source_locator": "https://elib.dlr.de/205804/1/IFASD-2024-Schmidt_et_al-GustGenerator.pdf",
+      "source_type": "PRIMARY_CONFERENCE_PAPER",
+      "publication_year": 2024,
+      "keywords": ["gust generator", "wake flow", "gust frequency", "gust amplitude", "five hole probe", "frequency dependent gust field", "flow characterization"],
+      "source_owner_ids": ["AERO-DISCRETE-GUST-LOAD", "MET-006"],
+      "independent_source_id": "DLR-IFASD-2024-GUST-GENERATOR"
+    },
+    {
+      "record_id": "AERO-PA-2019-WEI-SEARS-ATASSI",
+      "title": "Insights into the Periodic Gust Response of Airfoils",
+      "source_locator": "https://doi.org/10.1017/jfm.2019.537",
+      "source_type": "PEER_REVIEWED_JOURNAL",
+      "publication_year": 2019,
+      "keywords": ["Sears function", "Atassi function", "periodic gust", "gust character", "low reduced frequency", "unsteady gust response", "active grid gust generator"],
+      "source_owner_ids": ["AERO-DISCRETE-GUST-LOAD", "AERO-AEROSERVOELASTIC-STATE-SPACE", "NEW-03"],
+      "independent_source_id": "JFM-2019-10.1017-jfm.2019.537"
+    },
+    {
+      "record_id": "AERO-PA-2025-DLR-ROBUST-GLA",
+      "title": "Wind Tunnel Assessment of a Robust Gust Load Alleviation Controller Designed Using µ-Synthesis",
+      "source_locator": "https://doi.org/10.2514/6.2025-0904",
+      "source_type": "PRIMARY_CONFERENCE_PAPER",
+      "publication_year": 2025,
+      "keywords": ["gust load alleviation", "aeroservoelastic system", "uncertainty", "wind tunnel", "WRBM", "structural dynamics", "model mismatch"],
+      "source_owner_ids": ["AERO-AEROSERVOELASTIC-STATE-SPACE", "MEC-05"],
+      "independent_source_id": "AIAA-2025-0904"
+    },
+    {
+      "record_id": "AERO-PA-2026-DUSSLER-PROBE-WING",
+      "title": "Gust Response Predictions of a Very Flexible Wing Model",
+      "source_locator": "https://doi.org/10.2514/1.C038332",
+      "source_type": "PEER_REVIEWED_JOURNAL",
+      "publication_year": 2026,
+      "keywords": ["gust velocity measured upstream", "wing presence", "probe to wing gust transfer", "gust field", "frozen gust model", "phase averaged flowfield", "flexible wing", "gust response"],
+      "source_owner_ids": ["AERO-DISCRETE-GUST-LOAD", "AERO-AEROSERVOELASTIC-STATE-SPACE", "MET-006"],
+      "independent_source_id": "JOA-2026-C038332"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "declared_records": {
+    "archetypes": 272,
+    "known_laws": 211,
+    "legacy_candidates_archived": 1088
+  },
+  "edition": "v2.4",
+  "location": "data/source_snapshots/physics_law_space_source.xlsx",
+  "processed_records": {
+    "archetypes": 272,
+    "known_laws": 211,
+    "legacy_candidates_archived": 1088
+  },
+  "sha256": "9291bf67d6edacf56ed69d3f7a17c5f7a44402670b61e1e79a1af31adca6ddbe",
+  "source_id": "WORKBOOK_V2_4",
+  "source_type": "XLSX_LEGACY_SNAPSHOT",
+  "title": "Текущий зафиксированный исходный снимок многомерного пространства физических законов"
+}

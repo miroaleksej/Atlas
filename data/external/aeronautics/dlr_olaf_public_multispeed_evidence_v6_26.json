@@ -1,0 +1,352 @@
+{
+  "schema": "phi-external-aeronautics-public-evidence/v6.26",
+  "dataset_id": "DLR-OLAF-PUBLIC-MULTISPEED-EVIDENCE-2025-2026",
+  "purpose": "Public-data acquisition result for the v6.25 probe-to-wing phase/speed/modal discriminator. Published/vector-digitized evidence only; not raw DAQ.",
+  "sources": [
+    {
+      "source_id": "DLR-OLAF-AIAA-SCITECH-2025-MUSYNTH",
+      "title": "Wind Tunnel Assessment of a Robust Gust Load Alleviation Controller Designed Using µ-Synthesis",
+      "authors": "Stalla et al.",
+      "year": 2025,
+      "url": "https://elib.dlr.de/212068/",
+      "pdf_url": "https://elib.dlr.de/212068/1/AIAASciTech2025_4134025_Stalla.pdf",
+      "source_pdf_sha256": "7134d6976d21006b329953d78b83024cf666b23e8656ccebf9b2816748a62ab3",
+      "evidence": [
+        "Figure 23 publishes experimental WRBM magnitude for continuous gusts at 30, 40 and 50 m/s.",
+        "The paper states controller tests at 30, 40 and 50 m/s and that eigenmode dynamics change by only 0.5 Hz across those tested speeds.",
+        "Table 1 gives identified first flexible eigenfrequency 8.5 Hz for the updated model and a damping correction factor, but not a wind-on damping-ratio series by speed.",
+        "The public DLR eLib item links the paper PDF but no raw/synchronized DAQ or supplementary dataset."
+      ],
+      "figure23_vector_digitization": {
+        "method": "DIRECT_PDF_VECTOR_GEOMETRY_NO_OCR",
+        "page_pdf_index_zero_based": 20,
+        "figure": 23,
+        "y_axis": "Magnitude of WRBM, dB",
+        "frequency_coordinate_interpretation": "Marker x-coordinate interpreted as Hz because the surrounding experimental prose identifies the 9 coordinate as a 9 Hz gust and the campaign sweep is stated in Hz; the printed Figure-23 axis glyph/unit is internally inconsistent and is not used as sole unit authority.",
+        "open_loop_and_closed_loop_points_by_speed_m_s": {
+          "30": {
+            "open_loop": [
+              [
+                5,
+                24.53099
+              ],
+              [
+                6,
+                25.40717
+              ],
+              [
+                7,
+                27.62466
+              ],
+              [
+                8,
+                31.87611
+              ],
+              [
+                9,
+                37.08798
+              ],
+              [
+                10,
+                28.01254
+              ],
+              [
+                11,
+                22.76114
+              ],
+              [
+                12,
+                21.53754
+              ]
+            ],
+            "closed_loop": [
+              [
+                5,
+                22.92723
+              ],
+              [
+                6,
+                22.77832
+              ],
+              [
+                7,
+                22.85157
+              ],
+              [
+                8,
+                23.34564
+              ],
+              [
+                9,
+                22.64275
+              ],
+              [
+                10,
+                21.28105
+              ],
+              [
+                11,
+                19.00268
+              ],
+              [
+                12,
+                19.24919
+              ]
+            ]
+          },
+          "40": {
+            "open_loop": [
+              [
+                7,
+                30.35487
+              ],
+              [
+                8,
+                33.26715
+              ],
+              [
+                9,
+                38.06693
+              ],
+              [
+                10,
+                32.25835
+              ]
+            ],
+            "closed_loop": [
+              [
+                7,
+                26.38089
+              ],
+              [
+                8,
+                26.23823
+              ],
+              [
+                9,
+                26.85095
+              ],
+              [
+                10,
+                25.3841
+              ]
+            ]
+          },
+          "50": {
+            "open_loop": [
+              [
+                5,
+                30.34824
+              ],
+              [
+                6,
+                30.59816
+              ],
+              [
+                7,
+                32.06505
+              ],
+              [
+                8,
+                34.50157
+              ],
+              [
+                9,
+                38.29064
+              ],
+              [
+                10,
+                34.5634
+              ],
+              [
+                11,
+                28.201
+              ]
+            ],
+            "closed_loop": [
+              [
+                5,
+                28.54318
+              ],
+              [
+                6,
+                29.31236
+              ],
+              [
+                7,
+                29.64842
+              ],
+              [
+                8,
+                30.33
+              ],
+              [
+                9,
+                31.84414
+              ],
+              [
+                10,
+                29.72347
+              ],
+              [
+                11,
+                28.32819
+              ]
+            ]
+          }
+        },
+        "open_loop_peak_sample_by_speed_m_s": {
+          "30": [
+            9,
+            37.08798
+          ],
+          "40": [
+            9,
+            38.06693
+          ],
+          "50": [
+            9,
+            38.29064
+          ]
+        },
+        "sampling_resolution_comment": "At published sample points the open-loop peak occurs at 9 Hz for 30/40/50 m/s. The paper's stated 0.5 Hz total eigenmode change is below the 1 Hz sampling around the peak and cannot be resolved from Figure 23 markers.",
+        "panel_40_m_s_completion_v6_27": {
+          "status": "COMPLETE_FOR_PUBLISHED_MARKERS",
+          "paper_scope_note": "The paper explicitly states that at 40 m/s not all frequency points were tested; the four published markers at coordinates 7,8,9,10 are therefore retained as the complete public panel, not interpolated into missing measurements.",
+          "published_marker_coordinates": [
+            7.0,
+            8.0,
+            9.0,
+            10.0
+          ],
+          "published_marker_count_open_loop": 4,
+          "published_marker_count_closed_loop": 4,
+          "open_loop_observable": {
+            "published_sample_peak_coordinate": 9.0,
+            "published_sample_peak_magnitude_db": 38.06693,
+            "local_quadratic_fit_coordinates_used": [
+              8.0,
+              9.0,
+              10.0
+            ],
+            "local_quadratic_vertex_coordinate": 8.952452593991909,
+            "local_quadratic_vertex_magnitude_db": 38.07892145579524,
+            "local_quadratic_second_derivative_db_per_coordinate_squared": -10.608360000000005,
+            "curvature_sign": "NEGATIVE_LOCAL_MAXIMUM"
+          },
+          "closed_loop_observable": {
+            "published_sample_peak_coordinate": 9.0,
+            "published_sample_peak_magnitude_db": 26.85095,
+            "local_quadratic_fit_coordinates_used": [
+              8.0,
+              9.0,
+              10.0
+            ],
+            "local_quadratic_vertex_coordinate": 8.794637833782945,
+            "local_quadratic_vertex_magnitude_db": 26.894801496757744,
+            "local_quadratic_second_derivative_db_per_coordinate_squared": -2.079569999999997,
+            "curvature_sign": "NEGATIVE_LOCAL_MAXIMUM"
+          },
+          "coordinate_unit_policy": {
+            "paper_axis_print": "omega, rad/s",
+            "surrounding_experimental_prose": "gust frequency in Hz and specifically 9 Hz",
+            "active_interpretation": "HZ_BY_PROSE_AND_CAMPAIGN_CONTEXT",
+            "raw_coordinate_is_preserved": true
+          },
+          "attribution_status": "NOT_ATTRIBUTABLE",
+          "posterior_update_allowed": false,
+          "reason": "Peak location and local curvature are directly observable from the published WRBM magnitude panel, but without synchronized phase, near-wing gust transfer and same-test modal poles they cannot be uniquely attributed to H2, H4, H5 or any other mechanism."
+        }
+      }
+    },
+    {
+      "source_id": "DLR-SAFER2-DLRK-2025",
+      "title": "Assessing Sensor-Model-Fusion Technologies on a Flexible Aeroelastic Wing Demonstrator through Wind Tunnel Testing in the DLR Project SAFER²",
+      "authors": "Schmidt et al.",
+      "year": 2025,
+      "url": "https://elib.dlr.de/217459/",
+      "evidence": [
+        "A fast-response 5-hole pressure probe is mounted on the tunnel ceiling above the demonstrator to capture inflow characteristics.",
+        "Reference modal data were obtained from 2-minute stationary recordings at 20,25,30,35,40,45,50 m/s and analyzed offline; online OMA tracks eigenfrequency and damping.",
+        "The SAFER² demonstrator is based on oLAF geometry/structural design but differs in actuators/sensor complement, so its modal records cannot be numerically merged with oLAF Figure-23 WRBM data as the same test article."
+      ],
+      "public_numeric_modal_series_available_in_paper": false,
+      "raw_stationary_recordings_publicly_linked_from_elib_item": false
+    }
+  ],
+  "public_repository_search": {
+    "searched_classes": [
+      "DLR eLib item attachments",
+      "researchdata.dlr.de indexed search",
+      "Zenodo indexed search",
+      "4TU indexed search",
+      "AIAA supplementary-data search"
+    ],
+    "matching_raw_synchronized_olaf_dataset_found": false,
+    "required_but_not_publicly_obtained": [
+      "synchronized W_probe(t) and independently measured W_wing(t) or encounter-plane gust time histories",
+      "gust-reference to WRBM complex phase at two or more freestream speeds",
+      "same-test-article independent wind-on modal f_n(U) and zeta(U) numerical series or raw records",
+      "common time base / trigger metadata linking flow, load and modal records"
+    ]
+  },
+  "admissibility": {
+    "multispeed_wrbm_magnitude_real": true,
+    "same_article_speeds_m_s": [
+      30.0,
+      40.0,
+      50.0
+    ],
+    "complex_phase_real": false,
+    "near_wing_gust_real": false,
+    "same_test_article_numeric_modal_series_real": false,
+    "cross_campaign_safer2_modal_provenance_exists": true,
+    "cross_campaign_numeric_merge_allowed": false,
+    "full_v6_25_discriminator_executable_on_public_data": false,
+    "status": "PARTIAL_REAL_EVIDENCE_FULL_COMPLEX_DISCRIMINATOR_BLOCKED"
+  },
+  "scientific_consequence": {
+    "h5_status": "NOT_IDENTIFIED",
+    "h2_status": "NOT_IDENTIFIED",
+    "h4_status": "NOT_IDENTIFIED",
+    "posterior_update_allowed": false,
+    "reason": "Published multispeed WRBM magnitude is a product of inflow transfer, aeroelastic load transfer and structural dynamics. Without complex probe-to-wing flow transfer and same-test independent modal poles, likelihoods for H2/H4/H5 are not separately identifiable.",
+    "frontier": "Acquire synchronized raw channels from the same test article; do not substitute SAFER² modal results or model-derived near-wing gust."
+  },
+  "data_request_minimum_contract": {
+    "speeds_m_s": "at least two; preferably 30,40,50 to match the published oLAF multispeed campaign",
+    "gust_frequencies_hz": "at least 4 per speed spanning the first flexible mode; 5-12 Hz preferred",
+    "channels": [
+      "upstream fast-response 5-hole probe vertical-gust/angle-of-attack time series",
+      "independent near-wing or encounter-plane gust time series",
+      "WRBM time series on the same clock",
+      "independent wind-on accelerometer/modal-identification records sufficient for f_n and zeta"
+    ],
+    "metadata": [
+      "probe and wing-plane streamwise separation",
+      "sample rates",
+      "synchronization/trigger",
+      "calibration and units",
+      "control state OFF/ON",
+      "test article/configuration ID"
+    ],
+    "public_contact_candidates": [
+      {
+        "name": "Felix Stalla",
+        "email": "felix.stalla@dlr.de",
+        "source": "DLR eLib 212068"
+      },
+      {
+        "name": "Thomas G. Schmidt",
+        "email": "TG.Schmidt@dlr.de",
+        "source": "DLR eLib 212068/217459"
+      }
+    ]
+  },
+  "digest": "8598b22ca0d62255287248e3b45d3d3196a4580c8349c5c7ef4d6b29f939ff36",
+  "analysis_extensions_v6_27": {
+    "figure23_40_m_s_observable_retained": true,
+    "observable_status": "NOT_ATTRIBUTABLE",
+    "active_registry_mutation": false
+  }
+}

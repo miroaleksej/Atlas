@@ -1,0 +1,70 @@
+{
+  "claim_boundary": {
+    "finite_numerical_owners": "OWNER_BOUND",
+    "mathematical_theorems": "REGISTERED_WITH_DECLARED_SCOPE",
+    "new_law": "NOT_CLAIMED",
+    "physical_extra_dimension": "NOT_CLAIMED"
+  },
+  "edition": "2026-08-04",
+  "known_law_owner_ids": [
+    "NEUTRINO-MAJORANA-MASS-OPERATOR",
+    "AUTONNE-TAKAGI-FACTORIZATION",
+    "PMNS-MIXING-RELATION",
+    "NEUTRINO-VACUUM-PROPAGATOR",
+    "MSW-MATTER-HAMILTONIAN",
+    "DIRAC-LNV-CANCELLATION",
+    "BETA-ENDPOINT-EFFECTIVE-MASS",
+    "NEUTRINOLESS-DOUBLE-BETA-EFFECTIVE-MASS",
+    "SEESAW-SCHUR-COMPLEMENT",
+    "COMPACT-INTERNAL-DIRAC-SPECTRUM",
+    "KALUZA-KLEIN-SPECTRAL-DECOMPOSITION",
+    "WEYL-KK-ASYMPTOTICS",
+    "BRANE-LOCALISATION-OVERLAP",
+    "WARPED-FERMION-STURM-LIOUVILLE-SPECTRUM",
+    "INFINITE-KK-CONVERGENCE-CLASSIFICATION",
+    "POISSON-COUNTING-LIKELIHOOD",
+    "REACTOR-COVARIANCE-LIKELIHOOD",
+    "PROFILE-LIKELIHOOD-NUISANCE-PROJECTION",
+    "STRUCTURAL-IDENTIFIABILITY-EQUIVALENCE",
+    "GEOMETRY-DISCRIMINATING-EXPERIMENT-DESIGN",
+    "KATRIN-MOLECULAR-FINAL-STATE-CONVOLUTION"
+  ],
+  "new_constants": [
+    "CONST-GF"
+  ],
+  "primary_sources": [
+    {
+      "id": "HABER-TAKAGI-2020",
+      "identifier": "arXiv:2009.03990",
+      "role": "Autonne–Takagi factorization"
+    },
+    {
+      "id": "FUJIKAWA-MAJORANA-2024",
+      "identifier": "arXiv:2405.18702",
+      "role": "complex-symmetric Majorana mass matrix"
+    },
+    {
+      "id": "PONTON-EXTRA-DIMENSIONS-2012",
+      "identifier": "arXiv:1207.3827",
+      "role": "KK fermions and boundary conditions"
+    },
+    {
+      "id": "GHERGHETTA-WARPED-2010",
+      "identifier": "arXiv:1008.2570",
+      "role": "warped bulk-field KK spectra"
+    },
+    {
+      "id": "DAYA-BAY-DATA-2025",
+      "identifier": "Zenodo:17587229",
+      "role": "reactor public data release"
+    },
+    {
+      "id": "T2K-DATA-2023",
+      "identifier": "Zenodo:7741399",
+      "role": "published likelihood profiles"
+    }
+  ],
+  "quantity_registry": "data/quantities/registry.json",
+  "scope": "NEUTRINO_MULTIDOMAIN_THEORY_INTEGRATION",
+  "source_id": "NEUTRINO_MULTIDOMAIN_LAWSPACE_V5_7"
+}

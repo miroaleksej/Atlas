@@ -1,0 +1,57 @@
+{
+  "schema": "phi-pharmaceutical-public-pk-summary/v7.9",
+  "dataset_id": "METFORMIN-RENAL-IMPAIRMENT-PK-TABLE4-v7.9",
+  "drug": "metformin hydrochloride",
+  "source": {
+    "authority": "DailyMed/FDA labeling",
+    "title": "Metformin Hydrochloride tablets — Clinical Pharmacology 12.3, Table 4",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5647230e-5bc6-1802-e063-6394a90a2724",
+    "revision": "2026-07",
+    "extraction_note": "Direct transcription of renal-impaired adult 850 mg single-dose summary rows. CLcr strata are not treated as eGFR."
+  },
+  "groups": [
+    {
+      "stratum": "mild",
+      "clcr_min_ml_min": 61,
+      "clcr_max_ml_min": 90,
+      "n": 5,
+      "cmax_mean_mcg_ml": 1.86,
+      "cmax_sd_mcg_ml": 0.52,
+      "tmax_mean_h": 3.20,
+      "tmax_sd_h": 0.45,
+      "renal_clearance_mean_ml_min": 384,
+      "renal_clearance_sd_ml_min": 122
+    },
+    {
+      "stratum": "moderate",
+      "clcr_min_ml_min": 31,
+      "clcr_max_ml_min": 60,
+      "n": 4,
+      "cmax_mean_mcg_ml": 4.12,
+      "cmax_sd_mcg_ml": 1.83,
+      "tmax_mean_h": 3.75,
+      "tmax_sd_h": 0.50,
+      "renal_clearance_mean_ml_min": 108,
+      "renal_clearance_sd_ml_min": 57
+    },
+    {
+      "stratum": "severe",
+      "clcr_min_ml_min": 10,
+      "clcr_max_ml_min": 30,
+      "n": 6,
+      "cmax_mean_mcg_ml": 3.93,
+      "cmax_sd_mcg_ml": 0.92,
+      "tmax_mean_h": 4.01,
+      "tmax_sd_h": 1.10,
+      "renal_clearance_mean_ml_min": 130,
+      "renal_clearance_sd_ml_min": 90
+    }
+  ],
+  "model_freeze": {
+    "M0": "one constant group mean across mild/moderate/severe renal-impairment strata",
+    "M1": "two-level predeclared stratum model: mild vs pooled moderate+severe",
+    "uncertainty": "SEM = reported SD/sqrt(n); groups treated as independent summary estimates",
+    "threshold_search_performed": false,
+    "patient_level_data_available": false
+  }
+}

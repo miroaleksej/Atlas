@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Φ-Compiler LawSpace v3.0</title>
+<style>
+:root{color-scheme:dark;background:#090b0f;color:#e7eef7;font:16px/1.45 system-ui,sans-serif}body{margin:0}main{max-width:1120px;margin:auto;padding:28px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.card{background:#121721;border:1px solid #293243;border-radius:12px;padding:16px}code{color:#9ed0ff}input,select,button{font:inherit;background:#0d1118;color:#fff;border:1px solid #40506a;border-radius:7px;padding:9px}pre{white-space:pre-wrap;overflow:auto;background:#080a0e;padding:12px;border-radius:8px}.ok{color:#8ee3a3}.warn{color:#ffd47b}</style>
+</head>
+<body><main>
+<h1>Φ-Compiler LawSpace v3.0</h1>
+<p>Статический кокпит не владеет научной логикой. Он показывает контракт read-only API; фактические ответы формирует <code>source/lawspace/api.py</code>.</p>
+<div class="grid">
+<div class="card"><h2>Федерация</h2><p>Математика · метрология · физика · механика · химия · материаловедение</p><p>Подключаемые: биология · системы Земли · астрономия · квантовые вычислительные методы</p></div>
+<div class="card"><h2>Оси</h2><p>Физика: <b>67</b><br>Механика: <b>50</b><br>Химия: <b>78</b><br>Квантовые вычислительные методы: <b>70</b></p><p>Числа вычисляются из authoritative registry.</p></div>
+<div class="card"><h2>Корпус</h2><p>386 canonical passports<br>2 767 generated formal model families; law gate closed<br>195 physics/mechanics/chemistry axes classified<br>87 registered transformations<br>25 constants; 17 computational methods; 40 conditional method routes</p></div>
+<div class="card"><h2>Граница ИИ</h2><p class="ok">Разрешены read-only запросы и pending proposals.</p><p class="warn">Запрещено присваивать ESTABLISHED_LAW, CONFIRMED_CONSTANT, EXPERIMENT_PASS.</p></div>
+</div>
+<h2>Примеры запросов</h2>
+<pre>python interfaces/phi_compiler_cli.py \
+  --mode lawspace-query \
+  --query "уравнение Нернста" \
+  --domain chemistry \
+  --output reports/query.json
+
+python interfaces/phi_compiler_cli.py \
+  --mode candidate-query \
+  --domain mechanics \
+  --category rapid_test \
+  --limit 20 \
+  --output reports/candidate_query.json</pre>
+<h2>Маршруты квантового эмулятора</h2>
+<pre>python interfaces/phi_compiler_cli.py \
+  --mode quantum-method-scan \
+  --max-order 5 \
+  --limit 40 \
+  --output reports/quantum_method_scan_cli_v3_1.json
+
+python interfaces/phi_compiler_cli.py \
+  --mode quantum-method-query \
+  --capability environment_memory \
+  --limit 10 \
+  --output reports/quantum_method_query.json</pre>
+<p class="warn">Маршрут метода не является законом и не доказывает достижимость 512 кубитов. Стоимость определяется структурой запутанности, treewidth, magic и бюджетом ошибки.</p>
+<h2>Пять gate-owners</h2>
+<pre>ACCEPT = G1(corpus completeness)
+       ∧ G2(semantic integrity)
+       ∧ G3(domain and cell integrity)
+       ∧ G4(generated-only candidates, evidence and provenance)
+       ∧ G5(runtime and AI)</pre>
+</main></body></html>

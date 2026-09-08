@@ -1,0 +1,150 @@
+{
+  "audit_conclusion": {
+    "admissible_primary_measurement_count": 0,
+    "reason": "No located independent human PD dataset is both post-freeze and capable of estimating the frozen treatment-by-P2X7-endotype interaction beta_TE; pre-freeze/supportive P2X7 biology cannot substitute for the primary estimand.",
+    "status": "BLOCKED_NO_ADMISSIBLE_PROSPECTIVE_MEASUREMENT",
+    "supportive_external_source_count": 2
+  },
+  "audit_date": "2026-08-31",
+  "candidate_id": "P2X7-PD-ENDOTYPE-INTERACTION-001",
+  "schema": "phi-external-evidence-audit/v1",
+  "selection_policy": {
+    "candidate_selected_before_external_lookup": true,
+    "candidate_switch_after_lookup_allowed": false,
+    "external_sources_used_for_prefreeze_candidate_selection": false
+  },
+  "sources": [
+    {
+      "doi": "10.2967/jnumed.125.269671",
+      "inadmissibility_reasons": [
+        "no randomized P2X7 antagonist treatment",
+        "no treatment-by-endotype interaction",
+        "public before the 2026-08-28 internal precommit"
+      ],
+      "intervention": "none; P2X7 PET imaging",
+      "population": "15 Parkinson disease patients and 15 healthy controls",
+      "primary_estimand_available": false,
+      "prospective_after_candidate_freeze": false,
+      "publication_date": "2025-10-01",
+      "relevance": "supports existence of a P2X7-linked proinflammatory signal in PD",
+      "reported_result": "higher P2X7 tracer distribution volume in PD putamen and whole cortex versus controls; no significant association with motor severity or disease duration",
+      "source_id": "PMID-40774697",
+      "source_type": "peer_reviewed_multicenter_human_imaging",
+      "title": "Imaging Proinflammatory Microglia in Parkinson Disease Using [11C]SMW139 PET: A Multicenter Study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40774697/"
+    },
+    {
+      "inadmissibility_reasons": [
+        "observational design",
+        "no experimental P2X7 antagonist",
+        "no treatment-by-P2X7-endotype estimand"
+      ],
+      "intervention": "routine disease treatment; no experimental P2X7 antagonist",
+      "population": "newly diagnosed treatment-naive PD/AD participants",
+      "primary_estimand_available": false,
+      "prospective_after_candidate_freeze": false,
+      "source_id": "NCT03918616",
+      "source_type": "clinical_trial_registry_observational",
+      "study_completion": "2019-03-30",
+      "study_start": "2017-02-20",
+      "title": "P2X7 Receptor, Inflammation and Pathophysiology of Neurodegenerative Diseases",
+      "url": "https://clinicaltrials.gov/study/NCT03918616"
+    },
+    {
+      "inadmissibility_reasons": [
+        "wrong population: healthy",
+        "no Parkinson disease",
+        "no P2X7-positive PD endotype interaction"
+      ],
+      "intervention": "P2X7 antagonist JNJ-54175446 versus placebo",
+      "population": "healthy participants",
+      "primary_estimand_available": false,
+      "prospective_after_candidate_freeze": false,
+      "source_id": "NCT02475148",
+      "source_type": "clinical_trial_registry_interventional",
+      "title": "JNJ-54175446 single ascending dose study",
+      "url": "https://clinicaltrials.gov/study/NCT02475148"
+    },
+    {
+      "inadmissibility_reasons": [
+        "wrong population: healthy",
+        "no Parkinson disease treatment outcome",
+        "no endotype interaction"
+      ],
+      "intervention": "P2X7 antagonist LY3857210",
+      "population": "healthy participants",
+      "primary_estimand_available": false,
+      "prospective_after_candidate_freeze": false,
+      "source_id": "NCT05292040",
+      "source_type": "clinical_trial_registry_interventional",
+      "title": "LY3857210 PET target-engagement study",
+      "url": "https://clinicaltrials.gov/study/NCT05292040"
+    },
+    {
+      "inadmissibility_reasons": [
+        "wrong disease",
+        "no Parkinson disease",
+        "no PD endotype interaction"
+      ],
+      "intervention": "P2X7 antagonist JNJ-54175446 versus placebo",
+      "population": "major depressive disorder",
+      "primary_estimand_available": false,
+      "prospective_after_candidate_freeze": false,
+      "source_id": "NCT04116606",
+      "source_type": "clinical_trial_registry_interventional",
+      "title": "Antidepressant Trial With P2X7 Antagonist JNJ-54175446",
+      "url": "https://clinicaltrials.gov/study/NCT04116606"
+    },
+    {
+      "inadmissibility_reasons": [
+        "wrong disease",
+        "no Parkinson disease",
+        "no PD endotype interaction"
+      ],
+      "intervention": "P2X7 antagonist LY3857210",
+      "population": "diabetic peripheral neuropathic pain",
+      "primary_estimand_available": false,
+      "prospective_after_candidate_freeze": false,
+      "source_id": "NCT05620576",
+      "source_type": "clinical_trial_registry_interventional",
+      "title": "LY3857210 in diabetic peripheral neuropathic pain",
+      "url": "https://clinicaltrials.gov/study/NCT05620576"
+    },
+    {
+      "doi": "10.1016/j.lfs.2026.124420",
+      "inadmissibility_reasons": [
+        "animal-only evidence",
+        "nonselective intervention",
+        "no human treatment-by-endotype estimand",
+        "public before the 2026-08-28 internal precommit"
+      ],
+      "intervention": "suramin, nonselective purinergic antagonist",
+      "population": "rotenone-induced rat model",
+      "primary_estimand_available": false,
+      "prospective_after_candidate_freeze": false,
+      "publication_date": "2026-07-15",
+      "source_id": "DOI-10.1016-j.lfs.2026.124420",
+      "source_type": "peer_reviewed_preclinical_animal",
+      "title": "Targeting P2X purinergic receptors with suramin alleviates rotenone-induced Parkinson-like pathology"
+    },
+    {
+      "doi": "10.1111/ene.14918",
+      "inadmissibility_reasons": [
+        "public before internal candidate freeze",
+        "no randomized P2X7 antagonist",
+        "no treatment-by-endotype interaction"
+      ],
+      "intervention": "usual anti-Parkinson treatment; not randomized P2X7 antagonism",
+      "population": "25 newly diagnosed PD patients and 25 controls",
+      "primary_estimand_available": false,
+      "prospective_after_candidate_freeze": false,
+      "publication_date": "2021-08-01",
+      "relevance": "supports a measurable P2X7/NLRP3 inflammatory phenotype in human PD",
+      "reported_result": "P2X7R/NLRP3 platform hyper-expression in de novo PD and reduction after one year of usual treatment",
+      "source_id": "PMID-33991356",
+      "source_type": "peer_reviewed_prospective_human_observational",
+      "title": "P2X7 receptor/NLRP3 inflammasome complex and alpha-synuclein in peripheral blood mononuclear cells: a prospective study in neo-diagnosed, treatment-naive Parkinson disease",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33991356/"
+    }
+  ]
+}

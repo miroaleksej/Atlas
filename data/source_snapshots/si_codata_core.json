@@ -1,0 +1,16 @@
+{
+  "classification": {
+    "EXACT_DERIVED": 4,
+    "MEASURED_DERIVED": 6,
+    "MEASURED_FUNDAMENTAL": 8,
+    "SI_DEFINING_EXACT": 7
+  },
+  "constant_count": 25,
+  "edition": "SI Brochure 9th ed. version 4.01 (June 2026); CODATA 2022 web version 9.0",
+  "schema": "phi-si-codata-snapshot/v3.0",
+  "scope": "Universal exact, measured and derived constants required for formula semantics; material/model fit parameters are excluded",
+  "source_urls": [
+    "https://www.bipm.org/en/si-brochure-9",
+    "https://physics.nist.gov/constants"
+  ]
+}

@@ -1,0 +1,20 @@
+* Phi-Compiler PHI-RLC-HRC-01, wiring revision A
+* Exact topology: source -> Rsource -> Rprotect -> L1 -> (RH || CH) -> C1 -> ground
+* IN1 measures the actual source through a 2:1 divider.
+* IN2 measures the main capacitor voltage through a 2:1 divider.
+VDRIVE DRIVE 0 PWL(0 0 0.5m 0 0.500001m 80m 1.3m 80m 1.300001m 0 2.3m 0 2.300001m -60m 2.8m -60m 2.800001m 0 20m 0)
+RSOURCE DRIVE N0 50
+RPROT N0 N1 100
+RDCR N1 N2 30
+L1 N2 N3 10m
+RH N3 N4 1k
+CH N3 N4 220n
+C1 N4 0 100n
+RIN1A DRIVE IN1_ADC 100k
+RIN1B IN1_ADC 0 100k
+RIN2A N4 IN2_ADC 100k
+RIN2B IN2_ADC 0 100k
+.tran 0.2u 20m
+.meas tran PEAK_RESPONSE MAX ABS(V(N4))
+.meas tran PEAK_IN2_ADC MAX ABS(V(IN2_ADC))
+.end

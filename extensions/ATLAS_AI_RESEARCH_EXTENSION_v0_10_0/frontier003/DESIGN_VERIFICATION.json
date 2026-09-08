@@ -1,0 +1,183 @@
+{
+  "schema": "atlas-ai-scaling-frontier-003-design-verification/v1",
+  "simulation_scenarios": {
+    "ADDITIVE_CURVED": {
+      "truth": {
+        "R": 0.2,
+        "V": 0.12,
+        "M": 0.08,
+        "W": 0.05,
+        "E": 0.28,
+        "R^2": -0.035,
+        "E^2": -0.05
+      },
+      "recovered_full": {
+        "R": 0.20136383794049167,
+        "V": 0.11839799908806295,
+        "M": 0.080213303737817,
+        "W": 0.04946823764923684,
+        "E": 0.28020167650171635,
+        "R^2": -0.03807679432693225,
+        "E^2": -0.050452510291882795
+      },
+      "max_abs_coefficient_error": 0.003076794326932246,
+      "mse_order1": 1.8704017124702365e-05,
+      "mse_order2": 1.4453899160580562e-05,
+      "mse_order3": 1.2122825682414542e-05,
+      "mse_full": 1.0772021753777859e-05
+    },
+    "PAIR_SYNERGY": {
+      "truth": {
+        "R": 0.12,
+        "V": 0.08,
+        "M": 0.05,
+        "W": 0.03,
+        "E": 0.2,
+        "R*V": 0.18,
+        "M*E": 0.22
+      },
+      "recovered_full": {
+        "R": 0.12018387792760668,
+        "V": 0.08061218203226078,
+        "M": 0.05128998534474731,
+        "W": 0.029921599052690203,
+        "E": 0.1990200402412195,
+        "R*V": 0.18039242180869292,
+        "M*E": 0.21861230421257247
+      },
+      "max_abs_coefficient_error": 0.0013876957874275342,
+      "mse_order1": 0.0642756340483117,
+      "mse_order2": 1.865210507030648e-05,
+      "mse_order3": 1.3387590166717905e-05,
+      "mse_full": 1.037729753800376e-05
+    },
+    "PURE_THREE_WAY": {
+      "truth": {
+        "R*V*E": 0.3
+      },
+      "recovered_full": {
+        "R*V*E": 0.30066520125737456
+      },
+      "max_abs_coefficient_error": 0.0006652012573745703,
+      "mse_order1": 0.05772315801022989,
+      "mse_order2": 0.057721155520774024,
+      "mse_order3": 8.903794808250208e-06,
+      "mse_full": 6.006766401547618e-06
+    },
+    "PURE_FIVE_WAY": {
+      "truth": {
+        "R*V*M*W*E": 0.24
+      },
+      "recovered_full": {
+        "R*V*M*W*E": 0.240800589086958
+      },
+      "max_abs_coefficient_error": 0.0008005890869580146,
+      "mse_order1": 0.03692865925207823,
+      "mse_order2": 0.036925715463523114,
+      "mse_order3": 0.03491225702495084,
+      "mse_full": 5.502931248897797e-06
+    }
+  },
+  "exact_recovery": {
+    "ADDITIVE_CURVED": {
+      "mse": 3.1785484481525364e-31,
+      "max_coeff_error": 2.983724378680108e-16
+    },
+    "PAIR_SYNERGY": {
+      "mse": 1.2595401892862326e-31,
+      "max_coeff_error": 2.0816681711721685e-16
+    },
+    "PURE_THREE_WAY": {
+      "mse": 2.089433214676445e-31,
+      "max_coeff_error": 0.0
+    },
+    "PURE_FIVE_WAY": {
+      "mse": 6.726347996547976e-32,
+      "max_coeff_error": 0.0
+    }
+  },
+  "atlas_pure_three_way_recovery": {
+    "status": "PASS",
+    "search_status": "ORDER_LIMIT_REACHED",
+    "max_observed_order": 3,
+    "evaluated_subspaces": 20,
+    "candidate": {
+      "subspace_id": "8805986732ce40c57796307d",
+      "input_axes": [
+        "E",
+        "R",
+        "V"
+      ],
+      "target_axis": "gain",
+      "order": 3,
+      "domains": [
+        "ai_architecture_design_simulation"
+      ],
+      "parent_id": "9f914e50184f010a54ca234e",
+      "status": "CLOSED_ON_OBSERVED_DATA",
+      "retention_reason": "PREDICTIVE_FRONTIER",
+      "baseline_mse": {
+        "numerator": 5,
+        "denominator": 7
+      },
+      "cv_mse": {
+        "numerator": 0,
+        "denominator": 1
+      },
+      "predictive_gain": {
+        "numerator": 1,
+        "denominator": 1
+      },
+      "residual_signal": {
+        "numerator": 0,
+        "denominator": 1
+      },
+      "experiment_discrimination": {
+        "numerator": 72,
+        "denominator": 841
+      },
+      "complexity": 5,
+      "sample_count": 56,
+      "best_family": "joint_product_interaction",
+      "hypothesis_ids": [
+        "73f0c7b36a041838ef15bdf4",
+        "e46609fc4b2eafc86914b705",
+        "1b49339fabb667253ae25cdb",
+        "6c7a56c903206d34b436a3c8"
+      ],
+      "route_ids": [],
+      "frontier_id": "a193109976e6fc7fdfc929e1",
+      "gap_kind": null,
+      "methodology_status": "REGIME_HOLDOUT_REQUIRED",
+      "structural_gate": "PASS",
+      "convention_gate": "PASS",
+      "derivability_gate": "NOT_APPLICABLE_OR_UNKNOWN",
+      "collapse_gate": "NOT_APPLICABLE_SIDE_AXIS_SPACE",
+      "system_coverage_gate": "UNKNOWN_INCOMPLETE_SYSTEM_LABELS",
+      "transition_gate": "NOT_ASSESSED_NO_EXPLICIT_TRANSITION_OBSERVABLE",
+      "regime_gate": "UNKNOWN_INCOMPLETE_REGIME_LABELS",
+      "null_gate": "UNASSESSED",
+      "regime_mse": null,
+      "collapse_score_ppm": null,
+      "system_count": 0,
+      "null_p": null,
+      "methodology_receipt_id": "41d9fa1dc8add18e9af2e33f42ee5c5bf316214f4a6328ab54f9c10f62acde26",
+      "provenance": [
+        "subspace-search:92a7475fb41aa85d48fd40a8",
+        "hypothesis:73f0c7b36a041838ef15bdf4",
+        "hypothesis:e46609fc4b2eafc86914b705",
+        "hypothesis:1b49339fabb667253ae25cdb",
+        "hypothesis:6c7a56c903206d34b436a3c8",
+        "experiment:6e1b2298e557b75730c3ae3e",
+        "methodology:028e57aff5b6a635b16ccfc7f418e756b6018c8c57eb6539c9ff999ec467773b",
+        "methodology:41d9fa1dc8add18e9af2e33f42ee5c5bf316214f4a6328ab54f9c10f62acde26"
+      ]
+    },
+    "claim_boundary": "synthetic design verification only"
+  },
+  "claim_boundary": {
+    "simulation_is_empirical_AI_evidence": false,
+    "exact_recovery_proves_design_identifiability": true,
+    "atlas_recovery_proves_open_world_law": false
+  }
+}

@@ -1,0 +1,477 @@
+{
+  "claim_boundary": {
+    "antigravity_device": "NOT_ESTABLISHED",
+    "gravity_decoupling": "NOT_SUPPORTED; COMPLETE_CASIMIR_APPARATUS_OBEYS_EQUIVALENCE_IN_DECLARED_WEAK_FIELD_RESULTS",
+    "local_negative_stress_energy": "SUPPORTED_IN_DECLARED_CASIMIR_QFT_MODEL",
+    "local_semiclassical_backreaction": "SUPPORTED_AS_EFFECTIVE_LOW_ENERGY_MODEL",
+    "net_negative_gravitational_mass": "NOT_ESTABLISHED",
+    "novelty": "FORMAL_DERIVATIONS_HAVE_SEPARATE_LITERATURE_NOVELTY_STATUS",
+    "quantum_gravity": "NOT_SOLVED_BY_SEMICLASSICAL_EQUATION"
+  },
+  "closure_engine": {
+    "fixed_intersection_order_ceiling": null,
+    "fixed_materialized_candidate_ceiling": null,
+    "generation_policy": "INTERSECT_VALIDITY_DOMAINS_THEN_DEDUCTIVE_CLOSURE",
+    "literature_feedback_to_derivation": false,
+    "random_candidate_generation": false
+  },
+  "counts": {
+    "intersection_laws": 11,
+    "max_materialized_intersection_order": 4,
+    "source_laws": 11
+  },
+  "database_digest": "33cc46cfdf2b254c470a88a899839b3135931d917fb7954fb9925532cae45a13",
+  "domain_id": "physics",
+  "laws": [
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "LOCAL_NEGATIVE_ACTIVE_SOURCE_DENSITY",
+      "derivation": [
+        "Brown-Maclay gives u=-C, p_x=p_y=C, p_z=-3C with C=pi^2 hbar c/(720 a^4).",
+        "Static weak-field GR source contains T00+Tii, hence u+p_x+p_y+p_z=2u.",
+        "Substitute u to obtain the closed form."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "mu_active=(u+p_x+p_y+p_z)/c^2=2*u/c^2=-pi^2*hbar/(360*c*a^4)<0",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-001",
+      "name_ru": "Локальная активная гравитирующая плотность Casimir-поля",
+      "novelty_audit": {
+        "status": "FORMAL_SOURCE_DERIVED_NOVELTY_NOT_ESTABLISHED",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "local_metric_perturbation",
+        "local_tidal_signature"
+      ],
+      "source_owner_ids": [
+        "QVAC-CASIMIR-BROWN-MACLAY",
+        "QVAC-SEMICLASSICAL-EINSTEIN",
+        "REL-06"
+      ],
+      "source_usage": {
+        "QVAC-CASIMIR-BROWN-MACLAY": "required source owner",
+        "QVAC-SEMICLASSICAL-EINSTEIN": "required source owner",
+        "REL-06": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "local interior of ideal parallel-plate cavity ∩ weak-field semiclassical gravity; explicitly not the complete apparatus"
+    },
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "WEAK_FIELD_CURVATURE_SCALE",
+      "derivation": [
+        "Use the magnitude of the semiclassical Einstein source prefactor 8 pi G/c^4 times |u|.",
+        "Insert |u|=pi^2 hbar c/(720 a^4).",
+        "Simplify 8*pi*pi^2/720=pi^3/90."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "K_C=(8*pi*G/c^4)*abs(u)=pi^3*G*hbar/(90*c^3*a^4)",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-002",
+      "name_ru": "Характерный масштаб кривизны от Casimir energy density",
+      "novelty_audit": {
+        "status": "FORMAL_SOURCE_DERIVED_NOVELTY_NOT_ESTABLISHED",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "curvature_scale"
+      ],
+      "source_owner_ids": [
+        "QVAC-CASIMIR-BROWN-MACLAY",
+        "QVAC-SEMICLASSICAL-EINSTEIN",
+        "REL-06"
+      ],
+      "source_usage": {
+        "QVAC-CASIMIR-BROWN-MACLAY": "required source owner",
+        "QVAC-SEMICLASSICAL-EINSTEIN": "required source owner",
+        "REL-06": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "ideal Casimir cavity ∩ weak-backreaction semiclassical regime; K_C is a characteristic source-curvature scale, not an exact invariant"
+    },
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "DIMENSIONAL_TIDAL_SCALE_ESTIMATE",
+      "derivation": [
+        "Geodesic deviation is linear in Riemann curvature and separation ell.",
+        "Use K_C as the characteristic curvature magnitude.",
+        "Multiply by c^2 ell to obtain an acceleration scale."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "a_tidal_scale(ell)=c^2*K_C*ell=pi^3*G*hbar*ell/(90*c*a^4)",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-003",
+      "name_ru": "Оценка tidal acceleration от Casimir backreaction",
+      "novelty_audit": {
+        "status": "FORMAL_SOURCE_DERIVED_NOVELTY_NOT_ESTABLISHED",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "differential_free_fall"
+      ],
+      "source_owner_ids": [
+        "QVAC-CASIMIR-BROWN-MACLAY",
+        "QVAC-SEMICLASSICAL-EINSTEIN",
+        "REL-10"
+      ],
+      "source_usage": {
+        "QVAC-CASIMIR-BROWN-MACLAY": "required source owner",
+        "QVAC-SEMICLASSICAL-EINSTEIN": "required source owner",
+        "REL-10": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "same weak-backreaction cavity regime ∩ local separation ell small enough for linear geodesic deviation"
+    },
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "KNOWN_DERIVED_MASS_CONTRIBUTION",
+      "derivation": [
+        "Brown-Maclay gives E_C/A=-pi^2 hbar c/(720 a^3).",
+        "Equivalence/inertial-mass closure assigns energy contribution E_C/c^2.",
+        "Divide by area."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "Sigma_C=E_C/(A*c^2)=-pi^2*hbar/(720*c*a^3)",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-004",
+      "name_ru": "Поверхностная mass-equivalent плотность Casimir interaction energy",
+      "novelty_audit": {
+        "status": "KNOWN_CONSEQUENCE_OF_PUBLISHED_CASIMIR_GRAVITY_RESULTS",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "weight_shift"
+      ],
+      "source_owner_ids": [
+        "QVAC-CASIMIR-BROWN-MACLAY",
+        "QVAC-CASIMIR-EQUIVALENCE-MASS",
+        "REL-05"
+      ],
+      "source_usage": {
+        "QVAC-CASIMIR-BROWN-MACLAY": "required source owner",
+        "QVAC-CASIMIR-EQUIVALENCE-MASS": "required source owner",
+        "REL-05": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "finite Casimir interaction contribution of a complete weak-gravity cavity"
+    },
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "SOURCE_DERIVED_DESIGN_FIGURE_OF_MERIT",
+      "derivation": [
+        "Define Sigma_matter=M_matter/A>0 for the complete non-Casimir apparatus contribution.",
+        "Divide the magnitude of the negative Casimir mass-equivalent surface density by Sigma_matter.",
+        "eta_C=1 is the formal zero-total-mass threshold; eta_C>1 would be required for negative total mass in this reduced accounting."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "eta_C=abs(Sigma_C)/Sigma_matter=pi^2*hbar/(720*c*a^3*Sigma_matter)",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-005",
+      "name_ru": "Casimir anti-gravity figure of merit",
+      "novelty_audit": {
+        "status": "FORMAL_SOURCE_DERIVED_NOVELTY_NOT_ESTABLISHED",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "total_weight_ratio"
+      ],
+      "source_owner_ids": [
+        "QVAC-CASIMIR-BROWN-MACLAY",
+        "QVAC-CASIMIR-EQUIVALENCE-MASS"
+      ],
+      "source_usage": {
+        "QVAC-CASIMIR-BROWN-MACLAY": "required source owner",
+        "QVAC-CASIMIR-EQUIVALENCE-MASS": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "complete cavity mass accounting ∩ positive declared matter areal mass ∩ ideal Casimir interaction model"
+    },
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "NECESSARY_THRESHOLD_NOT_SUFFICIENT_FOR_ANTIGRAVITY",
+      "derivation": [
+        "Set eta_C=1 in QVAC-IX-005.",
+        "Solve algebraically for a.",
+        "The result is a necessary threshold inside the reduced ideal model, not evidence that the ideal-conductor model remains valid at a_crit."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "a_crit(Sigma_matter)=(pi^2*hbar/(720*c*Sigma_matter))^(1/3)",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-006",
+      "name_ru": "Формальный критический зазор для компенсации rest mass Casimir energy",
+      "novelty_audit": {
+        "status": "FORMAL_SOURCE_DERIVED_NOVELTY_NOT_ESTABLISHED",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "critical_gap"
+      ],
+      "source_owner_ids": [
+        "QVAC-CASIMIR-BROWN-MACLAY",
+        "QVAC-CASIMIR-EQUIVALENCE-MASS"
+      ],
+      "source_usage": {
+        "QVAC-CASIMIR-BROWN-MACLAY": "required source owner",
+        "QVAC-CASIMIR-EQUIVALENCE-MASS": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "same mass-accounting model; physical admissibility additionally requires material/QED boundary model validity at a_crit"
+    },
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "KNOWN_WEAK_FIELD_CASIMIR_WEIGHT_CONTRIBUTION",
+      "derivation": [
+        "The Casimir interaction energy is negative: E_C<0.",
+        "Its weak-field weight contribution is g E_C/c^2 and therefore points upward relative to positive mass.",
+        "Take the magnitude per area."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "F_Casimir_grav/A=g*pi^2*hbar/(720*c*a^3)",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-007",
+      "name_ru": "Слабогравитационный upward weight Casimir interaction energy",
+      "novelty_audit": {
+        "status": "KNOWN_CONSEQUENCE_OF_PUBLISHED_CASIMIR_GRAVITY_RESULTS",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "upward_weight_contribution"
+      ],
+      "source_owner_ids": [
+        "QVAC-CASIMIR-BROWN-MACLAY",
+        "QVAC-CASIMIR-EQUIVALENCE-MASS",
+        "REL-05"
+      ],
+      "source_usage": {
+        "QVAC-CASIMIR-BROWN-MACLAY": "required source owner",
+        "QVAC-CASIMIR-EQUIVALENCE-MASS": "required source owner",
+        "REL-05": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "complete rigid cavity in a weak approximately uniform external gravitational field"
+    },
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "SOURCE_DERIVED_SCALE_SEPARATION_RATIO",
+      "derivation": [
+        "Use |P_C|=pi^2 hbar c/(240 a^4) from the Brown-Maclay normal pressure.",
+        "Use F_Casimir_grav/A=g pi^2 hbar/(720 c a^3).",
+        "Divide and cancel pi^2 hbar and powers of a to obtain g a/(3 c^2)."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "R_gC=(F_Casimir_grav/A)/abs(P_C)=g*a/(3*c^2)",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-008",
+      "name_ru": "Отношение Casimir gravitational lift к Casimir mechanical pressure",
+      "novelty_audit": {
+        "status": "FORMAL_SOURCE_DERIVED_NOVELTY_NOT_ESTABLISHED",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "mechanical_to_gravitational_force_ratio"
+      ],
+      "source_owner_ids": [
+        "QVAC-CASIMIR-BROWN-MACLAY",
+        "QVAC-CASIMIR-EQUIVALENCE-MASS",
+        "REL-05"
+      ],
+      "source_usage": {
+        "QVAC-CASIMIR-BROWN-MACLAY": "required source owner",
+        "QVAC-CASIMIR-EQUIVALENCE-MASS": "required source owner",
+        "REL-05": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "ideal parallel-plate cavity ∩ weak uniform external gravity"
+    },
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "KNOWN_QEI_SCALING",
+      "derivation": [
+        "Fewster-Eveson 4D massless QEI is proportional to the squared second derivative of sqrt(f).",
+        "Under time dilation f_lambda the lower-bound magnitude scales as lambda^-4.",
+        "Long-duration boundary-free negative energy is therefore increasingly constrained."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "B(lambda)=lambda^(-4)*B(1) for f_lambda(t)=lambda^(-1)*f(t/lambda)",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-009",
+      "name_ru": "Масштабирование quantum energy inequality по времени",
+      "novelty_audit": {
+        "status": "KNOWN_PUBLISHED_RESULT",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "sampled_negative_energy_bound"
+      ],
+      "source_owner_ids": [
+        "QVAC-FEWSTER-EVESON-QEI"
+      ],
+      "source_usage": {
+        "QVAC-FEWSTER-EVESON-QEI": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "4D Minkowski free massless scalar field with admissible smooth sampling; no reflecting boundaries"
+    },
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "VALIDITY_DOMAIN_DISAMBIGUATION",
+      "derivation": [
+        "Boundary-free Minkowski QEI and static-boundary QAWEC have different reference states.",
+        "For a static boundary problem the long-time lower reference is the static ground-state energy density.",
+        "Therefore the persistent negative Casimir ground-state energy is not removed by naively applying the boundary-free Minkowski lambda^-4 bound."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "long_time_average(rho)>=rho_ground_static",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-010",
+      "name_ru": "Boundary-vacuum ground-state gate for Casimir negative energy",
+      "novelty_audit": {
+        "status": "KNOWN_CONCEPTUAL_CONSEQUENCE",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "long_time_energy_average"
+      ],
+      "source_owner_ids": [
+        "QVAC-PFENNING-FORD-QAWEC",
+        "QVAC-FEWSTER-EVESON-QEI",
+        "QVAC-CASIMIR-BROWN-MACLAY"
+      ],
+      "source_usage": {
+        "QVAC-CASIMIR-BROWN-MACLAY": "required source owner",
+        "QVAC-FEWSTER-EVESON-QEI": "required source owner",
+        "QVAC-PFENNING-FORD-QAWEC": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "static reflecting-boundary Casimir problem with admissible state/reference state"
+    },
+    {
+      "assumptions": [
+        "all source-owner validity domains overlap as declared"
+      ],
+      "classification": "CONTROLLED_NO_DECOUPLING_RESULT",
+      "derivation": [
+        "Use complete-system stress-energy including boundary/support contributions and renormalized plate masses.",
+        "Covariant conservation forbids using only the negative interior field region as the isolated system.",
+        "Published weak-gravity Casimir calculations give the same gravitational and inertial mass contribution E_C/c^2."
+      ],
+      "falsification_criterion": "violate the derived equality/inequality inside the declared source validity domain",
+      "formula": "M_grav_total=M_inertial_total=M_plates_ren+E_C/c^2",
+      "interface_variables": [],
+      "law_id": "QVAC-IX-011",
+      "name_ru": "Полная Casimir cavity не декуплируется от гравитации",
+      "novelty_audit": {
+        "status": "KNOWN_PUBLISHED_RESULT",
+        "world_literature_exhausted": false
+      },
+      "observables": [
+        "apparatus_weight",
+        "apparatus_inertial_mass"
+      ],
+      "source_owner_ids": [
+        "QVAC-CASIMIR-EQUIVALENCE-MASS",
+        "QVAC-RENORMALIZED-CONSERVATION",
+        "REL-05",
+        "REL-08"
+      ],
+      "source_usage": {
+        "QVAC-CASIMIR-EQUIVALENCE-MASS": "required source owner",
+        "QVAC-RENORMALIZED-CONSERVATION": "required source owner",
+        "REL-05": "required source owner",
+        "REL-08": "required source owner"
+      },
+      "theorem_strength": "SOURCE_DERIVED_WITH_DECLARED_SCOPE",
+      "validity_intersection": "complete weak-gravity parallel-plate apparatus"
+    }
+  ],
+  "owner_id": "QUANTUM-VACUUM-GRAVITY-INTERSECTION-CLOSURE",
+  "owner_version": "6.16.0",
+  "primary_source_ids": [
+    "WALD-1977-CMP54-1",
+    "BROWN-MACLAY-1969-PR184-1272",
+    "FEWSTER-EVESON-1998-PRD58-084010",
+    "PFENNING-FORD-1997-1998-QI",
+    "FULLING-MILTON-ETAL-2007-PRD76-025004",
+    "MILTON-FULLING-ETAL-2007-0710.3841"
+  ],
+  "research_region": "renormalized_Tmunu × Casimir_boundary_vacuum × semiclassical_gravity × geodesic_deviation × QEI × complete_apparatus",
+  "schema": "phi-quantum-vacuum-gravity-intersection-database/v6.16",
+  "source_laws": [
+    {
+      "owner_id": "REL-05",
+      "role": "equivalence principle: weightlessness is not absence of curvature",
+      "validity": "local freely-falling frame / GR"
+    },
+    {
+      "owner_id": "REL-06",
+      "role": "Einstein source-geometry relation",
+      "validity": "classical general relativity"
+    },
+    {
+      "owner_id": "REL-08",
+      "role": "covariant stress-energy conservation",
+      "validity": "GR source consistency"
+    },
+    {
+      "owner_id": "REL-10",
+      "role": "tidal/geodesic-deviation observable",
+      "validity": "nearby geodesics in curved spacetime"
+    },
+    {
+      "owner_id": "QVAC-SEMICLASSICAL-EINSTEIN",
+      "role": "replace classical matter source by renormalized quantum expectation in semiclassical regime",
+      "validity": "semiclassical low-energy gravity"
+    },
+    {
+      "owner_id": "QVAC-RENORMALIZED-CONSERVATION",
+      "role": "conservation gate for renormalized quantum source",
+      "validity": "admissible renormalization prescription"
+    },
+    {
+      "owner_id": "QVAC-WALD-RENORMALIZATION-AMBIGUITY",
+      "role": "finite local covariant counterterm ambiguity gate",
+      "validity": "curved-spacetime QFT renormalization"
+    },
+    {
+      "owner_id": "QVAC-CASIMIR-BROWN-MACLAY",
+      "role": "negative boundary-vacuum energy and anisotropic pressure for ideal plates",
+      "validity": "ideal parallel perfect-conductor Casimir regime"
+    },
+    {
+      "owner_id": "QVAC-FEWSTER-EVESON-QEI",
+      "role": "duration-magnitude bound for negative energy relative to Minkowski vacuum",
+      "validity": "4D boundary-free massless scalar Minkowski QEI"
+    },
+    {
+      "owner_id": "QVAC-PFENNING-FORD-QAWEC",
+      "role": "static/boundary ground-state lower-reference gate",
+      "validity": "static spacetime / reflecting boundary problem"
+    },
+    {
+      "owner_id": "QVAC-CASIMIR-EQUIVALENCE-MASS",
+      "role": "complete apparatus gravitational/inertial mass accounting",
+      "validity": "weak external gravity, complete apparatus"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "phi-scientific-verifier-trust-store/v8.0",
+  "keys": {},
+  "deployment_policy": {
+    "world_keys_preconfigured": false,
+    "world_private_keys_must_not_be_present_in_release": true,
+    "world_public_keys_must_be_provisioned_from_independent_external_verifier_services": true,
+    "source_and_claim_roles_require_distinct_keys": true,
+    "authorized_owners_required_for_world_keys": true,
+    "external_service_required": true
+  },
+  "claim_boundary": {
+    "private_keys_present_in_release": false,
+    "public_keys_authenticate_verifier_attestations_not_world_truth_by_themselves": true,
+    "no_world_scientific_promotion_until_external_trust_is_configured": true
+  }
+}

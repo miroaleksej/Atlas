@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scienceatlas-ai"
+version = "0.10.0"
+description = "ScienceAtlas-native research intelligence kernel with continual operator genesis and closed prospective loop"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+scienceatlas-ai-lab = "scienceatlas_ai.ai_lab_cli:main"

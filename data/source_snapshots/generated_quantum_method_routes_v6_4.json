@@ -1,0 +1,9 @@
+{
+  "qubit_feasibility": "STRUCTURE_AND_OUTPUT_DEPENDENT_NOT_GLOBALLY_ESTABLISHED",
+  "route_count": 60,
+  "routes_file": "data/passports/quantum_method_routes.jsonl",
+  "routes_file_sha256": "daf5c3fb96efa88e539fa29e1756fa63780bb4928cca4c5a3ed2f717647f7a8f",
+  "schema": "phi-generated-quantum-method-routes/v6.4",
+  "target_digest": "42a738672e7482fdce9170e708619285cb4d955e60a86d7f56b7701c5dffa0b7",
+  "target_id": "LARGE_QUBIT_REALISTIC_EMULATOR_V1"
+}

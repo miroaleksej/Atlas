@@ -1,0 +1,260 @@
+{
+  "schema": "phi-tlr7-ad-second-axis-evidence/v1",
+  "case": {
+    "target": "TLR7",
+    "indication": "Alzheimer disease"
+  },
+  "record_count": 9,
+  "record_unit": "evidence observation; multiple observations from one paper are retained as non-independent and study_id is explicit",
+  "outcome_definition": {
+    "TLR7_ACTIVATION_BENEFIT_SIGNAL": "observation in which higher/activated TLR7 is associated with an AD-relevant beneficial endpoint",
+    "TLR7_ACTIVATION_HARM_SIGNAL": "observation in which higher/activated TLR7 is harmful, or TLR7 loss/inhibition is beneficial"
+  },
+  "coding_boundary": "Context values are conservative analyst encodings of reported model/perturbation conditions; UNKNOWN is used when the source does not support a value. The adaptive scan can only rank supplied structured context dimensions; it does not invent raw axis names ex nihilo.",
+  "records": [
+    {
+      "record_id": "R1_LET7B_NEURODEGEN",
+      "study_id": "PMID22610069",
+      "outcome_class": "TLR7_ACTIVATION_HARM_SIGNAL",
+      "source": {
+        "pmid": "22610069",
+        "title": "An unconventional role for miRNA: let-7 activates Toll-like receptor 7 and causes neurodegeneration",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22610069/"
+      },
+      "observation": "AD CSF contained increased let-7b; intrathecal let-7b caused TLR7-dependent neurodegeneration in WT mice.",
+      "context": {
+        "disease_stage": "AD_ASSOCIATED_LIGAND_NOT_STAGE_RESOLVED",
+        "microglial_state": "MIXED_CNS",
+        "agonist_exposure_time": "SUBACUTE_DAYS",
+        "agonist_intensity": "EXOGENOUS_BOLUS",
+        "neuronal_TLR7_state": "WT_PRESENT",
+        "Aβ_burden_context": "NOT_MEASURED",
+        "species": "HUMAN_ANCHOR_PLUS_MOUSE",
+        "sex_context": "UNSPECIFIED",
+        "perturbation_mode": "ENDOGENOUS_MIRNA_AGONISM",
+        "tissue_compartment": "CNS_MIXED",
+        "AD_model_family": "WT_MOUSE_WITH_AD_ASSOCIATED_LIGAND",
+        "ligand_identity": "LET7B",
+        "administration_route": "INTRATHECAL",
+        "publication_period": "PRE_2015"
+      }
+    },
+    {
+      "record_id": "R2_SSRNA40_NEURODEGEN",
+      "study_id": "PMID22745379",
+      "outcome_class": "TLR7_ACTIVATION_HARM_SIGNAL",
+      "source": {
+        "pmid": "22745379",
+        "title": "Extracellularly delivered single-stranded viral RNA causes neurodegeneration dependent on TLR7",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22745379/"
+      },
+      "observation": "ssRNA40 caused TLR7-dependent neuronal cell death in vitro and widespread neurodegeneration after intrathecal delivery in WT mice.",
+      "context": {
+        "disease_stage": "NON_AD_MECHANISTIC_CONTEXT",
+        "microglial_state": "NEURON_PLUS_MICROGLIA_AMPLIFICATION",
+        "agonist_exposure_time": "SUBACUTE_DAYS",
+        "agonist_intensity": "EXOGENOUS_BOLUS",
+        "neuronal_TLR7_state": "WT_PRESENT",
+        "Aβ_burden_context": "ABSENT",
+        "species": "MOUSE",
+        "sex_context": "UNSPECIFIED",
+        "perturbation_mode": "SYNTHETIC_SSRNA_AGONISM",
+        "tissue_compartment": "NEURON_PLUS_MICROGLIA_CNS",
+        "AD_model_family": "NONE",
+        "ligand_identity": "SSRNA40",
+        "administration_route": "IN_VITRO_PLUS_INTRATHECAL",
+        "publication_period": "PRE_2015"
+      }
+    },
+    {
+      "record_id": "R3_LOXORIBINE_ABETA_PHAGO",
+      "study_id": "PMID25452117",
+      "outcome_class": "TLR7_ACTIVATION_HARM_SIGNAL",
+      "source": {
+        "pmid": "25452117",
+        "title": "Prostaglandin E2 receptor subtype 2 regulation of scavenger receptor CD36 modulates microglial Aβ42 phagocytosis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/25452117/"
+      },
+      "observation": "TLR7 activation with loxoribine reduced CD36 expression and reduced Aβ42 phagocytosis in primary mouse microglia.",
+      "context": {
+        "disease_stage": "EARLY_CLEARANCE_ASSAY",
+        "microglial_state": "ISOLATED_PRIMARY_MICROGLIA",
+        "agonist_exposure_time": "ACUTE_HOURS",
+        "agonist_intensity": "HIGH_PHARMACOLOGIC",
+        "neuronal_TLR7_state": "NO_NEURONS_PRESENT",
+        "Aβ_burden_context": "EXOGENOUS_ABETA42",
+        "species": "MOUSE",
+        "sex_context": "UNSPECIFIED",
+        "perturbation_mode": "SYNTHETIC_TLR7_AGONIST",
+        "tissue_compartment": "PRIMARY_MICROGLIA",
+        "AD_model_family": "IN_VITRO_ABETA_ASSAY",
+        "ligand_identity": "LOXORIBINE",
+        "administration_route": "IN_VITRO",
+        "publication_period": "2015_2024"
+      }
+    },
+    {
+      "record_id": "R4_5XFAD_TLR7_KO_COGNITION",
+      "study_id": "LIU2017_5XFAD",
+      "outcome_class": "TLR7_ACTIVATION_HARM_SIGNAL",
+      "source": {
+        "doi": "10.4172/Neuropsychiatry.1000243",
+        "title": "Tlr7 Deletion Selectively Ameliorates Spatial Learning but does not Influence Aβ Deposition and Inflammatory Response in an Alzheimer’s Disease Mouse Model",
+        "url": "https://www.jneuropsychiatry.org/peer-review/tlr7-deletion-selectively-ameliorates-spatial-learning--but-does-not-influence-beta-deposition-and-inflammatory-response-in-an-alz-12039.html"
+      },
+      "observation": "Tlr7 deletion improved spatial learning in 5XFAD mice without reducing Aβ deposition or inflammatory markers.",
+      "context": {
+        "disease_stage": "ESTABLISHED_AMYLOID_MODEL",
+        "microglial_state": "PLAQUE_ASSOCIATED_WHOLE_BRAIN",
+        "agonist_exposure_time": "GENETIC_LIFETIME",
+        "agonist_intensity": "GENETIC_LOSS_OF_FUNCTION",
+        "neuronal_TLR7_state": "KO_ABSENT",
+        "Aβ_burden_context": "5XFAD_HIGH_AMYLOID",
+        "species": "MOUSE",
+        "sex_context": "MALE_X_LINKED_MODEL",
+        "perturbation_mode": "GENETIC_DELETION",
+        "tissue_compartment": "WHOLE_BRAIN_CORTEX_HIPPOCAMPUS",
+        "AD_model_family": "5XFAD",
+        "ligand_identity": "ENDOGENOUS_BACKGROUND",
+        "administration_route": "GENETIC",
+        "publication_period": "2015_2024"
+      }
+    },
+    {
+      "record_id": "R5_MIR29A_ABETA_UPTAKE",
+      "study_id": "PMID41514337",
+      "outcome_class": "TLR7_ACTIVATION_BENEFIT_SIGNAL",
+      "source": {
+        "pmid": "41514337",
+        "title": "MicroRNA-29a-5p contributes to neuroinflammation through TLR7",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41514337/"
+      },
+      "observation": "24 h miR-29a-5p exposure increased Aβ1-42 uptake in WT primary microglia in a TLR7-dependent manner.",
+      "context": {
+        "disease_stage": "EARLY_CLEARANCE_ASSAY",
+        "microglial_state": "ISOLATED_PRIMARY_MICROGLIA",
+        "agonist_exposure_time": "ACUTE_HOURS",
+        "agonist_intensity": "HIGH_EXOGENOUS_MIRNA",
+        "neuronal_TLR7_state": "NO_NEURONS_PRESENT",
+        "Aβ_burden_context": "EXOGENOUS_ABETA42",
+        "species": "MOUSE",
+        "sex_context": "UNSPECIFIED",
+        "perturbation_mode": "ENDOGENOUS_MIRNA_AGONISM",
+        "tissue_compartment": "PRIMARY_MICROGLIA",
+        "AD_model_family": "IN_VITRO_ABETA_ASSAY",
+        "ligand_identity": "MIR29A5P",
+        "administration_route": "IN_VITRO",
+        "publication_period": "2025_PLUS"
+      }
+    },
+    {
+      "record_id": "R6_MIR29A_COCULTURE_INJURY",
+      "study_id": "PMID41514337",
+      "outcome_class": "TLR7_ACTIVATION_HARM_SIGNAL",
+      "source": {
+        "pmid": "41514337",
+        "title": "MicroRNA-29a-5p contributes to neuroinflammation through TLR7",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41514337/"
+      },
+      "observation": "miR-29a-5p exposure reduced neuronal viability in neuron-microglia co-culture; injury was dose-dependent and involved TLR7.",
+      "context": {
+        "disease_stage": "NON_AD_MECHANISTIC_CONTEXT",
+        "microglial_state": "NEURON_MICROGLIA_COCULTURE",
+        "agonist_exposure_time": "SUBACUTE_DAYS",
+        "agonist_intensity": "HIGH_EXOGENOUS_MIRNA",
+        "neuronal_TLR7_state": "WT_PRESENT",
+        "Aβ_burden_context": "ABSENT",
+        "species": "MOUSE",
+        "sex_context": "UNSPECIFIED",
+        "perturbation_mode": "ENDOGENOUS_MIRNA_AGONISM",
+        "tissue_compartment": "NEURON_MICROGLIA_COCULTURE",
+        "AD_model_family": "NONE",
+        "ligand_identity": "MIR29A5P",
+        "administration_route": "IN_VITRO",
+        "publication_period": "2025_PLUS"
+      }
+    },
+    {
+      "record_id": "R7_MIR29A_APPPS1_CHRONIC",
+      "study_id": "PMID41514337",
+      "outcome_class": "TLR7_ACTIVATION_HARM_SIGNAL",
+      "source": {
+        "pmid": "41514337",
+        "title": "MicroRNA-29a-5p contributes to neuroinflammation through TLR7",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41514337/"
+      },
+      "observation": "Repeated intrathecal miR-29a-5p exposure over 120 days in APP/PS1 mice altered inflammatory signaling and produced neuronal injury.",
+      "context": {
+        "disease_stage": "ESTABLISHED_AMYLOID_MODEL",
+        "microglial_state": "PLAQUE_ASSOCIATED_WHOLE_BRAIN",
+        "agonist_exposure_time": "CHRONIC_MONTHS",
+        "agonist_intensity": "REPEATED_EXOGENOUS_MIRNA",
+        "neuronal_TLR7_state": "WT_PRESENT",
+        "Aβ_burden_context": "APPPS1_AMYLOID",
+        "species": "MOUSE",
+        "sex_context": "UNSPECIFIED",
+        "perturbation_mode": "ENDOGENOUS_MIRNA_AGONISM",
+        "tissue_compartment": "CEREBRAL_CORTEX_WHOLE_BRAIN",
+        "AD_model_family": "APPPS1",
+        "ligand_identity": "MIR29A5P",
+        "administration_route": "REPEATED_INTRATHECAL",
+        "publication_period": "2025_PLUS"
+      }
+    },
+    {
+      "record_id": "R8_TLR7_INHIBITOR_TAU_DEMYELINATION",
+      "study_id": "PMID39607927",
+      "outcome_class": "TLR7_ACTIVATION_HARM_SIGNAL",
+      "source": {
+        "pmid": "39607927",
+        "title": "Tlr7 drives sex differences in age- and Alzheimer disease-related demyelination",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39607927/"
+      },
+      "observation": "TLR7 deficiency reduced sex differences and TLR7 inhibitor mitigated tau-induced motor impairment and demyelination, with male-biased IFN-I effects.",
+      "context": {
+        "disease_stage": "AGING_TAU_PATHOLOGY",
+        "microglial_state": "IFN_RESPONSIVE_MICROGLIA",
+        "agonist_exposure_time": "UNKNOWN",
+        "agonist_intensity": "PHARMACOLOGIC_INHIBITION",
+        "neuronal_TLR7_state": "WT_PRESENT",
+        "Aβ_burden_context": "TAU_DEMYELINATION_NO_PRIMARY_ABETA_ENDPOINT",
+        "species": "MOUSE",
+        "sex_context": "SEX_STRATIFIED_MALE_BIASED",
+        "perturbation_mode": "PHARMACOLOGIC_INHIBITION_PLUS_KO",
+        "tissue_compartment": "BRAIN_MYELIN_MICROGLIA",
+        "AD_model_family": "TAU_APOE4_RELATED",
+        "ligand_identity": "TLR7_INHIBITOR",
+        "administration_route": "SYSTEMIC_OR_STUDY_SPECIFIC",
+        "publication_period": "2025_PLUS"
+      }
+    },
+    {
+      "record_id": "R9_OLD_FEMALE_TLR7_CRISPRA_COGNITION",
+      "study_id": "PMID39843739",
+      "outcome_class": "TLR7_ACTIVATION_BENEFIT_SIGNAL",
+      "source": {
+        "pmid": "39843739",
+        "title": "The maternal X chromosome affects cognition and brain ageing in female mice",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39843739/"
+      },
+      "observation": "Combined CRISPRa of Sash3, Tlr7 and Cysltr1 in old female mouse hippocampus improved learning and memory; TLR7-specific contribution is not isolated.",
+      "context": {
+        "disease_stage": "BRAIN_AGING_NON_AD",
+        "microglial_state": "WHOLE_HIPPOCAMPAL_MIXED",
+        "agonist_exposure_time": "CHRONIC_GENE_ACTIVATION",
+        "agonist_intensity": "MULTIGENE_CRISPRA_ACTIVATION",
+        "neuronal_TLR7_state": "WT_PRESENT_PLUS_CRISPRA",
+        "Aβ_burden_context": "ABSENT",
+        "species": "MOUSE",
+        "sex_context": "OLD_FEMALE",
+        "perturbation_mode": "MULTIGENE_CRISPRA",
+        "tissue_compartment": "HIPPOCAMPUS_MIXED_CELLS",
+        "AD_model_family": "AGING_NON_AD",
+        "ligand_identity": "NONE_GENE_ACTIVATION",
+        "administration_route": "HIPPOCAMPAL_GENE_ACTIVATION",
+        "publication_period": "2025_PLUS"
+      }
+    }
+  ],
+  "digest": "86e8e195640dbccc6915ac2f582da1c0aa64441b93583c32f37cd6b79dd9f126"
+}

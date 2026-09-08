@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: scienceatlas-ai
+Version: 0.10.0
+Summary: ScienceAtlas-native research intelligence kernel with continual operator genesis and closed prospective loop
+Requires-Python: >=3.11

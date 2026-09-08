@@ -1,0 +1,144 @@
+{
+  "schema": "phi-research-evidence-snapshot/v1",
+  "research_question": "Does conflicting P2X7-antagonism evidence in Parkinson-like models indicate a missing context axis rather than a globally false target hypothesis?",
+  "snapshot_date": "2026-08-28",
+  "verification_status": "EXTERNAL_WEB_REVIEWED_NOT_WORLD_ATTESTED",
+  "claim_boundary": {
+    "source_identifiers_checked_against_public_pages": true,
+    "world_attestation_present": false,
+    "clinical_efficacy_established": false,
+    "candidate_drug_established": false
+  },
+  "records": [
+    {
+      "record_id": "P2X7-PD-20387084",
+      "pmid": "20387084",
+      "doi": "10.1007/s00702-010-0400-0",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20387084/",
+      "outcome_class": "THERAPEUTIC_SIGNAL",
+      "claim_summary": "A-438079 partially prevented 6-OHDA-induced striatal dopamine depletion; dopamine cell loss itself was not reduced.",
+      "context": {
+        "disease_model_trigger": "6_OHDA",
+        "dominant_pathophysiologic_context": "CATECHOLAMINERGIC_TOXIN_WITH_GLIOSIS",
+        "species": "RAT",
+        "perturbation_mode": "PHARMACOLOGIC_ANTAGONISM",
+        "tissue_compartment": "NIGROSTRIATAL",
+        "therapeutic_modality": "SMALL_MOLECULE"
+      }
+    },
+    {
+      "record_id": "P2X7-PD-24508709",
+      "pmid": "24508709",
+      "doi": "10.1016/j.neuropharm.2014.01.045",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24508709/",
+      "outcome_class": "THERAPEUTIC_SIGNAL",
+      "claim_summary": "Brilliant Blue G attenuated behavioral, dopamine, synaptotoxicity and gliosis phenotypes in a 6-OHDA rat model.",
+      "context": {
+        "disease_model_trigger": "6_OHDA",
+        "dominant_pathophysiologic_context": "CATECHOLAMINERGIC_TOXIN_WITH_GLIOSIS",
+        "species": "RAT",
+        "perturbation_mode": "PHARMACOLOGIC_ANTAGONISM",
+        "tissue_compartment": "NIGROSTRIATAL",
+        "therapeutic_modality": "SMALL_MOLECULE"
+      }
+    },
+    {
+      "record_id": "P2X7-PD-28035410",
+      "pmid": "28035410",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28035410/",
+      "outcome_class": "THERAPEUTIC_SIGNAL",
+      "claim_summary": "Brilliant Blue G reduced microglial activation and dopaminergic neuron loss in an intranigral LPS rat model.",
+      "context": {
+        "disease_model_trigger": "LPS",
+        "dominant_pathophysiologic_context": "PRIMARY_NEUROINFLAMMATORY_CHALLENGE",
+        "species": "RAT",
+        "perturbation_mode": "PHARMACOLOGIC_ANTAGONISM",
+        "tissue_compartment": "SUBSTANTIA_NIGRA",
+        "therapeutic_modality": "SMALL_MOLECULE"
+      }
+    },
+    {
+      "record_id": "P2X7-PD-28836128",
+      "pmid": "28836128",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28836128/",
+      "outcome_class": "THERAPEUTIC_SIGNAL",
+      "claim_summary": "P2X7 antagonism with Brilliant Blue G attenuated 6-OHDA motor deficits, dopamine depletion and mitochondrial/apoptotic changes in rats.",
+      "context": {
+        "disease_model_trigger": "6_OHDA",
+        "dominant_pathophysiologic_context": "CATECHOLAMINERGIC_TOXIN_WITH_OXIDATIVE_STRESS",
+        "species": "RAT",
+        "perturbation_mode": "PHARMACOLOGIC_ANTAGONISM",
+        "tissue_compartment": "NIGROSTRIATAL",
+        "therapeutic_modality": "SMALL_MOLECULE"
+      }
+    },
+    {
+      "record_id": "P2X7-PD-31787881",
+      "pmid": "31787881",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31787881/",
+      "outcome_class": "THERAPEUTIC_SIGNAL",
+      "claim_summary": "P2X7 antagonism re-established dopaminergic nigrostriatal features and reduced microglial activation in a 6-OHDA rat model.",
+      "context": {
+        "disease_model_trigger": "6_OHDA",
+        "dominant_pathophysiologic_context": "CATECHOLAMINERGIC_TOXIN_WITH_GLIOSIS",
+        "species": "RAT",
+        "perturbation_mode": "PHARMACOLOGIC_ANTAGONISM",
+        "tissue_compartment": "NIGROSTRIATAL",
+        "therapeutic_modality": "SMALL_MOLECULE"
+      }
+    },
+    {
+      "record_id": "P2X7-PD-21542899",
+      "pmid": "21542899",
+      "doi": "10.1186/1750-1326-6-28",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21542899/",
+      "outcome_class": "NO_NEUROPROTECTION",
+      "claim_summary": "Genetic deletion or pharmacological inhibition of P2X7 did not preserve dopaminergic survival/dopamine in MPTP or rotenone models.",
+      "context": {
+        "disease_model_trigger": "MPTP_ROTENONE",
+        "dominant_pathophysiologic_context": "MITOCHONDRIAL_TOXIN_DOMINANT",
+        "species": "MOUSE_AND_CELL",
+        "perturbation_mode": "GENETIC_AND_PHARMACOLOGIC",
+        "tissue_compartment": "NIGROSTRIATAL_AND_CELL_CULTURE",
+        "therapeutic_modality": "SMALL_MOLECULE"
+      }
+    },
+    {
+      "record_id": "P2X7-PD-33734697",
+      "pmid": "33734697",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33734697/",
+      "outcome_class": "THERAPEUTIC_SIGNAL",
+      "claim_summary": "In a chronic-stress plus MPTP model, Brilliant Blue G partly reversed worsened motor/neuroinflammatory abnormalities associated with increased P2X7 signaling.",
+      "context": {
+        "disease_model_trigger": "CUMS_PLUS_MPTP",
+        "dominant_pathophysiologic_context": "STRESS_PRIMED_NEUROINFLAMMATION_PLUS_TOXIN",
+        "species": "MOUSE",
+        "perturbation_mode": "PHARMACOLOGIC_ANTAGONISM",
+        "tissue_compartment": "SUBSTANTIA_NIGRA",
+        "therapeutic_modality": "SMALL_MOLECULE"
+      }
+    }
+  ],
+  "translation_anchors": [
+    {
+      "pmid": "40774697",
+      "doi": "10.2967/jnumed.125.269671",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40774697/",
+      "role": "HUMAN_MEASURABILITY",
+      "summary": "[11C]SMW139 PET was used in a multicenter PD study to quantify P2X7-associated proinflammatory microglial signal."
+    },
+    {
+      "pmid": "39139642",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39139642/",
+      "role": "CONTEXT_DEPENDENCE_REVIEW",
+      "summary": "Review emphasizes neuroprotective/neurotoxic P2X7 effects can depend on disease stage and context."
+    },
+    {
+      "pmid": "40690063",
+      "doi": "10.1007/s11064-025-04502-y",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40690063/",
+      "role": "CELL_STATE_CONTEXT",
+      "summary": "Review describes distinct P2X7 functions in microglia and astrocytes and dual neuroprotective/neurotoxic roles."
+    }
+  ]
+}

@@ -1,0 +1,1394 @@
+[
+  {
+    "canonical_unit": "m s^-2",
+    "digest": "67921c39fc11698a2802422e981d0c867081948ec518c62bbf860a45696205a3",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "1",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "ускорение",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Acceleration",
+    "quantity_id": "QTY-ACCELERATION"
+  },
+  {
+    "canonical_unit": "J s",
+    "digest": "dcefef391a4beae691d3ca4bcf1ad66817c2976dffe9885ab9eb567750dcfabd",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "действие",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Action",
+    "quantity_id": "QTY-ACTION"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "8df5ac2a3a45206a4b0bd8548910eb9ee2963d06a41129d2e8d21443a1574cac",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "термодинамическая активность",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Activity",
+    "quantity_id": "QTY-ACTIVITY"
+  },
+  {
+    "canonical_unit": "mol",
+    "digest": "ba39588f3829852773aace611ccebd41e9d7bb55b032dccb81173cb0fa7e2d53",
+    "dimension": {
+      "amount": "1",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "количество вещества",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:AmountOfSubstance",
+    "quantity_id": "QTY-AMOUNT"
+  },
+  {
+    "canonical_unit": "rad s^-1",
+    "digest": "cd05c2d2d6d34d33a63c5dc7a5b79d1ee35a9c1f8ae0b4809cd06311d23898b5",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "угловая частота",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:AngularFrequency",
+    "quantity_id": "QTY-ANGULAR-FREQUENCY"
+  },
+  {
+    "canonical_unit": "kg m^2 s^-1",
+    "digest": "393c9b5bc664e486a2091c62e52e1066c91749bc0693e4437256424c012027d4",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "угловой момент",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:AngularMomentum",
+    "quantity_id": "QTY-ANGULAR-MOMENTUM"
+  },
+  {
+    "canonical_unit": "m^2",
+    "digest": "90dd52e2e0bde4d328be10f9bd24e0edbf4021fee30c74037acdffb4b6d78d84",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "площадь",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-AREA"
+  },
+  {
+    "canonical_unit": "kg m^-2",
+    "digest": "527ce9270eb5a5d7d50591cb4a4bdf08f0e481049d69005e8f18cf599f28a057",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "-2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "поверхностная плотность массы",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-AREAL-MASS-DENSITY"
+  },
+  {
+    "canonical_unit": "km",
+    "digest": "118e77522d35320ecdf3c03cb64429da495768b01896e39c0b02a0a09fd92368",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "1",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "база эксперимента",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-BASELINE"
+  },
+  {
+    "canonical_unit": "J mol^-1",
+    "digest": "a83a5b901e1cecdcd9de9eb9f424cf1e4d8c28ab64712a6391e898c6b4950fb5",
+    "dimension": {
+      "amount": "-1",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "химический потенциал",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:ChemicalPotential",
+    "quantity_id": "QTY-CHEMICAL-POTENTIAL"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "d8dbe912f14b10f00bed7d0294a56da5ca3b6a535f74a5e25ff1b89654a09834",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "статистика хи-квадрат",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-CHI-SQUARED"
+  },
+  {
+    "canonical_unit": "mol m^-3",
+    "digest": "af5112dad25fc2ab6f9c4c4a1d45576716aa97ec99b971e6659b8836f8ca8dce",
+    "dimension": {
+      "amount": "1",
+      "current": "0",
+      "length": "-3",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "концентрация количества вещества",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:AmountOfSubstanceConcentration",
+    "quantity_id": "QTY-CONCENTRATION"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "44e65a1c2e76263a073c90b159a9c451b8a90f96a705fb53c4a758e190a1eaf5",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "асимптотический показатель",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-CONVERGENCE-EXPONENT"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "97b43f0b0dffd4ba04f6d1056610e3d51483cd6259289d02cabe7d014219c35a",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "число событий",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-COUNT"
+  },
+  {
+    "canonical_unit": "declared-by-observable",
+    "digest": "55473136e213b55c67f1ab083c3d96c79d3de6581215058cf8033cc3f55e5d92",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "ковариация измерений",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-COVARIANCE"
+  },
+  {
+    "canonical_unit": "A m^-2",
+    "digest": "925a38ad20b281184821ff50f2f20a0888e805bd38db5192b92e7d228063436b",
+    "dimension": {
+      "amount": "0",
+      "current": "1",
+      "length": "-2",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "плотность электрического тока",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:ElectricCurrentDensity",
+    "quantity_id": "QTY-CURRENT-DENSITY"
+  },
+  {
+    "canonical_unit": "eV",
+    "digest": "1b640ee9a07426b0d3ffb295affeb717d8908b11a26ca1603c9ef8fe4c000c2d",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "масштаб кривизны",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-CURVATURE-SCALE"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "62f60d0af9fa5627618f4a77d9f9a21551a5665c70fc1b91bd0b18fdbf06d39b",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "вырождение спектральной оболочки",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-DEGENERACY"
+  },
+  {
+    "canonical_unit": "m^2 s^-1",
+    "digest": "9a8150c2ba47527f03bdc64f8095fa6e4235c4ec75fedb7ee35907a23bd5ed5f",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "коэффициент диффузии / температуропроводность",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:DiffusionCoefficient",
+    "quantity_id": "QTY-DIFFUSIVITY"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "f5b4cafe9a49358cf682b04b5fe6031f7f822f8473e1287a68d567cc33b14f1d",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "безразмерная величина",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-DIMENSIONLESS"
+  },
+  {
+    "canonical_unit": "Pa s",
+    "digest": "4cbdad9e46dc8d7c5b5289146ae7b0c1904ee06ce7324f5cabf29f8c321cfd63",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "-1",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "динамическая вязкость",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-DYNAMIC-VISCOSITY"
+  },
+  {
+    "canonical_unit": "C",
+    "digest": "326d9858cc5ade02a7eca1b65e8f3e036535206bfe1110e19de152f5165b279a",
+    "dimension": {
+      "amount": "0",
+      "current": "1",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "1"
+    },
+    "name_ru": "электрический заряд",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:ElectricCharge",
+    "quantity_id": "QTY-ELECTRIC-CHARGE"
+  },
+  {
+    "canonical_unit": "S m^-1",
+    "digest": "39ba078b2d8225c8c222ee0a9c405e2b33e180548649b65b777b5c9f51ac1dcb",
+    "dimension": {
+      "amount": "0",
+      "current": "2",
+      "length": "-3",
+      "luminous_intensity": "0",
+      "mass": "-1",
+      "temperature": "0",
+      "time": "3"
+    },
+    "name_ru": "электрическая проводимость",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Conductivity",
+    "quantity_id": "QTY-ELECTRIC-CONDUCTIVITY"
+  },
+  {
+    "canonical_unit": "A",
+    "digest": "64b0c59f06cf7ff644e15208e568a0c59e064507287a7fe1353e4fe120f898de",
+    "dimension": {
+      "amount": "0",
+      "current": "1",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "электрический ток",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:ElectricCurrent",
+    "quantity_id": "QTY-ELECTRIC-CURRENT"
+  },
+  {
+    "canonical_unit": "V m^-1",
+    "digest": "15f4a8a945f830fab504d0539998806c8501542a398893996dc1c49541fb11cb",
+    "dimension": {
+      "amount": "0",
+      "current": "-1",
+      "length": "1",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-3"
+    },
+    "name_ru": "напряжённость электрического поля",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:ElectricFieldStrength",
+    "quantity_id": "QTY-ELECTRIC-FIELD"
+  },
+  {
+    "canonical_unit": "V",
+    "digest": "76dcc1970db54ca1f2412dd83ad4e78475be6590bbfd2b3c20038cf0de262f5e",
+    "dimension": {
+      "amount": "0",
+      "current": "-1",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-3"
+    },
+    "name_ru": "электрический потенциал / напряжение",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:ElectricPotential",
+    "quantity_id": "QTY-ELECTRIC-POTENTIAL"
+  },
+  {
+    "canonical_unit": "ohm",
+    "digest": "5300ed4a07ea7a63c19629d92b1886d6110a229a19c099a8474e14528fc9adbc",
+    "dimension": {
+      "amount": "0",
+      "current": "-2",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-3"
+    },
+    "name_ru": "электрическое сопротивление",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Resistance",
+    "quantity_id": "QTY-ELECTRIC-RESISTANCE"
+  },
+  {
+    "canonical_unit": "eV",
+    "digest": "01bb0e25ac44f7d3967349a4e3fdc929aa16073eb49eb280540410a109f0e553",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "энергия",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-ENERGY"
+  },
+  {
+    "canonical_unit": "J m^-3",
+    "digest": "a124f705d86325f0749fee7493861af8a063722bc83db4e57d238a4ddf380e6e",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "-1",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "плотность энергии",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:EnergyDensity",
+    "quantity_id": "QTY-ENERGY-DENSITY"
+  },
+  {
+    "canonical_unit": "J K^-1",
+    "digest": "c2f7eb4f7c15056ea9851d50f27c8860f02ca6598eee096f48cd30347167d57c",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "-1",
+      "time": "-2"
+    },
+    "name_ru": "энтропия",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Entropy",
+    "quantity_id": "QTY-ENTROPY"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "c52b632d40861888e5892f0f9fa64fe30a66441ef1f977cd7c47d20c3a076055",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "ожидаемое число событий",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-EXPECTED-COUNT"
+  },
+  {
+    "canonical_unit": "parameter-dependent",
+    "digest": "be2602075ac5ad4414908ec745dfa64873c833540fee8ca647aecde3c4a3cd86",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "информация Фишера",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-FISHER-INFORMATION"
+  },
+  {
+    "canonical_unit": "N",
+    "digest": "7952d83e66e3261d3c8a60a6eae90cfcd6fe7880690d98c56059a2735f1f9d85",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "1",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "сила",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-FORCE"
+  },
+  {
+    "canonical_unit": "Hz",
+    "digest": "ecb3a54ec904396c146db83478a19f00eaf4f574b8772a992db13325d6aa2f3a",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "частота",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Frequency",
+    "quantity_id": "QTY-FREQUENCY"
+  },
+  {
+    "canonical_unit": "eV",
+    "digest": "4ffda68bf511713031c8e22e53f1ba00c9573266927567e7b273934bfe46ec1d",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "гамильтониан",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-HAMILTONIAN"
+  },
+  {
+    "canonical_unit": "J",
+    "digest": "cee72a9525a7a41827596629d2068c586cf4f7579c48818c6f4a8f0cb42cf921",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "теплота",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Heat",
+    "quantity_id": "QTY-HEAT"
+  },
+  {
+    "canonical_unit": "J K^-1",
+    "digest": "f43e0119c89440a51ecf20ba46b0d37e8a86216316891bac1ff645dafcc4f44d",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "-1",
+      "time": "-2"
+    },
+    "name_ru": "теплоёмкость",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:HeatCapacity",
+    "quantity_id": "QTY-HEAT-CAPACITY"
+  },
+  {
+    "canonical_unit": "W m^-2",
+    "digest": "bb7f10347fdc463b5e49231f0d99b3484e016f73cabf300d8e84d6532062c028",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-3"
+    },
+    "name_ru": "плотность теплового потока",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:HeatFluxDensity",
+    "quantity_id": "QTY-HEAT-FLUX"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "a0fd18721db48a6245c2f093d4731c92b70ed18b7b7decb2c36649a064b2d425",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "ранг идентифицируемости",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-IDENTIFIABILITY-RANK"
+  },
+  {
+    "canonical_unit": "s^-1",
+    "digest": "a03862d5ded1c399fc5c5eccde1c48f337edbca851769c0a03611f1140adb8f4",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "обратное время / весовой TSFC",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-INVERSE-TIME"
+  },
+  {
+    "canonical_unit": "W m^-2",
+    "digest": "4c36f316ba3a2203f9d7f9704128d0141a9f0cab8d1adec28cdc1edf05de0f1b",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-3"
+    },
+    "name_ru": "плотность потока излучения",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-IRRADIANCE"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "08f917580fda8517f6ad60276a63b4cc1b7e29666c0df133ed0e314be6c99279",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "индекс KK-моды",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-KK-INDEX"
+  },
+  {
+    "canonical_unit": "m",
+    "digest": "d58d73a03e9a0af932575bac6f7e80cf063c139e40768cad7810c5bd46a25d4f",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "1",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "длина",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-LENGTH"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "1376cfd54dd2430adaf8dc81e3dd359629dfbafa4ed3ea9220f70b075efc5798",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "логарифмическое правдоподобие",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-LOG-LIKELIHOOD"
+  },
+  {
+    "canonical_unit": "W",
+    "digest": "7780fdc64abbe205dc86cd3796a59b017596d6868453b6ac54d6ff97d143650c",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-3"
+    },
+    "name_ru": "светимость / мощность излучения",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Luminosity",
+    "quantity_id": "QTY-LUMINOSITY"
+  },
+  {
+    "canonical_unit": "Wb",
+    "digest": "cf89a5dd159b76697c619462d811eacd7cfa03aa1739641c02fd145b64b180b5",
+    "dimension": {
+      "amount": "0",
+      "current": "-1",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "магнитный поток",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:MagneticFlux",
+    "quantity_id": "QTY-MAGNETIC-FLUX"
+  },
+  {
+    "canonical_unit": "T",
+    "digest": "eea7e7e1e64faaac42b37fcf4551c67a0338965960fb0dfe05e88e9f281d0f9e",
+    "dimension": {
+      "amount": "0",
+      "current": "-1",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "магнитная индукция",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:MagneticFluxDensity",
+    "quantity_id": "QTY-MAGNETIC-FLUX-DENSITY"
+  },
+  {
+    "canonical_unit": "kg",
+    "digest": "1df9fdd9b5ed890e5f0c15b5bf7e7becd242f5842681146396b28d2284631d70",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "масса",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-MASS"
+  },
+  {
+    "canonical_unit": "kg m^-3",
+    "digest": "db47d6c2d0bde7f90e0b0ee80436f72faf71e049936b49d7370523474425352d",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "-3",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "массовая плотность",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-MASS-DENSITY"
+  },
+  {
+    "canonical_unit": "eV",
+    "digest": "41737ae5d485196a39af73f4f3a74623f95d72dcdbbbefbb9b9b926680d091ce",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "масса-энергия в натуральных единицах",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-MASS-ENERGY"
+  },
+  {
+    "canonical_unit": "kg s^-1",
+    "digest": "7d5b98cda69e5d1c30c2fcd3ec67fbbbbdec3bc1ecf60a88890a86710e6b4a47",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "массовый расход",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:MassFlowRate",
+    "quantity_id": "QTY-MASS-FLOW-RATE"
+  },
+  {
+    "canonical_unit": "eV",
+    "digest": "b4ba63b051b3ebfd44e7a53e2048737983ccc9a0a09cb596a63d5440d7b465b9",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "массовый оператор",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-MASS-MATRIX"
+  },
+  {
+    "canonical_unit": "eV^2",
+    "digest": "7c43ee94bf73972ebb0971c65cd1195cc3488057623243052c9615ac469aeffe",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "4",
+      "luminous_intensity": "0",
+      "mass": "2",
+      "temperature": "0",
+      "time": "-4"
+    },
+    "name_ru": "квадрат массы-энергии",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-MASS-SQUARED"
+  },
+  {
+    "canonical_unit": "eV",
+    "digest": "727d214287b6f66ca9c3cdb820ccc6461b283c2248971df81beef43e472c32f5",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "потенциал вещества",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-MATTER-POTENTIAL"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "a5c123859569cf0ad276362f417025d25b433acf4e2bf09c619c298051f7c04b",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "амплитуда смешивания",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-MIXING-AMPLITUDE"
+  },
+  {
+    "canonical_unit": "J mol^-1",
+    "digest": "2efb19c42aea221d25c8b0ba115f424da03b7030b5b36e980ecee85ce64882f6",
+    "dimension": {
+      "amount": "-1",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "молярная энергия",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:MolarEnergy",
+    "quantity_id": "QTY-MOLAR-ENERGY"
+  },
+  {
+    "canonical_unit": "J mol^-1 K^-1",
+    "digest": "679b9d90c973e8fea9877aca33a6bb2e902426d1413d1904fc924517d2addf0e",
+    "dimension": {
+      "amount": "-1",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "-1",
+      "time": "-2"
+    },
+    "name_ru": "молярная энтропия",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:MolarEntropy",
+    "quantity_id": "QTY-MOLAR-ENTROPY"
+  },
+  {
+    "canonical_unit": "kg mol^-1",
+    "digest": "e080fdacb09a160c7f3bd65323ebb148f7787f9b0f82348efba772ac9aeb0aa2",
+    "dimension": {
+      "amount": "-1",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "молярная масса",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:MolarMass",
+    "quantity_id": "QTY-MOLAR-MASS"
+  },
+  {
+    "canonical_unit": "m^3 mol^-1",
+    "digest": "7d6fda0438e52d7abd035223d014c7ac72a4f60bbe54f2d244d230e654eb613a",
+    "dimension": {
+      "amount": "-1",
+      "current": "0",
+      "length": "3",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "молярный объём",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:MolarVolume",
+    "quantity_id": "QTY-MOLAR-VOLUME"
+  },
+  {
+    "canonical_unit": "kg m s^-1",
+    "digest": "d5406b9c097657c11dddb0ae591a224c80bd5eb9183f76026ebf646907e61add",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "1",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "импульс",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Momentum",
+    "quantity_id": "QTY-MOMENTUM"
+  },
+  {
+    "canonical_unit": "model-dependent",
+    "digest": "f3d481ff3ed2bdc286590bc1d03155c36ee6f0e1155d6d94a8803b8fe3c904ce",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "мешающий параметр",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-NUISANCE"
+  },
+  {
+    "canonical_unit": "m^-3",
+    "digest": "0c0ca27effea336346cd6a8f1d7d365eebe5277ba343bc14517d8fe4e377d3c6",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "-3",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "числовая плотность",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-NUMBER-DENSITY"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "33ee7895376f5914f1dc7b8a613e860336a92be847017a8181dab34495aadebe",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "перекрытие брана–bulk",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-OVERLAP"
+  },
+  {
+    "canonical_unit": "rad",
+    "digest": "cdd57a1fc58f63ac8dced89c9f9123f3cc2fd55ac6078dde9c28d1ace6a0a49e",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "фаза",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-PHASE"
+  },
+  {
+    "canonical_unit": "W",
+    "digest": "13e17ff65f0583e53026e324b9f9347a8ba8f1a8fef03207beda63a539442609",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-3"
+    },
+    "name_ru": "мощность",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-POWER"
+  },
+  {
+    "canonical_unit": "Pa",
+    "digest": "3fa4dfb621a84c357e6cfbc23860bdb15003428a55db8f7e7e1d450be29ca512",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "-1",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "давление / динамическое давление",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-PRESSURE"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "7768064b77bfc1786aee9fde0e4aec50881a3135313bf8a4f5724c2d07311e4c",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "вероятность",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-PROBABILITY"
+  },
+  {
+    "canonical_unit": "m",
+    "digest": "fee3a161684deb16f09e8190178e67e9ca2c183f56bd335239612b0902f9522b",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "1",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "радиус компактификации",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-RADIUS"
+  },
+  {
+    "canonical_unit": "mol",
+    "digest": "bead53521f419cda4fb0b2b0b0799f7534b0168e689f7171ce02e43418f3f103",
+    "dimension": {
+      "amount": "1",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "степень превращения реакции",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:ExtentOfReaction",
+    "quantity_id": "QTY-REACTION-EXTENT"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "9d9a791b20dd19d8c034ea5fece746c5e06e5e8a13ca5623b8fa437b4dfeea52",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "показатель преломления",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:RefractiveIndex",
+    "quantity_id": "QTY-REFRACTIVE-INDEX"
+  },
+  {
+    "canonical_unit": "J kg^-1 K^-1",
+    "digest": "a243b7a3fc40c2c9026aac27478864a8fbcc43a14d7900ff94ce39b798404b79",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "-1",
+      "time": "-2"
+    },
+    "name_ru": "удельная газовая постоянная",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-SPECIFIC-GAS-CONSTANT"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "981fb3101ee404d5868e250eb222056c0ea401029f39ab9507a9f83c053f5294",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "деформация",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Strain",
+    "quantity_id": "QTY-STRAIN"
+  },
+  {
+    "canonical_unit": "Pa",
+    "digest": "48840516ff5ee711f1cc242c3ce14c35f79cc348e94abe70e4a292ebe2778763",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "-1",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "механическое напряжение",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Stress",
+    "quantity_id": "QTY-STRESS"
+  },
+  {
+    "canonical_unit": "N m^-1",
+    "digest": "cddf9716a5b7bd9573f1fd80edfa07780486710e55e9053ceaba691ca5a69b9b",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "поверхностное натяжение",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:SurfaceTension",
+    "quantity_id": "QTY-SURFACE-TENSION"
+  },
+  {
+    "canonical_unit": "K",
+    "digest": "137c5c694aa57a47becd8538a9b65e8ae4e2e6aa338708af742a40b33eb59b0e",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "1",
+      "time": "0"
+    },
+    "name_ru": "термодинамическая температура",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-TEMPERATURE"
+  },
+  {
+    "canonical_unit": "W m^-1 K^-1",
+    "digest": "aca51ef9af5466f57b986fc5f01f8ff6f9582a5a86488de9fcd81502af3be546",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "1",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "-1",
+      "time": "-3"
+    },
+    "name_ru": "теплопроводность",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:ThermalConductivity",
+    "quantity_id": "QTY-THERMAL-CONDUCTIVITY"
+  },
+  {
+    "canonical_unit": "s",
+    "digest": "bac099bb3b40cc2adf75c5daff54d8227119bf9e2c28cf4b5c0eec0b9372a0ce",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "1"
+    },
+    "name_ru": "время",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Time",
+    "quantity_id": "QTY-TIME"
+  },
+  {
+    "canonical_unit": "N m",
+    "digest": "1c86ea78b0ef400feac0b9fab91199892ef75258d48b3cead6ac34b0225fde4e",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "момент силы",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Torque",
+    "quantity_id": "QTY-TORQUE"
+  },
+  {
+    "canonical_unit": "m s^-1",
+    "digest": "fafd0b173fc13a6685a7064fadac048954948391f55e8c15ac2b5989124abb1b",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "1",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "скорость",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-VELOCITY"
+  },
+  {
+    "canonical_unit": "m^3",
+    "digest": "e6f62ccefd45c4d8a391dffeed7952fe9d9d4247276cbbb7cb4f22a20453ebe0",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "3",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "объём",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-VOLUME"
+  },
+  {
+    "canonical_unit": "m^3 s^-1",
+    "digest": "1a49d47cb404f57f649f076fa46ff38b98769b95c78e3bb416c8db4748021391",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "3",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "-1"
+    },
+    "name_ru": "объёмный расход",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:VolumeFlowRate",
+    "quantity_id": "QTY-VOLUME-FLOW-RATE"
+  },
+  {
+    "canonical_unit": "1",
+    "digest": "801d7b56179cdeee682b30e14d2bfcfb6c8815ad454e7d933753e7175d9d376d",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "0",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "нормированная волновая функция",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-WAVEFUNCTION"
+  },
+  {
+    "canonical_unit": "m",
+    "digest": "95d53ae3a6e3c8ea3ebe63ae54d9642c7bd2a22a0f29f47a892800f9eaf30810",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "1",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "длина волны",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Wavelength",
+    "quantity_id": "QTY-WAVELENGTH"
+  },
+  {
+    "canonical_unit": "m^-1",
+    "digest": "be40cd9f438744230b096185a84e135f370ed68a5eb32f43e97942f96e795be5",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "-1",
+      "luminous_intensity": "0",
+      "mass": "0",
+      "temperature": "0",
+      "time": "0"
+    },
+    "name_ru": "волновое число",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Wavenumber",
+    "quantity_id": "QTY-WAVENUMBER"
+  },
+  {
+    "canonical_unit": "N m^-2",
+    "digest": "ef7c5c96f2ad9317d372e3cf97a9491c1728d20dd4483589faa7c5b5d9910e09",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "-1",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "удельная нагрузка на крыло",
+    "ontology_reference": "PHI-QUANTITY-REGISTRY/V1",
+    "quantity_id": "QTY-WING-LOADING"
+  },
+  {
+    "canonical_unit": "J",
+    "digest": "6b1530ef2ab7b4e81423a098b9749d2c9e15d2404717b978c3dcd3c832607801",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "2",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "работа",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:Work",
+    "quantity_id": "QTY-WORK"
+  },
+  {
+    "canonical_unit": "Pa",
+    "digest": "f8a8003f7a0c26b238dc25fd369f32c7539bf244d3c4b21c3a50252c43ecae10",
+    "dimension": {
+      "amount": "0",
+      "current": "0",
+      "length": "-1",
+      "luminous_intensity": "0",
+      "mass": "1",
+      "temperature": "0",
+      "time": "-2"
+    },
+    "name_ru": "модуль Юнга",
+    "ontology_reference": "QUDT-3.5.0:quantitykind:YoungsModulus",
+    "quantity_id": "QTY-YOUNG-MODULUS"
+  }
+]

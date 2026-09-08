@@ -1,0 +1,427 @@
+{
+  "claim_boundary": "reduced Schwartz-test branch recovery, one-vertex forest combinatorics, complete 193-cluster bisimplex collision atlas, exact 112848-forest Bogoliubov recursion, exact 16-sector causal Fourier algebra, an exact rank-25 cluster-resolved radial measurement operator, a typed QPDTR finite-regulator 25-component pre-RHS diagnostic, and the multidimensional law/candidate/joint-method closure scan; compact tensor-projector descriptors and the 193-stratum conormal atlas are current; exact full-vertex scaling degrees and wavefront containment, noncompact pushforward, forest-renormalized physical right-hand side, physical cylinder and continuum remain open",
+  "contract_id": "K-TOLLER-DIST-003",
+  "digest": "cfa165ae9c8a2e79bbdd1348a1645729d29dfb721021bc58e7c79172ae1003d9",
+  "distribution_wavefront": {
+    "digest": "87657c99d525d50e4ba9e6d55099b900184470fdc3bdae86ec7cd44deafa8b9d",
+    "distribution_space": "finite epsilon>0 kernels are Lorentz-group functions; reduced spectral boundary values act on Schwartz tests; the glued two-vertex target is a distribution whose candidate contact singularities lie on the 193 collision diagonals",
+    "operations": [
+      "external_tensor_product",
+      "pullback_to_shared_tetrahedron_diagonal",
+      "glued_joint_forest_extension",
+      "pushforward_over_noncompact_internal_variables",
+      "distribution_product"
+    ],
+    "product_condition": "WF(A_L boxtimes conjugate(A_R)) intersect N*iota must be empty; the exact incidence calculation proves this for the collision-conormal envelope, conditionally on exact WF containment",
+    "product_status": "PASS_CONORMAL_ENVELOPE_PULLBACK_CONDITIONAL_EXACT_VERTEX_WF_OPEN",
+    "pullback_map": "iota identifies the independent shared tetrahedra S_L=S_R before the cross-vertex joint forest is applied on the glued configuration",
+    "pushforward_map": "integration/summation over internal SL(2,C), spectral, canonical and gluing variables",
+    "status": "CONORMAL_ATLAS_RECORDED_PULLBACK_CONDITIONAL_PUSHFORWARD_OPEN_FULL_DISTRIBUTIONAL_LIMIT_OPEN",
+    "tensor_product_status": "PASS_REDUCED_BOUNDARY_VALUES_AND_CONORMAL_ENVELOPE",
+    "wavefront_description": "For every reduced collision stratum Delta_H the conormal incidence bundle N*Delta_H is constructed exactly.  The external-product conormal envelope is transverse to the shared-tetrahedron gluing normal, but exact EPRL-vertex wavefront containment is open. Toller pole cancellation forbids identifying primitive pole cones with the full vertex wavefront."
+  },
+  "limit_protocol": {
+    "claim_scope": "REDUCED_WEAK_DISTRIBUTIONAL_LIMIT_ONLY",
+    "cofinal_paths": [
+      {
+        "endpoint": "reduced Toller distribution",
+        "path_id": "test_function_first",
+        "regulator_order": [
+          "test_support_cutoff",
+          "test_epsilon",
+          "spectral_cutoff",
+          "canonical_spin_cutoff",
+          "noncompact_group_cutoff"
+        ],
+        "schedule": "prove weak boundary-value convergence on Schwartz tests before attempting physical cutoff removal",
+        "status": "NOT_RUN"
+      },
+      {
+        "endpoint": "candidate causal wedge distribution",
+        "path_id": "spectral_first",
+        "regulator_order": [
+          "spectral_cutoff",
+          "canonical_spin_cutoff",
+          "test_epsilon",
+          "noncompact_group_cutoff"
+        ],
+        "schedule": "Lambda_rho up, then j_cut up, then epsilon down, then group cutoff up",
+        "status": "NOT_RUN"
+      },
+      {
+        "endpoint": "candidate causal wedge distribution",
+        "path_id": "spin_first",
+        "regulator_order": [
+          "canonical_spin_cutoff",
+          "spectral_cutoff",
+          "test_epsilon",
+          "noncompact_group_cutoff"
+        ],
+        "schedule": "j_cut up, then Lambda_rho up, then epsilon down, then group cutoff up",
+        "status": "NOT_RUN"
+      },
+      {
+        "endpoint": "candidate causal wedge distribution",
+        "path_id": "diagonal",
+        "regulator_order": [
+          "spectral_cutoff",
+          "canonical_spin_cutoff",
+          "test_epsilon",
+          "noncompact_group_cutoff"
+        ],
+        "schedule": "joint cofinal schedule with explicit path comparison",
+        "status": "NOT_RUN"
+      }
+    ],
+    "digest": "445c0d740bba7f46abd69d86be1fb8bad276ebb486b0bea7e9404b3317fa8ee1",
+    "path_independence_status": "ORDINARY_WEDGE_QUADRATURE_NONCONVERGENT_DISTRIBUTIONAL_EXTENSION_REQUIRED",
+    "precision_switch_policy": "switch complex128 to mpmath >=80 digits when pole cancellation loses more than 8 decimal digits, condition estimate exceeds 1e10, or the quadrature envelope stops contracting",
+    "protocol_id": "K-TOLLER-DIST-003:LIMIT",
+    "regulators": [
+      "test_epsilon",
+      "test_support_cutoff",
+      "spectral_cutoff",
+      "canonical_spin_cutoff",
+      "noncompact_group_cutoff"
+    ],
+    "status": "PARTIAL_EXECUTED_FULL_COFINAL_LIMIT_OPEN",
+    "tail_estimate_status": "PASS_REDUCED_SCHWARTZ_TESTS_PHYSICAL_WEDGE_OPEN"
+  },
+  "local_kernel_id": "COUPLED-WEDGE-KERNEL-011",
+  "operator_scope": {
+    "adjoint_structure": "left half-edge is complex-conjugated; K_z is Hermitian in the finite canonical-spin sector; opposite Toller branches are adjoint on the real axis",
+    "assumptions": [
+      "one spectral projector owns the whole wedge",
+      "complete intermediate channel retained at the declared cutoff",
+      "test functions are Schwartz and the equal-spin projection kernel is the exact finite polynomial",
+      "K3/K4/K5 scaling certificate uses the compact three-dimensional coincidence model",
+      "the reduced compact scaling order is not promoted to the exact SL(2,C) vertex scaling degree"
+    ],
+    "codomain_definition": "regulated coupled-wedge amplitude, test-function distribution pairing, and reduced homogeneous j=1/2 K5 forest certificate",
+    "digest": "850dddb08d4c8ca2b83d27cae7fbab8413c1531090030d9f9d81a72a2b0f20c1",
+    "domain_definition": "principal-series boundary data; one shared spectral variable rho_tilde; complete intermediate SU(2) channel (q,p); Schwartz test functions for the epsilon->0 boundary-value qualification",
+    "limit_topology": "weak distribution topology on the registered test-function family; the 193-stratum conormal atlas and a conditional gluing-pullback test are available, while exact full-vertex wavefront containment and noncompact pushforward remain open",
+    "measure": "d rho_tilde times the exact Feynman Toller weight; finite quadrature for the wedge and adaptive real-axis integration for Schwartz pairings",
+    "status": "REDUCED_DISTRIBUTIONAL_SCOPE_EXPLICIT_FULL_VERTEX_OPEN"
+  },
+  "primary_source_ledger": {
+    "digest": "221208615cd1dcf564396439f5b539b5d49fd683a4ff9fdd73721ec825a0e4b2",
+    "entries": [
+      {
+        "claim_scope": "causal Toller vertex and constrained causal structures",
+        "formula_signature": "cd718093c24beb8882ce599536aed66093a02f4dd6a0bd804879c105dfb68bd1",
+        "identifier": "2601.23162",
+        "identifier_type": "ARXIV",
+        "snapshot_date": "2026-08-02",
+        "source_id": "TOLLER-CAUSAL-2026",
+        "version": "v1"
+      },
+      {
+        "claim_scope": "exact analytic representations of Toller matrices",
+        "formula_signature": "bd9f83e734c8703e12617c6f19fd1185dfc53c513377c66e3a7495861cde1f11",
+        "identifier": "2604.24945",
+        "identifier_type": "ARXIV",
+        "snapshot_date": "2026-08-02",
+        "source_id": "TOLLER-ANALYTIC-2026",
+        "version": "v1"
+      },
+      {
+        "claim_scope": "causal orientation classes and compatibility on generalized EPRL complexes",
+        "formula_signature": "a27d3f42d27723f61713b0e00eb3d9258e2b6dee3833464cbb2b5b1816584444",
+        "identifier": "2603.22661",
+        "identifier_type": "ARXIV",
+        "snapshot_date": "2026-08-02",
+        "source_id": "CAUSAL-GENERALIZED-2026",
+        "version": "v1"
+      },
+      {
+        "claim_scope": "distributional continuum and physical cylinder requirements",
+        "formula_signature": "367fb9f8c1f5be5d7fce835dbaf6eb8011166fa0174cc045e94fc8c708ce1bc7",
+        "identifier": "2603.16999",
+        "identifier_type": "ARXIV",
+        "snapshot_date": "2026-08-02",
+        "source_id": "SPINFOAM-CONTINUUM-2026",
+        "version": "v1"
+      },
+      {
+        "claim_scope": "ordinary Lorentzian EPRL numerical backend",
+        "formula_signature": "c9c4cf18c44bdb2265a63bcf86658bfbbb72950dd5052238b68fa599fd2c504b",
+        "identifier": "2107.13952",
+        "identifier_type": "ARXIV",
+        "snapshot_date": "2026-08-02",
+        "source_id": "SL2CFOAM-NEXT",
+        "version": "published version"
+      },
+      {
+        "claim_scope": "ordinary EPRL representation decomposition",
+        "formula_signature": "787396c5be3fbd77800444bfdadbf8bb4f31bf821561276e32fca6b60262383a",
+        "identifier": "1807.03066",
+        "identifier_type": "ARXIV",
+        "snapshot_date": "2026-08-02",
+        "source_id": "EPRL-NUMERICS",
+        "version": "published version"
+      },
+      {
+        "claim_scope": "EPRL intertwiner-map semantics",
+        "formula_signature": "e2eeaeb4331e601009d2ad2fb17f10c75d2836d384ee222eb1b8f209f3622cde",
+        "identifier": "0912.0540",
+        "identifier_type": "ARXIV",
+        "snapshot_date": "2026-08-02",
+        "source_id": "EPRL-MAP",
+        "version": "published version"
+      },
+      {
+        "claim_scope": "configuration-space forest extension and tail hypotheses",
+        "formula_signature": "2867ba19fe4dae486d25a49b8297a20745330c214222ee0644c5baa859706ab6",
+        "identifier": "1706.06762",
+        "identifier_type": "ARXIV",
+        "snapshot_date": "2026-08-02",
+        "source_id": "CONFIGURATION-BPHZ",
+        "version": "v3"
+      },
+      {
+        "claim_scope": "continuity and admissibility of fundamental distribution operations",
+        "formula_signature": "b6a4de5f40cdb0661e01bad31572d5c4ceb8c4fe674945fd06c4ba0cef35ce6f",
+        "identifier": "1409.7662",
+        "identifier_type": "ARXIV",
+        "snapshot_date": "2026-08-02",
+        "source_id": "WF-OPERATIONS",
+        "version": "published version"
+      }
+    ],
+    "external_novelty_status": "LOCAL_IMPLEMENTATION_NOVELTY_NOT_WORLD_NOVELTY_CLAIM",
+    "ledger_id": "K-TOLLER-DIST-003:SOURCES",
+    "status": "PRIMARY_IDENTIFIERS_RECORDED"
+  },
+  "proof_obligation_graph": {
+    "digest": "67b521f94d29aa15e8c57af9b5582926f4edbd2eaad2c9bd72e9ddf7c53f4e7f",
+    "graph_id": "K-TOLLER-DIST-003:PROOF",
+    "nodes": [
+      {
+        "depends_on": [],
+        "description_ru": "OperatorScopeIR complete",
+        "evidence_ids": [],
+        "node_id": "scope",
+        "status": "PASS"
+      },
+      {
+        "depends_on": [
+          "scope"
+        ],
+        "description_ru": "Shared spectral and canonical bindings enforced",
+        "evidence_ids": [],
+        "node_id": "bindings",
+        "status": "PASS"
+      },
+      {
+        "depends_on": [
+          "bindings"
+        ],
+        "description_ru": "Direct and coupled finite-regulator wedge representations agree",
+        "evidence_ids": [],
+        "node_id": "finite_equivalence",
+        "status": "PASS"
+      },
+      {
+        "depends_on": [
+          "finite_equivalence"
+        ],
+        "description_ru": "T+ + T- recovers the Wigner distribution on Schwartz tests",
+        "evidence_ids": [],
+        "node_id": "branch_sum",
+        "status": "PASS_REDUCED_TEST_FUNCTIONS"
+      },
+      {
+        "depends_on": [
+          "branch_sum"
+        ],
+        "description_ru": "Nested K3/K4/K5 divergent-cluster forest is enumerated",
+        "evidence_ids": [],
+        "node_id": "forest",
+        "status": "PASS_COMBINATORIAL_JHALF"
+      },
+      {
+        "depends_on": [
+          "forest"
+        ],
+        "description_ru": "Complete connected collision atlas of K5 union_S K5",
+        "evidence_ids": [],
+        "node_id": "bisimplex_forest",
+        "status": "PASS_EXACT_193_CLUSTERS"
+      },
+      {
+        "depends_on": [
+          "bisimplex_forest"
+        ],
+        "description_ru": "Exact Bogoliubov preparation/counterterm recursion and complete Zimmermann forest catalog",
+        "evidence_ids": [],
+        "node_id": "joint_forest_recursion",
+        "status": "PASS_EXACT_112848_FORESTS"
+      },
+      {
+        "depends_on": [
+          "joint_forest_recursion"
+        ],
+        "description_ru": "Compact symmetric-tensor Taylor descriptors and exact conormal incidence bundles for all 193 reduced collision strata; gluing pullback is transverse in the conormal envelope",
+        "evidence_ids": [],
+        "node_id": "tensor_wavefront_atlas",
+        "status": "PASS_193_CONORMALS_PULLBACK_CONDITIONAL"
+      },
+      {
+        "depends_on": [
+          "joint_forest_recursion"
+        ],
+        "description_ru": "The 16 causal classes modulo global reversal form an exact Hadamard character basis generated by wedge signs",
+        "evidence_ids": [],
+        "node_id": "orientation_fourier",
+        "status": "PASS_EXACT_RANK_16"
+      },
+      {
+        "depends_on": [
+          "orientation_fourier"
+        ],
+        "description_ru": "Ten K3, five K4 and one K5 compact clusters map bijectively to the 16 even orientation characters",
+        "evidence_ids": [],
+        "node_id": "cluster_character_lift",
+        "status": "PASS_EXACT_BIJECTION"
+      },
+      {
+        "depends_on": [
+          "cluster_character_lift"
+        ],
+        "description_ru": "Orientation Fourier projectors and radial contact probes form an exact rank-25 selector on the cluster-resolved radial-scalar basis",
+        "evidence_ids": [],
+        "node_id": "orientation_structural_selector",
+        "status": "PASS_EXACT_RANK_25"
+      },
+      {
+        "depends_on": [
+          "orientation_structural_selector"
+        ],
+        "description_ru": "Typed QPDTR v2.5.0 bisimplex, j=1/2 boundary and regularized measure feed a 25-component finite-regulator pre-RHS extraction",
+        "evidence_ids": [],
+        "node_id": "qpdtr_bisimplex_pre_rhs",
+        "status": "PASS_FINITE_PRE_RHS_PATH_DEPENDENT"
+      },
+      {
+        "depends_on": [
+          "tensor_wavefront_atlas"
+        ],
+        "description_ru": "Exact full EPRL vertex wavefront containment in the computed conormal atlas",
+        "evidence_ids": [],
+        "node_id": "wavefront",
+        "status": "OPEN_EXACT_VERTEX_WF_CONTAINMENT"
+      },
+      {
+        "depends_on": [
+          "wavefront"
+        ],
+        "description_ru": "Noncompact internal SL(2,C) pushforward is proper on support or has a uniform tail estimate",
+        "evidence_ids": [],
+        "node_id": "pushforward",
+        "status": "OPEN_NONPROPER_NO_TAIL_BOUND"
+      },
+      {
+        "depends_on": [
+          "qpdtr_bisimplex_pre_rhs",
+          "wavefront",
+          "pushforward"
+        ],
+        "description_ru": "Forest-renormalized two-vertex amplitudes supply the physical right-hand side of the rank-25 selector",
+        "evidence_ids": [],
+        "node_id": "renormalized_contact_rhs",
+        "status": "OPEN_ANALYTIC_EXTENSION_NOT_COMPUTED"
+      },
+      {
+        "depends_on": [
+          "renormalized_contact_rhs"
+        ],
+        "description_ru": "Cofinal cutoff removal and path independence in distribution topology",
+        "evidence_ids": [],
+        "node_id": "limit",
+        "status": "OPEN"
+      },
+      {
+        "depends_on": [
+          "limit"
+        ],
+        "description_ru": "Full SL(2,C)^4 numerical scheme and shell sums",
+        "evidence_ids": [],
+        "node_id": "scheme",
+        "status": "OPEN"
+      },
+      {
+        "depends_on": [
+          "scheme"
+        ],
+        "description_ru": "Independent full-vertex numerical certificate",
+        "evidence_ids": [],
+        "node_id": "numerical_certificate",
+        "status": "OPEN"
+      },
+      {
+        "depends_on": [
+          "numerical_certificate"
+        ],
+        "description_ru": "Frozen physical prediction and independent experiment",
+        "evidence_ids": [],
+        "node_id": "experiment",
+        "status": "OPEN"
+      }
+    ],
+    "status": "TENSOR_CONORMAL_ATLAS_COMPLETE_EXACT_VERTEX_WF_AND_PUSHFORWARD_OPEN"
+  },
+  "schema": "phi-toller-distributional-vertex-contract/v4.1",
+  "shared_binding_graph": {
+    "bindings": [
+      {
+        "binding_id": "rho_shared",
+        "occurrences": [
+          "rho_left",
+          "rho_right",
+          "wedge_projector"
+        ],
+        "relation": "IDENTICAL_VARIABLE",
+        "status": "DECLARED"
+      },
+      {
+        "binding_id": "q_shared",
+        "occurrences": [
+          "q_left",
+          "q_right"
+        ],
+        "relation": "IDENTICAL_VARIABLE",
+        "status": "DECLARED"
+      },
+      {
+        "binding_id": "p_shared",
+        "occurrences": [
+          "p_left",
+          "p_right"
+        ],
+        "relation": "IDENTICAL_VARIABLE",
+        "status": "DECLARED"
+      }
+    ],
+    "bound_indices": [
+      "q_left",
+      "q_right",
+      "p_left",
+      "p_right"
+    ],
+    "digest": "d8bf4e9bef5760a4abbff827d353d3408ce55e45284e76728a5001ffa40316ab",
+    "free_indices": [],
+    "nodes": [
+      "rho_left",
+      "rho_right",
+      "q_left",
+      "q_right",
+      "p_left",
+      "p_right",
+      "wedge_projector",
+      "test_function",
+      "forest_cluster"
+    ],
+    "status": "SHARED_WEDGE_BINDINGS_ENFORCED"
+  }
+}

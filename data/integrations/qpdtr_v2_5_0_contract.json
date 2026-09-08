@@ -1,0 +1,28 @@
+{
+  "schema": "phi-qpdtr-integration-contract/v2.5",
+  "bridge_adapter": "source.qpdtr_bridge.load_qpdtr_v2_5_0_bridge",
+  "claim_boundary": "Thin evidence-only integration; all algorithms remain in QPDTR. Generic 1000 full-state, MAST and influence-functional graph-BP remain fail-closed.",
+  "confirmed_new_physical_laws": 0,
+  "evidence_location": "data/integrations/qpdtr_v2_5_0/phi_rqg_bridge_evidence.json",
+  "execution_digest": "b358479b57876deee842ded0d042668c61a8ca74c2bf8a8de22847837c8940d4",
+  "external_authoritative_owner": "qpdtr.owner.QuantumGravityDynamicsOwner.execute",
+  "required_bridge_status": "PASS_TYPED_QPDTR_V2_5_0_BRIDGE",
+  "required_control_gates": 53,
+  "required_methods": [
+    "QCM-CPTP-TT-LINDBLAD",
+    "QCM-BASS",
+    "QCM-TEMPO",
+    "QCM-CAUSAL-CONE",
+    "QCM-PAULI-OBS",
+    "QCM-GTN-BP",
+    "QCM-PHI-Q1000-ARFE"
+  ],
+  "required_packaged_tests": 103,
+  "source_archive": "external/QPDTR_PhiQG_CURRENT_STATE_v2_5_0.zip",
+  "source_archive_scope": "CURRENT_WITH_ISOLATED_HISTORY",
+  "source_archive_sha256": "e146afa15cf6065724627f9347a939dcf6088e8c58866e6ac48e128863dbf154",
+  "source_digest": "0eee838fcefd7f87443b9c45323bd1506390226e7dade38faeefcf697bd5c992",
+  "source_release": "QPDTR PhiQG CURRENT-STATE v2.5.0",
+  "source_release_version": "2.5.0",
+  "digest": "622eb57558a4e9f227668c02070fac0ceb125d11273906ebbb57891d8c9fa6b1"
+}

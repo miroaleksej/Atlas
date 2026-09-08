@@ -1,0 +1,21 @@
+{
+  "schema": "atlas-ai-scaling-frontier-003-precommit/v1",
+  "research_question": "Can transferable AI architecture gain be expressed as a multi-budget law g(P,R,V,M,W,E) with identifiable main effects, saturation/curvature, and cross-factor interactions?",
+  "primary_target": "g = ln((1-baseline_score+0.001)/(1-intervention_score+0.001)) within the same model/task condition",
+  "factors": ["R","V","M","W","E"],
+  "budget_coordinate": "z_i = log2(1 + B_i/B0_i)",
+  "stage_A": "2^5 full factorial OFF/HIGH; estimates every distinct-factor interaction R,V,M,W,E through order 5",
+  "stage_B": "face-centered axial points + center/off/high replicates; estimates univariate curvature, saturation diagnostics, and pure error",
+  "outer_regimes": "same architecture family at three active-parameter scales; same condition matrix repeated; hold out an entire model scale and an entire task regime",
+  "task_regimes": ["reasoning_verification","memory_long_horizon","agentic_world_information","mixed_open_ended"],
+  "primary_candidate_families": [
+    "multiplicative remaining-error law: g = sum beta_i z_i",
+    "pair interaction law: g = sum beta_i z_i + sum gamma_ij z_i z_j",
+    "all-order interaction expansion nominated adaptively by Atlas",
+    "saturation law: g = gmax(1-exp(-sum lambda_i z_i))",
+    "scale-modulated law: beta_i(P_active)"
+  ],
+  "validation": ["leave-one-model-scale-out","leave-one-task-regime-out","whole-pipeline permutation null"],
+  "promotion_rule": "No coefficient/exponent is called transferable unless its required design columns are full rank and it survives regime holdout plus whole-pipeline null.",
+  "open_endedness": "Stage A/B is an execution design, not a scientific ceiling. Higher orders/axes may be added by the Atlas residual/frontier loop."
+}

@@ -1,0 +1,12 @@
+.DS_Store
+.pytest_cache/
+__pycache__/
+*.py[cod]
+
+# Mutable and replay-generated artifacts are not part of the sealed snapshot.
+reports/runtime/
+reports/FULL_HEAVY_REPLAY_CURRENT.json
+reports/FIRST_POST_CLEAN_ATLAS_EXPERIMENT_CURRENT.json
+reports/THEORY_COMPILER_QUALIFICATION_CURRENT.json
+reports/ATOMIC_OPERATOR_PROBE_CYCLE_CURRENT.json
+reports/ATOMIC_VARIABLE_PARTICLE_SELF_CONSISTENT_CYCLE_CURRENT.json

@@ -1,0 +1,23 @@
+{
+  "schema": "atlas-ai-scaling-frontier-003-design-freeze/v1",
+  "factor_order": [
+    "R",
+    "V",
+    "M",
+    "W",
+    "E"
+  ],
+  "condition_count": 56,
+  "model_scale_count": 3,
+  "task_regime_count": 4,
+  "configuration_count": 168,
+  "evaluation_row_count": 672,
+  "files": {
+    "DESIGN_MATRIX.csv": "bc74caea81807d035ba3ac18b2b7b5d8f2f942e67c75b8aed3c8018dcc3dc8af",
+    "FACTOR_LEVELS.json": "43e767932fa51e1a31a1a11dbbd3c813d9bf81ff2c2cfb91af344b3260847ca9",
+    "MODEL_SCALE_TEMPLATE.json": "4ea8c58189acca947f3d05b5480dc691052c933ebc5e2b45976bc96d8ad42f11",
+    "RUN_MANIFEST.csv": "050bdd668eeb158c4df7f3aa3c0d4479a718c2b6a49247041df625eb41909c26",
+    "RESULTS_TEMPLATE.csv": "46470b06ae9cba9c128ca47b58400402cc58b632c64dede6cafac865c328dda3",
+    "DESIGN_AUDIT.json": "2d456bd61b034dee2ad0ccf03d6ccfa6ecc8110ef1e7c6bf6346ce28d5338be7"
+  }
+}

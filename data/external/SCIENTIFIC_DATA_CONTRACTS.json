@@ -1,0 +1,609 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": "DAYA-BAY-ANALYSIS-NPZ-1.0.0",
+      "domain": "physics.particle.neutrino",
+      "expected_md5": "dfc33dce75508b53e9821329b3e06a17",
+      "expected_sha256": null,
+      "experiment_type": "reactor_neutrino_oscillation",
+      "local_relative_path": "data/external/neutrino/dayabay_analysis_dataset_npz_1-0-0.zip",
+      "logical_dataset_id": "DAYA-BAY-OFFICIAL-ANALYSIS",
+      "maximum_size_bytes": 8388608,
+      "published_digest_algorithm": "MD5_ZENODO",
+      "required_for": [
+        "DAYA-BAY-FULL-LIKELIHOOD"
+      ],
+      "schema_profile_id": "DAYABAY_ANALYSIS_ARCHIVE",
+      "semantic_role": "OBSERVATIONS_AND_METADATA",
+      "source_doi": "10.5281/zenodo.17587229",
+      "source_urls": [
+        "https://zenodo.org/records/17587229/files/dayabay_analysis_dataset_npz_1-0-0.zip?download=1"
+      ]
+    },
+    {
+      "artifact_id": "DAYA-BAY-ANALYSIS-WHEEL-1.0.1",
+      "domain": "physics.particle.neutrino",
+      "expected_md5": null,
+      "expected_sha256": "4578d71a741041d7b729dc7cacaa0836efe852d8f407d222ff8916c190dcfadf",
+      "experiment_type": "reactor_neutrino_oscillation",
+      "local_relative_path": "data/external/neutrino/dayabay_data_official-1.0.1-py3-none-any.whl",
+      "logical_dataset_id": "DAYA-BAY-OFFICIAL-ANALYSIS",
+      "maximum_size_bytes": 8388608,
+      "published_digest_algorithm": "SHA256_PYPI",
+      "required_for": [
+        "DAYA-BAY-FULL-LIKELIHOOD"
+      ],
+      "schema_profile_id": "DAYABAY_ANALYSIS_WHEEL",
+      "semantic_role": "OBSERVATIONS_AND_METADATA_ALTERNATIVE_CONTAINER",
+      "source_doi": null,
+      "source_urls": [
+        "https://files.pythonhosted.org/packages/08/ed/3737fec345f00c4ffcb2dec3f69355b8cdb4eee135a1cd76db29b5d02753/dayabay_data_official-1.0.1-py3-none-any.whl"
+      ]
+    },
+    {
+      "artifact_id": "DAYA-BAY-MODEL-WHEEL-1.8.0",
+      "domain": "physics.particle.neutrino",
+      "expected_md5": null,
+      "expected_sha256": "74c328f9c8527bf3e1fac3d8e24acdee2253a3ee44c32066dcd2a4529efb7fb7",
+      "experiment_type": "reactor_neutrino_oscillation",
+      "local_relative_path": "data/external/neutrino/dayabay_model-1.8.0-py3-none-any.whl",
+      "logical_dataset_id": "DAYA-BAY-OFFICIAL-ANALYSIS",
+      "maximum_size_bytes": 2097152,
+      "published_digest_algorithm": "SHA256_PYPI",
+      "required_for": [
+        "DAYA-BAY-FULL-LIKELIHOOD"
+      ],
+      "schema_profile_id": "DAYABAY_MODEL_WHEEL",
+      "semantic_role": "RESPONSE_AND_REFERENCE_MODEL",
+      "source_doi": null,
+      "source_urls": [
+        "https://files.pythonhosted.org/packages/89/76/4635a2c53903a3f75cce69e9ce53e4ac7ee80072b402192c88d36736bbee/dayabay_model-1.8.0-py3-none-any.whl"
+      ]
+    },
+    {
+      "artifact_id": "KATRIN-KNM1-5-DATA-JSON",
+      "domain": "physics.particle.neutrino",
+      "expected_md5": "7c9e30c35c394d87917cc56c7bf7ff53",
+      "expected_sha256": null,
+      "experiment_type": "beta_endpoint_spectroscopy",
+      "local_relative_path": "data/external/neutrino/KATRIN_data_KNM1-5.json",
+      "logical_dataset_id": "KATRIN-KNM1-5-OFFICIAL",
+      "maximum_size_bytes": 262144,
+      "published_digest_algorithm": "MD5_ZENODO",
+      "required_for": [
+        "KATRIN-SPECTRAL-LIKELIHOOD"
+      ],
+      "schema_profile_id": "KATRIN_DATA_JSON",
+      "semantic_role": "OBSERVATIONS",
+      "source_doi": "10.5281/zenodo.13644900",
+      "source_urls": [
+        "https://www.katrin.kit.edu/publikationen/KATRIN_data_KNM1-5.json",
+        "https://zenodo.org/records/13644900/files/KATRIN_data_KNM1-5.json?download=1"
+      ]
+    },
+    {
+      "artifact_id": "KATRIN-KNM1-5-INPUTS-JSON",
+      "domain": "physics.particle.neutrino",
+      "expected_md5": "6fcb3fbd3059190caa95f37243a9593a",
+      "expected_sha256": null,
+      "experiment_type": "beta_endpoint_spectroscopy",
+      "local_relative_path": "data/external/neutrino/KATRIN_inputs_KNM1-5.json",
+      "logical_dataset_id": "KATRIN-KNM1-5-OFFICIAL",
+      "maximum_size_bytes": 262144,
+      "published_digest_algorithm": "MD5_ZENODO",
+      "required_for": [
+        "KATRIN-SPECTRAL-LIKELIHOOD"
+      ],
+      "schema_profile_id": "KATRIN_INPUTS_JSON",
+      "semantic_role": "RESPONSE_COVARIANCE_AND_NUISANCE",
+      "source_doi": "10.5281/zenodo.13644900",
+      "source_urls": [
+        "https://www.katrin.kit.edu/publikationen/KATRIN_inputs_KNM1-5.json",
+        "https://zenodo.org/records/13644900/files/KATRIN_inputs_KNM1-5.json?download=1"
+      ]
+    },
+    {
+      "artifact_id": "T2K-OSCILLATION-3P6E21-POT-ROOT",
+      "domain": "physics.particle.neutrino",
+      "expected_md5": "864a40abecd009c1654e0c580c4375e2",
+      "expected_sha256": null,
+      "experiment_type": "accelerator_neutrino_oscillation",
+      "local_relative_path": "data/external/neutrino/T2K_arxiv2303.03222_DataRelease.zip",
+      "logical_dataset_id": "T2K-PUBLISHED-OSCILLATION-SURFACES",
+      "maximum_size_bytes": 8388608,
+      "published_digest_algorithm": "MD5_ZENODO",
+      "required_for": [
+        "T2K-PUBLISHED-LIKELIHOOD"
+      ],
+      "schema_profile_id": "T2K_ROOT_RELEASE_ZIP",
+      "semantic_role": "LIKELIHOOD_POSTERIOR_AND_COVERAGE_PRODUCTS",
+      "source_doi": "10.5281/zenodo.7741399",
+      "source_urls": [
+        "https://zenodo.org/records/7741399/files/T2K_arxiv2303.03222_DataRelease.zip?download=1"
+      ]
+    },
+    {
+      "artifact_id": "SUPERK-ATMOSPHERIC-2023-TAR-GZ",
+      "domain": "physics.particle.neutrino",
+      "expected_md5": "58f26b39ba0bb36cc3570b7723298e2b",
+      "expected_sha256": null,
+      "experiment_type": "atmospheric_neutrino_oscillation",
+      "local_relative_path": "data/external/neutrino/sk_atm_2023.tar.gz",
+      "logical_dataset_id": "SUPERK-ATMOSPHERIC-2023",
+      "maximum_size_bytes": 67108864,
+      "published_digest_algorithm": "MD5_ZENODO",
+      "required_for": [
+        "SUPERK-ATMOSPHERIC-LIKELIHOOD"
+      ],
+      "schema_profile_id": "SUPERK_ATMOSPHERIC_TAR_GZ",
+      "semantic_role": "OBSERVATIONS_MC_SUMMARIES_AND_CHI2_GRIDS",
+      "source_doi": "10.5281/zenodo.8401262",
+      "source_urls": [
+        "https://zenodo.org/records/8401262/files/sk_atm_2023.tar.gz?download=1"
+      ]
+    },
+    {
+      "artifact_id": "SUPERK-SOLAR-SKIV-3P49MEV-ZIP",
+      "domain": "physics.particle.neutrino",
+      "expected_md5": "9a44cbc7a7a4b26ba143c58ccf09419b",
+      "expected_sha256": null,
+      "experiment_type": "solar_neutrino_survival_probability",
+      "local_relative_path": "data/external/neutrino/data_release_SKIV_solar_3_49MeV.zip",
+      "logical_dataset_id": "SUPERK-SOLAR-SKIV-2026",
+      "maximum_size_bytes": 2097152,
+      "published_digest_algorithm": "MD5_ZENODO",
+      "required_for": [
+        "SUPERK-SOLAR-LIKELIHOOD"
+      ],
+      "schema_profile_id": "SUPERK_SOLAR_RELEASE_ZIP",
+      "semantic_role": "OBSERVATIONS_AND_PUBLISHED_SURVIVAL_PROFILE",
+      "source_doi": "10.5281/zenodo.19702889",
+      "source_urls": [
+        "https://zenodo.org/records/19702889/files/data_release_SKIV_solar_3_49MeV.zip?download=1"
+      ]
+    }
+  ],
+  "dataset_contracts": [
+    {
+      "adapter_id": "NEUTRINO_DAYABAY_TYPED_ADAPTER",
+      "dataset_id": "DAYA-BAY-OFFICIAL-ANALYSIS",
+      "domain": "physics.particle.neutrino",
+      "experiment_type": "reactor_neutrino_oscillation",
+      "observable_descriptors": [
+        {
+          "artifact_id": "DAYA-BAY-ANALYSIS-NPZ-1.0.0",
+          "canonical_scale": 1000000.0,
+          "description": "Left edge of reconstructed prompt-energy bin.",
+          "member_path": "npz/dayabay_dataset/dayabay_ibd_spectra_total.npz",
+          "observable_id": "DAYABAY-IBD-PROMPT-ENERGY-MIN",
+          "quantity_id": "QTY-ENERGY",
+          "role": "BIN_COORDINATE",
+          "selector": "E_min_MeV",
+          "selector_kind": "NPZ_RECORD_FIELD",
+          "source_unit": "MeV"
+        },
+        {
+          "artifact_id": "DAYA-BAY-ANALYSIS-NPZ-1.0.0",
+          "canonical_scale": 1000000.0,
+          "description": "Right edge of reconstructed prompt-energy bin.",
+          "member_path": "npz/dayabay_dataset/dayabay_ibd_spectra_total.npz",
+          "observable_id": "DAYABAY-IBD-PROMPT-ENERGY-MAX",
+          "quantity_id": "QTY-ENERGY",
+          "role": "BIN_COORDINATE",
+          "selector": "E_max_MeV",
+          "selector_kind": "NPZ_RECORD_FIELD",
+          "source_unit": "MeV"
+        },
+        {
+          "artifact_id": "DAYA-BAY-ANALYSIS-NPZ-1.0.0",
+          "canonical_scale": null,
+          "description": "Observed binned inverse-beta-decay candidate count.",
+          "member_path": "npz/dayabay_dataset/dayabay_ibd_spectra_total.npz",
+          "observable_id": "DAYABAY-IBD-COUNT",
+          "quantity_id": "QTY-COUNT",
+          "role": "OBSERVATION",
+          "selector": "N",
+          "selector_kind": "NPZ_RECORD_FIELD",
+          "source_unit": "1"
+        },
+        {
+          "artifact_id": "DAYA-BAY-ANALYSIS-NPZ-1.0.0",
+          "canonical_scale": 1.0,
+          "description": "Daily detector live time.",
+          "member_path": "npz/dayabay_dataset/dayabay_daily_detector_data.npz",
+          "observable_id": "DAYABAY-LIVETIME",
+          "quantity_id": "QTY-TIME",
+          "role": "EXPOSURE",
+          "selector": "livetime",
+          "selector_kind": "NPZ_RECORD_FIELD",
+          "source_unit": "s"
+        },
+        {
+          "artifact_id": "DAYA-BAY-ANALYSIS-NPZ-1.0.0",
+          "canonical_scale": null,
+          "description": "Combined muon-veto and multiplicity-cut efficiency.",
+          "member_path": "npz/dayabay_dataset/dayabay_daily_detector_data.npz",
+          "observable_id": "DAYABAY-DETECTION-EFFICIENCY",
+          "quantity_id": "QTY-DIMENSIONLESS",
+          "role": "EFFICIENCY",
+          "selector": "eff",
+          "selector_kind": "NPZ_RECORD_FIELD",
+          "source_unit": "1"
+        },
+        {
+          "artifact_id": "DAYA-BAY-ANALYSIS-NPZ-1.0.0",
+          "canonical_scale": 0.001,
+          "description": "Reactor-to-detector baseline matrix.",
+          "member_path": "npz/parameters/baselines.yaml",
+          "observable_id": "DAYABAY-BASELINE",
+          "quantity_id": "QTY-BASELINE",
+          "role": "EXPERIMENT_GEOMETRY",
+          "selector": "parameters.baseline",
+          "selector_kind": "YAML_PATH",
+          "source_unit": "m"
+        },
+        {
+          "artifact_id": "DAYA-BAY-ANALYSIS-NPZ-1.0.0",
+          "canonical_scale": null,
+          "description": "Target reactor-neutrino mixing-amplitude parameter in the official analysis dataset.",
+          "member_path": "npz/parameters/survival_probability.yaml",
+          "observable_id": "DAYABAY-SIN2-2THETA13",
+          "quantity_id": "QTY-MIXING-AMPLITUDE",
+          "role": "FIT_PARAMETER",
+          "selector": "parameters.SinSq2Theta13",
+          "selector_kind": "YAML_PATH",
+          "source_unit": "1"
+        },
+        {
+          "artifact_id": "DAYA-BAY-ANALYSIS-NPZ-1.0.0",
+          "canonical_scale": 1.0,
+          "description": "Target neutrino mass-splitting parameter in the official analysis dataset.",
+          "member_path": "npz/parameters/survival_probability.yaml",
+          "observable_id": "DAYABAY-DELTAM2-32",
+          "quantity_id": "QTY-MASS-SQUARED",
+          "role": "FIT_PARAMETER",
+          "selector": "parameters.DeltaMSq32",
+          "selector_kind": "YAML_PATH",
+          "source_unit": "eV^2"
+        }
+      ],
+      "optional_artifacts": [
+        "DAYA-BAY-MODEL-WHEEL-1.8.0"
+      ],
+      "required_artifact_groups": [
+        [
+          "DAYA-BAY-ANALYSIS-NPZ-1.0.0",
+          "DAYA-BAY-ANALYSIS-WHEEL-1.0.1"
+        ]
+      ],
+      "response_projection_descriptors": [
+        {
+          "candidate_prediction_required_for_scientific_discrimination": true,
+          "execution_operation": "FIT_PUBLIC_DATA_PROFILE",
+          "execution_owner_id": "DAYA-BAY-FULL-LIKELIHOOD",
+          "required_input_quantity_ids": [
+            "QTY-COUNT"
+          ],
+          "response_key": "chi2",
+          "response_projection_id": "DAYABAY-CNP-PROFILE-CHI2",
+          "response_quantity_id": "QTY-CHI-SQUARED",
+          "response_semantics": "Profiled CNP covariance goodness-of-fit statistic on the digest-qualified public Daya Bay detector-period data.",
+          "source_owner_id": "REACTOR-COVARIANCE-LIKELIHOOD"
+        }
+      ],
+      "source_family_ids": [
+        "DAYA-BAY-DATA-2025"
+      ]
+    },
+    {
+      "adapter_id": "NEUTRINO_KATRIN_TYPED_ADAPTER",
+      "dataset_id": "KATRIN-KNM1-5-OFFICIAL",
+      "domain": "physics.particle.neutrino",
+      "experiment_type": "beta_endpoint_spectroscopy",
+      "observable_descriptors": [],
+      "optional_artifacts": [],
+      "required_artifact_groups": [
+        [
+          "KATRIN-KNM1-5-DATA-JSON"
+        ],
+        [
+          "KATRIN-KNM1-5-INPUTS-JSON"
+        ]
+      ],
+      "response_projection_descriptors": [],
+      "source_family_ids": []
+    },
+    {
+      "adapter_id": "NEUTRINO_T2K_TYPED_ADAPTER",
+      "dataset_id": "T2K-PUBLISHED-OSCILLATION-SURFACES",
+      "domain": "physics.particle.neutrino",
+      "experiment_type": "accelerator_neutrino_oscillation",
+      "observable_descriptors": [],
+      "optional_artifacts": [],
+      "required_artifact_groups": [
+        [
+          "T2K-OSCILLATION-3P6E21-POT-ROOT"
+        ]
+      ],
+      "response_projection_descriptors": [],
+      "source_family_ids": []
+    },
+    {
+      "adapter_id": "NEUTRINO_SUPERK_ATMOSPHERIC_TYPED_ADAPTER",
+      "dataset_id": "SUPERK-ATMOSPHERIC-2023",
+      "domain": "physics.particle.neutrino",
+      "experiment_type": "atmospheric_neutrino_oscillation",
+      "observable_descriptors": [],
+      "optional_artifacts": [],
+      "required_artifact_groups": [
+        [
+          "SUPERK-ATMOSPHERIC-2023-TAR-GZ"
+        ]
+      ],
+      "response_projection_descriptors": [],
+      "source_family_ids": []
+    },
+    {
+      "adapter_id": "NEUTRINO_SUPERK_SOLAR_TYPED_ADAPTER",
+      "dataset_id": "SUPERK-SOLAR-SKIV-2026",
+      "domain": "physics.particle.neutrino",
+      "experiment_type": "solar_neutrino_survival_probability",
+      "observable_descriptors": [],
+      "optional_artifacts": [],
+      "required_artifact_groups": [
+        [
+          "SUPERK-SOLAR-SKIV-3P49MEV-ZIP"
+        ]
+      ],
+      "response_projection_descriptors": [],
+      "source_family_ids": []
+    }
+  ],
+  "digest": "2d5e95c99b6656d15e6dda95eebdb6b5034d97a4f4c0b4ecb3ef1d501dd57ccd",
+  "hard_boundaries": [
+    "ONE_INGESTION_OWNER_FOR_ALL_DOMAINS",
+    "HTTPS_ALLOWLIST_ONLY",
+    "ATOMIC_WRITE_AFTER_DIGEST_AND_SCHEMA_VERIFICATION",
+    "NO_SYNTHETIC_REPLACEMENT",
+    "NO_DOMAIN_LIKELIHOOD_BEFORE_EXPERIMENT_DATA_IR",
+    "DOMAIN_ADAPTERS_ARE_DECLARATIVE_NOT_DOWNLOAD_ALGORITHMS",
+    "ARCHIVE_PARSING_REMAINS_IN_INGESTION_OWNER",
+    "FIELD_LEVEL_OBSERVABLES_BIND_BY_EXACT_QUANTITY_ID_NOT_FUZZY_TEXT",
+    "DERIVED_RESPONSE_PROJECTIONS_ARE_DECLARATIVE_AND_EXECUTE_ONLY_IN_DOMAIN_OWNER",
+    "RESPONSE_PROJECTION_MUST_BE_FROZEN_BEFORE_DERIVED_RESPONSE_EXECUTION",
+    "DATASET_BINDING_DOES_NOT_IMPLY_WORLD_ATTESTATION_OR_U5"
+  ],
+  "ir_schema": "phi-experiment-data-ir/v3",
+  "owner_id": "SCIENTIFIC-DATA-INGESTION",
+  "owner_version": "5.11.0",
+  "schema": "phi-scientific-data-ingestion/v5.11",
+  "schema_profiles": [
+    {
+      "container_format": "JSON",
+      "delimiter": null,
+      "media_type": "application/json",
+      "profile_id": "GENERIC_JSON",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "JSON document with provenance-bound schema"
+    },
+    {
+      "container_format": "RO_CRATE",
+      "delimiter": null,
+      "media_type": "application/ld+json",
+      "profile_id": "RO_CRATE_JSONLD",
+      "required_json_keys": [
+        "@context",
+        "@graph"
+      ],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "RO-Crate JSON-LD metadata"
+    },
+    {
+      "container_format": "FRICTIONLESS",
+      "delimiter": null,
+      "media_type": "application/json",
+      "profile_id": "FRICTIONLESS_DATA_PACKAGE",
+      "required_json_keys": [
+        "resources"
+      ],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "Frictionless Data Package"
+    },
+    {
+      "container_format": "CSV",
+      "delimiter": ",",
+      "media_type": "text/csv",
+      "profile_id": "GENERIC_CSV",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "Schema-qualified comma-separated table"
+    },
+    {
+      "container_format": "TSV",
+      "delimiter": "\t",
+      "media_type": "text/tab-separated-values",
+      "profile_id": "GENERIC_TSV",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "Schema-qualified tab-separated table"
+    },
+    {
+      "container_format": "NPY",
+      "delimiter": null,
+      "media_type": "application/x-npy",
+      "profile_id": "GENERIC_NPY",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "NumPy dense array"
+    },
+    {
+      "container_format": "NPZ",
+      "delimiter": null,
+      "media_type": "application/x-npz",
+      "profile_id": "GENERIC_NPZ",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "NumPy array archive"
+    },
+    {
+      "container_format": "HDF5",
+      "delimiter": null,
+      "media_type": "application/x-hdf5",
+      "profile_id": "GENERIC_HDF5",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "HDF5 multidimensional scientific container"
+    },
+    {
+      "container_format": "HDF5",
+      "delimiter": null,
+      "media_type": "application/x-hdf5",
+      "profile_id": "GENERIC_NEXUS",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "NeXus semantic model over HDF5"
+    },
+    {
+      "container_format": "ROOT",
+      "delimiter": null,
+      "media_type": "application/x-root",
+      "profile_id": "GENERIC_ROOT",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "ROOT scientific object container"
+    },
+    {
+      "container_format": "ZIP",
+      "delimiter": null,
+      "media_type": "application/zip",
+      "profile_id": "GENERIC_ZIP",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "Safe archive with declarative member requirements"
+    },
+    {
+      "container_format": "WHEEL",
+      "delimiter": null,
+      "media_type": "application/zip",
+      "profile_id": "GENERIC_WHEEL",
+      "required_json_keys": [],
+      "required_member_patterns": [
+        "*.dist-info/METADATA"
+      ],
+      "required_table_columns": [],
+      "semantic_description": "Python wheel used as published data/model container"
+    },
+    {
+      "container_format": "ZIP",
+      "delimiter": null,
+      "media_type": "application/zip",
+      "profile_id": "DAYABAY_ANALYSIS_ARCHIVE",
+      "required_json_keys": [],
+      "required_member_patterns": [
+        "*.npz",
+        "*detector*",
+        "*spectrum*|*ibd*",
+        "*.yaml|*.yml|*parameter*"
+      ],
+      "required_table_columns": [],
+      "semantic_description": "Official Daya Bay analysis container"
+    },
+    {
+      "container_format": "WHEEL",
+      "delimiter": null,
+      "media_type": "application/zip",
+      "profile_id": "DAYABAY_ANALYSIS_WHEEL",
+      "required_json_keys": [],
+      "required_member_patterns": [
+        "*.dist-info/METADATA",
+        "*dayabay*"
+      ],
+      "required_table_columns": [],
+      "semantic_description": "Official Daya Bay analysis data wheel"
+    },
+    {
+      "container_format": "WHEEL",
+      "delimiter": null,
+      "media_type": "application/zip",
+      "profile_id": "DAYABAY_MODEL_WHEEL",
+      "required_json_keys": [],
+      "required_member_patterns": [
+        "dayabay_model/__init__.py",
+        "dayabay_model/model_dayabay.py",
+        "dayabay_model-1.8.0.dist-info/METADATA"
+      ],
+      "required_table_columns": [],
+      "semantic_description": "Daya Bay reference-model wheel"
+    },
+    {
+      "container_format": "JSON",
+      "delimiter": null,
+      "media_type": "application/json",
+      "profile_id": "KATRIN_DATA_JSON",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "KATRIN KNM1-KNM5 scan data"
+    },
+    {
+      "container_format": "JSON",
+      "delimiter": null,
+      "media_type": "application/json",
+      "profile_id": "KATRIN_INPUTS_JSON",
+      "required_json_keys": [],
+      "required_member_patterns": [],
+      "required_table_columns": [],
+      "semantic_description": "KATRIN response and systematic inputs"
+    },
+    {
+      "container_format": "ZIP",
+      "delimiter": null,
+      "media_type": "application/zip",
+      "profile_id": "T2K_ROOT_RELEASE_ZIP",
+      "required_json_keys": [],
+      "required_member_patterns": [
+        "*.root"
+      ],
+      "required_table_columns": [],
+      "semantic_description": "Published T2K ROOT likelihood/posterior products"
+    },
+    {
+      "container_format": "TAR_GZ",
+      "delimiter": null,
+      "media_type": "application/gzip",
+      "profile_id": "SUPERK_ATMOSPHERIC_TAR_GZ",
+      "required_json_keys": [],
+      "required_member_patterns": [
+        "*bin/*",
+        "*chi2/*"
+      ],
+      "required_table_columns": [],
+      "semantic_description": "Super-Kamiokande atmospheric 930-bin and published chi-square products"
+    },
+    {
+      "container_format": "ZIP",
+      "delimiter": null,
+      "media_type": "application/zip",
+      "profile_id": "SUPERK_SOLAR_RELEASE_ZIP",
+      "required_json_keys": [],
+      "required_member_patterns": [
+        "*solar_angle.root",
+        "*.txt|*.dat|*.csv"
+      ],
+      "required_table_columns": [],
+      "semantic_description": "Super-Kamiokande solar-angle and electron-neutrino survival-probability products"
+    }
+  ]
+}

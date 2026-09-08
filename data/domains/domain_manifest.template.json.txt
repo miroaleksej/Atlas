@@ -1,0 +1,25 @@
+{
+  "schema": "phi-domain-plugin-manifest/v1",
+  "domain_id": "new_science",
+  "domain_role": "natural_science",
+  "description_ru": "Предметная область",
+  "axis_schema_version": "1",
+  "common_rules_owner": "COMMON-SCIENTIFIC-RULES/1.0.0",
+  "axes": [
+    {
+      "axis_id": "example_axis",
+      "description_ru": "Domain-specific coordinate",
+      "value_kind": "TEXT",
+      "allowed_values": [],
+      "required_for": [],
+      "forbidden_for": [],
+      "provenance": "DOMAIN_OWNER"
+    }
+  ],
+  "entity_profiles": [],
+  "constraints": [],
+  "owner": {
+    "module": "source.lawspace.new_science",
+    "class": "NewScienceDomainOwner"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "atlas_target_release": "15.20.0",
+  "capabilities": [
+    "closed_prospective_research_loop",
+    "operator_genesis",
+    "regional_meta_learning",
+    "lifetime_alpha_ledger",
+    "composite_persistence_rehydration",
+    "prospective_revocation",
+    "read_only_atlas_mount",
+    "qualified_owner_axis_binding_overlay",
+    "autonomous_epoch_genesis_director",
+    "fresh_confirmation_epoch_search",
+    "sequential_exact_permutation_null",
+    "resource_deferral_yield",
+    "permutation_eprocess_owner",
+    "frozen_genesis_journal_orbit_scoring",
+    "persistent_per_target_eprocess_state"
+  ],
+  "claim_boundary": {
+    "blind_law_capability_verified_under_current_valid_controller": false,
+    "empirical_type1_calibration_is_mathematical_proof": false,
+    "fixture_is_world_evidence": false,
+    "global_online_evalue_controller_implemented": false,
+    "mutates_canonical_atlas": false,
+    "operator_promotion_means_law": false,
+    "permutation_eprocess_per_target_only": true,
+    "qualified_owner_axis_binding_is_cross_domain_bridge": false,
+    "replaces_atlas_ai": false,
+    "resource_deferral_is_scientific_rejection": false,
+    "s6_selected_argmax_fixture_is_prospective_power_evidence": false,
+    "sequential_permutation_null_is_anytime_valid": false,
+    "ville_threshold_20_is_system_wide_guarantee": false
+  },
+  "extension_version": "0.10.0",
+  "mode": "READ_ONLY_EXTENSION_LAYER",
+  "schema": "scienceatlas-ai-extension-integration/v0.10.0"
+}

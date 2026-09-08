@@ -1,0 +1,14 @@
+{
+  "declared_records": {
+    "constants": 25
+  },
+  "edition": "SI Brochure 9th ed. version 4.01 (June 2026); CODATA 2022 web version 9.0",
+  "location": "data/source_snapshots/si_codata_core.json",
+  "processed_records": {
+    "constants": 25
+  },
+  "sha256": "a91dd3f87fcb7de42e63d9986effbcb0e22edd50763844614b74af4afb3aadaf",
+  "source_id": "SI_CODATA_CORE",
+  "source_type": "CURATED_CONSTANT_SNAPSHOT",
+  "title": "Edition-pinned реестр универсальных констант SI/CODATA с dependency graph"
+}

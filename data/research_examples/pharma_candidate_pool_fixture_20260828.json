@@ -1,0 +1,166 @@
+{
+  "candidate_count": 12,
+  "candidates": [
+    {
+      "candidate_id": "PHI-DRUG-51D0317B96A9DB9B",
+      "coordinate": {
+        "indication": "cardiometabolic HFpEF fibrosis",
+        "localization": "fibroblast-targeted",
+        "modality": "siRNA",
+        "route": "subcutaneous",
+        "target": "TWIST1"
+      },
+      "mechanistic_direction": "DOWN",
+      "target_class": "transcription_factor",
+      "target_compartment": "NUCLEAR"
+    },
+    {
+      "candidate_id": "PHI-DRUG-F2089B6D722B5C27",
+      "coordinate": {
+        "indication": "Alzheimer disease",
+        "localization": "brain-penetrant",
+        "modality": "small-molecule inhibitor",
+        "route": "intravenous",
+        "target": "HDAC6"
+      },
+      "mechanistic_direction": "DOWN",
+      "target_class": "enzyme",
+      "target_compartment": "CYTOSOLIC"
+    },
+    {
+      "candidate_id": "PHI-DRUG-2127C6F7E5CFED19",
+      "coordinate": {
+        "indication": "MASH fibrosis",
+        "localization": "liver-targeted",
+        "modality": "PROTAC degrader",
+        "route": "oral",
+        "target": "USP30"
+      },
+      "mechanistic_direction": "DOWN",
+      "target_class": "deubiquitinase",
+      "target_compartment": "MITOCHONDRIAL"
+    },
+    {
+      "candidate_id": "PHI-DRUG-3B3DBE2EB472308A",
+      "coordinate": {
+        "indication": "asthma",
+        "localization": "lung-localized",
+        "modality": "monoclonal-antibody antagonist",
+        "route": "inhaled",
+        "target": "SELPLG"
+      },
+      "mechanistic_direction": "DOWN",
+      "target_class": "adhesion_receptor",
+      "target_compartment": "CELL_SURFACE"
+    },
+    {
+      "candidate_id": "PHI-DRUG-AB576564908D7C2F",
+      "coordinate": {
+        "indication": "Parkinson disease",
+        "localization": "brain-penetrant",
+        "modality": "bispecific-antibody antagonist",
+        "route": "subcutaneous",
+        "target": "P2X7"
+      },
+      "mechanistic_direction": "DOWN",
+      "target_class": "ion_channel",
+      "target_compartment": "CELL_SURFACE"
+    },
+    {
+      "candidate_id": "PHI-DRUG-B28C6A3C96606308",
+      "coordinate": {
+        "indication": "fibrostenotic Crohn disease",
+        "localization": "gut-localized",
+        "modality": "small-molecule agonist",
+        "route": "subcutaneous",
+        "target": "GPR35"
+      },
+      "mechanistic_direction": "UP",
+      "target_class": "GPCR",
+      "target_compartment": "CELL_SURFACE"
+    },
+    {
+      "candidate_id": "PHI-DRUG-9DBB78150E449E42",
+      "coordinate": {
+        "indication": "type 2 diabetes mellitus",
+        "localization": "long-acting depot",
+        "modality": "monoclonal-antibody antagonist",
+        "route": "subcutaneous",
+        "target": "IL-33"
+      },
+      "mechanistic_direction": "DOWN",
+      "target_class": "cytokine",
+      "target_compartment": "EXTRACELLULAR"
+    },
+    {
+      "candidate_id": "PHI-DRUG-D4F603D9BFAC5266",
+      "coordinate": {
+        "indication": "fibrostenotic Crohn disease",
+        "localization": "gut-localized",
+        "modality": "siRNA",
+        "route": "local intestinal",
+        "target": "LOXL3"
+      },
+      "mechanistic_direction": "DOWN",
+      "target_class": "enzyme",
+      "target_compartment": "EXTRACELLULAR_OR_INTRACELLULAR"
+    },
+    {
+      "candidate_id": "PHI-DRUG-FF70C4F0BDEF70A6",
+      "coordinate": {
+        "indication": "MASH fibrosis",
+        "localization": "liver-targeted",
+        "modality": "siRNA",
+        "route": "subcutaneous",
+        "target": "HMG-CoA reductase"
+      },
+      "mechanistic_direction": "DOWN",
+      "target_class": "enzyme",
+      "target_compartment": "ER_MEMBRANE"
+    },
+    {
+      "candidate_id": "PHI-DRUG-73B4999BB24A40E0",
+      "coordinate": {
+        "indication": "Alzheimer disease",
+        "localization": "brain-penetrant",
+        "modality": "siRNA",
+        "route": "subcutaneous",
+        "target": "NOTCH1"
+      },
+      "mechanistic_direction": "DOWN",
+      "target_class": "receptor",
+      "target_compartment": "CELL_SURFACE"
+    },
+    {
+      "candidate_id": "PHI-DRUG-EF40DC82E135670C",
+      "coordinate": {
+        "indication": "Alzheimer disease",
+        "localization": "brain-penetrant",
+        "modality": "small-molecule agonist",
+        "route": "oral",
+        "target": "TLR7"
+      },
+      "mechanistic_direction": "UP",
+      "target_class": "receptor",
+      "target_compartment": "ENDOSOMAL"
+    },
+    {
+      "candidate_id": "PHI-DRUG-97C7837099B02915",
+      "coordinate": {
+        "indication": "fibrostenotic Crohn disease",
+        "localization": "gut-localized",
+        "modality": "monoclonal-antibody antagonist",
+        "route": "subcutaneous",
+        "target": "FAP"
+      },
+      "mechanistic_direction": "DOWN",
+      "target_class": "protease",
+      "target_compartment": "CELL_SURFACE"
+    }
+  ],
+  "digest": "061edde6baa880a3baaf82ebb66c7ea9bcafa919d466eecfa9bff3d0bc1ccfa5",
+  "purpose": "fixed candidate pool for deterministic selective adjudication example only",
+  "schema": "phi-pharma-fixed-candidate-pool-fixture/v1",
+  "source": "PHARMA_INTERIOR_FULLSPACE_FREEZE.json from prior run",
+  "source_procedure_integrity": "NOT_USED_AS_BLIND_DISCOVERY_PROOF_DUE_PRECOMMIT_461_VS_973_DEFECT"
+}

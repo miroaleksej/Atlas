@@ -1,0 +1,272 @@
+"""Qualification for Φ-Knowledge Evolution Kernel 1.2.0."""
+from __future__ import annotations
+
+import json
+import math
+import tempfile
+from pathlib import Path
+from typing import Any
+
+from source.lawspace.schema import digest_payload
+from source.lawspace.runtime import LawSpaceRuntime
+from source.lawspace.candidates import CandidateGenerationPipeline, DirectedResearchQuery
+from source.lawspace.domains import DOMAIN_REGISTRIES, canonical_axis_count, load_domain_plugin_manifests
+from source.lawspace.scientific_verification import build_qualification_source_receipt, build_qualification_claim_receipt
+from source.lawspace.knowledge_evolution import (
+    KnowledgeEvolutionKernel, WorldAttestationOwner, AxisLifecycleOwner,
+    DomainOntogenesisOwner, CrossDomainBridgeOwner,
+)
+
+SCHEMA = "phi-knowledge-evolution-qualification/v1"
+RELEASE = "15.23.0"
+
+
+def _qualification_bundle(proposer: str, suffix: str, value: str, environment_id: str) -> dict[str, Any]:
+    source = build_qualification_source_receipt(
+        identifier_type="DOI", identifier=f"10.0000/phi-knowledge-{suffix}",
+        title=f"Qualification source {suffix}", resolved_url=f"https://example.org/{suffix}",
+        content_text=f"qualification observation {suffix}: {value}", proposer_owner=proposer,
+    )
+    claim = build_qualification_claim_receipt(
+        source, claim_field="emergent_domain_signature", claim_value=value, relation="SUPPORTS",
+        claim_text=f"Independent observation supports {value}", fact_summary=f"observed {value}",
+        proposer_owner=proposer, context=environment_id,
+    )
+    return {
+        "proposer_owner": proposer, "evidence_class": "EXTERNAL_SOURCE",
+        "claim_values": {"emergent_domain_signature": value},
+        "source_receipts": [source], "claim_receipts": [claim],
+        "minimum_distinct_sources": 1, "environment_id": environment_id,
+    }
+
+
+def run_release_qualification(root: str | Path | None = None) -> dict[str, Any]:
+    root = Path(root or Path(__file__).resolve().parents[1])
+    runtime = LawSpaceRuntime(root)
+    blind_seed = sorted(runtime.catalog.passports)[0]
+    scan = CandidateGenerationPipeline(runtime.catalog, runtime.bridges).directed_research(
+        DirectedResearchQuery(
+            question="identify whether a coherent unrepresented science-domain is warranted from residual, causal, measurement and owner structure",
+            required_observables=("residual", "measurement", "causal response"),
+            seed_owner_ids=(blind_seed,),
+            include_all_connected_owners=True,
+            discovery_mode="BLIND_PRIMITIVE_FIREWALL",
+        )
+    )
+    kernel = KnowledgeEvolutionKernel(root)
+    proposer = "DOMAIN-ONTOGENESIS/1.0.0"
+    support_bundles = [
+        _qualification_bundle(proposer, "a", "QUALIFIED-CLUSTER-ALPHA", "ENV-A"),
+        _qualification_bundle(proposer, "b", "QUALIFIED-CLUSTER-ALPHA", "ENV-B"),
+    ]
+    world = WorldAttestationOwner().attest(verification_bundles=support_bundles, qualification_mode=True)
+    production_view = WorldAttestationOwner().attest(verification_bundles=support_bundles, qualification_mode=False)
+    conflict = WorldAttestationOwner().attest(
+        verification_bundles=[support_bundles[0], _qualification_bundle(proposer, "c", "CONFLICTING-CLUSTER-BETA", "ENV-C")],
+        qualification_mode=True,
+    )
+
+    axes = [
+        {"axis_id": "response_phase_coordinate", "description_ru": "Фаза устойчивого отклика нового исследовательского кластера", "value_kind": "CONTINUOUS_RANGE"},
+        {"axis_id": "coupled_memory_coordinate", "description_ru": "Измеримая координата памяти между наблюдением и откликом", "value_kind": "CONTINUOUS_RANGE"},
+        {"axis_id": "intervention_transfer_class", "description_ru": "Класс переноса интервенционного эффекта между режимами", "value_kind": "TEXT"},
+    ]
+    birth_owner = DomainOntogenesisOwner()
+    birth_evidence = [
+        {"axis_id":"response_phase_coordinate","feature_vector":[1.0,0.90,0.80],"existing_domain_scores":{"physics":0.22,"systems_control":0.31},"owner_cluster_id":"QUAL-CLUSTER-A","prospective_predictive_gain":0.18,"environment_id":"ENV-A"},
+        {"axis_id":"coupled_memory_coordinate","feature_vector":[0.96,0.87,0.82],"existing_domain_scores":{"physics":0.25,"systems_control":0.28},"owner_cluster_id":"QUAL-CLUSTER-A","prospective_predictive_gain":0.16,"environment_id":"ENV-B"},
+        {"axis_id":"intervention_transfer_class","feature_vector":[1.04,0.92,0.79],"existing_domain_scores":{"physics":0.20,"systems_control":0.30},"owner_cluster_id":"QUAL-CLUSTER-A","prospective_predictive_gain":0.17,"environment_id":"ENV-C"},
+    ]
+    redundant_evidence = [{**row, "existing_domain_scores":{"physics":0.96,"systems_control":0.94}} for row in birth_evidence]
+    birth = birth_owner.assess_birth(
+        scan_receipt=scan, attestation=world, domain_id="qualification_emergent_science",
+        description_ru="Qualification-only emergent domain generated by Φ-space ontogenesis",
+        axes=axes, evidence_rows=birth_evidence, qualification_mode=True,
+    )
+    redundant_birth = birth_owner.assess_birth(
+        scan_receipt=scan, attestation=world, domain_id="qualification_redundant_science",
+        description_ru="Negative redundancy control", axes=axes, evidence_rows=redundant_evidence,
+        qualification_mode=True,
+    )
+    production_birth_with_qualification_evidence = birth_owner.assess_birth(
+        scan_receipt=scan, attestation=production_view, domain_id="qualification_illegal_world_promotion",
+        description_ru="Must remain blocked", axes=axes, evidence_rows=birth_evidence, qualification_mode=False,
+    )
+
+    with tempfile.TemporaryDirectory(prefix="phi-knowledge-evolution-") as td:
+        td = Path(td)
+        manifest_dir = td / "domains"
+        state_path = td / "knowledge_evolution_state.json"
+        birth_tx = birth_owner.commit_birth(birth, manifest_dir=manifest_dir, state_path=state_path)
+        sandbox_manifests_after_birth = load_domain_plugin_manifests(manifest_dir)
+
+        lifecycle = AxisLifecycleOwner()
+        axis_before = canonical_axis_count()
+        deprecate = lifecycle.propose_transition(
+            domain_id="pharmaceutical", axis_id="renal_function_egfr", to_status="DEPRECATED",
+            evidence={
+                "environment_ids": ["AXIS-ENV-1", "AXIS-ENV-2"],
+                "owner_ids": ["OWNER-A", "OWNER-B"],
+                "evidence_digests": [digest_payload("axis-failure-a"), digest_payload("axis-failure-b")],
+            }, state_path=state_path, qualification_mode=True,
+        )
+        deprecate_tx = lifecycle.commit_transition(deprecate, state_path=state_path)
+        replace = lifecycle.propose_transition(
+            domain_id="pharmaceutical", axis_id="renal_function_egfr", to_status="REPLACED",
+            replacement_axis_id="pharmaceutical.clearance",
+            evidence={
+                "environment_ids": ["AXIS-ENV-1", "AXIS-ENV-2"],
+                "owner_ids": ["OWNER-A", "OWNER-B"],
+                "evidence_digests": [digest_payload("axis-equiv-a"), digest_payload("axis-equiv-b")],
+                "equivalence_score": 0.98,
+            }, state_path=state_path, qualification_mode=True,
+        )
+        replace_tx = lifecycle.commit_transition(replace, state_path=state_path)
+        resolved_axis = lifecycle.resolve_axis("pharmaceutical.renal_function_egfr", state_path=state_path)
+        one_env_negative = lifecycle.propose_transition(
+            domain_id="pharmaceutical", axis_id="clearance", to_status="REPLACED",
+            replacement_axis_id="pharmaceutical.bioavailability",
+            evidence={
+                "environment_ids": ["ONLY-ONE"], "owner_ids": ["ONLY-ONE-OWNER"],
+                "evidence_digests": [digest_payload("insufficient")], "equivalence_score": 0.99,
+            }, state_path=state_path, qualification_mode=True,
+        )
+        active_view = lifecycle.active_view(state_path=state_path)
+        axis_after = canonical_axis_count()
+
+        # One-to-one qualification bridge structure over all 12 axes of two domains.
+        bridge_signatures = []
+        bio_axes = list(sorted(DOMAIN_REGISTRIES["biology"].axes))
+        earth_axes = list(sorted(DOMAIN_REGISTRIES["earth_systems"].axes))
+        for i, (ba, ea) in enumerate(zip(bio_axes, earth_axes)):
+            common = {
+                "dimension": [0, 0, 0, 0, 0, 0, 0],
+                "measurement_kind": f"QUAL-MEAS-{i}",
+                "observable_role": f"QUAL-OBS-{i}",
+                "causal_role": f"QUAL-CAUSE-{i}",
+                "normalization": f"QUAL-NORM-{i}",
+                "environment_ids": [f"BRIDGE-E{i}-A", f"BRIDGE-E{i}-B"],
+                "owner_ids": [f"BRIDGE-OWNER-{i}-A", f"BRIDGE-OWNER-{i}-B"],
+                "evidence_digests": [digest_payload(f"bridge-{i}-a"), digest_payload(f"bridge-{i}-b")],
+            }
+            bridge_signatures.append({"domain_id": "biology", "axis_id": ba, **common})
+            bridge_signatures.append({"domain_id": "earth_systems", "axis_id": ea, **common})
+        bridge_owner = CrossDomainBridgeOwner()
+        bridge_graph = bridge_owner.discover(bridge_signatures, persist_path=state_path)
+        bridge_coverage = bridge_owner.domain_pair_coverage(
+            bridge_graph, domain_a="biology", domain_b="earth_systems",
+            axis_counts={"biology": len(bio_axes), "earth_systems": len(earth_axes)},
+        )
+        mismatch = bridge_owner.discover([
+            {"domain_id": "physics", "axis_id": next(iter(DOMAIN_REGISTRIES["physics"].axes)), "dimension": [1,0,0,0,0,0,0], "measurement_kind": "A", "observable_role": "A", "causal_role": "A", "normalization": "A", "environment_ids":["X1","X2"], "owner_ids":["O1","O2"], "evidence_digests":[digest_payload("x1"),digest_payload("x2")]},
+            {"domain_id": "chemistry", "axis_id": next(iter(DOMAIN_REGISTRIES["chemistry"].axes)), "dimension": [0,1,0,0,0,0,0], "measurement_kind": "B", "observable_role": "B", "causal_role": "B", "normalization": "B", "environment_ids":["Y1","Y2"], "owner_ids":["P1","P2"], "evidence_digests":[digest_payload("y1"),digest_payload("y2")]},
+        ])
+
+        split_axes = list(sorted(DOMAIN_REGISTRIES["systems_control"].axes))
+        mid = len(split_axes) // 2
+        split_a, split_b = split_axes[:mid], split_axes[mid:]
+        affinity_rows = []
+        for i, axis_a in enumerate(split_axes):
+            for axis_b in split_axes[i + 1:]:
+                same_partition = (axis_a in split_a and axis_b in split_a) or (axis_a in split_b and axis_b in split_b)
+                affinity_rows.append({
+                    "axis_a": axis_a, "axis_b": axis_b,
+                    "affinity": 0.90 if same_partition else 0.20,
+                    "environment_id": f"SPLIT-{i}",
+                    "evidence_digest": digest_payload([axis_a, axis_b, same_partition]),
+                })
+        split = birth_owner.assess_split(
+            parent_domain_id="systems_control", partition_a=split_a, partition_b=split_b,
+            affinity_rows=affinity_rows, attestation=world, qualification_mode=True,
+        )
+        split_tx = birth_owner.commit_split(split, manifest_dir=manifest_dir, state_path=state_path)
+
+        merge_prediction_rows = [
+            {"environment_id": "MERGE-E1", "domain_a_predictions": [0.10, 0.50, 0.90], "domain_b_predictions": [0.101, 0.499, 0.899]},
+            {"environment_id": "MERGE-E2", "domain_a_predictions": [0.20, 0.60, 0.80], "domain_b_predictions": [0.199, 0.601, 0.801]},
+            {"environment_id": "MERGE-E3", "domain_a_predictions": [0.30, 0.40, 0.70], "domain_b_predictions": [0.301, 0.399, 0.699]},
+        ]
+        merge = birth_owner.assess_merge(
+            domain_a="biology", domain_b="earth_systems", bridge_coverage=bridge_coverage["coverage"],
+            prediction_rows=merge_prediction_rows, attestation=world, qualification_mode=True,
+        )
+        merge_tx = birth_owner.commit_merge(
+            merge, merged_domain_id="qualification_bio_earth_superdomain", manifest_dir=manifest_dir, state_path=state_path,
+        )
+        sandbox_manifests_final = load_domain_plugin_manifests(manifest_dir)
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+
+    checks = {
+        "kernel_contract_has_six_authoritative_owners": set(kernel.contract()["owners"]) == {"world_attestation", "axis_lifecycle", "domain_ontogenesis", "cross_domain_bridge", "owner_axis_binding", "candidate_world_binding"},
+        "internal_phi_scan_visits_all_canonical_axes": scan.get("all_registered_axes_visited") is True and scan.get("registered_axis_count") == axis_before,
+        "internal_phi_scan_has_no_fixed_visit_budget": scan.get("fixed_owner_visit_budget") is None and scan.get("fixed_candidate_axis_order_ceiling") is None,
+        "internal_phi_scan_does_not_use_external_or_published_vocabulary_prefreeze": all(scan.get("knowledge_firewall", {}).get(k) is False for k in ("passport_names_used_for_source_scoring", "passport_formulas_used_for_source_scoring", "passport_provenance_used_for_source_scoring", "published_model_vocabulary_used_for_source_scoring")) and scan.get("knowledge_firewall", {}).get("postfreeze_information_feedback_allowed") is False,
+        "qualification_attestation_is_ready_but_not_world": world.get("qualification_ready") is True and world.get("world_ready") is False and world.get("status") == "QUALIFICATION_ATTESTATION_READY_NOT_WORLD",
+        "production_view_blocks_qualification_evidence_as_world": production_view.get("world_ready") is False and production_view.get("qualification_ready") is False,
+        "attested_conflict_is_preserved": conflict.get("conflicts") and conflict["conflicts"][0]["status"] == "UNRESOLVED_ATTESTED_CONFLICT",
+        "domain_birth_is_warranted_only_in_qualification_sandbox": birth.get("status") == "NEW_DOMAIN_WARRANTED" and birth.get("attestation_tier") == "QUALIFICATION_ONLY",
+        "domain_birth_metrics_are_computed_from_frozen_evidence": birth.get("checks", {}).get("METRICS_DERIVED_FROM_FROZEN_EVIDENCE") is True and birth.get("metrics", {}).get("evidence_digest") == digest_payload(birth_evidence),
+        "redundant_domain_birth_is_blocked": redundant_birth.get("status") == "NEW_DOMAIN_NOT_WARRANTED" and redundant_birth.get("checks", {}).get("NONREDUNDANT_WITH_EXISTING_DOMAIN") is False,
+        "qualification_evidence_cannot_promote_production_domain": production_birth_with_qualification_evidence.get("canonical_transaction_allowed") is False,
+        "domain_birth_transaction_materializes_reloadable_manifest": birth_tx.get("status") == "QUALIFICATION_SANDBOX_DOMAIN_MANIFEST_COMMITTED" and "qualification_emergent_science" in sandbox_manifests_after_birth,
+        "domain_manifest_delegates_common_rules": sandbox_manifests_after_birth["qualification_emergent_science"].get("common_rules_owner") == "COMMON-SCIENTIFIC-RULES/1.0.0",
+        "axis_lifecycle_deprecates_without_deleting_axis": deprecate_tx.get("to_status") == "DEPRECATED" and deprecate_tx.get("claim_boundary", {}).get("axis_definition_deleted") is False,
+        "axis_lifecycle_replacement_is_committed": replace_tx.get("to_status") == "REPLACED" and resolved_axis.get("resolved_axis_id") == "pharmaceutical.clearance",
+        "axis_lifecycle_single_environment_replacement_blocked": one_env_negative.get("transition_allowed") is False,
+        "axis_lifecycle_keeps_old_axis_addressable": active_view.get("addressable_axis_count") == axis_before and active_view.get("inactive_addressable_axis_count", 0) >= 1,
+        "axis_lifecycle_does_not_mutate_canonical_registry": axis_before == axis_after == canonical_axis_count(),
+        "bridge_graph_has_one_to_one_full_pair_coverage": bridge_graph.get("edge_count") == 12 and math.isclose(float(bridge_coverage.get("coverage", 0.0)), 1.0),
+        "bridge_edges_have_preserve_and_lose_contracts": all("Preserve" in e and "Lose" in e for e in bridge_graph.get("edges", ())),
+        "bridge_never_merges_canonical_axes": all(e.get("canonical_axes_merged") is False for e in bridge_graph.get("edges", ())),
+        "structurally_mismatched_axes_do_not_bridge": mismatch.get("edge_count") == 0,
+        "domain_split_metrics_derived_from_complete_pair_evidence": split.get("checks", {}).get("AFFINITY_METRICS_DERIVED_FROM_COMPLETE_EVIDENCE") is True and split.get("metrics", {}).get("complete_pair_evidence") is True and split.get("metrics", {}).get("evidence_digest") == digest_payload(affinity_rows),
+        "domain_split_warranted_on_strong_partition": split.get("status") == "DOMAIN_SPLIT_WARRANTED",
+        "domain_split_transaction_preserves_parent": split_tx.get("parent_domain_deleted") is False and len(split_tx.get("child_domain_ids", ())) == 2,
+        "domain_merge_predictive_equivalence_derived_from_multiple_environments": merge.get("checks", {}).get("PREDICTIVE_EQUIVALENCE_DERIVED_IN_MULTIPLE_ENVIRONMENTS") is True and merge.get("predictive_equivalence", {}).get("valid_environment_count", 0) >= 2 and merge.get("predictive_equivalence", {}).get("evidence_digest") == digest_payload(merge_prediction_rows),
+        "domain_merge_requires_bridge_and_is_nondestructive": merge.get("status") == "NONDESTRUCTIVE_SUPERDOMAIN_MERGE_WARRANTED" and merge_tx.get("source_domains_deleted") is False,
+        "split_and_merge_manifests_reload": all(x in sandbox_manifests_final for x in [*split_tx.get("child_domain_ids", ()), "qualification_bio_earth_superdomain"]),
+        "qualification_transactions_never_touch_release_domain_registry": "qualification_emergent_science" not in DOMAIN_REGISTRIES and "qualification_bio_earth_superdomain" not in DOMAIN_REGISTRIES,
+        "knowledge_state_contains_complete_evolution_sections": all(k in state for k in ("world_attestations", "axis_lifecycle", "research_axis_proposals", "domain_transactions", "cross_domain_bridges", "owner_axis_bindings", "candidate_world_bindings", "candidate_response_projections", "candidate_measurement_executions", "candidate_prediction_lowerings", "candidate_prediction_discriminations", "hypothesis_materializations")),
+        "candidate_binding_contract_requires_prefrozen_response_before_execution": kernel.contract().get("owners", {}).get("candidate_world_binding", {}).get("rules", {}).get("response_projection_must_be_frozen_before_execution") is True,
+        "executed_response_without_candidate_prediction_cannot_pass_u5": kernel.contract().get("claim_boundary", {}).get("executable_measurement_response_without_candidate_prediction_is_u5") is False,
+        "manual_lowering_requires_prefreeze_and_forbids_heldout_refit": kernel.contract().get("owners", {}).get("candidate_world_binding", {}).get("rules", {}).get("manual_prediction_lowering_must_be_digest_frozen_before_heldout_reveal") is True and kernel.contract().get("owners", {}).get("candidate_world_binding", {}).get("rules", {}).get("heldout_refit_for_manual_prediction_example_allowed") is False,
+        "knowledge_state_digest_valid": state.get("digest") == digest_payload({k:v for k,v in state.items() if k != "digest"}),
+        "internet_is_not_prefreeze_selector": kernel.contract().get("claim_boundary", {}).get("internet_is_prefreeze_solution_selector") is False,
+        "qualification_fixture_never_claimed_as_world": kernel.contract().get("claim_boundary", {}).get("qualification_fixture_is_world_attestation") is False,
+    }
+    payload = {
+        "schema": SCHEMA, "release": RELEASE, "owner_id": kernel.owner_id,
+        "status": "PASS_PHI_KNOWLEDGE_EVOLUTION_QUALIFICATION" if all(checks.values()) else "FAIL_PHI_KNOWLEDGE_EVOLUTION_QUALIFICATION",
+        "passed": sum(bool(v) for v in checks.values()), "total": len(checks),
+        "checks": [{"check": k, "status": "PASS" if v else "FAIL"} for k, v in checks.items()],
+        "demonstration": {
+            "phi_scan": {k: scan.get(k) for k in ("registered_axis_count", "all_registered_axes_visited", "owner_visits", "fixed_owner_visit_budget", "fixed_candidate_axis_order_ceiling", "digest")},
+            "world_attestation": world, "world_conflict_control": conflict,
+            "domain_birth": birth, "domain_birth_transaction": birth_tx,
+            "axis_deprecate": deprecate_tx, "axis_replace": replace_tx, "axis_resolve": resolved_axis,
+            "bridge_graph": bridge_graph, "bridge_coverage": bridge_coverage,
+            "domain_split": split, "domain_split_transaction": split_tx,
+            "domain_merge": merge, "domain_merge_transaction": merge_tx,
+        },
+        "claim_boundary": {
+            "qualification_fixture_is_world_attestation": False,
+            "production_canonical_domain_was_created": False,
+            "release_canonical_axis_registry_mutated": False,
+            "bridge_claims_world_identity": False,
+            "internet_used_for_prefreeze_candidate_selection": False,
+        },
+    }
+    payload["digest"] = digest_payload(payload)
+    return payload
+
+
+def write_report(root: str | Path | None = None) -> dict[str, Any]:
+    root = Path(root or Path(__file__).resolve().parents[1])
+    payload = run_release_qualification(root)
+    path = root / "reports" / "PHI_KNOWLEDGE_EVOLUTION_QUALIFICATION_CURRENT.json"
+    path.write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+    return payload
+
+
+if __name__ == "__main__":
+    print(json.dumps(write_report(), ensure_ascii=False, indent=2, sort_keys=True))

@@ -1,0 +1,121 @@
+{
+  "claim_boundary": {
+    "literature_novelty": "NOT_ESTABLISHED_BY_ABSENCE_OF_A_SEARCH_HIT",
+    "new_cross_sector_physical_truth": "NOT_INHERITED_AUTOMATICALLY",
+    "source_derived_closures": "FORMALLY_DERIVED_WITHIN_ASSUMPTIONS",
+    "source_laws": "ESTABLISHED_OR_EXPLICIT_ENGINEERING_MODEL_WITH_SCOPE",
+    "world_literature_exhausted": false
+  },
+  "declared_records": {
+    "known_laws": 31,
+    "quantities": 15
+  },
+  "edition": "2026-08-13",
+  "location": "data/source_snapshots/aeronautics_primary_law_corpus_v6_15.json",
+  "processed_records": {
+    "known_laws": 31,
+    "quantities": 15
+  },
+  "record_level_bibliography": "PRIMARY_SOURCE_ID_BOUND_PER_PASSPORT_AND_INTERSECTION_RECORD",
+  "sha256": "4a4ba93ecb8b5c2550b553c305b76f016ed73a81510054353d8295f70f768faf",
+  "source_families": [
+    {
+      "id": "NASA-GLENN-LIFT-2023",
+      "identifier": "NASA Glenn Beginner's Guide to Aeronautics, Lift Equation",
+      "role": "L=q S C_L"
+    },
+    {
+      "id": "NASA-GLENN-DRAG-2025",
+      "identifier": "NASA Glenn Beginner's Guide to Aeronautics, Drag Equation",
+      "role": "D=q S C_D"
+    },
+    {
+      "id": "NASA-GLENN-INDUCED-DRAG-2023",
+      "identifier": "NASA Glenn Beginner's Guide to Aeronautics, Induced Drag Coefficient",
+      "role": "C_Di=C_L^2/(pi e AR)"
+    },
+    {
+      "id": "NACA-REPORT-1135",
+      "identifier": "NACA Report 1135, Equations, Tables, and Charts for Compressible Flow",
+      "role": "M=V/a, q=rho V^2/2, Re=rho V l/mu, perfect-gas compressible-flow relations"
+    },
+    {
+      "id": "NASA-GLENN-ISENTROPIC",
+      "identifier": "NASA Glenn, Isentropic Flow Equations / Derivation",
+      "role": "M=V/a; a^2=gamma R T; stagnation relations"
+    },
+    {
+      "id": "EASA-CS25-GUST",
+      "identifier": "EASA CS-25 / gust and turbulence load criteria, accessed 2026-08-13",
+      "role": "U_ref, K_g, wing loading, lift-curve-slope gust design quantities"
+    },
+    {
+      "id": "NACA-GUST-CORPUS",
+      "identifier": "NACA/NASA gust-load reports including revised gust-load formula and effective gust-velocity corpus",
+      "role": "quasi-steady/discrete gust load relation"
+    },
+    {
+      "id": "NASA-BREGUET-CORPUS",
+      "identifier": "NASA NTRS aircraft range studies using the Breguet range equation",
+      "role": "jet range relation and L/D dependence"
+    },
+    {
+      "id": "NASA-AIRSHIP-FEASIBILITY",
+      "identifier": "NASA NTRS high-altitude long-endurance airship feasibility studies",
+      "role": "buoyancy, solar power, drag, station keeping"
+    },
+    {
+      "id": "NASA-ROTOR-MOMENTUM",
+      "identifier": "NASA rotary-wing / momentum-theory technical corpus",
+      "role": "ideal induced hover power"
+    },
+    {
+      "id": "SHI-ETAL-AIRSHIP-TRANSITION-2026",
+      "identifier": "arXiv:2603.02779",
+      "role": "airship transition model with wall-temperature ratio, pressure gradient and turbulence intensity"
+    },
+    {
+      "id": "NASA-AEROSERVOELASTIC-GLA-2020",
+      "identifier": "Cramer & Nguyen, Development of an Aeroservoelastic Model for Gust Load Alleviation, NASA NTRS 20200000327",
+      "role": "linear aeroservoelastic state-space gust/control/load model"
+    },
+    {
+      "id": "NASA-MULTIOBJECTIVE-GLA-2020",
+      "identifier": "Multi-Objective Gust Load Alleviation Control Designs, NASA NTRS 20200001382",
+      "role": "closed-loop gust-load alleviation controller/estimator models"
+    },
+    {
+      "id": "NASA-DRYDEN-TURBULENCE",
+      "identifier": "NASA Dryden atmospheric turbulence modeling / implementation corpus",
+      "role": "stationary turbulence spectral model used for gust excitation"
+    },
+    {
+      "id": "NASA-HALE-AIRSHIP-2015",
+      "identifier": "Ozoroski et al., High Altitude Long Endurance UAV Analysis Model Development and Application Study Comparing Solar Powered Airplane and Airship Station-Keeping Capabilities, NASA/TM-2015-218677",
+      "role": "solar array, energy storage, design power and high-wind station-keeping coupling"
+    },
+    {
+      "id": "NASA-AIRSHIP-FEASIBILITY-2003",
+      "identifier": "Colozza, Initial Feasibility Assessment of a High Altitude Long Endurance Airship, NASA/CR-2003-212724",
+      "role": "photovoltaic supply and electrochemical storage for high-altitude airship"
+    },
+    {
+      "id": "NASA-TRANSIENT-AEROTHERMAL-2000",
+      "identifier": "NASA TP-2000-209034 transient aerodynamic heating and surface-temperature methodology",
+      "role": "transient surface energy/temperature histories along trajectories"
+    },
+    {
+      "id": "NASA-HOT-STRUCTURE-MODAL-2010",
+      "identifier": "High-Temperature Modal Survey of a Hot-Structure Control Surface, NASA NTRS 20100039161",
+      "role": "thermal stresses degrade structural stiffness"
+    },
+    {
+      "id": "NACA-THERMAL-STRESS-1950",
+      "identifier": "NACA structural effects of nonuniform temperature distributions, NTRS 19930082882",
+      "role": "thermoelastic stress from aerodynamic-heating temperature fields"
+    }
+  ],
+  "source_id": "AERONAUTICS_PRIMARY_LAW_CORPUS_V6_15",
+  "source_type": "CURATED_PRIMARY_AERONAUTICS_LAW_AND_MODEL_CORPUS",
+  "title": "Авиастроение и воздухоплавание: полный активный корпус source laws, динамических и многодисциплинарных frontier-моделей"
+}

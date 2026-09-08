@@ -1,0 +1,21 @@
+{
+  "claim_boundary": {
+    "full_distributional_limit": "OPEN",
+    "joint_r_operation": "BOUNDED_FINITE_SECTOR_PASS_ANALYTIC_EXTENSION_OPEN",
+    "physical_cylinder": "OPEN"
+  },
+  "declared_records": {
+    "formal_contracts": 1
+  },
+  "edition": "v4.1",
+  "location": "data/formal_contracts/toller_distributional_vertex_v4_1.json",
+  "processed_records": {
+    "formal_contracts": 1
+  },
+  "record_level_bibliography": "formal owner contract and proof-obligation graph",
+  "sha256": "6545690fdc9d40e65613adccd32ff621c6c42b936f2c170781e962312489ac3c",
+  "source_families": [],
+  "source_id": "FORMAL_ANALYSIS_CONTRACTS_V4_1",
+  "source_type": "CURRENT_STATE_FORMAL_ANALYSIS_CONTRACTS",
+  "title": "Текущий формальный контракт причинной распределительной вершины и полного бисимплексного леса"
+}

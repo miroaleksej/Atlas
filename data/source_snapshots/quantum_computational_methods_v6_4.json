@@ -1,0 +1,9 @@
+{
+  "active_owner_policy": "QCM-PHI-Q1000-ARFE_IS_SOLE_STRUCTURAL_OWNER",
+  "generic_1000_full_state": "BLOCKED_EXPONENTIAL_STATE_SPACE",
+  "method_count": 24,
+  "methods_file": "data/passports/computational_methods.jsonl",
+  "methods_file_sha256": "36888dda58bf788ae67e30d740d583ba49a4cab90244115b977f5fcf81a9d7c6",
+  "schema": "phi-computational-method-snapshot/v6.4",
+  "scope": "ESTABLISHED_AND_BOUNDED_RESEARCH_COMPUTATIONAL_METHODS_NOT_LAWS"
+}

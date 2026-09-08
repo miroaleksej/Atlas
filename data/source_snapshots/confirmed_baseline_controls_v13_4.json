@@ -1,0 +1,13 @@
+{
+  "active_baseline_count": 0,
+  "active_unconfirmed_count": 0,
+  "baseline_role": "ARCHIVED_CONFIRMED_CONTROL_SNAPSHOT_NOT_ACTIVE_RESEARCH_STATE",
+  "claim_boundary": "Historical 2771 control anchors are retained only as provenance metadata. They are not restored as active candidates, are not the solution space, and do not replace the current frontier ledger.",
+  "current_authoritative_candidate_store": "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+  "historical_candidate_file_sha256": "41a7c3695d4c3abcdc0caf66576747a7175fbe422223384ea49d57019ba99448",
+  "historical_confirmed_baseline_count": 2771,
+  "historical_original_unverified_frontier_sha256": "4331bd0415c19022fa994516dca7cd96c4c7e65d80be7bd7ce13310360a1ec2f",
+  "historical_replacement_report_digest": "0d93569ac44ec3d7ecc39bb6c05528a297abe4dc71b2172e2023b6323fa934a7",
+  "release": "13.4.0",
+  "schema": "phi-confirmed-baseline-control-snapshot/v13.4-archived"
+}

@@ -1,0 +1,10 @@
+{
+  "episodes": [],
+  "owner": "PERSISTENT-EPISTEMIC-MEMORY/1.0.0",
+  "release": "9.5.0",
+  "schema": "phi-cognitive-state/v1",
+  "self_model": {},
+  "skills": [],
+  "state_digest": "ae88d0967cd1619f9c18860cdee700517daefdc4c9edccd5f8e37d631299d1af",
+  "state_origin": "NO_PRIOR_RESIDENT_COGNITIVE_STATE_PRESENT_IN_9_3_0"
+}
