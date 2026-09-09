@@ -73,8 +73,8 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "17acfd98f6edbdb1ab65b10486a204422fa6a1523cf15d6537ffc4d2d52e49ff",
-      "size": 66739
+      "sha256": "1a15ed181ada9fc65b73062c426b550b57150f907cc7ba3e0644209906d597f7",
+      "size": 102502
     },
     {
       "path": "capabilities.json",
@@ -1478,7 +1478,7 @@
     }
   ],
   "current_state_qualification_digest": "000f3de43816f68bb6948c52c2c40a6ee7e983eb6144dfa177654f0f81942ed4",
-  "digest": "7049a69d0503144e24d2f3e70aa13f04d22b65f9be69d1a75b358dd33154a0fc",
+  "digest": "c6f1fb86c7fae4a7892886d600a5f472fcaa5cee04aa000b58d0adcf1f35cb1e",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

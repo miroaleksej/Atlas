@@ -25,6 +25,7 @@
 - [Универсальность и потенциальные применения](#универсальность-и-потенциальные-применения)
 - [15. Типовые рабочие сценарии](#15-типовые-рабочие-сценарии)
 - [16. Диагностика ошибок](#16-диагностика-ошибок)
+- [17. Справочник по всем тестам](#17-справочник-по-всем-тестам)
 
 ## 1. Модель работы системы
 
@@ -1053,6 +1054,167 @@ make audit-read-only
 ```
 
 Если изменение не планировалось, сначала исследуйте `git diff`, `HASHES.txt` и `RELEASE_MANIFEST.json`, не перезаписывая исходные данные.
+
+## 17. Справочник по всем тестам
+
+В выпуске 15.26.0 собирается **108 тестов**. Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
+
+```bash
+pytest -q -p no:cacheprovider \
+  tests/test_eda_chip_design.py::test_eda_backend_fail_closed_without_orfs
+```
+
+Обозначение «ожидается PASS» означает прохождение программных утверждений теста, а не автоматическое подтверждение научного закона.
+
+### `tests/test_adaptive_axis_discovery.py` — 9 тестов
+
+- `test_scan_finds_context_axis_without_mutating_registry` — запускает поиск контекстной оси и сравнивает состояние реестра до и после. Ожидается обнаруженный кандидат при неизменном каноническом реестре.
+- `test_positive_causal_readiness_requires_positive_generalization_contract` — подаёт положительное причинное свидетельство без полного контракта обобщения. Ожидается запрет статуса causal-ready до выполнения всех условий.
+- `test_tlr7_causal_readiness_rejects_normalized_ig_shortcut` — проверяет TLR7-сценарий с нормированной информационной ценностью. Ожидается, что высокий IG не заменит репликацию и причинную проверку.
+- `test_p2x7_high_ig_is_not_causal_readiness_without_replication_and_generalization` — повторяет отрицательный контроль для P2X7. Ожидается сохранение исследовательского статуса без ложной причинной готовности.
+- `test_provisional_axis_mount_is_local_only` — монтирует предварительную ось в локальный контекст и повторно читает глобальный реестр. Ожидается локальная доступность без глобальной мутации.
+- `test_common_rules_preserve_candidate_and_axis_incompleteness_boundaries` — пропускает неполного кандидата и ось через общие правила. Ожидается явная фиксация неполноты без преобразования неизвестности в ложность.
+- `test_failed_axis_promotion_is_unverified_candidate_not_false_axis` — моделирует непройденное продвижение оси. Ожидается статус непроверенного кандидата, а не утверждение, что ось не существует.
+- `test_axis_modeling_does_not_birth_interaction_with_train_constant_axis` — обучает модель при постоянной на FIT оси. Ожидается отсутствие ложной рождённой интеракции, неидентифицируемой по обучающим данным.
+- `test_first_blind_real_physics_cycle_replays` — воспроизводит зафиксированный слепой физический цикл и проверяет его квитанции и метрики. Ожидается детерминированный PASS без заявления нового закона.
+
+### `tests/test_curvature_memory_current.py` — 2 теста
+
+- `test_curvature_memory_owner_survives_clean_baseline_without_postfreeze_seed` — открывает владельца памяти кривизны в чистом состоянии без послезаморозочного seed. Ожидается доступный владелец и отсутствие заранее материализованного ответа.
+- `test_curvature_memory_api_and_claim_boundary` — вызывает публичный API и проверяет поля границы утверждений. Ожидается исполняемый ответ при `scientific_truth_established = false`.
+
+### `tests/test_domain_plugin_architecture.py` — 7 тестов
+
+- `test_minimal_manifest_loads_without_central_registry_edit` — создаёт минимальный предметный manifest во временном каталоге и загружает его обычным механизмом плагинов. Ожидается регистрация без правки центрального реестра.
+- `test_manifest_must_delegate_common_rules` — удаляет обязательную ссылку на владельца общих правил. Ожидается отказ загрузки.
+- `test_manifest_cannot_shadow_generic_rules` — пытается переопределить общенаучные правила внутри предметного плагина. Ожидается fail-closed ошибка.
+- `test_duplicate_axes_fail_closed` — объявляет повторяющиеся идентификаторы осей. Ожидается отклонение неоднозначного manifest.
+- `test_partial_owner_declaration_fails` — задаёт неполную пару module/class владельца. Ожидается ошибка вместо частичной регистрации.
+- `test_pharmaceutical_plugin_delegation_is_ready` — загружает фармацевтический plugin и проверяет делегирование общих функций. Ожидается готовый предметный владелец с общим научным маршрутом.
+- `test_common_rules_is_router_not_parallel_solver` — инспектирует роль общих правил. Ожидается маршрутизация к владельцам, а не второй независимый решатель тех же задач.
+
+### `tests/test_eda_chip_design.py` — 6 тестов
+
+- `test_eda_backend_fail_closed_without_orfs` — запускает проверку в пустом временном каталоге. Ожидается `EDA_BACKEND_UNAVAILABLE`/`CHIP_PILOT_BACKEND_UNAVAILABLE`, отсутствие суррогата и отсутствие результата чипа.
+- `test_orfs_metric_parser_requires_explicit_lvs` — создаёт синтетическую структуру ORFS с метриками, но без однозначной LVS-квитанции. Ожидается `lvs_pass = null/false` и закрытый sign-off.
+- `test_route_drc_cannot_substitute_for_missing_signoff_drc` — предоставляет route-stage DRC без финального sign-off DRC. Ожидается, что маршрутная диагностика не засчитывается как прохождение DRC.
+- `test_missing_setup_violation_count_fails_timing_closed` — задаёт slack без явного числа setup-нарушений. Ожидается непройденный timing gate.
+- `test_eda_control_compares_four_equal_budget_strategies` — использует квалификационный evaluator и сравнивает Atlas, random, grid и Bayesian GP/EI. Ожидаются общий warm start, равные бюджеты и четыре отдельные квитанции без физического chip-claim.
+- `test_eda_owner_is_exposed_through_single_lawspace_api` — проверяет `READ_TOOLS` и вызывает контракт/backend через `LawSpaceAPI`. Ожидаются три публичных EDA-метода и единый авторитетный владелец.
+
+### `tests/test_electronic_state_space_current.py` — 6 тестов
+
+- `test_electronic_state_space_contract_has_no_answer_order_or_fixed_shell_ceiling` — читает контракт электронного пространства. Ожидается отсутствие таблицы правильного порядка и фиксированного научного потолка оболочек.
+- `test_scf_evaluator_has_no_internal_configuration_generator_or_nuclear_radius_law` — инспектирует границы SCF-evaluator. Ожидается, что он оценивает переданную конфигурацию, но не генерирует её и не подмешивает закон ядерного радиуса.
+- `test_electronic_state_space_light_atom_executes_without_answer_table` — запускает лёгкий атом без answer-bearing fixture. Ожидается исполняемый численный результат с честным статусом.
+- `test_public_api_exposes_new_authoritative_owner_not_as_regression` — сверяет классы инструментов API. Ожидается электронный владелец в обычной читающей поверхности, а не в карантине regression tools.
+- `test_theory_compiler_many_body_coordinate_discovery_is_rank_adaptive_and_named_method_free` — запускает компилятор многочастичной координаты при изменяемом ранге. Ожидается адаптивный выбор структуры без подсказки названием известного метода.
+- `test_evidence_born_many_body_coordinate_survives_precommitted_blind_atoms` — фиксирует координату до проверки на слепых атомах и воспроизводит контроль. Ожидается сохранение кандидата и прохождение заранее объявленной проверки без постфактум-подгонки.
+
+### `tests/test_epoch_genesis_autonomous.py` — 7 тестов
+
+- `test_pipeline_null_exact_p_and_resolution_gate` — вычисляет точное перестановочное p-value и проверяет условие разрешения `1/(n+1) ≤ α`. Ожидается PASS только при достаточном числе перестановок.
+- `test_rational_schedule_has_correct_resolution_and_is_summable_prefix` — строит рациональное распределение alpha по эпохам и суммирует конечный префикс. Ожидаются требуемое разрешение и расход не выше общего бюджета.
+- `test_scoped_binding_is_fail_closed_until_director_binds_fingerprints` — подаёт свидетельство без привязки fingerprint директором. Ожидается блокировка его использования.
+- `test_duplicate_fingerprints_are_refused` — повторно предъявляет тот же evidence fingerprint. Ожидается отказ от двойного учёта.
+- `test_blind_autonomous_path_reaches_honest_resource_frontier_without_false_claim` — выполняет слепой автономный поиск до вычислительного предела. Ожидается `RESOURCE_DEFERRED` и отсутствие ложного открытия.
+- `test_noise_is_not_promoted_before_the_same_resource_yield` — запускает сопоставимый шумовой контроль. Ожидается отсутствие продвижения шума до того же ресурсного рубежа.
+- `test_deferred_resource_yields_before_buying_another_confirmation_epoch` — проверяет политику планировщика после исчерпания бюджета. Ожидается возврат управления с запросом ресурса, а не скрытая покупка следующей эпохи.
+
+### `tests/test_exoplanet_dimensional_closure_example.py` — 10 тестов
+
+- `test_example_notebook_is_current_release` — исполняет все code cells notebook и проверяет metadata выпуска 15.25.0, а также фильтрацию локальных артефактов. Ожидается корректный notebook формата 4, совместимый с 15.26.0.
+- `test_example_dataset_schema_and_size` — читает CSV и проверяет 50 строк и фиксированный набор столбцов. Ожидается точное соответствие схеме примера.
+- `test_example_dataset_has_positive_observations` — проверяет конечность и положительность величин для логарифмического анализа. Ожидается отсутствие недопустимых значений.
+- `test_example_search_surface_is_complete` — сверяет число рассмотренных гипотез и полноту заранее объявленного перебора. Ожидается 172 гипотезы без сокращения до показанного shortlist.
+- `test_example_freezes_unhinted_kepler_coordinate` — проверяет победившие показатели `(3, -2, -1)` без передачи формулы Кеплера. Ожидается зафиксированная координата до реестрового сопоставления.
+- `test_example_generates_gravitational_dimension` — выводит размерность отсутствующей константы из цели и предикторов. Ожидается `L³ M⁻¹ T⁻²`.
+- `test_example_closes_exact_rational_kernel_at_p1` — добавляет порождённую величину и пересчитывает точное рациональное ядро. Ожидается нуль-дефектность `p = 1` и замыкающая сигнатура.
+- `test_example_postfreeze_registry_match` — сопоставляет зафиксированный результат с реестром только после поиска. Ожидается распознавание гравитационной константы без утечки ответа в поиск.
+- `test_example_numeric_control_is_within_declared_scale` — сравнивает оценку `G` с контрольным значением. Ожидается относительная ошибка в объявленном допустимом диапазоне.
+- `test_example_receipt_preserves_claim_boundary` — инспектирует финальную квитанцию. Ожидается воспроизведённый контроль без утверждения нового закона, новой константы или prospective validation.
+
+### `tests/test_permutation_eprocess_current.py` — 2 теста
+
+- `test_permutation_eprocess_full_qualification` — воспроизводит полную квалификацию перестановочного e-process, включая группы C6/S6 и эмпирическую калибровку. Ожидается `PASS_PERMUTATION_EPROCESS_15_20_0` при сохранённой границе «только для одной цели».
+- `test_reused_epoch_is_refused_and_does_not_change_genesis_journal` — повторно использует уже израсходованную эпоху и сравнивает журнал до и после. Ожидается отказ и байтовая неизменность genesis journal.
+
+### `tests/test_query_driven_research_current.py` — 4 теста
+
+- `test_query_mode_recovers_thiele_coordinate_without_formula_hint` — генерирует реакционно-диффузионные данные и запускает перебор размерных подмножеств без формулы. Ожидается первое место `L²k/D`, полный учёт кандидатов и перестановок.
+- `test_question_focus_fails_closed_on_ambiguous_bare_symbols` — передаёт неоднозначные односимвольные обозначения. Ожидается ошибка с требованием quantity ID вместо произвольного выбора смысла.
+- `test_query_mode_p_gt_1_searches_function_form_and_replays_full_surface` — запускает multi-Π контроль с `p = 4`, 45 структурными гипотезами и групповыми перестановками. Ожидается rank-1 модель, полный replay поверхности и familywise `p = 0.01`.
+- `test_scalar_query_reports_p_gt_1_deferred_instead_of_silently_dropping_it` — подаёт многокоординатную задачу скалярному маршруту. Ожидается явный `p_gt_1_deferred_to_function_form_lane`, а не пустой или ложный отрицательный ответ.
+
+### `tests/test_science_atlas_core.py` — 2 теста
+
+- `test_science_atlas_core_owner_is_preserved_but_prior_materialization_is_absent` — проверяет доступность ядра ScienceAtlas и чистоту хранилища результатов. Ожидается живой владелец без восстановленных исторических materialization.
+- `test_atomic_frontier_prior_receipt_is_not_shipped_in_clean_baseline` — ищет прежнюю атомную frontier-квитанцию в поставке. Ожидается её отсутствие при сохранённой возможности заново выполнить исследование.
+
+### `tests/test_scientific_axis_space_current.py` — 11 тестов
+
+- `test_scientific_axis_contract_is_atlas_native_not_symbolic_regression` — читает контракт пространства осей. Ожидается первичность типизированных осей и владельцев, а не неограниченного дерева выражений.
+- `test_gaussian_state_scaling_birth` — подаёт гауссов контроль и запускает точный размерностный поиск. Ожидается воспроизводимая координата масштабирования с корректной сигнатурой.
+- `test_relativistic_spacetime_axis_birth` — выполняет контроль рождения релятивистской пространственно-временной оси. Ожидается типизированная ось и точная размерностная квалификация.
+- `test_orientational_thermal_additive_short_circuit` — проверяет случай аддитивного теплового вклада в ориентационной задаче. Ожидается раннее распознавание простой структуры без ложной сложной связи.
+- `test_evidence_born_rational_response` — строит рациональный отклик из данных и проверяет его на зафиксированной части. Ожидается доказательно рождённый кандидат с исполняемой формой.
+- `test_reusable_scientific_coordinates_live_in_canonical_atlas_registry` — извлекает повторно используемые координаты из канонического реестра. Ожидаются стабильные ID и отсутствие локальных дубликатов.
+- `test_public_api_exposes_authoritative_atlas_law_space_and_compat_adapter_only` — сверяет API основной поверхности и compatibility adapter. Ожидается один авторитетный маршрут без параллельного решателя.
+- `test_core_convergence_exact_kernel_uses_canonical_seven_dimensional_basis` — проверяет матрицу размерностей и делегирование точному ядру. Ожидается базис `(L,M,T,I,Theta,N,J)` и рациональная арифметика.
+- `test_legacy_five_dimensional_descriptor_is_boundary_compatibility_only` — передаёт старый пятикомпонентный дескриптор через compatibility boundary. Ожидается нормализация на границе без превращения 5D в каноническое ядро.
+- `test_local_law_space_execution_budgets_are_shells_not_scientific_ceilings` — выполняет поиск с конечным локальным бюджетом и читает контракт продолжения. Ожидается остановка текущей оболочки, но отсутствие заявления об исчерпании науки.
+- `test_conservation_invariant_canonicalization_uses_composition_not_constancy_alone` — сравнивает постоянство траектории и композиционную аддитивность. Ожидается канонизация закона сохранения только при композиционном свидетельстве.
+
+### `tests/test_scientific_exploitation_current.py` — 5 тестов
+
+- `test_all_u4_candidates_have_u5_u10_execution_dossiers` — перечисляет 447 материализованных U4-гипотез и их следующие этапы. Ожидается отдельное U5–U10 dossier для каждой записи.
+- `test_ai_extension_is_executable_but_not_promotion_authority` — вызывает AI-расширение и сверяет разрешённые статусы. Ожидается исполняемое предложение при отсутствии полномочий научного продвижения.
+- `test_manual_candidate_prediction_lowering_is_frozen_and_heldout_failure_is_preserved` — фиксирует ручное lowering до раскрытия held-out данных и воспроизводит неудачу коллапса. Ожидается сохранённый отрицательный результат без повторной настройки.
+- `test_u4_structural_lowerability_audit_is_data_independent_and_frozen` — выполняет аудит структурной сводимости без чтения целевых наблюдений. Ожидаются замороженные числа single-owner, multi-owner и blocked кандидатов.
+- `test_second_distinct_manual_lowering_requires_alpha_ledger` — запрашивает вторую отличающуюся ручную попытку. Ожидается блокировка без явного учёта множественности и расхода alpha.
+
+### `tests/test_tensor_axisymmetric_current.py` — 1 тест
+
+- `test_tensor_einstein_owners_remain_live_while_old_receipts_are_absent` — проверяет владельцев тензорной геометрии и динамики Эйнштейна, одновременно ища старые result receipts. Ожидаются живые методы и чистое отсутствие исторических ответов.
+
+### `tests/test_unified_current.py` — 35 тестов
+
+- `test_current_runtime_registry_is_snapshot_not_ceiling` — загружает runtime и пересчитывает оси, области, паспорта и пустые baseline-хранилища. Ожидаются 655 осей, 13 областей, 445 законов и трактовка снимка как продолжимого состояния.
+- `test_preexisting_domain_owners_remain_live` — вызывает владельцев чёрных дыр, Эйнштейна, нейтрино, частиц, фармацевтики, аэрокосмоса и квантового вакуума. Ожидаются доступные контракты всех ранее существовавших областей.
+- `test_typed_bridge_can_transfer_or_refuse_without_merging_axes` — проверяет допустимый и недопустимый междисциплинарный перенос. Ожидается типизированная передача либо явный отказ без слияния разных осей.
+- `test_current_api_exposes_adaptive_kernel_and_preserves_domain_surfaces` — сверяет публичные методы API адаптивного ядра и предметных владельцев. Ожидается полная поверхность без удаления прежних возможностей.
+- `test_current_release_tree_and_book_are_single_authority` — сопоставляет release identity, математическую книгу и файлы управления выпуском. Ожидается одна согласованная версия и одна нормативная математическая основа.
+- `test_global_axis_space_is_open_ended_not_619_fundamental` — проверяет фактические 655 осей и правила расширения. Ожидается отсутствие старого фиксированного предела 619.
+- `test_owner_connected_search_reuses_existing_strong_gravity_owners` — запускает связанный поиск сильной гравитации. Ожидается повторное использование зарегистрированных владельцев вместо создания теневых копий.
+- `test_atomic_frontier_is_regression_owner_not_persisted_seed` — проверяет классификацию атомного контрольного пути и baseline-файлы. Ожидается regression-only владелец без предзагруженного ответа.
+- `test_adaptive_research_kernel_is_current_authority_without_fixed_ceiling` — читает контракт адаптивного ядра и его бюджеты. Ожидается единый authority и отсутствие фиксированного глобального потолка.
+- `test_temperature_axis_is_added_to_space_before_any_formula_coupling` — проверяет последовательность рождения температурной оси. Ожидается регистрация оси до проверки формульной связи.
+- `test_assistant_cannot_assign_atlas_native_claim_origin` — имитирует попытку ассистента выставить авторитетный claim origin. Ожидается отказ полномочий.
+- `test_representation_gap_can_synthesize_executable_operator_without_named_law` — передаёт пробел представления без имени известного закона. Ожидается синтез исполняемого оператора-кандидата с ограниченным claim.
+- `test_representation_gap_entry_is_executable_without_fabricated_observations` — исполняет созданный оператор на явных входах. Ожидается численный результат без генерации вымышленных наблюдений.
+- `test_public_api_surface_is_complete_and_regressions_are_quarantined` — сравнивает READ/MUTATION/REGRESSION списки с ожидаемой поверхностью. Ожидается полнота API и изоляция answer-bearing контролей.
+- `test_open_ended_periodic_frontier_has_no_numeric_z_ceiling_and_fails_closed_without_prefix` — исследует периодический фронтир без достаточного префикса. Ожидается отсутствие численного потолка Z и честная блокировка при нехватке данных.
+- `test_every_current_source_module_imports_cleanly` — импортирует каждый Python-модуль `source`, создаёт все доменные registries и восемь типизированных handlers. Ожидается отсутствие ошибок импорта и точный набор регистраций.
+- `test_post118_identifiability_is_set_valued_and_relativistic_axis_active` — проверяет post-118 электронную задачу с несколькими допустимыми конфигурациями. Ожидается множественный идентифицируемый набор и активная релятивистская ось, а не один подсказанный ответ.
+- `test_open_ended_nuclear_world_is_evidence_first_and_has_no_numeric_ceiling` — открывает ядерный мир и инспектирует политику расширения. Ожидается приоритет аттестованных данных и отсутствие жёсткого потолка нуклидов.
+- `test_nuclear_world_advances_only_with_attested_lifetime_and_never_treats_absence_as_nonexistence` — подаёт запись времени жизни с аттестацией и без неё. Ожидается продвижение только первой; отсутствие данных остаётся неизвестностью.
+- `test_first_post_clean_atlas_native_experiment_replays_and_stays_not_law` — воспроизводит первый Atlas-native синтетический эксперимент. Ожидается PASS механизма при `new_physical_law_established = false`.
+- `test_low_frequency_gust_anomaly_is_quantified_without_false_mechanism_promotion` — анализирует публичный аэродинамический остаток 4–8 Гц и проектирует трёхсостоянийный эксперимент. Ожидаются зафиксированные метрики аномалии без продвижения причинного механизма.
+- `test_frontier_scan_preserves_every_materialized_candidate_without_promotion` — пересчитывает весь активный фронтир и проверяет классы, глубины и 4 106 записей. Ожидается `PASS_ATLAS_FRONTIER_CANDIDATE_SCAN`, сохранение кандидатов и ноль автопродвижений.
+- `test_algebraic_frontier_polynomial_identity_is_global_sign_canonical` — создаёт эквивалентные полиномиальные тождества с противоположным знаком. Ожидается одна каноническая сигнатура.
+- `test_frontier_replay_is_read_only_for_persisted_candidate_ledger` — хеширует ledger до и после replay. Ожидается одинаковый SHA-256 и успешный scan.
+- `test_frontier_candidate_ledger_is_current_research_state_not_baseline_registry` — сопоставляет активный ledger с baseline runtime registry. Ожидаются 4 106 исследовательских записей отдельно от пустого канонического baseline.
+- `test_every_current_frontier_candidate_has_one_valid_fail_closed_promotion_path` — валидирует U0–U10 receipt каждой записи. Ожидается ровно один корректный маршрут на кандидата и отсутствие обхода обязательных барьеров.
+- `test_whole_pipeline_null_is_computed_and_unified_path_can_become_prepromotion_ready` — строит положительный квалификационный контроль со всем перестановочным replay. Ожидается достижимость prepromotion-ready только после точного whole-pipeline null.
+- `test_numeric_scientific_promotion_cannot_bypass_unified_frontier_receipt` — напрямую вызывает численное ядро без валидной общей квитанции. Ожидается отказ продвижения.
+- `test_fair_dovetail_release_snapshot_preserves_15_13_frontier_and_has_no_hidden_ceiling` — проверяет состояние планировщика, сохранённые legacy-ID и fairness contract. Ожидается сохранение 1 005 ранних кандидатов и отсутствие скрытого потолка.
+- `test_fair_dovetail_runtime_advance_is_external_append_only_and_does_not_modify_seal` — направляет mutable state во временный каталог, выполняет шаги и хеширует seal. Ожидается append-only внешнее состояние и неизменное дерево выпуска.
+- `test_owner_axis_binding_overlay_recovers_only_qualified_existing_owner_semantics` — применяет overlay привязки владельцев к осям. Ожидается восстановление только квалифицированной существующей семантики без изобретения величин.
+- `test_materialized_relational_hypotheses_reach_u4_and_fail_closed_at_u5_world_evidence` — прогоняет материализованные реляционные гипотезы через барьеры. Ожидается U4 для 447 записей и остановка на U5 без мировых данных.
+- `test_current_frontier_advances_by_depth_without_auto_promotion` — делает следующий шаг глубины фронтира. Ожидаются новые/углублённые исследовательские записи без автоматического law promotion.
+- `test_resident_state_versions_are_separate_and_snapshot_restore_is_digest_bound` — создаёт внешний снимок, проверяет версии компонента/схемы/выпуска и пробует restore с digest. Ожидается разделение версий и восстановление только при совпадающем SHA-256.
+- `test_materialized_hypotheses_execute_u4_and_fail_closed_at_world_evidence` — исполняет U4-аудит и проверяет terminal/next-gate статусы. Ожидается сохранённая неизвестность U5–U10 вместо ложного PASS или falsification.
+- `test_genesis_evidence_scoped_open_search_invariants` — проверяет инварианты областей alpha, fingerprint evidence, глубины shell и bounded materialisation. Ожидается отсутствие cross-subsidy, повторного учёта и скрытого научного потолка.
 
 ## Краткая памятка
 
