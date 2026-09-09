@@ -445,7 +445,7 @@ def test_frontier_scan_preserves_every_materialized_candidate_without_promotion(
     result, persisted_before, _ = _frontier_replay_readonly()
     assert result['status'] == 'PASS_ATLAS_FRONTIER_CANDIDATE_SCAN', {
         'failed_checks': sorted(name for name, passed in result.get('checks', {}).items() if not passed),
-        'generated_ledger_sha256': result.get('active_candidate_ledger', {}).get('sha256'),
+        'generated_ledger_sha256': result.get('active_candidate_ledger', {}).get('replay_sha256'),
         'persisted_ledger_sha256': persisted_before,
     }
     assert result['scan_summary']['cross_domain_pair_regions_scanned'] == 183996
@@ -480,6 +480,7 @@ def test_frontier_scan_preserves_every_materialized_candidate_without_promotion(
     assert result['checks']['adaptive_subspaces_can_cross_order_15_without_ceiling'] is True
     assert result['checks']['postfreeze_prior_art_receipt_present_and_digest_valid'] is True
     assert result['checks']['postfreeze_prior_art_bound_to_frozen_current_ledger'] is True
+    assert result['checks']['replay_candidate_identities_match_frozen_current_ledger'] is True
     assert result['checks']['postfreeze_prior_art_absence_never_means_false'] is True
     assert result['postfreeze_prior_art_review']['review_count'] >= 6
     assert result['checks']['adaptive_candidates_have_problem_applicability_and_experiment_contracts'] is True
@@ -504,10 +505,11 @@ def test_frontier_replay_is_read_only_for_persisted_candidate_ledger():
     replay, before, after = _frontier_replay_readonly()
     assert replay["status"] == "PASS_ATLAS_FRONTIER_CANDIDATE_SCAN", {
         "failed_checks": sorted(name for name, passed in replay.get("checks", {}).items() if not passed),
-        "generated_ledger_sha256": replay.get("active_candidate_ledger", {}).get("sha256"),
+        "generated_ledger_sha256": replay.get("active_candidate_ledger", {}).get("replay_sha256"),
         "persisted_ledger_sha256": before,
     }
     assert before == after
+    assert replay["active_candidate_ledger"]["replay_candidate_identities_match_frozen"] is True
     assert replay["active_candidate_ledger"]["record_count"] == len([line for line in ledger.read_text(encoding="utf-8").splitlines() if line.strip()])
 
 

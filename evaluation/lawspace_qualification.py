@@ -359,10 +359,36 @@ def run_frontier_scan_current(root: str | Path = ROOT, *, pair_frontier_limit: i
         write_dovetail_state_file(dovetail_state_path, dovetail_state)
     ledger_path = frontier_dir / "ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl"
     ledger_bytes = "".join(canonical_json(row) + "\n" for row in ledger).encode("utf-8")
-    ledger_sha = hashlib.sha256(ledger_bytes).hexdigest()
+    replay_ledger_sha = hashlib.sha256(ledger_bytes).hexdigest()
     if persist_ledger:
         frontier_dir.mkdir(parents=True, exist_ok=True)
         ledger_path.write_bytes(ledger_bytes)
+
+    # The post-freeze review is bound to the actually frozen ledger artifact,
+    # not to a newly evaluated floating-point replay buffer. BLAS/libm may vary
+    # in insignificant low bits across qualified platforms while the complete
+    # typed candidate identity set remains unchanged. Preserve the byte-exact
+    # seal for the stored artifact and compare replay semantics independently.
+    frozen_ledger_bytes = ledger_path.read_bytes() if ledger_path.exists() else ledger_bytes
+    frozen_ledger_sha = hashlib.sha256(frozen_ledger_bytes).hexdigest()
+    frozen_ledger = [
+        json.loads(line)
+        for line in frozen_ledger_bytes.decode("utf-8").splitlines()
+        if line.strip()
+    ]
+
+    def _candidate_identity(row: Mapping[str, Any]) -> tuple[Any, ...]:
+        return (
+            str(row.get("candidate_id", "")),
+            str(row.get("candidate_class", "")),
+            tuple(row.get("domain_ids", ())),
+            tuple(row.get("source_owner_ids", ())),
+            tuple(row.get("epistemic_statuses", ())),
+        )
+
+    replay_candidate_identities = tuple(sorted(_candidate_identity(row) for row in ledger))
+    frozen_candidate_identities = tuple(sorted(_candidate_identity(row) for row in frozen_ledger))
+    replay_matches_frozen_candidate_identities = replay_candidate_identities == frozen_candidate_identities
 
     # Post-freeze prior-art evidence is deliberately separate from candidate birth.
     # It may classify a reviewed subset as overlap/partial-overlap/novelty-unresolved,
@@ -378,8 +404,8 @@ def run_frontier_scan_current(root: str | Path = ROOT, *, pair_frontier_limit: i
         prior_art_core = {k: v for k, v in prior_art.items() if k != "digest"}
         prior_art_digest_valid = embedded == digest_payload(prior_art_core)
         prior_art_bound_to_current_ledger = (
-            prior_art.get("bound_active_candidate_ledger_sha256") == ledger_sha
-            and int(prior_art.get("bound_candidate_record_count", -1)) == len(ledger)
+            prior_art.get("bound_active_candidate_ledger_sha256") == frozen_ledger_sha
+            and int(prior_art.get("bound_candidate_record_count", -1)) == len(frozen_ledger)
         )
         reviewed_ids = {str(x.get("candidate_id")) for x in prior_art.get("candidate_reviews", ())}
         prior_art_candidate_ids_valid = bool(reviewed_ids) and reviewed_ids.issubset(seen)
@@ -473,6 +499,7 @@ def run_frontier_scan_current(root: str | Path = ROOT, *, pair_frontier_limit: i
         "world_novelty_not_predeclared": all("CANDIDATE_WORLD_NOVEL" not in row["epistemic_statuses"] for row in ledger),
         "postfreeze_prior_art_receipt_present_and_digest_valid": bool(prior_art) and prior_art_digest_valid,
         "postfreeze_prior_art_bound_to_frozen_current_ledger": prior_art_bound_to_current_ledger,
+        "replay_candidate_identities_match_frozen_current_ledger": replay_matches_frozen_candidate_identities,
         "postfreeze_prior_art_reviews_only_existing_candidates": prior_art_candidate_ids_valid,
         "postfreeze_prior_art_absence_never_means_false": prior_art.get("selection_policy", {}).get("absence_from_search_is_negative_evidence") is False,
         "postfreeze_prior_art_overlap_never_deletes_candidate": prior_art.get("selection_policy", {}).get("known_overlap_deletes_candidate") is False,
@@ -688,9 +715,12 @@ def run_frontier_scan_current(root: str | Path = ROOT, *, pair_frontier_limit: i
         "data_binding_diagnostic": data_binding_diagnostic,
         "active_candidate_ledger": {
             "path": str(ledger_path.relative_to(root)),
-            "sha256": ledger_sha,
-            "record_count": len(ledger),
+            "sha256": frozen_ledger_sha,
+            "record_count": len(frozen_ledger),
             "all_records_content_addressed": True,
+            "replay_sha256": replay_ledger_sha,
+            "replay_bytes_match_frozen": replay_ledger_sha == frozen_ledger_sha,
+            "replay_candidate_identities_match_frozen": replay_matches_frozen_candidate_identities,
             "dovetail_state_path": str(dovetail_state_path.relative_to(root)),
             "dovetail_state_digest": dovetail_state.get("digest"),
         },
