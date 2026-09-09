@@ -1,4 +1,4 @@
-# CLAIM BOUNDARY — CURRENT 15.24.0
+# CLAIM BOUNDARY — CURRENT 15.26.0
 
 ## Разрешённые утверждения
 
@@ -455,3 +455,40 @@ WORLD-attestation, U5 и automatic law promotion остаются нулевым
 - A question does not authorize free semantic guessing: ambiguous observables require canonical quantity IDs or column passports.
 - Query-driven search complements rather than deletes the open Discovery Frontier.
 - No new world law is claimed by 15.24.0.
+
+
+## 15.25.0 multi-Π query claim boundary
+
+- `p>1 function-form lane available` means Query mode can freeze an exact multi-coordinate Buckingham manifold and compare a finite family of functions on observations. It does not mean dimensional analysis determines `F`.
+- The canonical π basis is a reproducible coordinate chart for `ker D`, not a claim that nature privileges that basis over equivalent null-space coordinates.
+- The 10–100 hypothesis budget is a finite query tranche, not an upper bound on Atlas scientific dimensionality or representational invention.
+- The current total-degree polynomial family is a query grammar and not the defining Atlas search space.
+- A top cross-validation score is model-selection evidence on the supplied table, not an unbiased post-selection generalization estimate.
+- A permutation PASS is valid only for the declared exchangeability/null scheme; grouped runs in 15.25.0 use within-validation-group permutations and explicitly assume exchangeability inside those groups.
+- The synthetic four-Π control (`CV NRMSE=0.0177840974`, familywise permutation `p=0.01` with 99 permutations) demonstrates machinery sensitivity only. It is not WORLD evidence.
+- The five directed cross-domain dimensional kernels were reproduced exactly with nullities `{3,4,5,4,4}`. This does not establish any of their unknown functions `F` as a law.
+- Current literature/data binding for candidates #4 and #1 is partial. No complete joint-axis table was identified in the directed audit, no unrelated-source stitching was used, and no world function fit was performed.
+- For these multi-Π hypotheses, U5 remains `UNKNOWN`; absence of complete current measurements is not falsification.
+- No new world law, novelty priority, independent replication, causality, or automatic promotion is claimed by 15.25.0.
+
+
+## 15.25.0 exoplanet generated-G-dimension example boundary
+
+Разрешено утверждать, что запечатанный runnable notebook на 50 реальных ретроспективных строках NASA Exoplanet Archive перебирает 172 заранее определённых primitive tri-variable exponent hypotheses, без доступа к `CONST-G` выбирает `(3,-2,-1)`, порождает размерность `L^3 M^-1 T^-2` и затем подтверждает exact `p=1` после возврата generated axis в текущий rational kernel Atlas.
+
+Разрешено утверждать, что **после freeze** локальный constants registry распознаёт ту же размерность у `CONST-G`; post-hoc масштаб `4*pi^2*C_hat` даёт `6.83579527e-11` против registry `6.67430e-11` на этом округлённом snapshot.
+
+Нельзя утверждать, что этот 50-row snapshot является отсутствующей historical 172-row table, что notebook повторяет historical preregistered receipt, что `G` независимо открыт, что catalog semi-major axes / stellar masses являются независимыми от используемой orbital physics измерениями, либо что пример создаёт U5/WORLD evidence. Это retrospective executable mechanism demonstration.
+
+## 15.26.0 EDA chip-design pilot claim boundary
+
+- Atlas now has an executable research owner that can drive a real OpenROAD Flow Scripts world and optimize a frozen small CMOS design space.
+- Atlas does **not** contain or replace Yosys, OpenROAD, KLayout or the Sky130 PDK.
+- The sealed build environment used for this release has no executable OpenROAD/Yosys/KLayout/Docker backend. Therefore the release contains **no completed live chip PPA comparison**.
+- The local deterministic EDA qualification oracle is synthetic software-test data only. It is not semiconductor physics, a routed chip, a PDK result or silicon evidence.
+- Timing, explicit final sign-off DRC, explicit LVS and final-GDS presence are fail-closed. Route-stage DRC cannot substitute for sign-off DRC; missing setup-count/sign-off evidence cannot be interpreted as success.
+- The statement “Atlas beats Random/Grid/Bayesian on real chip PPA” is currently `UNKNOWN`, not true and not false.
+- The GitHub Actions workflow is an execution mechanism for the pending world experiment and freezes ORFS at `be0dca0b1fd41df54792b3012350cd52bccd99bb`; merely possessing the workflow is not evidence of a result.
+- Even a successful `sky130hd/gcd` GDS with clean DRC/LVS is a research pilot, not a foundry tapeout certificate.
+
+- A Boolean Atlas-vs-baseline conclusion is forbidden unless all four equal-budget strategies each produce at least one fully feasible design; otherwise the world result is inconclusive.

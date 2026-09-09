@@ -1,5 +1,5 @@
 {
-  "digest": "6f52857ed0ffb7f1f1feed3d9ccb9be66c1439bab5d419c6e33e2b6bb536fa2c",
+  "digest": "182c655eba17c55cd187041cdaef651f840d40a991f850cc7ac66d2d3cf88ff6",
   "invariants": {
     "adaptive_subspace_search_has_no_fixed_order_ceiling": true,
     "agi_not_claimed": true,
@@ -21,6 +21,14 @@
     "dataset_response_execution_requires_digest_bound_experiment_data_ir": true,
     "direct_numeric_promotion_cannot_bypass_unified_frontier_receipt": true,
     "distinct_manual_lowering_retry_requires_multiplicity_alpha_ledger": true,
+    "eda_boolean_comparison_requires_feasible_design_from_all_four_strategies": true,
+    "eda_equal_budget_baseline_comparison_required_before_atlas_win_claim": true,
+    "eda_missing_backend_never_uses_surrogate_as_chip_result": true,
+    "eda_pilot_does_not_claim_tapeout_readiness": true,
+    "eda_route_drc_cannot_substitute_for_signoff_drc": true,
+    "eda_synthetic_qualification_is_not_silicon_evidence": true,
+    "eda_timing_signoff_drc_lvs_gds_are_fail_closed_gates": true,
+    "eda_world_backend_is_external_authoritative_evaluator": true,
     "empirical_type1_calibration_is_sanity_check_not_proof": true,
     "every_frontier_candidate_has_unified_promotion_path": true,
     "exact_rational_dimension_kernel_is_authoritative_for_law_space": true,
@@ -50,6 +58,12 @@
     "permutation_eprocess_orbit_cannot_write_genesis_journal": true,
     "permutation_eprocess_orbit_uses_one_frozen_genesis_journal_snapshot": true,
     "permutation_eprocess_ville_threshold_is_per_target_only": true,
+    "query_function_form_world_claim_requires_joint_axis_data": true,
+    "query_function_grammar_is_not_primary_scientific_axis_space": true,
+    "query_mode_grouped_null_preserves_exchangeability_blocks": true,
+    "query_mode_p_gt_1_uses_exact_kernel_before_function_fit": true,
+    "query_mode_whole_function_surface_replayed_under_permutation": true,
+    "query_partial_world_sources_do_not_establish_u5": true,
     "resident_learning_is_not_scientific_truth": true,
     "resident_mutable_state_is_external_to_sealed_tree": true,
     "resident_state_restore_is_digest_bound_and_external": true,
@@ -73,7 +87,7 @@
     "unmaterialized_subspaces_are_not_rejected": true,
     "whole_pipeline_permutation_null_required_before_scientific_promotion": true
   },
-  "owner": "RELEASE-CONTROLS/15.24.0",
-  "release": "15.24.0",
+  "owner": "RELEASE-CONTROLS/15.26.0",
+  "release": "15.26.0",
   "schema": "phi-invariants/current-v1"
 }

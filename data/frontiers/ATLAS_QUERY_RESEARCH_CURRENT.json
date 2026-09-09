@@ -6,11 +6,137 @@
     "pass": true
   },
   "claim_boundary": {
+    "multi_pi_synthetic_control_is_new_law": false,
+    "partial_world_sources_establish_u5": false,
     "query_mode_replaces_discovery_frontier": false,
     "return_limit_reduces_multiplicity": false,
-    "synthetic_control_is_new_law": false
+    "synthetic_control_is_new_law": false,
+    "world_data_gap_is_candidate_falsification": false
   },
-  "digest": "34cbf7c6a241f332bfc8bbe64d90028d442391a489a5d53703b5af22ded050ac",
+  "cross_domain_kernel_verification_2026_09_08": {
+    "candidate_count": 5,
+    "claim_boundary": {
+      "function_forms_world_validated": false,
+      "these_are_hypotheses_not_established_laws": true,
+      "world_novelty_status": "UNKNOWN"
+    },
+    "receipts": [
+      {
+        "axis_names": [
+          "k2",
+          "c",
+          "L",
+          "D",
+          "v",
+          "F",
+          "dphi",
+          "R",
+          "Temp"
+        ],
+        "basis": [
+          "k2 * c * L^2 * D^-1",
+          "k2 * c * L * v^-1",
+          "F * dphi * R^-1 * Temp^-1"
+        ],
+        "candidate_id": "electrochem_flow_reaction_diffusion",
+        "exact_rational_kernel": true,
+        "nullity": 3,
+        "rank": 6
+      },
+      {
+        "axis_names": [
+          "E",
+          "alphaT",
+          "dT",
+          "rho",
+          "v",
+          "L",
+          "mu",
+          "omega"
+        ],
+        "basis": [
+          "alphaT * dT",
+          "E * rho^-1 * v^-2",
+          "E * rho * L^2 * mu^-2",
+          "E * rho^-1 * L^-2 * omega^-2"
+        ],
+        "candidate_id": "thermo_mechanical_flow",
+        "exact_rational_kernel": true,
+        "nullity": 4,
+        "rank": 4
+      },
+      {
+        "axis_names": [
+          "eps",
+          "ell",
+          "c",
+          "k",
+          "L",
+          "D",
+          "hbar",
+          "omega",
+          "kB",
+          "Temp"
+        ],
+        "basis": [
+          "eps * ell * c",
+          "ell * L^-1",
+          "ell^2 * k * D^-1",
+          "k * omega^-1",
+          "k * hbar * kB^-1 * Temp^-1"
+        ],
+        "candidate_id": "photochem_quantum_transport",
+        "exact_rational_kernel": true,
+        "nullity": 5,
+        "rank": 5
+      },
+      {
+        "axis_names": [
+          "tau",
+          "D",
+          "L",
+          "k",
+          "E",
+          "eta",
+          "rho"
+        ],
+        "basis": [
+          "tau * D * L^-2",
+          "tau * k",
+          "tau * E * eta^-1",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "candidate_id": "rd_viscoelastic_memory",
+        "exact_rational_kernel": true,
+        "nullity": 4,
+        "rank": 3
+      },
+      {
+        "axis_names": [
+          "cp",
+          "dT",
+          "h",
+          "v",
+          "L",
+          "alpha",
+          "P",
+          "dv"
+        ],
+        "basis": [
+          "cp * dT * h^-1",
+          "cp * dT * v^-2",
+          "cp * dT * L^2 * alpha^-2",
+          "cp * dT * P^-1 * dv^-1"
+        ],
+        "candidate_id": "phase_thermo_flow",
+        "exact_rational_kernel": true,
+        "nullity": 4,
+        "rank": 4
+      }
+    ],
+    "status": "EXACT_KERNELS_REPRODUCED"
+  },
+  "digest": "ecd07d982ab18089f3812caadd5f451b357b9b1d51554c2675ad407964d6be0c",
   "dimensional_scalar_law_census_summary": {
     "no_dimensionful_quantity_projection_count": 2070,
     "p0_count": 96,
@@ -24,10 +150,2245 @@
     "with_at_least_two_dimensionful_quantities": 1542,
     "with_dimensionful_quantity_projection": 1636
   },
-  "owner": "QUERY-DRIVEN-RESEARCH/1.0.0",
-  "schema": "phi-query-research-current/v1",
+  "multi_pi_function_form_control": {
+    "axis_names": [
+      "tau",
+      "D",
+      "L",
+      "k",
+      "E",
+      "eta",
+      "rho"
+    ],
+    "claim_boundary": {
+      "candidate_is_confirmed_law": false,
+      "dimensionally_universal_response_claim_requires_dimensionless_or_scaled_target": true,
+      "function_family_search_is_complete_over_all_mathematics": false,
+      "independent_world_replication_still_required": true,
+      "polynomial_surface_is_a_query_grammar_not_primary_atlas_space": true,
+      "selected_cv_score_is_unbiased_post_selection_generalization_estimate": false,
+      "whole_surface_null_replays_displayed_and_undisplayed_hypotheses": true
+    },
+    "digest": "6c5122d92b7a41d522df790c5b3e3bf99f2f14b5ac76754d801eafdcae4701bf",
+    "dimension_kernel": {
+      "basis": [
+        {
+          "formula": "tau * D * L^-2",
+          "pi_group": [
+            {
+              "exponent": 1,
+              "name": "tau"
+            },
+            {
+              "exponent": 1,
+              "name": "D"
+            },
+            {
+              "exponent": -2,
+              "name": "L"
+            }
+          ],
+          "pi_index": 0
+        },
+        {
+          "formula": "tau * k",
+          "pi_group": [
+            {
+              "exponent": 1,
+              "name": "tau"
+            },
+            {
+              "exponent": 1,
+              "name": "k"
+            }
+          ],
+          "pi_index": 1
+        },
+        {
+          "formula": "tau * E * eta^-1",
+          "pi_group": [
+            {
+              "exponent": 1,
+              "name": "tau"
+            },
+            {
+              "exponent": 1,
+              "name": "E"
+            },
+            {
+              "exponent": -1,
+              "name": "eta"
+            }
+          ],
+          "pi_index": 2
+        },
+        {
+          "formula": "tau * D^-1 * E * rho^-1",
+          "pi_group": [
+            {
+              "exponent": 1,
+              "name": "tau"
+            },
+            {
+              "exponent": -1,
+              "name": "D"
+            },
+            {
+              "exponent": 1,
+              "name": "E"
+            },
+            {
+              "exponent": -1,
+              "name": "rho"
+            }
+          ],
+          "pi_index": 3
+        }
+      ],
+      "basis_is_unique_physical_parameterization": false,
+      "exact_rational_kernel_authority": true,
+      "nullity": 4,
+      "rank": 3
+    },
+    "hypotheses": [
+      {
+        "candidate_equation": "yield = F_deg2(Pi_1, Pi_2, Pi_3, Pi_4)",
+        "coefficients": [
+          4.053812687720204,
+          0.794366321905496,
+          -0.2506674669444924,
+          0.26535162960664044,
+          1.0252024095142447,
+          -0.0009069139155289294,
+          0.0011460393175386314,
+          -0.0022589648559325115,
+          -0.0001277325196589411,
+          0.0056534663867387385,
+          -0.002431137881297386,
+          0.4069747091455105,
+          -0.007885091530533721,
+          0.003402365328079287,
+          -0.0007354937390454139
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k",
+          "tau * E * eta^-1",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cross_validated_nrmse": 0.01778409740297801,
+        "cross_validated_r2": 0.9996837258795613,
+        "full_fit_rank": 15,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 15,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.025763492241893372,
+        "polynomial_degree": 2,
+        "rank": 1,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "29c0beec7354b2edb57eae36144608e1fe6811cfbb74ddd07a63e724d8c9265c",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675,
+            1.1495032195207828,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324,
+            0.7222703518377844,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 15
+      },
+      {
+        "candidate_equation": "yield = F_deg3(Pi_1, Pi_2, Pi_3, Pi_4)",
+        "coefficients": [
+          4.052659768285768,
+          0.795933343528167,
+          -0.24913769087200724,
+          0.2622820036262301,
+          1.025394358267056,
+          -0.002385828794323483,
+          0.0010617201277598393,
+          0.003670588803524269,
+          0.004020009678935632,
+          0.00039104914619191386,
+          -0.005963919178104662,
+          0.4016883079002601,
+          -0.00046593736874059875,
+          0.00040525223633268746,
+          0.0012078769541576141,
+          -0.0009608881876247675,
+          0.004267729472606353,
+          -0.002927183232550526,
+          -0.0009355378640982426,
+          -0.001282968402843319,
+          -0.005421921858579106,
+          0.0065082210662446,
+          0.0008801432967867817,
+          -0.00032857229713599394,
+          0.0008758802507464761,
+          0.0048482035648818225,
+          -0.0029198385018151638,
+          -0.0030857297034719796,
+          -0.0021832196826463693,
+          0.0010893167302887285,
+          0.001507785044418039,
+          0.003449841698796554,
+          -0.008513532510702807,
+          0.001524205488833411,
+          -0.0005104864755507983
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k",
+          "tau * E * eta^-1",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cross_validated_nrmse": 0.03272072338092366,
+        "cross_validated_r2": 0.998929354261429,
+        "full_fit_rank": 35,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 35,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            0,
+            2,
+            1
+          ],
+          [
+            0,
+            0,
+            3,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            2,
+            0
+          ],
+          [
+            0,
+            2,
+            0,
+            1
+          ],
+          [
+            0,
+            2,
+            1,
+            0
+          ],
+          [
+            0,
+            3,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            2
+          ],
+          [
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            2,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            1
+          ],
+          [
+            2,
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            1,
+            0,
+            0
+          ],
+          [
+            3,
+            0,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.04740190541423837,
+        "polynomial_degree": 3,
+        "rank": 2,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "aef5ebb801ea4a444fe4524e76db7bd9df033c0632c9280d76b67550bb9c9cc2",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675,
+            1.1495032195207828,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324,
+            0.7222703518377844,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 35
+      },
+      {
+        "candidate_equation": "yield = F_deg2(Pi_1, Pi_2, Pi_4)",
+        "coefficients": [
+          4.044037165956981,
+          0.6530381912591979,
+          0.2529003702070235,
+          0.9664839395670541,
+          -0.004639587549968062,
+          -0.011988480356172664,
+          0.004182544760316996,
+          0.41981641666730135,
+          -0.008808937120041518,
+          0.014030471417012339
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          1,
+          3
+        ],
+        "cross_validated_nrmse": 0.15103844278142206,
+        "cross_validated_r2": 0.977187388802163,
+        "full_fit_rank": 10,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 10,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.21880659224095428,
+        "polynomial_degree": 2,
+        "rank": 3,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "1755bf21ee8413ae93b084c41f2bc973f449b301d9c9c7dc198b5c58c21b3f1b",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 10
+      },
+      {
+        "candidate_equation": "yield = F_deg2(Pi_1, Pi_3, Pi_4)",
+        "coefficients": [
+          4.08119716564235,
+          0.9164587933745121,
+          -0.21577579200149477,
+          1.115182293596957,
+          -0.024136163892145318,
+          0.03428991220011131,
+          -0.018180532381622344,
+          0.41587049557953254,
+          0.02036546854293711,
+          -0.01647029873456891
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * E * eta^-1",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          2,
+          3
+        ],
+        "cross_validated_nrmse": 0.16518118734072307,
+        "cross_validated_r2": 0.972715175348709,
+        "full_fit_rank": 10,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 10,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.23929492411837733,
+        "polynomial_degree": 2,
+        "rank": 4,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "816c67b8591a6627c9dc35e518a0b4e16f6736bc84ec18d6acf78bae5419740f",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.1495032195207828,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.7222703518377844,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 10
+      },
+      {
+        "candidate_equation": "yield = F_deg3(Pi_1, Pi_2, Pi_4)",
+        "coefficients": [
+          4.006448706379268,
+          0.63538551893835,
+          0.27542846923341213,
+          0.9374276499450092,
+          0.018894996080476026,
+          0.01881252440232188,
+          0.01449171017453353,
+          0.3733083928884669,
+          0.00023321881185556204,
+          0.02572509060756037,
+          5.726013782013559e-05,
+          -0.02043376834084436,
+          0.004043563676095744,
+          -0.004714740931200974,
+          0.05365031132353313,
+          -0.02740478618135135,
+          0.001368650431780542,
+          0.007662357592465126,
+          -0.0032773624690806387,
+          -0.0018591659879043918
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          1,
+          3
+        ],
+        "cross_validated_nrmse": 0.17799239101492487,
+        "cross_validated_r2": 0.9683187087407901,
+        "full_fit_rank": 20,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 20,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            0,
+            3,
+            0
+          ],
+          [
+            1,
+            0,
+            2
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            0
+          ],
+          [
+            2,
+            0,
+            1
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            3,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.2578542773984794,
+        "polynomial_degree": 3,
+        "rank": 5,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "2df9da952b18870695e4b3f24bc2e38ead369019555edb99737098d59fde93a9",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 20
+      },
+      {
+        "candidate_equation": "yield = F_deg2(Pi_1, Pi_4)",
+        "coefficients": [
+          4.065897435593074,
+          0.7793232141947889,
+          1.061835997036283,
+          -0.014833259123724496,
+          0.43313434357452657,
+          -0.0031128293210994206
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          3
+        ],
+        "cross_validated_nrmse": 0.1951742913753746,
+        "cross_validated_r2": 0.9619069959861204,
+        "full_fit_rank": 6,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 6,
+        "monomial_exponents": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.28274537794785587,
+        "polynomial_degree": 2,
+        "rank": 6,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "516145735121a72966d749f602c4a81fe0f0addfe9f66f79c81c79038a1997d7",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 6
+      },
+      {
+        "candidate_equation": "yield = F_deg3(Pi_1, Pi_4)",
+        "coefficients": [
+          4.040384074896779,
+          0.7733849831099556,
+          1.0303749162874616,
+          0.025831027996161708,
+          0.39031634610152366,
+          0.0011215794613783428,
+          -0.010186389791314674,
+          0.040988258570306364,
+          0.002029707162103749,
+          -0.00025821873945813275
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          3
+        ],
+        "cross_validated_nrmse": 0.20662507898301666,
+        "cross_validated_r2": 0.9573060767352621,
+        "full_fit_rank": 10,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 10,
+        "monomial_exponents": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.2993339216905175,
+        "polynomial_degree": 3,
+        "rank": 7,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "b564cdc29622cef9f5cf4942f61fe0834403d6d44f26f33839426fcc496e804f",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 10
+      },
+      {
+        "candidate_equation": "yield = F_deg3(Pi_1, Pi_3, Pi_4)",
+        "coefficients": [
+          4.077937630810835,
+          0.9403005677370259,
+          -0.24958541892329278,
+          1.0777064339600533,
+          0.02563684905656078,
+          -0.011931619724470014,
+          -0.015684187758766892,
+          0.4310987420462129,
+          -0.039684915640059215,
+          -0.018611700602259074,
+          -0.015727407308942055,
+          -0.005158583062198286,
+          0.021379169317106383,
+          -0.003703504524153736,
+          0.024164855948160348,
+          -0.019879901801407498,
+          0.022875184822992493,
+          -0.034266366715767375,
+          0.06067985649434033,
+          0.0008507029919950437
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * E * eta^-1",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          2,
+          3
+        ],
+        "cross_validated_nrmse": 0.225870360025047,
+        "cross_validated_r2": 0.9489825804621557,
+        "full_fit_rank": 20,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 20,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            0,
+            3,
+            0
+          ],
+          [
+            1,
+            0,
+            2
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            0
+          ],
+          [
+            2,
+            0,
+            1
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            3,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.3272142035841816,
+        "polynomial_degree": 3,
+        "rank": 8,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "d20d2711362233da20563f1754078a0a4cc73f559678992b7693ba391855e057",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.1495032195207828,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.7222703518377844,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 20
+      },
+      {
+        "candidate_equation": "yield = F_deg1(Pi_1, Pi_2, Pi_3, Pi_4)",
+        "coefficients": [
+          4.080828016611399,
+          0.8009276469336712,
+          -0.25232511667714946,
+          0.300337989010536,
+          1.0265792057705176
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k",
+          "tau * E * eta^-1",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "cross_validated_nrmse": 0.26244674797181045,
+        "cross_validated_r2": 0.931121704479021,
+        "full_fit_rank": 5,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 5,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.38020173878206714,
+        "polynomial_degree": 1,
+        "rank": 9,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "676248ff51665168acb510fdf6ffb43ca1ef13cb589a5db6fa36e98029f90984",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675,
+            1.1495032195207828,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324,
+            0.7222703518377844,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 5
+      },
+      {
+        "candidate_equation": "yield = F_deg1(Pi_1, Pi_2, Pi_4)",
+        "coefficients": [
+          4.080828016611399,
+          0.6450700324474603,
+          0.28410922578990183,
+          0.9911596573799524
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          1,
+          3
+        ],
+        "cross_validated_nrmse": 0.2896164480772246,
+        "cross_validated_r2": 0.9161223130031323,
+        "full_fit_rank": 4,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 4,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.4195619796770136,
+        "polynomial_degree": 1,
+        "rank": 10,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "e1225993f664c022e3f95b1350a0ee7164e0eb5780997210a79835e84804a90a",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 4
+      },
+      {
+        "candidate_equation": "yield = F_deg1(Pi_1, Pi_3, Pi_4)",
+        "coefficients": [
+          4.080828016611399,
+          0.9251981502012195,
+          -0.22789420235811084,
+          1.1075144218414938
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * E * eta^-1",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          2,
+          3
+        ],
+        "cross_validated_nrmse": 0.31509607141854934,
+        "cross_validated_r2": 0.9007144657765964,
+        "full_fit_rank": 4,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 4,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.4564738376929656,
+        "polynomial_degree": 1,
+        "rank": 11,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "4cf69a13275aa800de9b4d23b79bb02e246cca3e34121576dda8d551076a413e",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.1495032195207828,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.7222703518377844,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 4
+      },
+      {
+        "candidate_equation": "yield = F_deg1(Pi_1, Pi_4)",
+        "coefficients": [
+          4.080828016611399,
+          0.7775941280922425,
+          1.0713853902955512
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          3
+        ],
+        "cross_validated_nrmse": 0.332031043647402,
+        "cross_validated_r2": 0.8897553860544171,
+        "full_fit_rank": 3,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 3,
+        "monomial_exponents": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.48100721803543184,
+        "polynomial_degree": 1,
+        "rank": 12,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "f8ff82dcd108fcdb1ab51434ef37201c2d3f6074f116809be443cacbbd4c093b",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 3
+      },
+      {
+        "candidate_equation": "yield = F_deg1(Pi_1, Pi_2, Pi_3)",
+        "coefficients": [
+          4.080828016611399,
+          0.2004104623816867,
+          0.5401275990037838,
+          0.9171405216951519
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k",
+          "tau * E * eta^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          1,
+          2
+        ],
+        "cross_validated_nrmse": 0.4768624763061076,
+        "cross_validated_r2": 0.772602178691207,
+        "full_fit_rank": 4,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 4,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.6908218297716471,
+        "polynomial_degree": 1,
+        "rank": 13,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "c63bdc19d74ff1d9e0a8252b87dd3e1da8416aeb6189a14c168964b04ab2d5e3",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675,
+            1.1495032195207828
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324,
+            0.7222703518377844
+          ]
+        },
+        "term_count": 4
+      },
+      {
+        "candidate_equation": "yield = F_deg2(Pi_1, Pi_2, Pi_3)",
+        "coefficients": [
+          4.068657876927299,
+          0.2849687929103679,
+          0.5127074152630353,
+          0.8648690951523744,
+          -0.06783203039600172,
+          0.18272212180009892,
+          -0.05964778325771635,
+          0.17035895447977323,
+          0.035405439958279994,
+          0.018047408205963608
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k",
+          "tau * E * eta^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          1,
+          2
+        ],
+        "cross_validated_nrmse": 0.47734768318051735,
+        "cross_validated_r2": 0.7721391893621924,
+        "full_fit_rank": 10,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 10,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.6915247399762704,
+        "polynomial_degree": 2,
+        "rank": 14,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "c464a7219e3e8270d869896a78ef9b31ad948cf46d0c8d407adb328e11fa65a0",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675,
+            1.1495032195207828
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324,
+            0.7222703518377844
+          ]
+        },
+        "term_count": 10
+      },
+      {
+        "candidate_equation": "yield = F_deg1(Pi_1, Pi_2)",
+        "coefficients": [
+          4.080828016611399,
+          0.6168762640552559,
+          0.9343756722906517
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k"
+        ],
+        "coordinate_indices": [
+          0,
+          1
+        ],
+        "cross_validated_nrmse": 0.4912068628008102,
+        "cross_validated_r2": 0.758715817937386,
+        "full_fit_rank": 3,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 3,
+        "monomial_exponents": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.7116022765830273,
+        "polynomial_degree": 1,
+        "rank": 15,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "607dce2117900d55df046277d1750ce6c849bbbd9cdb8cd45ae1d654b1dff3df",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324
+          ]
+        },
+        "term_count": 3
+      },
+      {
+        "candidate_equation": "yield = F_deg2(Pi_1, Pi_2)",
+        "coefficients": [
+          4.035608893226629,
+          0.5736628877261456,
+          0.9081909012929845,
+          0.006987284879783622,
+          0.09289026575829987,
+          0.008712965698321334
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k"
+        ],
+        "coordinate_indices": [
+          0,
+          1
+        ],
+        "cross_validated_nrmse": 0.5223587957209,
+        "cross_validated_r2": 0.727141288533011,
+        "full_fit_rank": 6,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 6,
+        "monomial_exponents": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.7567315043374998,
+        "polynomial_degree": 2,
+        "rank": 16,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "9a88c0f3552016fa4e715ebabb0a4a0ba8d7f36b6eda1792a4f5f95c74ea6c22",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324
+          ]
+        },
+        "term_count": 6
+      },
+      {
+        "candidate_equation": "yield = F_deg1(Pi_1, Pi_3)",
+        "coefficients": [
+          4.0808280166114,
+          0.39475130092083527,
+          1.0484195855142104
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * E * eta^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          2
+        ],
+        "cross_validated_nrmse": 0.5879462124726613,
+        "cross_validated_r2": 0.6543192512390521,
+        "full_fit_rank": 3,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 3,
+        "monomial_exponents": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.8517467791845029,
+        "polynomial_degree": 1,
+        "rank": 17,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "ec30ea8e8944e54ed28652dc3e448b6ef67049677adde31fb12d1afb4d0cad25",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.1495032195207828
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.7222703518377844
+          ]
+        },
+        "term_count": 3
+      },
+      {
+        "candidate_equation": "yield = F_deg2(Pi_1, Pi_3)",
+        "coefficients": [
+          4.045268308885366,
+          0.47717857983488793,
+          1.0058676546090715,
+          -0.0350638784898191,
+          0.3520058361715475,
+          -0.0024867209632994177
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * E * eta^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          2
+        ],
+        "cross_validated_nrmse": 0.5988491827242339,
+        "cross_validated_r2": 0.6413796563505172,
+        "full_fit_rank": 6,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 6,
+        "monomial_exponents": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.8675417100783781,
+        "polynomial_degree": 2,
+        "rank": 18,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "034977ee0ba4d5f524e222c5a544e7ac5db44bae7401b25a52c90049bf72a66c",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.1495032195207828
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.7222703518377844
+          ]
+        },
+        "term_count": 6
+      },
+      {
+        "candidate_equation": "yield = F_deg3(Pi_1, Pi_2)",
+        "coefficients": [
+          3.914344088623791,
+          0.6656359089208117,
+          0.9038712105362552,
+          0.16496724212053634,
+          0.0993627764901253,
+          0.06338296976503371,
+          -0.05924055775592043,
+          0.012799715809655238,
+          -0.0035403258857679585,
+          -0.012904546632544193
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * k"
+        ],
+        "coordinate_indices": [
+          0,
+          1
+        ],
+        "cross_validated_nrmse": 0.6233231173207938,
+        "cross_validated_r2": 0.6114682914134878,
+        "full_fit_rank": 10,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 10,
+        "monomial_exponents": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.902996645452354,
+        "polynomial_degree": 3,
+        "rank": 19,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "7dedb9c20a2a566133ac9129ea9e080867eb480af35ea1e9748f8d1a1464659f",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.090941270764675
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.48756620876644324
+          ]
+        },
+        "term_count": 10
+      },
+      {
+        "candidate_equation": "yield = F_deg1(Pi_1)",
+        "coefficients": [
+          4.0808280166114,
+          1.1304079672512317
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2"
+        ],
+        "coordinate_indices": [
+          0
+        ],
+        "cross_validated_nrmse": 0.6402927814508622,
+        "cross_validated_r2": 0.5900251540219182,
+        "full_fit_rank": 2,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 2,
+        "monomial_exponents": [
+          [
+            1
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.9275802833090239,
+        "polynomial_degree": 1,
+        "rank": 20,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "6af09f59e70bce098ca5f47197e80868a0099d0d36ca7c0eb036b299060f78b9",
+        "standardization": {
+          "mean": [
+            1.2279145549759325
+          ],
+          "scale": [
+            0.8085522813102551
+          ]
+        },
+        "term_count": 2
+      },
+      {
+        "candidate_equation": "yield = F_deg2(Pi_1)",
+        "coefficients": [
+          4.104129645333462,
+          1.165791732357295,
+          -0.023301628722060076
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2"
+        ],
+        "coordinate_indices": [
+          0
+        ],
+        "cross_validated_nrmse": 0.6482131574908393,
+        "cross_validated_r2": 0.5798197024557563,
+        "full_fit_rank": 3,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 3,
+        "monomial_exponents": [
+          [
+            1
+          ],
+          [
+            2
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.9390543852572429,
+        "polynomial_degree": 2,
+        "rank": 21,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "1d37551a6f19de5aef890a43e5f875bf9c3457b1a0ab4cbbf4766fdd9e86cef9",
+        "standardization": {
+          "mean": [
+            1.2279145549759325
+          ],
+          "scale": [
+            0.8085522813102551
+          ]
+        },
+        "term_count": 3
+      },
+      {
+        "candidate_equation": "yield = F_deg3(Pi_1)",
+        "coefficients": [
+          4.037543127843705,
+          1.1644879765531275,
+          0.08049643711708124,
+          -0.024505297308278055
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2"
+        ],
+        "coordinate_indices": [
+          0
+        ],
+        "cross_validated_nrmse": 0.6609432559260153,
+        "cross_validated_r2": 0.5631540124459177,
+        "full_fit_rank": 4,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 4,
+        "monomial_exponents": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 0.9574962428810252,
+        "polynomial_degree": 3,
+        "rank": 22,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "a8b4c594d490ec8c00aabce3e9ee113be26c3e1c7017a41851a5b76047f3599b",
+        "standardization": {
+          "mean": [
+            1.2279145549759325
+          ],
+          "scale": [
+            0.8085522813102551
+          ]
+        },
+        "term_count": 4
+      },
+      {
+        "candidate_equation": "yield = F_deg3(Pi_1, Pi_3)",
+        "coefficients": [
+          4.219629420910397,
+          0.4772618209496342,
+          0.9419917191530423,
+          -0.35923428158634313,
+          0.3446880152513553,
+          -0.013501507934555134,
+          0.05590635708342711,
+          -0.00543671106426435,
+          0.11390226092308918,
+          0.003075935376131012
+        ],
+        "coordinate_formulas": [
+          "tau * D * L^-2",
+          "tau * E * eta^-1"
+        ],
+        "coordinate_indices": [
+          0,
+          2
+        ],
+        "cross_validated_nrmse": 0.7092817201145198,
+        "cross_validated_r2": 0.4969194415113878,
+        "full_fit_rank": 10,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 10,
+        "monomial_exponents": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 1.0275232798953993,
+        "polynomial_degree": 3,
+        "rank": 23,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "ae7f1214eed955382ef336d271daca69af62bd6c72e0f78a5617838477cbd92c",
+        "standardization": {
+          "mean": [
+            1.2279145549759325,
+            1.1495032195207828
+          ],
+          "scale": [
+            0.8085522813102551,
+            0.7222703518377844
+          ]
+        },
+        "term_count": 10
+      },
+      {
+        "candidate_equation": "yield = F_deg1(Pi_2, Pi_4)",
+        "coefficients": [
+          4.0808280166114,
+          0.5421276403266553,
+          0.6493065051271294
+        ],
+        "coordinate_formulas": [
+          "tau * k",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          1,
+          3
+        ],
+        "cross_validated_nrmse": 0.7176664197006568,
+        "cross_validated_r2": 0.4849549100340407,
+        "full_fit_rank": 3,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 3,
+        "monomial_exponents": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 1.0396700387577227,
+        "polynomial_degree": 1,
+        "rank": 24,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "7320ffa19a7dbd5ec1957e9a253c5adf460e71ac8a03dce5c7fc559ccdc5b056",
+        "standardization": {
+          "mean": [
+            1.090941270764675,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.48756620876644324,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 3
+      },
+      {
+        "candidate_equation": "yield = F_deg1(Pi_2, Pi_3, Pi_4)",
+        "coefficients": [
+          4.080828016611399,
+          0.5546897840057805,
+          -0.020829063305661574,
+          0.6517234642498666
+        ],
+        "coordinate_formulas": [
+          "tau * k",
+          "tau * E * eta^-1",
+          "tau * D^-1 * E * rho^-1"
+        ],
+        "coordinate_indices": [
+          1,
+          2,
+          3
+        ],
+        "cross_validated_nrmse": 0.7208598319310796,
+        "cross_validated_r2": 0.4803611027082956,
+        "full_fit_rank": 4,
+        "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "minimum_fold_rank": 4,
+        "monomial_exponents": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "nullity": 4,
+        "oof_rmse": 1.0442962758592969,
+        "polynomial_degree": 1,
+        "rank": 25,
+        "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+        "signature": "6f2b8d5873cd418d5bbb6ba7a5cd8425489d6e0e7cec1b60d34dda077d729077",
+        "standardization": {
+          "mean": [
+            1.090941270764675,
+            1.1495032195207828,
+            1.1693113630911067
+          ],
+          "scale": [
+            0.48756620876644324,
+            0.7222703518377844,
+            0.7125771730278778
+          ]
+        },
+        "term_count": 4
+      }
+    ],
+    "owner": "QUERY-DRIVEN-RESEARCH/1.1.0",
+    "permutation_null": {
+      "entire_function_surface_refit_each_permutation": true,
+      "exchangeability_assumption_explicit": true,
+      "exchangeability_scheme": "WITHIN_VALIDATION_GROUP",
+      "familywise_empirical_p": 0.01,
+      "minimum_achievable_p": 0.01,
+      "observed_best_cross_validated_nrmse": 0.01778409740297801,
+      "permutation_best_median": 0.9986278628840136,
+      "permutation_count": 99,
+      "status": "PASS_FAMILYWISE_PERMUTATION_NULL",
+      "structural_hypotheses_replayed_per_permutation": 45
+    },
+    "question": "Does reaction-diffusion memory collapse on a four-Pi manifold?",
+    "row_count": 240,
+    "schema": "phi-query-function-form/v1",
+    "search_surface": {
+      "display_limit": 25,
+      "display_limit_is_search_budget": false,
+      "finite_query_tranche_is_global_scientific_space_ceiling": false,
+      "requested_hypothesis_budget": 100,
+      "structural_hypotheses_examined_total": 45,
+      "structural_hypotheses_fit_total": 45,
+      "surface_exhaustive_for_degree_schedule": true
+    },
+    "status": "MULTI_PI_FUNCTION_FORM_SEARCH_COMPLETE",
+    "target_dimensional_status": "DIMENSIONLESS_TARGET",
+    "target_name": "yield",
+    "validation": {
+      "fold_count": 6,
+      "group_count": 6,
+      "kind": "LEAVE_ONE_GROUP_OUT"
+    }
+  },
+  "owner": "QUERY-DRIVEN-RESEARCH/1.1.0",
+  "release": "15.25.0",
+  "schema": "phi-query-research-current/v2",
   "source_candidate_ledger_sha256": "3aae0727dc524a4c2c27e371ed73e6e4745c1a1e1430c157b6a227791a4dab0a",
-  "status": "PASS_QUERY_DRIVEN_RESEARCH_SYNTHETIC_CONTROL",
+  "status": "PASS_QUERY_DRIVEN_RESEARCH_P1_AND_MULTI_PI_CONTROL_WORLD_DATA_GAP",
   "synthetic_reaction_diffusion_control": {
     "candidates": [
       {
@@ -321,5 +2682,101 @@
     },
     "status": "QUERY_RESEARCH_COMPLETE",
     "target_name": "eta"
+  },
+  "world_data_binding_audit_2026_09_08": {
+    "candidate_1_electrochemical_flow_reaction_diffusion": {
+      "full_F_fit_performed": false,
+      "required_axes": [
+        "k2",
+        "c",
+        "L",
+        "D",
+        "v",
+        "F",
+        "dphi",
+        "R",
+        "T"
+      ],
+      "sources": [
+        {
+          "coverage": [
+            "flow rate",
+            "geometry",
+            "diffusion scale",
+            "electrode potential/conversion",
+            "mixed versus unmixed transport"
+          ],
+          "doi": "10.1021/acselectrochem.4c00167",
+          "gap": [
+            "simulation assumes electron transfer much faster than transport",
+            "no independently varied/measured second-order kinetic k2 coordinate"
+          ],
+          "title": "Electrochemical Flow Reactors: Mass Transport, iR Drop, and Membrane-Free Performance with In-Line Analysis"
+        },
+        {
+          "coverage": [
+            "open electrochemical performance data",
+            "mass-transfer/electrode configurations",
+            "flow-battery measurements"
+          ],
+          "dataset_doi": "10.11583/DTU.25810348",
+          "doi": "10.1016/j.est.2026.121282",
+          "gap": [
+            "not a direct joint measurement table for the specified k2,c,L,D,v,F,dphi,R,T candidate in current audit"
+          ],
+          "title": "Electrochemical performance and mass transfer properties of dual electrode assemblies for aqueous vanadium redox flow batteries"
+        }
+      ],
+      "status": "PARTIAL_WORLD_EVIDENCE_ONLY"
+    },
+    "candidate_4_viscoelastic_reaction_diffusion_memory": {
+      "full_F_fit_performed": false,
+      "required_axes": [
+        "tau",
+        "D",
+        "L",
+        "k",
+        "E",
+        "eta",
+        "rho"
+      ],
+      "sources": [
+        {
+          "coverage": [
+            "reaction-diffusion degradation",
+            "enzyme kinetics",
+            "geometry/hydrogel state",
+            "compressive modulus"
+          ],
+          "doi": "10.1002/adhm.201500728",
+          "gap": [
+            "no joint per-observation viscoelastic relaxation time tau",
+            "no joint viscosity eta sufficient for four-Pi evaluation"
+          ],
+          "title": "Tuning Reaction and Diffusion Mediated Degradation of Enzyme-Sensitive Hydrogels"
+        },
+        {
+          "coverage": [
+            "public experimental time series",
+            "hydrogel size/oscillation response"
+          ],
+          "doi": "10.5281/zenodo.10467546",
+          "gap": [
+            "does not expose the complete tau,D,L,k,E,eta,rho tuple per observation"
+          ],
+          "title": "Collective chemomechanical oscillations in active hydrogels"
+        }
+      ],
+      "status": "PARTIAL_WORLD_EVIDENCE_ONLY"
+    },
+    "next_measurement_contract": {
+      "candidate_priority": "rd_viscoelastic_memory",
+      "minimum_requirement": "one experiment family with response Y and all required axes measured or independently calibrated on the same specimens/runs",
+      "preferred_validation": "leave-one-specimen-family-or-geometry-out plus block-preserving whole-surface permutation null",
+      "prohibited_shortcut": "do not merge parameter estimates from unrelated papers into synthetic joint rows"
+    },
+    "source_stitching_used_to_create_fit": false,
+    "status": "NO_COMPLETE_JOINT_AXIS_TABLE_IDENTIFIED_IN_CURRENT_SEARCH",
+    "u5_status": "UNKNOWN"
   }
 }

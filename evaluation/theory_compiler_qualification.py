@@ -88,9 +88,7 @@ def _manual_operator_artifact(program: dict[str, Any], tag: str) -> dict[str, An
     return row
 
 
-def run_release_qualification(
-    root: str | Path | None = None, *, persist_reports: bool = False
-) -> dict[str, Any]:
+def run_release_qualification(root: str|Path|None=None) -> dict[str,Any]:
     root = Path(root or Path(__file__).resolve().parents[1])
     invention = MathematicalInventionKernel(root)
     compiler = TheoryCompilerKernel(root)
@@ -492,6 +490,7 @@ def run_release_qualification(
         },
     }
     payload["digest"] = digest_payload(payload)
+    (root / "reports" / "THEORY_COMPILER_QUALIFICATION_CURRENT.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True)+"\n", encoding="utf-8")
     atomic_probe_report = {
         "schema":"phi-atomic-operator-probe-cycle/v3",
         "release":RELEASE,
@@ -545,6 +544,7 @@ def run_release_qualification(
         },
     }
     atomic_probe_report["digest"] = digest_payload(atomic_probe_report)
+    (root / "reports" / "ATOMIC_OPERATOR_PROBE_CYCLE_CURRENT.json").write_text(json.dumps(atomic_probe_report, ensure_ascii=False, indent=2, sort_keys=True)+"\n", encoding="utf-8")
     variable_particle_report = {
         "schema":"phi-atomic-variable-particle-self-consistent-cycle/v1",
         "release":RELEASE,
@@ -586,23 +586,9 @@ def run_release_qualification(
         },
     }
     variable_particle_report["digest"] = digest_payload(variable_particle_report)
-    if persist_reports:
-        reports_dir = root / "reports"
-        reports_dir.mkdir(parents=True, exist_ok=True)
-        (reports_dir / "THEORY_COMPILER_QUALIFICATION_CURRENT.json").write_text(
-            json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
-        )
-        (reports_dir / "ATOMIC_OPERATOR_PROBE_CYCLE_CURRENT.json").write_text(
-            json.dumps(atomic_probe_report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
-        )
-        (reports_dir / "ATOMIC_VARIABLE_PARTICLE_SELF_CONSISTENT_CYCLE_CURRENT.json").write_text(
-            json.dumps(variable_particle_report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
-        )
+    (root / "reports" / "ATOMIC_VARIABLE_PARTICLE_SELF_CONSISTENT_CYCLE_CURRENT.json").write_text(json.dumps(variable_particle_report, ensure_ascii=False, indent=2, sort_keys=True)+"\n", encoding="utf-8")
     return payload
 
 
 if __name__ == "__main__":
-    print(json.dumps(run_release_qualification(persist_reports=True), ensure_ascii=False, indent=2, sort_keys=True))
+    print(json.dumps(run_release_qualification(), ensure_ascii=False, indent=2, sort_keys=True))

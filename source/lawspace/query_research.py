@@ -7,7 +7,7 @@ calibration records and replays the complete examined surface.
 from __future__ import annotations
 from dataclasses import dataclass
 from fractions import Fraction
-from itertools import combinations
+from itertools import combinations, product
 from typing import Any, Mapping, Sequence
 import math
 import numpy as np
@@ -16,7 +16,7 @@ from source.phi_compiler_owner import _fraction_nullspace
 from .schema import digest_payload
 from .dimensional_law_birth import collapse_score
 
-OWNER_ID = "QUERY-DRIVEN-RESEARCH/1.0.0"
+OWNER_ID = "QUERY-DRIVEN-RESEARCH/1.1.0"
 BASIS=("L","M","T","I","Theta","N","J")
 
 
@@ -43,6 +43,103 @@ def _coordinate(group, values):
     for n,e in group: out*=np.asarray(values[n],float)**e
     return out
 
+
+def _monomial_exponents(nvars: int, degree: int) -> tuple[tuple[int, ...], ...]:
+    """Deterministic total-degree polynomial basis, excluding the intercept."""
+    rows=[]
+    for exps in product(range(int(degree)+1), repeat=int(nvars)):
+        total=sum(exps)
+        if 1 <= total <= int(degree):
+            rows.append(tuple(int(x) for x in exps))
+    rows.sort(key=lambda e:(sum(e), e))
+    return tuple(rows)
+
+
+def _poly_design(z: np.ndarray, exponents: Sequence[Sequence[int]]) -> np.ndarray:
+    z=np.asarray(z,float)
+    cols=[np.ones(z.shape[0],float)]
+    for exp in exponents:
+        col=np.ones(z.shape[0],float)
+        for j,power_ in enumerate(exp):
+            if int(power_): col*=z[:,j]**int(power_)
+        cols.append(col)
+    return np.column_stack(cols)
+
+
+def _folds(n: int, group_ids: Sequence[str] | None = None, *, seed: int = 1729) -> tuple[np.ndarray, ...]:
+    if group_ids is not None:
+        groups=np.asarray([str(x) for x in group_ids],dtype=object)
+        if len(groups)!=int(n): raise ValueError("group_ids length must equal observation row count")
+        unique=[]
+        for x in groups:
+            if x not in unique: unique.append(x)
+        if len(unique)<3: raise ValueError("grouped validation requires at least three groups")
+        return tuple(np.flatnonzero(groups==g) for g in unique)
+    k=min(5,max(3,int(n)//20 if int(n)>=60 else 3))
+    order=np.random.default_rng(int(seed)).permutation(int(n))
+    return tuple(np.sort(x) for x in np.array_split(order,k) if len(x))
+
+
+def _fit_polynomial_cv(pi_matrix: np.ndarray, y: np.ndarray, coordinate_indices: Sequence[int], degree: int,
+                       folds: Sequence[np.ndarray]) -> Mapping[str,Any] | None:
+    coords=tuple(int(i) for i in coordinate_indices)
+    if not coords: return None
+    x=np.asarray(pi_matrix[:,coords],float); y=np.asarray(y,float)
+    if x.ndim==1: x=x[:,None]
+    exps=_monomial_exponents(x.shape[1],int(degree)); ncoef=1+len(exps)
+    oof=np.full(len(y),np.nan,float); ranks=[]
+    all_idx=np.arange(len(y))
+    for val_idx in folds:
+        train_idx=np.setdiff1d(all_idx,np.asarray(val_idx,int),assume_unique=False)
+        if len(train_idx) <= ncoef+2: return None
+        xt=x[train_idx]; xv=x[np.asarray(val_idx,int)]; yt=y[train_idx]
+        mu=np.mean(xt,axis=0); sigma=np.std(xt,axis=0)
+        if np.any(~np.isfinite(mu)) or np.any(~np.isfinite(sigma)) or np.any(sigma<=1e-14): return None
+        zt=(xt-mu)/sigma; zv=(xv-mu)/sigma
+        Xt=_poly_design(zt,exps); Xv=_poly_design(zv,exps)
+        beta,_,rank,_=np.linalg.lstsq(Xt,yt,rcond=None)
+        if int(rank)<min(Xt.shape):
+            return None
+        oof[np.asarray(val_idx,int)]=Xv@beta; ranks.append(int(rank))
+    mask=np.isfinite(oof)&np.isfinite(y)
+    if mask.sum()!=len(y): return None
+    denom=float(np.std(y[mask]))
+    if denom<=1e-14: return None
+    rmse=float(np.sqrt(np.mean((oof[mask]-y[mask])**2)))
+    nrmse=rmse/denom
+    ss_res=float(np.sum((oof[mask]-y[mask])**2)); ss_tot=float(np.sum((y[mask]-np.mean(y[mask]))**2))
+    r2=float(1.0-ss_res/ss_tot) if ss_tot>0 else None
+    mu=np.mean(x,axis=0); sigma=np.std(x,axis=0)
+    if np.any(sigma<=1e-14): return None
+    X=_poly_design((x-mu)/sigma,exps); beta,_,rank,_=np.linalg.lstsq(X,y,rcond=None)
+    return {
+        "coordinate_indices":list(coords),"polynomial_degree":int(degree),"term_count":int(ncoef),
+        "cross_validated_nrmse":float(nrmse),"cross_validated_r2":r2,"oof_rmse":rmse,
+        "minimum_fold_rank":min(ranks) if ranks else None,"full_fit_rank":int(rank),
+        "standardization":{"mean":[float(v) for v in mu],"scale":[float(v) for v in sigma]},
+        "monomial_exponents":[list(e) for e in exps],"coefficients":[float(v) for v in beta],
+    }
+
+
+def _function_specs(nullity: int, *, hypothesis_budget: int = 100) -> tuple[tuple[tuple[int,...],int], ...]:
+    """Finite query tranche; not a global scientific-space ceiling."""
+    p=int(nullity); budget=int(hypothesis_budget)
+    if not (10 <= budget <= 100): raise ValueError("hypothesis_budget must be in [10,100]")
+    degrees=(1,2,3,4) if p<=3 else (1,2,3)
+    all_specs=[]
+    for s in range(1,p+1):
+        for coords in combinations(range(p),s):
+            for degree in degrees:
+                all_specs.append((tuple(coords),int(degree)))
+    # Guarantee the full manifold is examined before lower-dimensional refinements are truncated.
+    full=[x for x in all_specs if len(x[0])==p]
+    rest=[x for x in all_specs if len(x[0])!=p]
+    rest.sort(key=lambda x:(len(x[0]),x[1],x[0]))
+    ordered=[]
+    for x in full+rest:
+        if x not in ordered: ordered.append(x)
+    return tuple(ordered[:budget])
+
 class QueryDrivenResearchOwner:
     owner_id=OWNER_ID
 
@@ -67,12 +164,15 @@ class QueryDrivenResearchOwner:
             d=dimensions.get(n)
             if d is None or len(d)!=7: raise ValueError(f"missing 7D dimension for {n}")
         maxk=min(len(feature_names), int(max_subset_size or len(feature_names)))
-        candidates=[]; examined_subsets=0; groups_examined=0
+        candidates=[]; examined_subsets=0; groups_examined=0; p_gt_1_subsets=0
         for k in range(max(2,int(min_subset_size)),maxk+1):
             for subset in combinations(feature_names,k):
                 examined_subsets+=1
                 matrix=[[Fraction(int(dimensions[n][i])) for n in subset] for i in range(7)]
                 ns=_fraction_nullspace(matrix)
+                if len(ns)>1:
+                    p_gt_1_subsets+=1
+                    continue
                 if len(ns)!=1: continue
                 groups_examined+=1
                 group=_canon(ns[0],subset)
@@ -127,12 +227,151 @@ class QueryDrivenResearchOwner:
         core={"schema":"phi-query-driven-research/v1","owner":OWNER_ID,"status":"QUERY_RESEARCH_COMPLETE",
               "question":question,"target_name":target_name,"row_count":next(iter(lengths)),
               "feature_names":feature_names,"search_surface":{"subsets_examined_total":examined_subsets,
-              "p1_groups_examined_total":groups_examined,"unique_mathematical_candidates_total":len(ranked),
+              "p1_groups_examined_total":groups_examined,"p_gt_1_subsets_deferred_total":p_gt_1_subsets,
+              "p_gt_1_deferred_to_function_form_lane":True,"unique_mathematical_candidates_total":len(ranked),
               "display_limit":int(return_limit),"display_limit_is_search_budget":False},
               "candidates":ranked[:int(return_limit)],"permutation_null":null_summary,
               "claim_boundary":{"returned_count_is_multiplicity_count":False,
               "all_examined_candidates_are_accounted_for":True,"candidate_is_confirmed_law":False,
               "query_mode_replaces_open_discovery_frontier":False}}
+        return {**core,"digest":digest_payload(core)}
+
+
+    def search_function_forms(self, *, observations: Mapping[str, Sequence[float]],
+                              dimensions: Mapping[str, Sequence[int]], target_name: str,
+                              axis_names: Sequence[str] | None = None, question: str | None = None,
+                              return_limit: int = 25, hypothesis_budget: int = 100,
+                              group_ids: Sequence[str] | None = None,
+                              permutation_count: int = 0, permutation_seed: int = 0) -> Mapping[str,Any]:
+        """Search F(Pi_1,...,Pi_p) on one exact Buckingham manifold (p>1).
+
+        The dimensional kernel is frozen before fitting.  Structural hypotheses are
+        low-order polynomial response surfaces over subsets of the exact Pi basis.
+        The complete requested structural tranche is refit under every target
+        permutation, so shortlist size is never used as the multiplicity budget.
+        """
+        if not (10 <= int(return_limit) <= 100):
+            raise ValueError("return_limit must be in [10,100]")
+        obs={str(k):np.asarray(v,float) for k,v in observations.items()}
+        if target_name not in obs: raise ValueError("target_name missing")
+        lengths={len(v) for v in obs.values()}
+        if len(lengths)!=1 or not lengths: raise ValueError("all observation columns must have equal length")
+        n=next(iter(lengths))
+        features=[str(x) for x in (axis_names if axis_names is not None else [k for k in obs if k!=target_name])]
+        if len(features)<2: raise ValueError("at least two feature axes are required")
+        if len(set(features))!=len(features): raise ValueError("axis_names must be unique")
+        if any(name==target_name or name not in obs for name in features): raise ValueError("axis_names contain missing/target column")
+        for name in features:
+            d=dimensions.get(name)
+            if d is None or len(d)!=7: raise ValueError(f"missing 7D dimension for {name}")
+        matrix=[[Fraction(int(dimensions[name][i])) for name in features] for i in range(7)]
+        ns=_fraction_nullspace(matrix); p=len(ns)
+        if p<=1:
+            core={"schema":"phi-query-function-form/v1","owner":OWNER_ID,
+                  "status":"FUNCTION_FORM_LANE_REQUIRES_P_GT_1","question":question,"target_name":target_name,
+                  "axis_names":features,"row_count":int(n),"nullity":int(p),"hypotheses":[],
+                  "claim_boundary":{"law_established":False,"function_form_established":False}}
+            return {**core,"digest":digest_payload(core)}
+        groups=[_canon(v,features) for v in ns]
+        # Deterministic basis certificate from the exact rational authority.
+        pi_columns=[]; basis_rows=[]
+        for j,g in enumerate(groups):
+            arr=_coordinate(g,obs)
+            if np.any(~np.isfinite(arr)):
+                raise ValueError(f"non-finite Pi coordinate generated for basis index {j}")
+            pi_columns.append(arr)
+            basis_rows.append({"pi_index":j,"pi_group":[{"name":name,"exponent":int(exp)} for name,exp in g],
+                               "formula":_formula(g)})
+        pi_matrix=np.column_stack(pi_columns); y=np.asarray(obs[target_name],float)
+        finite=np.isfinite(y)&np.all(np.isfinite(pi_matrix),axis=1)
+        if int(finite.sum())<12: raise ValueError("insufficient finite rows for function-form search")
+        pi_matrix=pi_matrix[finite]; y=y[finite]
+        gids=None if group_ids is None else [str(group_ids[i]) for i in np.flatnonzero(finite)]
+        foldset=_folds(len(y),gids)
+        specs=_function_specs(p,hypothesis_budget=int(hypothesis_budget))
+        fitted=[]
+        for coords,degree in specs:
+            row=_fit_polynomial_cv(pi_matrix,y,coords,degree,foldset)
+            if row is None: continue
+            row.update({"representation":"TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+                        "function_family":"STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+                        "coordinate_formulas":[basis_rows[i]["formula"] for i in coords],
+                        "candidate_equation":f"{target_name} = F_deg{degree}("+", ".join(f"Pi_{i+1}" for i in coords)+")",
+                        "nullity":int(p)})
+            row["signature"]=digest_payload({"basis":basis_rows,"coords":list(coords),"degree":int(degree),"target":target_name})
+            fitted.append(row)
+        fitted.sort(key=lambda r:(r["cross_validated_nrmse"],r["term_count"],r["polynomial_degree"],r["coordinate_indices"],r["signature"]))
+        for i,row in enumerate(fitted,1): row["rank"]=i
+        observed_best=min((r["cross_validated_nrmse"] for r in fitted),default=math.inf)
+        null_summary=None
+        if int(permutation_count)>0:
+            rng=np.random.default_rng(int(permutation_seed)); best=[]
+            # Exchangeability must respect the experimental validation structure.
+            # When group ids are supplied, rows are permuted only within each group;
+            # otherwise the observations are treated as one exchangeability block.
+            group_arrays=None
+            if gids is not None:
+                gid_arr=np.asarray(gids,dtype=object)
+                group_arrays=[np.flatnonzero(gid_arr==g) for g in dict.fromkeys(gids)]
+            for _ in range(int(permutation_count)):
+                if group_arrays is None:
+                    yp=rng.permutation(y)
+                else:
+                    yp=np.asarray(y,float).copy()
+                    for idx in group_arrays:
+                        yp[idx]=rng.permutation(y[idx])
+                vals=[]
+                for coords,degree in specs:
+                    row=_fit_polynomial_cv(pi_matrix,yp,coords,degree,foldset)
+                    if row is not None and np.isfinite(row["cross_validated_nrmse"]):
+                        vals.append(float(row["cross_validated_nrmse"]))
+                best.append(min(vals) if vals else math.inf)
+            finite_null=np.asarray([x for x in best if np.isfinite(x)],float)
+            resolution=1.0/(1.0+int(permutation_count))
+            empirical_p=(1.0+float(np.sum(finite_null<=observed_best)))/(1.0+len(finite_null)) if len(finite_null) else None
+            if resolution>0.05:
+                null_status="INSUFFICIENT_NULL_RESOLUTION"
+            elif empirical_p is not None and empirical_p<=0.05:
+                null_status="PASS_FAMILYWISE_PERMUTATION_NULL"
+            else:
+                null_status="NOT_REJECTED_BY_FAMILYWISE_PERMUTATION_NULL"
+            null_summary={"status":null_status,"permutation_count":int(permutation_count),
+                          "minimum_achievable_p":resolution,"entire_function_surface_refit_each_permutation":True,
+                          "structural_hypotheses_replayed_per_permutation":len(specs),
+                          "exchangeability_scheme":"WITHIN_VALIDATION_GROUP" if gids is not None else "GLOBAL_ROW_PERMUTATION",
+                          "exchangeability_assumption_explicit":True,
+                          "observed_best_cross_validated_nrmse":observed_best,
+                          "permutation_best_median":float(np.median(finite_null)) if len(finite_null) else None,
+                          "familywise_empirical_p":empirical_p}
+        target_dim=dimensions.get(target_name)
+        if target_dim is None:
+            target_dimensional_status="UNKNOWN_TARGET_DIMENSION"
+        elif len(target_dim)!=7:
+            raise ValueError(f"target dimension for {target_name} must be 7D when supplied")
+        elif all(int(x)==0 for x in target_dim):
+            target_dimensional_status="DIMENSIONLESS_TARGET"
+        else:
+            target_dimensional_status="DIMENSIONAL_TARGET_REQUIRES_RESPONSE_SCALE_FOR_UNIVERSAL_COLLAPSE"
+        core={"schema":"phi-query-function-form/v1","owner":OWNER_ID,"status":"MULTI_PI_FUNCTION_FORM_SEARCH_COMPLETE",
+              "question":question,"target_name":target_name,"target_dimensional_status":target_dimensional_status,
+              "row_count":int(len(y)),"axis_names":features,
+              "dimension_kernel":{"rank":int(len(features)-p),"nullity":int(p),"basis":basis_rows,
+                                  "exact_rational_kernel_authority":True,"basis_is_unique_physical_parameterization":False},
+              "validation":{"kind":"LEAVE_ONE_GROUP_OUT" if gids is not None else "DETERMINISTIC_K_FOLD",
+                            "fold_count":len(foldset),"group_count":len(set(gids)) if gids is not None else None},
+              "search_surface":{"requested_hypothesis_budget":int(hypothesis_budget),
+                                "structural_hypotheses_examined_total":len(specs),
+                                "structural_hypotheses_fit_total":len(fitted),
+                                "surface_exhaustive_for_degree_schedule":len(specs)<int(hypothesis_budget),
+                                "finite_query_tranche_is_global_scientific_space_ceiling":False,
+                                "display_limit":int(return_limit),"display_limit_is_search_budget":False},
+              "hypotheses":fitted[:int(return_limit)],"permutation_null":null_summary,
+              "claim_boundary":{"candidate_is_confirmed_law":False,"function_family_search_is_complete_over_all_mathematics":False,
+                                "polynomial_surface_is_a_query_grammar_not_primary_atlas_space":True,
+                                "whole_surface_null_replays_displayed_and_undisplayed_hypotheses":True,
+                                "selected_cv_score_is_unbiased_post_selection_generalization_estimate":False,
+                                "dimensionally_universal_response_claim_requires_dimensionless_or_scaled_target":True,
+                                "independent_world_replication_still_required":True}}
         return {**core,"digest":digest_payload(core)}
 
     def focus_question(self, *, catalog: Any, question: str,

@@ -1,16 +1,16 @@
 {
   "binding_migration": {
-    "new_bound_active_candidate_ledger_sha256": "04dff911faa5c8571f2f2524650e66dece976c56007fb35ed3c892a283f37944",
+    "new_bound_active_candidate_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
     "new_bound_candidate_record_count": 4106,
     "prefreeze_literature_used": false,
     "previous_bound_active_candidate_ledger_sha256": "3aae0727dc524a4c2c27e371ed73e6e4745c1a1e1430c157b6a227791a4dab0a",
     "previous_bound_candidate_record_count": 4106,
     "prior_art_candidate_reviews_modified": false,
     "prior_art_classifications_modified": false,
-    "reason": "15.24.0 canonicalizes frozen optimizer summaries across compatible numeric-library builds without adding, deleting or reclassifying candidates; post-freeze prior-art reviews remain unchanged",
-    "release": "15.24.0"
+    "reason": "15.25.0 materializes deterministic dimensional_law_birth annotations inside the same 3706 adaptive candidate records. Candidate IDs, axis sets, prior-art selections and classifications are unchanged; the relational scientific-core identity explicitly excludes this derived annotation so prior hypothesis/world-evidence chains remain valid.",
+    "release": "15.25.0"
   },
-  "bound_active_candidate_ledger_sha256": "04dff911faa5c8571f2f2524650e66dece976c56007fb35ed3c892a283f37944",
+  "bound_active_candidate_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
   "bound_candidate_record_count": 4106,
   "candidate_reviews": [
     {
@@ -164,9 +164,9 @@
     "reviewed_candidates_falsified_by_known_overlap": false,
     "unreviewed_candidates_assigned_negative_status": false
   },
-  "digest": "79f664863f4b770a8387026fd24d8da1f3620fc3de67a20cdc6f9dd89ed65853",
+  "digest": "f7b40a222a55d63f0f8c3ac1d8d8ee3f406a45f189f6d78490f0b7974bd7c29c",
   "owner": "ATLAS-POSTFREEZE-PRIOR-ART-REVIEW/15.11.0",
-  "release": "15.22.0",
+  "release": "15.25.0",
   "review_count": 6,
   "schema": "phi-atlas-postfreeze-prior-art/v1",
   "search_date": "2026-09-06",

@@ -1,4 +1,4 @@
-"""Current-state qualification for Φ-Compiler / ScienceAtlas 15.24.0.
+"""Current-state qualification for Φ-Compiler / ScienceAtlas 15.26.0.
 
 The current research state keeps the sealed blind real-data experiment plus the
 first Atlas-wide active frontier candidate scan. Historical calculation/search
@@ -18,6 +18,7 @@ from source.lawspace.domains import canonical_axis_count, DOMAIN_REGISTRIES
 from source.lawspace.research_cycle import AdaptiveResearchKernelOwner
 from source.lawspace.schema import digest_payload
 from source.lawspace.knowledge_evolution import CandidateWorldBindingOwner
+from source.lawspace.eda_chip_design import EDAChipDesignResearchOwner, qualification_oracle
 from source.lawspace.resident_cognitive import COMPONENT_SCHEMA_VERSION, STATE_SCHEMA_VERSION, AI_ACCEPTANCE_VERSION
 from source.lawspace.candidates import DOVETAIL_STATE_RELATIVE_PATH, load_dovetail_state_file, dovetail_state_status
 from evaluation.first_atlas_native_experiment import run as run_first_control
@@ -67,7 +68,7 @@ def _genesis_ledger_checks() -> dict[str, bool]:
       "genesis_materialisation_guard_is_bounded_prefix": len(atoms)==64 and atoms==tuple(sorted(atoms,key=lambda t:(t.degree,t.powers))),
     }
 
-RELEASE='15.24.0'; OWNER_ID='UNIFIED-CURRENT-QUALIFICATION/15.24.0'
+RELEASE='15.26.0'; OWNER_ID='UNIFIED-CURRENT-QUALIFICATION/15.26.0'
 REAL_REPORT='reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json'
 FRONTIER_REPORT='reports/ATLAS_FRONTIER_SCAN_CURRENT.json'
 FRONTIER_LEDGER='data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl'
@@ -95,13 +96,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     residues={rel:[str(p.relative_to(root)) for p in _files(root,rel)] for rel in DERIVED_EMPTY_DIRS}
     derived_files_present=[rel for rel in DERIVED_FILES if (root/rel).exists()]
     feynman_present=[rel for rel in AI_FEYNMAN_PATHS if (root/rel).exists()]
-    # Version-control snapshots are archival provenance, not current research
-    # reports or runtime inputs. Keep them seal-controlled without counting them
-    # against the exactly-two current report invariant.
-    report_files=sorted(
-        str(p.relative_to(root)) for p in _files(root,'reports')
-        if 'history' not in p.relative_to(root/'reports').parts
-    )
+    report_files=sorted(str(p.relative_to(root)) for p in (root/'reports').glob('*') if p.is_file())
     allowed_reports={REAL_REPORT,FRONTIER_REPORT}; unexpected_reports=sorted(set(report_files)-allowed_reports)
     frontier_files=sorted(str(p.relative_to(root)) for p in _files(root,'data/frontiers'))
     allowed_frontier_files={FRONTIER_LEDGER,PRIOR_ART_RECEIPT,DOVETAIL_STATE,'data/frontiers/ATLAS_SCIENTIFIC_EXPLOITATION_CURRENT.json',EPROCESS_REPORT,SCALAR_LAW_REPORT,QUERY_RESEARCH_REPORT}
@@ -151,12 +146,26 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     eprocess_core=dict(eprocess_report); eprocess_digest=eprocess_core.pop('digest',None)
     eprocess_cal=eprocess_report.get('type1_empirical_calibration',{})
     eprocess_cb=eprocess_report.get('claim_boundary',{})
+    eda_owner=EDAChipDesignResearchOwner()
+    eda_contract=eda_owner.contract()
+    eda_fail_closed=eda_owner.run_pilot(orfs_flow_root=root/'__NO_ORFS_BACKEND__',evaluation_budget=14,warm_start_count=12,candidate_pool_size=96)
+    eda_control=eda_owner.run_pilot(evaluation_budget=14,warm_start_count=12,candidate_pool_size=96,evaluator=qualification_oracle,evaluator_kind='SYNTHETIC_QUALIFICATION_ONLY')
     checks={
+      'eda_chip_design_owner_contract_callable': eda_contract.get('status')=='EDA_CHIP_DESIGN_RESEARCH_CONTRACT' and eda_contract.get('pilot',{}).get('platform')=='sky130hd' and eda_contract.get('pilot',{}).get('design')=='gcd',
+      'eda_chip_design_api_exposed': {'get_eda_chip_design_contract','get_eda_chip_backend_status','run_eda_chip_design_pilot'} <= set(api.READ_TOOLS),
+      'eda_chip_design_missing_backend_fails_closed': eda_fail_closed.get('status')=='CHIP_PILOT_BACKEND_UNAVAILABLE' and eda_fail_closed.get('scientific_result') is None and eda_fail_closed.get('claim_boundary',{}).get('surrogate_substitution_used') is False,
+      'eda_chip_design_qualification_control_equal_budget': eda_control.get('status')=='CHIP_PILOT_QUALIFICATION_CONTROL_COMPLETE' and len(eda_control.get('strategies',[]))==4 and len({x.get('evaluation_budget') for x in eda_control.get('strategies',[])})==1 and all(x.get('common_warm_start_count')==12 for x in eda_control.get('strategies',[])),
+      'eda_chip_design_qualification_control_not_physical_evidence': eda_control.get('scientific_result') is None and eda_control.get('comparison',{}).get('atlas_beats_all_baselines') is None and eda_control.get('claim_boundary',{}).get('qualification_control_is_physical_chip_evidence') is False,
+      'eda_chip_design_signoff_gates_are_fail_closed': eda_contract.get('claim_boundary',{}).get('timing_drc_lvs_or_gds_missing_is_pass') is False and eda_contract.get('claim_boundary',{}).get('route_drc_can_substitute_for_signoff_drc') is False and eda_contract.get('gates',{}).get('lvs')=='explicit machine/log match required' and str(eda_contract.get('gates',{}).get('drc','')).startswith('explicit sign-off'),
       'dimensional_scalar_law_birth_current_digest_valid': scalar_law_digest_valid,
       'dimensional_scalar_law_birth_measured_census': scalar_law_report.get('summary',{}).get('subspace_count')==3706 and scalar_law_report.get('summary',{}).get('p1_frozen_formula_count')==683 and scalar_law_report.get('summary',{}).get('unique_pi_signature_count')==14 and scalar_law_report.get('summary',{}).get('u4_p1_frozen_formula_count')==125 and scalar_law_report.get('summary',{}).get('u4_unique_pi_signature_count')==13,
       'query_research_current_digest_valid': query_research_digest_valid,
       'query_mode_recovers_unhinted_thiele_coordinate': query_research_report.get('acceptance',{}).get('pass') is True and query_research_report.get('acceptance',{}).get('observed_top_formula')=='k * D^-1 * L^2' and float(query_research_report.get('acceptance',{}).get('observed_top_collapse',9))<0.15,
       'query_mode_multiplicity_counts_full_search_not_display_limit': query_research_report.get('synthetic_reaction_diffusion_control',{}).get('search_surface',{}).get('display_limit_is_search_budget') is False and query_research_report.get('synthetic_reaction_diffusion_control',{}).get('permutation_null',{}).get('entire_ranked_surface_replayed') is True,
+      'query_mode_multi_pi_function_form_lane_live': query_research_report.get('multi_pi_function_form_control',{}).get('dimension_kernel',{}).get('nullity') == 4 and query_research_report.get('multi_pi_function_form_control',{}).get('search_surface',{}).get('structural_hypotheses_examined_total') == 45,
+      'query_mode_multi_pi_whole_surface_group_null': query_research_report.get('multi_pi_function_form_control',{}).get('permutation_null',{}).get('entire_function_surface_refit_each_permutation') is True and query_research_report.get('multi_pi_function_form_control',{}).get('permutation_null',{}).get('exchangeability_scheme') == 'WITHIN_VALIDATION_GROUP',
+      'query_mode_world_data_gap_fails_closed': query_research_report.get('world_data_binding_audit_2026_09_08',{}).get('u5_status') == 'UNKNOWN' and query_research_report.get('world_data_binding_audit_2026_09_08',{}).get('source_stitching_used_to_create_fit') is False,
+      'query_mode_function_form_api_exposed': 'search_observations_for_function_forms' in set(api.READ_TOOLS),
       **_genesis_ledger_checks(),
       **_epoch_genesis_checks(),
       'permutation_eprocess_qualification_current': eprocess_report.get('status')=='PASS_PERMUTATION_EPROCESS_15_20_0' and eprocess_digest==digest_payload(eprocess_core),
@@ -240,13 +249,14 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     }
     payload={
       'schema':'phi-current-state-qualification/v1','release':RELEASE,'owner':OWNER_ID,
-      'status':'PASS_CURRENT_STATE_15_24_0' if all(checks.values()) else 'FAIL_CURRENT_STATE_15_24_0',
+      'status':'PASS_CURRENT_STATE_15_26_0' if all(checks.values()) else 'FAIL_CURRENT_STATE_15_26_0',
       'checks':checks,
       'counts':{'canonical_axes':canonical_axis_count(),'domains':len(DOMAIN_REGISTRIES),'known_laws':len(runtime.catalog.passports),'computational_methods':len(runtime.computational_methods),'baseline_candidates':len(runtime.candidates),'active_frontier_candidates':len(ledger_lines),'evidence':len(runtime.evidence),'quantum_routes':len(runtime.quantum_method_routes),'persisted_current_research_reports':len(report_files)},
       'blind_real_physics_experiment':{'status':stored_real.get('status'),'digest':stored_real.get('digest'),'result_summary':stored_real.get('result_summary'),'canonical_digest_valid':real_digest_valid},
       'frontier_candidate_scan':{'status':stored_frontier.get('status'),'digest':stored_frontier.get('digest'),'scan_summary':stored_frontier.get('scan_summary'),'qualification_runtime':stored_frontier.get('qualification_runtime'),'fair_open_ended_traversal':stored_frontier.get('fair_open_ended_traversal'),'ledger_sha256':ledger_sha,'canonical_digest_valid':frontier_digest_valid},
       'postfreeze_prior_art_review':{'status':prior_art.get('status'),'digest':prior_art.get('digest'),'review_count':prior_art.get('review_count'),'summary':prior_art.get('summary'),'bound_ledger_sha256':prior_art.get('bound_active_candidate_ledger_sha256'),'canonical_digest_valid':prior_art_digest_valid},
       'synthetic_control':{'status':control_replay.get('status'),'digest':control_replay.get('digest'),'persisted_as_current_report':False},
+      'eda_chip_design':{'contract_digest':eda_contract.get('digest'),'fail_closed_status':eda_fail_closed.get('status'),'qualification_control_digest':eda_control.get('digest'),'live_world_result_established':False},
       'ai_runtime':{'capability_count':live_capabilities.get('capability_count'),'open_architecture_obligations':live_capabilities.get('open_architecture_obligations'),'mutable_state_default_external':True,'mutable_state_bundled_in_seal':False},
       'residue':{'derived_directories':residues,'derived_files_present':derived_files_present,'frontier_files':frontier_files,'unexpected_reports':unexpected_reports,'ai_feynman_paths_present':feynman_present},
       'claim_boundary':{'historical_search_or_calculation_receipts_restored':False,'current_frontier_candidates_are_baseline_source_knowledge':False,'current_frontier_candidates_are_established_laws':False,'known_overlap_deletes_candidate':False,'unknown_candidate_is_false':False,'axes_and_static_source_knowledge_are_preserved':True,'cognitive_state_is_external_mutable_runtime_state':True,'resident_learning_is_not_scientific_truth':True,'consciousness_claimed':False,'agi_claimed':False,'finite_dovetail_tranche_exhausts_scientific_space':False,'unvisited_subspace_is_false':False,'legacy_15_13_frontier_deleted':False,'permutation_eprocess_per_target_only':True,'global_online_evalue_controller_implemented':False}

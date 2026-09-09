@@ -5,7 +5,7 @@
     "dovetail_state_path": "data/frontiers/ATLAS_DOVETAIL_STATE_CURRENT.json",
     "path": "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
     "record_count": 4106,
-    "sha256": "04dff911faa5c8571f2f2524650e66dece976c56007fb35ed3c892a283f37944"
+    "sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891"
   },
   "candidate_class_counts": {
     "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER": 3706,
@@ -1214,7 +1214,7 @@
     "scientific_data_ingestion_owner": "SCIENTIFIC-DATA-INGESTION/5.11.0",
     "world_attestation_count": 0
   },
-  "digest": "167b4a90b1e246676166697b365966c7d77b45b7c494f620a14280ea6e8453bf",
+  "digest": "c6692aae39202f5db8588dd407da82a79b159d85c009b20e639e1778d02b6384",
   "fair_open_ended_traversal": {
     "dovetail_continuation_candidate_count": 2175,
     "environment_epoch": 7,
@@ -10186,9 +10186,9 @@
     }
   },
   "measurement_depth_refresh": {
-    "active_candidate_ledger_sha256": "04dff911faa5c8571f2f2524650e66dece976c56007fb35ed3c892a283f37944",
+    "active_candidate_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
     "active_candidate_ledger_unchanged": true,
-    "base_frontier_digest": "08856b12e5fa4bf79bbfb55c101d4913c6db658f600eca48373cbbac199ac08c",
+    "base_frontier_digest": "006ddfdda247879407fb853d4472f8f6b541301857cb6548651e1462267e06bf",
     "heavy_frontier_recomputed": false,
     "heldout_trajectory_count": 2,
     "input_frontier_digest_valid": true,
@@ -10212,14 +10212,14 @@
     "unknown_candidate_is_false": false
   },
   "postfreeze_prior_art_review": {
-    "bound_active_candidate_ledger_sha256": "04dff911faa5c8571f2f2524650e66dece976c56007fb35ed3c892a283f37944",
+    "bound_active_candidate_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
     "claim_boundary": {
       "new_law_established": false,
       "novelty_established_by_search_failure": false,
       "reviewed_candidates_falsified_by_known_overlap": false,
       "unreviewed_candidates_assigned_negative_status": false
     },
-    "digest": "79f664863f4b770a8387026fd24d8da1f3620fc3de67a20cdc6f9dd89ed65853",
+    "digest": "f7b40a222a55d63f0f8c3ac1d8d8ee3f406a45f189f6d78490f0b7974bd7c29c",
     "path": "data/frontiers/ATLAS_POSTFREEZE_PRIOR_ART_CURRENT.json",
     "review_count": 6,
     "status": "PASS_POSTFREEZE_PRIOR_ART_REVIEW",
@@ -10387,7 +10387,7 @@
       "owner": "PHI-CONSTRAINT-ATLAS"
     },
     "cross_domain_void": {
-      "digest": "f2d8ddd6bcec971208c08d0278de21293d1145cec2d0e54d17b3128399ad9107",
+      "digest": "28a31576ce9c7b451ceb834ad1ceee4f7705e2c0ac80b220308d4070eabb67de",
       "owner": "CandidateGenerationPipeline/6.28.0"
     },
     "low_frequency_gust_anomaly": {

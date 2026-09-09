@@ -1,4 +1,4 @@
-# MATHEMATICAL CONTRACT — Φ-Compiler CURRENT 15.24.0
+# MATHEMATICAL CONTRACT — Φ-Compiler CURRENT 15.26.0
 
 ## 1. Current authority
 
@@ -925,3 +925,64 @@ U5 = false
 6. With a target, the coordinate \(\Pi\) MUST be frozen before any search over \(f(\Pi)\).
 7. Whole-surface null calibration MUST replay every candidate considered by the query pipeline, including candidates not displayed to the user.
 8. `SO WHAT` scoring is permitted only for a frozen mathematical candidate and cannot promote a law without OOD/world evidence.
+
+
+## Multi-Π function-form query contract — 15.25.0
+
+1. The authoritative dimensional object for every multi-Π query MUST be the exact rational seven-dimensional kernel `ker D` computed before target-dependent fitting.
+2. The multi-Π function-form lane MUST execute only when `p = dim ker D > 1`; `p<=1` MUST remain on its existing scalar/one-coordinate path or fail closed for this lane.
+3. The deterministic displayed π basis MAY be used for reproducibility, but MUST NOT be claimed as the unique physical parameterization of the kernel subspace.
+4. Every π coordinate MUST be frozen before any target-dependent representation search, model selection, cross-validation, or null calibration.
+5. The current polynomial function family MUST be described as a finite query grammar and MUST NOT be represented as Atlas's primary scientific search space or as an exhaustive space of mathematical functions.
+6. A normal query tranche MUST request between 10 and 100 structural hypotheses. This bound is an execution/query budget only and MUST NOT be interpreted as a global ceiling on scientific axis order, interactions, future grammars, or Discovery Frontier exploration.
+7. Standardization, coefficient estimation, rank checks, and predictions MUST be recomputed inside each training fold. Validation rows MUST NOT contribute to training-fold scaling or coefficients.
+8. With at least three explicit validation groups, validation MUST use leave-one-group-out and the permutation null MUST preserve the group structure. The current `WITHIN_VALIDATION_GROUP` scheme is valid only under an explicitly recorded within-group exchangeability assumption.
+9. Without explicit groups, deterministic K-fold validation and global row permutation MAY be used when row exchangeability is scientifically defensible.
+10. The multiplicity surface MUST be the complete set of structurally fitted hypotheses, not the displayed shortlist. `return_limit` MUST NOT reduce the null replay surface.
+11. For every target permutation, Atlas MUST refit every structurally fitted function hypothesis. Reusing observed-target coefficients, winner identity, standardization, or fitted predictions under the null is forbidden.
+12. The familywise statistic MUST compare the observed best cross-validated score with the best score obtainable anywhere on the same replayed structural surface.
+13. The finite-null resolution `1/(B+1)` MUST be reported. If it exceeds the requested significance level, the null result MUST be `INSUFFICIENT_NULL_RESOLUTION`, not PASS.
+14. The selected cross-validation score MUST NOT be claimed as an unbiased post-selection estimate of future generalization. Independent holdout, regime transfer, or world replication remains required.
+15. A dimensional target MUST carry `DIMENSIONAL_TARGET_REQUIRES_RESPONSE_SCALE_FOR_UNIVERSAL_COLLAPSE` unless an explicit dimensionless/scaled response has been preregistered. Dimensionless predictors alone do not make a dimensional response universal.
+16. Partial measurements from unrelated publications MUST NOT be stitched into synthetic joint rows and described as world evidence for `F(Pi_1,...,Pi_p)`.
+17. A multi-Π candidate without a complete candidate-bound joint observation table MUST remain `UNKNOWN` at U5; lack of such a table MUST NOT be converted into falsification.
+18. `search_observations_for_function_forms` MUST remain exposed through the existing `LawSpaceAPI.READ_TOOLS`; parallel algorithm-bearing CLI/script implementations are forbidden.
+19. The 15.25.0 synthetic four-Π control is qualification evidence for the implementation only and MUST NOT be counted as a new physical law, world attestation, or U5 pass.
+20. Exact reproduction of the five 2026-09-08 cross-domain kernels establishes dimensional reproducibility only; novelty, applicability, the function form, causality, and world validity remain separate evidence questions.
+
+
+## 15.25.0 exoplanet missing-axis example contract
+
+1. `examples/exoplanets_dimensional_birth_of_G.ipynb` SHALL be an executable worked example, not a new scientific authority or promotion owner.
+2. The notebook SHALL use the sealed local CSV and SHALL NOT require network access at execution time.
+3. The release SHALL state that the historical 172-row/132-star raw table is absent; the sealed 50-row NASA subset SHALL NOT be labelled as that historical table.
+4. `CONST-G`, its value and its registered dimension SHALL NOT be read before the exponent winner and generated dimension are frozen.
+5. The structural shell SHALL be explicit and finite: all-three-nonzero primitive integer vectors with `e_a in [-4,4]`, `e_P in [-4,4]`, `e_M in [-3,3]`, modulo global sign. Its current cardinality SHALL be 172.
+6. The current frozen winner SHALL be `(3,-2,-1)` on the sealed CSV, yielding generated dimension `(3,-1,-2,0,0,0,0)`.
+7. The generated axis SHALL be checked with the existing exact rational dimensional kernel. No notebook-local floating null-space authority may replace it.
+8. The augmented axis set `[a,P,M_star,C_generated]` SHALL have exact nullity `p=1` with group equivalent to `(3,-2,-1,-1)`.
+9. Registry comparison to `CONST-G` and the optional `4*pi^2` numerical interpretation SHALL occur only post-freeze and SHALL be labelled post-hoc.
+10. Passing the notebook SHALL NOT create WORLD attestation, U5, novelty, causality, fundamental-constant discovery, or an independent replication claim.
+
+## EDA chip-design research contract — 15.26.0
+
+1. `EDA-CHIP-DESIGN-RESEARCH/1.0.0` MUST remain the single Atlas owner for the first chip PPA pilot; synthesis/place/route/DRC/LVS algorithms MUST NOT be copied into Atlas.
+2. The first live world backend MUST be an actual ORFS execution, with `sky130hd/gcd` the frozen pilot pair unless a new experiment is separately frozen.
+3. The candidate pool, knob ranges, common warm start, strategy list, budget and random seed MUST be frozen before world metrics are consumed.
+4. A missing OpenROAD/Yosys/KLayout/ORFS backend MUST return `CHIP_PILOT_BACKEND_UNAVAILABLE`; a synthetic or analytical substitute MUST NOT be reported as a chip result.
+5. Timing MUST fail when final setup slack is missing/negative or the explicit setup-violation-count metric is missing/nonzero.
+6. DRC MUST fail unless the explicit final sign-off `6_drc_count.rpt` receipt is present and zero; detailed-route DRC MUST NOT substitute for sign-off DRC.
+7. LVS MUST fail unless an explicit positive netlist-match receipt is available. Missing/ambiguous LVS is never PASS.
+8. A configuration failing timing, sign-off DRC, LVS, or final-GDS presence MUST NOT be eligible as the final PPA winner even if its numerical area/power/delay is small.
+9. Search normalization MUST be computed from the common preregistered warm-start observations only and then frozen for all strategies.
+10. Atlas acquisition MUST reuse the authoritative Query function-form implementation; a second independent polynomial-response owner is forbidden.
+11. Random, Grid and Bayesian baselines MUST receive the same warm-start observations and the same evaluation budget as Atlas.
+12. Exact duplicate configurations MAY be cached globally; cache reuse MUST NOT be counted as an extra physical evaluation for one strategy.
+13. The Bayesian baseline MUST not read unevaluated world values or a hidden optimum.
+14. A negative Atlas-vs-baseline outcome MUST be retained as a valid result and MUST NOT trigger same-trial hyperparameter retuning.
+15. `qualification_oracle` is implementation qualification only. It MUST NOT contribute to U5, world attestation, semiconductor-law evidence, PPA superiority evidence or tapeout claims.
+16. A live pilot may assign any Boolean value to `atlas_beats_all_baselines` only after all four equal-budget strategies have each reached at least one fully feasible design; otherwise the comparison MUST be `INCONCLUSIVE` with value `null`.
+17. Release 15.26.0 MUST report real chip superiority as `UNKNOWN` until such a live receipt exists.
+18. No result of this pilot alone establishes generalization to other RTL, PDKs, process corners, analog designs, reliability/yield constraints or fabrication readiness.
+
+19. The shipped 15.26.0 GitHub world run MUST checkout ORFS commit `be0dca0b1fd41df54792b3012350cd52bccd99bb` before metrics are read; using a different ORFS revision requires a separately frozen experiment.

@@ -28,7 +28,7 @@ def example():
 def test_example_notebook_is_current_release(example):
     notebook, _ = example
     assert notebook["nbformat"] == 4
-    assert notebook["metadata"]["atlas_example"]["release"] == "15.24.0"
+    assert notebook["metadata"]["atlas_example"]["release"] == "15.25.0"
     from evaluation.release_files import is_local_artifact
     assert is_local_artifact(ROOT / ".venv" / "bin" / "python", ROOT)
     assert is_local_artifact(ROOT / "package.egg-info" / "PKG-INFO", ROOT)

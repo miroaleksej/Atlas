@@ -4,7 +4,7 @@
     "architecture_restored": true,
     "consciousness_claimed": false,
     "historical_capability_snapshot_used": false,
-    "live_capability_count": 296,
+    "live_capability_count": 300,
     "mutable_state_bundled_in_release": false,
     "mutable_state_external_to_seal": true,
     "open_architecture_obligations": [
@@ -29,9 +29,9 @@
     "sequential_per_target_union_bound": true
   },
   "blind_real_physics_experiment": {
-    "digest": "ad6aff3e74cc18b6ae996a845599be8d9f702c2ac0cf4ea3e5bd1084d91564a3",
+    "digest": "710a80f5188c21278a1819071469804d929c2c0cbfd0352b802414beeac22ffd",
     "problem_id": "DLR-OLAF-FIRST-BLIND-REAL-PHYSICS-001",
-    "research_freeze_digest": "dfbf30932ac04998b4c00869649e00bec1b7ea437de8884497214115ffce77de",
+    "research_freeze_digest": "47e2414d891239328c143d5639f27f21fa7392fdfeba3432e051e91752903c73",
     "scientific_discovery_established": false,
     "status": "PASS_FIRST_BLIND_REAL_PHYSICS_EXPERIMENT"
   },
@@ -50,7 +50,29 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "076513f05550417d3ce1bc2124a6839d56f4727ae3873b800ca4966a3ef279bf",
+  "digest": "b89343f00b8b82cbf9a332a8c98da3a6593da833a8ea6cf3157b1917845dc356",
+  "eda_chip_design": {
+    "atlas_beats_baselines_established": false,
+    "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
+    "common_warm_start_required": true,
+    "equal_budget_required": true,
+    "frozen_knob_count": 4,
+    "live_equal_budget_pilot_completed_in_release": false,
+    "owner": "EDA-CHIP-DESIGN-RESEARCH/1.0.0",
+    "pilot_design": "gcd",
+    "pilot_platform": "sky130hd",
+    "route_drc_can_substitute_for_signoff_drc": false,
+    "status": "RESEARCH_OWNER_INTEGRATED_LIVE_EDA_RESULT_PENDING",
+    "strategies": [
+      "ATLAS_QUERY_FUNCTION_FORM",
+      "RANDOM",
+      "GRID",
+      "BAYESIAN_GP_EI"
+    ],
+    "tapeout_readiness_claimed": false,
+    "timing_signoff_drc_lvs_gds_fail_closed": true,
+    "workflow_orfs_git_commit": "be0dca0b1fd41df54792b3012350cd52bccd99bb"
+  },
   "fair_open_ended_dovetail": {
     "continuation_candidate_count": 2175,
     "finite_tranche_exhausts_scientific_space": false,
@@ -85,7 +107,7 @@
       "REAL_DATA_MECHANISM_COMPETITION": 5,
       "RESEARCH_AXIS_PROPOSAL": 11
     },
-    "digest": "167b4a90b1e246676166697b365966c7d77b45b7c494f620a14280ea6e8453bf",
+    "digest": "c6692aae39202f5db8588dd407da82a79b159d85c009b20e639e1778d02b6384",
     "new_scientific_law_established": false,
     "status": "PASS_ATLAS_FRONTIER_CANDIDATE_SCAN"
   },
@@ -103,7 +125,7 @@
       "ai_acceptance_version": "15.10.5",
       "component_schema_version": "6.0.0",
       "state_schema_version": "5",
-      "system_release": "15.24.0"
+      "system_release": "15.26.0"
     }
   },
   "permutation_eprocess": {
@@ -130,7 +152,7 @@
     "known_law_count": 445,
     "static_source_knowledge": true
   },
-  "qualification_digest": "975f8c1e5a80fbf93feb0f4ecb84f8802c75110b53b94b545bd0dfae167ee74b",
+  "qualification_digest": "000f3de43816f68bb6948c52c2c40a6ee7e983eb6144dfa177654f0f81942ed4",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,
@@ -141,7 +163,25 @@
     "scientific_promotion_owner": "SCIENTIFIC-PROMOTION-CORE/9.2.0",
     "whole_pipeline_null_required_before_law_candidate": true
   },
-  "release": "15.24.0",
+  "query_research": {
+    "complete_joint_world_dataset_identified": false,
+    "cross_domain_exact_kernel_receipts": 5,
+    "exact_pi_basis_frozen_before_function_fit": true,
+    "grouped_null_exchangeability_scheme": "WITHIN_VALIDATION_GROUP",
+    "hypothesis_budget_max": 100,
+    "hypothesis_budget_min": 10,
+    "new_scientific_law_established": false,
+    "owner": "QUERY-DRIVEN-RESEARCH/1.1.0",
+    "p1_scalar_lane": true,
+    "p_gt_1_function_form_lane": true,
+    "polynomial_surface_is_query_grammar_not_primary_space": true,
+    "report_digest": "ecd07d982ab18089f3812caadd5f451b357b9b1d51554c2675ad407964d6be0c",
+    "selected_cv_score_is_unbiased_post_selection_estimate": false,
+    "source_stitching_used_to_create_fit": false,
+    "u5_status": "UNKNOWN",
+    "whole_function_surface_permutation_refit": true
+  },
+  "release": "15.26.0",
   "removed": {
     "ai_feynman_100_benchmark": true,
     "historical_generated_candidates_frontiers_and_freezes": true,
@@ -175,6 +215,6 @@
     "historical_calculation_receipts_restored": 0,
     "historical_search_receipts_restored": 0
   },
-  "status": "MANUAL_CANDIDATE_PREDICTION_LOWERING_HELDOUT_DIAGNOSTIC_SEALED",
-  "system": "Phi-Compiler / ScienceAtlas Manual Candidate Prediction Lowering + Held-Out Diagnostic"
+  "status": "EDA_CHIP_PPA_PILOT_INTEGRATED_LIVE_WORLD_PENDING",
+  "system": "Phi-Compiler / ScienceAtlas Multi-Pi Research + EDA Chip PPA Pilot"
 }

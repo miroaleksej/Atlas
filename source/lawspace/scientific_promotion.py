@@ -420,7 +420,18 @@ class ScientificPromotionCore:
 
     @staticmethod
     def _frontier_record_core(record: Mapping[str, Any]) -> Mapping[str, Any]:
-        return {k: v for k, v in dict(record).items() if k not in {"record_digest", "promotion_path"}}
+        core = {k: v for k, v in dict(record).items() if k not in {"record_digest", "promotion_path"}}
+        # Query/scalar-law birth is a deterministic derived annotation of an
+        # already materialized adaptive subspace. Adding or refining that
+        # annotation must not invalidate the older relational-hypothesis/world
+        # evidence chain bound to the same candidate axes and scientific core.
+        if str(core.get("candidate_class", "")) == "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER":
+            payload = dict(core.get("payload", {}) or {})
+            payload.pop("dimensional_law_birth", None)
+            if "digest" in payload:
+                payload["digest"] = _digest({k: v for k, v in payload.items() if k != "digest"})
+            core["payload"] = payload
+        return core
 
     def materialize_relational_hypothesis(self, record: Mapping[str, Any]) -> Mapping[str, Any]:
         """Freeze a structural hypothesis for a fully typed adaptive subspace; invent no scalar law."""

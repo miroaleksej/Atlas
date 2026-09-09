@@ -1,0 +1,102 @@
+name: Atlas CMOS GCD PPA Pilot
+
+on:
+  workflow_dispatch:
+    inputs:
+      budget:
+        description: "Equal evaluation budget per strategy (12 warm-start + adaptive evaluations)"
+        required: true
+        default: "14"
+      pool_size:
+        description: "Frozen candidate-pool size"
+        required: true
+        default: "256"
+
+permissions:
+  contents: read
+
+env:
+  # Frozen with Atlas 15.26.0.  Do not replace by moving master inside the
+  # same experiment; a different ORFS revision is a new world freeze.
+  ATLAS_ORFS_COMMIT: be0dca0b1fd41df54792b3012350cd52bccd99bb
+
+jobs:
+  sky130hd-gcd-pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - name: Checkout Atlas
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Atlas
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+
+      - name: Fetch OpenROAD Flow Scripts
+        run: |
+          mkdir -p "$RUNNER_TEMP/OpenROAD-flow-scripts"
+          cd "$RUNNER_TEMP/OpenROAD-flow-scripts"
+          git init
+          git remote add origin https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git
+          git fetch --depth 1 origin "$ATLAS_ORFS_COMMIT"
+          git checkout --detach FETCH_HEAD
+          git submodule update --init --recursive --depth 1
+          test "$(git rev-parse HEAD)" = "$ATLAS_ORFS_COMMIT"
+
+      - name: Verify ORFS Docker backend
+        run: |
+          cd "$RUNNER_TEMP/OpenROAD-flow-scripts/flow"
+          echo "ORFS commit: $(git rev-parse HEAD)"
+          util/docker_shell bash -lc 'source ../env.sh >/dev/null 2>&1 || true; yosys -V; openroad -version; klayout -v'
+
+      - name: Run equal-budget Atlas vs baselines on sky130hd/gcd
+        run: |
+          python evaluation/eda_chip_pilot.py \
+            --orfs-flow-root "$RUNNER_TEMP/OpenROAD-flow-scripts/flow" \
+            --runner docker_shell \
+            --budget "${{ inputs.budget }}" \
+            --warm-start 12 \
+            --pool-size "${{ inputs.pool_size }}" \
+            --seed 15260 \
+            --timeout 1800 \
+            --output atlas_chip_pilot_result.json
+
+      - name: Write research outcome to job summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          p=pathlib.Path('atlas_chip_pilot_result.json')
+          if not p.exists():
+              print('No Atlas result receipt was produced.')
+              raise SystemExit(0)
+          r=json.loads(p.read_text())
+          c=r.get('comparison',{})
+          lines=[
+              '# Atlas CMOS GCD PPA Pilot',
+              f"- status: `{r.get('status')}`",
+              f"- freeze: `{r.get('research_freeze',{}).get('digest')}`",
+              f"- unique real EDA evaluations: `{r.get('unique_world_evaluations')}`",
+              f"- Atlas best raw PPA: `{c.get('atlas_best_raw_ppa')}`",
+              f"- best baseline: `{c.get('best_baseline_strategy')}`",
+              f"- baseline best raw PPA: `{c.get('best_baseline_raw_ppa')}`",
+              f"- Atlas beats all baselines: `{c.get('atlas_beats_all_baselines')}`",
+              '',
+              'A negative Atlas-vs-baseline result is a valid experimental outcome and does not make the workflow fail.',
+          ]
+          pathlib.Path(__import__('os').environ['GITHUB_STEP_SUMMARY']).write_text('\n'.join(lines)+'\n')
+          PY
+
+      - name: Upload machine receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-chip-gcd-pilot-receipt
+          path: atlas_chip_pilot_result.json
+          if-no-files-found: warn

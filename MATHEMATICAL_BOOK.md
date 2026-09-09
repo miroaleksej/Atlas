@@ -1,4 +1,4 @@
-# Φ-Compiler / ScienceAtlas — Mathematical Book, CURRENT 15.24.0
+# Φ-Compiler / ScienceAtlas — Mathematical Book, CURRENT 15.26.0
 
 ## 0. Назначение
 
@@ -3696,7 +3696,8 @@ ho),
 причём
 
 ```math
-P.y_R=arnothing,\qquad
+P.y_R=
+arnothing,\qquad
 P.digest=\operatorname{SHA256}(C_d,H_d,B_d,D_d,
 ho_d,M).
 ```
@@ -3718,7 +3719,8 @@ ho}(D),
 \chi^2_{\mathrm{CNP}}=595.1908738041352,\qquad
 
 u=518,\qquad
-rac{\chi^2}{
+
+rac{\chi^2}{
 u}=1.149017130896014.
 ```
 
@@ -4130,3 +4132,680 @@ The current `PiGenesisBridge` then searches \(f(\Pi)\) using the installed Genes
 ### SO WHAT contract
 
 A frozen formula is assessed for usefulness only after birth. Candidate utility may include: cross-system collapse, parameter reduction, regime compression, predictive transfer, ambiguity removal, and a discriminating measurement specification. Relational descriptions without a frozen mathematical object do not receive scalar-law utility credit.
+
+
+# CURRENT 15.25.0 — Multi-Π Query Function-Form Search
+
+## 1. Scope and ownership
+
+Release 15.25.0 extends the existing authoritative `QUERY-DRIVEN-RESEARCH` path; it does not create a parallel scientific search engine. The exact dimension authority remains the seven-dimensional rational kernel. The scalar `p=1` path remains unchanged. The new lane begins only after the exact kernel proves
+
+\[
+p=\dim\ker D>1.
+\]
+
+`DIMENSIONAL-SCALAR-LAW-BIRTH` still refuses to invent a scalar formula in this regime and returns `FUNCTION_FORM_REQUIRED_P_GT_1`. `QUERY-DRIVEN-RESEARCH/1.1.0` consumes that formally unresolved state when observations and a response are explicitly supplied.
+
+## 2. Exact multi-Π coordinate construction
+
+For quantities \(q_1,\ldots,q_n\) define the dimension matrix
+
+\[
+D=[d(q_1)\;\cdots\;d(q_n)]\in\mathbb Z^{7\times n}.
+\]
+
+Let
+
+\[
+r=\operatorname{rank}_{\mathbb Q}D,\qquad p=n-r>1.
+\]
+
+Atlas computes a rational null basis and canonicalizes it to primitive integer columns
+
+\[
+A=[a_1,\ldots,a_p],\qquad Da_j=0.
+\]
+
+The frozen coordinates are
+
+\[
+\boxed{\Pi_j=\prod_{i=1}^{n}q_i^{(a_j)_i}},\qquad j=1,\ldots,p.
+\]
+
+The basis is deterministic for receipt identity, but physics is attached to the subspace \(\ker D\), not to the claim that this basis is unique. Any invertible integer/rational recombination that spans the same null space can define an equivalent coordinate chart.
+
+Crucially, \(A\) and every \(\Pi_j\) are frozen before any target-dependent fitting. The target cannot rotate the dimensional kernel toward a favorable representation.
+
+## 3. Finite structural function grammar
+
+The current query lane tests a finite structural family, not an exhaustive space of mathematics. For a subset \(S\subseteq\{1,\ldots,p\}\), let \(z_S\) be the training-standardized selected π coordinates. For total degree \(d\),
+
+\[
+\boxed{
+F_{S,d}(\Pi)=\beta_0+
+\sum_{1\le |\alpha|\le d}\beta_\alpha z_S^\alpha
+}
+\]
+
+with multi-index \(\alpha\in\mathbb N^{|S|}\). The number of fitted coefficients including the intercept is
+
+\[
+N_{\text{term}}={|S|+d\choose d}.
+\]
+
+Only fold-feasible full-rank fits are admitted. The current deterministic schedule permits degrees 1–4 when \(p\le3\) and degrees 1–3 when \(p\ge4\). Full-manifold structures are generated before lower-dimensional subsets. A query requests between 10 and 100 structural hypotheses; this is an execution tranche only and is not a scientific ceiling on axis count, interaction order, future grammars, or the open Discovery Frontier.
+
+Polynomial surfaces are therefore a **query representation grammar**, not the primary Atlas scientific coordinate space and not a redefinition of Atlas as symbolic regression.
+
+## 4. Cross-validation risk
+
+If experimental grouping is supplied and contains at least three groups, validation is leave-one-group-out. Otherwise a deterministic 3–5-fold partition is used. For every fold, standardization and all coefficients are learned from the training partition only.
+
+Let \(\hat y_i^{(-f(i),h)}\) be the out-of-fold prediction from structural hypothesis \(h=(S,d)\). Atlas ranks by
+
+\[
+\widehat R_h=
+\frac{
+\sqrt{N^{-1}\sum_i(y_i-\hat y_i^{(-f(i),h)})^2}
+}{s_y},
+\]
+
+where \(s_y\) is the full observed target standard deviation used only as the normalization scale. The accompanying OOF coefficient of determination is
+
+\[
+R^2_{\mathrm{OOF},h}=1-
+\frac{\sum_i(y_i-\hat y_i)^2}
+{\sum_i(y_i-\bar y)^2}.
+\]
+
+The winner is the smallest \(\widehat R_h\), with structural complexity used only as deterministic tie-breaking. Because the same OOF scores select the winner, the winner's CV score is **not** claimed to be an unbiased post-selection estimate of future generalization. Independent held-out or world replication remains necessary.
+
+## 5. Whole-function-surface permutation null
+
+Multiplicity belongs to the searched structural surface, not to the displayed shortlist. Let \(\mathcal H_Q\) be all structurally fitted hypotheses in the query tranche and define
+
+\[
+\boxed{T(y)=\min_{h\in\mathcal H_Q}\widehat R_h(y)}.
+\]
+
+For permutation \(b=1,\ldots,B\), Atlas constructs a null target \(y^{(b)}\) and reruns **every** hypothesis in \(\mathcal H_Q\), including undisplayed hypotheses:
+
+\[
+T_b=\min_{h\in\mathcal H_Q}\widehat R_h(y^{(b)}).
+\]
+
+The familywise empirical p-value is
+
+\[
+\boxed{
+p_{\mathrm{FW}}=
+\frac{1+\#\{b:T_b\le T_{\mathrm{obs}}\}}{B+1}
+}.
+\]
+
+The smallest attainable value is
+
+\[
+p_{\min}=\frac1{B+1}.
+\]
+
+A requested level \(\alpha\) is impossible when \(p_{\min}>\alpha\); that state is `INSUFFICIENT_NULL_RESOLUTION`, never PASS.
+
+With explicit validation groups, 15.25.0 uses `WITHIN_VALIDATION_GROUP`: target values are permuted inside each group, not across groups. This preserves group membership and tests the response-coordinate association conditional on the group structure. Its validity requires the explicitly recorded assumption of within-group exchangeability. If that assumption is scientifically false, a different preregistered block/orbit null is required.
+
+## 6. Dimensional response boundary
+
+A dimensionless predictor vector does not make a dimensional response universally comparable. The receipt distinguishes:
+
+- `DIMENSIONLESS_TARGET`: direct dimensionless response is admissible;
+- `UNKNOWN_TARGET_DIMENSION`: no universality claim is licensed from target dimensions;
+- `DIMENSIONAL_TARGET_REQUIRES_RESPONSE_SCALE_FOR_UNIVERSAL_COLLAPSE`: a response normalization or dimensionless response coordinate must be predeclared before a universal-collapse claim.
+
+Thus
+
+\[
+Y=F(\Pi_1,\ldots,\Pi_p)
+\]
+
+is a structurally meaningful regression statement for measured \(Y\), but universal dimensional similarity requires a dimensionless/scaled left-hand side.
+
+## 7. Synthetic four-Π qualification control
+
+The current machinery control uses the seven axes
+
+\[
+\{\tau,D,L,k,E,\eta,\rho\}
+\]
+
+with exact kernel rank 3 and nullity 4. The canonical receipt is
+
+\[
+\Pi_1=\frac{\tau D}{L^2},\qquad
+\Pi_2=\tau k,\qquad
+\Pi_3=\frac{\tau E}{\eta},\qquad
+\Pi_4=\frac{\tau E}{\rho D}.
+\]
+
+On 240 synthetic rows arranged in six validation groups, 45 structural hypotheses are executable under the frozen degree schedule. The top structure is the full four-coordinate degree-2 manifold with 15 coefficients. The current receipt reports
+
+\[
+\widehat R_{\min}=0.01778409740297801,
+\]
+
+\[
+R^2_{\mathrm{OOF}}=0.9996837258795613,
+\]
+
+and OOF RMSE
+
+\[
+0.025763492241893372.
+\]
+
+With \(B=99\) whole-surface within-group permutations,
+
+\[
+p_{\min}=p_{\mathrm{FW}}=0.01,
+\]
+
+and the median null winner has NRMSE approximately
+
+\[
+0.9986278628840136.
+\]
+
+This proves implementation sensitivity and whole-surface replay on a constructed control. It is not world evidence and establishes no physical law.
+
+## 8. Exact replay of the five directed cross-domain kernels
+
+The 2026-09-08 directed scans were recomputed with the exact rational kernel and reproduce:
+
+1. Electrochemistry × flow × reaction–diffusion, \(p=3\):
+   \[
+   \frac{k_2cL^2}{D},\quad \frac{k_2cL}{v},\quad \frac{F\Delta\phi}{RT}.
+   \]
+2. Thermo-mechanics × materials × flow, \(p=4\):
+   \[
+   \alpha_T\Delta T,\quad \frac{E}{\rho v^2},\quad
+   \frac{E\rho L^2}{\mu^2},\quad
+   \frac{E}{\rho L^2\omega^2}.
+   \]
+3. Photochemistry × optics × quantum × diffusion, \(p=5\):
+   \[
+   \varepsilon\ell c,\quad \frac{\ell}{L},\quad
+   \frac{\ell^2k}{D},\quad \frac{k}{\omega},\quad
+   \frac{k\hbar}{k_BT}.
+   \]
+4. Reaction–diffusion × viscoelastic memory, \(p=4\):
+   \[
+   \frac{\tau D}{L^2},\quad\tau k,\quad
+   \frac{\tau E}{\eta},\quad\frac{\tau E}{\rho D}.
+   \]
+5. Phase transition × thermodynamics × flow, \(p=4\):
+   \[
+   \frac{c_p\Delta T}{h},\quad
+   \frac{c_p\Delta T}{v^2},\quad
+   \frac{c_p\Delta T L^2}{\alpha^2},\quad
+   \frac{c_p\Delta T}{P\Delta v}.
+   \]
+
+These receipts establish dimensional reproducibility only. They do not establish the unknown function \(F\), novelty, causality, applicability, or world validity.
+
+## 9. World-data binding audit and fail-closed state
+
+A directed literature/data audit was performed first for candidates 4 and 1. Partial experimental sources exist, but the current audit did **not** identify a single observation table in which every required axis and response is measured or independently calibrated for each specimen/run.
+
+For candidate 4, reaction–diffusion hydrogel degradation data and active-hydrogel time series cover useful subsets, but do not jointly expose \(\tau,D,L,k,E,\eta,\rho\) per observation. For candidate 1, electrochemical-flow studies expose flow, geometry, diffusion/mass-transfer and electrochemical observables, but the inspected flow-reactor model assumes electron transfer faster than transport rather than independently identifying the required \(k_2\), and the inspected flow-battery dataset is not a direct joint table for all nine requested axes.
+
+The release therefore records
+
+`NO_COMPLETE_JOINT_AXIS_TABLE_IDENTIFIED_IN_CURRENT_SEARCH`
+
+and
+
+`U5 = UNKNOWN`.
+
+No rows are synthesized by stitching parameter values from unrelated papers. Such stitching would erase specimen/run covariance and create a fictitious joint empirical distribution.
+
+The preferred next experiment for candidate 4 must measure or independently calibrate all seven axes plus response \(Y\) on the same specimen/run family, then evaluate a leave-one-family-or-geometry-out transfer test with a preregistered block-preserving whole-function-surface null.
+
+## 10. Claim boundary
+
+15.25.0 establishes all of the following and nothing stronger:
+
+- `p>1` is no longer silently dropped by Query mode;
+- exact \(\ker D\) remains the dimensional authority;
+- the π basis is frozen before fitting \(F\);
+- 10–100 structural hypotheses can be searched in one finite query tranche;
+- all fitted hypotheses are replayed under the permutation null;
+- grouped validation/null structure is explicit;
+- the same API/owner path exposes the new lane;
+- five cross-domain kernels are exactly reproducible;
+- no complete joint world table was identified in the current directed search;
+- no multi-Π world U5 pass and no new law are claimed.
+
+
+# CURRENT 15.25.0 — Executable exoplanet missing-axis birth example
+
+## 1. Purpose and provenance boundary
+
+The executable example at `examples/exoplanets_dimensional_birth_of_G.ipynb` demonstrates the inverse step
+
+\[
+\boxed{\text{observations}\to\text{structural exponent search}\to \mathbf d(C)\to\ker_{\mathbb Q}D}.
+\]
+
+The raw table from the historical 172-exoplanet / 132-star manuscript experiment is not present in the current distribution. Therefore that historical receipt is not silently reconstructed. The runnable release example uses a separate sealed retrospective subset of the NASA Exoplanet Archive confirmed-planets export dated 2018-03-03. Fifty rows from 38 host systems survive the pre-search completeness predicate
+
+\[
+P>0,\qquad a>0,\qquad M_\star>0.
+\]
+
+The CSV stores source row IDs and source provenance. This dataset is a worked example, not WORLD-tier prospective evidence.
+
+## 2. Frozen structural shell
+
+The search does not receive the symbol, value, or dimension of the gravitational constant. It observes only
+
+\[
+a:[L],\qquad P:[T],\qquad M_\star:[M].
+\]
+
+For an integer vector
+
+\[
+e=(e_a,e_P,e_M),
+\]
+
+the candidate row-wise closing quantity is
+
+\[
+C_i(e)=a_i^{e_a}P_i^{e_P}M_{\star,i}^{e_M}.
+\]
+
+The finite demonstration shell is frozen as
+
+\[
+-4\le e_a\le4,\quad -4\le e_P\le4,\quad -3\le e_M\le3,
+\]
+
+with all three exponents nonzero, primitive integer vectors only,
+
+\[
+\gcd(|e_a|,|e_P|,|e_M|)=1,
+\]
+
+and one canonical representative for the sign-equivalent pair \(e\sim-e\). Exactly 172 structural hypotheses remain. This 172 is the size of this example shell and has no relation to the historical 172-row dataset.
+
+## 3. Data-derived closure score
+
+For every admissible \(e\), define
+
+\[
+\ell_i(e)=e_a\ln a_i+e_P\ln P_i+e_M\ln M_{\star,i}=\ln C_i(e).
+\]
+
+The raw constancy defect is
+
+\[
+s_C(e)=\operatorname{sd}_i\ell_i(e).
+\]
+
+To compare primitive directions with different marginal variation, the notebook reports
+
+\[
+\boxed{
+\rho(e)=
+\frac{s_C(e)}
+{\sqrt{\sum_{j\in\{a,P,M\}} e_j^2\,s_j^2}}
+},
+\]
+
+where \(s_j=\operatorname{sd}(\ln x_j)\). Ranking is by \(\rho\), then deterministic complexity tie-breaks. No registry constant is read before the winner is frozen.
+
+The observed winner is
+
+\[
+\boxed{e^*=(3,-2,-1)},
+\]
+
+with
+
+\[
+\rho(e^*)=0.008061939711222455,
+\qquad
+s_C(e^*)=0.04832792485093855.
+\]
+
+Thus the data-derived closing quantity is
+
+\[
+C=\frac{a^3}{P^2M_\star}.
+\]
+
+## 4. Birth of the missing dimension
+
+Only the dimensions of the three measured coordinates are now used:
+
+\[
+\mathbf d(a)=(1,0,0,0,0,0,0),
+\]
+
+\[
+\mathbf d(P)=(0,0,1,0,0,0,0),
+\]
+
+\[
+\mathbf d(M_\star)=(0,1,0,0,0,0,0).
+\]
+
+Therefore
+
+\[
+\begin{aligned}
+\mathbf d(C)
+&=3\mathbf d(a)-2\mathbf d(P)-\mathbf d(M_\star)\\
+&=(3,-1,-2,0,0,0,0),
+\end{aligned}
+\]
+
+or
+
+\[
+\boxed{[C]=L^3M^{-1}T^{-2}}.
+\]
+
+This is the generated dimension. At this stage the algorithm has still not read the name `G` or its CODATA value.
+
+## 5. Exact closure after axis birth
+
+Return the generated coordinate to the canonical exact rational dimensional authority. For
+
+\[
+q=(a,P,M_\star,C)
+\]
+
+the augmented dimension matrix has
+
+\[
+\operatorname{rank}_{\mathbb Q}D=3,\qquad n=4,\qquad p=n-r=1.
+\]
+
+The exact null space is generated, up to sign, by
+
+\[
+(-3,2,1,1),
+\]
+
+or equivalently
+
+\[
+(3,-2,-1,-1).
+\]
+
+Hence
+
+\[
+\boxed{
+\Pi=a^3P^{-2}M_\star^{-1}C^{-1}=1
+}.
+\]
+
+The example imports the same `_fraction_rref/_fraction_nullspace` implementation used by the current dimensional owner rather than creating a notebook-local floating-point null-space algorithm.
+
+## 6. Post-freeze registry identification
+
+Only after \(e^*\) and \(\mathbf d(C)\) are frozen does the example read `data/constants/registry.json`. The generated dimension equals the registered dimension of `CONST-G`:
+
+\[
+\mathbf d(C)=\mathbf d(G)=(3,-1,-2,0,0,0,0).
+\]
+
+The dimensionless two-body normalization \(4\pi^2\) is then permitted only as post-hoc interpretation. From
+
+\[
+\widehat C=1.731527169756757\times10^{-12},
+\]
+
+the retrospective snapshot gives
+
+\[
+\widehat G_{\rm post}=4\pi^2\widehat C
+=6.835795270094836\times10^{-11},
+\]
+
+compared with the local registry value
+
+\[
+G_{\rm registry}=6.67430\times10^{-11}.
+\]
+
+The relative difference is approximately \(2.420\%\). The numerical discrepancy is not hidden: the catalog values are rounded/model-derived retrospective parameters and this example is not a metrology experiment.
+
+## 7. Cross-system diagnostic
+
+As a non-promotional stability diagnostic, rows are partitioned into four stellar-mass quartiles. For the frozen exponent vector, the standard deviation of the four group means of \(\ln C\) is
+
+\[
+0.014356233158234628.
+\]
+
+This is reported as a diagnostic only. It is not substituted for a preregistered independent-system replication or a whole-pipeline permutation gate.
+
+## 8. Claim boundary
+
+The executable example establishes that the shipped code can:
+
+1. load a sealed real exoplanet table without network access;
+2. exhaust the declared 172-member primitive exponent shell;
+3. freeze \((3,-2,-1)\) without consulting `CONST-G`;
+4. generate \(L^3M^{-1}T^{-2}\);
+5. return the new axis to the exact Atlas kernel and obtain \(p=1\);
+6. identify the generated dimensional class with `CONST-G` only after freeze.
+
+It does **not** establish an independent discovery of gravity, reproduce the missing historical 172-row manuscript table, prove that catalog parameters are mutually independent measurements, or promote any scientific claim to U5/WORLD. The complete inverse Dimensional Closure v2.0 remains a documented research workflow rather than a dedicated production owner in 15.25.0.
+
+# CURRENT 15.26.0 — EDA Chip-Design Research Owner
+
+## 1. Architectural boundary
+
+Release 15.26.0 adds `EDA-CHIP-DESIGN-RESEARCH/1.0.0` as a world-interaction and design-space research owner. It does not duplicate synthesis, technology mapping, placement, clock-tree synthesis, routing, extraction, DRC, LVS, or GDS generation. Those operations are delegated to OpenROAD Flow Scripts (ORFS), with Yosys/OpenROAD/KLayout as external authoritative evaluators. Atlas owns only the frozen research space, sequential selection rule, evidence normalization, comparison protocol and claim boundary.
+
+The first pilot fixes
+
+\[
+\mathcal X =
+\{u,a,\rho,c\}
+\]
+
+with
+
+\[
+u=\mathrm{CORE\_UTILIZATION},\qquad
+ a=\mathrm{CORE\_ASPECT\_RATIO},\qquad
+ \rho=\mathrm{PLACE\_DENSITY},\qquad
+ c=\mathrm{CTS\_CLUSTER\_SIZE}.
+\]
+
+The frozen ranges are
+
+\[
+20\le u\le 50,
+\qquad 0.70\le a\le1.40,
+\qquad 0.55\le\rho\le0.80,
+\qquad10\le c\le60.
+\]
+
+The process/design pair is fixed before world observations:
+
+\[
+\boxed{\mathrm{sky130hd}\times\mathrm{gcd}}.
+\]
+
+The shipped external-world workflow also freezes OpenROAD Flow Scripts at Git commit
+
+```text
+be0dca0b1fd41df54792b3012350cd52bccd99bb
+```
+
+before any EDA metric is read. Changing the ORFS revision is a new world freeze, not an in-trial tuning operation.
+
+The Halton candidate pool and the deterministic maximin common warm start are also frozen before any EDA metric is read.
+
+## 2. World observables and feasibility
+
+For configuration \(x\in\mathcal X\), the external EDA world returns at least
+
+\[
+A(x),\quad P(x),\quad s(x),\quad n_{\rm DRC}(x),\quad L_{\rm LVS}(x),
+\]
+
+where \(A\) is final instance area, \(P\) total power, \(s\) final worst setup slack, \(n_{\rm DRC}\) the DRC violation count, and \(L_{\rm LVS}\in\{0,1\}\) is an explicit LVS match receipt. If the SDC clock period is \(T_c\), the effective critical delay used for PPA comparison is
+
+\[
+D(x)=T_c-s(x).
+\]
+
+A configuration is feasible iff
+
+\[
+\boxed{
+\mathcal F(x)=
+\mathbf 1[s(x)\ge0]
+\mathbf 1[n_{\rm setup}(x)=0]
+\mathbf 1[n_{\rm DRC}^{\rm signoff}(x)=0]
+\mathbf 1[L_{\rm LVS}(x)=1]
+\mathbf 1[G_{\rm final}(x)=1]
+=1.}
+\]
+
+Here \(n_{\rm DRC}^{\rm signoff}\) comes only from the explicit final DRC receipt and \(G_{\rm final}=1\) means the final GDS artifact exists. Detailed-route DRC is diagnostic and is not a substitute. A missing setup-violation count, absent/ambiguous LVS result, missing sign-off DRC receipt or absent final GDS makes the gate fail closed.
+
+## 3. PPA objective
+
+The dimensional product
+
+\[
+A P D
+\]
+
+is retained only as an within-design reporting metric. Search uses the dimensionless normalized objective
+
+\[
+\boxed{
+J(x)=\frac13\left[
+\log\frac{A(x)}{A_0}+
+\log\frac{P(x)}{P_0}+
+\log\frac{D(x)}{D_0}
+\right],}
+\]
+
+where \((A_0,P_0,D_0)\) are medians computed only from the common preregistered warm-start observations. This prevents strategy-specific normalization and prevents a later winner from changing the scale seen by an earlier strategy.
+
+For surrogate fitting only, infeasible or incomplete points receive a finite penalty:
+
+\[
+J_{\rm model}(x)=J(x)+8\,[1-\mathcal F(x)],
+\]
+
+and an incomplete PPA measurement receives a larger fixed sentinel. This penalty assists acquisition; it never makes an infeasible design eligible to win.
+
+## 4. Reuse of the existing multi-dimensional Query owner
+
+The four EDA knobs are treated as dimensionless design coordinates. Their dimensional matrix is the zero matrix, so its exact rational kernel has
+
+\[
+\operatorname{rank}D=0,
+\qquad
+p=4.
+\]
+
+The EDA owner does not introduce a second polynomial fitting implementation. It calls the existing `QUERY-DRIVEN-RESEARCH/1.1.0` function-form lane on
+
+\[
+J_{\rm model}=F(u,a,\rho,c).
+\]
+
+The same 10–100 structural-hypothesis contract applies. The rank-1 fitted surface supplies \(\widehat J(x)\). Atlas acquisition is
+
+\[
+\boxed{
+a_{\rm Atlas}(x)=
+\widehat J(x)-\lambda d(x,\mathcal O),
+\qquad \lambda=0.20,}
+\]
+
+where \(d(x,\mathcal O)\) is Euclidean distance in normalized knob coordinates from \(x\) to the already observed set \(\mathcal O\). Atlas selects the unevaluated point minimizing \(a_{\rm Atlas}\). The second term is an explicit exploration pressure; it does not read hidden world values.
+
+If the Query surface is not fit-able from the available rows, Atlas falls back to deterministic maximin geometric exploration. This is a search fallback, not a surrogate physics model.
+
+## 5. Equal-budget baselines
+
+All strategies receive the identical frozen warm-start set and identical per-strategy evaluation budget \(B\). Exact configurations are globally cached, so a run shared by several strategies is physically executed once while remaining available to all strategies that selected it.
+
+The comparison set is
+
+\[
+\boxed{
+\{\mathrm{Atlas},\mathrm{Random},\mathrm{Grid},\mathrm{Bayesian\ GP\!+\!EI}\}.}
+\]
+
+Random uses a sealed seed. Grid uses deterministic coverage of the same frozen pool. The Bayesian baseline uses an RBF Gaussian process
+
+\[
+k(x,x')=\exp\left[-\frac{\|x-x'\|^2}{2\ell^2}\right],
+\qquad \ell=0.35,
+\]
+
+with expected improvement
+
+\[
+EI(x)=\Delta(x)\Phi(z)+\sigma(x)\phi(z),
+\qquad
+z=\frac{J_{\min}-\mu(x)}{\sigma(x)}.
+\]
+
+No baseline is granted more world evaluations than Atlas.
+
+## 6. Experimental decision rule
+
+Let
+
+\[
+R_s=\min_{x\in\mathcal O_s,\ \mathcal F(x)=1} A(x)P(x)D(x)
+\]
+
+be the best feasible raw PPA reached by strategy \(s\) under the same budget. The first pilot can report an Atlas win only if
+
+\[
+\boxed{
+R_{\rm Atlas}<
+\min(R_{\rm Random},R_{\rm Grid},R_{\rm Bayes}).}
+\]
+
+The comparison is defined only if Atlas, Random, Grid and Bayesian GP+EI each reach at least one fully feasible design. If any strategy has no feasible design, the experiment is `INCONCLUSIVE_MISSING_FEASIBLE_STRATEGY`; it is not converted into an Atlas win or loss. If a baseline wins in a complete comparison, that negative result is preserved. No retuning of the Atlas acquisition rule after reveal is part of the same trial.
+
+## 7. Qualification versus silicon evidence
+
+`qualification_oracle` is a deterministic interacting synthetic surface used only to verify software mechanics: frozen sampling, four-strategy orchestration, caching, sign-off gating and claim suppression. It is not semiconductor physics, not OpenROAD, not silicon and not evidence that Atlas improves PPA.
+
+A chip result requires a live ORFS execution. If OpenROAD/Yosys/KLayout/Docker or the ORFS tree is absent, the authoritative state is
+
+\[
+\boxed{\mathrm{CHIP\_PILOT\_BACKEND\_UNAVAILABLE}}
+\]
+
+with `scientific_result = null`. No synthetic substitution is permitted.
+
+The GitHub workflow `.github/workflows/atlas-chip-gcd-pilot.yml` is the external-world execution lane. It freezes ORFS to commit `be0dca0b1fd41df54792b3012350cd52bccd99bb`, runs `sky130hd/gcd` through `all`, GDS, DRC and LVS and stores all unique world-evaluation receipts together with their external-world identity. Until that receipt exists and all four strategies each have a fully feasible design, whether Atlas beats the baselines is `UNKNOWN`.
+
+## 8. Claim boundary
+
+15.26.0 establishes an executable, fail-closed Atlas-to-EDA research interface and benchmark protocol. It does not establish any of the following:
+
+- that Atlas currently beats Random, Grid or Bayesian optimization on real EDA data;
+- that the chosen four-dimensional search space is globally optimal or exhaustive;
+- that `sky130hd/gcd` generalizes to larger ASICs, analog ICs or other PDKs;
+- that one clean GDS/DRC/LVS run is sufficient for foundry tapeout;
+- that the synthetic qualification landscape is physical evidence;
+- that Atlas replaces Yosys, OpenROAD, KLayout, a PDK or sign-off engineering.

@@ -28,25 +28,6 @@ from source.lawspace.scientific_axis_space import AtlasLawSpaceSearchOwner
 from source.lawspace.knowledge_evolution import KnowledgeEvolutionKernel
 
 
-def _canonical_frozen_summary(value: Any) -> Any:
-    """Stabilize optimizer summaries across compatible NumPy/SciPy builds.
-
-    The public aerodynamic inputs have substantially lower precision than the
-    optimizer's last floating-point bits. Six significant digits retain the
-    evidential resolution while preventing platform noise from changing the
-    content-addressed active-ledger identity.
-    """
-    if isinstance(value, float):
-        return float(f"{value:.6g}")
-    if isinstance(value, Mapping):
-        return {k: _canonical_frozen_summary(v) for k, v in value.items()}
-    if isinstance(value, tuple):
-        return tuple(_canonical_frozen_summary(v) for v in value)
-    if isinstance(value, list):
-        return [_canonical_frozen_summary(v) for v in value]
-    return value
-
-
 def run_lawspace_qualification(root: str | Path = ROOT) -> Mapping[str, Any]:
     runtime = LawSpaceRuntime(root)
     report = dict(runtime.qualify())
@@ -271,8 +252,8 @@ def run_frontier_scan_current(root: str | Path = ROOT, *, pair_frontier_limit: i
             statuses.append("CANDIDATE_TENSIONED_AS_COMPLETE_EXPLANATION")
         if cid in {"H-AERO-REAL-002", "H-AERO-REAL-004", "H-AERO-REAL-005"}:
             statuses.append("CANDIDATE_CAUSAL_DISCRIMINATOR_ACTIVE")
-        enriched = _canonical_frozen_summary(dict(row))
-        enriched["retrospective_posterior_after_two_frozen_holdouts"] = _canonical_frozen_summary(posterior.get(cid))
+        enriched = dict(row)
+        enriched["retrospective_posterior_after_two_frozen_holdouts"] = posterior.get(cid)
         enriched["postfreeze_prior_art_status"] = novelty_map.get(cid, "NOT_AUDITED")
         enriched["postfreeze_interpretation"] = text
         enriched["low_frequency_anomaly_consequence"] = low_frequency_anomaly.get("candidate_consequences", {}).get(cid)

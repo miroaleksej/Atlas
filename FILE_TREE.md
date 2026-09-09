@@ -1,7 +1,8 @@
-# FILE TREE — CURRENT 15.24.0
+# FILE TREE — CURRENT 15.26.0
 
-Controlled files: 280
+Controlled files: 291
 
+- `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
 - `.gitignore`
 - `ACCEPTANCE_REPORT.md`
@@ -79,7 +80,7 @@ Controlled files: 280
 - `data/targets/large_qubit_realistic_emulator.json`
 - `data/trust/scientific_verifier_public_keys.json`
 - `docs/NEUTRINO_CURRENT_STATE.md`
-- `docs/Φ-RQG_РЕЛЯЦИОННАЯ_КВАНТОВАЯ_ГРАВИТАЦИЯ_ПОЛНАЯ_МОНОГРАФИЯ_ТЕКУЩЕЕ_СОСТОЯНИЕ_v3_6.docx`
+- `docs/PHI_RQG_MONOGRAPH_CURRENT_v3_6.docx`
 - `evaluation/adaptive_axis_research_qualification.py`
 - `evaluation/algebraic_neutrino_qualification.py`
 - `evaluation/autonomous_research_orchestration_qualification.py`
@@ -89,6 +90,7 @@ Controlled files: 280
 - `evaluation/dayabay_likelihood_qualification.py`
 - `evaluation/developmental_open_endedness_qualification.py`
 - `evaluation/discriminating_experiment_qualification.py`
+- `evaluation/eda_chip_pilot.py`
 - `evaluation/first_atlas_native_experiment.py`
 - `evaluation/full_replay_qualification.py`
 - `evaluation/generation_transition_qualification.py`
@@ -202,6 +204,13 @@ Controlled files: 280
 - `reports/history/version-control/ATLAS_15_23_REPLAY_PREPARE_AFTER_ORCHESTRATION.json`
 - `reports/history/version-control/SNAPSHOT_STATUS_15_23_0.json`
 - `reports/history/version-control/SNAPSHOT_STATUS_15_24_0.json`
+- `reports/runtime/FULL_REPLAY_PLAN_CURRENT.json`
+- `reports/runtime/full_replay_batches/batch_000.json`
+- `reports/runtime/full_replay_batches/batch_001.json`
+- `reports/runtime/full_replay_batches/batch_002.json`
+- `reports/runtime/full_replay_batches/batch_003.json`
+- `reports/runtime/full_replay_batches/batch_004.json`
+- `reports/runtime/full_replay_batches/batch_005.json`
 - `source/__init__.py`
 - `source/lawspace/__init__.py`
 - `source/lawspace/adaptive_axis.py`
@@ -223,6 +232,7 @@ Controlled files: 280
 - `source/lawspace/discriminating_experiment.py`
 - `source/lawspace/domain_plugins.py`
 - `source/lawspace/domains.py`
+- `source/lawspace/eda_chip_design.py`
 - `source/lawspace/einstein_dynamics.py`
 - `source/lawspace/experiment_portfolio.py`
 - `source/lawspace/formal_contracts.py`
@@ -272,6 +282,7 @@ Controlled files: 280
 - `tests/test_adaptive_axis_discovery.py`
 - `tests/test_curvature_memory_current.py`
 - `tests/test_domain_plugin_architecture.py`
+- `tests/test_eda_chip_design.py`
 - `tests/test_electronic_state_space_current.py`
 - `tests/test_epoch_genesis_autonomous.py`
 - `tests/test_exoplanet_dimensional_closure_example.py`

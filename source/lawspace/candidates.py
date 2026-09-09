@@ -4032,11 +4032,12 @@ def _adaptive_multidimensional_subspace_exploration(
             },
         }
         row["discriminating_experiment"] = _higher_order_experiment_blueprint(row)
-        # Scalar-law birth is audited from these records by the dedicated
-        # DimensionalScalarLawBirthOwner and persisted in its own current-state
-        # receipt. Do not embed that derived receipt here: the active frontier
-        # record is a frozen identity surface, and adding derived annotations to
-        # it would invalidate existing U1 bindings and prior-art attestations.
+        # Cheapest scalar-law birth: project the nominated scientific-coordinate
+        # region through its typed source owners to measurable quantities, then
+        # freeze Pi=C when the exact Buckingham nullity is one.  Axis ids
+        # themselves are metadata and are never treated as physical quantities.
+        from .dimensional_law_birth import DimensionalScalarLawBirthOwner
+        row["dimensional_law_birth"] = DimensionalScalarLawBirthOwner().freeze(row, pipeline.catalog)
         row["competing_hypotheses"] = _competing_subspace_hypotheses(row)
         row["competing_hypothesis_count"] = len(row["competing_hypotheses"])
         row["digest"] = digest_payload({k: v for k, v in row.items() if k != "digest"})

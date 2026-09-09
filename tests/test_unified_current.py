@@ -82,6 +82,7 @@ def test_current_api_exposes_adaptive_kernel_and_preserves_domain_surfaces():
     api = LawSpaceAPI(ROOT)
     adaptive = {
         'get_adaptive_research_kernel_contract', 'advance_adaptive_research',
+        'search_observations_for_function_forms',
         'get_claim_provenance_firewall_contract', 'run_energy_space_temperature_axis_control',
         'run_temperature_energy_adaptive_control',
         'run_adaptive_research_kernel_qualification', 'synthesize_phi_executable_representation',
@@ -103,7 +104,7 @@ def test_current_release_tree_and_book_are_single_authority():
     books = list(ROOT.glob('MATHEMATICAL_BOOK*.md'))
     assert books == [ROOT/'MATHEMATICAL_BOOK.md']
     text = books[0].read_text(encoding='utf-8')
-    assert 'CURRENT 15.24.0' in text
+    assert 'CURRENT 15.26.0' in text
     assert 'Adaptive Research Kernel' in text
 
 

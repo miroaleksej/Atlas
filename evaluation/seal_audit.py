@@ -1,4 +1,4 @@
-"""Seal audit for Φ-Compiler / ScienceAtlas 15.24.0 current state."""
+"""Seal audit for Φ-Compiler / ScienceAtlas 15.26.0 current state."""
 from __future__ import annotations
 import hashlib,json,sys
 from pathlib import Path
@@ -7,7 +7,7 @@ if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
 from source.lawspace.schema import digest_payload
 from evaluation.unified_release_qualification import run_release_qualification
 from evaluation.release_files import is_local_artifact
-RELEASE='15.24.0'; OWNER_ID='SEAL-AUDIT/15.24.0'
+RELEASE='15.26.0'; OWNER_ID='SEAL-AUDIT/15.26.0'
 REQUIRED=('README.md','MATHEMATICAL_BOOK.md','MATHEMATICAL_CONTRACT.md','CLAIM_BOUNDARY.md','ACCEPTANCE_REPORT.md','RELEASE_MANIFEST.json','HASHES.txt','FILE_TREE.md','pyproject.toml','Makefile','capabilities.json','invariants.json','reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json','reports/ATLAS_FRONTIER_SCAN_CURRENT.json','data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl')
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 def run(root=None):
@@ -32,7 +32,7 @@ def run(root=None):
  current=run_release_qualification(root)
  real=json.loads((root/'reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json').read_text()) if not missing else {}
  scan=json.loads((root/'reports/ATLAS_FRONTIER_SCAN_CURRENT.json').read_text()) if not missing else {}
- checks={'required_files_present':not missing,'manifest_file_hashes_match':not mism,'hashes_txt_match':not hash_mism and hashes_complete_and_exact,'current_state_qualification_pass':current.get('status')=='PASS_CURRENT_STATE_15_24_0','manifest_release_matches':manifest.get('release')==RELEASE,'manifest_blind_real_experiment_digest_matches':manifest.get('blind_real_physics_experiment_digest')==current.get('blind_real_physics_experiment',{}).get('digest'),'manifest_research_freeze_digest_matches':manifest.get('research_freeze_digest')==real.get('research_freeze',{}).get('digest'),'manifest_frontier_scan_digest_matches':manifest.get('frontier_scan_digest')==scan.get('digest')==current.get('frontier_candidate_scan',{}).get('digest'),'manifest_active_candidate_ledger_matches':manifest.get('active_candidate_ledger_sha256')==scan.get('active_candidate_ledger',{}).get('sha256')==current.get('frontier_candidate_scan',{}).get('ledger_sha256'),'manifest_active_candidate_count_matches':manifest.get('active_candidate_count')==scan.get('active_candidate_ledger',{}).get('record_count') and int(manifest.get('active_candidate_count') or 0)>0,'manifest_low_frequency_gust_anomaly_digest_matches':manifest.get('low_frequency_gust_anomaly_digest')==scan.get('hotspots',{}).get('low_frequency_gust_anomaly',{}).get('digest'),'closed_world_no_unexpected_files':not unexpected_files,'closed_world_no_declared_missing_files':not undeclared_missing}
+ checks={'required_files_present':not missing,'manifest_file_hashes_match':not mism,'hashes_txt_match':not hash_mism and hashes_complete_and_exact,'current_state_qualification_pass':current.get('status')=='PASS_CURRENT_STATE_15_26_0','manifest_release_matches':manifest.get('release')==RELEASE,'manifest_blind_real_experiment_digest_matches':manifest.get('blind_real_physics_experiment_digest')==current.get('blind_real_physics_experiment',{}).get('digest'),'manifest_research_freeze_digest_matches':manifest.get('research_freeze_digest')==real.get('research_freeze',{}).get('digest'),'manifest_frontier_scan_digest_matches':manifest.get('frontier_scan_digest')==scan.get('digest')==current.get('frontier_candidate_scan',{}).get('digest'),'manifest_active_candidate_ledger_matches':manifest.get('active_candidate_ledger_sha256')==scan.get('active_candidate_ledger',{}).get('sha256')==current.get('frontier_candidate_scan',{}).get('ledger_sha256'),'manifest_active_candidate_count_matches':manifest.get('active_candidate_count')==scan.get('active_candidate_ledger',{}).get('record_count') and int(manifest.get('active_candidate_count') or 0)>0,'manifest_low_frequency_gust_anomaly_digest_matches':manifest.get('low_frequency_gust_anomaly_digest')==scan.get('hotspots',{}).get('low_frequency_gust_anomaly',{}).get('digest'),'closed_world_no_unexpected_files':not unexpected_files,'closed_world_no_declared_missing_files':not undeclared_missing}
  payload={'schema':'phi-seal-audit/current-v1','release':RELEASE,'owner':OWNER_ID,'status':'PASS_SEAL_AUDIT' if all(checks.values()) else 'FAIL_SEAL_AUDIT','checks':checks,'missing':missing,'manifest_mismatches':mism,'hash_mismatches':hash_mism,'unexpected_files':unexpected_files,'undeclared_missing_files':undeclared_missing,'current_state_digest':current.get('digest')}
  payload['digest']=digest_payload(payload); return payload
 if __name__=='__main__': print(json.dumps(run(),ensure_ascii=False,indent=2,sort_keys=True))

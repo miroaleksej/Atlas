@@ -1,8 +1,8 @@
-# ACCEPTANCE REPORT — Φ-Compiler / ScienceAtlas CURRENT 15.24.0
+# ACCEPTANCE REPORT — Φ-Compiler / ScienceAtlas CURRENT 15.26.0
 
 
 
-## Preserved 15.23.0 acceptance scope
+## Current 15.23.0 acceptance scope
 
 15.23.0 is accepted only as a **manual candidate-prediction lowering diagnostic**, not as U5 progress. It preserves the active ledger byte-for-byte and requires:
 
@@ -561,3 +561,133 @@ The next scientific implementation frontier is therefore response projection and
 ## 15.24.0 — scalar-law birth + query-driven research acceptance
 
 Accepted current-state facts: 3706 unchanged adaptive subspaces; 683 `p=1` scalar births; 14 unique Pi signatures; U4 subset 125 births / 13 signatures. Query synthetic control examined 50 subspaces, 19 p=1 groups and 8 unique mathematical candidates; unhinted `L^2 k / D` ranked first with collapse 0.1059285586. A 100-permutation whole-surface null was executed and the displayed shortlist was not treated as the multiplicity budget. Bare-symbol question focusing is fail-closed on ambiguity.
+
+
+## 15.25.0 — multi-Π query function-form acceptance
+
+Acceptance target: complete the previously deferred `p>1` Query branch without creating a parallel scientific owner, weakening the exact dimensional authority, deleting the `p=1` lane, or promoting synthetic/world-incomplete evidence.
+
+Accepted implementation facts:
+
+- `QUERY-DRIVEN-RESEARCH/1.1.0` counts rather than silently discards `p>1` subsets in scalar search and provides the dedicated method `search_function_forms` in the same owner.
+- `LawSpaceAPI.search_observations_for_function_forms` exposes that method through `READ_TOOLS`.
+- Exact rational `ker D` is frozen before all target-dependent function fitting.
+- The executable query grammar enumerates a deterministic 10–100 structural tranche of standardized total-degree polynomial surfaces over the full π vector and π subsets, subject to fold/rank feasibility.
+- Cross-validation refits scaling and coefficients inside every training fold.
+- Whole-surface permutation calibration refits every executable structural hypothesis on every permutation; displayed shortlist size is not the multiplicity surface.
+- Grouped validation uses leave-one-group-out; grouped null replay uses `WITHIN_VALIDATION_GROUP` and records the exchangeability assumption.
+- Dimensional targets fail closed on universal-collapse semantics unless a response scale/dimensionless target is supplied.
+
+Synthetic p=4 qualification control:
+
+```text
+rows                                  240
+validation groups                       6
+exact dimension rank                    3
+exact nullity p                          4
+structural hypotheses examined          45
+displayed hypotheses                    25
+top structure                            full Pi_1..Pi_4, degree 2
+terms                                    15
+CV NRMSE                                 0.01778409740297801
+CV R2                                    0.9996837258795613
+OOF RMSE                                 0.025763492241893372
+permutations                             99
+null hypotheses refit per permutation   45
+exchangeability                          WITHIN_VALIDATION_GROUP
+minimum attainable p                    0.01
+familywise empirical p                  0.01
+median null best NRMSE                   0.9986278628840136
+```
+
+This control is synthetic and therefore contributes no WORLD attestation and no U5 pass.
+
+Exact directed cross-domain replay:
+
+| Candidate | Axes | rank(D) | p | Exact kernel replay |
+|---|---:|---:|---:|---|
+| electrochem × flow × reaction–diffusion | 9 | 6 | 3 | PASS |
+| thermo-mechanics × materials × flow | 8 | 4 | 4 | PASS |
+| photochemistry × optics × quantum × diffusion | 10 | 5 | 5 | PASS |
+| reaction–diffusion × viscoelastic memory | 7 | 3 | 4 | PASS |
+| phase transition × thermodynamics × flow | 8 | 4 | 4 | PASS |
+
+World-data binding acceptance boundary:
+
+- Candidate #4 partial sources include enzyme-sensitive hydrogel reaction–diffusion degradation (`10.1002/adhm.201500728`) and public active-hydrogel time-series data (`10.5281/zenodo.10467546`), but the current audit did not find the complete per-observation tuple `tau,D,L,k,E,eta,rho` plus response.
+- Candidate #1 partial sources include electrochemical flow-reactor transport (`10.1021/acselectrochem.4c00167`) and open redox-flow-battery measurements (`10.11583/DTU.25810348`; associated article `10.1016/j.est.2026.121282`), but the current audit did not find one direct joint table for `k2,c,L,D,v,F,dphi,R,T` plus response; the inspected flow-reactor simulation assumes electron transfer faster than transport rather than independently identifying `k2`.
+- Unrelated publications were **not** merged into pseudo-observations.
+- `full_F_fit_performed=false`; world-data status is `NO_COMPLETE_JOINT_AXIS_TABLE_IDENTIFIED_IN_CURRENT_SEARCH`; multi-Π U5 status is `UNKNOWN`.
+
+Packaging/control repair included in this release:
+
+- active system-release identity is aligned to `15.25.0` across `pyproject.toml`, current qualification, joint/current replay owners, release builder, seal/read-only audits, README and generated controls;
+- the pre-existing long historical Φ-RQG DOCX filename exceeded common filesystem component limits. Its bytes are preserved unchanged under `docs/PHI_RQG_MONOGRAPH_CURRENT_v3_6.docx` so the distribution can be extracted normally;
+- existing AI extension, external QPDTR package, static assets, hardware files and neutrino documentation remain part of the controlled distribution rather than being lost during modernization.
+
+Final acceptance still requires current-state qualification, targeted regression tests, rebuilt release controls, closed-world seal audit, and archive-level hash verification on the frozen final bytes.
+
+
+## 15.25.0 executable exoplanet example acceptance
+
+The release includes one runnable notebook and one frozen local data table under `examples/`.
+
+Observed notebook execution on the sealed working tree:
+
+```text
+source rows                              50
+host systems                             38
+structural exponent hypotheses          172
+frozen winner                           (3,-2,-1)
+closure rho                              0.008061939711222455
+sd(log C)                                0.04832792485093855
+generated dimension                      L^3 M^-1 T^-2
+exact augmented rank(D)                  3
+exact augmented nullity p                1
+Pi exponents [a,P,M_star,C_generated]    (3,-2,-1,-1)
+C_hat                                    1.731527169756757e-12
+post-hoc G_hat                           6.835795270094836e-11
+registry G                               6.67430e-11
+relative difference                      2.420 percent
+four-group log-C dispersion              0.014356233158234628
+registry dimension match                 PASS
+notebook status                          RETROSPECTIVE_DIMENSIONAL_CLOSURE_EXAMPLE_PASS
+```
+
+The historical manuscript's 172-row raw exoplanet table is not in the current distribution, so this example is explicitly a different sealed retrospective NASA subset and does not claim to reproduce that historical receipt. No new WORLD/U5 claim is created.
+
+## 15.26.0 — Atlas × EDA CMOS PPA pilot acceptance
+
+The current release extends, rather than replaces, the existing Query/search architecture.
+
+Implemented:
+
+- authoritative owner `EDA-CHIP-DESIGN-RESEARCH/1.0.0`;
+- API surfaces `get_eda_chip_design_contract`, `get_eda_chip_backend_status`, `run_eda_chip_design_pilot`;
+- frozen `sky130hd/gcd` four-knob design space;
+- ORFS command adapter using either native tools or ORFS `util/docker_shell`;
+- parser for final area, total power, setup slack/effective delay, route DRC diagnostics and explicit final sign-off DRC;
+- fail-closed setup-count, final DRC, LVS and GDS gates; route DRC cannot substitute for final DRC;
+- GDS/DEF/DRC/LVS artifact presence receipts;
+- normalized dimensionless PPA objective using common-warm-start medians;
+- Atlas acquisition reusing the existing `QUERY-DRIVEN-RESEARCH/1.1.0` function-form lane;
+- equal-budget seeded Random, deterministic Grid and Gaussian-process expected-improvement baselines;
+- global exact-configuration cache shared fairly across strategies;
+- thin CLI wrapper `evaluation/eda_chip_pilot.py`;
+- manual real-world GitHub Actions workflow `.github/workflows/atlas-chip-gcd-pilot.yml`, frozen to ORFS commit `be0dca0b1fd41df54792b3012350cd52bccd99bb`;
+- six dedicated tests covering backend fail-closed behavior, explicit LVS gating, non-substitution of route DRC, timing-metric fail-closed behavior, equal-budget orchestration and API exposure.
+
+Qualification control status: PASS as software machinery only. On the deterministic synthetic control, Atlas is **not required to win**, and the control result is never interpreted as chip evidence.
+
+Live EDA status in the release-build environment: `EDA_BACKEND_UNAVAILABLE` because OpenROAD/Yosys/KLayout/Docker are not installed. The owner therefore returns `CHIP_PILOT_BACKEND_UNAVAILABLE` with no scientific result and does not substitute a surrogate.
+
+Scientific acceptance boundary:
+
+```text
+real sky130hd/gcd equal-budget PPA comparison = PENDING
+Atlas beats all baselines                     = UNKNOWN
+GDS/DRC/LVS tapeout readiness                 = NOT CLAIMED
+new semiconductor law                         = NOT CLAIMED
+```
+
+The next world step is to execute `Atlas CMOS GCD PPA Pilot` in GitHub Actions. A Boolean comparison is emitted only when all four strategies each produce a fully feasible design; otherwise the outcome is explicitly inconclusive. If Atlas loses a complete frozen comparison, that negative result is the decision signal not to expand the semiconductor branch before revising the research method in a new, separately frozen experiment.

@@ -1,0 +1,28 @@
+{
+  "batch_index": 2,
+  "claim_boundary": {
+    "batch_runtime_limit_is_scientific_search_ceiling": false,
+    "fresh_process_for_this_batch": true,
+    "test_relevant_surface_unchanged": true
+  },
+  "digest": "828e523b2ee21f5cf85809855a7d76dcc2282bb9c6dd71654c6c72a97502ccc2",
+  "digest_scope": "CANONICAL_TEST_IDENTITY_AND_RESULT_EXCLUDES_VOLATILE_STDOUT_TIMING",
+  "node_count": 1,
+  "nodeids": [
+    "tests/test_adaptive_axis_discovery.py::test_tlr7_causal_readiness_rejects_normalized_ig_shortcut"
+  ],
+  "output_tail": ".                                                                        [100%]\n1 passed in 2.55s",
+  "owner_id": "FULL-CURRENT-REPLAY-QUALIFICATION/15.23.0",
+  "passed": 1,
+  "plan_digest": "e09bdc1a06995b02d63841eb7b88aa130f970389af3c88cda2ba249b29308b20",
+  "release": "15.23.0",
+  "returncode": 0,
+  "schema": "phi-full-current-replay-batch/v3",
+  "status": "PASS",
+  "surface_digest_after": "ab74a613f3128ae58bb5a2c48479acab4d5c0ee36aac6df1326bd101e88fb7da",
+  "surface_digest_before": "ab74a613f3128ae58bb5a2c48479acab4d5c0ee36aac6df1326bd101e88fb7da",
+  "test_files": [
+    "tests/test_adaptive_axis_discovery.py"
+  ],
+  "test_surface_digest": "ab74a613f3128ae58bb5a2c48479acab4d5c0ee36aac6df1326bd101e88fb7da"
+}
