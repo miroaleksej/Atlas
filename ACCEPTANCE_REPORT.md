@@ -1,10 +1,10 @@
-# ACCEPTANCE REPORT — Φ-Compiler / ScienceAtlas CURRENT 0.15.27.0
+# ACCEPTANCE REPORT — Φ-Compiler / ScienceAtlas CURRENT 0.15.28.0
 
 
 
-## Current 0.15.27.0 acceptance scope — Function-Language Birth
+## Current 15.27.0 acceptance scope — Function-Language Birth
 
-0.15.27.0 is accepted as a representation-search extension of the existing Query/Mathematical-Invention path. It is not accepted as a new world-law result or evidence that Atlas is a universally superior optimizer.
+15.27.0 is accepted as a representation-search extension of the existing Query/Mathematical-Invention path. It is not accepted as a new world-law result or evidence that Atlas is a universally superior optimizer.
 
 Required current behavior:
 
@@ -713,3 +713,22 @@ new semiconductor law                         = NOT CLAIMED
 ```
 
 The next world step is to execute `Atlas CMOS GCD PPA Pilot` in GitHub Actions. A Boolean comparison is emitted only when all four strategies each produce a fully feasible design; otherwise the outcome is explicitly inconclusive. If Atlas loses a complete frozen comparison, that negative result is the decision signal not to expand the semiconductor branch before revising the research method in a new, separately frozen experiment.
+
+
+## Current 0.15.28.0 acceptance scope — adaptive research triage
+
+Принят один новый вспомогательный owner `RESEARCH-TRIAGE-SANDBOX/1.0.0`. Он квалифицирован только как слой маршрутизации, сохранения, ранжирования, планирования недостающих измерений и auditable human review. Он **не принят** как второй promotion core.
+
+Acceptance requires:
+
+1. strict/empirical/exploratory quality tiers reproduce their declared boundaries;
+2. empirical evidence produces `PHENOMENOLOGICAL_MODEL` and cannot promote a law;
+3. low-N/high-noise evidence produces `STRUCTURAL_ANOMALY` and is blocked before U4;
+4. DPI remains rank-only;
+5. what-if plans remain proposals until world observation;
+6. expert sponsor action cannot pass U6;
+7. dimensional sandbox exception cannot pass U2;
+8. the mutable council log lives outside the sealed tree;
+9. sandbox-weight adaptation never modifies strict promotion weights.
+
+The pre-existing candidate census, U4/U5 state, Query function-language birth, EDA pilot and all prior owners must remain reproducible.

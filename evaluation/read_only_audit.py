@@ -21,8 +21,8 @@ sys.dont_write_bytecode = True
 from source.lawspace.schema import digest_payload
 from evaluation.release_files import is_local_artifact
 
-RELEASE = "0.15.27.0"
-OWNER_ID = "READ-ONLY-AUDIT/0.15.27.0"
+RELEASE = "0.15.28.0"
+OWNER_ID = "READ-ONLY-AUDIT/0.15.28.0"
 
 
 def _snapshot(root: Path) -> dict[str, Any]:
@@ -72,7 +72,7 @@ def run(root: str | Path = ROOT) -> dict[str, Any]:
     dirs_created = sorted(set(after["dirs"]) - set(before["dirs"]))
     dirs_removed = sorted(set(before["dirs"]) - set(after["dirs"]))
     checks = {
-        "current_state_pass": current.get("status") == "PASS_CURRENT_STATE_15_27_0",
+        "current_state_pass": current.get("status") == "PASS_CURRENT_STATE_15_28_0",
         "joint_scientific_ai_pass": joint.get("status") == "PASS_JOINT_CURRENT_15_25_0",
         "seal_pass": seal.get("status") == "PASS_SEAL_AUDIT",
         "no_files_created": not created,

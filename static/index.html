@@ -2,12 +2,12 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Φ-Compiler LawSpace v3.0</title>
+<title>Φ-Compiler / ScienceAtlas 0.15.28.0</title>
 <style>
-:root{color-scheme:dark;background:#090b0f;color:#e7eef7;font:16px/1.45 system-ui,sans-serif}body{margin:0}main{max-width:1120px;margin:auto;padding:28px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.card{background:#121721;border:1px solid #293243;border-radius:12px;padding:16px}code{color:#9ed0ff}input,select,button{font:inherit;background:#0d1118;color:#fff;border:1px solid #40506a;border-radius:7px;padding:9px}pre{white-space:pre-wrap;overflow:auto;background:#080a0e;padding:12px;border-radius:8px}.ok{color:#8ee3a3}.warn{color:#ffd47b}</style>
+:root{color-scheme:dark;background:#090b0f;color:#e7eef7;font:16px/1.45 system-ui,sans-serif}body{margin:0}main{max-width:1120px;margin:auto;padding:28px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.card{background:#121721;border:1px solid #293243;border-radius:12px;padding:16px}code{color:#9ed0ff}input,select,button{font:inherit;background:#0d1118;color:#fff;border:1px solid #40506a;border-radius:7px;padding:9px}pre{white-space:pre-wrap;overflow:auto;background:#080a0e;padding:12px;border-radius:8px}textarea{width:100%;min-height:150px;box-sizing:border-box;background:#080a0e;color:#dce8f7;border:1px solid #40506a;border-radius:8px;padding:10px}canvas{width:100%;height:420px;background:#080a0e;border:1px solid #293243;border-radius:10px}.muted{color:#91a1b8;font-size:.92rem}.ok{color:#8ee3a3}.warn{color:#ffd47b}</style>
 </head>
 <body><main>
-<h1>Φ-Compiler LawSpace v3.0</h1>
+<h1>Φ-Compiler / ScienceAtlas 0.15.28.0</h1>
 <p>Статический кокпит не владеет научной логикой. Он показывает контракт read-only API; фактические ответы формирует <code>source/lawspace/api.py</code>.</p>
 <div class="grid">
 <div class="card"><h2>Федерация</h2><p>Математика · метрология · физика · механика · химия · материаловедение</p><p>Подключаемые: биология · системы Земли · астрономия · квантовые вычислительные методы</p></div>
@@ -41,6 +41,29 @@ python interfaces/phi_compiler_cli.py \
   --limit 10 \
   --output reports/quantum_method_query.json</pre>
 <p class="warn">Маршрут метода не является законом и не доказывает достижимость 512 кубитов. Стоимость определяется структурой запутанности, treewidth, magic и бюджетом ошибки.</p>
+
+<h2>Исследовательская песочница и Совет по гипотезам</h2>
+<div class="grid">
+<div class="card"><h3>Quality tiers</h3><p><b>STRICT</b>: n&gt;1000 и ошибка&lt;1%<br><b>EMPIRICAL</b>: феноменологический паспорт<br><b>EXPLORATORY</b>: структурная аномалия, U4 заблокирован</p></div>
+<div class="card"><h3>DPI</h3><p>Ранжирует PROMISING_REJECT по точности, простоте, cross-consistency и FWER. <b>DPI не является научным gate.</b></p></div>
+<div class="card"><h3>3D landscape</h3><p>Ниже встроен настоящий браузерный проектор <code>accuracy / simplicity / uniqueness</code>. Он не содержит демонстрационных точек: вставьте JSON, полученный от <code>rank_exploration_sandbox</code>.</p></div>
+<div class="card"><h3>Human review</h3><p><code>SPONSOR_REVIEW</code> возвращает кандидата к сбору evidence; никогда не выставляет U6. Журнал хранится вне sealed tree.</p></div>
+</div>
+
+<h2>3D-карта гипотез</h2>
+<p class="muted">Вставьте полный JSON-ответ <code>rank_exploration_sandbox</code>. Точка не является evidence; цвет/размер не меняют scientific status.</p>
+<textarea id="sandbox-json" placeholder='{"ranked":[{"candidate_id":"...","dpi":0.72,"landscape_coordinates":{"accuracy":0.9,"simplicity":0.7,"uniqueness":0.5}}]}'></textarea>
+<p><button id="render-landscape">Построить карту</button> <label>Поворот <input id="yaw" type="range" min="-180" max="180" value="35"></label> <label>Наклон <input id="pitch" type="range" min="-80" max="80" value="25"></label></p>
+<canvas id="landscape" width="1000" height="520"></canvas>
+<pre id="landscape-info">Нет загруженных гипотез.</pre>
+<script>
+(()=>{const ta=document.getElementById('sandbox-json'),cv=document.getElementById('landscape'),ctx=cv.getContext('2d'),info=document.getElementById('landscape-info'),yaw=document.getElementById('yaw'),pitch=document.getElementById('pitch');let rows=[];
+function proj(p){let x=p.accuracy-.5,y=p.simplicity-.5,z=(p.uniqueness??0)-.5,ay=+yaw.value*Math.PI/180,ap=+pitch.value*Math.PI/180;let x1=x*Math.cos(ay)-z*Math.sin(ay),z1=x*Math.sin(ay)+z*Math.cos(ay),y1=y*Math.cos(ap)-z1*Math.sin(ap),z2=y*Math.sin(ap)+z1*Math.cos(ap);let scale=360/(1.7+z2);return [cv.width/2+x1*scale,cv.height/2-y1*scale,z2];}
+function draw(){ctx.clearRect(0,0,cv.width,cv.height);ctx.strokeStyle='#40506a';ctx.fillStyle='#91a1b8';ctx.font='14px system-ui';const axes=[['accuracy',{accuracy:1,simplicity:0,uniqueness:0}],['simplicity',{accuracy:0,simplicity:1,uniqueness:0}],['uniqueness',{accuracy:0,simplicity:0,uniqueness:1}]];let o=proj({accuracy:.5,simplicity:.5,uniqueness:.5});for(const [name,v] of axes){let e=proj({accuracy:.5+v.accuracy*.48,simplicity:.5+v.simplicity*.48,uniqueness:.5+v.uniqueness*.48});ctx.beginPath();ctx.moveTo(o[0],o[1]);ctx.lineTo(e[0],e[1]);ctx.stroke();ctx.fillText(name,e[0]+5,e[1]-5);}let pts=rows.map(r=>({r,p:proj(r.landscape_coordinates||{})})).sort((a,b)=>a.p[2]-b.p[2]);for(const q of pts){let dpi=Number(q.r.dpi||0),rad=4+7*dpi;ctx.beginPath();ctx.arc(q.p[0],q.p[1],rad,0,Math.PI*2);ctx.fillStyle=q.r.promising_reject?'#ffd47b':'#9ed0ff';ctx.globalAlpha=.75;ctx.fill();ctx.globalAlpha=1;ctx.fillStyle='#e7eef7';ctx.fillText(String(q.r.candidate_id||'?'),q.p[0]+rad+2,q.p[1]);}}
+function load(){try{let obj=JSON.parse(ta.value);rows=Array.isArray(obj.ranked)?obj.ranked:[];rows=rows.filter(r=>r.landscape_coordinates&&Number.isFinite(+r.landscape_coordinates.accuracy)&&Number.isFinite(+r.landscape_coordinates.simplicity)&&r.landscape_coordinates.uniqueness!==null&&Number.isFinite(+r.landscape_coordinates.uniqueness));info.textContent=`Отображено ${rows.length} гипотез с полной 3D-координатой. PROMISING_REJECT выделяется только визуально; это не promotion.`;draw();}catch(e){info.textContent='Ошибка JSON: '+e.message;}}
+document.getElementById('render-landscape').onclick=load;yaw.oninput=draw;pitch.oninput=draw;draw();})();
+</script>
+
 <h2>Пять gate-owners</h2>
 <pre>ACCEPT = G1(corpus completeness)
        ∧ G2(semantic integrity)

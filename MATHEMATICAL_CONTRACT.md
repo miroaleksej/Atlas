@@ -1,4 +1,4 @@
-# MATHEMATICAL CONTRACT — Φ-Compiler CURRENT 0.15.27.0
+# MATHEMATICAL CONTRACT — Φ-Compiler CURRENT 0.15.28.0
 
 ## 1. Current authority
 
@@ -988,7 +988,7 @@ U5 = false
 19. The shipped 15.26.0 GitHub world run MUST checkout ORFS commit `be0dca0b1fd41df54792b3012350cd52bccd99bb` before metrics are read; using a different ORFS revision requires a separately frozen experiment.
 
 
-## CURRENT 0.15.27.0 — Function-language birth contract
+## CURRENT 15.27.0 — Function-language birth contract
 
 ### Authority and non-duplication
 
@@ -1034,3 +1034,60 @@ If `\mathcal H(y)` is the residual-dependent hypothesis set, every permutation m
 ### Claim invariant
 
 The operation screen is not formal significance. Selected CV is not unbiased post-selection generalization evidence. Synthetic function-language controls cannot create mathematical novelty, WORLD evidence, U5 or scientific promotion.
+
+
+## CURRENT 0.15.28.0 — Adaptive evidence-triage contract
+
+Let `n` be the observation count and `u_rel` the declared or robustly estimated relative measurement uncertainty. The sandbox diagnostic information density is
+
+\[
+I_{\rm data}=\min\!\left(1,\frac{\log(1+n)}{\log(1001)}\right)\frac{1}{1+10u_{\rm rel}}.
+\]
+
+`I_data` is not a p-value, likelihood, Bayes factor or promotion statistic. It is used only to order the reliability of inputs for routing.
+
+The quality partition is
+
+\[
+Q(n,u)=\begin{cases}
+\mathrm{STRICT}, & n>1000\land u<0.01,\\
+\mathrm{EXPLORATORY}, & n<30\lor u>0.10,\\
+\mathrm{EMPIRICAL}, & \text{otherwise}.
+\end{cases}
+\]
+
+The tier thresholds are
+
+\[
+(\rho_*,\sigma_*)_{\rm strict}=(0.05,0.05),\qquad
+(\rho_*,\sigma_*)_{\rm empirical}=(0.15,0.10),
+\]
+
+and `EXPLORATORY` uses `rho*<=0.30` with no sigma requirement **only inside the sandbox**. These numbers never overwrite `PromotionConfig`.
+
+For a sandbox hypothesis define bounded diagnostics
+
+\[
+A=1-\rho_{adj},\quad S\in[0,1],\quad C\in[0,1],\quad
+P_{FWER}=\mathrm{clip}(p_{FWER}/\alpha_{FWER},0,1).
+\]
+
+Given non-negative user weights normalized to unit sum, Atlas computes
+
+\[
+DPI=\mathrm{clip}_{[0,1]}\left(
+\frac{w_AA+w_SS+w_CC-w_PP_{FWER}}{w_A+w_S+w_C}
+\right).
+\]
+
+This is a research-priority score only. No value of DPI implies a U-gate pass.
+
+For axis `j`, a what-if coverage gap is normalized by the observed span. Candidate measurements are ordered by
+
+\[
+R_j=g_j(1+s_j)(1+u_j),
+\]
+
+where `g_j` is normalized uncovered range, `s_j>=0` declared sensitivity and `u_j>=0` relative uncertainty. This is an experiment-design heuristic and not observed evidence.
+
+Human-review state is external and append-only at the action level. `SPONSOR_REVIEW` maps to evidence reacquisition, not U6. `REQUEST_SANDBOX_DIMENSION_EXCEPTION` affects sandbox traversal only; strict U2 remains required. Learned DPI weights are advisory sandbox parameters and are disjoint from the scientific-promotion configuration.

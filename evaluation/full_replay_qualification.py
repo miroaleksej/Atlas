@@ -1,4 +1,4 @@
-"""Transactional current-only replay for Φ-Compiler 0.15.27.0.
+"""Transactional current-only replay for Φ-Compiler 0.15.28.0.
 
 Protocol:
     --prepare              freeze the dynamically collected current test inventory
@@ -26,8 +26,8 @@ from typing import Any, Mapping
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = "phi-full-current-replay/v14"
-OWNER_ID = "FULL-CURRENT-REPLAY-QUALIFICATION/0.15.27.0"
-RELEASE = "0.15.27.0"
+OWNER_ID = "FULL-CURRENT-REPLAY-QUALIFICATION/0.15.28.0"
+RELEASE = "0.15.28.0"
 POLICY_RELATIVE_PATH = Path("data/runtime/EXECUTION_POLICY_CURRENT.json")
 PLAN_RELATIVE_PATH = Path("reports/runtime/FULL_REPLAY_PLAN_CURRENT.json")
 BATCH_DIR_RELATIVE_PATH = Path("reports/runtime/full_replay_batches")

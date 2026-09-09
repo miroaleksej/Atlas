@@ -1,9 +1,13 @@
-.PHONY: collect targeted first-experiment real-experiment frontier-scan science-atlas self-repair replay-prepare replay-batches replay-aggregate full qualify release-controls seal-audit audit-read-only clean
+.PHONY: collect research-triage targeted first-experiment real-experiment frontier-scan science-atlas self-repair replay-prepare replay-batches replay-aggregate full qualify release-controls seal-audit audit-read-only clean
 
 PYENV = PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 
 collect:
 	$(PYENV) pytest --collect-only -q -p no:cacheprovider
+
+research-triage:
+	$(PYENV) python -m evaluation.research_triage_qualification
+	$(PYENV) pytest -q -p no:cacheprovider tests/test_research_triage.py
 
 targeted:
 	$(PYENV) pytest -q -p no:cacheprovider tests/test_science_atlas_core.py tests/test_domain_plugin_architecture.py tests/test_adaptive_axis_discovery.py tests/test_electronic_state_space_current.py

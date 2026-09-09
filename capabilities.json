@@ -4,7 +4,7 @@
     "architecture_restored": true,
     "consciousness_claimed": false,
     "historical_capability_snapshot_used": false,
-    "live_capability_count": 300,
+    "live_capability_count": 309,
     "mutable_state_bundled_in_release": false,
     "mutable_state_external_to_seal": true,
     "open_architecture_obligations": [
@@ -50,7 +50,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "820e8ac254f4e9f3fafcd7b032fd4907db155b22601730e6f777808bf51a98b5",
+  "digest": "a53c47f9782e6cb6174139b92513785a07d12cf6c63a6ba4a3308550fafedab9",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -125,7 +125,7 @@
       "ai_acceptance_version": "15.10.5",
       "component_schema_version": "6.0.0",
       "state_schema_version": "5",
-      "system_release": "0.15.27.0"
+      "system_release": "0.15.28.0"
     }
   },
   "permutation_eprocess": {
@@ -152,7 +152,7 @@
     "known_law_count": 445,
     "static_source_knowledge": true
   },
-  "qualification_digest": "fd0e6cfe51734d02d8c5ab6b503347355a1e0689e9c05fa375043df8346827dd",
+  "qualification_digest": "5e164704e6678b845e0751eddc9e6042746463c2b3d42e2d8bc952e84051fe24",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,
@@ -211,12 +211,46 @@
     "u5_status": "UNKNOWN",
     "whole_function_surface_permutation_refit": true
   },
-  "release": "0.15.27.0",
+  "release": "0.15.28.0",
   "removed": {
     "ai_feynman_100_benchmark": true,
     "historical_generated_candidates_frontiers_and_freezes": true,
     "historical_reports_and_replays": true,
     "persisted_synthetic_control_report": true
+  },
+  "research_triage_sandbox": {
+    "contract_digest": "b136690514ff2ee8ffe65c70ba9d13362dbb954d959c47fb08323c4ee9113908",
+    "dpi_rank_only": true,
+    "expert_weight_learning_scope": "SANDBOX_RANKING_ONLY",
+    "hypothesis_council_mutable_state_external_to_seal": true,
+    "manual_override_can_pass_u_gate": false,
+    "owner": "RESEARCH-TRIAGE-SANDBOX/1.0.0",
+    "qualification_passed": 8,
+    "qualification_total": 8,
+    "quality_tiers": {
+      "EMPIRICAL": {
+        "canonical_promotion_allowed": false,
+        "epistemic_status": "PHENOMENOLOGICAL_MODEL",
+        "rho_star": 0.15,
+        "sigma_star": 0.1,
+        "strict_pipeline_ceiling": "U5_EVIDENCE_ONLY_NO_LAW_PROMOTION"
+      },
+      "EXPLORATORY": {
+        "canonical_promotion_allowed": false,
+        "epistemic_status": "STRUCTURAL_ANOMALY",
+        "rho_star": 0.3,
+        "sigma_star": null,
+        "strict_pipeline_ceiling": "U3_SANDBOX_ONLY_BLOCK_U4"
+      },
+      "STRICT": {
+        "canonical_promotion_allowed": true,
+        "epistemic_status": "STRICT_EVIDENCE_CANDIDATE",
+        "rho_star": 0.05,
+        "sigma_star": 0.05,
+        "strict_pipeline_ceiling": "U10_IF_ALL_AUTHORITATIVE_GATES_PASS"
+      }
+    },
+    "sandbox_dimension_exception_can_pass_u2": false
   },
   "schema": "phi-capabilities/current-v1",
   "scientific_depth": {
@@ -245,6 +279,6 @@
     "historical_calculation_receipts_restored": 0,
     "historical_search_receipts_restored": 0
   },
-  "status": "FUNCTION_LANGUAGE_BIRTH_AND_EDA_PILOT_INTEGRATED_LIVE_WORLD_PENDING",
-  "system": "Phi-Compiler / ScienceAtlas Multi-Pi + Function-Language Birth + EDA Chip PPA Pilot"
+  "status": "ADAPTIVE_TRIAGE_SANDBOX_HUMAN_REVIEW_AND_FUNCTION_LANGUAGE_EDA_INTEGRATED",
+  "system": "Phi-Compiler / ScienceAtlas Adaptive Triage + Exploration Sandbox + Human Review + Multi-Pi + Function-Language Birth + EDA Chip PPA Pilot"
 }

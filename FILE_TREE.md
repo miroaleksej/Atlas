@@ -1,6 +1,6 @@
-# FILE TREE — CURRENT 0.15.27.0
+# FILE TREE — CURRENT 0.15.28.0
 
-Controlled files: 293
+Controlled files: 296
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -119,6 +119,7 @@ Controlled files: 293
 - `evaluation/reflexive_architecture_qualification.py`
 - `evaluation/release_files.py`
 - `evaluation/research_proof_qualification.py`
+- `evaluation/research_triage_qualification.py`
 - `evaluation/resource_theory_qualification.py`
 - `evaluation/rotating_cubic_euler_qualification.py`
 - `evaluation/science_atlas_core_qualification.py`
@@ -260,6 +261,7 @@ Controlled files: 293
 - `source/lawspace/query_research.py`
 - `source/lawspace/reflexive_architecture.py`
 - `source/lawspace/research_cycle.py`
+- `source/lawspace/research_triage.py`
 - `source/lawspace/resident_cognitive.py`
 - `source/lawspace/resource_theory.py`
 - `source/lawspace/runtime.py`
@@ -290,6 +292,7 @@ Controlled files: 293
 - `tests/test_function_language_birth.py`
 - `tests/test_permutation_eprocess_current.py`
 - `tests/test_query_driven_research_current.py`
+- `tests/test_research_triage.py`
 - `tests/test_science_atlas_core.py`
 - `tests/test_scientific_axis_space_current.py`
 - `tests/test_scientific_exploitation_current.py`

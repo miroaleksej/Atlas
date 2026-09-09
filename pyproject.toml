@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "phi-compiler-current-state"
-version = "0.15.27.0"
+version = "0.15.28.0"
 description = "Persistent multidimensional Atlas of scientific axes, hypotheses, laws and experiments"
 requires-python = ">=3.11"
 dependencies = ["numpy>=1.26", "scipy>=1.11", "sympy>=1.14", "PyYAML>=6.0", "cryptography>=42.0", "pypdf>=5.9.0"]

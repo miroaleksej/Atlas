@@ -1,4 +1,4 @@
-# CLAIM BOUNDARY — CURRENT 0.15.27.0
+# CLAIM BOUNDARY — CURRENT 0.15.28.0
 
 ## Разрешённые утверждения
 
@@ -494,9 +494,9 @@ WORLD-attestation, U5 и automatic law promotion остаются нулевым
 - A Boolean Atlas-vs-baseline conclusion is forbidden unless all four equal-budget strategies each produce at least one fully feasible design; otherwise the world result is inconclusive.
 
 
-## 0.15.27.0 function-language birth claim boundary
+## 15.27.0 function-language birth claim boundary
 
-Разрешено утверждать, что после freeze exact π-coordinates Atlas 0.15.27.0 способен использовать OOF residual текущего polynomial representation для рождения конкурирующего исполняемого языка функции и затем сравнивать его с исходным языком в том же Query owner.
+Разрешено утверждать, что после freeze exact π-coordinates Atlas 15.27.0 способен использовать OOF residual текущего polynomial representation для рождения конкурирующего исполняемого языка функции и затем сравнивать его с исходным языком в том же Query owner.
 
 Разрешено утверждать, что текущая finite grammar включает rational/exponential/logarithmic/periodic/piecewise/kernel/latent representations и что синтетические qualification-controls показали существенное OOF-улучшение periodic и local-kernel задач при сохранении старого polynomial control.
 
@@ -509,3 +509,20 @@ WORLD-attestation, U5 и automatic law promotion остаются нулевым
 Selected CV NRMSE нельзя считать независимой post-selection оценкой generalization. Для world-claim остаются обязательны sealed/independent/prospective evidence gates. U5/WORLD promotions от этого патча не увеличиваются.
 
 Function-language birth не имеет права изменять exact `ker D`, подменять axis birth или создавать второй scientific owner. Он является компонентом существующего Mathematical Invention Kernel и обслуживает единственный `QUERY-DRIVEN-RESEARCH/1.2.0`.
+
+
+## 0.15.28.0 adaptive triage / sandbox / human-review claim boundary
+
+Разрешено утверждать, что Atlas умеет вычислять диагностический `quality_tag`, сохранять феноменологические модели и структурные аномалии, ранжировать непрошедшие гипотезы по DPI, предлагать измерения для закрытия объявленных диапазонных пробелов и вести внешний журнал экспертных действий.
+
+Запрещено утверждать, что:
+
+- `EMPIRICAL` или `EXPLORATORY` tier ослабляет authoritative U0–U10;
+- высокий DPI является вероятностью истинности закона природы;
+- `PROMISING_REJECT` является U5/U6 или `LAW_CANDIDATE`;
+- `SPONSOR_REVIEW`/«интуитивный пропуск» переводит гипотезу в U6;
+- sandbox dimension exception закрывает U2;
+- экспертная адаптация весов является научным обучением критерия истинности;
+- предложенный what-if experiment считается выполненным без world receipt.
+
+Human-in-the-loop здесь является **аудируемым механизмом постановки следующего исследования**, а не источником научной истины. Строгий promotion owner остаётся `SCIENTIFIC-PROMOTION-CORE/9.2.0`.

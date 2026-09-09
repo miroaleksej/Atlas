@@ -1,5 +1,5 @@
 {
-  "digest": "306b5fe521a786568fa61578b7cf453d82ba2a4d6b82532567bc2a595af402bc",
+  "digest": "e653d9f8469fcb9b6e05ebf201236c99b29b4724c7408c14e2ec05f4fdc79892",
   "invariants": {
     "adaptive_subspace_search_has_no_fixed_order_ceiling": true,
     "agi_not_claimed": true,
@@ -93,7 +93,7 @@
     "unmaterialized_subspaces_are_not_rejected": true,
     "whole_pipeline_permutation_null_required_before_scientific_promotion": true
   },
-  "owner": "RELEASE-CONTROLS/0.15.27.0",
-  "release": "0.15.27.0",
+  "owner": "RELEASE-CONTROLS/0.15.28.0",
+  "release": "0.15.28.0",
   "schema": "phi-invariants/current-v1"
 }

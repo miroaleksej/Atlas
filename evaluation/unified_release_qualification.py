@@ -1,4 +1,4 @@
-"""Current-state qualification for Φ-Compiler / ScienceAtlas 0.15.27.0.
+"""Current-state qualification for Φ-Compiler / ScienceAtlas 0.15.28.0.
 
 The current research state keeps the sealed blind real-data experiment plus the
 first Atlas-wide active frontier candidate scan. Historical calculation/search
@@ -23,6 +23,7 @@ from source.lawspace.resident_cognitive import COMPONENT_SCHEMA_VERSION, STATE_S
 from source.lawspace.candidates import DOVETAIL_STATE_RELATIVE_PATH, load_dovetail_state_file, dovetail_state_status
 from evaluation.first_atlas_native_experiment import run as run_first_control
 from evaluation.function_language_birth_qualification import run_release_qualification as run_function_language_birth_qualification
+from evaluation.research_triage_qualification import run as run_research_triage_qualification
 from evaluation.release_files import is_local_artifact
 EXT_SRC = ROOT / "extensions" / "ATLAS_AI_RESEARCH_EXTENSION_v0_10_0" / "src"
 if str(EXT_SRC) not in sys.path: sys.path.insert(0, str(EXT_SRC))
@@ -70,7 +71,7 @@ def _genesis_ledger_checks() -> dict[str, bool]:
       "genesis_materialisation_guard_is_bounded_prefix": len(atoms)==64 and atoms==tuple(sorted(atoms,key=lambda t:(t.degree,t.powers))),
     }
 
-RELEASE='0.15.27.0'; OWNER_ID='UNIFIED-CURRENT-QUALIFICATION/0.15.27.0'
+RELEASE='0.15.28.0'; OWNER_ID='UNIFIED-CURRENT-QUALIFICATION/0.15.28.0'
 REAL_REPORT='reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json'
 FRONTIER_REPORT='reports/ATLAS_FRONTIER_SCAN_CURRENT.json'
 FRONTIER_LEDGER='data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl'
@@ -154,6 +155,10 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     eda_control=eda_owner.run_pilot(evaluation_budget=14,warm_start_count=12,candidate_pool_size=96,evaluator=qualification_oracle,evaluator_kind='SYNTHETIC_QUALIFICATION_ONLY')
     function_language_qualification=run_function_language_birth_qualification(root)
     fl_checks=function_language_qualification.get('checks',{})
+    research_triage_qualification=run_research_triage_qualification()
+    rtq_checks=research_triage_qualification.get('checks',{})
+    triage_contract=api.get_research_triage_contract()
+    council_path=runtime.external_state_path('hypothesis_council')
     checks={
       'eda_chip_design_owner_contract_callable': eda_contract.get('status')=='EDA_CHIP_DESIGN_RESEARCH_CONTRACT' and eda_contract.get('pilot',{}).get('platform')=='sky130hd' and eda_contract.get('pilot',{}).get('design')=='gcd',
       'eda_chip_design_api_exposed': {'get_eda_chip_design_contract','get_eda_chip_backend_status','run_eda_chip_design_pilot'} <= set(api.READ_TOOLS),
@@ -164,7 +169,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'dimensional_scalar_law_birth_current_digest_valid': scalar_law_digest_valid,
       'dimensional_scalar_law_birth_measured_census': scalar_law_report.get('summary',{}).get('subspace_count')==3706 and scalar_law_report.get('summary',{}).get('p1_frozen_formula_count')==683 and scalar_law_report.get('summary',{}).get('unique_pi_signature_count')==14 and scalar_law_report.get('summary',{}).get('u4_p1_frozen_formula_count')==125 and scalar_law_report.get('summary',{}).get('u4_unique_pi_signature_count')==13,
       'query_research_current_digest_valid': query_research_digest_valid,
-      'query_research_current_identity_15_27': query_research_report.get('release')=='0.15.27.0' and query_research_report.get('owner')=='QUERY-DRIVEN-RESEARCH/1.2.0',
+      'query_research_component_receipt_15_27_preserved': query_research_report.get('release')=='0.15.27.0' and query_research_report.get('owner')=='QUERY-DRIVEN-RESEARCH/1.2.0',
       'query_research_bound_to_current_candidate_ledger': query_research_report.get('source_candidate_ledger_sha256')==ledger_sha,
       'query_research_embeds_current_function_language_qualification': query_research_report.get('function_language_birth_qualification',{}).get('status')=='PASS_FUNCTION_LANGUAGE_BIRTH_QUALIFICATION' and query_research_report.get('function_language_birth_qualification',{}).get('digest')==function_language_qualification.get('digest'),
       'query_mode_recovers_unhinted_thiele_coordinate': query_research_report.get('acceptance',{}).get('pass') is True and query_research_report.get('acceptance',{}).get('observed_top_formula')=='k * D^-1 * L^2' and float(query_research_report.get('acceptance',{}).get('observed_top_collapse',9))<0.15,
@@ -178,6 +183,13 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'function_language_birth_improves_periodic_and_local_controls': fl_checks.get('periodic_language_materially_improves_oof_prediction') is True and fl_checks.get('kernel_language_materially_improves_oof_prediction') is True,
       'function_language_birth_noise_negative_control': fl_checks.get('noise_control_does_not_force_language_birth') is True,
       'function_language_birth_dynamic_null_replay': fl_checks.get('dynamic_language_birth_is_inside_permutation_null') is True,
+      'research_triage_qualification_current': research_triage_qualification.get('all_pass') is True and research_triage_qualification.get('passed')==research_triage_qualification.get('total')==8,
+      'research_triage_is_not_second_promotion_owner': triage_contract.get('authoritative_scientific_promotion_owner')=='SCIENTIFIC-PROMOTION-CORE' and triage_contract.get('manual_override_can_pass_u_gate') is False,
+      'dynamic_confidence_tiers_are_fail_closed': rtq_checks.get('STRICT_TIER') is True and rtq_checks.get('EMPIRICAL_TIER') is True and rtq_checks.get('EXPLORATORY_BY_SMALL_N') is True and rtq_checks.get('EXPLORATORY_BY_NOISE') is True,
+      'sandbox_dpi_is_rank_only': rtq_checks.get('DPI_RANKS_NOT_PROMOTES') is True,
+      'human_review_cannot_override_u6_or_u2': rtq_checks.get('MANUAL_OVERRIDE_FAIL_CLOSED') is True and triage_contract.get('sandbox_dimension_exception_can_pass_u2') is False,
+      'hypothesis_council_mutable_state_external_to_seal': _outside_release(council_path),
+      'research_triage_api_exposed': {'get_research_triage_contract','assess_research_data_quality','rank_exploration_sandbox','build_hypothesis_passport','propose_sandbox_what_if_experiments','get_hypothesis_council_state','recommend_hypothesis_council_weights'} <= set(api.READ_TOOLS) and {'record_hypothesis_council_action','apply_hypothesis_council_weight_recommendation'} <= set(api.MUTATION_TOOLS),
       **_genesis_ledger_checks(),
       **_epoch_genesis_checks(),
       'permutation_eprocess_qualification_current': eprocess_report.get('status')=='PASS_PERMUTATION_EPROCESS_15_20_0' and eprocess_digest==digest_payload(eprocess_core),
@@ -261,7 +273,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     }
     payload={
       'schema':'phi-current-state-qualification/v1','release':RELEASE,'owner':OWNER_ID,
-      'status':'PASS_CURRENT_STATE_15_27_0' if all(checks.values()) else 'FAIL_CURRENT_STATE_15_27_0',
+      'status':'PASS_CURRENT_STATE_15_28_0' if all(checks.values()) else 'FAIL_CURRENT_STATE_15_28_0',
       'checks':checks,
       'counts':{'canonical_axes':canonical_axis_count(),'domains':len(DOMAIN_REGISTRIES),'known_laws':len(runtime.catalog.passports),'computational_methods':len(runtime.computational_methods),'baseline_candidates':len(runtime.candidates),'active_frontier_candidates':len(ledger_lines),'evidence':len(runtime.evidence),'quantum_routes':len(runtime.quantum_method_routes),'persisted_current_research_reports':len(report_files)},
       'blind_real_physics_experiment':{'status':stored_real.get('status'),'digest':stored_real.get('digest'),'result_summary':stored_real.get('result_summary'),'canonical_digest_valid':real_digest_valid},
@@ -270,9 +282,10 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'synthetic_control':{'status':control_replay.get('status'),'digest':control_replay.get('digest'),'persisted_as_current_report':False},
       'eda_chip_design':{'contract_digest':eda_contract.get('digest'),'fail_closed_status':eda_fail_closed.get('status'),'qualification_control_digest':eda_control.get('digest'),'live_world_result_established':False},
       'function_language_birth':{'status':function_language_qualification.get('status'),'digest':function_language_qualification.get('digest'),'metrics':function_language_qualification.get('metrics'),'world_result_established':False},
+      'research_triage_sandbox':{'qualification':research_triage_qualification,'contract_digest':triage_contract.get('digest'),'council_state_external':True,'manual_override_can_pass_u_gate':False},
       'ai_runtime':{'capability_count':live_capabilities.get('capability_count'),'open_architecture_obligations':live_capabilities.get('open_architecture_obligations'),'mutable_state_default_external':True,'mutable_state_bundled_in_seal':False},
       'residue':{'derived_directories':residues,'derived_files_present':derived_files_present,'frontier_files':frontier_files,'unexpected_reports':unexpected_reports,'ai_feynman_paths_present':feynman_present},
-      'claim_boundary':{'historical_search_or_calculation_receipts_restored':False,'current_frontier_candidates_are_baseline_source_knowledge':False,'current_frontier_candidates_are_established_laws':False,'known_overlap_deletes_candidate':False,'unknown_candidate_is_false':False,'axes_and_static_source_knowledge_are_preserved':True,'cognitive_state_is_external_mutable_runtime_state':True,'resident_learning_is_not_scientific_truth':True,'consciousness_claimed':False,'agi_claimed':False,'finite_dovetail_tranche_exhausts_scientific_space':False,'unvisited_subspace_is_false':False,'legacy_15_13_frontier_deleted':False,'permutation_eprocess_per_target_only':True,'global_online_evalue_controller_implemented':False}
+      'claim_boundary':{'historical_search_or_calculation_receipts_restored':False,'current_frontier_candidates_are_baseline_source_knowledge':False,'current_frontier_candidates_are_established_laws':False,'known_overlap_deletes_candidate':False,'unknown_candidate_is_false':False,'axes_and_static_source_knowledge_are_preserved':True,'cognitive_state_is_external_mutable_runtime_state':True,'resident_learning_is_not_scientific_truth':True,'consciousness_claimed':False,'agi_claimed':False,'finite_dovetail_tranche_exhausts_scientific_space':False,'unvisited_subspace_is_false':False,'legacy_15_13_frontier_deleted':False,'permutation_eprocess_per_target_only':True,'global_online_evalue_controller_implemented':False,'sandbox_dpi_is_promotion':False,'human_review_can_override_u_gate':False,'dynamic_quality_tier_can_weaken_strict_u_gate':False}
     }
     payload['digest']=digest_payload(payload); return payload
 

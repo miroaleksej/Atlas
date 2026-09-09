@@ -1,4 +1,4 @@
-# Φ-Compiler / ScienceAtlas — Mathematical Book, CURRENT 0.15.27.0
+# Φ-Compiler / ScienceAtlas — Mathematical Book, CURRENT 0.15.28.0
 
 ## 0. Назначение
 
@@ -4811,7 +4811,7 @@ The GitHub workflow `.github/workflows/atlas-chip-gcd-pilot.yml` is the external
 - that Atlas replaces Yosys, OpenROAD, KLayout, a PDK or sign-off engineering.
 
 
-# CURRENT 0.15.27.0 — Residual-Driven Function-Language Birth
+# CURRENT 15.27.0 — Residual-Driven Function-Language Birth
 
 ## 1. Architectural placement
 
@@ -4976,3 +4976,42 @@ so no language is born despite baseline NRMSE near one. The permutation qualific
 ## 8. Current scientific status
 
 These controls establish executable representation sensitivity and false-birth protection only. They do not establish mathematical novelty, universal optimizer superiority, a physical law or real-world replication. The active census remains `4106` frontier candidates, `447` U4 hypotheses and `U5=0`; incomplete world measurements remain `UNKNOWN`, not false.
+
+
+# CURRENT 0.15.28.0 — Adaptive Confidence, Exploration Sandbox and Hypothesis Council
+
+The scientific problem addressed by this layer is asymmetric evidence quality. A 12-point exploratory relation and a 10,000-point precision campaign should not be discarded or promoted by the same *research-routing* policy. The strict scientific promotion contract, however, must remain invariant. Atlas therefore separates three objects:
+
+\[
+\text{evidence quality routing},\qquad
+\text{research priority},\qquad
+\text{scientific promotion}.
+\]
+
+Only the third belongs to `SCIENTIFIC-PROMOTION-CORE`.
+
+## Data-quality coordinate
+
+For measured values `y_i` with declared standard uncertainties `sigma_i`, the fallback relative uncertainty is the median sigma divided by a robust signal scale based on IQR, standard deviation and absolute median. If no uncertainty is declared, Atlas does not infer precision from sample size; the record is routed as exploratory.
+
+The information-density coordinate is deliberately saturating in `n`, because doubling already-large datasets does not compensate for uncontrolled systematics. Uncertainty attenuates the coordinate multiplicatively. This coordinate supplies the `quality_tag` but is not interpreted as probability of correctness.
+
+## Three epistemic routes
+
+`STRICT` is the only quality tier eligible for the complete canonical promotion route. `EMPIRICAL` creates a phenomenological passport for meta-analysis. `EXPLORATORY` preserves variable structure as an anomaly and prevents automatic U4 entry. Thus scarce data can remain scientifically visible without being mislabeled as evidence for a law.
+
+## Discovery Probability Index
+
+DPI aggregates accuracy, simplicity, cross-consistency and familywise-error risk only to order the scientist's attention. The 3-D visualization coordinates are intentionally separate from the DPI formula: accuracy / simplicity / uniqueness form a landscape, while cross-consistency and FWER modify the ranked priority. A visually attractive point can therefore remain low-priority if it lacks replication or multiplicity control.
+
+## What-if experiment generation
+
+A rejected candidate is more useful when Atlas can state what evidence is missing. The current implementation does not invent apparatus physics; it operates on declared observed and target ranges, sensitivity and uncertainty. It identifies uncovered edges and proposes a finite set of measurements. Later owners may replace this heuristic with information-gain experiment design when a generative likelihood is available.
+
+## Hypothesis Council
+
+The Council records human scientific intuition without allowing it to rewrite machine evidence. Expert actions have explicit effects. Sponsorship means *re-open the evidence-acquisition path*. A dimension exception means *permit exploratory traversal under a disputed metrology mapping*. Linking weak ideas means *create a new search seed*. None is a scientific gate pass.
+
+Repeated expert decisions can recalibrate sandbox ranking weights. To reduce immediate confirmation bias, no recommendation is produced before eight labeled decisions, changes are returned as a recommendation, and explicit application affects the external sandbox state only. The strict promotion parameters remain immutable under this mechanism.
+
+This separation is the mathematical reason the 0.15.28.0 patch can retain weak empirical structure without weakening the scientific firewall.
