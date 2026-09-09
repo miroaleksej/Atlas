@@ -1,4 +1,4 @@
-# MATHEMATICAL CONTRACT — Φ-Compiler CURRENT 15.26.0
+# MATHEMATICAL CONTRACT — Φ-Compiler CURRENT 0.15.27.0
 
 ## 1. Current authority
 
@@ -166,7 +166,7 @@ V(x)=\operatorname{Var}_h[\hat y_h(x)],
 Если текущий язык не закрывает residual, используется существующий:
 
 ```text
-PHI-MATHEMATICAL-INVENTION-KERNEL/1.0.0
+PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0
 ```
 
 с цепочкой:
@@ -986,3 +986,51 @@ U5 = false
 18. No result of this pilot alone establishes generalization to other RTL, PDKs, process corners, analog designs, reliability/yield constraints or fabrication readiness.
 
 19. The shipped 15.26.0 GitHub world run MUST checkout ORFS commit `be0dca0b1fd41df54792b3012350cd52bccd99bb` before metrics are read; using a different ORFS revision requires a separately frozen experiment.
+
+
+## CURRENT 0.15.27.0 — Function-language birth contract
+
+### Authority and non-duplication
+
+The sole Query function-form authority is `QUERY-DRIVEN-RESEARCH/1.2.0`. `FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT` belongs to `PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0`; it is a component, not a second owner or optimizer.
+
+### Ordering invariant
+
+```text
+exact rational D → frozen ker(D) / Π coordinates
+→ baseline polynomial CV
+→ OOF residual diagnosis
+→ optional function-language birth
+→ born-language CV
+→ dynamic whole-procedure permutation null
+```
+
+Target values cannot modify the exact π basis. Function-language birth changes `F`, never `ker D`.
+
+### Birth invariant
+
+A language may be generated only when both
+
+\[
+R_{poly}\ge r_{birth}
+\]
+
+and
+
+\[
+\max(operation\_signal)>\max(g_0,\sqrt{2\log(M)/n}).
+\]
+
+High error alone is insufficient; no minimum language count may be forced.
+
+### Executable grammar invariant
+
+The finite current Query tranche may instantiate `RATIONAL`, `EXPONENTIAL`, `LOGARITHMIC`, `PERIODIC`, `PIECEWISE`, `KERNEL`, and `LATENT`. This is an executable grammar for the current query, not the scientific space and not an assertion that other mathematics does not exist. Fold-dependent transformations are trained inside their folds. Rational near-zero denominators fail closed.
+
+### Multiplicity invariant
+
+If `\mathcal H(y)` is the residual-dependent hypothesis set, every permutation must reconstruct `\mathcal H(y^{(b)})` from the permuted target. Freezing the observed born language and permuting only its coefficients is forbidden. Familywise calibration uses the minimum CV risk over each regenerated complete surface.
+
+### Claim invariant
+
+The operation screen is not formal significance. Selected CV is not unbiased post-selection generalization evidence. Synthetic function-language controls cannot create mathematical novelty, WORLD evidence, U5 or scientific promotion.

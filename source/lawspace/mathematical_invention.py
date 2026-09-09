@@ -18,11 +18,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
+import numpy as np
+
 from .candidates import CandidateGenerationPipeline, DirectedResearchQuery
 from .runtime import LawSpaceRuntime
 from .schema import canonical_json, digest_payload
 
-KERNEL_OWNER_ID = "PHI-MATHEMATICAL-INVENTION-KERNEL/1.0.0"
+KERNEL_OWNER_ID = "PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0"
 UNKNOWN_OWNER_ID = "UNKNOWN-UNKNOWN-REPRESENTATION-TYPE-DISCOVERY/1.0.0"
 PRIMITIVE_OWNER_ID = "PRIMITIVE-SYNTHESIS/1.0.0"
 MORPHISM_OWNER_ID = "MORPHISM-DISCOVERY/1.0.0"
@@ -150,6 +152,179 @@ class UnknownUnknownRepresentationOwner:
                 "known_method_selected_as_answer": False,
                 "new_representation_type_established": warranted,
                 "world_novelty_established": False,
+            },
+        }
+        return _with_digest(payload)
+
+
+class FunctionLanguageBirthEngine:
+    """Residual-driven birth of a *function language* inside the existing kernel.
+
+    This is deliberately not a new authoritative owner and not a global catalogue
+    of mathematical answers.  Query mode supplies a frozen Pi-representation plus
+    out-of-fold residuals from its current language.  The engine measures which
+    primitive operations would distinguish structure left in those residuals and
+    returns generated operation signatures.  Fitting, ranking, multiplicity
+    control and world claims remain owned by QueryDrivenResearchOwner.
+    """
+
+    _FAMILY_OPERATIONS = {
+        "RATIONAL": ("add", "multiply", "reciprocal"),
+        "EXPONENTIAL": ("add", "multiply", "exp"),
+        "LOGARITHMIC": ("add", "multiply", "signed_log1p"),
+        "PERIODIC": ("add", "multiply", "sin", "cos"),
+        "PIECEWISE": ("add", "multiply", "hinge", "threshold"),
+        "KERNEL": ("distance", "radial_response", "linear_superposition"),
+        "LATENT": ("linear_projection", "multiply", "low_rank_composition"),
+    }
+
+    def contract(self) -> Mapping[str, Any]:
+        return {
+            "component": "FUNCTION-LANGUAGE-BIRTH",
+            "authority": KERNEL_OWNER_ID,
+            "input": "FROZEN_COORDINATES_PLUS_OUT_OF_FOLD_RESIDUAL",
+            "output": "GENERATED_OPERATION_SIGNATURES_NOT_WORLD_LAWS",
+            "trigger": "PERSISTENT_CROSS_VALIDATED_RESIDUAL",
+            "fixed_global_language_catalog_is_primary_space": False,
+            "known_family_name_is_world_novelty_claim": False,
+            "candidate_operations": {k: list(v) for k, v in self._FAMILY_OPERATIONS.items()},
+        }
+
+    @staticmethod
+    def _corr(a: np.ndarray, b: np.ndarray) -> float:
+        a=np.asarray(a,float); b=np.asarray(b,float)
+        mask=np.isfinite(a)&np.isfinite(b)
+        if int(mask.sum())<6: return 0.0
+        aa=a[mask]-float(np.mean(a[mask])); bb=b[mask]-float(np.mean(b[mask]))
+        den=float(np.linalg.norm(aa)*np.linalg.norm(bb))
+        return abs(float(np.dot(aa,bb)/den)) if den>1e-14 else 0.0
+
+    def diagnose(self, *, coordinates: Sequence[Sequence[float]], residuals: Sequence[float],
+                 baseline_nrmse: float, minimum_birth_nrmse: float = 0.08,
+                 minimum_signal: float = 0.12, minimum_languages: int = 3,
+                 maximum_languages: int = 7) -> Mapping[str, Any]:
+        x=np.asarray(coordinates,float); r=np.asarray(residuals,float)
+        if x.ndim!=2 or len(r)!=x.shape[0]:
+            raise ValueError("function-language birth requires a 2D coordinate matrix aligned to residuals")
+        finite=np.isfinite(r)&np.all(np.isfinite(x),axis=1)
+        x=x[finite]; r=r[finite]
+        if len(r)<12 or float(np.std(r))<=1e-14:
+            payload={"schema":SCHEMA,"component":"FUNCTION-LANGUAGE-BIRTH","status":"NO_LANGUAGE_BIRTH_INSUFFICIENT_RESIDUAL_EVIDENCE",
+                     "baseline_cross_validated_nrmse":float(baseline_nrmse),"generated_languages":[],
+                     "claim_boundary":{"function_language_established":False,"world_law_established":False}}
+            return _with_digest(payload)
+        mu=np.mean(x,axis=0); scale=np.std(x,axis=0); scale=np.where(scale<=1e-14,1.0,scale)
+        z=(x-mu)/scale
+
+        # Scores are evidence for primitive operations, not fits of the final target.
+        # Each score is the strongest residual association available to that
+        # operation class on the frozen coordinates.
+        scores: dict[str,float]={}
+        coord_scores: dict[str,list[float]]={}
+        preference_override: dict[str,list[int]]={}
+        for family in self._FAMILY_OPERATIONS:
+            per=[]
+            for j in range(z.shape[1]):
+                q=z[:,j]
+                if family=="RATIONAL":
+                    feats=(1.0/(1.0+np.abs(q)), q/(1.0+np.abs(q)))
+                    score=max((self._corr(r,f) for f in feats),default=0.0)
+                elif family=="EXPONENTIAL":
+                    feats=(np.exp(np.clip(q,-4,4)), np.exp(np.clip(-q,-4,4)))
+                    score=max((self._corr(r,f) for f in feats),default=0.0)
+                elif family=="LOGARITHMIC":
+                    feats=(np.sign(q)*np.log1p(np.abs(q)), np.log1p(q*q))
+                    score=max((self._corr(r,f) for f in feats),default=0.0)
+                elif family=="PERIODIC":
+                    feats=tuple(v for w in (1.0,2.0,3.0) for v in (np.sin(w*q),np.cos(w*q)))
+                    score=max((self._corr(r,f) for f in feats),default=0.0)
+                elif family=="PIECEWISE":
+                    # A threshold language is indicated by a discontinuity in
+                    # residual mean, not merely by correlation with a hinge.
+                    th=np.quantile(q,(0.15,0.25,0.35,0.5,0.65,0.75,0.85))
+                    feats=tuple((q>float(t)).astype(float) for t in th)
+                    score=max((self._corr(r,f) for f in feats),default=0.0)
+                elif family=="KERNEL":
+                    centers=np.quantile(q,(0.2,0.5,0.8))
+                    feats=tuple(np.exp(-((q-float(c))**2)) for c in centers)
+                    score=max((self._corr(r,f) for f in feats),default=0.0)
+                else:  # LATENT receives pair/interacting evidence below as well.
+                    feats=(q*q, q*q*q)
+                    score=max((self._corr(r,f) for f in feats),default=0.0)
+                per.append(float(score))
+            if family=="LATENT" and z.shape[1]>=2:
+                pair=max((self._corr(r,z[:,a]*z[:,b]) for a in range(z.shape[1]) for b in range(a+1,z.shape[1])),default=0.0)
+                scores[family]=float(max(max(per,default=0.0),pair))
+            elif family=="KERNEL" and z.shape[1]>=2:
+                # Local smooth structure may be invisible in every marginal but
+                # obvious in a joint coordinate neighborhood.  Nearest-neighbor
+                # residual autocorrelation supplies that operation-level signal.
+                best_pair=None; best_local=0.0
+                for a in range(z.shape[1]):
+                    for b in range(a+1,z.shape[1]):
+                        zz=z[:,[a,b]]
+                        d2=np.sum((zz[:,None,:]-zz[None,:,:])**2,axis=2)
+                        np.fill_diagonal(d2,np.inf)
+                        nn=np.argmin(d2,axis=1)
+                        local=self._corr(r,r[nn])
+                        if local>best_local:
+                            best_local=float(local); best_pair=(a,b)
+                scores[family]=float(max(max(per,default=0.0),best_local))
+                if best_pair is not None:
+                    rest=[j for j in range(z.shape[1]) if j not in best_pair]
+                    preference_override[family]=[int(best_pair[0]),int(best_pair[1])]+rest
+            else:
+                scores[family]=float(max(per,default=0.0))
+            coord_scores[family]=[float(v) for v in per[:z.shape[1]]]
+
+        ordered=sorted(scores,key=lambda k:(-scores[k],k))
+        # Residual diagnostics examine many transformed features.  The screening
+        # gate therefore grows with the number of coordinates/tests instead of
+        # treating a raw 0.12 correlation as equally persuasive in every search.
+        # This is a conservative structural screen, not a formal p-value; the
+        # formal familywise calibration remains Query mode's replayed permutation
+        # null after languages are actually fitted.
+        feature_tests=max(8,7*max(1,z.shape[1])*6)
+        multiplicity_gate=math.sqrt(2.0*math.log(float(feature_tests)+1.0)/float(len(r)))
+        effective_signal_gate=max(float(minimum_signal),float(multiplicity_gate))
+        selected=[k for k in ordered if scores[k]>=effective_signal_gate]
+        if float(baseline_nrmse) < float(minimum_birth_nrmse):
+            selected=[]; status="CURRENT_LANGUAGE_RESIDUAL_WITHIN_BIRTH_TOLERANCE"
+        else:
+            # Do not force a minimum number of languages when residuals are
+            # structureless.  A high baseline error alone is not evidence for a
+            # new operation; at least one operation signal must cross the frozen
+            # gate.  ``minimum_languages`` is retained in the API for backward
+            # compatibility but is not allowed to manufacture evidence.
+            selected=selected[:int(maximum_languages)]
+            status="FUNCTION_LANGUAGE_BIRTH_WARRANTED" if selected else "NO_OPERATION_SIGNAL_ABOVE_BIRTH_GATE"
+
+        generated=[]
+        for rank,fam in enumerate(selected,1):
+            per=coord_scores.get(fam,[])
+            coordinate_order=list(preference_override.get(fam,sorted(range(len(per)),key=lambda j:(-per[j],j))))
+            signature={
+                "language_id":f"LANG-{rank}-{digest_payload({'family':fam,'ops':self._FAMILY_OPERATIONS[fam]})[:12].upper()}",
+                "family":fam,
+                "operations":list(self._FAMILY_OPERATIONS[fam]),
+                "residual_signal":float(scores[fam]),
+                "coordinate_preference":coordinate_order,
+                "generated_from_residual":True,
+            }
+            signature["digest"]=digest_payload(signature)
+            generated.append(signature)
+        payload={
+            "schema":SCHEMA,"component":"FUNCTION-LANGUAGE-BIRTH","status":status,
+            "baseline_cross_validated_nrmse":float(baseline_nrmse),
+            "minimum_birth_nrmse":float(minimum_birth_nrmse),"minimum_operation_signal":float(minimum_signal),
+            "effective_multiplicity_aware_signal_gate":float(effective_signal_gate),
+            "operation_signal_scores":{k:float(scores[k]) for k in sorted(scores)},
+            "generated_languages":generated,
+            "claim_boundary":{
+                "function_language_established":bool(generated),
+                "generated_language_is_confirmed_world_law":False,
+                "known_family_name_used_as_novelty_evidence":False,
+                "residual_diagnostics_are_independent_world_replication":False,
             },
         }
         return _with_digest(payload)
@@ -407,6 +582,7 @@ class MathematicalInventionKernel:
     def __init__(self, root: str|Path) -> None:
         self.root=Path(root); self.runtime=LawSpaceRuntime(self.root)
         self.unknown_unknown=UnknownUnknownRepresentationOwner(self.runtime)
+        self.function_language=FunctionLanguageBirthEngine()
         self.primitive=PrimitiveSynthesisOwner(); self.morphism=MorphismDiscoveryOwner(); self.limit=ControlledLimitEngine()
 
     def contract(self)->Mapping[str,Any]:
@@ -418,7 +594,9 @@ class MathematicalInventionKernel:
                 "morphism_discovery":MORPHISM_OWNER_ID,
                 "controlled_limit":LIMIT_OWNER_ID,
             },
+            "components":{"function_language_birth":"FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT"},
             "pipeline":"PHI_SCAN->REPRESENTATION_OBLIGATIONS->GENERATED_PRIMITIVE->MORPHISM->CONTROLLED_LIMIT",
+            "function_language_pipeline":"QUERY_OOF_RESIDUAL->OPERATION_SIGNAL->GENERATED_LANGUAGE_SIGNATURE->QUERY_REFIT_AND_NULL",
             "internet_prefreeze":"FORBIDDEN",
             "world_novelty":"NOT_ESTABLISHED_BY_MECHANISM_QUALIFICATION",
         }
@@ -427,6 +605,6 @@ class MathematicalInventionKernel:
 
 __all__=[
     "MathematicalInventionKernel","UnknownUnknownRepresentationOwner","PrimitiveSynthesisOwner",
-    "MorphismDiscoveryOwner","ControlledLimitEngine", "KERNEL_OWNER_ID", "UNKNOWN_OWNER_ID",
+    "MorphismDiscoveryOwner","ControlledLimitEngine","FunctionLanguageBirthEngine", "KERNEL_OWNER_ID", "UNKNOWN_OWNER_ID",
     "PRIMITIVE_OWNER_ID","MORPHISM_OWNER_ID","LIMIT_OWNER_ID",
 ]

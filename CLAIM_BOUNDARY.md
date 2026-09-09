@@ -1,4 +1,4 @@
-# CLAIM BOUNDARY — CURRENT 15.26.0
+# CLAIM BOUNDARY — CURRENT 0.15.27.0
 
 ## Разрешённые утверждения
 
@@ -492,3 +492,20 @@ WORLD-attestation, U5 и automatic law promotion остаются нулевым
 - Even a successful `sky130hd/gcd` GDS with clean DRC/LVS is a research pilot, not a foundry tapeout certificate.
 
 - A Boolean Atlas-vs-baseline conclusion is forbidden unless all four equal-budget strategies each produce at least one fully feasible design; otherwise the world result is inconclusive.
+
+
+## 0.15.27.0 function-language birth claim boundary
+
+Разрешено утверждать, что после freeze exact π-coordinates Atlas 0.15.27.0 способен использовать OOF residual текущего polynomial representation для рождения конкурирующего исполняемого языка функции и затем сравнивать его с исходным языком в том же Query owner.
+
+Разрешено утверждать, что текущая finite grammar включает rational/exponential/logarithmic/periodic/piecewise/kernel/latent representations и что синтетические qualification-controls показали существенное OOF-улучшение periodic и local-kernel задач при сохранении старого polynomial control.
+
+Высокий residual сам по себе не даёт права породить язык: operation signal обязан пройти multiplicity-aware screening gate. В текущем pure-noise negative control язык не рождается.
+
+Нельзя утверждать, что screening gate является formal p-value. Formal familywise calibration требует полного permutation-null, в котором на каждой перестановке заново выполняется data-dependent language-birth path.
+
+Нельзя утверждать, что `RATIONAL/EXPONENTIAL/LOGARITHMIC/PERIODIC/PIECEWISE/KERNEL/LATENT` исчерпывают математику, что выбранный язык является мировой математической новизной или что function-language birth обнаружил новый физический закон. Это representations конечной Query tranche.
+
+Selected CV NRMSE нельзя считать независимой post-selection оценкой generalization. Для world-claim остаются обязательны sealed/independent/prospective evidence gates. U5/WORLD promotions от этого патча не увеличиваются.
+
+Function-language birth не имеет права изменять exact `ker D`, подменять axis birth или создавать второй scientific owner. Он является компонентом существующего Mathematical Invention Kernel и обслуживает единственный `QUERY-DRIVEN-RESEARCH/1.2.0`.

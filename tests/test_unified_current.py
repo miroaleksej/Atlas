@@ -104,7 +104,7 @@ def test_current_release_tree_and_book_are_single_authority():
     books = list(ROOT.glob('MATHEMATICAL_BOOK*.md'))
     assert books == [ROOT/'MATHEMATICAL_BOOK.md']
     text = books[0].read_text(encoding='utf-8')
-    assert 'CURRENT 15.26.0' in text
+    assert 'CURRENT 0.15.27.0' in text
     assert 'Adaptive Research Kernel' in text
 
 

@@ -1,5 +1,5 @@
 {
-  "digest": "182c655eba17c55cd187041cdaef651f840d40a991f850cc7ac66d2d3cf88ff6",
+  "digest": "306b5fe521a786568fa61578b7cf453d82ba2a4d6b82532567bc2a595af402bc",
   "invariants": {
     "adaptive_subspace_search_has_no_fixed_order_ceiling": true,
     "agi_not_claimed": true,
@@ -58,8 +58,14 @@
     "permutation_eprocess_orbit_cannot_write_genesis_journal": true,
     "permutation_eprocess_orbit_uses_one_frozen_genesis_journal_snapshot": true,
     "permutation_eprocess_ville_threshold_is_per_target_only": true,
+    "query_dynamic_language_birth_replayed_under_permutation": true,
     "query_function_form_world_claim_requires_joint_axis_data": true,
     "query_function_grammar_is_not_primary_scientific_axis_space": true,
+    "query_function_language_birth_does_not_change_exact_pi_kernel": true,
+    "query_function_language_birth_not_forced_by_high_error_without_operation_signal": true,
+    "query_function_language_birth_requires_operation_signal_above_multiplicity_aware_gate": true,
+    "query_function_language_birth_requires_persistent_oof_residual": true,
+    "query_generated_function_languages_are_finite_query_grammar_not_global_math_space": true,
     "query_mode_grouped_null_preserves_exchangeability_blocks": true,
     "query_mode_p_gt_1_uses_exact_kernel_before_function_fit": true,
     "query_mode_whole_function_surface_replayed_under_permutation": true,
@@ -87,7 +93,7 @@
     "unmaterialized_subspaces_are_not_rejected": true,
     "whole_pipeline_permutation_null_required_before_scientific_promotion": true
   },
-  "owner": "RELEASE-CONTROLS/15.26.0",
-  "release": "15.26.0",
+  "owner": "RELEASE-CONTROLS/0.15.27.0",
+  "release": "0.15.27.0",
   "schema": "phi-invariants/current-v1"
 }

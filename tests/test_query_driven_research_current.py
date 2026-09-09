@@ -91,7 +91,8 @@ def test_query_mode_p_gt_1_searches_function_form_and_replays_full_surface():
     assert top['polynomial_degree']==2
     assert top['cross_validated_nrmse'] < 0.05
     assert out['permutation_null']['entire_function_surface_refit_each_permutation'] is True
-    assert out['permutation_null']['structural_hypotheses_replayed_per_permutation']==45
+    assert out['permutation_null']['dynamic_function_language_birth_replayed_each_permutation'] is True
+    assert out['permutation_null']['structural_hypotheses_replayed_per_permutation_min']>=45
     assert out['permutation_null']['exchangeability_scheme']=='WITHIN_VALIDATION_GROUP'
     assert out['permutation_null']['minimum_achievable_p']==0.05
     assert out['claim_boundary']['selected_cv_score_is_unbiased_post_selection_generalization_estimate'] is False

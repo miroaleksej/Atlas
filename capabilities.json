@@ -50,7 +50,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "b89343f00b8b82cbf9a332a8c98da3a6593da833a8ea6cf3157b1917845dc356",
+  "digest": "820e8ac254f4e9f3fafcd7b032fd4907db155b22601730e6f777808bf51a98b5",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -125,7 +125,7 @@
       "ai_acceptance_version": "15.10.5",
       "component_schema_version": "6.0.0",
       "state_schema_version": "5",
-      "system_release": "15.26.0"
+      "system_release": "0.15.27.0"
     }
   },
   "permutation_eprocess": {
@@ -152,7 +152,7 @@
     "known_law_count": 445,
     "static_source_knowledge": true
   },
-  "qualification_digest": "000f3de43816f68bb6948c52c2c40a6ee7e983eb6144dfa177654f0f81942ed4",
+  "qualification_digest": "fd0e6cfe51734d02d8c5ab6b503347355a1e0689e9c05fa375043df8346827dd",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,
@@ -166,22 +166,52 @@
   "query_research": {
     "complete_joint_world_dataset_identified": false,
     "cross_domain_exact_kernel_receipts": 5,
+    "dynamic_language_birth_replayed_under_permutation": true,
     "exact_pi_basis_frozen_before_function_fit": true,
+    "function_language_birth_changes_pi_coordinates": false,
+    "function_language_birth_component": "FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT",
+    "function_language_birth_enabled": true,
+    "function_language_qualification_digest": "ab29b1b886a4e1da4a3489c2c60f267856d700f3bec959bc791f3c686ed74a81",
+    "function_language_qualification_metrics": {
+      "kernel_born_language_nrmse": 0.32309477987480417,
+      "kernel_improvement_fraction": 0.596408402930271,
+      "kernel_polynomial_nrmse": 0.8005488276282985,
+      "noise_effective_signal_gate": 0.2067586901624507,
+      "noise_max_operation_signal": 0.1487225325513934,
+      "periodic_born_language_nrmse": 0.13185498087522118,
+      "periodic_improvement_fraction": 0.8635655001510183,
+      "periodic_polynomial_nrmse": 0.9664343037953776
+    },
+    "function_language_qualification_status": "PASS_FUNCTION_LANGUAGE_BIRTH_QUALIFICATION",
+    "function_language_search_exhausts_all_mathematics": false,
+    "generated_function_families": [
+      "RATIONAL",
+      "EXPONENTIAL",
+      "LOGARITHMIC",
+      "PERIODIC",
+      "PIECEWISE",
+      "KERNEL",
+      "LATENT"
+    ],
     "grouped_null_exchangeability_scheme": "WITHIN_VALIDATION_GROUP",
     "hypothesis_budget_max": 100,
     "hypothesis_budget_min": 10,
+    "language_birth_requires_operation_signal_above_multiplicity_aware_gate": true,
+    "language_birth_triggered_by_oof_residual": true,
+    "mathematical_invention_kernel_owner": "PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0",
     "new_scientific_law_established": false,
-    "owner": "QUERY-DRIVEN-RESEARCH/1.1.0",
+    "noise_can_force_language_birth": false,
+    "owner": "QUERY-DRIVEN-RESEARCH/1.2.0",
     "p1_scalar_lane": true,
     "p_gt_1_function_form_lane": true,
     "polynomial_surface_is_query_grammar_not_primary_space": true,
-    "report_digest": "ecd07d982ab18089f3812caadd5f451b357b9b1d51554c2675ad407964d6be0c",
+    "report_digest": "3d318c014bdd8487add1853bb81b39cf2db9721f828fa8afeec20fef69d0273c",
     "selected_cv_score_is_unbiased_post_selection_estimate": false,
     "source_stitching_used_to_create_fit": false,
     "u5_status": "UNKNOWN",
     "whole_function_surface_permutation_refit": true
   },
-  "release": "15.26.0",
+  "release": "0.15.27.0",
   "removed": {
     "ai_feynman_100_benchmark": true,
     "historical_generated_candidates_frontiers_and_freezes": true,
@@ -215,6 +245,6 @@
     "historical_calculation_receipts_restored": 0,
     "historical_search_receipts_restored": 0
   },
-  "status": "EDA_CHIP_PPA_PILOT_INTEGRATED_LIVE_WORLD_PENDING",
-  "system": "Phi-Compiler / ScienceAtlas Multi-Pi Research + EDA Chip PPA Pilot"
+  "status": "FUNCTION_LANGUAGE_BIRTH_AND_EDA_PILOT_INTEGRATED_LIVE_WORLD_PENDING",
+  "system": "Phi-Compiler / ScienceAtlas Multi-Pi + Function-Language Birth + EDA Chip PPA Pilot"
 }

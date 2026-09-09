@@ -1,5 +1,27 @@
-# ACCEPTANCE REPORT — Φ-Compiler / ScienceAtlas CURRENT 15.26.0
+# ACCEPTANCE REPORT — Φ-Compiler / ScienceAtlas CURRENT 0.15.27.0
 
+
+
+## Current 0.15.27.0 acceptance scope — Function-Language Birth
+
+0.15.27.0 is accepted as a representation-search extension of the existing Query/Mathematical-Invention path. It is not accepted as a new world-law result or evidence that Atlas is a universally superior optimizer.
+
+Required current behavior:
+
+- `QUERY-DRIVEN-RESEARCH/1.2.0` remains the sole function-form search owner;
+- `FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT` is a component of `PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0`, not a parallel owner;
+- exact rational `ker D` is frozen before target-dependent function fitting or language birth;
+- the existing polynomial multi-Π control remains unchanged when OOF residual is already small: 45 hypotheses, rank-1 quadratic full-Π surface, CV NRMSE `0.0177840974`;
+- periodic hidden control improves from polynomial NRMSE `0.9664343038` to born periodic NRMSE `0.1318549809`;
+- local bivariate hidden control improves from polynomial NRMSE `0.8005488276` to born kernel NRMSE `0.3230947799`;
+- structureless noise does not force language growth: maximum operation signal `0.1487225326` is below effective gate `0.2067586902`;
+- every target permutation replays polynomial fit, OOF residual diagnosis, optional birth, born-surface fitting and ranking;
+- EDA acquisition may consume a generic born Query hypothesis; undefined extrapolation fails closed to geometric exploration;
+- the current Query receipt is bound to active candidate-ledger SHA-256 `9bf93730757cc4a35b535ad5d99dd603542464f0cdfa5389db9ccfa3d9bc9be1`;
+- the scientific census remains 4,106 active candidates, 447 U4 hypotheses and U5=0;
+- live `sky130hd/gcd` EDA comparison remains pending; no silicon/tapeout result is claimed.
+
+Final release acceptance additionally requires the current function-language qualification, Mathematical-Invention qualification, Query/EDA regressions, current-state qualification, closed-world seal and clean archive replay to pass on the final bytes.
 
 
 ## Current 15.23.0 acceptance scope

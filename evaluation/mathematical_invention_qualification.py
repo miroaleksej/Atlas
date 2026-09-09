@@ -1,4 +1,4 @@
-"""Qualification for Φ-Mathematical Invention Kernel 1.0.0."""
+"""Qualification for Φ-Mathematical Invention Kernel 1.1.0."""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -54,7 +54,9 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     limit=kernel.limit.assess(parameter_rows=rows)
     no_limit=kernel.limit.assess(parameter_rows=[{"lambda":lam,"state_error":0.2,"update_error":0.1,"observable_error":0.05} for lam in (1.0,0.5,0.25,0.125,0.0625)])
     checks={
-      "kernel_owner_contract":kernel.contract()["owner_id"]=="PHI-MATHEMATICAL-INVENTION-KERNEL/1.0.0",
+      "kernel_owner_contract":kernel.contract()["owner_id"]=="PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0",
+      "function_language_birth_is_kernel_component_not_new_owner":kernel.contract()["components"].get("function_language_birth")=="FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT" and kernel.function_language.contract().get("authority")==kernel.contract()["owner_id"],
+      "function_language_birth_not_global_catalog_space":kernel.function_language.contract().get("fixed_global_language_catalog_is_primary_space") is False,
       "unknown_unknown_proposed":unknown["status"]=="PROPOSE_GENERATED_REPRESENTATION_SIGNATURE",
       "unknown_unknown_all_axes_scanned":unknown["phi_scan"]["all_registered_axes_visited"] and unknown["phi_scan"]["registered_axis_count"]==canonical_axis_count(),
       "unknown_unknown_no_fixed_visit_budget":unknown["phi_scan"]["fixed_owner_visit_budget"] is None and unknown["phi_scan"]["fixed_candidate_axis_order_ceiling"] is None,

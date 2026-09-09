@@ -1,6 +1,6 @@
-# FILE TREE — CURRENT 15.26.0
+# FILE TREE — CURRENT 0.15.27.0
 
-Controlled files: 291
+Controlled files: 293
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -93,6 +93,7 @@ Controlled files: 291
 - `evaluation/eda_chip_pilot.py`
 - `evaluation/first_atlas_native_experiment.py`
 - `evaluation/full_replay_qualification.py`
+- `evaluation/function_language_birth_qualification.py`
 - `evaluation/generation_transition_qualification.py`
 - `evaluation/katrin_likelihood_qualification.py`
 - `evaluation/knowledge_evolution_qualification.py`
@@ -286,6 +287,7 @@ Controlled files: 291
 - `tests/test_electronic_state_space_current.py`
 - `tests/test_epoch_genesis_autonomous.py`
 - `tests/test_exoplanet_dimensional_closure_example.py`
+- `tests/test_function_language_birth.py`
 - `tests/test_permutation_eprocess_current.py`
 - `tests/test_query_driven_research_current.py`
 - `tests/test_science_atlas_core.py`

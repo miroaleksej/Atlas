@@ -282,7 +282,9 @@ class LawSpaceAPI:
                                                 hypothesis_budget: int = 100,
                                                 group_ids: Sequence[str] | None = None,
                                                 permutation_count: int = 0,
-                                                permutation_seed: int = 0) -> Mapping[str, Any]:
+                                                permutation_seed: int = 0,
+                                                function_language_birth: bool = True,
+                                                language_birth_nrmse: float = 0.08) -> Mapping[str, Any]:
         """Focused p>1 query lane: exact Pi basis -> competing F(Pi-vector) surfaces."""
         from .query_research import QueryDrivenResearchOwner
         return QueryDrivenResearchOwner().search_function_forms(
@@ -290,6 +292,7 @@ class LawSpaceAPI:
             axis_names=axis_names, question=question, return_limit=return_limit,
             hypothesis_budget=hypothesis_budget, group_ids=group_ids,
             permutation_count=permutation_count, permutation_seed=permutation_seed,
+            function_language_birth=function_language_birth, language_birth_nrmse=language_birth_nrmse,
         )
 
 

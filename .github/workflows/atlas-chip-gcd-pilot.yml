@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 env:
-  # Frozen with Atlas 15.26.0.  Do not replace by moving master inside the
+  # Frozen with Atlas 0.15.27.0.  Do not replace by moving master inside the
   # same experiment; a different ORFS revision is a new world freeze.
   ATLAS_ORFS_COMMIT: be0dca0b1fd41df54792b3012350cd52bccd99bb
 

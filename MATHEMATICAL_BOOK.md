@@ -1,4 +1,4 @@
-# Φ-Compiler / ScienceAtlas — Mathematical Book, CURRENT 15.26.0
+# Φ-Compiler / ScienceAtlas — Mathematical Book, CURRENT 0.15.27.0
 
 ## 0. Назначение
 
@@ -4809,3 +4809,170 @@ The GitHub workflow `.github/workflows/atlas-chip-gcd-pilot.yml` is the external
 - that one clean GDS/DRC/LVS run is sufficient for foundry tapeout;
 - that the synthetic qualification landscape is physical evidence;
 - that Atlas replaces Yosys, OpenROAD, KLayout, a PDK or sign-off engineering.
+
+
+# CURRENT 0.15.27.0 — Residual-Driven Function-Language Birth
+
+## 1. Architectural placement
+
+Function-language birth is **not** a new scientific owner and is not a parallel optimizer. The authoritative search owner remains:
+
+```text
+QUERY-DRIVEN-RESEARCH/1.2.0
+```
+
+The language-birth mechanism is a component of the already existing Mathematical Invention Kernel:
+
+```text
+PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0
+└── FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT
+```
+
+The exact rational dimension kernel remains authoritative. For a dimension matrix `D`, Atlas first computes
+
+\[
+\ker_{\mathbb Q}D=\operatorname{span}\{v_1,\ldots,v_p\}
+\]
+
+and freezes
+
+\[
+\Pi_j=\prod_i x_i^{(v_j)_i}.
+\]
+
+Function-language birth is forbidden from altering those coordinates. It changes only the executable representation in
+
+\[
+Y=F(\Pi_1,\ldots,\Pi_p).
+\]
+
+## 2. Baseline language and residual trigger
+
+Query first fits the existing standardized total-degree polynomial grammar. Let `\hat y_i^{(-fold(i))}` be the strictly out-of-fold prediction of the selected polynomial. Then
+
+\[
+r_i=y_i-\hat y_i^{(-fold(i))},
+\]
+
+and the normalized baseline risk is
+
+\[
+R_{poly}=\frac{\sqrt{n^{-1}\sum_i r_i^2}}{\sigma_y+\epsilon}.
+\]
+
+Language birth may be considered only when
+
+\[
+R_{poly}\ge r_{birth},
+\]
+
+with current default `r_birth=0.08`. This is a search trigger, not a significance threshold.
+
+## 3. Operation-signal diagnosis and false-birth guard
+
+The Mathematical Invention Kernel diagnoses operation-level structure in the OOF residual rather than immediately enumerating every known family. Current probes cover reciprocal, exponential, signed-logarithmic, sinusoidal/cosinusoidal, hinge/threshold, radial/neighbourhood and low-rank latent structure.
+
+For operation feature `\phi_m(\Pi)`, let `s_m` denote the bounded residual-association signal. The executable multiplicity-aware screen is
+
+\[
+g(n,p)=\max\!\left(g_0,\sqrt{\frac{2\log M}{n}}\right),
+\]
+
+with current proxy count approximately
+
+\[
+M\approx 7\times6\times p
+\]
+
+(and an implementation floor for small `p`). Birth requires both
+
+\[
+R_{poly}\ge r_{birth}
+\]
+
+and
+
+\[
+\max_m s_m>g(n,p).
+\]
+
+Thus high prediction error without detectable operation structure cannot force language growth. This screen is heuristic and multiplicity-aware; it is **not** a p-value and does not replace the full permutation calibration.
+
+## 4. Generated executable languages
+
+The finite current Query grammar can instantiate:
+
+- `RATIONAL`: numerator/denominator response with reciprocal structure;
+- `EXPONENTIAL`: finite `exp(±s z)` features;
+- `LOGARITHMIC`: signed `log1p` / `log1p(z^2)` response;
+- `PERIODIC`: finite Fourier `sin/cos` features;
+- `PIECEWISE`: fold-local hinge/threshold features;
+- `KERNEL`: radial features around deterministic training-fold centres;
+- `LATENT`: training-fold low-rank projection followed by finite composition.
+
+These names describe executable representations, not named laws and not an exhaustive ontology of mathematics. The complete Query tranche remains finite (`10…100` structural hypotheses); polynomial candidates are evaluated first and born languages use only remaining tranche capacity.
+
+All data-dependent transforms are fold-local. Standardization, thresholds, RBF centres and latent bases are learned only on the training fold. For rational candidates an unsafe near-zero fitted denominator makes the prediction undefined; Atlas fails closed rather than clipping it into an apparently valid model.
+
+## 5. Dynamic whole-procedure permutation null
+
+Because the hypothesis set may now depend on residual structure, denote the complete generated surface by
+
+\[
+\mathcal H(y).
+\]
+
+The observed statistic is
+
+\[
+T_{obs}=\min_{h\in\mathcal H(y)}\widehat R_h(y).
+\]
+
+For each admissible permutation `b`, Atlas repeats the complete adaptive procedure:
+
+\[
+y^{(b)}\rightarrow\mathcal H(y^{(b)})\rightarrow
+T_b=\min_{h\in\mathcal H(y^{(b)})}\widehat R_h(y^{(b)}).
+\]
+
+The familywise empirical probability remains
+
+\[
+p_{FW}=\frac{1+\#\{b:T_b\le T_{obs}\}}{B+1}.
+\]
+
+It is therefore invalid to birth a language once on the observed target and then permute only coefficients. Polynomial fitting, OOF residual diagnosis, optional birth and complete born-surface fitting are all replayed under every permutation. Grouped datasets retain their explicitly declared exchangeability scheme.
+
+## 6. Selection and scientific boundary
+
+The selected CV score ranks hypotheses on the supplied table but is not an unbiased post-selection estimate of generalization. Independent sealed regimes, independent systems or prospective observations remain necessary for stronger claims. Function-language birth changes the representation layer; it cannot by itself advance WORLD/U5.
+
+## 7. Qualification controls
+
+Current deterministic controls record:
+
+\[
+R_{periodic,poly}=0.9664343038,\qquad R_{periodic,born}=0.1318549809,
+\]
+
+an OOF reduction of about `86.36%`, and
+
+\[
+R_{kernel,poly}=0.8005488276,\qquad R_{kernel,born}=0.3230947799,
+\]
+
+an OOF reduction of about `59.64%`.
+
+The pre-existing four-Π viscoelastic-memory polynomial control remains unchanged: `CV NRMSE=0.0177840974`, no language is born, and the established 45-hypothesis polynomial surface is preserved.
+
+For pure noise,
+
+\[
+s_{max}=0.1487225326<g=0.2067586902,
+\]
+
+so no language is born despite baseline NRMSE near one. The permutation qualification separately verifies that the data-dependent birth procedure is replayed inside every null permutation.
+
+## 8. Current scientific status
+
+These controls establish executable representation sensitivity and false-birth protection only. They do not establish mathematical novelty, universal optimizer superiority, a physical law or real-world replication. The active census remains `4106` frontier candidates, `447` U4 hypotheses and `U5=0`; incomplete world measurements remain `UNKNOWN`, not false.

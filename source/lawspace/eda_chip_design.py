@@ -21,14 +21,14 @@ from typing import Any, Callable, Mapping, Sequence
 import numpy as np
 from scipy.stats import norm, qmc
 
-from .query_research import QueryDrivenResearchOwner, _poly_design
+from .query_research import QueryDrivenResearchOwner, predict_function_hypothesis
 from .schema import digest_payload
 
 OWNER_ID = "EDA-CHIP-DESIGN-RESEARCH/1.0.0"
 ZERO_DIMENSION = (0, 0, 0, 0, 0, 0, 0)
 # Frozen external-world revision used by the shipped GitHub Actions pilot.
 # The owner can also be pointed at another explicit ORFS checkout in a later,
-# separately frozen experiment, but 15.26.0 never calls moving master itself.
+# separately frozen experiment, but 0.15.27.0 never calls moving master itself.
 ORFS_WORKFLOW_COMMIT = "be0dca0b1fd41df54792b3012350cd52bccd99bb"
 
 # Small first-pilot surface.  All knobs are documented ORFS variables and are
@@ -326,12 +326,21 @@ def _predict_atlas(observed: Sequence[Mapping[str, Any]], pool: Sequence[Mapping
         novelty = np.min(np.linalg.norm(xp[:, None, :] - xo[None, :, :], axis=2), axis=1)
         return int(np.argmax(novelty)), {"status": "ATLAS_GEOMETRIC_FALLBACK", "query_digest": fit.get("digest")}
     h = hypotheses[0]
-    coords = [int(i) for i in h["coordinate_indices"]]
-    xp = np.vstack([_vector(c) for c in pool])[:, coords]
-    mu = np.asarray(h["standardization"]["mean"], float)
-    scale = np.asarray(h["standardization"]["scale"], float)
-    z = (xp - mu) / scale
-    pred = _poly_design(z, h["monomial_exponents"]) @ np.asarray(h["coefficients"], float)
+    xp_all = np.vstack([_vector(c) for c in pool])
+    try:
+        pred = predict_function_hypothesis(h, xp_all)
+    except Exception:
+        # A born language may be undefined at an extrapolation point (for
+        # example a rational denominator near zero).  Acquisition must fail
+        # closed to geometry, not silently reinterpret that model.
+        xo = x
+        novelty = np.min(np.linalg.norm(xp_all[:, None, :] - xo[None, :, :], axis=2), axis=1)
+        return int(np.argmax(novelty)), {
+            "status": "ATLAS_GEOMETRIC_FALLBACK_LANGUAGE_UNDEFINED",
+            "query_digest": fit.get("digest"),
+            "rank1_signature": h.get("signature"),
+            "rank1_function_family": h.get("function_family"),
+        }
     xo = x
     novelty = np.min(np.linalg.norm(np.vstack([_vector(c) for c in pool])[:, None, :] - xo[None, :, :], axis=2), axis=1)
     acquisition = pred - 0.20 * novelty
@@ -342,6 +351,8 @@ def _predict_atlas(observed: Sequence[Mapping[str, Any]], pool: Sequence[Mapping
         "rank1_signature": h.get("signature"),
         "rank1_cv_nrmse": h.get("cross_validated_nrmse"),
         "rank1_degree": h.get("polynomial_degree"),
+        "rank1_function_family": h.get("function_family"),
+        "rank1_language_origin": h.get("language_origin"),
         "rank1_coordinates": h.get("coordinate_indices"),
         "exploration_weight": 0.20,
     }

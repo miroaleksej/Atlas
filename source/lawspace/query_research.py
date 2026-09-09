@@ -15,8 +15,9 @@ import numpy as np
 from source.phi_compiler_owner import _fraction_nullspace
 from .schema import digest_payload
 from .dimensional_law_birth import collapse_score
+from .mathematical_invention import FunctionLanguageBirthEngine
 
-OWNER_ID = "QUERY-DRIVEN-RESEARCH/1.1.0"
+OWNER_ID = "QUERY-DRIVEN-RESEARCH/1.2.0"
 BASIS=("L","M","T","I","Theta","N","J")
 
 
@@ -116,9 +117,220 @@ def _fit_polynomial_cv(pi_matrix: np.ndarray, y: np.ndarray, coordinate_indices:
         "coordinate_indices":list(coords),"polynomial_degree":int(degree),"term_count":int(ncoef),
         "cross_validated_nrmse":float(nrmse),"cross_validated_r2":r2,"oof_rmse":rmse,
         "minimum_fold_rank":min(ranks) if ranks else None,"full_fit_rank":int(rank),
+        "_oof_predictions":[float(v) for v in oof],
         "standardization":{"mean":[float(v) for v in mu],"scale":[float(v) for v in sigma]},
         "monomial_exponents":[list(e) for e in exps],"coefficients":[float(v) for v in beta],
     }
+
+
+def _ridge_solve(X: np.ndarray, y: np.ndarray, ridge: float = 1e-8) -> tuple[np.ndarray,int]:
+    X=np.asarray(X,float); y=np.asarray(y,float)
+    if X.ndim!=2 or len(X)!=len(y): raise ValueError("invalid ridge design")
+    reg=np.eye(X.shape[1],dtype=float)*float(ridge)
+    if X.shape[1]: reg[0,0]=0.0
+    try:
+        beta=np.linalg.solve(X.T@X+reg,X.T@y)
+    except np.linalg.LinAlgError:
+        beta=np.linalg.lstsq(X,y,rcond=None)[0]
+    return beta,int(np.linalg.matrix_rank(X))
+
+
+def _standardize_fit(x: np.ndarray) -> tuple[np.ndarray,np.ndarray,np.ndarray]:
+    x=np.asarray(x,float)
+    mu=np.mean(x,axis=0); scale=np.std(x,axis=0)
+    if np.any(~np.isfinite(mu)) or np.any(~np.isfinite(scale)) or np.any(scale<=1e-14):
+        raise ValueError("degenerate coordinate scale")
+    return (x-mu)/scale,mu,scale
+
+
+def _linear_language_design_train(z: np.ndarray, family: str, variant: Mapping[str,Any]) -> tuple[np.ndarray,Mapping[str,Any]]:
+    z=np.asarray(z,float); n,p=z.shape; cols=[np.ones(n,float)]
+    state: dict[str,Any]={"family":str(family),"variant":dict(variant)}
+    if family=="EXPONENTIAL":
+        scale=float(variant.get("scale",1.0)); cols.extend(z[:,j] for j in range(p))
+        for j in range(p):
+            q=np.clip(scale*z[:,j],-4.0,4.0); cols.extend((np.exp(q),np.exp(-q)))
+    elif family=="LOGARITHMIC":
+        scale=float(variant.get("scale",1.0)); cols.extend(z[:,j] for j in range(p))
+        for j in range(p):
+            q=z[:,j]; cols.extend((np.sign(q)*np.log1p(scale*np.abs(q)),np.log1p(scale*q*q)))
+    elif family=="PERIODIC":
+        max_frequency=int(variant.get("max_frequency",2)); cols.extend(z[:,j] for j in range(p))
+        for j in range(p):
+            for w in range(1,max_frequency+1): cols.extend((np.sin(w*z[:,j]),np.cos(w*z[:,j])))
+    elif family=="PIECEWISE":
+        qs=tuple(float(q) for q in variant.get("quantiles",(0.33,0.67)))
+        thresholds=[]; cols.extend(z[:,j] for j in range(p))
+        for j in range(p):
+            th=[float(v) for v in np.quantile(z[:,j],qs)]; thresholds.append(th)
+            for t in th: cols.append(np.maximum(0.0,z[:,j]-t))
+        state["thresholds"]=thresholds
+    elif family=="KERNEL":
+        gamma=float(variant.get("gamma",1.0)); max_centers=int(variant.get("max_centers",8))
+        k=max(2,min(max_centers,max(2,n//4),n))
+        first=int(np.argmin(np.sum((z-np.mean(z,axis=0))**2,axis=1))); chosen=[first]
+        while len(chosen)<k:
+            d2=np.min(np.sum((z[:,None,:]-z[np.asarray(chosen)][None,:,:])**2,axis=2),axis=1)
+            d2[np.asarray(chosen)]=-1.0; nxt=int(np.argmax(d2))
+            if nxt in chosen: break
+            chosen.append(nxt)
+        centers=z[np.asarray(chosen)]
+        cols.extend(z[:,j] for j in range(p))
+        d2=np.sum((z[:,None,:]-centers[None,:,:])**2,axis=2)
+        cols.extend(np.exp(-gamma*d2[:,j]) for j in range(d2.shape[1]))
+        state["centers"]=[[float(v) for v in row] for row in centers]; state["gamma"]=gamma
+    elif family=="LATENT":
+        k=max(1,min(int(variant.get("components",1)),p)); degree=int(variant.get("degree",2))
+        _,_,vt=np.linalg.svd(z,full_matrices=False); components=vt[:k]
+        latent=z@components.T; exps=_monomial_exponents(k,degree)
+        for exp in exps:
+            col=np.ones(n,float)
+            for j,pow_ in enumerate(exp):
+                if int(pow_): col*=latent[:,j]**int(pow_)
+            cols.append(col)
+        state["components"]=[[float(v) for v in row] for row in components]
+        state["latent_exponents"]=[list(e) for e in exps]
+    else:
+        raise ValueError(f"unsupported linear language family {family}")
+    return np.column_stack(cols),state
+
+
+def _linear_language_design_predict(z: np.ndarray, state: Mapping[str,Any]) -> np.ndarray:
+    z=np.asarray(z,float); n,p=z.shape; family=str(state["family"]); variant=dict(state.get("variant",{})); cols=[np.ones(n,float)]
+    if family=="EXPONENTIAL":
+        scale=float(variant.get("scale",1.0)); cols.extend(z[:,j] for j in range(p))
+        for j in range(p):
+            q=np.clip(scale*z[:,j],-4.0,4.0); cols.extend((np.exp(q),np.exp(-q)))
+    elif family=="LOGARITHMIC":
+        scale=float(variant.get("scale",1.0)); cols.extend(z[:,j] for j in range(p))
+        for j in range(p):
+            q=z[:,j]; cols.extend((np.sign(q)*np.log1p(scale*np.abs(q)),np.log1p(scale*q*q)))
+    elif family=="PERIODIC":
+        max_frequency=int(variant.get("max_frequency",2)); cols.extend(z[:,j] for j in range(p))
+        for j in range(p):
+            for w in range(1,max_frequency+1): cols.extend((np.sin(w*z[:,j]),np.cos(w*z[:,j])))
+    elif family=="PIECEWISE":
+        cols.extend(z[:,j] for j in range(p)); thresholds=state.get("thresholds",[])
+        for j in range(p):
+            for t in thresholds[j]: cols.append(np.maximum(0.0,z[:,j]-float(t)))
+    elif family=="KERNEL":
+        centers=np.asarray(state.get("centers",[]),float); gamma=float(state.get("gamma",1.0)); cols.extend(z[:,j] for j in range(p))
+        d2=np.sum((z[:,None,:]-centers[None,:,:])**2,axis=2)
+        cols.extend(np.exp(-gamma*d2[:,j]) for j in range(d2.shape[1]))
+    elif family=="LATENT":
+        components=np.asarray(state.get("components",[]),float); latent=z@components.T
+        for exp in state.get("latent_exponents",[]):
+            col=np.ones(n,float)
+            for j,pow_ in enumerate(exp):
+                if int(pow_): col*=latent[:,j]**int(pow_)
+            cols.append(col)
+    else:
+        raise ValueError(f"unsupported linear language family {family}")
+    return np.column_stack(cols)
+
+
+def _fit_language_model(x: np.ndarray, y: np.ndarray, family: str, variant: Mapping[str,Any]) -> Mapping[str,Any] | None:
+    x=np.asarray(x,float); y=np.asarray(y,float)
+    try: z,mu,scale=_standardize_fit(x)
+    except ValueError: return None
+    ridge=float(variant.get("ridge",1e-6))
+    if family=="RATIONAL":
+        num_degree=int(variant.get("numerator_degree",1)); exps=_monomial_exponents(z.shape[1],num_degree)
+        P=_poly_design(z,exps); Q=z
+        A=np.column_stack((P,-y[:,None]*Q))
+        if len(y)<=A.shape[1]+2: return None
+        beta,rank=_ridge_solve(A,y,ridge)
+        pc=beta[:P.shape[1]]; qc=beta[P.shape[1]:]
+        state={"family":family,"variant":dict(variant),"mean":[float(v) for v in mu],"scale":[float(v) for v in scale],
+               "numerator_exponents":[list(e) for e in exps],"numerator_coefficients":[float(v) for v in pc],
+               "denominator_coefficients":[float(v) for v in qc]}
+        pred=_predict_language_model(x,state)
+        if pred is None or np.any(~np.isfinite(pred)): return None
+        return {"model_state":state,"rank":rank,"term_count":int(len(beta))}
+    try: X,state0=_linear_language_design_train(z,family,variant)
+    except Exception: return None
+    if len(y)<=X.shape[1]+2: return None
+    beta,rank=_ridge_solve(X,y,ridge)
+    state={**dict(state0),"mean":[float(v) for v in mu],"scale":[float(v) for v in scale],"coefficients":[float(v) for v in beta]}
+    pred=_predict_language_model(x,state)
+    if pred is None or np.any(~np.isfinite(pred)): return None
+    return {"model_state":state,"rank":rank,"term_count":int(X.shape[1])}
+
+
+def _predict_language_model(x: np.ndarray, state: Mapping[str,Any]) -> np.ndarray | None:
+    x=np.asarray(x,float); mu=np.asarray(state["mean"],float); scale=np.asarray(state["scale"],float); z=(x-mu)/scale
+    family=str(state["family"])
+    if family=="RATIONAL":
+        exps=state.get("numerator_exponents",[]); P=_poly_design(z,exps); pc=np.asarray(state["numerator_coefficients"],float); qc=np.asarray(state["denominator_coefficients"],float)
+        denom=1.0+z@qc
+        if np.any(np.abs(denom)<0.05): return None
+        return (P@pc)/denom
+    X=_linear_language_design_predict(z,state); return X@np.asarray(state["coefficients"],float)
+
+
+def _fit_born_language_cv(pi_matrix: np.ndarray, y: np.ndarray, coordinate_indices: Sequence[int], family: str,
+                           variant: Mapping[str,Any], folds: Sequence[np.ndarray]) -> Mapping[str,Any] | None:
+    coords=tuple(int(i) for i in coordinate_indices); x=np.asarray(pi_matrix[:,coords],float); y=np.asarray(y,float)
+    if x.ndim==1:x=x[:,None]
+    oof=np.full(len(y),np.nan,float); ranks=[]; all_idx=np.arange(len(y))
+    for val_idx in folds:
+        train_idx=np.setdiff1d(all_idx,np.asarray(val_idx,int),assume_unique=False)
+        fit=_fit_language_model(x[train_idx],y[train_idx],family,variant)
+        if fit is None:return None
+        pred=_predict_language_model(x[np.asarray(val_idx,int)],fit["model_state"])
+        if pred is None or np.any(~np.isfinite(pred)):return None
+        oof[np.asarray(val_idx,int)]=pred; ranks.append(int(fit["rank"]))
+    denom=float(np.std(y))
+    if denom<=1e-14 or np.any(~np.isfinite(oof)): return None
+    rmse=float(np.sqrt(np.mean((oof-y)**2))); nrmse=rmse/denom
+    ss_res=float(np.sum((oof-y)**2)); ss_tot=float(np.sum((y-np.mean(y))**2)); r2=float(1.0-ss_res/ss_tot) if ss_tot>0 else None
+    full=_fit_language_model(x,y,family,variant)
+    if full is None:return None
+    return {"coordinate_indices":list(coords),"function_family":family,"family_variant":dict(variant),"term_count":int(full["term_count"]),
+            "cross_validated_nrmse":float(nrmse),"cross_validated_r2":r2,"oof_rmse":rmse,"minimum_fold_rank":min(ranks) if ranks else None,
+            "full_fit_rank":int(full["rank"]),"model_state":full["model_state"],"_oof_predictions":[float(v) for v in oof]}
+
+
+def predict_function_hypothesis(hypothesis: Mapping[str,Any], pi_matrix: Sequence[Sequence[float]]) -> np.ndarray:
+    """Predict a fitted Query function-form hypothesis on a Pi matrix."""
+    arr=np.asarray(pi_matrix,float); coords=[int(i) for i in hypothesis.get("coordinate_indices",[])]
+    x=arr[:,coords] if coords else arr
+    family=str(hypothesis.get("function_family",""))
+    if family=="STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL":
+        mu=np.asarray(hypothesis["standardization"]["mean"],float); scale=np.asarray(hypothesis["standardization"]["scale"],float); z=(x-mu)/scale
+        return _poly_design(z,hypothesis["monomial_exponents"])@np.asarray(hypothesis["coefficients"],float)
+    pred=_predict_language_model(x,hypothesis["model_state"])
+    if pred is None: raise ValueError("function-language hypothesis is undefined on requested coordinates")
+    return np.asarray(pred,float)
+
+
+def _language_variants(family: str, coord_count: int) -> tuple[Mapping[str,Any],...]:
+    if family=="RATIONAL": return ({"numerator_degree":1,"ridge":1e-6},{"numerator_degree":2,"ridge":1e-5})
+    if family=="EXPONENTIAL": return ({"scale":0.5,"ridge":1e-5},{"scale":1.0,"ridge":1e-5},{"scale":2.0,"ridge":1e-4})
+    if family=="LOGARITHMIC": return ({"scale":0.5,"ridge":1e-6},{"scale":1.0,"ridge":1e-6},{"scale":2.0,"ridge":1e-5})
+    if family=="PERIODIC": return ({"max_frequency":1,"ridge":1e-5},{"max_frequency":2,"ridge":1e-5},{"max_frequency":3,"ridge":1e-4})
+    if family=="PIECEWISE": return ({"quantiles":[0.5],"ridge":1e-5},{"quantiles":[0.33,0.67],"ridge":1e-5},{"quantiles":[0.25,0.5,0.75],"ridge":1e-4})
+    if family=="KERNEL": return ({"gamma":0.35,"max_centers":12,"ridge":1e-4},{"gamma":0.8,"max_centers":18,"ridge":1e-4},{"gamma":1.6,"max_centers":24,"ridge":1e-3})
+    if family=="LATENT":
+        ks=tuple(range(1,min(3,int(coord_count))+1)); return tuple({"components":k,"degree":2,"ridge":1e-5} for k in ks)
+    return ()
+
+
+def _born_specs(receipt: Mapping[str,Any], p: int, remaining_budget: int) -> tuple[tuple[str,tuple[int,...],Mapping[str,Any],str],...]:
+    out=[]; full=tuple(range(int(p)))
+    for lang in receipt.get("generated_languages",[]):
+        family=str(lang.get("family","")); pref=[int(i) for i in lang.get("coordinate_preference",[]) if 0<=int(i)<int(p)]
+        coordsets=[full]
+        if pref: coordsets.append((pref[0],))
+        if len(pref)>=2: coordsets.append(tuple(sorted(pref[:2])))
+        seen=[]
+        for c in coordsets:
+            if c not in seen: seen.append(c)
+        for coords in seen:
+            for variant in _language_variants(family,len(coords)):
+                out.append((family,tuple(coords),dict(variant),str(lang.get("language_id",""))))
+                if len(out)>=int(remaining_budget): return tuple(out)
+    return tuple(out)
 
 
 def _function_specs(nullity: int, *, hypothesis_budget: int = 100) -> tuple[tuple[tuple[int,...],int], ...]:
@@ -242,16 +454,29 @@ class QueryDrivenResearchOwner:
                               axis_names: Sequence[str] | None = None, question: str | None = None,
                               return_limit: int = 25, hypothesis_budget: int = 100,
                               group_ids: Sequence[str] | None = None,
-                              permutation_count: int = 0, permutation_seed: int = 0) -> Mapping[str,Any]:
+                              permutation_count: int = 0, permutation_seed: int = 0,
+                              function_language_birth: bool = True,
+                              language_birth_nrmse: float = 0.08) -> Mapping[str,Any]:
         """Search F(Pi_1,...,Pi_p) on one exact Buckingham manifold (p>1).
 
-        The dimensional kernel is frozen before fitting.  Structural hypotheses are
-        low-order polynomial response surfaces over subsets of the exact Pi basis.
-        The complete requested structural tranche is refit under every target
-        permutation, so shortlist size is never used as the multiplicity budget.
+        The dimensional kernel is frozen before fitting.  Query mode first
+        evaluates its existing polynomial grammar.  If that grammar leaves a
+        persistent out-of-fold residual, the *existing* Mathematical Invention
+        Kernel diagnoses operation classes that could distinguish the residual
+        and births a finite function-language tranche (rational, exponential,
+        logarithmic, periodic, piecewise, kernel-local or latent-projection
+        signatures).  No new scientific axis is created by this step.
+
+        The requested ``hypothesis_budget`` is the complete finite tranche for
+        this query, not a global Atlas-space ceiling.  Every target permutation
+        replays polynomial fitting, residual diagnosis, language birth and all
+        fits, so data-dependent language creation is included in the familywise
+        null rather than treated as free post-selection.
         """
         if not (10 <= int(return_limit) <= 100):
             raise ValueError("return_limit must be in [10,100]")
+        if not (10 <= int(hypothesis_budget) <= 100):
+            raise ValueError("hypothesis_budget must be in [10,100]")
         obs={str(k):np.asarray(v,float) for k,v in observations.items()}
         if target_name not in obs: raise ValueError("target_name missing")
         lengths={len(v) for v in obs.values()}
@@ -267,13 +492,12 @@ class QueryDrivenResearchOwner:
         matrix=[[Fraction(int(dimensions[name][i])) for name in features] for i in range(7)]
         ns=_fraction_nullspace(matrix); p=len(ns)
         if p<=1:
-            core={"schema":"phi-query-function-form/v1","owner":OWNER_ID,
+            core={"schema":"phi-query-function-form/v2","owner":OWNER_ID,
                   "status":"FUNCTION_FORM_LANE_REQUIRES_P_GT_1","question":question,"target_name":target_name,
                   "axis_names":features,"row_count":int(n),"nullity":int(p),"hypotheses":[],
                   "claim_boundary":{"law_established":False,"function_form_established":False}}
             return {**core,"digest":digest_payload(core)}
         groups=[_canon(v,features) for v in ns]
-        # Deterministic basis certificate from the exact rational authority.
         pi_columns=[]; basis_rows=[]
         for j,g in enumerate(groups):
             arr=_coordinate(g,obs)
@@ -288,27 +512,64 @@ class QueryDrivenResearchOwner:
         pi_matrix=pi_matrix[finite]; y=y[finite]
         gids=None if group_ids is None else [str(group_ids[i]) for i in np.flatnonzero(finite)]
         foldset=_folds(len(y),gids)
-        specs=_function_specs(p,hypothesis_budget=int(hypothesis_budget))
-        fitted=[]
-        for coords,degree in specs:
-            row=_fit_polynomial_cv(pi_matrix,y,coords,degree,foldset)
-            if row is None: continue
-            row.update({"representation":"TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-                        "function_family":"STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
-                        "coordinate_formulas":[basis_rows[i]["formula"] for i in coords],
-                        "candidate_equation":f"{target_name} = F_deg{degree}("+", ".join(f"Pi_{i+1}" for i in coords)+")",
-                        "nullity":int(p)})
-            row["signature"]=digest_payload({"basis":basis_rows,"coords":list(coords),"degree":int(degree),"target":target_name})
-            fitted.append(row)
-        fitted.sort(key=lambda r:(r["cross_validated_nrmse"],r["term_count"],r["polynomial_degree"],r["coordinate_indices"],r["signature"]))
+        total_budget=int(hypothesis_budget)
+        # Reserve room for language birth on larger Pi manifolds without changing
+        # the old p=4 surface (which has only 45 polynomial specifications).
+        polynomial_budget=min(total_budget,60)
+        poly_specs=_function_specs(p,hypothesis_budget=max(10,polynomial_budget))
+        birth_engine=FunctionLanguageBirthEngine()
+
+        def fit_surface(target: np.ndarray) -> tuple[list[dict[str,Any]],Mapping[str,Any],int,int]:
+            fitted: list[dict[str,Any]]=[]
+            for coords,degree in poly_specs:
+                row=_fit_polynomial_cv(pi_matrix,target,coords,degree,foldset)
+                if row is None: continue
+                row.update({"representation":"TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
+                            "function_family":"STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+                            "coordinate_formulas":[basis_rows[i]["formula"] for i in coords],
+                            "candidate_equation":f"{target_name} = F_deg{degree}("+", ".join(f"Pi_{i+1}" for i in coords)+")",
+                            "nullity":int(p),"language_origin":"CURRENT_QUERY_GRAMMAR"})
+                row["signature"]=digest_payload({"basis":basis_rows,"coords":list(coords),"degree":int(degree),"target":target_name,"family":"POLYNOMIAL"})
+                fitted.append(row)
+            fitted.sort(key=lambda r:(r["cross_validated_nrmse"],r["term_count"],r.get("polynomial_degree",99),r["coordinate_indices"],r["signature"]))
+            best_poly=next((r for r in fitted if r.get("function_family")=="STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL"),None)
+            if best_poly is None:
+                birth={"schema":"phi-mathematical-invention-kernel/v1","component":"FUNCTION-LANGUAGE-BIRTH","status":"NO_LANGUAGE_BIRTH_NO_VALID_BASELINE",
+                       "generated_languages":[],"claim_boundary":{"function_language_established":False,"world_law_established":False}}
+                birth={**birth,"digest":digest_payload(birth)}
+                born_specs=()
+            else:
+                residual=np.asarray(target,float)-np.asarray(best_poly.get("_oof_predictions",[]),float)
+                if bool(function_language_birth):
+                    birth=birth_engine.diagnose(coordinates=pi_matrix,residuals=residual,
+                                                baseline_nrmse=float(best_poly["cross_validated_nrmse"]),
+                                                minimum_birth_nrmse=float(language_birth_nrmse))
+                else:
+                    birth={"schema":"phi-mathematical-invention-kernel/v1","component":"FUNCTION-LANGUAGE-BIRTH","status":"FUNCTION_LANGUAGE_BIRTH_DISABLED_BY_QUERY",
+                           "baseline_cross_validated_nrmse":float(best_poly["cross_validated_nrmse"]),"generated_languages":[],
+                           "claim_boundary":{"function_language_established":False,"world_law_established":False}}
+                    birth={**birth,"digest":digest_payload(birth)}
+                remaining=max(0,total_budget-len(poly_specs))
+                born_specs=_born_specs(birth,p,remaining)
+            for family,coords,variant,language_id in born_specs:
+                row=_fit_born_language_cv(pi_matrix,target,coords,family,variant,foldset)
+                if row is None: continue
+                row.update({"representation":"TARGET_AS_GENERATED_FUNCTION_LANGUAGE_OF_PI_VECTOR",
+                            "coordinate_formulas":[basis_rows[i]["formula"] for i in coords],
+                            "candidate_equation":f"{target_name} = {language_id}("+", ".join(f"Pi_{i+1}" for i in coords)+")",
+                            "nullity":int(p),"language_origin":"RESIDUAL_DRIVEN_MATHEMATICAL_INVENTION",
+                            "language_id":language_id})
+                row["signature"]=digest_payload({"basis":basis_rows,"coords":list(coords),"family":family,"variant":variant,"target":target_name,"language_id":language_id})
+                fitted.append(row)
+            fitted.sort(key=lambda r:(r["cross_validated_nrmse"],r["term_count"],str(r.get("function_family")),r["coordinate_indices"],r["signature"]))
+            return fitted,birth,len(poly_specs),len(born_specs)
+
+        fitted,language_birth,poly_examined,born_examined=fit_surface(y)
         for i,row in enumerate(fitted,1): row["rank"]=i
         observed_best=min((r["cross_validated_nrmse"] for r in fitted),default=math.inf)
         null_summary=None
         if int(permutation_count)>0:
-            rng=np.random.default_rng(int(permutation_seed)); best=[]
-            # Exchangeability must respect the experimental validation structure.
-            # When group ids are supplied, rows are permuted only within each group;
-            # otherwise the observations are treated as one exchangeability block.
+            rng=np.random.default_rng(int(permutation_seed)); best=[]; replay_counts=[]; replay_birth_counts=[]
             group_arrays=None
             if gids is not None:
                 gid_arr=np.asarray(gids,dtype=object)
@@ -318,57 +579,63 @@ class QueryDrivenResearchOwner:
                     yp=rng.permutation(y)
                 else:
                     yp=np.asarray(y,float).copy()
-                    for idx in group_arrays:
-                        yp[idx]=rng.permutation(y[idx])
-                vals=[]
-                for coords,degree in specs:
-                    row=_fit_polynomial_cv(pi_matrix,yp,coords,degree,foldset)
-                    if row is not None and np.isfinite(row["cross_validated_nrmse"]):
-                        vals.append(float(row["cross_validated_nrmse"]))
-                best.append(min(vals) if vals else math.inf)
+                    for idx in group_arrays: yp[idx]=rng.permutation(y[idx])
+                pf,birth_b,px,bx=fit_surface(yp)
+                vals=[float(row["cross_validated_nrmse"]) for row in pf if np.isfinite(row["cross_validated_nrmse"])]
+                best.append(min(vals) if vals else math.inf); replay_counts.append(int(px+bx)); replay_birth_counts.append(int(bx))
             finite_null=np.asarray([x for x in best if np.isfinite(x)],float)
             resolution=1.0/(1.0+int(permutation_count))
             empirical_p=(1.0+float(np.sum(finite_null<=observed_best)))/(1.0+len(finite_null)) if len(finite_null) else None
-            if resolution>0.05:
-                null_status="INSUFFICIENT_NULL_RESOLUTION"
-            elif empirical_p is not None and empirical_p<=0.05:
-                null_status="PASS_FAMILYWISE_PERMUTATION_NULL"
-            else:
-                null_status="NOT_REJECTED_BY_FAMILYWISE_PERMUTATION_NULL"
+            if resolution>0.05: null_status="INSUFFICIENT_NULL_RESOLUTION"
+            elif empirical_p is not None and empirical_p<=0.05: null_status="PASS_FAMILYWISE_PERMUTATION_NULL"
+            else: null_status="NOT_REJECTED_BY_FAMILYWISE_PERMUTATION_NULL"
             null_summary={"status":null_status,"permutation_count":int(permutation_count),
                           "minimum_achievable_p":resolution,"entire_function_surface_refit_each_permutation":True,
-                          "structural_hypotheses_replayed_per_permutation":len(specs),
+                          "dynamic_function_language_birth_replayed_each_permutation":True,
+                          "structural_hypotheses_replayed_per_permutation_min":min(replay_counts) if replay_counts else 0,
+                          "structural_hypotheses_replayed_per_permutation_median":float(np.median(replay_counts)) if replay_counts else 0.0,
+                          "structural_hypotheses_replayed_per_permutation_max":max(replay_counts) if replay_counts else 0,
+                          "born_language_hypotheses_replayed_per_permutation_max":max(replay_birth_counts) if replay_birth_counts else 0,
                           "exchangeability_scheme":"WITHIN_VALIDATION_GROUP" if gids is not None else "GLOBAL_ROW_PERMUTATION",
                           "exchangeability_assumption_explicit":True,
                           "observed_best_cross_validated_nrmse":observed_best,
                           "permutation_best_median":float(np.median(finite_null)) if len(finite_null) else None,
                           "familywise_empirical_p":empirical_p}
         target_dim=dimensions.get(target_name)
-        if target_dim is None:
-            target_dimensional_status="UNKNOWN_TARGET_DIMENSION"
-        elif len(target_dim)!=7:
-            raise ValueError(f"target dimension for {target_name} must be 7D when supplied")
-        elif all(int(x)==0 for x in target_dim):
-            target_dimensional_status="DIMENSIONLESS_TARGET"
-        else:
-            target_dimensional_status="DIMENSIONAL_TARGET_REQUIRES_RESPONSE_SCALE_FOR_UNIVERSAL_COLLAPSE"
-        core={"schema":"phi-query-function-form/v1","owner":OWNER_ID,"status":"MULTI_PI_FUNCTION_FORM_SEARCH_COMPLETE",
+        if target_dim is None: target_dimensional_status="UNKNOWN_TARGET_DIMENSION"
+        elif len(target_dim)!=7: raise ValueError(f"target dimension for {target_name} must be 7D when supplied")
+        elif all(int(x)==0 for x in target_dim): target_dimensional_status="DIMENSIONLESS_TARGET"
+        else: target_dimensional_status="DIMENSIONAL_TARGET_REQUIRES_RESPONSE_SCALE_FOR_UNIVERSAL_COLLAPSE"
+
+        # Internal OOF vectors are evidence for language birth, not part of the
+        # public hypothesis contract.  Remove them only after the complete
+        # adaptive surface and permutation null have been generated.
+        public=[]
+        for row in fitted:
+            q=dict(row); q.pop("_oof_predictions",None); public.append(q)
+        core={"schema":"phi-query-function-form/v2","owner":OWNER_ID,"status":"MULTI_PI_FUNCTION_FORM_SEARCH_COMPLETE",
               "question":question,"target_name":target_name,"target_dimensional_status":target_dimensional_status,
               "row_count":int(len(y)),"axis_names":features,
               "dimension_kernel":{"rank":int(len(features)-p),"nullity":int(p),"basis":basis_rows,
                                   "exact_rational_kernel_authority":True,"basis_is_unique_physical_parameterization":False},
               "validation":{"kind":"LEAVE_ONE_GROUP_OUT" if gids is not None else "DETERMINISTIC_K_FOLD",
                             "fold_count":len(foldset),"group_count":len(set(gids)) if gids is not None else None},
+              "function_language_birth":language_birth,
               "search_surface":{"requested_hypothesis_budget":int(hypothesis_budget),
-                                "structural_hypotheses_examined_total":len(specs),
+                                "baseline_polynomial_hypotheses_examined_total":int(poly_examined),
+                                "born_language_hypotheses_examined_total":int(born_examined),
+                                "generated_language_count":len(language_birth.get("generated_languages",[])),
+                                "structural_hypotheses_examined_total":int(poly_examined+born_examined),
                                 "structural_hypotheses_fit_total":len(fitted),
-                                "surface_exhaustive_for_degree_schedule":len(specs)<int(hypothesis_budget),
+                                "surface_exhaustive_for_generated_query_tranche":int(poly_examined+born_examined)<int(hypothesis_budget),
                                 "finite_query_tranche_is_global_scientific_space_ceiling":False,
                                 "display_limit":int(return_limit),"display_limit_is_search_budget":False},
-              "hypotheses":fitted[:int(return_limit)],"permutation_null":null_summary,
+              "hypotheses":public[:int(return_limit)],"permutation_null":null_summary,
               "claim_boundary":{"candidate_is_confirmed_law":False,"function_family_search_is_complete_over_all_mathematics":False,
                                 "polynomial_surface_is_a_query_grammar_not_primary_atlas_space":True,
-                                "whole_surface_null_replays_displayed_and_undisplayed_hypotheses":True,
+                                "function_language_birth_changes_coordinates":False,
+                                "function_language_birth_is_world_mathematical_novelty_claim":False,
+                                "whole_surface_null_replays_dynamic_language_birth":True,
                                 "selected_cv_score_is_unbiased_post_selection_generalization_estimate":False,
                                 "dimensionally_universal_response_claim_requires_dimensionless_or_scaled_target":True,
                                 "independent_world_replication_still_required":True}}

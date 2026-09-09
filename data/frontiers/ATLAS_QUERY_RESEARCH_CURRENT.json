@@ -1,14 +1,20 @@
 {
   "acceptance": {
     "expected_unhinted_top_formula": "k * D^-1 * L^2",
+    "function_language_birth_qualification_pass": true,
+    "multi_pi_polynomial_control_preserved": true,
     "observed_top_collapse": 0.10592855862962716,
     "observed_top_formula": "k * D^-1 * L^2",
     "pass": true
   },
   "claim_boundary": {
+    "dynamic_language_birth_is_inside_familywise_null": true,
+    "function_language_birth_exhausts_all_function_spaces": false,
+    "function_language_birth_is_new_world_mathematics": false,
     "multi_pi_synthetic_control_is_new_law": false,
     "partial_world_sources_establish_u5": false,
     "query_mode_replaces_discovery_frontier": false,
+    "query_receipt_bound_to_current_candidate_ledger": true,
     "return_limit_reduces_multiplicity": false,
     "synthetic_control_is_new_law": false,
     "world_data_gap_is_candidate_falsification": false
@@ -136,7 +142,7 @@
     ],
     "status": "EXACT_KERNELS_REPRODUCED"
   },
-  "digest": "ecd07d982ab18089f3812caadd5f451b357b9b1d51554c2675ad407964d6be0c",
+  "digest": "3d318c014bdd8487add1853bb81b39cf2db9721f828fa8afeec20fef69d0273c",
   "dimensional_scalar_law_census_summary": {
     "no_dimensionful_quantity_projection_count": 2070,
     "p0_count": 96,
@@ -149,6 +155,38 @@
     "unique_pi_signature_count": 14,
     "with_at_least_two_dimensionful_quantities": 1542,
     "with_dimensionful_quantity_projection": 1636
+  },
+  "function_language_birth_qualification": {
+    "checks": {
+      "claim_boundary_remains_non_world": true,
+      "dynamic_language_birth_is_inside_permutation_null": true,
+      "kernel_language_materially_improves_oof_prediction": true,
+      "local_joint_residual_births_kernel_language": true,
+      "noise_control_does_not_force_language_birth": true,
+      "periodic_language_materially_improves_oof_prediction": true,
+      "periodic_residual_births_periodic_operation_language": true,
+      "polynomial_control_preserves_current_language": true
+    },
+    "claim_boundary": {
+      "function_language_search_exhausts_all_mathematics": false,
+      "real_world_replication_established": false,
+      "synthetic_controls_are_world_laws": false,
+      "universal_optimizer_superiority_established": false
+    },
+    "digest": "ab29b1b886a4e1da4a3489c2c60f267856d700f3bec959bc791f3c686ed74a81",
+    "metrics": {
+      "kernel_born_language_nrmse": 0.32309477987480417,
+      "kernel_improvement_fraction": 0.596408402930271,
+      "kernel_polynomial_nrmse": 0.8005488276282985,
+      "noise_effective_signal_gate": 0.2067586901624507,
+      "noise_max_operation_signal": 0.1487225325513934,
+      "periodic_born_language_nrmse": 0.13185498087522118,
+      "periodic_improvement_fraction": 0.8635655001510183,
+      "periodic_polynomial_nrmse": 0.9664343037953776
+    },
+    "owner": "PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0::FUNCTION-LANGUAGE-BIRTH",
+    "schema": "phi-function-language-birth-qualification/v1",
+    "status": "PASS_FUNCTION_LANGUAGE_BIRTH_QUALIFICATION"
   },
   "multi_pi_function_form_control": {
     "axis_names": [
@@ -164,12 +202,14 @@
       "candidate_is_confirmed_law": false,
       "dimensionally_universal_response_claim_requires_dimensionless_or_scaled_target": true,
       "function_family_search_is_complete_over_all_mathematics": false,
+      "function_language_birth_changes_coordinates": false,
+      "function_language_birth_is_world_mathematical_novelty_claim": false,
       "independent_world_replication_still_required": true,
       "polynomial_surface_is_a_query_grammar_not_primary_atlas_space": true,
       "selected_cv_score_is_unbiased_post_selection_generalization_estimate": false,
-      "whole_surface_null_replays_displayed_and_undisplayed_hypotheses": true
+      "whole_surface_null_replays_dynamic_language_birth": true
     },
-    "digest": "6c5122d92b7a41d522df790c5b3e3bf99f2f14b5ac76754d801eafdcae4701bf",
+    "digest": "dd8aa65fe70e659ad496608b33872ee8a9ce90912a556a8fca1d6cda712d4667",
     "dimension_kernel": {
       "basis": [
         {
@@ -250,6 +290,32 @@
       "nullity": 4,
       "rank": 3
     },
+    "function_language_birth": {
+      "baseline_cross_validated_nrmse": 0.01778409740297801,
+      "claim_boundary": {
+        "function_language_established": false,
+        "generated_language_is_confirmed_world_law": false,
+        "known_family_name_used_as_novelty_evidence": false,
+        "residual_diagnostics_are_independent_world_replication": false
+      },
+      "component": "FUNCTION-LANGUAGE-BIRTH",
+      "digest": "326856cff8c917d4862cde71c6011f145d46a925e2333266eb0b3e26ca214834",
+      "effective_multiplicity_aware_signal_gate": 0.2067586901624507,
+      "generated_languages": [],
+      "minimum_birth_nrmse": 0.08,
+      "minimum_operation_signal": 0.12,
+      "operation_signal_scores": {
+        "EXPONENTIAL": 0.05654443890187181,
+        "KERNEL": 0.0979968025765275,
+        "LATENT": 0.061530708137848125,
+        "LOGARITHMIC": 0.039212566339121006,
+        "PERIODIC": 0.1441093037149088,
+        "PIECEWISE": 0.10122679381698838,
+        "RATIONAL": 0.058293201033782556
+      },
+      "schema": "phi-mathematical-invention-kernel/v1",
+      "status": "CURRENT_LANGUAGE_RESIDUAL_WITHIN_BIRTH_TOLERANCE"
+    },
     "hypotheses": [
       {
         "candidate_equation": "yield = F_deg2(Pi_1, Pi_2, Pi_3, Pi_4)",
@@ -286,6 +352,7 @@
         "cross_validated_r2": 0.9996837258795613,
         "full_fit_rank": 15,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 15,
         "monomial_exponents": [
           [
@@ -378,7 +445,7 @@
         "polynomial_degree": 2,
         "rank": 1,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "29c0beec7354b2edb57eae36144608e1fe6811cfbb74ddd07a63e724d8c9265c",
+        "signature": "614f5a1e52ef2c37704a5bde7a5f1230695381a75e7b3dea8a22784fc5a08b40",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -450,6 +517,7 @@
         "cross_validated_r2": 0.998929354261429,
         "full_fit_rank": 35,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 35,
         "monomial_exponents": [
           [
@@ -662,7 +730,7 @@
         "polynomial_degree": 3,
         "rank": 2,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "aef5ebb801ea4a444fe4524e76db7bd9df033c0632c9280d76b67550bb9c9cc2",
+        "signature": "dd784ef34277c2bb30c904c9bbd4b53155e48b95fd697c95e6554012f9b3f8c2",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -707,6 +775,7 @@
         "cross_validated_r2": 0.977187388802163,
         "full_fit_rank": 10,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 10,
         "monomial_exponents": [
           [
@@ -760,7 +829,7 @@
         "polynomial_degree": 2,
         "rank": 3,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "1755bf21ee8413ae93b084c41f2bc973f449b301d9c9c7dc198b5c58c21b3f1b",
+        "signature": "d9b960d0a6b55c541008af8a37d03b56a55bd9dfaef4d255c237d86c57846d7c",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -803,6 +872,7 @@
         "cross_validated_r2": 0.972715175348709,
         "full_fit_rank": 10,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 10,
         "monomial_exponents": [
           [
@@ -856,7 +926,7 @@
         "polynomial_degree": 2,
         "rank": 4,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "816c67b8591a6627c9dc35e518a0b4e16f6736bc84ec18d6acf78bae5419740f",
+        "signature": "6da01ba8c8004c512c8b15909ad6ef983c6fd0112926b72bb0af8db2f4f8c232",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -909,6 +979,7 @@
         "cross_validated_r2": 0.9683187087407901,
         "full_fit_rank": 20,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 20,
         "monomial_exponents": [
           [
@@ -1012,7 +1083,7 @@
         "polynomial_degree": 3,
         "rank": 5,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "2df9da952b18870695e4b3f24bc2e38ead369019555edb99737098d59fde93a9",
+        "signature": "7268d613eb1a31aed02f6431531f8ddeeddd51c5a01f37d65f6edfbd4abeb72e",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1049,6 +1120,7 @@
         "cross_validated_r2": 0.9619069959861204,
         "full_fit_rank": 6,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 6,
         "monomial_exponents": [
           [
@@ -1077,7 +1149,7 @@
         "polynomial_degree": 2,
         "rank": 6,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "516145735121a72966d749f602c4a81fe0f0addfe9f66f79c81c79038a1997d7",
+        "signature": "e93637c4560b8240ba9f4062983f7ff590ff2b023e29a72b4664831812aeda2c",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1116,6 +1188,7 @@
         "cross_validated_r2": 0.9573060767352621,
         "full_fit_rank": 10,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 10,
         "monomial_exponents": [
           [
@@ -1160,7 +1233,7 @@
         "polynomial_degree": 3,
         "rank": 7,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "b564cdc29622cef9f5cf4942f61fe0834403d6d44f26f33839426fcc496e804f",
+        "signature": "04b0279a9e89339a678560c80c80fd9dedf912d09e2f5bfa83e2e6920e113124",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1211,6 +1284,7 @@
         "cross_validated_r2": 0.9489825804621557,
         "full_fit_rank": 20,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 20,
         "monomial_exponents": [
           [
@@ -1314,7 +1388,7 @@
         "polynomial_degree": 3,
         "rank": 8,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "d20d2711362233da20563f1754078a0a4cc73f559678992b7693ba391855e057",
+        "signature": "9ceae4ebefcd6d0e81818f2547980f9531697e97ca70aa71d9cb5b1c87e047de",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1354,6 +1428,7 @@
         "cross_validated_r2": 0.931121704479021,
         "full_fit_rank": 5,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 5,
         "monomial_exponents": [
           [
@@ -1386,7 +1461,7 @@
         "polynomial_degree": 1,
         "rank": 9,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "676248ff51665168acb510fdf6ffb43ca1ef13cb589a5db6fa36e98029f90984",
+        "signature": "252cdc15efb4d285beb4f0fafb063cec6d512c52306aad447929bee916dd18b7",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1425,6 +1500,7 @@
         "cross_validated_r2": 0.9161223130031323,
         "full_fit_rank": 4,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 4,
         "monomial_exponents": [
           [
@@ -1448,7 +1524,7 @@
         "polynomial_degree": 1,
         "rank": 10,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "e1225993f664c022e3f95b1350a0ee7164e0eb5780997210a79835e84804a90a",
+        "signature": "e09ad335b7f0a9dcf403c736370627b6cc1ccf20bcf52467cc342cf8c748ed4c",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1485,6 +1561,7 @@
         "cross_validated_r2": 0.9007144657765964,
         "full_fit_rank": 4,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 4,
         "monomial_exponents": [
           [
@@ -1508,7 +1585,7 @@
         "polynomial_degree": 1,
         "rank": 11,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "4cf69a13275aa800de9b4d23b79bb02e246cca3e34121576dda8d551076a413e",
+        "signature": "b1c1b92a3d8ca74eb41ff539425b92f0370bfb6b07554f2de5146ff705d536a2",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1542,6 +1619,7 @@
         "cross_validated_r2": 0.8897553860544171,
         "full_fit_rank": 3,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 3,
         "monomial_exponents": [
           [
@@ -1558,7 +1636,7 @@
         "polynomial_degree": 1,
         "rank": 12,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "f8ff82dcd108fcdb1ab51434ef37201c2d3f6074f116809be443cacbbd4c093b",
+        "signature": "9f2db111e10e3c3d7636dfb38fb20b411b249649515d01a198f4399ef3c7e87b",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1593,6 +1671,7 @@
         "cross_validated_r2": 0.772602178691207,
         "full_fit_rank": 4,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 4,
         "monomial_exponents": [
           [
@@ -1616,7 +1695,7 @@
         "polynomial_degree": 1,
         "rank": 13,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "c63bdc19d74ff1d9e0a8252b87dd3e1da8416aeb6189a14c168964b04ab2d5e3",
+        "signature": "2684331233fa653b21627b4b67763f6ba064b1c0d70062246bfbcc290adc04fe",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1659,6 +1738,7 @@
         "cross_validated_r2": 0.7721391893621924,
         "full_fit_rank": 10,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 10,
         "monomial_exponents": [
           [
@@ -1712,7 +1792,7 @@
         "polynomial_degree": 2,
         "rank": 14,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "c464a7219e3e8270d869896a78ef9b31ad948cf46d0c8d407adb328e11fa65a0",
+        "signature": "664f3d18ea4109239392d4ffeee425a5a3050471224353f095578a611b71f5a1",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1746,6 +1826,7 @@
         "cross_validated_r2": 0.758715817937386,
         "full_fit_rank": 3,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 3,
         "monomial_exponents": [
           [
@@ -1762,7 +1843,7 @@
         "polynomial_degree": 1,
         "rank": 15,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "607dce2117900d55df046277d1750ce6c849bbbd9cdb8cd45ae1d654b1dff3df",
+        "signature": "fcd9b5fded653820e3903cb139718ff20722da41e04165bb310cf0615f6e8abd",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1797,6 +1878,7 @@
         "cross_validated_r2": 0.727141288533011,
         "full_fit_rank": 6,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 6,
         "monomial_exponents": [
           [
@@ -1825,7 +1907,7 @@
         "polynomial_degree": 2,
         "rank": 16,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "9a88c0f3552016fa4e715ebabb0a4a0ba8d7f36b6eda1792a4f5f95c74ea6c22",
+        "signature": "7e4966ac15b3a788394527302e75eba993aca4274d644ae11d004a2c567af803",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1857,6 +1939,7 @@
         "cross_validated_r2": 0.6543192512390521,
         "full_fit_rank": 3,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 3,
         "monomial_exponents": [
           [
@@ -1873,7 +1956,7 @@
         "polynomial_degree": 1,
         "rank": 17,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "ec30ea8e8944e54ed28652dc3e448b6ef67049677adde31fb12d1afb4d0cad25",
+        "signature": "22e2f816de775b9b795b16db26e3baf9f222f2f1601ba531e973d2932610be1f",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1908,6 +1991,7 @@
         "cross_validated_r2": 0.6413796563505172,
         "full_fit_rank": 6,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 6,
         "monomial_exponents": [
           [
@@ -1936,7 +2020,7 @@
         "polynomial_degree": 2,
         "rank": 18,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "034977ee0ba4d5f524e222c5a544e7ac5db44bae7401b25a52c90049bf72a66c",
+        "signature": "cee4693faed4976d2b1fb5d19e5bd8899ad2f1fe65f7184a87df31db6b50a39c",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -1975,6 +2059,7 @@
         "cross_validated_r2": 0.6114682914134878,
         "full_fit_rank": 10,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 10,
         "monomial_exponents": [
           [
@@ -2019,7 +2104,7 @@
         "polynomial_degree": 3,
         "rank": 19,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "7dedb9c20a2a566133ac9129ea9e080867eb480af35ea1e9748f8d1a1464659f",
+        "signature": "96361c93d2cdc2aaadb8ec7dd42f03b26de2c9c0dd85dc483d964bc2be491cda",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -2048,6 +2133,7 @@
         "cross_validated_r2": 0.5900251540219182,
         "full_fit_rank": 2,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 2,
         "monomial_exponents": [
           [
@@ -2059,7 +2145,7 @@
         "polynomial_degree": 1,
         "rank": 20,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "6af09f59e70bce098ca5f47197e80868a0099d0d36ca7c0eb036b299060f78b9",
+        "signature": "6bee5e81976d2dfd3f73a4bbf92e77f3296c9e0fdf6f84cb231eb29da835b80b",
         "standardization": {
           "mean": [
             1.2279145549759325
@@ -2087,6 +2173,7 @@
         "cross_validated_r2": 0.5798197024557563,
         "full_fit_rank": 3,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 3,
         "monomial_exponents": [
           [
@@ -2101,7 +2188,7 @@
         "polynomial_degree": 2,
         "rank": 21,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "1d37551a6f19de5aef890a43e5f875bf9c3457b1a0ab4cbbf4766fdd9e86cef9",
+        "signature": "29621159a9113b47a95c2c1de102ed5e397d51a1a5ca49671f4071f26614330f",
         "standardization": {
           "mean": [
             1.2279145549759325
@@ -2130,6 +2217,7 @@
         "cross_validated_r2": 0.5631540124459177,
         "full_fit_rank": 4,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 4,
         "monomial_exponents": [
           [
@@ -2147,7 +2235,7 @@
         "polynomial_degree": 3,
         "rank": 22,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "a8b4c594d490ec8c00aabce3e9ee113be26c3e1c7017a41851a5b76047f3599b",
+        "signature": "140904cbc7068c7366e96f14f43cdf979525161d848d39e5c731b7938209847e",
         "standardization": {
           "mean": [
             1.2279145549759325
@@ -2184,6 +2272,7 @@
         "cross_validated_r2": 0.4969194415113878,
         "full_fit_rank": 10,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 10,
         "monomial_exponents": [
           [
@@ -2228,7 +2317,7 @@
         "polynomial_degree": 3,
         "rank": 23,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "ae7f1214eed955382ef336d271daca69af62bd6c72e0f78a5617838477cbd92c",
+        "signature": "c3afce4dc7e840573cb3ddabfe7f9de9d3909406aa8a20d3e51166ec37549af3",
         "standardization": {
           "mean": [
             1.2279145549759325,
@@ -2260,6 +2349,7 @@
         "cross_validated_r2": 0.4849549100340407,
         "full_fit_rank": 3,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 3,
         "monomial_exponents": [
           [
@@ -2276,7 +2366,7 @@
         "polynomial_degree": 1,
         "rank": 24,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "7320ffa19a7dbd5ec1957e9a253c5adf460e71ac8a03dce5c7fc559ccdc5b056",
+        "signature": "27b254451069e7f7d219906960186901b9d31faf54b3a8802b9b447be1045717",
         "standardization": {
           "mean": [
             1.090941270764675,
@@ -2311,6 +2401,7 @@
         "cross_validated_r2": 0.4803611027082956,
         "full_fit_rank": 4,
         "function_family": "STANDARDIZED_TOTAL_DEGREE_POLYNOMIAL",
+        "language_origin": "CURRENT_QUERY_GRAMMAR",
         "minimum_fold_rank": 4,
         "monomial_exponents": [
           [
@@ -2334,7 +2425,7 @@
         "polynomial_degree": 1,
         "rank": 25,
         "representation": "TARGET_AS_POLYNOMIAL_FUNCTION_OF_PI_VECTOR",
-        "signature": "6f2b8d5873cd418d5bbb6ba7a5cd8425489d6e0e7cec1b60d34dda077d729077",
+        "signature": "9949e5647e77669ba60ba35412b94cfa032ee32153ca433a680999afe4c1003e",
         "standardization": {
           "mean": [
             1.090941270764675,
@@ -2350,33 +2441,40 @@
         "term_count": 4
       }
     ],
-    "owner": "QUERY-DRIVEN-RESEARCH/1.1.0",
+    "owner": "QUERY-DRIVEN-RESEARCH/1.2.0",
     "permutation_null": {
+      "born_language_hypotheses_replayed_per_permutation_max": 9,
+      "dynamic_function_language_birth_replayed_each_permutation": true,
       "entire_function_surface_refit_each_permutation": true,
       "exchangeability_assumption_explicit": true,
       "exchangeability_scheme": "WITHIN_VALIDATION_GROUP",
-      "familywise_empirical_p": 0.01,
-      "minimum_achievable_p": 0.01,
+      "familywise_empirical_p": 0.05,
+      "minimum_achievable_p": 0.05,
       "observed_best_cross_validated_nrmse": 0.01778409740297801,
-      "permutation_best_median": 0.9986278628840136,
-      "permutation_count": 99,
+      "permutation_best_median": 0.9996083788986238,
+      "permutation_count": 19,
       "status": "PASS_FAMILYWISE_PERMUTATION_NULL",
-      "structural_hypotheses_replayed_per_permutation": 45
+      "structural_hypotheses_replayed_per_permutation_max": 54,
+      "structural_hypotheses_replayed_per_permutation_median": 45.0,
+      "structural_hypotheses_replayed_per_permutation_min": 45
     },
-    "question": "Does reaction-diffusion memory collapse on a four-Pi manifold?",
+    "question": "does reaction-diffusion memory collapse on a four-Pi manifold?",
     "row_count": 240,
-    "schema": "phi-query-function-form/v1",
+    "schema": "phi-query-function-form/v2",
     "search_surface": {
+      "baseline_polynomial_hypotheses_examined_total": 45,
+      "born_language_hypotheses_examined_total": 0,
       "display_limit": 25,
       "display_limit_is_search_budget": false,
       "finite_query_tranche_is_global_scientific_space_ceiling": false,
+      "generated_language_count": 0,
       "requested_hypothesis_budget": 100,
       "structural_hypotheses_examined_total": 45,
       "structural_hypotheses_fit_total": 45,
-      "surface_exhaustive_for_degree_schedule": true
+      "surface_exhaustive_for_generated_query_tranche": true
     },
     "status": "MULTI_PI_FUNCTION_FORM_SEARCH_COMPLETE",
-    "target_dimensional_status": "DIMENSIONLESS_TARGET",
+    "target_dimensional_status": "UNKNOWN_TARGET_DIMENSION",
     "target_name": "yield",
     "validation": {
       "fold_count": 6,
@@ -2384,11 +2482,11 @@
       "kind": "LEAVE_ONE_GROUP_OUT"
     }
   },
-  "owner": "QUERY-DRIVEN-RESEARCH/1.1.0",
-  "release": "15.25.0",
-  "schema": "phi-query-research-current/v2",
-  "source_candidate_ledger_sha256": "3aae0727dc524a4c2c27e371ed73e6e4745c1a1e1430c157b6a227791a4dab0a",
-  "status": "PASS_QUERY_DRIVEN_RESEARCH_P1_AND_MULTI_PI_CONTROL_WORLD_DATA_GAP",
+  "owner": "QUERY-DRIVEN-RESEARCH/1.2.0",
+  "release": "0.15.27.0",
+  "schema": "phi-query-research-current/v3",
+  "source_candidate_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
+  "status": "PASS_QUERY_DRIVEN_RESEARCH_P1_MULTI_PI_FUNCTION_LANGUAGE_CONTROL_WORLD_DATA_GAP",
   "synthetic_reaction_diffusion_control": {
     "candidates": [
       {
@@ -2653,7 +2751,7 @@
       "query_mode_replaces_open_discovery_frontier": false,
       "returned_count_is_multiplicity_count": false
     },
-    "digest": "bff75c6f4936da0eab7af81ec6ca0173d1f1630a4c893ebba93c80f513e9880a",
+    "digest": "5aeb516aafa98c0c71db2cd2258675a0df8b39558fd9061b72e4b7ce4e96ef43",
     "feature_names": [
       "k",
       "D",
@@ -2662,21 +2760,23 @@
       "v",
       "mu"
     ],
-    "owner": "QUERY-DRIVEN-RESEARCH/1.0.0",
+    "owner": "QUERY-DRIVEN-RESEARCH/1.2.0",
     "permutation_null": {
       "entire_ranked_surface_replayed": true,
-      "familywise_empirical_p": 0.009900990099009901,
+      "familywise_empirical_p": 0.047619047619047616,
       "observed_best_collapse": 0.10592855862962716,
-      "permutation_best_median": 0.8805863139523782,
-      "permutation_count": 100
+      "permutation_best_median": 0.8744220677691127,
+      "permutation_count": 20
     },
-    "question": "What controls reaction-diffusion effectiveness across systems?",
+    "question": "what controls reaction diffusion effectiveness?",
     "row_count": 360,
     "schema": "phi-query-driven-research/v1",
     "search_surface": {
       "display_limit": 25,
       "display_limit_is_search_budget": false,
       "p1_groups_examined_total": 19,
+      "p_gt_1_deferred_to_function_form_lane": true,
+      "p_gt_1_subsets_deferred_total": 1,
       "subsets_examined_total": 50,
       "unique_mathematical_candidates_total": 8
     },
