@@ -442,8 +442,12 @@ def test_low_frequency_gust_anomaly_is_quantified_without_false_mechanism_promot
 
 
 def test_frontier_scan_preserves_every_materialized_candidate_without_promotion():
-    result, _, _ = _frontier_replay_readonly()
-    assert result['status'] == 'PASS_ATLAS_FRONTIER_CANDIDATE_SCAN'
+    result, persisted_before, _ = _frontier_replay_readonly()
+    assert result['status'] == 'PASS_ATLAS_FRONTIER_CANDIDATE_SCAN', {
+        'failed_checks': sorted(name for name, passed in result.get('checks', {}).items() if not passed),
+        'generated_ledger_sha256': result.get('active_candidate_ledger', {}).get('sha256'),
+        'persisted_ledger_sha256': persisted_before,
+    }
     assert result['scan_summary']['cross_domain_pair_regions_scanned'] == 183996
     assert result['scan_summary']['materialized_pair_frontier_candidates'] == 256
     assert result['scan_summary']['algebraic_generated_candidates'] == 116
@@ -498,7 +502,11 @@ def test_algebraic_frontier_polynomial_identity_is_global_sign_canonical():
 def test_frontier_replay_is_read_only_for_persisted_candidate_ledger():
     ledger = ROOT / "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl"
     replay, before, after = _frontier_replay_readonly()
-    assert replay["status"] == "PASS_ATLAS_FRONTIER_CANDIDATE_SCAN"
+    assert replay["status"] == "PASS_ATLAS_FRONTIER_CANDIDATE_SCAN", {
+        "failed_checks": sorted(name for name, passed in replay.get("checks", {}).items() if not passed),
+        "generated_ledger_sha256": replay.get("active_candidate_ledger", {}).get("sha256"),
+        "persisted_ledger_sha256": before,
+    }
     assert before == after
     assert replay["active_candidate_ledger"]["record_count"] == len([line for line in ledger.read_text(encoding="utf-8").splitlines() if line.strip()])
 
