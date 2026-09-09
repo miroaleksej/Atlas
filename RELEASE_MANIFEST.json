@@ -28,7 +28,7 @@
     },
     {
       "path": ".github/workflows/exoplanet-g-example.yml",
-      "sha256": "ba6ca078b5cd2c82ae0e512c9b6d7c33ea171f3433af793691e18f9f0045d042",
+      "sha256": "f2a4fca096e8017524e3044ef4dea906600d1022de22c3e35d82b2b5e92a30c9",
       "size": 3540
     },
     {
@@ -68,13 +68,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "042d1d3f021b1366ab71dafacce59021092b54e0691ff204c267d5f16ec2a307",
-      "size": 92706
+      "sha256": "43629dfe495baeeab5847b3c3adfd0029a6c9e6d9db8b918e9cb2840ba3aa376",
+      "size": 93699
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "eec6d89160c2ec7c4845e21645ff6e82bea2c5cf792cc274a8916a4c18240039",
-      "size": 115124
+      "sha256": "7c4755bd9b28122f3dfa6024f21200018c1b3e80fc0afe7609fdf9cfddfb0f15",
+      "size": 115752
     },
     {
       "path": "capabilities.json",
@@ -1003,8 +1003,8 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "fe2f364e15f31dc7ae7b8aa02211c0c5eb5fa492122319cb251b36ed88703b93",
-      "size": 634
+      "sha256": "f0cd1bfa1dd49aacd6b0f7573ae30deca929908872c73641280b1bd429c9f046",
+      "size": 639
     },
     {
       "path": "reports/ATLAS_FRONTIER_SCAN_CURRENT.json",
@@ -1503,7 +1503,7 @@
     }
   ],
   "current_state_qualification_digest": "5e164704e6678b845e0751eddc9e6042746463c2b3d42e2d8bc952e84051fe24",
-  "digest": "61d5aa28428201848241c7b2b65bcad23ddf932c1079cf24d436cb09816e8052",
+  "digest": "7353f77752de5294e7ba1952355f978a8927667887b2c7226f93a696b5e67c7e",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

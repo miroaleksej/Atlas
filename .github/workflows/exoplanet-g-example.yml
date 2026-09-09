@@ -30,7 +30,7 @@ jobs:
           python -m pip install --no-deps ./extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/dist/scienceatlas_ai-0.10.0-py3-none-any.whl
           python -m pip install pytest jupyter nbconvert nbformat ipykernel
 
-      - name: Run 100-test Atlas qualifier
+      - name: Run 119-test Atlas qualifier
         env:
           PYTHONDONTWRITEBYTECODE: "1"
           PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
