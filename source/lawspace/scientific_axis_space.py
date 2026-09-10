@@ -1375,6 +1375,18 @@ class AtlasLawSpaceSearchOwner:
                 "whole_pipeline_permutation_null": "REQUIRED_BEFORE_SCIENTIFIC_PROMOTION_NOT_EXECUTED_ON_RAW_COORDINATE_BIRTH",
             },
             "axis_birth_policy": "CANONICAL_AXES_FIRST__RESEARCH_LOCAL_BIRTH__COMMON_ADMISSION_PROMOTION_FOR_NOVEL_AXES",
+            "axis_birth_cardinality_contract": {
+                "axis_birth_cardinality": "ADAPTIVE",
+                "multi_axis_birth": "ALLOWED",
+                "higher_order_interaction_axes": "ALLOWED",
+                "fixed_axis_count_per_cycle": None,
+                "search": ["SPARSE", "ADAPTIVE", "OPEN_ENDED"],
+                "problem_structure_selects_birth_cardinality": True,
+                "single_axis_greedy_growth_required": False,
+                "finite_execution_cycle_materializes_finite_axis_set": True,
+                "each_axis_requires_individual_typed_admission_and_promotion_receipts": True,
+                "batch_birth_bypasses_axis_lifecycle": False,
+            },
             "axis_persistence_policy": "CANONICAL_AXES_ARE_APPEND_ONLY_AND_REUSABLE; DORMANT_DOES_NOT_MEAN_FORGOTTEN",
             "relation_promotion_owner": "SCIENTIFIC-PROMOTION-CORE/9.2.0",
             "dynamic_axis_admission_owner": "DYNAMIC-AXIS-ADMISSION/6.24.0",
@@ -1515,4 +1527,3 @@ class ScientificAxisSpaceOwner:
         if quantity_specs is None:
             raise ValueError("SCIENTIFIC-AXIS-SPACE compatibility adapter no longer owns variable semantics; supply quantity_specs")
         return AtlasLawSpaceSearchOwner().discover(variable_names=variable_names,values=values,target_values=target_values,target_name=target_name,quantity_specs=quantity_specs,domain_ids=domain_ids,search_shell=search_shell)
-

@@ -116,6 +116,17 @@ def test_global_axis_space_is_open_ended_not_619_fundamental():
     assert int(contract['total_nonempty_registered_axis_subsets']) == (1 << current) - 1
     assert contract['fixed_axis_combination_order_ceiling'] is None
     assert contract['claim_boundary']['all_possible_scientific_axes_known'] is False
+    birth = LawSpaceAPI(ROOT).get_atlas_law_space_search_contract()['axis_birth_cardinality_contract']
+    assert birth['axis_birth_cardinality'] == 'ADAPTIVE'
+    assert birth['multi_axis_birth'] == 'ALLOWED'
+    assert birth['higher_order_interaction_axes'] == 'ALLOWED'
+    assert birth['fixed_axis_count_per_cycle'] is None
+    assert birth['search'] == ['SPARSE', 'ADAPTIVE', 'OPEN_ENDED']
+    assert birth['problem_structure_selects_birth_cardinality'] is True
+    assert birth['single_axis_greedy_growth_required'] is False
+    assert birth['finite_execution_cycle_materializes_finite_axis_set'] is True
+    assert birth['each_axis_requires_individual_typed_admission_and_promotion_receipts'] is True
+    assert birth['batch_birth_bypasses_axis_lifecycle'] is False
 
 
 def test_owner_connected_search_reuses_existing_strong_gravity_owners():

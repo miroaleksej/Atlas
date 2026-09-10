@@ -48,6 +48,17 @@ def run(root=None):
   'hypothesis_council_mutable_state_external_to_seal':True,
   'expert_weight_learning_scope':'SANDBOX_RANKING_ONLY',
  }
+ caps['axis_birth_search_policy']={
+  'axis_birth_cardinality':'ADAPTIVE',
+  'multi_axis_birth':'ALLOWED',
+  'higher_order_interaction_axes':'ALLOWED',
+  'fixed_axis_count_per_cycle':None,
+  'search':['SPARSE','ADAPTIVE','OPEN_ENDED'],
+  'problem_structure_selects_birth_cardinality':True,
+  'single_axis_greedy_growth_required':False,
+  'finite_execution_cycle_materializes_finite_axis_set':True,
+  'individual_axis_lifecycle_receipts_required':True,
+ }
  caps['query_research']={
   'owner':query.get('owner'),
   'report_digest':query.get('digest'),
@@ -176,7 +187,13 @@ def run(root=None):
   'eda_boolean_comparison_requires_feasible_design_from_all_four_strategies':True,
   'eda_equal_budget_baseline_comparison_required_before_atlas_win_claim':True,
   'eda_synthetic_qualification_is_not_silicon_evidence':True,
-  'eda_pilot_does_not_claim_tapeout_readiness':True,
+ 'eda_pilot_does_not_claim_tapeout_readiness':True,
+  'axis_birth_cardinality_is_adaptive':True,
+  'multi_axis_birth_is_allowed':True,
+  'higher_order_interaction_axis_birth_is_allowed':True,
+  'fixed_axis_count_per_cycle_is_absent':True,
+  'axis_search_is_sparse_adaptive_and_open_ended':True,
+  'multi_axis_birth_does_not_bypass_individual_axis_lifecycle':True,
  })
  inv['digest']=digest_payload(inv); (root/'invariants.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
  files=controlled(root)
@@ -206,7 +223,13 @@ def run(root=None):
   'eda_route_drc_can_substitute_for_signoff_drc':False,
   'eda_workflow_orfs_git_commit':eda_contract.get('pilot',{}).get('workflow_orfs_git_commit'),
   'eda_equal_budget_atlas_random_grid_bayesian_comparison_required':True,
-  'eda_live_pilot_completed_in_release':False,
+ 'eda_live_pilot_completed_in_release':False,
+  'axis_birth_cardinality':'ADAPTIVE',
+  'multi_axis_birth_allowed':True,
+  'higher_order_interaction_axes_allowed':True,
+  'fixed_axis_count_per_cycle':None,
+  'axis_search_policy':['SPARSE','ADAPTIVE','OPEN_ENDED'],
+  'multi_axis_birth_bypasses_axis_lifecycle':False,
  })
  man['research_state_policy'].update({
   'dynamic_quality_tiers_enabled':True,

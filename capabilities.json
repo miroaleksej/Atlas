@@ -28,6 +28,21 @@
     "scoped_evidence_fingerprint_boundary": "ResearchLoopOwner._acquire",
     "sequential_per_target_union_bound": true
   },
+  "axis_birth_search_policy": {
+    "axis_birth_cardinality": "ADAPTIVE",
+    "finite_execution_cycle_materializes_finite_axis_set": true,
+    "fixed_axis_count_per_cycle": null,
+    "higher_order_interaction_axes": "ALLOWED",
+    "individual_axis_lifecycle_receipts_required": true,
+    "multi_axis_birth": "ALLOWED",
+    "problem_structure_selects_birth_cardinality": true,
+    "search": [
+      "SPARSE",
+      "ADAPTIVE",
+      "OPEN_ENDED"
+    ],
+    "single_axis_greedy_growth_required": false
+  },
   "blind_real_physics_experiment": {
     "digest": "710a80f5188c21278a1819071469804d929c2c0cbfd0352b802414beeac22ffd",
     "problem_id": "DLR-OLAF-FIRST-BLIND-REAL-PHYSICS-001",
@@ -50,7 +65,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "a53c47f9782e6cb6174139b92513785a07d12cf6c63a6ba4a3308550fafedab9",
+  "digest": "f88dc8ccbbd014a9b427af3db0e798ffbc1433c4bd6ad169208331b7b00567d0",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

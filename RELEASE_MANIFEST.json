@@ -53,13 +53,13 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "c78f46f73ed19e0aaba85ab1b55b4e1663d32d848c4ccb66254f814df8bd6c78",
-      "size": 206270
+      "sha256": "0c7ba27501c3e934f0939723fd47a5cb9ad7cafe7340712c7e412bc97b13c80d",
+      "size": 208195
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
-      "sha256": "168e38abe5be77ac800789f334289958e715f5496db48454a638396b70930742",
-      "size": 75268
+      "sha256": "514b722203e85d3a8dbcd0a6bb305241ff6a944ef91bfea6ab561c3a5672cabb",
+      "size": 77001
     },
     {
       "path": "Makefile",
@@ -68,18 +68,18 @@
     },
     {
       "path": "README.md",
-      "sha256": "cb8ba108bb34323ffbc6618b4f205db1d36838dc789b1bd48605f59cdf0635ef",
-      "size": 94572
+      "sha256": "c71dd388d9fe52ca88cb0cf8375fba61810f9cf32935b71010581467c8c24a51",
+      "size": 96581
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "2b594a9801f9da78037cf889f28addf38a6b7f18ef1ae8ef8601174fabdb3a94",
-      "size": 116707
+      "sha256": "476eb0a28972566f21cc041cb7e082edc0c8fd4d40982fb4e1c9aeee3a628181",
+      "size": 119634
     },
     {
       "path": "capabilities.json",
-      "sha256": "22dd3ef758eeab07d07609b7f7ecbf1b198c60cc9c2a75422811607bc1466291",
-      "size": 11586
+      "sha256": "56a0f4ffc886e0a4d16b82e5c2c5839edd88f34de54b0354e376145144c7f355",
+      "size": 12091
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -443,8 +443,8 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "5840705f8346a1192130d24d1d90252fb4ca3d0e6ecb9c87adf0bc3b9e228a1c",
-      "size": 33931
+      "sha256": "3c16e93133beb3073113b2d39a32a7d9ab52867053e0afa959babd7517760990",
+      "size": 34966
     },
     {
       "path": "evaluation/dayabay_likelihood_qualification.py",
@@ -998,8 +998,8 @@
     },
     {
       "path": "invariants.json",
-      "sha256": "114b0f641db1d4a60c1431a1d60d5f22b3366ab9f04bff2ae6e313e22974b0ad",
-      "size": 6521
+      "sha256": "6db19f3e228929d0fd03ee4bb2473c26be2e518449dd90370816a0389e518761",
+      "size": 6851
     },
     {
       "path": "pyproject.toml",
@@ -1348,8 +1348,8 @@
     },
     {
       "path": "source/lawspace/scientific_axis_space.py",
-      "sha256": "9b426fd071657ddf0aaca717f560a25e87462255f5b9fcb342b9f51b7d3d2bd7",
-      "size": 88174
+      "sha256": "0248533c4c178a2faebc400d8e186af33f25df3c78f2965be57db7c4766896e5",
+      "size": 88877
     },
     {
       "path": "source/lawspace/scientific_data_ingestion.py",
@@ -1498,12 +1498,12 @@
     },
     {
       "path": "tests/test_unified_current.py",
-      "sha256": "e0254cfdffc697d80ed44d1c01c5ac4a02b1f8f1097a750694a71aa9b85b7385",
-      "size": 45213
+      "sha256": "a596a32a5f4fd7630204c7cc777de60ace68f15100b8397ec3daca9f52a7cf56",
+      "size": 45986
     }
   ],
   "current_state_qualification_digest": "5e164704e6678b845e0751eddc9e6042746463c2b3d42e2d8bc952e84051fe24",
-  "digest": "42fdc8ce4d2a4b017fb069162277b6984a6beee846c25230cc429a780a80e902",
+  "digest": "ea26524d0d56a68917f7441759351c6bf65aaed542ca4892ceb398230cf0bb0b",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -1625,6 +1625,12 @@
     "ai_feynman_100_preserved": false,
     "all_axes_required_per_candidate": false,
     "axes_preserved": true,
+    "axis_birth_cardinality": "ADAPTIVE",
+    "axis_search_policy": [
+      "SPARSE",
+      "ADAPTIVE",
+      "OPEN_ENDED"
+    ],
     "candidate_ranking_is_deletion_policy": false,
     "canonical_dimension_basis": [
       "L",
@@ -1662,6 +1668,8 @@
     "fair_dovetail_state_persisted": true,
     "finite_dovetail_tranche_is_scientific_space_ceiling": false,
     "fixed_adaptive_subspace_order_ceiling": null,
+    "fixed_axis_count_per_cycle": null,
+    "higher_order_interaction_axes_allowed": true,
     "historical_calculation_results_preserved": false,
     "historical_search_results_preserved": false,
     "human_sponsor_review_can_pass_u6": false,
@@ -1674,6 +1682,8 @@
     "manual_lowering_generalized_to_class": false,
     "manual_lowering_post_reveal_retuning_allowed": false,
     "materialized_relational_u4_complete": true,
+    "multi_axis_birth_allowed": true,
+    "multi_axis_birth_bypasses_axis_lifecycle": false,
     "promising_reject_is_u5_or_u6": false,
     "query_exact_pi_basis_frozen_before_function_fit": true,
     "query_function_language_birth_changes_exact_pi_kernel": false,
