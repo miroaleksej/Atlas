@@ -1,4 +1,22 @@
-# ACCEPTANCE REPORT — Φ-Compiler / ScienceAtlas CURRENT 0.15.28.0
+# ACCEPTANCE REPORT — Φ-Compiler / ScienceAtlas CURRENT 0.15.29.0
+
+Representation activation is accepted only as research-local model admission.
+The current receipt explicitly preserves
+`REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED`, reports causal readiness
+separately, and leaves causal establishment fail-closed without an authoritative
+causal evidence path.
+
+## Primitive-field adaptive-axis acceptance
+
+The integrated primitive-field control passes `34/34` checks with status
+`PASS_PRIMITIVE_FIELD_BLIND_OPERATOR_DISCOVERY`. For each momentum lane Atlas
+receives masked coordinate grids and sampled primitive fields, births eight
+dimensionally typed operator candidates, selects one discovery-only baseline,
+and activates four additional representation axes in one adaptive cycle. The
+sealed OOD NRMSE is approximately `3.4519e-4` for the x lane and `3.8246e-4`
+for the y lane. Both receipts preserve `CAUSALLY_NOT_ESTABLISHED` and an empty
+`causally_established_axes` list. This acceptance qualifies the implementation
+and controlled reference benchmark only; it establishes no new physical law.
 
 
 
@@ -732,3 +750,21 @@ Acceptance requires:
 9. sandbox-weight adaptation never modifies strict promotion weights.
 
 The pre-existing candidate census, U4/U5 state, Query function-language birth, EDA pilot and all prior owners must remain reproducible.
+
+
+# Дополнение acceptance — 0.15.29.0 Collective Coordination
+
+Проверено в текущем рабочем дереве:
+
+- `COLLECTIVE-COORDINATION`: 19/19 PASS;
+- `GENERATION-TRANSITION`: 26/26 PASS;
+- `REFLEXIVE-ARCHITECTURE`: 41/41 PASS;
+- `DEVELOPMENTAL-OPEN-ENDEDNESS`: 30/30 PASS;
+- `RESIDENT-COGNITIVE-ORGANISM`: 46/46 PASS;
+- targeted pytest collective coordination and representation/causality separation: 4/4 PASS;
+- full pytest on the pinned numerical stack: 123/123 PASS;
+- Navier–Stokes blind control with explicit representation/causal separation: 34/34 PASS.
+
+Итог: AI-патч проходит архитектурные, orchestration и regression gates на точном pinned numerical stack. Причинный статус остаётся fail-closed при research-local representation activation.
+
+Release controls пересобираются из финальных байтов перед seal/read-only audit; PASS этих аудитов является обязательным условием завершения интеграции.

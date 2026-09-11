@@ -360,6 +360,7 @@ class LawSpaceRuntime:
                 capabilities["authoritative_research_kernel"] = "QUALIFIED_CURRENT_KERNEL::" + kernel
 
         obligation_sources: Dict[str, list[str]] = {}
+        resolved_obligation_sources: Dict[str, list[str]] = {}
         pattern = re.compile(r'["\']next_research_obligation["\']\s*:\s*["\']([A-Z0-9_:-]+)["\']')
         for path in sorted((self.root / "source" / "lawspace").glob("*.py")):
             try:
@@ -370,8 +371,15 @@ class LawSpaceRuntime:
                 capability_id = str(obligation).strip().lower().replace("::", "_").replace(":", "_")
                 if not capability_id:
                     continue
-                obligation_sources.setdefault(capability_id, []).append(str(path.relative_to(self.root)))
-                capabilities[capability_id] = "ARCHITECTURE_OPEN_DECLARED_RESEARCH_OBLIGATION"
+                source = str(path.relative_to(self.root))
+                # A declared obligation becomes a resolved generation anchor when
+                # an executable route with the same capability id exists.  Keep
+                # provenance instead of deleting the historical obligation.
+                if capabilities.get(capability_id) in {"EXECUTABLE_READ_ROUTE", "EXECUTABLE_MUTATION_ROUTE"}:
+                    resolved_obligation_sources.setdefault(capability_id, []).append(source)
+                else:
+                    obligation_sources.setdefault(capability_id, []).append(source)
+                    capabilities[capability_id] = "ARCHITECTURE_OPEN_DECLARED_RESEARCH_OBLIGATION"
 
         payload: Dict[str, Any] = {
             "schema": "phi-live-capability-ledger/v2",
@@ -383,6 +391,8 @@ class LawSpaceRuntime:
             "qualified_current_count": sum(v.startswith("QUALIFIED") for v in capabilities.values()),
             "open_architecture_obligations": sorted(obligation_sources),
             "open_obligation_sources": {k: sorted(set(v)) for k, v in sorted(obligation_sources.items())},
+            "resolved_architecture_obligations": sorted(resolved_obligation_sources),
+            "resolved_obligation_sources": {k: sorted(set(v)) for k, v in sorted(resolved_obligation_sources.items())},
             "historical_capability_snapshot_used": False,
             "release_envelope_schema": envelope.get("schema") if envelope else None,
             "release_envelope_status": envelope.get("status") if envelope else None,

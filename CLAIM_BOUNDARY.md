@@ -1,4 +1,19 @@
-# CLAIM BOUNDARY — CURRENT 0.15.28.0
+# CLAIM BOUNDARY — CURRENT 0.15.29.0
+
+## Активация представления не доказывает причинность
+
+`REPRESENTATION_ACTIVATED` означает использование оси в локальном
+исследовательском представлении после residual/predictive проверки. Этот статус
+не разрешает утверждение `CAUSALLY_ESTABLISHED`. Даже сильнейший residual
+candidate и улучшение sealed/OOD prediction не заменяют отдельное причинное
+доказательство. Пустой список `causal_ready_candidate_dimensions` сохраняет
+причинный статус fail-closed независимо от representation activation.
+
+## Primitive-field operator birth
+
+Разрешено утверждать, что контрольный owner получил sampled primitive fields и координатные сетки, сам вычислил локальные производные, породил размерностно типизированные operator coordinates и передал их adaptive multi-axis search. Успешный receipt относится только к controlled reference world.
+
+Запрещено трактовать этот результат как доказательство существования или гладкости решений Навье—Стокса, как открытие нового физического закона, как универсальное восстановление произвольных PDE либо как причинное установление активированных representation-осей.
 
 ## Разрешённые утверждения
 
@@ -526,3 +541,12 @@ Function-language birth не имеет права изменять exact `ker D
 - предложенный what-if experiment считается выполненным без world receipt.
 
 Human-in-the-loop здесь является **аудируемым механизмом постановки следующего исследования**, а не источником научной истины. Строгий promotion owner остаётся `SCIENTIFIC-PROMOTION-CORE/9.2.0`.
+
+
+## Collective coordination / next-generation AI — граница утверждений 0.15.29.0
+
+**Установлено кодом и внутренним qualification:** существует исполнимый owner коллективной координации; текущий Atlas-native search материализует 576 архитектур; search/holdout разделены; выбранная архитектура имеет нулевую долю invalid plans на текущем holdout; live ledger закрывает `collective_coordination` как resolved executable anchor.
+
+**Не установлено:** AGI, сознание, глобальная оптимальность архитектуры, превосходство над внешними AI-системами, перенос holdout-результата на открытый мир.
+
+**Reproducibility blocker текущей среды:** полный unified seal остаётся заблокирован ровно старым function-language digest, потому что release pin требует NumPy 2.4.2, а доступна 2.3.5 (2.4.4 имеется в отдельном окружении, но также не совпадает битово). Digest-гейт не ослаблен.

@@ -4,13 +4,14 @@
     "architecture_restored": true,
     "consciousness_claimed": false,
     "historical_capability_snapshot_used": false,
-    "live_capability_count": 309,
+    "live_capability_count": 312,
     "mutable_state_bundled_in_release": false,
     "mutable_state_external_to_seal": true,
-    "open_architecture_obligations": [
+    "open_architecture_obligations": [],
+    "resident_learning_is_scientific_truth": false,
+    "resolved_architecture_obligations": [
       "collective_coordination"
-    ],
-    "resident_learning_is_scientific_truth": false
+    ]
   },
   "authoritative_research_kernel": "ADAPTIVE-RESEARCH-KERNEL/15.4.0",
   "autonomous_epoch_genesis": {
@@ -50,6 +51,55 @@
     "scientific_discovery_established": false,
     "status": "PASS_FIRST_BLIND_REAL_PHYSICS_EXPERIMENT"
   },
+  "collective_coordination": {
+    "agi_claimed": false,
+    "capability_state": "EXECUTABLE_READ_ROUTE",
+    "external_superiority_claimed": false,
+    "open_obligation": false,
+    "owner": "COLLECTIVE-COORDINATION/1.0.0",
+    "qualification": {
+      "digest": "b846dd7407318c14241144ce784132e3c6d729f1eb62da3b0a2c41df27453728",
+      "holdout": {
+        "architecture": {
+          "action_fusion": "NONE",
+          "calibration_weighted_information": true,
+          "domain_complementarity": true,
+          "evidence_complementarity": false,
+          "hard_conflict_exclusion": true,
+          "joint_subset_selection": true,
+          "resource_mode": "HARD_FEASIBILITY",
+          "soft_risk_penalty": false
+        },
+        "candidate_id": "CCA-62B86D4588A46BA659B1",
+        "invalid_plan_count": 0,
+        "invalid_plan_fraction": 0.0,
+        "mean_oracle_ratio": 0.9984220856037175,
+        "minimum_oracle_ratio": 0.9709900310044831,
+        "q25_oracle_ratio": 1.0,
+        "regime_mean_ratios": {
+          "BALANCED": 0.9950686784295916,
+          "CONFLICT_DENSE": 0.9998147310143388,
+          "CONSENSUS_TRAP": 1.0,
+          "CORE_DROPOUT": 0.9992753503028137,
+          "CROSS_DOMAIN": 0.9963737538755604,
+          "RESOURCE_SCARCE": 1.0
+        },
+        "world_count": 48
+      },
+      "selected_architecture": {
+        "action_fusion": "NONE",
+        "calibration_weighted_information": true,
+        "domain_complementarity": true,
+        "evidence_complementarity": false,
+        "hard_conflict_exclusion": true,
+        "joint_subset_selection": true,
+        "resource_mode": "HARD_FEASIBILITY",
+        "soft_risk_penalty": false
+      },
+      "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
+    },
+    "resolved_generation_anchor": true
+  },
   "core_convergence": {
     "canonical_dimension_basis": [
       "L",
@@ -65,7 +115,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "f88dc8ccbbd014a9b427af3db0e798ffbc1433c4bd6ad169208331b7b00567d0",
+  "digest": "1138aa40ee9e5771810446c9f519e42d934ed1f2e45ad9955c37d2205bdbba22",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -137,10 +187,10 @@
     "resident_restore_migration": "DIGEST_BOUND_EXTERNAL_ATOMIC_RESTORE",
     "strict_read_only_audit": "TREE_BYTE_AND_DIRECTORY_IDENTITY_REQUIRED",
     "version_axes": {
-      "ai_acceptance_version": "15.10.5",
+      "ai_acceptance_version": "15.10.6",
       "component_schema_version": "6.0.0",
       "state_schema_version": "5",
-      "system_release": "0.15.28.0"
+      "system_release": "0.15.29.0"
     }
   },
   "permutation_eprocess": {
@@ -167,7 +217,18 @@
     "known_law_count": 445,
     "static_source_knowledge": true
   },
-  "qualification_digest": "5e164704e6678b845e0751eddc9e6042746463c2b3d42e2d8bc952e84051fe24",
+  "primitive_field_operator_birth": {
+    "adaptive_multi_axis_birth": true,
+    "caller_supplied_derivative_columns_required": false,
+    "controlled_reference_world_is_new_physical_law": false,
+    "dimension_typed_operator_grammar": true,
+    "named_pde_template_required": false,
+    "owner": "PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH/1.0.0",
+    "primitive_sampled_fields_only": true,
+    "representation_activation_is_causal_establishment": false,
+    "sealed_holdout_used_for_axis_selection": false
+  },
+  "qualification_digest": "6820bf2d1e5b8ba21b5ab7b8dc8d02f620dab2cf71a9261971504831235f11c3",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,
@@ -226,12 +287,26 @@
     "u5_status": "UNKNOWN",
     "whole_function_surface_permutation_refit": true
   },
-  "release": "0.15.28.0",
+  "release": "0.15.29.0",
+  "release_control": {
+    "blocked_release_controls_materialized_only_when_explicitly_requested": false,
+    "current_state_qualification_passed": true,
+    "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
+    "failed_checks": [],
+    "release_candidate_sealed": true
+  },
   "removed": {
     "ai_feynman_100_benchmark": true,
     "historical_generated_candidates_frontiers_and_freezes": true,
     "historical_reports_and_replays": true,
     "persisted_synthetic_control_report": true
+  },
+  "representation_activation_epistemics": {
+    "causal_establishment_requires_separate_authoritative_evidence": true,
+    "causal_readiness_failure_blocks_representation_activation": false,
+    "receipt_exposes_representation_and_causal_statuses_separately": true,
+    "representation_activated_equals_causally_established": false,
+    "residual_driven_activation_scope": "RESEARCH_LOCAL_MODEL_REPRESENTATION"
   },
   "research_triage_sandbox": {
     "contract_digest": "b136690514ff2ee8ffe65c70ba9d13362dbb954d959c47fb08323c4ee9113908",

@@ -159,3 +159,37 @@ def test_first_blind_real_physics_cycle_replays():
     assert result["result_summary"]["born_center_hz"] == 9.0
     assert result["sealed_holdout_evaluation"]["refit_performed"] is False
     assert result["adaptive_kernel_receipt"]["atlas_claim"]["atlas_native"] is True
+
+
+def test_adaptive_research_kernel_can_birth_multiple_dormant_axes_in_one_cycle():
+    from source.lawspace.api import LawSpaceAPI
+
+    rows=[]
+    for i in range(72):
+        x=(i-36)/11.0
+        z=((i*7)%19-9)/5.0
+        w=((i*11)%23-11)/6.0
+        d=((i*5)%17-8)/4.0
+        y=0.7*x - 1.25*z + 0.9*w
+        rows.append({"record_id":f"MAB-{i:03d}","study_id":f"S-{i%6}","values":{"y":y,"x":x,"z":z,"w":w,"d":d}})
+    request={
+        "problem_id":"MULTI-AXIS-BIRTH-UNIT-CONTROL",
+        "domain_id":"physics",
+        "question":"Recover a typed response with an adaptively sized dormant-axis birth set.",
+        "observations":rows,
+        "sealed_holdout_observations":[],
+        "target_variable":"y",
+        "predictor_variables":["x"],
+        "dormant_axis_variables":["z","w","d"],
+        "variable_dimensions":{k:[0,0,0,0,0,0,0] for k in ("y","x","z","w","d")},
+        "complexity_level":1,
+        "fit_tolerance_nrmse":1e-10,
+        "observations_origin":"UNIT_CONTROL",
+        "auto_activate_dormant_axes":True,
+    }
+    result=LawSpaceAPI(ROOT).advance_adaptive_research(request)
+    assert result["result"]["status"] == "HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW"
+    assert set(result["result"]["activated_axis_variables"]) == {"z","w"}
+    assert result["axis_birth_search"]["selected_cardinality"] == 2
+    assert result["axis_birth_search"]["fixed_axis_count_per_cycle"] is None
+    assert result["axis_birth_search"]["multi_axis_birth_allowed"] is True

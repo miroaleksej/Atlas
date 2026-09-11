@@ -1,4 +1,4 @@
-# Φ-Compiler / ScienceAtlas — Mathematical Book, CURRENT 0.15.28.0
+# Φ-Compiler / ScienceAtlas — Mathematical Book, CURRENT 0.15.29.0
 
 ## 0. Назначение
 
@@ -5046,3 +5046,287 @@ The Council records human scientific intuition without allowing it to rewrite ma
 Repeated expert decisions can recalibrate sandbox ranking weights. To reduce immediate confirmation bias, no recommendation is produced before eight labeled decisions, changes are returned as a recommendation, and explicit application affects the external sandbox state only. The strict promotion parameters remain immutable under this mechanism.
 
 This separation is the mathematical reason the 0.15.28.0 patch can retain weak empirical structure without weakening the scientific firewall.
+
+# CURRENT 0.15.28.0 — Blind incompressible continuum / Navier—Stokes recovery benchmark
+
+## 1. Цель математического контроля
+
+Контроль проверяет способность текущего Adaptive Research Kernel восстановить локальный динамический баланс из данных без передачи именованного закона. Физическая модель используется только reference-world generator'ом и post-freeze verifier'ом.
+
+Для двумерного несжимаемого ньютоновского reference world контрольная модель имеет вид
+
+\[
+\partial_t u + u\,\partial_xu+v\,\partial_yu
+= -\rho^{-1}\partial_xp+\nu\Delta u,
+\]
+
+\[
+\partial_t v + u\,\partial_xv+v\,\partial_yv
+= -\rho^{-1}\partial_yp+\nu\Delta v,
+\]
+
+\[
+\partial_xu+\partial_yv=0.
+\]
+
+Эти выражения **не передаются** `AdaptiveResearchKernelOwner`.
+
+## 2. Blind coordinate map
+
+Каждый импульсный канал передаётся как скалярная задача с общей размерностью
+
+\[
+[r_0]=[a_{07}]=[a_{12}]=[a_{19}]=[a_{23}]=L\,T^{-2}.
+\]
+
+До freeze активны только
+
+\[
+\{a_{07},a_{12},a_{19}\},
+\]
+
+а
+
+\[
+\{a_{23},a_{31},a_{37}\}
+\]
+
+являются наблюдаемыми dormant coordinates. `a31` и `a37` специально имеют ту же физическую размерность, поэтому размерностная совместимость сама по себе не может выбрать правильную ось.
+
+Post-freeze decoder устанавливает соответствие
+
+\[
+a_{07}\leftrightarrow u\partial_x u,\qquad
+ a_{12}\leftrightarrow v\partial_y u,
+\]
+
+\[
+a_{19}\leftrightarrow \rho^{-1}\partial_xp,\qquad
+ a_{23}\leftrightarrow \nu\Delta u
+\]
+
+для первой компоненты и аналогичное соответствие для второй.
+
+Искомая замороженная маскированная структура therefore is
+
+\[
+ r_0=-a_{07}-a_{12}-a_{19}+a_{23}.
+\]
+
+## 3. Почему используется несколько exact-flow families
+
+Один exact solution обычно не идентифицирует все коэффициенты. Например, в затухающем сдвиге нелинейные и pressure coordinates равны нулю, а в жёстком вращении time/diffusion channels равны нулю. Поэтому контроль объединяет четыре режима:
+
+\[
+\mathcal D = \mathcal D_{periodic}\cup\mathcal D_{rotation}\cup\mathcal D_{shear}\cup\mathcal D_{channel}.
+\]
+
+Их совместная матрица дизайна разрушает основные вырождения и позволяет независимо определить знаки и масштабы четырёх членов. Discovery rows перемешиваются детерминированным SHA-256 ordering, чтобы внутренний 70/30 split ядра содержал разные режимы.
+
+## 4. Residual-driven adaptive-cardinality axis activation
+
+Начальная гипотеза строится в пространстве активных координат. Если её held-out NRMSE превышает tolerance, Atlas строит residual evidence и оценивает dormant coordinates. Для множества доступных осей (D) ядро проверяет discovery-only подмножества (S\subseteq D) по мощности (1,\ldots,|D|). Выбирается минимальная мощность, для которой модель идентифицируема и
+
+\[
+\operatorname{NRMSE}_{holdout}(S)\le\varepsilon_{fit}.
+\]
+
+Если fit gate не достигнут, сохраняется только лучшее действительно улучшающее research-local подмножество. Поэтому `AXIS_BIRTH_CARDINALITY=ADAPTIVE`, `MULTI_AXIS_BIRTH=ALLOWED`, а фиксированного числа осей на цикл нет. Sealed OOD evidence не участвует в выборе. В masked-term контроле минимальная мощность остаётся равной единице: выбирается `a23`.
+
+После активации ожидается безразмерный коэффициентный вектор
+
+\[
+(c_{a07},c_{a12},c_{a19},c_{a23})=(-1,-1,-1,+1)
+\]
+
+с нулевым intercept в пределах численной точности.
+
+## 5. Sealed OOD protocol
+
+Sealed rows строятся с параметрами reference world, отсутствующими в discovery set. Freeze выполняется до post-freeze semantic decoding. В acceptance criterion используется
+
+\[
+\operatorname{NRMSE}_{sealed}<10^{-10}
+\]
+
+для обеих momentum components. Это проверяет перенос найденной структуры на новый диапазон параметров внутри того же reference-world class.
+
+## 6. Incompressibility closure lane
+
+Отдельный blind lane использует две маскированные величины размерности `T^-1`:
+
+\[
+[c_{05}]=[c_{11}]=T^{-1}.
+\]
+
+Контроль ожидает рождение
+
+\[
+c_{05}=-c_{11},
+\]
+
+которое post-freeze соответствует локальному zero-divergence closure.
+
+## 7. Claim boundary
+
+Даже идеальное численное восстановление benchmark'а устанавливает только:
+
+- корректное исполнение Atlas-native research cycle;
+- восстановление структуры известного controlled reference world;
+- residual-driven выбор dormant coordinate set адаптивной мощности;
+- перенос на sealed parameter holdout.
+
+Оно не устанавливает:
+
+- существование и гладкость трёхмерных решений Навье—Стокса;
+- новый физический закон;
+- мировую новизну;
+- универсальную способность ядра открывать произвольные PDE из необработанных полей.
+
+## 8. Снятое архитектурное ограничение
+
+Ограничение single-axis activation снято интегрированным adaptive-axis patch. Текущий kernel допускает multi-axis representation birth за один цикл, но не смешивает его с причинным доказательством: `REPRESENTATION_ACTIVATED` не означает `CAUSALLY_ESTABLISHED`.
+
+# Математическая модель коллективного эпистемического ИИ — 0.15.29.0
+
+Эта глава является нормативной моделью owner
+`COLLECTIVE-COORDINATION/1.0.0`. Пусть независимые когнитивные контуры
+(c\in\mathcal C) порождают типизированные предложения
+
+\[
+p_i=(a_i,c_i,d_i,e_i,\hat I_i,q_i,k_i,r_i,g_i),
+\]
+
+где (a_i) — действие, (c_i) — источник, (d_i) — домен, (e_i) — класс
+доказательства, (\hat I_i) — прогноз информационной ценности, (q_i\in[0,1])
+— калибровка, (k_i>0) — стоимость, (r_i\ge0) — риск, (g_i) — конфликтная
+группа. Для архитектуры (\theta) Atlas выбирает (S\subseteq\mathcal P):
+
+\[
+\widehat U_\theta(S)=\sum_{i\in S}\hat I_iq_i^{\gamma_\theta}
++B_D(S)+B_E(S)-P_R(S)-P_K(S).
+\]
+
+При `HARD_FEASIBILITY` требуется (\sum_{i\in S}k_i\le B), а при
+`hard_conflict_exclusion` в план не могут одновременно входить конфликтующие
+действия одной группы. Эти условия — constraints, а не компоненты истины.
+Search-score вычисляется только на (\mathcal W_{search}); независимый holdout
+не меняет выбранную (\theta^*). Текущая транша содержит
+(3\times3\times2^6=576) архитектур и не является глобальным потолком.
+
+## Разделение представления и причинности
+
+Для оси (a) Atlas хранит независимые эпистемические состояния
+
+\[
+R(a)\in\{\mathrm{CANDIDATE},\mathrm{REPRESENTATION\_ACTIVATED}\},\qquad
+C(a)\in\{\mathrm{NOT\_ESTABLISHED},\mathrm{CAUSAL\_READY},
+\mathrm{CAUSALLY\_ESTABLISHED}\}.
+\]
+
+Улучшение held-out representation допускает переход
+(R(a)\to\mathrm{REPRESENTATION\_ACTIVATED}), но само по себе не изменяет
+(C(a)). Поэтому
+
+\[
+\boxed{\mathrm{REPRESENTATION\_ACTIVATED}\ne
+\mathrm{CAUSALLY\_ESTABLISHED}}.
+\]
+
+Residual information gain, dimensional compatibility и predictive improvement
+не заменяют отдельное авторитетное причинное доказательство.
+
+# CURRENT 0.15.29.0 — Primitive-field operator birth
+
+## 1. Operator birth model
+
+Второй контрольный уровень убирает готовые физические члены из входа. Atlas получает только sampled primitive fields на координатных сетках. Пусть
+
+\[
+q_0,q_1,q_2
+\]
+
+— обезличенные координаты, а
+
+\[
+f_0,f_1,f_2,f_3,f_4
+\]
+
+— обезличенные поля. По размерностям owner `PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH` определяет единственную time-like coordinate и length-like spatial coordinates. Для target field `f` он строит target
+
+\[
+T_f=D_t f
+\]
+
+не из переданной caller derivative column, а непосредственно из sampled field values.
+
+Текущая generated grammar строит research-local acceleration coordinates вида
+
+\[
+g\,D_i f,\qquad g\,D_i^2 f,\qquad g^{-1}D_i h,
+\]
+
+только если размерность результата совпадает с `[T_f]`. Поэтому grammar типизирована, но не содержит именованных терминов `advection`, `pressure`, `viscosity` или `Navier-Stokes`.
+
+Для контрольных dimensions
+
+\[
+[f_0]=[f_1]=LT^{-1},\quad [f_2]=ML^{-1}T^{-2},\quad [f_3]=ML^{-3},\quad [f_4]=L^2T^{-1}
+\]
+
+для каждого momentum target рождается восемь допустимых candidate coordinates. После post-freeze semantic decode пять выбранных coordinates соответствуют
+
+\[
+u\partial_xu,\quad v\partial_yu,\quad \rho^{-1}\partial_xp,\quad \nu\partial_{xx}u,\quad \nu\partial_{yy}u
+\]
+
+для `u`-канала и аналогичному набору для `v`-канала.
+
+## 2. Numerical differentiation
+
+Производные в primitive-field owner строятся локальным симметричным stencil radius 3. Веса вычисляются из moment conditions, а не задаются под конкретный PDE:
+
+\[
+\sum_{j=-3}^{3} w_j j^k = \delta_{km}m!,\qquad k=0,\ldots,6.
+\]
+
+Для шага `h` оператор порядка `m` использует `w_j/h^m`. В контрольном эксперименте interior rows исключают boundary points, для которых полный stencil недоступен. Поэтому уровень ошибки уже определяется не аналитической точностью exact term fixture, а погрешностью sampled-field differentiation.
+
+## 3. Primitive-field blind result
+
+Текущий проверенный replay получил в обоих momentum lanes минимальный effective support из пяти axes: одна baseline coordinate была выбрана Atlas discovery-only baseline search, а ещё четыре coordinates активированы одним multi-axis birth.
+
+Для `x`-lane:
+
+\[
+\operatorname{NRMSE}_{discovery}\\approx2.61\times10^{-4},\qquad
+\operatorname{NRMSE}_{sealed}\\approx3.45\times10^{-4}.
+\]
+
+Для `y`-lane:
+
+\[
+\operatorname{NRMSE}_{discovery}\\approx3.06\times10^{-4},\qquad
+\operatorname{NRMSE}_{sealed}\\approx3.82\times10^{-4}.
+\]
+
+После post-freeze decode коэффициенты близки к
+
+\[
+(-1,-1,-1,+1,+1),
+\]
+
+с отклонениями порядка `10^-4`. Это согласуется с шестым порядком локального finite-difference stencil на текущих сетках и не требует передачи derivative columns в request.
+
+## 4. Что именно квалифицировано и что ещё нет
+
+Primitive-field PASS квалифицирует цепочку
+
+\[
+\text{sampled primitive fields}
+\to\text{Atlas-born typed local operators}
+\to\text{adaptive multi-axis support}
+\to\text{sealed OOD transfer}.
+\]
+
+Он не квалифицирует полное математическое изобретение произвольной differential grammar. Набор primitive operations пока существует как безопасная domain-neutral grammar внутри Theory Compiler. Следующий уровень должен разрешить Mathematical Invention Kernel рождать новые operation families при residual, если текущие `D`, `D^2`, product и reciprocal-product primitives недостаточны.

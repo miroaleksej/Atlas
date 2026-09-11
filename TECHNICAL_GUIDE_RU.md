@@ -1,4 +1,4 @@
-# Atlas 0.15.28.0: техническое руководство
+# Atlas 0.15.29.0: техническое руководство
 
 <img width="1672" height="941" alt="95b0327d-f6c9-47be-939e-ad2657c838cb" src="https://github.com/user-attachments/assets/2aa004d6-2371-42ee-9cce-41036d0b2ed8" />
 
@@ -58,7 +58,7 @@ Atlas разделяет исследование на четыре слоя:
 
 Например, `physics.interaction_range`, `chemistry.reaction_diffusion_regime`, `biology.organisation_level` и `mathematics.geometric_structure` — разные научные оси. Если ось связана с физической величиной, её размерность при этом описывается семью компонентами. Семантическая, категориальная или формальная ось может вообще не быть физической величиной и потому не участвовать в размерностном ранге.
 
-Фактически загружаемый реестр выпуска 0.15.28.0:
+Фактически загружаемый реестр выпуска 0.15.29.0:
 
 | Предметная область (`domain_id`) | Научных осей |
 |---|---:|
@@ -184,7 +184,7 @@ make collect
 make targeted
 ```
 
-Ожидаемая версия — `0.15.28.0`. Актуальное число тестов следует проверять командой `pytest --collect-only -q`: оно растёт вместе с квалифицированными владельцами и сценариями.
+Ожидаемая версия — `0.15.29.0`. Актуальное число тестов следует проверять командой `pytest --collect-only -q`: оно растёт вместе с квалифицированными владельцами и сценариями.
 
 ### Где хранить изменяемое состояние
 
@@ -1227,7 +1227,7 @@ make audit-read-only
 
 ## 17. Справочник по всем тестам
 
-В выпуске 0.15.28.0 собирается **119 тестов**. Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
+В выпуске 0.15.29.0 собирается **124 теста**. Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
 
 ```bash
 pytest -q -p no:cacheprovider \
@@ -1236,7 +1236,7 @@ pytest -q -p no:cacheprovider \
 
 Обозначение «ожидается PASS» означает прохождение программных утверждений теста, а не автоматическое подтверждение научного закона.
 
-### `tests/test_adaptive_axis_discovery.py` — 9 тестов
+### `tests/test_adaptive_axis_discovery.py` — 10 тестов
 
 - `test_scan_finds_context_axis_without_mutating_registry` — запускает поиск контекстной оси и сравнивает состояние реестра до и после. Ожидается обнаруженный кандидат при неизменном каноническом реестре.
 - `test_positive_causal_readiness_requires_positive_generalization_contract` — подаёт положительное причинное свидетельство без полного контракта обобщения. Ожидается запрет статуса causal-ready до выполнения всех условий.
@@ -1247,6 +1247,7 @@ pytest -q -p no:cacheprovider \
 - `test_failed_axis_promotion_is_unverified_candidate_not_false_axis` — моделирует непройденное продвижение оси. Ожидается статус непроверенного кандидата, а не утверждение, что ось не существует.
 - `test_axis_modeling_does_not_birth_interaction_with_train_constant_axis` — обучает модель при постоянной на FIT оси. Ожидается отсутствие ложной рождённой интеракции, неидентифицируемой по обучающим данным.
 - `test_first_blind_real_physics_cycle_replays` — воспроизводит зафиксированный слепой физический цикл и проверяет его квитанции и метрики. Ожидается детерминированный PASS без заявления нового закона.
+- `test_adaptive_research_kernel_can_birth_multiple_dormant_axes_in_one_cycle` — строит ответ, которому одновременно нужны две dormant-оси, и проверяет полный subset search. Ожидается активация ровно `z` и `w`, `selected_cardinality = 2`, разрешённый multi-axis birth и отсутствие фиксированного числа осей на цикл.
 
 ### `tests/test_curvature_memory_current.py` — 2 теста
 
@@ -1364,7 +1365,7 @@ pytest -q -p no:cacheprovider \
 
 - `test_tensor_einstein_owners_remain_live_while_old_receipts_are_absent` — проверяет владельцев тензорной геометрии и динамики Эйнштейна, одновременно ища старые result receipts. Ожидаются живые методы и чистое отсутствие исторических ответов.
 
-### `tests/test_unified_current.py` — 35 тестов
+### `tests/test_unified_current.py` — 39 тестов
 
 - `test_current_runtime_registry_is_snapshot_not_ceiling` — загружает runtime и пересчитывает оси, области, паспорта и пустые baseline-хранилища. Ожидаются 655 осей, 13 областей, 445 законов и трактовка снимка как продолжимого состояния.
 - `test_preexisting_domain_owners_remain_live` — вызывает владельцев чёрных дыр, Эйнштейна, нейтрино, частиц, фармацевтики, аэрокосмоса и квантового вакуума. Ожидаются доступные контракты всех ранее существовавших областей.
@@ -1376,6 +1377,7 @@ pytest -q -p no:cacheprovider \
 - `test_atomic_frontier_is_regression_owner_not_persisted_seed` — проверяет классификацию атомного контрольного пути и baseline-файлы. Ожидается regression-only владелец без предзагруженного ответа.
 - `test_adaptive_research_kernel_is_current_authority_without_fixed_ceiling` — читает контракт адаптивного ядра и его бюджеты. Ожидается единый authority и отсутствие фиксированного глобального потолка.
 - `test_temperature_axis_is_added_to_space_before_any_formula_coupling` — проверяет последовательность рождения температурной оси. Ожидается регистрация оси до проверки формульной связи.
+- `test_representation_activation_is_explicitly_not_causal_establishment` — активирует скрытую координату по residual improvement и одновременно проверяет причинный статус. Ожидается `REPRESENTATION_ACTIVATED`, но `CAUSALLY_NOT_ESTABLISHED`, пустые causal-ready/established списки и запрет automatic causal selection.
 - `test_assistant_cannot_assign_atlas_native_claim_origin` — имитирует попытку ассистента выставить авторитетный claim origin. Ожидается отказ полномочий.
 - `test_representation_gap_can_synthesize_executable_operator_without_named_law` — передаёт пробел представления без имени известного закона. Ожидается синтез исполняемого оператора-кандидата с ограниченным claim.
 - `test_representation_gap_entry_is_executable_without_fabricated_observations` — исполняет созданный оператор на явных входах. Ожидается численный результат без генерации вымышленных наблюдений.
@@ -1417,3 +1419,286 @@ pytest -q -p no:cacheprovider \
 9. Недостающие доказательства означают ожидание.
 10. Канонические изменения и научное продвижение — только через владельца полномочий.
 ```
+
+# Ручной слепой эксперимент Навье—Стокса (`0.15.28.0`)
+
+## Назначение
+
+Эксперимент `evaluation/navier_stokes_blind_experiment.py` проверяет не знание Atlas названия известного уравнения, а текущую способность Adaptive Research Kernel восстановить локальную структуру динамического баланса из обезличенных численных наблюдений, активировать недостающую dormant-координату по остаточной структуре и перенести найденное замыкание на независимый sealed holdout.
+
+Это **контрольный reference-world benchmark**, а не доказательство существования и гладкости решений Навье—Стокса. Он также не является утверждением о новом физическом законе. `ATLAS_NATIVE` в квитанции означает только корректное происхождение результата из исполненного ядра Atlas.
+
+## Что получает Atlas
+
+Для каждого из двух импульсных каналов Atlas получает только маскированные величины одинаковой размерности `L T^-2`:
+
+- target `r0`;
+- начальные активные координаты `a07`, `a12`, `a19`;
+- dormant-координаты `a23`, `a31`, `a37`.
+
+Физические названия этих столбцов и контрольное уравнение не входят в request. Вопрос формулируется как поиск типизированного локального баланса неизвестного континуума. После формирования execution receipt маска декодируется только в блоке `postfreeze_decoding`.
+
+Третий канал независимо проверяет локальное closure-соотношение двух маскированных скоростей деформации `c05` и `c11` размерности `T^-1`.
+
+## Reference world
+
+Генератор создаёт четыре семейства точных двумерных несжимаемых потоков с различными структурами баланса: затухающий периодический вихрь, жёсткое вращение, затухающий однонаправленный сдвиг и стационарный параболический канальный профиль. Они нужны одновременно: одно семейство само по себе может давать вырожденную идентифицируемость коэффициентов.
+
+Discovery и sealed части имеют разные значения амплитуд, пространственных масштабов, вязкости, времени и параметров потока. Поэтому sealed-проверка проверяет перенос на невиданные параметры, а не повтор тех же строк.
+
+До вызова Atlas reference world проходит внутренний self-check: максимум невязки импульсного баланса и дивергенции должен быть меньше `1e-12`.
+
+## Установка
+
+Из корня распакованного release:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e .
+```
+
+В Windows PowerShell активация:
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -e .
+```
+
+Для воспроизводимости рекомендуется отключить сторонние pytest plugins и ограничить BLAS одним потоком, как это делает `Makefile`.
+
+## Предварительная проверка release
+
+```bash
+python -c "from source.lawspace.api import LawSpaceAPI; print(LawSpaceAPI('.').runtime.current_release_id())"
+python -m interfaces.phi_compiler_cli audit-read-only
+```
+
+Текущая версия системы должна соответствовать `0.15.29.0`; сам retained benchmark сохраняет идентичность `0.15.28.0`. Обратите внимание: имя внутреннего каталога исторически содержит `15_24_0`, поэтому идентичность release проверяется по `pyproject.toml`/runtime, а не по имени папки.
+
+## Основной запуск
+
+На macOS/Linux:
+
+```bash
+make navier-stokes-experiment
+```
+
+или напрямую:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 \
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 \
+python -m evaluation.navier_stokes_blind_experiment \
+  --output reports/NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json \
+  --summary
+```
+
+На Windows PowerShell:
+
+```powershell
+$env:PYTHONDONTWRITEBYTECODE="1"
+$env:PYTEST_DISABLE_PLUGIN_AUTOLOAD="1"
+$env:OPENBLAS_NUM_THREADS="1"
+$env:OMP_NUM_THREADS="1"
+$env:MKL_NUM_THREADS="1"
+$env:NUMEXPR_NUM_THREADS="1"
+python -m evaluation.navier_stokes_blind_experiment `
+  --output reports/NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json `
+  --summary
+```
+
+## Что должно появиться
+
+Единственный основной артефакт ручного запуска:
+
+```text
+reports/NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json
+```
+
+Его и нужно передать для последующего анализа. Файл содержит полный execution receipt обоих импульсных каналов и closure-канала, digest замороженных requests, список residual-axis candidates, выбранную dormant-ось, коэффициенты, внутренний holdout, sealed OOD holdout, provenance firewall и post-freeze decode.
+
+## Критерии PASS
+
+Верхний статус должен быть:
+
+```text
+PASS_BLIND_CONTINUUM_BALANCE_RECOVERY
+```
+
+Ключевые признаки корректного результата:
+
+1. начальная модель без `a23` имеет заметную held-out ошибку;
+2. residual discovery ранжирует `a23` как необходимую координату;
+3. активируется именно `a23`, а `a31`/`a37` остаются distractors;
+4. после активации коэффициенты маскированного баланса близки к `(-1,-1,-1,+1)`;
+5. обе компоненты проходят sealed OOD holdout с `NRMSE < 1e-10`;
+6. closure-канал восстанавливает коэффициент `-1` между `c05` и `c11`;
+7. `scientific_law_established=false` сохраняется.
+
+## Что прислать для анализа
+
+Достаточно файла:
+
+```text
+reports/NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json
+```
+
+Если запуск завершился ошибкой до создания JSON, сохраните полный terminal output и traceback. Не редактируйте JSON вручную: digest нужен для проверки воспроизводимости.
+
+## Адаптивное рождение нескольких осей
+
+Ограничение прежнего ядра устранено. `AdaptiveResearchKernelOwner.advance()` теперь перебирает discovery-only подмножества dormant-осей по мощности `1..N`, выбирает минимальную мощность, прошедшую frozen fit gate, и при необходимости активирует несколько representation-координат в одном цикле. Фиксированного числа осей на цикл нет. Sealed holdout при выборе не используется.
+
+При этом любая такая активация остаётся исследовательской: `REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED`. Multi-axis birth не даёт автоматического причинного статуса ни одной из координат.
+
+# Интеграция Collective Coordination — 0.15.29.0
+
+Authoritative owner: `source/lawspace/collective_coordination.py`
+(`COLLECTIVE-COORDINATION/1.0.0`). API surfaces:
+`get_phi_collective_coordination_contract`,
+`search_phi_collective_coordination_architecture`, `collective_coordination`,
+`run_phi_collective_coordination_qualification`.
+
+Поток исполнения: independent epistemic cores → typed proposals → calibrated
+information value → hard resource/conflict feasibility → joint subset selection
+→ typed execution. Архитектура выбирается из внутренней 576-кандидатной транши;
+внешний интернет как селектор запрещён. Runtime ledger сохраняет provenance
+закрытого обязательства в `resolved_architecture_obligations`.
+
+Для воспроизведения архитектурного решения запустите
+`examples/next_generation_ai_architecture_search.ipynb`. Полный журнал решений —
+`docs/ARCHITECTURE_DECISION_JOURNAL.md`.
+
+## Representation activation и причинность
+
+В receipt адаптивного цикла эти состояния принципиально различаются:
+
+```text
+REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED
+```
+
+`REPRESENTATION_ACTIVATED` означает только, что residual-discovery нашёл
+координату, а её добавление улучшило локальное held-out представление. Это даёт
+право использовать ось как research-local predictor. Поля `causal_ready_axes`,
+`causally_established_axes`, `automatic_causal_axis_selection_allowed` и
+`causal_status` читаются отдельно. Пустой `causal_ready_axes` при активированной
+оси является допустимым и ожидаемым fail-closed результатом, а не противоречием.
+
+Для Navier–Stokes benchmark ожидается:
+
+```text
+representation_status = REPRESENTATION_ACTIVATED
+causal_status = CAUSALLY_NOT_ESTABLISHED
+causal_ready_axes = []
+causally_established_axes = []
+automatic_causal_axis_selection_allowed = false
+```
+
+# Primitive-field blind discovery Навье—Стокса
+
+## Зачем нужен второй уровень
+
+Первый benchmark получает уже вычисленные маскированные члены баланса. Второй уровень существенно строже: Atlas получает только sampled primitive fields и координатные сетки. В request отсутствуют производные, конвективные произведения, pressure-gradient coordinates, Laplacian coordinates и шаблон PDE.
+
+До post-freeze decode поля обезличены:
+
+```text
+q0, q1, q2
+f0, f1, f2, f3, f4
+```
+
+В контрольном мире post-freeze они соответствуют `t, x, y, u, v, p, rho, nu`, но эта расшифровка не передаётся ядру при поиске.
+
+## Как рождаются операторные координаты
+
+В существующий `TheoryCompilerKernel` добавлен один специализированный owner той функции, которой раньше не было: `PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH/1.0.0`. Он не выбирает именованный PDE. По размерностям он определяет time-like и length-like координаты, затем из sampled fields строит высокопорядковые локальные finite-difference actions и типизированные research-local operator coordinates.
+
+Текущая безопасная grammar включает:
+
+- первую производную поля;
+- вторую пространственную производную target field;
+- `field × first-derivative(target-field)`;
+- `field × second-derivative(target-field)`;
+- `reciprocal(field) × first-derivative(other-field)`.
+
+Из этой grammar для каждого импульсного канала в текущем контрольном мире рождается 8 допустимых acceleration-coordinate candidates. Atlas сам выбирает discovery-only baseline и оставляет остальные dormant, после чего Adaptive Research Kernel определяет необходимую мощность multi-axis birth.
+
+## Reference-world данные
+
+Используются независимые sampled-field реализации нескольких режимов: периодический затухающий вихрь, жёсткое вращение, два взаимно ортогональных затухающих сдвига и два взаимно ортогональных параболических канальных режима. Discovery и sealed части имеют разные амплитуды, масштабы, вязкости, плотности и времена.
+
+Reference fixture может знать физическую формулу для построения контрольного мира, но в `primitive_field_request` передаются только массивы координат, массивы primitive fields и их dimensions. Derived derivative values caller не передаёт.
+
+## Запуск
+
+Из корня patched release:
+
+```bash
+make navier-stokes-primitive-field
+```
+
+или напрямую:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 \
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 \
+python -m evaluation.navier_stokes_blind_experiment \
+  --mode primitive-fields \
+  --output reports/NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json \
+  --summary
+```
+
+Windows PowerShell:
+
+```powershell
+$env:PYTHONDONTWRITEBYTECODE="1"
+$env:PYTEST_DISABLE_PLUGIN_AUTOLOAD="1"
+$env:OPENBLAS_NUM_THREADS="1"
+$env:OMP_NUM_THREADS="1"
+$env:MKL_NUM_THREADS="1"
+$env:NUMEXPR_NUM_THREADS="1"
+python -m evaluation.navier_stokes_blind_experiment `
+  --mode primitive-fields `
+  --output reports/NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json `
+  --summary
+```
+
+## Ожидаемый результат текущего контрольного replay
+
+В проверенном replay верхний статус:
+
+```text
+PASS_PRIMITIVE_FIELD_BLIND_OPERATOR_DISCOVERY
+34 / 34 PASS
+```
+
+В каждом импульсном канале Atlas рождает 8 типизированных operator candidates, сам выбирает одну baseline-ось и в том же research cycle активирует ещё четыре оси (`selected_birth_cardinality = 4`). После post-freeze decode effective support соответствует пяти компонентам локального импульсного баланса: две advection coordinates, pressure-gradient/density coordinate и две diffusion coordinates.
+
+Контрольные OOD значения текущего replay:
+
+```text
+x sealed NRMSE ≈ 3.45e-4
+y sealed NRMSE ≈ 3.82e-4
+```
+
+Числа не должны трактоваться как математическое доказательство PDE: finite-difference birth вносит дискретизационную ошибку. Acceptance gate здесь `NRMSE < 1e-2`, а коэффициенты пяти post-freeze expected axes должны быть в пределах `2e-2` от `(-1,-1,-1,+1,+1)`.
+
+## Что прислать после ручного запуска
+
+Основной артефакт:
+
+```text
+reports/NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json
+```
+
+Именно этот JSON содержит primitive-field birth receipt, operation signatures, baseline selection, полный adaptive multi-axis subset search, coefficients, sealed OOD evaluation, digests и provenance firewall. Его следует передавать без ручного редактирования.
+
+## Граница утверждений
+
+PASS второго уровня означает, что в controlled reference world Atlas получил только primitive sampled fields, сам построил допустимые локальные operator coordinates, сам выбрал multi-axis support и перенёс найденную структуру на unseen parameter holdout. Он всё ещё **не** доказывает существование/гладкость Navier—Stokes, мировой новый закон или универсальную способность открывать любой PDE. Следующий более строгий уровень должен убрать заранее заданную локальную operator grammar и заставить Mathematical Invention Kernel расширять сам набор допустимых операций при систематическом residual.

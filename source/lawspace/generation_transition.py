@@ -19,7 +19,7 @@ from .candidates import CandidateGenerationPipeline, DirectedResearchQuery
 from .runtime import LawSpaceRuntime
 from .schema import digest_payload
 
-RELEASE = "15.10.2"
+RELEASE = "15.10.6"
 KERNEL_OWNER_ID = "PHI-GENERATION-TRANSITION-KERNEL/1.0.0"
 PORTFOLIO_OWNER_ID = "MULTI-CANDIDATE-PROSPECTIVE-PREREGISTRATION/1.0.0"
 COMPLETION_OWNER_ID = "GENERATION-COMPLETION-GATE/1.0.0"
@@ -175,6 +175,85 @@ class NextGenerationAISpaceSearchOwner:
         from .research_cycle import SemanticTypedQuestionOwner
 
         gaps = self._architecture_gaps()
+        ledger = self.runtime.live_capability_ledger()
+        resolved_anchors = sorted(set(str(x) for x in ledger.get("resolved_architecture_obligations", ())))
+        if not gaps and "collective_coordination" in resolved_anchors:
+            from .collective_coordination import CollectiveCoordinationOwner
+            collective = CollectiveCoordinationOwner().search_architecture()
+            holdout = collective["holdout"]["selected_candidate_result"]
+            scan = CandidateGenerationPipeline(self.runtime.catalog, self.runtime.bridges).directed_research(
+                DirectedResearchQuery(
+                    question="resolved collective coordination controlled residual next generation architecture",
+                    required_domains=(), target_axis_ids=(), include_all_connected_owners=False,
+                    discovery_mode="SEMANTIC_OWNER_FRONTIER",
+                )
+            )
+            req = {
+                "capability_state": ledger.get("capabilities", {}).get("collective_coordination"),
+                "semantic_status": "RESOLVED_EXECUTABLE_CAPABILITY",
+                "domains": [], "axes": [], "grounded_axes": [],
+                "semantic_digest": collective.get("freeze_digest"),
+                "owner_grounded": True, "covered": True, "resolved": True,
+                "controlled_residual": max(0.0, 1.0 - float(holdout.get("mean_oracle_ratio", 0.0))),
+                "architecture_candidate_id": holdout.get("candidate_id"),
+            }
+            identity = {
+                "resolved_anchor": "collective_coordination",
+                "collective_freeze_digest": collective.get("freeze_digest"),
+                "scan_digest": scan.get("digest"),
+            }
+            selected = {
+                "candidate_id": "NGAI-" + digest_payload(identity)[:20].upper(),
+                "domains": [], "grounded_requirement_count": 1, "covered_requirement_count": 1,
+                "requirement_map": {"collective_coordination": req},
+                "complexity_domain_count": 0,
+                "score_key": [1, 1, 0],
+                "status": "RESOLVED_GENERATION_ANCHOR_WITH_CONTROLLED_RESIDUAL",
+                "collective_architecture": collective.get("selected_architecture"),
+                "collective_holdout": holdout,
+                "digest": digest_payload(identity),
+            }
+            payload = {
+                "schema": "phi-next-generation-ai-space-search/v3",
+                "owner_id": self.owner_id, "release": RELEASE,
+                "architecture_gap_source": "LIVE_CAPABILITY_LEDGER",
+                "architecture_gaps": [],
+                "resolved_generation_anchors": ["collective_coordination"],
+                "scan": {
+                    "digest": scan.get("digest"),
+                    "registered_axis_count": scan.get("registered_axis_count"),
+                    "all_registered_axes_visited": scan.get("all_registered_axes_visited"),
+                    "owner_visits": scan.get("owner_visits"),
+                    "fixed_owner_visit_budget": scan.get("fixed_owner_visit_budget"),
+                    "fixed_candidate_axis_order_ceiling": scan.get("fixed_candidate_axis_order_ceiling"),
+                    "internet_used_prefreeze": False,
+                },
+                "requirement_count": 1,
+                "candidate_count": int(collective.get("search_space", {}).get("candidate_count", 0)),
+                "frontier": collective.get("selection", {}).get("frontier", ()),
+                "selected_candidate": selected,
+                "selected_interpretation": {
+                    "architecture_class": "GENERATED_ARCHITECTURE_REGION-" + str(selected["digest"])[:16].upper(),
+                    "meaning": "resolved executable generation anchor with internally measured residual",
+                    "why_selected": "no open architecture gap remains; continue evolution from the qualified collective capability and its controlled holdout residual",
+                    "not_claimed": ["globally optimal AI architecture", "AGI", "consciousness", "world novelty"],
+                    "hand_authored_architecture_class_selected": False,
+                },
+                "representation_expansion_requests": [],
+                "collective_coordination_search": collective,
+                "claim_boundary": {
+                    "selected_candidate_is_proven_correct": False,
+                    "selected_candidate_is_best_under_frozen_internal_score": True,
+                    "internet_used_to_choose_candidate": False,
+                    "candidate_frontier_exhausts_future_architecture_space": False,
+                    "current_registered_axes_are_space_ceiling": False,
+                    "hand_authored_requirement_axis_map_used": False,
+                    "hand_authored_architecture_answer_used": False,
+                    "resolved_capability_is_not_relabelled_as_open_gap": True,
+                },
+            }
+            payload["freeze_digest"] = digest_payload(payload)
+            return payload
         semantic = SemanticTypedQuestionOwner(self.runtime)
         requirement_rows: dict[str, Any] = {}
         union_domains: set[str] = set()

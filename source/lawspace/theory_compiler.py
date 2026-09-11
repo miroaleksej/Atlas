@@ -33,6 +33,7 @@ LOWERING_OWNER_ID = "THEORY-TO-EXECUTABLE-COMPILER/2.0.0"
 EXECUTOR_OWNER_ID = "EXECUTABLE-THEORY-RUNTIME/2.0.0"
 ERROR_OWNER_ID = "THEORY-ERROR-ESTIMATOR/2.0.0"
 PROBE_DESIGN_OWNER_ID = "OPERATOR-PROBE-DESIGN/2.1.0"
+PRIMITIVE_FIELD_OPERATOR_BIRTH_OWNER_ID = "PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH/1.0.0"
 ATOMIC_WORLD_INTERACTION_OWNER_ID = "ATOMIC-REFERENCE-WORLD-INTERACTION/1.0.0"
 VARIABLE_PARTICLE_PROBE_DESIGN_OWNER_ID = "VARIABLE-PARTICLE-PROBE-DESIGN/1.0.0"
 VARIABLE_PARTICLE_WORLD_INTERACTION_OWNER_ID = "ATOMIC-VARIABLE-PARTICLE-REFERENCE-WORLD/1.0.0"
@@ -2018,10 +2019,253 @@ class ExecutableTheoryRuntimeOwner:
         })
 
 
+class PrimitiveFieldOperatorCoordinateBirthOwner:
+    """Birth typed local operator coordinates directly from primitive sampled fields.
+
+    The owner is deliberately equation-agnostic.  It receives coordinate charts,
+    sampled fields and dimensions; it is not given named PDE terms or a target
+    formula.  It infers the unique time-like coordinate from dimensions, builds
+    high-order finite-difference actions from field values only, and opens a small
+    typed grammar of local products/inverse-carrier gradients.  The resulting
+    coordinates are research-local candidates, not world laws.
+    """
+
+    owner_id = PRIMITIVE_FIELD_OPERATOR_BIRTH_OWNER_ID
+    stencil_radius = 3
+
+    def contract(self) -> Mapping[str, Any]:
+        return {
+            "owner_id": self.owner_id,
+            "input": "PRIMITIVE_COORDINATE_CHARTS_PLUS_SAMPLED_FIELDS_PLUS_DIMENSIONS",
+            "output": "ATLAS_BORN_TYPED_LOCAL_OPERATOR_COORDINATES",
+            "known_equation_name_required": False,
+            "named_pde_term_catalog_used": False,
+            "derivative_values_may_be_supplied_by_caller": False,
+            "derivatives_born_from_sampled_fields": True,
+            "fixed_operator_axis_count": None,
+            "operator_grammar": (
+                "FIRST_DERIVATIVE",
+                "SECOND_SPATIAL_DERIVATIVE",
+                "FIELD_TIMES_TARGET_DERIVATIVE",
+                "RECIPROCAL_FIELD_TIMES_OTHER_FIELD_GRADIENT",
+            ),
+            "claim_boundary": {
+                "born_coordinate_is_scientific_law": False,
+                "numerical_derivative_is_independent_measurement": False,
+                "world_novelty_established": False,
+            },
+        }
+
+    @staticmethod
+    def _dim(v: Sequence[float]) -> tuple[float, ...]:
+        row = tuple(float(x) for x in v)
+        if len(row) != 7:
+            raise ValueError("primitive-field dimensions must have seven base exponents")
+        return row
+
+    @staticmethod
+    def _dadd(a: Sequence[float], b: Sequence[float]) -> tuple[float, ...]:
+        return tuple(float(x) + float(y) for x, y in zip(a, b))
+
+    @staticmethod
+    def _dsub(a: Sequence[float], b: Sequence[float]) -> tuple[float, ...]:
+        return tuple(float(x) - float(y) for x, y in zip(a, b))
+
+    @staticmethod
+    def _dscale(a: Sequence[float], k: float) -> tuple[float, ...]:
+        return tuple(float(k) * float(x) for x in a)
+
+    @staticmethod
+    def _deq(a: Sequence[float], b: Sequence[float], tol: float = 1e-12) -> bool:
+        return all(abs(float(x)-float(y)) <= tol for x, y in zip(a, b))
+
+    @staticmethod
+    def _fd_weights(order: int, radius: int = 3) -> np.ndarray:
+        offsets = np.arange(-radius, radius + 1, dtype=float)
+        powers = np.arange(len(offsets), dtype=int)
+        matrix = np.vstack([np.power(offsets, int(k)) for k in powers])
+        rhs = np.zeros(len(offsets), dtype=float)
+        rhs[int(order)] = float(math.factorial(int(order)))
+        return np.linalg.solve(matrix, rhs)
+
+    @classmethod
+    def _differentiate(cls, values: np.ndarray, coordinate: Sequence[float], axis: int, order: int) -> np.ndarray:
+        x = np.asarray(coordinate, dtype=float)
+        if x.ndim != 1 or len(x) < 2 * cls.stencil_radius + 1 or not np.all(np.isfinite(x)):
+            raise ValueError("each primitive coordinate needs at least seven finite samples")
+        dx = np.diff(x)
+        h = float(np.mean(dx))
+        if h <= 0 or not np.allclose(dx, h, rtol=1e-8, atol=max(1e-12, abs(h)*1e-10)):
+            raise ValueError("primitive-field birth currently requires strictly increasing uniform coordinates")
+        w = cls._fd_weights(order, cls.stencil_radius) / (h ** int(order))
+        out = np.full_like(values, np.nan, dtype=float)
+        dst = [slice(None)] * values.ndim
+        dst[axis] = slice(cls.stencil_radius, values.shape[axis]-cls.stencil_radius)
+        acc = np.zeros(tuple(values[tuple(dst)].shape), dtype=float)
+        for off, coef in zip(range(-cls.stencil_radius, cls.stencil_radius + 1), w):
+            src = [slice(None)] * values.ndim
+            start = cls.stencil_radius + off
+            stop = values.shape[axis] - cls.stencil_radius + off
+            src[axis] = slice(start, stop)
+            acc += float(coef) * values[tuple(src)]
+        out[tuple(dst)] = acc
+        return out
+
+    @staticmethod
+    def _axis_id(spec: Mapping[str, Any]) -> str:
+        return "pf_" + digest_payload(dict(spec))[:16]
+
+    def discover(
+        self,
+        *,
+        studies: Sequence[Mapping[str, Any]],
+        coordinate_dimensions: Mapping[str, Sequence[float]],
+        field_dimensions: Mapping[str, Sequence[float]],
+        target_field: str,
+    ) -> Mapping[str, Any]:
+        rows = [dict(x) for x in studies]
+        if not rows:
+            raise ValueError("primitive-field discovery requires studies")
+        cdim = {str(k): self._dim(v) for k, v in coordinate_dimensions.items()}
+        fdim = {str(k): self._dim(v) for k, v in field_dimensions.items()}
+        target_field = str(target_field)
+        if target_field not in fdim:
+            raise ValueError("target_field is missing from field_dimensions")
+        time_dim = (0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0)
+        length_dim = (1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        time_coords = [name for name, dim in cdim.items() if self._deq(dim, time_dim)]
+        spatial_coords = [name for name, dim in cdim.items() if self._deq(dim, length_dim)]
+        if len(time_coords) != 1 or not spatial_coords:
+            raise ValueError("primitive-field birth requires exactly one time-like and at least one length-like coordinate")
+        time_coord = time_coords[0]
+        target_dim = self._dsub(fdim[target_field], cdim[time_coord])
+
+        # Grammar is generated from types, not from a named equation.
+        specs: list[dict[str, Any]] = []
+        for coord in spatial_coords:
+            d1_dim = self._dsub(fdim[target_field], cdim[coord])
+            d2_dim = self._dsub(fdim[target_field], self._dscale(cdim[coord], 2.0))
+            for carrier, carrier_dim in fdim.items():
+                prod1_dim = self._dadd(carrier_dim, d1_dim)
+                if self._deq(prod1_dim, target_dim):
+                    specs.append({"kind":"FIELD_TIMES_TARGET_D1","carrier_field":carrier,"target_field":target_field,"coordinate":coord,"dimension":list(target_dim)})
+                prod2_dim = self._dadd(carrier_dim, d2_dim)
+                if self._deq(prod2_dim, target_dim):
+                    specs.append({"kind":"FIELD_TIMES_TARGET_D2","carrier_field":carrier,"target_field":target_field,"coordinate":coord,"dimension":list(target_dim)})
+            for other, other_dim in fdim.items():
+                grad_dim = self._dsub(other_dim, cdim[coord])
+                for carrier, carrier_dim in fdim.items():
+                    inv_prod_dim = self._dadd(self._dscale(carrier_dim, -1.0), grad_dim)
+                    if self._deq(inv_prod_dim, target_dim):
+                        specs.append({"kind":"RECIPROCAL_FIELD_TIMES_OTHER_D1","carrier_field":carrier,"other_field":other,"coordinate":coord,"dimension":list(target_dim)})
+        # Exact duplicate signatures are removed deterministically.
+        unique = {}
+        for spec in specs:
+            unique[digest_payload(spec)] = spec
+        specs = [unique[k] for k in sorted(unique)]
+        spec_by_axis = {self._axis_id(spec): spec for spec in specs}
+        target_spec = {"kind":"TARGET_TIME_D1","field":target_field,"coordinate":time_coord,"dimension":list(target_dim)}
+        target_axis = "pf_target_" + digest_payload(target_spec)[:16]
+
+        discovery_obs: list[dict[str, Any]] = []
+        sealed_obs: list[dict[str, Any]] = []
+        study_receipts: list[dict[str, Any]] = []
+        for study_index, study in enumerate(rows):
+            sid = str(study.get("study_id", f"PF-STUDY-{study_index:03d}"))
+            role = str(study.get("role", "DISCOVERY")).upper()
+            order = [str(x) for x in study.get("coordinate_order", ())]
+            coords = {str(k): [float(v) for v in vals] for k, vals in dict(study.get("coordinates", {})).items()}
+            fields = {str(k): np.asarray(v, dtype=float) for k, v in dict(study.get("fields", {})).items()}
+            if set(order) != set(cdim) or not order:
+                raise ValueError(f"study {sid}: coordinate_order must contain every declared coordinate exactly once")
+            expected_shape = tuple(len(coords[name]) for name in order)
+            if any(name not in coords for name in order):
+                raise ValueError(f"study {sid}: coordinate values missing")
+            for field_name in fdim:
+                if field_name not in fields or fields[field_name].shape != expected_shape or not np.all(np.isfinite(fields[field_name])):
+                    raise ValueError(f"study {sid}: field {field_name!r} must have finite shape {expected_shape}")
+            coord_axis = {name: order.index(name) for name in order}
+            d1: dict[tuple[str,str], np.ndarray] = {}
+            d2: dict[tuple[str,str], np.ndarray] = {}
+            needed_d1 = {(target_field,time_coord)}
+            needed_d2 = set()
+            for spec in specs:
+                coord = str(spec["coordinate"]); kind = str(spec["kind"])
+                if kind == "FIELD_TIMES_TARGET_D1": needed_d1.add((target_field,coord))
+                elif kind == "FIELD_TIMES_TARGET_D2": needed_d2.add((target_field,coord))
+                elif kind == "RECIPROCAL_FIELD_TIMES_OTHER_D1": needed_d1.add((str(spec["other_field"]),coord))
+            for field_name, coord in sorted(needed_d1):
+                d1[(field_name,coord)] = self._differentiate(fields[field_name], coords[coord], coord_axis[coord], 1)
+            for field_name, coord in sorted(needed_d2):
+                d2[(field_name,coord)] = self._differentiate(fields[field_name], coords[coord], coord_axis[coord], 2)
+
+            interior = tuple(slice(self.stencil_radius, n-self.stencil_radius) for n in expected_shape)
+            target_values = d1[(target_field,time_coord)][interior]
+            feature_arrays: dict[str,np.ndarray] = {}
+            for axis_id, spec in spec_by_axis.items():
+                kind = str(spec["kind"]); coord = str(spec["coordinate"]); carrier = str(spec["carrier_field"])
+                if kind == "FIELD_TIMES_TARGET_D1":
+                    arr = fields[carrier] * d1[(target_field,coord)]
+                elif kind == "FIELD_TIMES_TARGET_D2":
+                    arr = fields[carrier] * d2[(target_field,coord)]
+                elif kind == "RECIPROCAL_FIELD_TIMES_OTHER_D1":
+                    base = fields[carrier]
+                    if np.any(np.abs(base[interior]) <= 1e-14):
+                        arr = np.full_like(base, np.nan, dtype=float)
+                    else:
+                        arr = d1[(str(spec["other_field"]),coord)] / base
+                else:
+                    raise ValueError(f"unsupported primitive operation {kind!r}")
+                feature_arrays[axis_id] = arr[interior]
+            flat_target = target_values.reshape(-1)
+            flat_features = {k:v.reshape(-1) for k,v in feature_arrays.items()}
+            valid = np.isfinite(flat_target)
+            for arr in flat_features.values(): valid &= np.isfinite(arr)
+            kept = np.flatnonzero(valid)
+            bucket = sealed_obs if role == "SEALED_HOLDOUT" else discovery_obs
+            for local_index in kept:
+                values = {target_axis: float(flat_target[local_index])}
+                values.update({axis_id: float(arr[local_index]) for axis_id, arr in flat_features.items()})
+                bucket.append({"record_id":f"{sid}-{int(local_index):06d}","study_id":sid,"values":values})
+            study_receipts.append({
+                "study_id":sid,"role":role,"shape":list(expected_shape),"interior_record_count":int(len(kept)),
+                "primitive_field_digest":digest_payload({k:np.asarray(v,dtype=float).tolist() for k,v in sorted(fields.items())}),
+            })
+
+        variable_dimensions = {target_axis:list(target_dim), **{axis_id:list(target_dim) for axis_id in spec_by_axis}}
+        core = {
+            "schema":"phi-primitive-field-operator-birth/v1",
+            "owner_id":self.owner_id,
+            "status":"PRIMITIVE_FIELD_OPERATOR_COORDINATES_BORN",
+            "target_field":target_field,
+            "inferred_time_coordinate":time_coord,
+            "inferred_spatial_coordinates":spatial_coords,
+            "target_axis":target_axis,
+            "target_operation":target_spec,
+            "candidate_axis_count":len(spec_by_axis),
+            "candidate_axes":{axis_id:spec for axis_id,spec in sorted(spec_by_axis.items())},
+            "variable_dimensions":variable_dimensions,
+            "discovery_observation_count":len(discovery_obs),
+            "sealed_observation_count":len(sealed_obs),
+            "discovery_observations":discovery_obs,
+            "sealed_holdout_observations":sealed_obs,
+            "study_receipts":study_receipts,
+            "claim_boundary":{
+                "caller_supplied_derived_derivative_values":False,
+                "caller_supplied_named_pde_terms":False,
+                "operator_coordinates_generated_inside_atlas_owner":True,
+                "operator_coordinate_is_scientific_law":False,
+                "sealed_holdout_used_to_generate_candidate_grammar":False,
+            },
+        }
+        return _with_digest(core)
+
+
 class TheoryCompilerKernel:
     def __init__(self, root: str | Path) -> None:
         self.root = Path(root)
         self.probe_design = OperatorProbeDesignOwner()
+        self.primitive_field_birth = PrimitiveFieldOperatorCoordinateBirthOwner()
         self.atomic_world_interaction = AtomicReferenceWorldInteractionOwner(self.root)
         self.variable_particle_probe_design = VariableParticleProbeDesignOwner()
         self.variable_particle_world_interaction = AtomicVariableParticleReferenceWorldInteractionOwner(self.root, self.atomic_world_interaction)
@@ -2037,6 +2281,7 @@ class TheoryCompilerKernel:
         return {
             "owner_id": KERNEL_OWNER_ID,
             "probe_design_owner": self.probe_design.contract(),
+            "primitive_field_operator_birth_owner": self.primitive_field_birth.contract(),
             "atomic_world_interaction_owner": self.atomic_world_interaction.contract(),
             "variable_particle_probe_design_owner": self.variable_particle_probe_design.contract(),
             "variable_particle_world_interaction_owner": self.variable_particle_world_interaction.contract(),
@@ -2068,7 +2313,7 @@ class TheoryCompilerKernel:
 
 
 __all__ = [
-    "TheoryCompilerKernel", "OperatorProbeDesignOwner", "AtomicReferenceWorldInteractionOwner",
+    "TheoryCompilerKernel", "OperatorProbeDesignOwner", "PrimitiveFieldOperatorCoordinateBirthOwner", "AtomicReferenceWorldInteractionOwner",
     "VariableParticleProbeDesignOwner", "AtomicVariableParticleReferenceWorldInteractionOwner",
     "ExecutableRepresentationSynthesisOwner", "SelfConsistentRepresentationSynthesisOwner",
     "ManyBodyOperatorProbeDesignOwner", "AtomicManyBodyReferenceWorldInteractionOwner",

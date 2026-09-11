@@ -6,7 +6,7 @@ from source.lawspace.generation_transition import GenerationTransitionKernel
 from source.lawspace.schema import digest_payload
 from source.lawspace.domains import canonical_axis_count
 
-RELEASE="15.10.2"
+RELEASE="15.10.6"
 
 def _candidate_rows(root: Path):
     """Derive a three-candidate prospective portfolio from current active research state.
@@ -63,6 +63,7 @@ def run_release_qualification(root: str|Path|None=None):
     selected=nextgen['selected_candidate']
     req=selected['requirement_map']
     gap_ids=sorted(str(x['capability_id']) for x in nextgen.get('architecture_gaps',()))
+    anchor_ids=sorted(str(x) for x in nextgen.get('resolved_generation_anchors',()))
     checks={
       'kernel_contract':kernel.contract()['owner_id']=='PHI-GENERATION-TRANSITION-KERNEL/1.0.0',
       'portfolio_three_candidates':portfolio['candidate_count']==3,
@@ -73,11 +74,13 @@ def run_release_qualification(root: str|Path|None=None):
       'nextgen_scans_all_registered_axes':nextgen['scan']['all_registered_axes_visited'] is True and nextgen['scan']['registered_axis_count']==canonical_axis_count(),
       'nextgen_no_fixed_search_ceiling':nextgen['scan']['fixed_owner_visit_budget'] is None and nextgen['scan']['fixed_candidate_axis_order_ceiling'] is None,
       'nextgen_internet_not_selector':nextgen['scan']['internet_used_prefreeze'] is False,
-      'gaps_derived_from_live_capability_ledger':nextgen.get('architecture_gap_source')=='LIVE_CAPABILITY_LEDGER' and len(gap_ids)==nextgen.get('requirement_count') and len(gap_ids)>=1,
-      'selected_requirements_equal_live_gap_ids':sorted(req)==gap_ids,
+      'architecture_state_derived_from_live_capability_ledger':nextgen.get('architecture_gap_source')=='LIVE_CAPABILITY_LEDGER' and bool(gap_ids or anchor_ids),
+      'collective_obligation_resolved_not_reopened':gap_ids==[] and anchor_ids==['collective_coordination'],
+      'selected_requirements_equal_live_gap_or_anchor_ids':sorted(req)==sorted(gap_ids or anchor_ids),
       'semantic_grounding_receipts_present':all(len(str(v.get('semantic_digest','')))==64 for v in req.values()),
-      'selected_has_owner_grounded_region':selected.get('grounded_requirement_count')==len(gap_ids),
+      'selected_has_owner_grounded_region':selected.get('grounded_requirement_count')==len(req),
       'state_derived_candidates_materialized':nextgen.get('candidate_count',0)>=1 and len(nextgen.get('frontier',()))>=1,
+      'collective_holdout_not_used_for_selection':nextgen.get('collective_coordination_search',{}).get('holdout',{}).get('holdout_used_for_selection') is False,
       'selected_region_content_addressed':str(selected.get('candidate_id','')).startswith('NGAI-') and len(str(selected.get('digest','')))==64,
       'generated_architecture_class_not_hand_named':str(nextgen.get('selected_interpretation',{}).get('architecture_class','')).startswith('GENERATED_ARCHITECTURE_REGION-'),
       'no_hand_authored_requirement_axis_map':nextgen.get('claim_boundary',{}).get('hand_authored_requirement_axis_map_used') is False,

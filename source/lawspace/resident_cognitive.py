@@ -31,10 +31,11 @@ from .cognitive_core import (
 from .domains import canonical_axis_count
 from .research_cycle import ScientificResearchCycleOwner
 from .schema import digest_payload
+from .collective_coordination import CollectiveCoordinationOwner
 
 COMPONENT_SCHEMA_VERSION = "6.0.0"
 STATE_SCHEMA_VERSION = "5"
-AI_ACCEPTANCE_VERSION = "15.10.5"
+AI_ACCEPTANCE_VERSION = "15.10.6"
 SCHEMA = "phi-resident-cognitive-organism/v6"
 STATE_SCHEMA = f"phi-resident-state/v{STATE_SCHEMA_VERSION}"
 LEGACY_STATE_SCHEMAS = {"phi-resident-state/v1", "phi-resident-state/v2", "phi-resident-state/v3", "phi-resident-state/v4"}
@@ -1191,6 +1192,7 @@ class ResidentCognitiveOrganism:
         self.action_adapters = TypedWorldActionAdapterOwner()
         self.blind_isolation = BlindProcessIsolationOwner()
         self.consolidation = ResidentConsolidationOwner()
+        self.collective_coordination = CollectiveCoordinationOwner()
 
     def contract(self) -> Mapping[str, Any]:
         payload = {
@@ -1228,6 +1230,7 @@ class ResidentCognitiveOrganism:
                 "blind_generator_solver_evaluator": self.blind_isolation.owner_id,
                 "consolidation_forgetting": self.consolidation.owner_id,
                 "missing_representation_blind_world": MISSING_REPRESENTATION_OWNER_ID,
+                "collective_coordination": self.collective_coordination.owner_id,
             },
             "hard_boundaries": {
                 "parallel_scientific_solver_created": False,
@@ -1243,6 +1246,7 @@ class ResidentCognitiveOrganism:
                 "finite_resource_budget_is_not_physical_truth_gate": True,
                 "learned_likelihood_requires_postfreeze_resolved_experience": True,
                 "world_action_model_can_extrapolate_ood_without_uncertainty_gate": False,
+                "collective_coordination_can_merge_independent_belief_states": False,
                 "model_family_may_inspect_prospective_outcomes_before_freeze": False,
                 "drifted_model_may_remain_current_without_demotion": False,
                 "typed_action_adapter_grants_unrestricted_io": False,
@@ -1848,4 +1852,3 @@ class ResidentCognitiveOrganism:
         payload["digest"]=digest_payload(payload)
         if work.exists(): work.unlink()
         return payload
-

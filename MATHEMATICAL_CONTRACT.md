@@ -1,4 +1,4 @@
-# MATHEMATICAL CONTRACT — Φ-Compiler CURRENT 0.15.28.0
+# MATHEMATICAL CONTRACT — Φ-Compiler CURRENT 0.15.29.0
 
 ## 1. Current authority
 
@@ -1114,3 +1114,32 @@ R_j=g_j(1+s_j)(1+u_j),
 where `g_j` is normalized uncovered range, `s_j>=0` declared sensitivity and `u_j>=0` relative uncertainty. This is an experiment-design heuristic and not observed evidence.
 
 Human-review state is external and append-only at the action level. `SPONSOR_REVIEW` maps to evidence reacquisition, not U6. `REQUEST_SANDBOX_DIMENSION_EXCEPTION` affects sandbox traversal only; strict U2 remains required. Learned DPI weights are advisory sandbox parameters and are disjoint from the scientific-promotion configuration.
+
+
+## COLLECTIVE-COORDINATION/1.0.0 — контракт 0.15.29.0
+
+1. Belief/world-model states независимых cognitive cores не сливаются.
+2. Совместный план выбирается только среди типизированных proposals.
+3. При `HARD_FEASIBILITY` выполняется `Σ cost_i ≤ budget`.
+4. При `hard_conflict_exclusion` конфликтующие разные actions не могут входить в один plan.
+5. Search worlds и holdout worlds имеют разные content digests; holdout не участвует в selection.
+6. Текущая транша 576 кандидатов не является потолком будущего пространства.
+7. Qualification не присваивает AGI, consciousness, external superiority или scientific truth.
+8. Закрытое архитектурное обязательство сохраняется как resolved anchor и не должно искусственно открываться снова.
+
+## Representation activation / causal establishment — контракт 0.15.29.0
+
+1. `REPRESENTATION_ACTIVATED` SHALL mean only admission into the effective research-local model representation after residual evidence and predictive-improvement checks.
+2. `REPRESENTATION_ACTIVATED` SHALL NOT imply `CAUSALLY_ESTABLISHED`.
+3. Causal readiness and causal establishment SHALL be emitted separately from representation activation.
+4. Empty `causal_ready_axes` and `automatic_causal_axis_selection_allowed=false` SHALL remain compatible with research-local representation activation.
+5. `causally_established_axes` SHALL remain empty unless a separate authoritative causal evidence path explicitly establishes the axis.
+
+## Primitive-field operator-coordinate birth — контракт 0.15.29.0
+
+1. Caller input SHALL contain primitive sampled fields, coordinate charts and seven-component quantity dimensions; caller-supplied derivative columns and named PDE templates are forbidden in the primitive-field route.
+2. Numerical derivatives and typed local operator coordinates SHALL be generated inside `PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH/1.0.0`.
+3. Candidate operator dimensions SHALL equal the target evolution dimension before admission to the research-local grammar.
+4. Axis subset selection SHALL use discovery evidence only and SHALL permit adaptive multi-axis representation birth with no fixed axis count per cycle.
+5. Sealed holdout SHALL NOT select, refit or alter the born operator support.
+6. Primitive-field PASS SHALL NOT establish a physical law, world novelty, Navier–Stokes existence/smoothness or causality of activated axes.

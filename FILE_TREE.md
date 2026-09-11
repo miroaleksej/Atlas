@@ -1,6 +1,6 @@
-# FILE TREE — CURRENT 0.15.28.0
+# FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 296
+Controlled files: 302
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -79,6 +79,7 @@ Controlled files: 296
 - `data/source_snapshots/si_codata_core.json`
 - `data/targets/large_qubit_realistic_emulator.json`
 - `data/trust/scientific_verifier_public_keys.json`
+- `docs/ARCHITECTURE_DECISION_JOURNAL.md`
 - `docs/NEUTRINO_CURRENT_STATE.md`
 - `docs/PHI_RQG_MONOGRAPH_CURRENT_v3_6.docx`
 - `evaluation/adaptive_axis_research_qualification.py`
@@ -87,6 +88,7 @@ Controlled files: 296
 - `evaluation/axis_modeling_realdata_qualification.py`
 - `evaluation/build_pharmaceutical_problem_atlas_v8_3.py`
 - `evaluation/build_release_controls.py`
+- `evaluation/collective_coordination_qualification.py`
 - `evaluation/dayabay_likelihood_qualification.py`
 - `evaluation/developmental_open_endedness_qualification.py`
 - `evaluation/discriminating_experiment_qualification.py`
@@ -100,6 +102,7 @@ Controlled files: 296
 - `evaluation/lawspace_qualification.py`
 - `evaluation/long_horizon_blind_cycle_qualification.py`
 - `evaluation/mathematical_invention_qualification.py`
+- `evaluation/navier_stokes_blind_experiment.py`
 - `evaluation/neutrino_external_constraints_qualification.py`
 - `evaluation/neutrino_global_qualification.py`
 - `evaluation/neutrino_qualification.py`
@@ -136,6 +139,8 @@ Controlled files: 296
 - `evaluation/unified_release_qualification.py`
 - `examples/data/exoplanets_g_dimension_nasa2018.csv`
 - `examples/exoplanets_dimensional_birth_of_G.ipynb`
+- `examples/navier_stokes_blind_experiment.ipynb`
+- `examples/next_generation_ai_architecture_search.ipynb`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/ACCEPTANCE_REPORT.md`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/INSTALL_INTO_ATLAS.md`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/INTEGRATION_MANIFEST.json`
@@ -227,6 +232,7 @@ Controlled files: 296
 - `source/lawspace/candidates.py`
 - `source/lawspace/catalog.py`
 - `source/lawspace/cognitive_core.py`
+- `source/lawspace/collective_coordination.py`
 - `source/lawspace/constraint_atlas.py`
 - `source/lawspace/dayabay_full_likelihood.py`
 - `source/lawspace/developmental_open_endedness.py`

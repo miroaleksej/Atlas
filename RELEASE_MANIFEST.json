@@ -19,7 +19,48 @@
     "verified_stop": "DEFERRED_RESOURCE"
   },
   "blind_real_physics_experiment_digest": "710a80f5188c21278a1819071469804d929c2c0cbfd0352b802414beeac22ffd",
-  "controlled_file_count": 296,
+  "collective_coordination": {
+    "digest": "b846dd7407318c14241144ce784132e3c6d729f1eb62da3b0a2c41df27453728",
+    "holdout": {
+      "architecture": {
+        "action_fusion": "NONE",
+        "calibration_weighted_information": true,
+        "domain_complementarity": true,
+        "evidence_complementarity": false,
+        "hard_conflict_exclusion": true,
+        "joint_subset_selection": true,
+        "resource_mode": "HARD_FEASIBILITY",
+        "soft_risk_penalty": false
+      },
+      "candidate_id": "CCA-62B86D4588A46BA659B1",
+      "invalid_plan_count": 0,
+      "invalid_plan_fraction": 0.0,
+      "mean_oracle_ratio": 0.9984220856037175,
+      "minimum_oracle_ratio": 0.9709900310044831,
+      "q25_oracle_ratio": 1.0,
+      "regime_mean_ratios": {
+        "BALANCED": 0.9950686784295916,
+        "CONFLICT_DENSE": 0.9998147310143388,
+        "CONSENSUS_TRAP": 1.0,
+        "CORE_DROPOUT": 0.9992753503028137,
+        "CROSS_DOMAIN": 0.9963737538755604,
+        "RESOURCE_SCARCE": 1.0
+      },
+      "world_count": 48
+    },
+    "selected_architecture": {
+      "action_fusion": "NONE",
+      "calibration_weighted_information": true,
+      "domain_complementarity": true,
+      "evidence_complementarity": false,
+      "hard_conflict_exclusion": true,
+      "joint_subset_selection": true,
+      "resource_mode": "HARD_FEASIBILITY",
+      "soft_risk_penalty": false
+    },
+    "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
+  },
+  "controlled_file_count": 302,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -38,13 +79,13 @@
     },
     {
       "path": "ACCEPTANCE_REPORT.md",
-      "sha256": "4b0dae499590518410f1ab1bbc5a919710bf5598ffb0d35f5014846929d1ed48",
-      "size": 62177
+      "sha256": "e47f55d869867ffd785177b7783ac3fefdb96c2bd69e776b4b3a67cdc960be1a",
+      "size": 64316
     },
     {
       "path": "CLAIM_BOUNDARY.md",
-      "sha256": "4cfe2ab8c4d1edd223ab16ee40daa18f2ba3b41e2e46aa6984d4d0ec9772072e",
-      "size": 53440
+      "sha256": "88ffb72670a4af704e7b931c27a74fd8736339fb1ae2c452302934981e8b26a2",
+      "size": 56481
     },
     {
       "path": "LICENSE.md",
@@ -53,33 +94,33 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "0c7ba27501c3e934f0939723fd47a5cb9ad7cafe7340712c7e412bc97b13c80d",
-      "size": 208195
+      "sha256": "d100f6ab3a2a725933a24aee8861ad8b195ae6ce4f10b0e3191d4f8b2b4dfdc1",
+      "size": 222053
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
-      "sha256": "514b722203e85d3a8dbcd0a6bb305241ff6a944ef91bfea6ab561c3a5672cabb",
-      "size": 77001
+      "sha256": "6255bce1919382d06fe17cc8fc6489fec423f9524f9170d5cc12390e3096bfbd",
+      "size": 79712
     },
     {
       "path": "Makefile",
-      "sha256": "02a380b0974ad9f9005e6808a05a165ab3a8451de7199fac58bae38d8c3914e9",
-      "size": 3571
+      "sha256": "06d8150b7bc2cb3019f934b1a0633c4faf3a12f0bb82044fdfbba128772b9b07",
+      "size": 4097
     },
     {
       "path": "README.md",
-      "sha256": "c71dd388d9fe52ca88cb0cf8375fba61810f9cf32935b71010581467c8c24a51",
-      "size": 96581
+      "sha256": "62ea27a53d9df663dc449e0ad2cc10fbed303fa778002c70ce5a09f428680b18",
+      "size": 103270
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "476eb0a28972566f21cc041cb7e082edc0c8fd4d40982fb4e1c9aeee3a628181",
-      "size": 119634
+      "sha256": "674f7769fdad2704c18d704c990c2bdba8124b0b96743cc7896c173019516d6d",
+      "size": 138276
     },
     {
       "path": "capabilities.json",
-      "sha256": "56a0f4ffc886e0a4d16b82e5c2c5839edd88f34de54b0354e376145144c7f355",
-      "size": 12091
+      "sha256": "471f91c3c5760cf51f5470feb586fc6ef59b9cbf16781bddf55ed905aa3f0110",
+      "size": 15152
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -407,6 +448,11 @@
       "size": 691
     },
     {
+      "path": "docs/ARCHITECTURE_DECISION_JOURNAL.md",
+      "sha256": "e803b934f38470fe5c9aba4eae949b50f2745e3188c1918a60097e66f3221567",
+      "size": 9179
+    },
+    {
       "path": "docs/NEUTRINO_CURRENT_STATE.md",
       "sha256": "438dbb223114767a82a222252ccd28a95fff2656f2579b9e9023ea6c0daf4c27",
       "size": 1132735
@@ -443,8 +489,13 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "3c16e93133beb3073113b2d39a32a7d9ab52867053e0afa959babd7517760990",
-      "size": 34966
+      "sha256": "4321d23d34e3d5761462fdca615b69f5886144031da734077e9c6ca3dd8f0abc",
+      "size": 38514
+    },
+    {
+      "path": "evaluation/collective_coordination_qualification.py",
+      "sha256": "c4093b6bc763803350f09e521d3b8c304e3447a96fe8ece73323f412b728b6e7",
+      "size": 4708
     },
     {
       "path": "evaluation/dayabay_likelihood_qualification.py",
@@ -453,8 +504,8 @@
     },
     {
       "path": "evaluation/developmental_open_endedness_qualification.py",
-      "sha256": "028028d833740baf8df24a8d71311e52c85d2511028023ac84565bc1c060ed09",
-      "size": 6086
+      "sha256": "4214d004b980cf5aae449d78d9aed6eb4757f05e279a5cd05ffdf3d0a2771641",
+      "size": 6331
     },
     {
       "path": "evaluation/discriminating_experiment_qualification.py",
@@ -473,7 +524,7 @@
     },
     {
       "path": "evaluation/full_replay_qualification.py",
-      "sha256": "e3c1b58609fd6cc2b9d43d7b70ab4f89f559aa57fa00a5a83d77de41a053a399",
+      "sha256": "ad2d88cec29e0930b73513d27b41324240788899ccc8e10815046d7514cf5a75",
       "size": 18518
     },
     {
@@ -483,8 +534,8 @@
     },
     {
       "path": "evaluation/generation_transition_qualification.py",
-      "sha256": "a400de09e378ec65c4b73e6318dde90baa4082b27ac58a78d8e832936765c0bb",
-      "size": 7581
+      "sha256": "cd9e3c1e1cc23124ff1d8eb524450bb836b30c3fa8fbf463876a785c5013dba1",
+      "size": 7939
     },
     {
       "path": "evaluation/katrin_likelihood_qualification.py",
@@ -510,6 +561,11 @@
       "path": "evaluation/mathematical_invention_qualification.py",
       "sha256": "92ff14e448139c50d6d798325dcdc5c5c7efafc1acb5f3487c68ad8c3583ace8",
       "size": 9185
+    },
+    {
+      "path": "evaluation/navier_stokes_blind_experiment.py",
+      "sha256": "09265aa26dd9106c8386a043cf558c9c510a82eb20da7609361f93862d34b6db",
+      "size": 42458
     },
     {
       "path": "evaluation/neutrino_external_constraints_qualification.py",
@@ -588,18 +644,18 @@
     },
     {
       "path": "evaluation/read_only_audit.py",
-      "sha256": "9d8d3b3c9d29018c76034164ef0e2b54b8b0f3c1d0b3d1c1e26cec6fd84a67f3",
+      "sha256": "89f96dc8cafa8c1192cc86114edc890258c29cd3161f553cdefdb3349aad3da3",
       "size": 4258
     },
     {
       "path": "evaluation/reflexive_architecture_qualification.py",
-      "sha256": "cf2a1547001ce77e25b70287fa42402d4a1b964162e7dd977ad9546f240c0d26",
-      "size": 6808
+      "sha256": "ca4f41e6a03425ab3d7dda3c6dd984d1fe22b7ff1f1159c43fa086dee716bc7d",
+      "size": 7082
     },
     {
       "path": "evaluation/release_files.py",
-      "sha256": "a4beaee8e29450df09d19ec6160bbf805df63ab2f405d30b285e9541ad628ec3",
-      "size": 796
+      "sha256": "c3240c7aafee1351ad9ad128ad91a6b9621b44d4b01deb788a277d59b1f4e7c3",
+      "size": 904
     },
     {
       "path": "evaluation/research_proof_qualification.py",
@@ -648,7 +704,7 @@
     },
     {
       "path": "evaluation/seal_audit.py",
-      "sha256": "a3c0ac76fd5b5d816ffaca0fd9dbec3414c700f1ff5b9ace2f2d5796be217489",
+      "sha256": "73cd1de28e0016bb82319a6112cca7633c226b6d4f85762b7dc55fed330e4dd2",
       "size": 4400
     },
     {
@@ -678,8 +734,8 @@
     },
     {
       "path": "evaluation/unified_release_qualification.py",
-      "sha256": "1714199f4709c3f346eda90f37aa76270a76f5434600e425cf152500ac3c0987",
-      "size": 39093
+      "sha256": "15a210a61f7ca4af83af830510096bbcf1cb0bce14de2c4c66b9fb122afdc7e3",
+      "size": 40479
     },
     {
       "path": "examples/data/exoplanets_g_dimension_nasa2018.csv",
@@ -690,6 +746,16 @@
       "path": "examples/exoplanets_dimensional_birth_of_G.ipynb",
       "sha256": "91b03a7124a56d871cb408fda2af0e620beb56a4d65b1e92c3a3430a15b1260e",
       "size": 22194
+    },
+    {
+      "path": "examples/navier_stokes_blind_experiment.ipynb",
+      "sha256": "e67ff6db073ccfc04e3e9f36edbf5d5d7f7bb04b9fd37a6fa53b55e2452a9e92",
+      "size": 8884
+    },
+    {
+      "path": "examples/next_generation_ai_architecture_search.ipynb",
+      "sha256": "57bb26b4b21afe4224ca7383508f617cd6ae2c023c4c01a5969107c1494676e7",
+      "size": 12909
     },
     {
       "path": "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/ACCEPTANCE_REPORT.md",
@@ -998,12 +1064,12 @@
     },
     {
       "path": "invariants.json",
-      "sha256": "6db19f3e228929d0fd03ee4bb2473c26be2e518449dd90370816a0389e518761",
-      "size": 6851
+      "sha256": "351e355ad78fda9f6cbddaca68223124491eb6c1402780b696fc7d074d0140aa",
+      "size": 7575
     },
     {
       "path": "pyproject.toml",
-      "sha256": "f0cd1bfa1dd49aacd6b0f7573ae30deca929908872c73641280b1bd429c9f046",
+      "sha256": "05edd7a067ac1d5e01db34507b4e0b8fe0225e105c714542e61041e0fc3380e8",
       "size": 639
     },
     {
@@ -1103,8 +1169,8 @@
     },
     {
       "path": "source/lawspace/api.py",
-      "sha256": "b76bdf2375f770acc3841b9c199f06bc4983d47922e257d95ed79cab0a75c877",
-      "size": 124194
+      "sha256": "bf628f26dbdb82502c8f4cdc792004e6f848bb07f0e742f67e2ffdad4668dd19",
+      "size": 125393
     },
     {
       "path": "source/lawspace/atomic_dirac_evaluator.py",
@@ -1147,6 +1213,11 @@
       "size": 96245
     },
     {
+      "path": "source/lawspace/collective_coordination.py",
+      "sha256": "bf421758d03822106a2275d3d04994550ef728ffc66cc5c7f4a209ad05eea80a",
+      "size": 20807
+    },
+    {
       "path": "source/lawspace/constraint_atlas.py",
       "sha256": "09615d7b5c8289c8f7a71e41fcbef9d59dc5010c802a3867f8a30c2a1e753477",
       "size": 285324
@@ -1158,8 +1229,8 @@
     },
     {
       "path": "source/lawspace/developmental_open_endedness.py",
-      "sha256": "db9435db542af7f55a788951d54f5d6fef178784f7a73004fc48b0622763e042",
-      "size": 23887
+      "sha256": "ca55f1e70a2f8c9b18dcf1a7cca5ab3468574e5be0df16d9d9c306536936705a",
+      "size": 24077
     },
     {
       "path": "source/lawspace/dimensional_law_birth.py",
@@ -1203,8 +1274,8 @@
     },
     {
       "path": "source/lawspace/generation_transition.py",
-      "sha256": "57f0b3f03d7c23b939df74a08a8bc945c210f973bc60b67e26a1bc9622319d30",
-      "size": 19951
+      "sha256": "04a80efcd0f72a2738d0d31eeae8354e0ef24888c3c87ef28d3e71726edb30dd",
+      "size": 25008
     },
     {
       "path": "source/lawspace/katrin_spectral_likelihood.py",
@@ -1308,13 +1379,13 @@
     },
     {
       "path": "source/lawspace/reflexive_architecture.py",
-      "sha256": "c7de6c16255c5f1af84ad65b134e6b197da19aa7b08ffe44b8a934c7a14da243",
-      "size": 41562
+      "sha256": "824d658f2099e9f8684f77e6952bb20126459e577702bc061a59472510832b4c",
+      "size": 42261
     },
     {
       "path": "source/lawspace/research_cycle.py",
-      "sha256": "9ac7bad65fb990793d84f909f0ba43e2970a3e8a4706f53bfef497386f045ff4",
-      "size": 234390
+      "sha256": "bbf44dfd3ccbe6d40f2d0227fc9127a48f66975057dc7ab8be1d27b2708b9501",
+      "size": 248988
     },
     {
       "path": "source/lawspace/research_triage.py",
@@ -1323,8 +1394,8 @@
     },
     {
       "path": "source/lawspace/resident_cognitive.py",
-      "sha256": "46ec61e620569b9d08ac5cc3c53cdbb196cbf39941c4f265690666a548a59e21",
-      "size": 135007
+      "sha256": "823bb66b0cb3b6737b6ab2207f8bc1621708092514d473a70b2b004619e7af01",
+      "size": 135308
     },
     {
       "path": "source/lawspace/resource_theory.py",
@@ -1333,8 +1404,8 @@
     },
     {
       "path": "source/lawspace/runtime.py",
-      "sha256": "504dcb0969ddabf1b07c3e038d75ec1e2c4c1fc03527a2f7a5641ba674c6e6b4",
-      "size": 67073
+      "sha256": "cb1ff02bec7ed31c568a0b4945d2005e6353490bfba8b2b13b58d3041ef513cb",
+      "size": 67845
     },
     {
       "path": "source/lawspace/schema.py",
@@ -1398,8 +1469,8 @@
     },
     {
       "path": "source/lawspace/theory_compiler.py",
-      "sha256": "15f37ecef840d5060470ac1262c2225c7ab4b0a8fd67d6fd6ef27d2410b948d0",
-      "size": 111269
+      "sha256": "829ab3624b6ff58c8b6bd2aadb1889937e5488f2debcbe6fff810bc5e9aa328d",
+      "size": 125082
     },
     {
       "path": "source/multidomain_qg_bridge.py",
@@ -1423,8 +1494,8 @@
     },
     {
       "path": "tests/test_adaptive_axis_discovery.py",
-      "sha256": "5b323f8941ed102eae959e1c38b98e489914e15874132bdaa6e08df6d6d3356e",
-      "size": 9680
+      "sha256": "ecfc7845ba0fcbdaf3df441395c1111c39bef494d8cb8c0768bccf661c034615",
+      "size": 11180
     },
     {
       "path": "tests/test_curvature_memory_current.py",
@@ -1498,12 +1569,14 @@
     },
     {
       "path": "tests/test_unified_current.py",
-      "sha256": "a596a32a5f4fd7630204c7cc777de60ace68f15100b8397ec3daca9f52a7cf56",
-      "size": 45986
+      "sha256": "24abb5deca561ee6913f73aa81855344d308e3c2e4379191f015c66f19b70b25",
+      "size": 49169
     }
   ],
-  "current_state_qualification_digest": "5e164704e6678b845e0751eddc9e6042746463c2b3d42e2d8bc952e84051fe24",
-  "digest": "ea26524d0d56a68917f7441759351c6bf65aaed542ca4892ceb398230cf0bb0b",
+  "current_state_failed_checks": [],
+  "current_state_qualification_digest": "6820bf2d1e5b8ba21b5ab7b8dc8d02f620dab2cf71a9261971504831235f11c3",
+  "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
+  "digest": "8d5754ac41316f94108e1981772ea5bfa799777337c2b1c898ebf2f2e42e8414",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -1554,7 +1627,7 @@
   },
   "frontier_scan_digest": "c6692aae39202f5db8588dd407da82a79b159d85c009b20e639e1778d02b6384",
   "low_frequency_gust_anomaly_digest": "9df11440defb554739a40e793d36d5ddb0457c8cb435ed783a21c0af3c2799ed",
-  "owner": "RELEASE-CONTROLS/0.15.28.0",
+  "owner": "RELEASE-CONTROLS/0.15.29.0",
   "permutation_eprocess": {
     "atlas_wide_promotion_allowed_from_crossing_alone": false,
     "frozen_genesis_journal_required": true,
@@ -1619,7 +1692,9 @@
     "world_data_status": "NO_COMPLETE_JOINT_AXIS_TABLE_IDENTIFIED_IN_CURRENT_SEARCH",
     "world_function_language_result_established": false
   },
-  "release": "0.15.28.0",
+  "release": "0.15.29.0",
+  "release_candidate_sealed": true,
+  "release_candidate_status": "SEALED_CANDIDATE",
   "research_freeze_digest": "47e2414d891239328c143d5639f27f21fa7392fdfeba3432e051e91752903c73",
   "research_state_policy": {
     "ai_feynman_100_preserved": false,
@@ -1684,6 +1759,11 @@
     "materialized_relational_u4_complete": true,
     "multi_axis_birth_allowed": true,
     "multi_axis_birth_bypasses_axis_lifecycle": false,
+    "primitive_field_caller_supplies_derivative_columns": false,
+    "primitive_field_control_establishes_new_physical_law": false,
+    "primitive_field_named_pde_template_required": false,
+    "primitive_field_operator_birth_owner": "PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH/1.0.0",
+    "primitive_field_sealed_holdout_used_for_axis_selection": false,
     "promising_reject_is_u5_or_u6": false,
     "query_exact_pi_basis_frozen_before_function_fit": true,
     "query_function_language_birth_changes_exact_pi_kernel": false,
@@ -1703,6 +1783,8 @@
     "query_selected_cv_score_is_unbiased_post_selection_estimate": false,
     "query_whole_function_surface_permutation_refit_required": true,
     "query_world_claim_requires_complete_joint_axis_data": true,
+    "representation_activated_equals_causally_established": false,
+    "representation_and_causal_axis_statuses_separated": true,
     "resident_mutable_state_bundled": false,
     "resident_mutable_state_external_to_release": true,
     "resident_state_restore_digest_bound_external": true,
@@ -1809,12 +1891,12 @@
   },
   "status": "ADAPTIVE_TRIAGE_SANDBOX_HUMAN_REVIEW_AND_FUNCTION_LANGUAGE_EDA_INTEGRATED",
   "version_identity": {
-    "ai_acceptance_version": "15.10.5",
+    "ai_acceptance_version": "15.10.6",
     "component_schema_version": "6.0.0",
     "scienceatlas_ai_package_version": "0.10.0",
     "scienceatlas_ai_wheel_path": "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/dist/scienceatlas_ai-0.10.0-py3-none-any.whl",
     "scienceatlas_ai_wheel_sha256": "fa661ee31aea5347360b0a0f114b40733243ab4944ce60340ef27e42f90fcd7d",
     "state_schema_version": "5",
-    "system_release": "0.15.28.0"
+    "system_release": "0.15.29.0"
   }
 }

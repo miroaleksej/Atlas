@@ -27,7 +27,7 @@ from .schema import digest_payload
 from .theory_compiler import TheoryCompilerKernel
 from .discriminating_experiment import AutomaticDiscriminatingExperimentKernel
 
-RELEASE = "15.10.2"
+RELEASE = "15.10.6"
 KERNEL_OWNER_ID = "PHI-REFLEXIVE-SELF-HOSTED-ARCHITECTURE/1.0.0"
 STATE_OWNER_ID = "ARCHITECTURE-STATE/1.0.0"
 CANDIDATE_OWNER_ID = "SELF-ARCHITECTURE-CANDIDATE-GENERATION/1.0.0"
@@ -87,6 +87,7 @@ class ArchitectureStateOwner:
             "capability_count": len(caps),
             "capability_ledger_digest": capability_ledger.get("digest"),
             "open_research_obligations": list(capability_ledger.get("open_architecture_obligations", ())),
+            "resolved_generation_anchors": list(capability_ledger.get("resolved_architecture_obligations", ())),
             "invariants": invariants,
             "invariant_count": len(invariants),
             "routes": routes,
@@ -128,9 +129,12 @@ class SelfArchitectureCandidateGenerationOwner:
         rollback_available = "architecture_commit_rollback" in qualified
         for req_id, req in sorted(reqs.items()):
             status = str(req.get("capability_state", "UNRESOLVED"))
+            resolved = bool(req.get("resolved"))
             rows.append({
                 "mode": "residual", "environment_id": f"CAPABILITY_LEDGER::{req_id}",
-                "source": "ARCHITECTURE_STATE_CAPABILITY_GAP", "requirement": req_id, "observed": status,
+                "source": "RESOLVED_CAPABILITY_CONTROLLED_RESIDUAL" if resolved else "ARCHITECTURE_STATE_CAPABILITY_GAP",
+                "requirement": req_id,
+                "observed": {"state": status, "controlled_residual": req.get("controlled_residual")} if resolved else status,
             })
             if not req.get("grounded_axes"):
                 rows.append({
@@ -155,13 +159,14 @@ class SelfArchitectureCandidateGenerationOwner:
 
     @staticmethod
     def _transition_rows(obligations: Mapping[str, Any], nextgen: Mapping[str, Any]) -> list[dict[str, str]]:
-        reqs = sorted(dict(nextgen.get("selected_candidate", {}).get("requirement_map", {})))
-        histories = ["BASELINE"] + ["GAP::" + req for req in reqs]
+        req_map = dict(nextgen.get("selected_candidate", {}).get("requirement_map", {}))
+        reqs = sorted(req_map)
+        histories = ["BASELINE"] + [("ANCHOR::" if req_map[req].get("resolved") else "GAP::") + req for req in reqs]
         operations = [str(x.get("operation")) for x in obligations.get("operations", ()) if x.get("operation")]
         operations = sorted(set(operations)) or ["observe", "update"]
         rows: list[dict[str, str]] = []
         for history in histories:
-            observation = "BASELINE" if history == "BASELINE" else "UNRESOLVED_ARCHITECTURE_GAP"
+            observation = "BASELINE" if history == "BASELINE" else ("RESOLVED_CAPABILITY_WITH_MEASURABLE_RESIDUAL" if history.startswith("ANCHOR::") else "UNRESOLVED_ARCHITECTURE_GAP")
             for operation in operations:
                 # The generated signature determines the action alphabet. Only
                 # update/counterfactual-update are allowed to propose crossing
@@ -244,7 +249,7 @@ class SelfArchitectureCandidateGenerationOwner:
             "candidate_id": "ARCH-" + _d(core)[:16].upper(),
             **core, "provides": provides, "status": "SELF_CHANGE_CANDIDATE_FROZEN",
         }
-        unresolved = sorted(selected_region.get("requirement_map", {}))
+        unresolved = sorted(k for k,v in selected_region.get("requirement_map", {}).items() if not v.get("resolved"))
         qualified_caps = {k for k, v in state.get("capabilities", {}).items() if str(v).startswith("QUALIFIED")}
         payload = {
             "schema": "phi-self-architecture-candidate-generation/v2", "owner_id": self.owner_id,
@@ -272,7 +277,7 @@ class SelfArchitectureCandidateGenerationOwner:
             "claim_boundary": {
                 "selected_candidate_globally_optimal": False,
                 "developmental_open_endedness_mechanism_qualified": "developmental_open_endedness" in qualified_caps,
-                "collective_coordination_grounded": False,
+                "collective_coordination_grounded": "collective_coordination" in set(state.get("resolved_generation_anchors", ())),
                 "arbitrary_source_rewrite_allowed": False,
                 "hand_authored_architecture_atoms_used": False,
                 "hand_authored_requirement_axis_map_used": False,
@@ -697,7 +702,7 @@ class ReflexiveSelfHostedPhiArchitectureKernel:
         state=self.state.snapshot(); selection=self.candidates.generate(state); proof=self.proof.assess(state,selection)
         control=self.shadow.compile_control_plane(proof); wf=self.shadow.freeze_workloads(state,selection); se=self.shadow.evaluate(state,proof,wf); de=self.shadow.discriminate(proof)
         tx=self.transaction.decide(state=state,proof=proof,shadow_control=control,shadow_eval=se,discrimination=de)
-        return _wd({"schema":"phi-reflexive-self-hosted-architecture-cycle/v1","owner_id":self.owner_id,"release":RELEASE,"architecture_state":state,"candidate_generation":selection,"proof":proof,"shadow_control":control,"workload_freeze":wf,"shadow_evaluation":se,"discriminating_experiment":de,"transaction":tx,"claim_boundary":{"controlled_generation_ii_transition_world_proven":False,"developmental_open_endedness_grounded":False,"collective_coordination_grounded":False}})
+        return _wd({"schema":"phi-reflexive-self-hosted-architecture-cycle/v1","owner_id":self.owner_id,"release":RELEASE,"architecture_state":state,"candidate_generation":selection,"proof":proof,"shadow_control":control,"workload_freeze":wf,"shadow_evaluation":se,"discriminating_experiment":de,"transaction":tx,"claim_boundary":{"controlled_generation_ii_transition_world_proven":False,"developmental_open_endedness_grounded":False,"collective_coordination_grounded":"collective_coordination" in set(state.get("resolved_generation_anchors", ()))}})
 
 
 __all__=["ReflexiveSelfHostedPhiArchitectureKernel", "ArchitectureStateOwner", "SelfArchitectureCandidateGenerationOwner", "ProofCarryingSelfChangeOwner", "ArchitectureShadowExecutionOwner", "ArchitectureCommitRollbackOwner", "RuntimeExecutionSelfRepairOwner", "KERNEL_OWNER_ID", "RUNTIME_REPAIR_OWNER_ID"]

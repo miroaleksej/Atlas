@@ -104,7 +104,7 @@ def test_current_release_tree_and_book_are_single_authority():
     books = list(ROOT.glob('MATHEMATICAL_BOOK*.md'))
     assert books == [ROOT/'MATHEMATICAL_BOOK.md']
     text = books[0].read_text(encoding='utf-8')
-    assert 'CURRENT 0.15.28.0' in text
+    assert 'CURRENT 0.15.29.0' in text
     assert 'Adaptive Research Kernel' in text
 
 
@@ -176,6 +176,26 @@ def test_temperature_axis_is_added_to_space_before_any_formula_coupling():
     assert checks['null_control_does_not_activate_temperature'] is True
     assert checks['null_control_keeps_temperature_out_of_effective_formula_space'] is True
     assert checks['both_controls_not_claimed_as_physical_law'] is True
+
+
+def test_representation_activation_is_explicitly_not_causal_establishment():
+    from evaluation.navier_stokes_blind_experiment import MASK, _kernel_request, _world_rows
+    api = LawSpaceAPI(ROOT)
+    receipt = api.advance_adaptive_research(
+        _kernel_request("x", _world_rows("x", "discovery"), _world_rows("x", "sealed"))
+    )
+    activation = receipt["axis_activation"]
+    result = receipt["result"]
+    assert activation["activated_axes"] == [MASK["diffusion"]]
+    assert activation["representation_status"] == "REPRESENTATION_ACTIVATED"
+    assert activation["causal_status"] == "CAUSALLY_NOT_ESTABLISHED"
+    assert activation["causal_ready_axes"] == []
+    assert activation["causally_established_axes"] == []
+    assert activation["automatic_causal_axis_selection_allowed"] is False
+    assert activation["representation_activated_does_not_equal_causally_established"] is True
+    assert result["representation_activation_is_causal_establishment"] is False
+    assert result["causally_established_axis_variables"] == []
+    assert receipt["claim_boundary"]["representation_activation_is_causal_proof"] is False
 
 
 def test_assistant_cannot_assign_atlas_native_claim_origin():
@@ -724,7 +744,7 @@ def test_resident_state_versions_are_separate_and_snapshot_restore_is_digest_bou
     ident=ledger.version_identity()
     assert ident['component_schema_version']==COMPONENT_SCHEMA_VERSION=='6.0.0'
     assert ident['state_schema_version']==STATE_SCHEMA_VERSION=='5'
-    assert ident['ai_acceptance_version']==AI_ACCEPTANCE_VERSION=='15.10.5'
+    assert ident['ai_acceptance_version']==AI_ACCEPTANCE_VERSION=='15.10.6'
     assert ident['system_release']==runtime.current_release_id()
     assert ident['system_release'] not in {ident['component_schema_version'],ident['state_schema_version'],ident['ai_acceptance_version']}
 
@@ -797,3 +817,37 @@ def test_genesis_evidence_scoped_open_search_invariants():
               ledger=state.ledger,journal=state.journal,pricing=pricing,search_domain='D')
     assert dict(duplicate.gates)['SEARCH_NOVELTY']=='FAIL_DUPLICATE_SEARCH'
     assert duplicate.alpha_price_bp==0 and state.ledger.balance_bp==before
+
+
+def test_collective_coordination_is_resolved_generation_anchor():
+    from source.lawspace.runtime import LawSpaceRuntime
+    ledger=LawSpaceRuntime(ROOT).live_capability_ledger()
+    assert ledger['capabilities']['collective_coordination']=='EXECUTABLE_READ_ROUTE'
+    assert 'collective_coordination' not in ledger['open_architecture_obligations']
+    assert 'collective_coordination' in ledger['resolved_architecture_obligations']
+
+
+def test_collective_coordination_architecture_search_is_blind_and_holdout_separated():
+    from source.lawspace.collective_coordination import CollectiveCoordinationOwner
+    r=CollectiveCoordinationOwner().search_architecture()
+    assert r['search_space']['candidate_count']==576
+    assert r['search_space']['internet_used_for_selection'] is False
+    assert r['search_space']['named_external_architectures_used'] is False
+    assert r['holdout']['holdout_used_for_selection'] is False
+    assert r['selection']['search_world_digest']!=r['holdout']['holdout_world_digest']
+    h=r['holdout']['selected_candidate_result']
+    assert h['invalid_plan_count']==0
+    assert h['mean_oracle_ratio']>=0.90
+
+
+def test_collective_coordination_selected_architecture_executes_fail_closed():
+    from source.lawspace.collective_coordination import CollectiveCoordinationOwner
+    owner=CollectiveCoordinationOwner(); a=owner.search_architecture()['selected_architecture']
+    proposals=[
+      {'proposal_id':'p1','action_id':'a1','core_id':'c1','domain':'d1','evidence_class':'e1','estimated_information':1.4,'calibration':0.9,'realized_information':1.0,'cost':0.7,'risk':0.1,'conflict_group':None},
+      {'proposal_id':'p2','action_id':'a2','core_id':'c2','domain':'d2','evidence_class':'e2','estimated_information':1.2,'calibration':0.85,'realized_information':1.0,'cost':0.8,'risk':0.1,'conflict_group':None},
+    ]
+    r=owner.coordinate(proposals=proposals,budget=2.0,architecture=a)
+    assert r['status']=='COLLECTIVE_PLAN_SELECTED'
+    assert r['conflict_free'] is True
+    assert r['resource_used']<=r['budget']

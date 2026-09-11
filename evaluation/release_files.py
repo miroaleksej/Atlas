@@ -15,7 +15,11 @@ LOCAL_DIRECTORY_NAMES = frozenset({
     "__pycache__",
     "node_modules",
 })
-LOCAL_FILE_NAMES = frozenset({".DS_Store"})
+LOCAL_FILE_NAMES = frozenset({
+    ".DS_Store",
+    "NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json",
+    "NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json",
+})
 LOCAL_SUFFIXES = frozenset({".pyc", ".pyo"})
 
 

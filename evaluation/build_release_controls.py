@@ -1,4 +1,4 @@
-"""Build deterministic release envelope for Φ-Compiler / ScienceAtlas 0.15.28.0."""
+"""Build deterministic release envelope for Φ-Compiler / ScienceAtlas 0.15.29.0."""
 from __future__ import annotations
 import hashlib,json,sys,zipfile
 from pathlib import Path
@@ -13,7 +13,7 @@ from source.lawspace.eda_chip_design import EDAChipDesignResearchOwner
 from source.lawspace.research_triage import ResearchTriageSandbox
 from evaluation.research_triage_qualification import run as run_research_triage_qualification
 from evaluation.release_files import is_local_artifact
-RELEASE='0.15.28.0'; OWNER='RELEASE-CONTROLS/0.15.28.0'
+RELEASE='0.15.29.0'; OWNER='RELEASE-CONTROLS/0.15.29.0'
 EXCLUDE={'RELEASE_MANIFEST.json','HASHES.txt','FILE_TREE.md'}
 REAL_REPORT='reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json'
 FRONTIER_REPORT='reports/ATLAS_FRONTIER_SCAN_CURRENT.json'
@@ -29,11 +29,28 @@ def controlled(root):
   if rel in EXCLUDE or is_local_artifact(p,root): continue
   rows.append({'path':rel,'sha256':sha(p),'size':p.stat().st_size})
  return sorted(rows,key=lambda x:x['path'])
-def run(root=None):
+def run(root=None, *, allow_blocked=False):
  root=Path(root or ROOT).resolve(); q=run_release_qualification(root); rt=LawSpaceRuntime(root)
- if q.get('status')!='PASS_CURRENT_STATE_15_28_0': raise RuntimeError('current-state qualification failed')
+ qualification_passed=q.get('status')=='PASS_CURRENT_STATE_15_29_0'
+ if not qualification_passed and not allow_blocked: raise RuntimeError('current-state qualification failed')
  real=json.loads((root/REAL_REPORT).read_text(encoding='utf-8')); scan=json.loads((root/FRONTIER_REPORT).read_text(encoding='utf-8')); query=json.loads((root/QUERY_REPORT).read_text(encoding='utf-8')); live_ai=rt.live_capability_ledger()
- caps={'schema':'phi-capabilities/current-v1','release':RELEASE,'status':'ADAPTIVE_TRIAGE_SANDBOX_HUMAN_REVIEW_AND_FUNCTION_LANGUAGE_EDA_INTEGRATED','system':'Phi-Compiler / ScienceAtlas Adaptive Triage + Exploration Sandbox + Human Review + Multi-Pi + Function-Language Birth + EDA Chip PPA Pilot','authoritative_research_kernel':'ADAPTIVE-RESEARCH-KERNEL/15.4.0','state':{'historical_search_receipts_restored':0,'historical_calculation_receipts_restored':0,'baseline_candidate_registry_count':len(rt.candidates),'active_frontier_candidate_count':scan['active_candidate_ledger']['record_count'],'evidence_registry_count':len(rt.evidence),'generated_quantum_route_count':len(rt.quantum_method_routes),'current_research_report_count':2},'preserved':{'canonical_axis_count':canonical_axis_count(),'domain_registry_count':len(DOMAIN_REGISTRIES),'known_law_count':len(rt.catalog.passports),'computational_method_count':len(rt.computational_methods),'static_source_knowledge':True},'removed':{'ai_feynman_100_benchmark':True,'historical_reports_and_replays':True,'historical_generated_candidates_frontiers_and_freezes':True,'persisted_synthetic_control_report':True},'blind_real_physics_experiment':{'problem_id':real.get('problem_id'),'status':real.get('status'),'digest':real.get('digest'),'research_freeze_digest':real.get('research_freeze',{}).get('digest'),'scientific_discovery_established':False},'frontier_candidate_scan':{'status':scan.get('status'),'digest':scan.get('digest'),'active_candidate_count':scan['active_candidate_ledger']['record_count'],'candidate_class_counts':scan.get('candidate_class_counts'),'adaptive_subspace':{'candidate_count':scan.get('scan_summary',{}).get('adaptive_multidimensional_subspace_candidates'),'seed_count':scan.get('scan_summary',{}).get('adaptive_subspace_seed_count'),'minimum_axis_order':scan.get('scan_summary',{}).get('adaptive_subspace_minimum_axis_order'),'maximum_axis_order':scan.get('scan_summary',{}).get('adaptive_subspace_maximum_axis_order'),'fixed_axis_order_ceiling':None,'fixed_neighbor_visit_budget':scan.get('scan_summary',{}).get('adaptive_subspace_neighbor_visit_budget'),'lower_order_projection_required_before_higher_order_nomination':False,'candidate_absent_from_literature_is_false':False},'new_scientific_law_established':False},'low_frequency_gust_anomaly':{'status':scan.get('scan_summary',{}).get('low_frequency_gust_anomaly_status'),'mean_residual_db_4_8_hz':scan.get('scan_summary',{}).get('low_frequency_mean_residual_db'),'conditional_effective_input_ratio_4_8_hz':scan.get('scan_summary',{}).get('low_frequency_conditional_effective_input_ratio'),'new_physical_mechanism_established':False},'ai_restore':{'architecture_restored':True,'live_capability_count':live_ai.get('capability_count'),'historical_capability_snapshot_used':live_ai.get('historical_capability_snapshot_used'),'open_architecture_obligations':live_ai.get('open_architecture_obligations'),'mutable_state_external_to_seal':True,'mutable_state_bundled_in_release':False,'resident_learning_is_scientific_truth':False,'consciousness_claimed':False,'agi_claimed':False},'core_convergence':{'canonical_dimension_basis':['L','M','T','I','Theta','N','J'],'exact_rational_dimension_kernel':True,'legacy_5d_boundary_compatibility_only':True,'whole_pipeline_permutation_null_required_before_promotion':True,'parallel_symbolic_regression_core_added':False},'qualification_runtime_convergence':{'scientific_promotion_owner':'SCIENTIFIC-PROMOTION-CORE/9.2.0','frontier_receipt_count':scan.get('qualification_runtime',{}).get('receipt_count'),'frontier_receipt_valid_count':scan.get('qualification_runtime',{}).get('receipt_valid_count'),'prepromotion_ready_count':scan.get('qualification_runtime',{}).get('prepromotion_ready_count'),'promotion_allowed_count':scan.get('qualification_runtime',{}).get('promotion_allowed_count'),'candidate_false_count':scan.get('qualification_runtime',{}).get('candidate_false_count'),'whole_pipeline_null_required_before_law_candidate':scan.get('qualification_runtime',{}).get('whole_pipeline_null_required_before_law_candidate'),'direct_numeric_core_can_bypass_unified_path':scan.get('qualification_runtime',{}).get('direct_numeric_core_can_bypass_unified_path')},'fair_open_ended_dovetail':{'owner':scan.get('fair_open_ended_traversal',{}).get('owner'),'state_digest':scan.get('fair_open_ended_traversal',{}).get('state_digest'),'state_valid':scan.get('fair_open_ended_traversal',{}).get('state_valid'),'preserved_15_13_candidate_count':scan.get('fair_open_ended_traversal',{}).get('preserved_15_13_candidate_count'),'continuation_candidate_count':scan.get('fair_open_ended_traversal',{}).get('dovetail_continuation_candidate_count'),'node_count':scan.get('fair_open_ended_traversal',{}).get('node_count'),'fixed_global_step_ceiling':scan.get('fair_open_ended_traversal',{}).get('fairness_contract',{}).get('fixed_global_step_ceiling'),'fixed_axis_order_ceiling':scan.get('fair_open_ended_traversal',{}).get('fairness_contract',{}).get('fixed_axis_order_ceiling'),'local_search_shell_fixed_maximum':None,'mutable_runtime_state_external_to_seal':True,'finite_tranche_exhausts_scientific_space':False},'p2_closure':{'conservation_canonicalization':'COMPOSITION_ADDITIVITY_REQUIRED','resident_restore_migration':'DIGEST_BOUND_EXTERNAL_ATOMIC_RESTORE','version_axes':{'system_release':RELEASE,'component_schema_version':'6.0.0','state_schema_version':'5','ai_acceptance_version':'15.10.5'},'strict_read_only_audit':'TREE_BYTE_AND_DIRECTORY_IDENTITY_REQUIRED'},'scientific_depth':{'materialized_relational_hypotheses':scan.get('scan_summary',{}).get('typed_hypothesis_materializations_bound_to_current_records'),'u4_formal_derivability_pass':scan.get('scan_summary',{}).get('materialized_relational_u4_pass_count'),'u5_empirical_pass':scan.get('scan_summary',{}).get('materialized_relational_u5_pass_count'),'candidate_world_binding_receipts':scan.get('scan_summary',{}).get('candidate_world_binding_receipt_count'),'frozen_response_projection_contracts':scan.get('scan_summary',{}).get('candidate_response_projection_count'),'executed_measurement_responses':scan.get('scan_summary',{}).get('candidate_measurement_execution_count'),'manual_candidate_prediction_lowerings':scan.get('scan_summary',{}).get('candidate_prediction_lowering_count'),'heldout_prediction_checks':scan.get('scan_summary',{}).get('candidate_prediction_discrimination_count'),'manual_prediction_collapse_passes':scan.get('scan_summary',{}).get('manual_prediction_collapse_pass_count'),'u4_strict_single_forward_owner_complete':scan.get('scan_summary',{}).get('u4_structural_single_forward_owner_complete_count'),'u4_composable_multi_owner_complete':scan.get('scan_summary',{}).get('u4_structural_composable_multi_owner_complete_count'),'u4_structurally_addressable_union':scan.get('scan_summary',{}).get('u4_structural_addressable_union_count'),'scientifically_discriminating_measurements':scan.get('scan_summary',{}).get('scientifically_discriminating_measurement_count'),'world_attestations':scan.get('scan_summary',{}).get('world_attestation_count'),'automatic_promotions':scan.get('scan_summary',{}).get('automatic_scientific_promotion_count')},'qualification_digest':q['digest']}
+ caps={'schema':'phi-capabilities/current-v1','release':RELEASE,'status':'ADAPTIVE_TRIAGE_SANDBOX_HUMAN_REVIEW_AND_FUNCTION_LANGUAGE_EDA_INTEGRATED','system':'Phi-Compiler / ScienceAtlas Adaptive Triage + Exploration Sandbox + Human Review + Multi-Pi + Function-Language Birth + EDA Chip PPA Pilot','authoritative_research_kernel':'ADAPTIVE-RESEARCH-KERNEL/15.4.0','state':{'historical_search_receipts_restored':0,'historical_calculation_receipts_restored':0,'baseline_candidate_registry_count':len(rt.candidates),'active_frontier_candidate_count':scan['active_candidate_ledger']['record_count'],'evidence_registry_count':len(rt.evidence),'generated_quantum_route_count':len(rt.quantum_method_routes),'current_research_report_count':2},'preserved':{'canonical_axis_count':canonical_axis_count(),'domain_registry_count':len(DOMAIN_REGISTRIES),'known_law_count':len(rt.catalog.passports),'computational_method_count':len(rt.computational_methods),'static_source_knowledge':True},'removed':{'ai_feynman_100_benchmark':True,'historical_reports_and_replays':True,'historical_generated_candidates_frontiers_and_freezes':True,'persisted_synthetic_control_report':True},'blind_real_physics_experiment':{'problem_id':real.get('problem_id'),'status':real.get('status'),'digest':real.get('digest'),'research_freeze_digest':real.get('research_freeze',{}).get('digest'),'scientific_discovery_established':False},'frontier_candidate_scan':{'status':scan.get('status'),'digest':scan.get('digest'),'active_candidate_count':scan['active_candidate_ledger']['record_count'],'candidate_class_counts':scan.get('candidate_class_counts'),'adaptive_subspace':{'candidate_count':scan.get('scan_summary',{}).get('adaptive_multidimensional_subspace_candidates'),'seed_count':scan.get('scan_summary',{}).get('adaptive_subspace_seed_count'),'minimum_axis_order':scan.get('scan_summary',{}).get('adaptive_subspace_minimum_axis_order'),'maximum_axis_order':scan.get('scan_summary',{}).get('adaptive_subspace_maximum_axis_order'),'fixed_axis_order_ceiling':None,'fixed_neighbor_visit_budget':scan.get('scan_summary',{}).get('adaptive_subspace_neighbor_visit_budget'),'lower_order_projection_required_before_higher_order_nomination':False,'candidate_absent_from_literature_is_false':False},'new_scientific_law_established':False},'low_frequency_gust_anomaly':{'status':scan.get('scan_summary',{}).get('low_frequency_gust_anomaly_status'),'mean_residual_db_4_8_hz':scan.get('scan_summary',{}).get('low_frequency_mean_residual_db'),'conditional_effective_input_ratio_4_8_hz':scan.get('scan_summary',{}).get('low_frequency_conditional_effective_input_ratio'),'new_physical_mechanism_established':False},'ai_restore':{'architecture_restored':True,'live_capability_count':live_ai.get('capability_count'),'historical_capability_snapshot_used':live_ai.get('historical_capability_snapshot_used'),'open_architecture_obligations':live_ai.get('open_architecture_obligations'),'resolved_architecture_obligations':live_ai.get('resolved_architecture_obligations'),'mutable_state_external_to_seal':True,'mutable_state_bundled_in_release':False,'resident_learning_is_scientific_truth':False,'consciousness_claimed':False,'agi_claimed':False},'core_convergence':{'canonical_dimension_basis':['L','M','T','I','Theta','N','J'],'exact_rational_dimension_kernel':True,'legacy_5d_boundary_compatibility_only':True,'whole_pipeline_permutation_null_required_before_promotion':True,'parallel_symbolic_regression_core_added':False},'qualification_runtime_convergence':{'scientific_promotion_owner':'SCIENTIFIC-PROMOTION-CORE/9.2.0','frontier_receipt_count':scan.get('qualification_runtime',{}).get('receipt_count'),'frontier_receipt_valid_count':scan.get('qualification_runtime',{}).get('receipt_valid_count'),'prepromotion_ready_count':scan.get('qualification_runtime',{}).get('prepromotion_ready_count'),'promotion_allowed_count':scan.get('qualification_runtime',{}).get('promotion_allowed_count'),'candidate_false_count':scan.get('qualification_runtime',{}).get('candidate_false_count'),'whole_pipeline_null_required_before_law_candidate':scan.get('qualification_runtime',{}).get('whole_pipeline_null_required_before_law_candidate'),'direct_numeric_core_can_bypass_unified_path':scan.get('qualification_runtime',{}).get('direct_numeric_core_can_bypass_unified_path')},'fair_open_ended_dovetail':{'owner':scan.get('fair_open_ended_traversal',{}).get('owner'),'state_digest':scan.get('fair_open_ended_traversal',{}).get('state_digest'),'state_valid':scan.get('fair_open_ended_traversal',{}).get('state_valid'),'preserved_15_13_candidate_count':scan.get('fair_open_ended_traversal',{}).get('preserved_15_13_candidate_count'),'continuation_candidate_count':scan.get('fair_open_ended_traversal',{}).get('dovetail_continuation_candidate_count'),'node_count':scan.get('fair_open_ended_traversal',{}).get('node_count'),'fixed_global_step_ceiling':scan.get('fair_open_ended_traversal',{}).get('fairness_contract',{}).get('fixed_global_step_ceiling'),'fixed_axis_order_ceiling':scan.get('fair_open_ended_traversal',{}).get('fairness_contract',{}).get('fixed_axis_order_ceiling'),'local_search_shell_fixed_maximum':None,'mutable_runtime_state_external_to_seal':True,'finite_tranche_exhausts_scientific_space':False},'p2_closure':{'conservation_canonicalization':'COMPOSITION_ADDITIVITY_REQUIRED','resident_restore_migration':'DIGEST_BOUND_EXTERNAL_ATOMIC_RESTORE','version_axes':{'system_release':RELEASE,'component_schema_version':'6.0.0','state_schema_version':'5','ai_acceptance_version':'15.10.6'},'strict_read_only_audit':'TREE_BYTE_AND_DIRECTORY_IDENTITY_REQUIRED'},'scientific_depth':{'materialized_relational_hypotheses':scan.get('scan_summary',{}).get('typed_hypothesis_materializations_bound_to_current_records'),'u4_formal_derivability_pass':scan.get('scan_summary',{}).get('materialized_relational_u4_pass_count'),'u5_empirical_pass':scan.get('scan_summary',{}).get('materialized_relational_u5_pass_count'),'candidate_world_binding_receipts':scan.get('scan_summary',{}).get('candidate_world_binding_receipt_count'),'frozen_response_projection_contracts':scan.get('scan_summary',{}).get('candidate_response_projection_count'),'executed_measurement_responses':scan.get('scan_summary',{}).get('candidate_measurement_execution_count'),'manual_candidate_prediction_lowerings':scan.get('scan_summary',{}).get('candidate_prediction_lowering_count'),'heldout_prediction_checks':scan.get('scan_summary',{}).get('candidate_prediction_discrimination_count'),'manual_prediction_collapse_passes':scan.get('scan_summary',{}).get('manual_prediction_collapse_pass_count'),'u4_strict_single_forward_owner_complete':scan.get('scan_summary',{}).get('u4_structural_single_forward_owner_complete_count'),'u4_composable_multi_owner_complete':scan.get('scan_summary',{}).get('u4_structural_composable_multi_owner_complete_count'),'u4_structurally_addressable_union':scan.get('scan_summary',{}).get('u4_structural_addressable_union_count'),'scientifically_discriminating_measurements':scan.get('scan_summary',{}).get('scientifically_discriminating_measurement_count'),'world_attestations':scan.get('scan_summary',{}).get('world_attestation_count'),'automatic_promotions':scan.get('scan_summary',{}).get('automatic_scientific_promotion_count')},'qualification_digest':q['digest']}
+ caps['collective_coordination']={
+  'owner':'COLLECTIVE-COORDINATION/1.0.0',
+  'capability_state':live_ai.get('capabilities',{}).get('collective_coordination'),
+  'open_obligation':'collective_coordination' in set(live_ai.get('open_architecture_obligations',[])),
+  'resolved_generation_anchor':'collective_coordination' in set(live_ai.get('resolved_architecture_obligations',[])),
+  'qualification':q.get('ai_runtime',{}).get('collective_coordination_qualification',{}),
+  'external_superiority_claimed':False,
+  'agi_claimed':False,
+ }
+ caps['release_control']={
+  'current_state_qualification_status':q.get('status'),
+  'current_state_qualification_passed':qualification_passed,
+  'failed_checks':[k for k,v in q.get('checks',{}).items() if not v],
+  'release_candidate_sealed':qualification_passed,
+  'blocked_release_controls_materialized_only_when_explicitly_requested':not qualification_passed,
+ }
  triage_contract=ResearchTriageSandbox.contract()
  triage_qualification=run_research_triage_qualification()
  caps['research_triage_sandbox']={
@@ -58,6 +75,24 @@ def run(root=None):
   'single_axis_greedy_growth_required':False,
   'finite_execution_cycle_materializes_finite_axis_set':True,
   'individual_axis_lifecycle_receipts_required':True,
+ }
+ caps['representation_activation_epistemics']={
+  'representation_activated_equals_causally_established':False,
+  'residual_driven_activation_scope':'RESEARCH_LOCAL_MODEL_REPRESENTATION',
+  'causal_establishment_requires_separate_authoritative_evidence':True,
+  'causal_readiness_failure_blocks_representation_activation':False,
+  'receipt_exposes_representation_and_causal_statuses_separately':True,
+ }
+ caps['primitive_field_operator_birth']={
+  'owner':'PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH/1.0.0',
+  'primitive_sampled_fields_only':True,
+  'caller_supplied_derivative_columns_required':False,
+  'named_pde_template_required':False,
+  'dimension_typed_operator_grammar':True,
+  'adaptive_multi_axis_birth':True,
+  'sealed_holdout_used_for_axis_selection':False,
+  'representation_activation_is_causal_establishment':False,
+  'controlled_reference_world_is_new_physical_law':False,
  }
  caps['query_research']={
   'owner':query.get('owner'),
@@ -194,10 +229,25 @@ def run(root=None):
   'fixed_axis_count_per_cycle_is_absent':True,
   'axis_search_is_sparse_adaptive_and_open_ended':True,
   'multi_axis_birth_does_not_bypass_individual_axis_lifecycle':True,
+  'collective_coordination_preserves_independent_belief_states':True,
+  'collective_coordination_holdout_is_not_architecture_selector':True,
+  'resolved_architecture_obligation_is_not_reopened_as_gap':True,
+  'collective_coordination_does_not_claim_external_ai_superiority':True,
+  'representation_activation_is_not_causal_establishment':True,
+  'residual_axis_activation_is_research_local_representation_only':True,
+  'causal_establishment_requires_separate_authoritative_evidence':True,
+  'primitive_field_operator_coordinates_are_born_inside_atlas':True,
+  'primitive_field_operator_birth_requires_named_pde_template':False,
+  'primitive_field_benchmark_establishes_new_physical_law':False,
  })
  inv['digest']=digest_payload(inv); (root/'invariants.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
  files=controlled(root)
  man={'schema':'phi-release-manifest/current-v1','release':RELEASE,'owner':OWNER,'status':'ADAPTIVE_TRIAGE_SANDBOX_HUMAN_REVIEW_AND_FUNCTION_LANGUAGE_EDA_INTEGRATED','controlled_file_count':len(files),'controlled_files':files,'current_state_qualification_digest':q['digest'],'blind_real_physics_experiment_digest':real.get('digest'),'research_freeze_digest':real.get('research_freeze',{}).get('digest'),'frontier_scan_digest':scan.get('digest'),'active_candidate_ledger_sha256':scan.get('active_candidate_ledger',{}).get('sha256'),'active_candidate_count':scan.get('active_candidate_ledger',{}).get('record_count'),'low_frequency_gust_anomaly_digest':scan.get('hotspots',{}).get('low_frequency_gust_anomaly',{}).get('digest'),'research_state_policy':{'axes_preserved':True,'static_source_knowledge_preserved':True,'historical_search_results_preserved':False,'historical_calculation_results_preserved':False,'current_blind_real_data_result_preserved':True,'current_active_frontier_candidates_preserved':True,'candidate_ranking_is_deletion_policy':False,'unknown_candidate_is_false':False,'unmaterialized_adaptive_subspace_is_false':False,'literature_absence_is_negative_evidence':False,'fixed_adaptive_subspace_order_ceiling':None,'all_axes_required_per_candidate':False,'synthetic_control_persisted_as_result':False,'ai_feynman_100_preserved':False,'resident_mutable_state_external_to_release':True,'resident_mutable_state_bundled':False,'cognitive_learning_promotes_scientific_truth':False,'canonical_dimension_basis':['L','M','T','I','Theta','N','J'],'exact_rational_dimension_kernel':True,'legacy_5d_boundary_compatibility_only':True,'unified_frontier_promotion_path_required':True,'direct_numeric_promotion_bypass_forbidden':True,'whole_pipeline_null_required_before_law_candidate':True,'fair_dovetail_state_persisted':True,'fair_dovetail_fixed_global_step_ceiling':None,'fair_dovetail_fixed_pair_seed_ceiling':None,'fair_dovetail_fixed_node_visit_ceiling':None,'fair_dovetail_axis_birth_order_append_only':True,'legacy_15_13_adaptive_candidate_count_preserved':1005,'finite_dovetail_tranche_is_scientific_space_ceiling':False,'local_search_shell_fixed_maximum':None,'conservation_invariant_canonicalization_requires_composition_law':True,'resident_state_restore_digest_bound_external':True,'version_identity_axes_separated':True,'strict_read_only_audit_required':True,'materialized_relational_u4_complete':True,'u5_u10_require_world_evidence':True,'response_projection_prefreeze_required':True,'executed_dataset_response_without_candidate_prediction_is_u5':False,'manual_lowering_post_reveal_retuning_allowed':False,'manual_lowering_generalized_to_class':False,'manual_lowering_distinct_retry_requires_alpha_ledger':True,'retry_until_lucky_without_alpha_spending_allowed':False,'u1_u2_lowerability_proposal_enforced':False,'u4_structural_lowerability_audit_is_global_gate':False}}
+ man['release_candidate_status']='SEALED_CANDIDATE' if qualification_passed else 'BLOCKED_PINNED_NUMERIC_REPLAY'
+ man['current_state_qualification_status']=q.get('status')
+ man['current_state_failed_checks']=[k for k,v in q.get('checks',{}).items() if not v]
+ man['release_candidate_sealed']=qualification_passed
+ man['collective_coordination']=q.get('ai_runtime',{}).get('collective_coordination_qualification',{})
  man['research_state_policy'].update({
   'query_p_gt_1_function_form_lane_enabled':True,
   'query_exact_pi_basis_frozen_before_function_fit':True,
@@ -209,7 +259,7 @@ def run(root=None):
   'query_selected_cv_score_is_unbiased_post_selection_estimate':False,
   'query_world_claim_requires_complete_joint_axis_data':True,
   'query_partial_source_stitching_allowed':False,
-  'query_multi_pi_u5_status':'UNKNOWN',
+ 'query_multi_pi_u5_status':'UNKNOWN',
   'query_function_language_birth_enabled':True,
   'query_function_language_birth_component':'FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT',
   'query_function_language_birth_requires_persistent_oof_residual':True,
@@ -230,6 +280,13 @@ def run(root=None):
   'fixed_axis_count_per_cycle':None,
   'axis_search_policy':['SPARSE','ADAPTIVE','OPEN_ENDED'],
   'multi_axis_birth_bypasses_axis_lifecycle':False,
+  'representation_activated_equals_causally_established':False,
+  'representation_and_causal_axis_statuses_separated':True,
+  'primitive_field_operator_birth_owner':'PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH/1.0.0',
+  'primitive_field_caller_supplies_derivative_columns':False,
+  'primitive_field_named_pde_template_required':False,
+  'primitive_field_sealed_holdout_used_for_axis_selection':False,
+  'primitive_field_control_establishes_new_physical_law':False,
  })
  man['research_state_policy'].update({
   'dynamic_quality_tiers_enabled':True,
@@ -363,7 +420,7 @@ def run(root=None):
  }
  man['digest']=digest_payload(man); (root/'RELEASE_MANIFEST.json').write_text(json.dumps(man,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
  (root/'HASHES.txt').write_text('\n'.join(f"{r['sha256']}  {r['path']}" for r in files)+'\n')
- tree=['# FILE TREE — CURRENT 0.15.28.0','',f'Controlled files: {len(files)}','']+[f"- `{r['path']}`" for r in files]
+ tree=['# FILE TREE — CURRENT 0.15.29.0','',f'Controlled files: {len(files)}','']+[f"- `{r['path']}`" for r in files]
  (root/'FILE_TREE.md').write_text('\n'.join(tree)+'\n')
  return man
 if __name__=='__main__': print(json.dumps(run(),ensure_ascii=False,indent=2,sort_keys=True))

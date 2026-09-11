@@ -7,7 +7,7 @@ from source.lawspace.reflexive_architecture import ReflexiveSelfHostedPhiArchite
 from source.lawspace.domains import canonical_axis_count
 from source.lawspace.schema import digest_payload
 
-RELEASE="15.10.2"; SCHEMA="phi-reflexive-architecture-qualification/v1"
+RELEASE="15.10.6"; SCHEMA="phi-reflexive-architecture-qualification/v1"
 
 def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     root=Path(root or Path(__file__).resolve().parents[1]); k=ReflexiveSelfHostedPhiArchitectureKernel(root); r=k.run_cycle()
@@ -28,7 +28,8 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'internal_phi_scan_all_registered_axes':gen['phi_scan']['all_registered_axes_visited'] is True and gen['phi_scan']['registered_axis_count']==canonical_axis_count(),
       'no_fixed_phi_search_ceiling':gen['phi_scan']['fixed_owner_visit_budget'] is None and gen['phi_scan']['fixed_candidate_axis_order_ceiling'] is None,
       'internet_not_prefreeze':gen['phi_scan']['internet_used_prefreeze'] is False,
-      'state_derived_region_bound':region.get('architecture_gap_source')=='LIVE_CAPABILITY_LEDGER' and bool(region.get('architecture_gaps')),
+      'state_derived_region_bound':region.get('architecture_gap_source')=='LIVE_CAPABILITY_LEDGER' and bool(region.get('architecture_gaps') or region.get('resolved_generation_anchors')),
+      'resolved_collective_anchor_not_reopened':region.get('architecture_gaps')==[] and region.get('resolved_generation_anchors')==['collective_coordination'],
       'architecture_evidence_materialized':bool(evidence) and all(x.get('source') for x in evidence),
       'representation_obligations_generated':gen.get('representation_obligations',{}).get('status')=='PROPOSE_GENERATED_REPRESENTATION_SIGNATURE',
       'primitive_generated':inv.get('primitive',{}).get('status')=='GENERATED_MINIMAL_ALGEBRAIC_PRIMITIVE',
@@ -62,6 +63,6 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'canonical_axis_registry_dynamic':canonical_axis_count()==st['resource_profile']['registered_axis_count'],
     }
     passed=sum(bool(v) for v in checks.values())
-    out={'schema':SCHEMA,'release':RELEASE,'status':'PASS_REFLEXIVE_ARCHITECTURE_QUALIFICATION' if passed==len(checks) else 'BLOCKED_REFLEXIVE_ARCHITECTURE_QUALIFICATION','passed':passed,'total':len(checks),'checks':[{'check':k,'status':'PASS' if v else 'FAIL'} for k,v in checks.items()],'cycle':r,'negative_controls':{'missing_candidate':bad_proof,'insufficient_advantage':rollback},'claim_boundary':{'generation_ii_reflexive_mechanism_qualified':passed==len(checks),'AGI_demonstrated':False,'developmental_open_endedness_mechanism_qualified':True,'collective_coordination_grounded':False,'fresh_full_current_release_replayed':False}}
+    out={'schema':SCHEMA,'release':RELEASE,'status':'PASS_REFLEXIVE_ARCHITECTURE_QUALIFICATION' if passed==len(checks) else 'BLOCKED_REFLEXIVE_ARCHITECTURE_QUALIFICATION','passed':passed,'total':len(checks),'checks':[{'check':k,'status':'PASS' if v else 'FAIL'} for k,v in checks.items()],'cycle':r,'negative_controls':{'missing_candidate':bad_proof,'insufficient_advantage':rollback},'claim_boundary':{'generation_ii_reflexive_mechanism_qualified':passed==len(checks),'AGI_demonstrated':False,'developmental_open_endedness_mechanism_qualified':True,'collective_coordination_grounded':r.get('claim_boundary',{}).get('collective_coordination_grounded') is True,'fresh_full_current_release_replayed':False}}
     out['digest']=digest_payload(out); return out
 if __name__=='__main__': print(json.dumps(run_release_qualification(),ensure_ascii=False,indent=2,sort_keys=True))

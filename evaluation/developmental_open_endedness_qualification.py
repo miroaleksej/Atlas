@@ -7,7 +7,7 @@ from source.lawspace.developmental_open_endedness import DevelopmentalOpenEndedn
 from source.lawspace.domains import canonical_axis_count
 from source.lawspace.schema import digest_payload
 
-RELEASE='15.10.2';SCHEMA='phi-developmental-open-endedness-qualification/v1'
+RELEASE='15.10.6';SCHEMA='phi-developmental-open-endedness-qualification/v1'
 
 def run_release_qualification(root:str|Path|None=None)->dict[str,Any]:
     root=Path(root or Path(__file__).resolve().parents[1]); k=DevelopmentalOpenEndednessKernel(root); r=k.run_cycle()
@@ -51,11 +51,12 @@ def run_release_qualification(root:str|Path|None=None)->dict[str,Any]:
       'double_support_dropout_fails':weakest is not None and double_drop['status']=='DEVELOPMENTAL_SHADOW_FAIL' and double_drop['coverage_after_dropout'].get(weakest)==0,
       'positive_commit':tx['status']=='COMMIT_DEVELOPMENTAL_OPEN_ENDEDNESS_CAPABILITY' and all(tx['checks'].values()),
       'negative_rollback':rollback['status']=='ROLLBACK_DEVELOPMENTAL_OPEN_ENDEDNESS_CANDIDATE',
-      'collective_remains_next':r['next_research_obligation']=='COLLECTIVE_COORDINATION',
+      'collective_anchor_preserved':r['next_research_obligation']=='COLLECTIVE_COORDINATION',
+      'collective_anchor_resolved':r.get('next_research_obligation_status')=='RESOLVED_GENERATION_ANCHOR' and r['claim_boundary'].get('collective_coordination_grounded') is True,
       'unbounded_world_not_claimed':r['claim_boundary']['unbounded_external_open_endedness_established'] is False,
       'canonical_axis_registry_dynamic':canonical_axis_count()==sel['phi_scan']['registered_axis_count'],
     }
     passed=sum(bool(v) for v in checks.values())
-    out={'schema':SCHEMA,'release':RELEASE,'status':'PASS_DEVELOPMENTAL_OPEN_ENDEDNESS_QUALIFICATION' if passed==len(checks) else 'BLOCKED_DEVELOPMENTAL_OPEN_ENDEDNESS_QUALIFICATION','passed':passed,'total':len(checks),'checks':[{'check':k,'status':'PASS' if v else 'FAIL'} for k,v in checks.items()],'cycle':r,'negative_controls':{'single_component_dropout':single_drop,'double_inheritance_dropout':double_drop,'rollback':rollback},'claim_boundary':{'developmental_open_endedness_mechanism_qualified':passed==len(checks),'unbounded_world_open_endedness_proven':False,'biological_evolution_claimed':False,'collective_coordination_grounded':False,'fresh_full_current_release_replayed':False}}
+    out={'schema':SCHEMA,'release':RELEASE,'status':'PASS_DEVELOPMENTAL_OPEN_ENDEDNESS_QUALIFICATION' if passed==len(checks) else 'BLOCKED_DEVELOPMENTAL_OPEN_ENDEDNESS_QUALIFICATION','passed':passed,'total':len(checks),'checks':[{'check':k,'status':'PASS' if v else 'FAIL'} for k,v in checks.items()],'cycle':r,'negative_controls':{'single_component_dropout':single_drop,'double_inheritance_dropout':double_drop,'rollback':rollback},'claim_boundary':{'developmental_open_endedness_mechanism_qualified':passed==len(checks),'unbounded_world_open_endedness_proven':False,'biological_evolution_claimed':False,'collective_coordination_grounded':r['claim_boundary'].get('collective_coordination_grounded') is True,'fresh_full_current_release_replayed':False}}
     out['digest']=digest_payload(out);return out
 if __name__=='__main__':print(json.dumps(run_release_qualification(),ensure_ascii=False,indent=2,sort_keys=True))

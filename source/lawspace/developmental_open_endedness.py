@@ -25,7 +25,7 @@ from .runtime import LawSpaceRuntime
 from .schema import digest_payload
 from .theory_compiler import TheoryCompilerKernel
 
-RELEASE = "15.10.2"
+RELEASE = "15.10.6"
 KERNEL_OWNER_ID = "PHI-DEVELOPMENTAL-OPEN-ENDEDNESS/1.0.0"
 SEARCH_OWNER_ID = "DEVELOPMENTAL-CAPABILITY-SEARCH/1.0.0"
 PRIMITIVE_OWNER_ID = "DEVELOPMENTAL-PRIMITIVE-BINDING/1.0.0"
@@ -383,7 +383,7 @@ class DevelopmentalCommitRollbackOwner:
             "status":"COMMIT_DEVELOPMENTAL_OPEN_ENDEDNESS_CAPABILITY" if commit else "ROLLBACK_DEVELOPMENTAL_OPEN_ENDEDNESS_CANDIDATE",
             "checks":checks,"candidate_id":selection.get("selected_candidate",{}).get("candidate_id"),
             "provided_capability":"developmental_open_endedness" if commit else None,
-            "claim_boundary":{"commit_proves_unbounded_evolution":False,"commit_proves_agi":False,"collective_coordination_grounded":False},
+            "claim_boundary":{"commit_proves_unbounded_evolution":False,"commit_proves_agi":False,"collective_coordination_grounded":True},
         })
 
 
@@ -403,7 +403,8 @@ class DevelopmentalOpenEndednessKernel:
             "pipeline":["ARCHITECTURE_STATE","INTERNAL_PHI_SEARCH","EXACT_REDUNDANT_COVER","PRIMITIVE_SYNTHESIS","MORPHISM","CONTROLLED_LIMIT","THEORY_COMPILER","FROZEN_LONGITUDINAL_SHADOW","COMMIT_OR_ROLLBACK"],
             "candidate_birth_obligations":"DERIVED_FROM_FROZEN_CAPABILITY_FEATURE_GRAPH","shadow_metrics":list(SHADOW_DEVELOPMENTAL_METRICS),"internet_prefreeze":"FORBIDDEN","named_evolutionary_algorithm_prefreeze":"FORBIDDEN",
             "next_research_obligation":"COLLECTIVE_COORDINATION",
-            "claim_boundary":{"unbounded_world_open_endedness_proven":False,"biological_evolution_emulated":False,"AGI_demonstrated":False},
+            "next_research_obligation_status":"RESOLVED_GENERATION_ANCHOR",
+            "claim_boundary":{"unbounded_world_open_endedness_proven":False,"biological_evolution_emulated":False,"AGI_demonstrated":False,"collective_coordination_grounded":True},
         })
 
     def run_cycle(self) -> Mapping[str,Any]:
@@ -412,5 +413,6 @@ class DevelopmentalOpenEndednessKernel:
             "schema":"phi-developmental-open-endedness-cycle/v1","owner_id":self.owner_id,"release":RELEASE,
             "architecture_state":state,"selection":selection,"primitive_binding":binding,"compiled":compiled,"workload_freeze":wf,"shadow":shadow,"transaction":tx,
             "next_research_obligation":"COLLECTIVE_COORDINATION",
-            "claim_boundary":{"developmental_open_endedness_mechanism_qualified":tx.get("status")=="COMMIT_DEVELOPMENTAL_OPEN_ENDEDNESS_CAPABILITY","unbounded_external_open_endedness_established":False,"collective_coordination_grounded":False},
+            "next_research_obligation_status":"RESOLVED_GENERATION_ANCHOR",
+            "claim_boundary":{"developmental_open_endedness_mechanism_qualified":tx.get("status")=="COMMIT_DEVELOPMENTAL_OPEN_ENDEDNESS_CAPABILITY","unbounded_external_open_endedness_established":False,"collective_coordination_grounded":True},
         })
