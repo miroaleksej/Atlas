@@ -6,65 +6,6 @@
 
 > Представьте систему, которой не нужно заранее знать закон природы, чтобы начать исследование. Вы загружаете наблюдения — данные эксперимента, параметры частицы, свойства вещества, динамику плазмы, движение жидкости или сигналы из космоса — а Atlas начинает строить собственные модели возможного мира: рождает оси и представления, формирует конкурирующие гипотезы, ищет зависимости и уравнения, проверяет ограничения и выбирает эксперименты, способные отличить одну картину реальности от другой. Внутри работает ИИ, но он не должен просто угадывать ответ: он исследует многомерное пространство решений и сохраняет неопределённость там, где доказательств ещё недостаточно. Это универсальное исследовательское ядро — один принцип поиска для совершенно разных масштабов: от элементарных частиц и атомов до сложных физических систем и структуры Вселенной. Не система, в которую заранее записали все законы, а система, которая получает наблюдаемый мир и пытается самостоятельно понять, **какими законами этот мир может быть устроен**.
 
-
-# Atlas
-
-**Φ-Compiler / ScienceAtlas — CURRENT 0.15.29.0**
-
-## Primitive-field adaptive axis discovery
-
-Atlas теперь может начинать controlled continuum benchmark не с заранее вычисленных членов уравнения, а с обезличенных координатных сеток и sampled primitive fields. Owner `PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH/1.0.0` строит производные из самих полей, рождает размерностно допустимые локальные operator coordinates и передаёт их Adaptive Research Kernel.
-
-Поиск осей имеет адаптивную мощность: система проверяет sparse dormant-подмножества и может активировать несколько координат в одном исследовательском цикле. Выбор выполняется только по discovery evidence; sealed OOD данные остаются независимой проверкой.
-
-```text
-AXIS_BIRTH_CARDINALITY = ADAPTIVE
-MULTI_AXIS_BIRTH = ALLOWED
-FIXED_AXIS_COUNT_PER_CYCLE = NONE
-REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED
-```
-
-Запуск более строгого primitive-field контроля:
-
-```bash
-make navier-stokes-primitive-field
-```
-
-PASS означает воспроизводимое восстановление структуры внутри controlled reference world, но не доказательство существования и гладкости Навье—Стокса, не мировой новый закон и не причинное установление активированных координат.
-
-
-## 0.15.29.0 — Atlas-native Collective Epistemic Organism
-
-Выпуск `0.15.29.0` закрывает ранее открытое архитектурное обязательство `collective_coordination` без внешнего выбора архитектуры. Новый authoritative owner `COLLECTIVE-COORDINATION/1.0.0` строит конечную текущую траншу из **576** исполнимых комбинаций внутренних механизмов Atlas и выбирает архитектуру только на frozen search-worlds. Отдельный holdout не используется для ranking.
-
-Текущий победитель внутреннего поиска:
-
-```text
-action_fusion = NONE
-resource_mode = HARD_FEASIBILITY
-joint_subset_selection = true
-calibration_weighted_information = true
-hard_conflict_exclusion = true
-evidence_complementarity = false
-domain_complementarity = true
-soft_risk_penalty = false
-```
-
-Семантика: независимые cognitive/world-model контуры не усредняют свои belief states; они выдают типизированные action proposals, после чего общий owner выполняет калиброванный совместный subset-search под жёсткими ресурсными и конфликтными constraints. На текущем внутреннем holdout выбранный кандидат имеет mean oracle ratio около `0.99842`, Q25 `1.0`, invalid fraction `0`. Эти числа являются только внутренней qualification-метрикой и **не доказывают превосходство над внешними AI-системами или AGI**.
-
-Live capability ledger теперь различает `open_architecture_obligations` и `resolved_architecture_obligations`. После появления исполнимого API-route `collective_coordination` историческое обязательство сохраняется как resolved generation anchor и больше не переобъявляется фиктивным gap. Generation-transition и reflexive self-change могут продолжать развитие от `resolved capability + controlled residual`.
-
-Статусы осей в исследовательском цикле разделены явно:
-`REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED`. Residual-driven activation
-разрешает использовать координату в локальном представлении, если она улучшает
-held-out модель, но не превращает её в доказанную причину. Causal readiness и
-causal establishment остаются отдельными fail-closed статусами с собственными
-доказательствами.
-
-Воспроизводимый журнал: `docs/ARCHITECTURE_DECISION_JOURNAL.md`. Исполняемый notebook: `examples/next_generation_ai_architecture_search.ipynb`.
-
-<img width="1672" height="941" alt="Atlas" src="https://github.com/user-attachments/assets/7aa093ac-ba6f-4095-b324-471cc82e4ec3" />
-
 · ![Python](https://img.shields.io/badge/python-3.11-blue)
 · ![Лицензия](https://img.shields.io/badge/license-Apache--2.0-green)
 · ![Звёзды](https://img.shields.io/github/stars/miroaleksej/Atlas)
