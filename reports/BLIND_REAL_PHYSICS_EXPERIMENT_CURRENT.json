@@ -9,8 +9,8 @@
         "required_receipt_fields_present": true,
         "result_digest_bound": true
       },
-      "digest": "f67c2d25e5de4719d401648318dd8025d4f4f1ad6ad0028c6cc80705b76ece6e",
-      "execution_receipt_digest": "a38f5c25e643e567f08f7a0edba81303d6a4b1d023cc4d2d03a69cf4f37f75a4",
+      "digest": "155ab79d2c895ce622d836a191fd8db143d1b83fbc33197dd31072ed9ef82b9e",
+      "execution_receipt_digest": "ca45b49b502eeabeb133c7323fd679b0b54e580eac5a532cc5717b08951251a9",
       "origin": "ATLAS_NATIVE",
       "owner": "CLAIM-PROVENANCE-FIREWALL/15.2.8",
       "payload": {
@@ -110,8 +110,8 @@
       "representation_activation_is_causal_proof": false,
       "sealed_holdout_used_for_axis_activation": false
     },
-    "code_digest": "254fea7288422cc00e3c6f7d1e70f5ff2c5c03c4ef14a0066e1b211959ba7ca2",
-    "digest": "a38f5c25e643e567f08f7a0edba81303d6a4b1d023cc4d2d03a69cf4f37f75a4",
+    "code_digest": "b37dcca2c6df122c95ce4b2649587a22df8cb6ee4d10cfd7248320f06944a18e",
+    "digest": "ca45b49b502eeabeb133c7323fd679b0b54e580eac5a532cc5717b08951251a9",
     "discriminating_experiment": {
       "digest": "ddc28f2a4e471ea768223ed3216d0b0c98b4bc22a182be54939248c805e03e90",
       "invented_likelihoods": false,
@@ -29920,7 +29920,7 @@
     "reason": "Digitized public Figure-23 data lack declared measurement uncertainty/raw synchronized DAQ; the blind result is a reproducible rediscovery/representation result, not a new-law claim.",
     "scientific_promotion_allowed": false
   },
-  "digest": "d98970176525f0e4b2380b747c9e8521e9f739199cf70bf13c657e9307aa4cee",
+  "digest": "4a0054aa38fb6e8adad54dc00a643dbebdfe913d121ae7fcfbf00afbf2a113d0",
   "owner": "BLIND-REAL-PHYSICS-QUALIFICATION/15.8.0",
   "passed": 18,
   "postfreeze_reconciliation": {
@@ -29931,7 +29931,7 @@
     "independent_source_sha256": "0bdc412e36429f3df93afecc99ce0d51bc2266de5a0dc8724387b29c42496ef9",
     "new_axis_claim_allowed": false,
     "performed_after_research_freeze": true,
-    "research_freeze_digest": "88ca6f462f48b43432a25bc6ad942734c00915e7f8c848ed9b068ce2a9d5ea6b",
+    "research_freeze_digest": "aa19b79bb521f74c8771622ae6b63819b69584ae80fc642d736adab3a4b6563e",
     "status": "BLIND_REDISCOVERY_MATCHES_EXISTING_FLEXIBLE_MODE"
   },
   "precommit": {
@@ -29959,11 +29959,11 @@
   "problem_id": "DLR-OLAF-FIRST-BLIND-REAL-PHYSICS-001",
   "release": "15.8.0",
   "research_freeze": {
-    "adaptive_claim_digest": "f67c2d25e5de4719d401648318dd8025d4f4f1ad6ad0028c6cc80705b76ece6e",
-    "adaptive_kernel_receipt_digest": "a38f5c25e643e567f08f7a0edba81303d6a4b1d023cc4d2d03a69cf4f37f75a4",
+    "adaptive_claim_digest": "155ab79d2c895ce622d836a191fd8db143d1b83fbc33197dd31072ed9ef82b9e",
+    "adaptive_kernel_receipt_digest": "ca45b49b502eeabeb133c7323fd679b0b54e580eac5a532cc5717b08951251a9",
     "axis_modeling_digest": "39bdea96368e033fb24fd4ae1549cb1b4dd8645e25cc7be979f8eee65e70429e",
-    "code_digest": "756e83c2a1039965a283be7ae1c4aa5908b6f580f071b3a3c9b32c61a802026f",
-    "digest": "88ca6f462f48b43432a25bc6ad942734c00915e7f8c848ed9b068ce2a9d5ea6b",
+    "code_digest": "29b6b2f6f070505314599d19a015805a5921f1453e06b08d014beb426471368b",
+    "digest": "aa19b79bb521f74c8771622ae6b63819b69584ae80fc642d736adab3a4b6563e",
     "discriminator_digest": "1618d0c76cd04231c1293f64e37d598e8e04feb942afa9e479b4dbe5f84b7202",
     "known_flexible_mode_reference_consumed_before_freeze": false,
     "partition_precommit_digest": "ba20e3f37bbff01b71b11c434ad7f0a4f6bf73e8b325a27d9fd2cc6996c7a13b",

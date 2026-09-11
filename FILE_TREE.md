@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 302
+Controlled files: 308
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -12,6 +12,7 @@ Controlled files: 302
 - `MATHEMATICAL_CONTRACT.md`
 - `Makefile`
 - `README.md`
+- `RUN_TURBULENCE_DNS_CLOSURE_RU.md`
 - `TECHNICAL_GUIDE_RU.md`
 - `capabilities.json`
 - `data/axes/canonical_dynamic_axes.json`
@@ -136,11 +137,14 @@ Controlled files: 302
 - `evaluation/superk_solar_likelihood_qualification.py`
 - `evaluation/t2k_likelihood_qualification.py`
 - `evaluation/theory_compiler_qualification.py`
+- `evaluation/turbulence_dns_closure_experiment.py`
 - `evaluation/unified_release_qualification.py`
 - `examples/data/exoplanets_g_dimension_nasa2018.csv`
 - `examples/exoplanets_dimensional_birth_of_G.ipynb`
 - `examples/navier_stokes_blind_experiment.ipynb`
 - `examples/next_generation_ai_architecture_search.ipynb`
+- `examples/turbulence_dns_closure_experiment.ipynb`
+- `examples/turbulence_dns_closure_manifest.template.json`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/ACCEPTANCE_REPORT.md`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/INSTALL_INTO_ATLAS.md`
 - `extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/INTEGRATION_MANIFEST.json`
@@ -290,6 +294,7 @@ Controlled files: 302
 - `static/index.html`
 - `tests/test_adaptive_axis_discovery.py`
 - `tests/test_curvature_memory_current.py`
+- `tests/test_direct_target_residual_discovery.py`
 - `tests/test_domain_plugin_architecture.py`
 - `tests/test_eda_chip_design.py`
 - `tests/test_electronic_state_space_current.py`
@@ -303,4 +308,5 @@ Controlled files: 302
 - `tests/test_scientific_axis_space_current.py`
 - `tests/test_scientific_exploitation_current.py`
 - `tests/test_tensor_axisymmetric_current.py`
+- `tests/test_turbulence_dns_closure_experiment.py`
 - `tests/test_unified_current.py`

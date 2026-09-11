@@ -44,6 +44,18 @@ result and receipt digests. Its claim status is
 `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION`; this authenticates
 the computation path without asserting scientific truth or causality.
 
+## DNS turbulence-closure experiment acceptance
+
+The patch adds a generic `DIRECT_FIELD_VALUE` route and a periodic DNS adapter.
+Acceptance requires the target field to be absent from all predictor signatures,
+disjoint discovery/sealed regime identities, Atlas-native top-level provenance,
+sealed evaluation without refit, and no automatic scientific promotion. The
+three new tests cover direct-target anti-leakage and coefficient recovery,
+nontrivial finite SGS residual construction, and full controlled 3D harness
+execution. The bundled smoke data qualify software and protocol behavior only;
+no real DNS result, universal closure, causal claim or new turbulence law is
+accepted.
+
 
 
 ## Current 15.27.0 acceptance scope — Function-Language Birth

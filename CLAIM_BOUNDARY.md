@@ -564,3 +564,9 @@ Human-in-the-loop здесь является **аудируемым механ�
 Разрешено утверждать, что верхняя квитанция residual-driven Level 4 контентно связывает input, реестр осей, пространство гипотез, исполняемый код и результат, а `CLAIM-PROVENANCE-FIREWALL` проверяет эти связи до общего PASS.
 
 Статус `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION` означает только подтверждённое происхождение вычисления внутри Atlas. Он не означает истинность формулы, причинность активированной оси, открытие нового физического закона, мировую новизну или прохождение U5–U10. Даже при принятой provenance-печати сохраняются `REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED`, `CAUSALLY_NOT_ESTABLISHED` и запрет автоматического научного продвижения.
+
+## DNS turbulence-closure experiment — граница утверждений
+
+Разрешено утверждать, что Atlas принимает periodic uniform DNS velocity snapshots, детерминированно строит аттестованный coarse-graining residual и исследует размерностно типизированные локальные representation coordinates без каталога известных closure-моделей. Разрешено сообщать отдельно protocol integrity, sealed transfer error и результат null-control.
+
+Запрещено называть `PASS_PROTOCOL_INTEGRITY` физическим открытием. Статус переносимого кандидата не устанавливает универсальное turbulence closure, причинность, независимое эмпирическое измерение target или новый закон. Реальные DNS-данные в патч не входят; без независимых discovery/sealed regimes научный результат отсутствует. `REPRESENTATION_GAP_OR_TRANSFER_FAILURE` является допустимым исходом, а не ошибкой системы.

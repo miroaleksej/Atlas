@@ -1,5 +1,5 @@
 {
-  "digest": "cd75a223eed05196144d03da61b3edff87c97970669ab51b24c382ead1c7f2fe",
+  "digest": "83b6676f269378003981a56635fd4612fad5e379798661258bca5164985a883e",
   "invariants": {
     "adaptive_subspace_search_has_no_fixed_order_ceiling": true,
     "agi_not_claimed": true,
@@ -27,7 +27,10 @@
     "current_frontier_candidate_ledger_is_persistent_research_state": true,
     "dataset_response_execution_requires_digest_bound_experiment_data_ir": true,
     "direct_numeric_promotion_cannot_bypass_unified_frontier_receipt": true,
+    "direct_target_field_is_excluded_from_predictor_language": true,
     "distinct_manual_lowering_retry_requires_multiplicity_alpha_ledger": true,
+    "dns_closure_protocol_pass_is_not_turbulence_law": true,
+    "dns_closure_representation_gap_is_valid_outcome": true,
     "eda_boolean_comparison_requires_feasible_design_from_all_four_strategies": true,
     "eda_equal_budget_baseline_comparison_required_before_atlas_win_claim": true,
     "eda_missing_backend_never_uses_surrogate_as_chip_result": true,

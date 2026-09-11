@@ -1034,6 +1034,22 @@ Hidden correction известна только reference-world builder и post-
 
 Статус `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION` означает подтверждённое происхождение вычисления внутри Atlas, а не истинность закона. PASS квалифицирует механизм `persistent residual -> language expansion -> new coordinate birth -> sealed falsification`; он не является заявлением о новом физическом законе или причинности. По-прежнему выполняется `REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED`.
 
+## Blind DNS-эксперимент по замыканию турбулентности
+
+Atlas теперь может исследовать переносимые модели неразрешённой турбулентной динамики по реальным периодическим DNS-снимкам. Внешний адаптер вычисляет аттестованный coarse-graining residual из исходных трёхмерных полей скорости, после чего ядро рождает и проверяет локальные operator-координаты без каталога известных RANS/LES closure-моделей и без переданных извне производных-признаков.
+
+Для этого добавлен общий режим `DIRECT_FIELD_VALUE`: целевое поле используется как наблюдаемый response и жёстко исключается из predictor language, предотвращая identity leakage. Discovery и sealed holdout должны иметь разные `regime_id`; sealed regime не участвует в рождении осей. Детерминированный null-control включён по умолчанию.
+
+```bash
+python -m evaluation.turbulence_dns_closure_experiment \
+  --manifest examples/turbulence_dns_closure_manifest.local.json \
+  --components x,y,z \
+  --output reports/TURBULENCE_DNS_CLOSURE_CURRENT.json \
+  --summary
+```
+
+Формат данных, manifest и интерпретация исходов описаны в [RUN_TURBULENCE_DNS_CLOSURE_RU.md](RUN_TURBULENCE_DNS_CLOSURE_RU.md). `PASS_PROTOCOL_INTEGRITY` подтверждает только целостность blind/freeze/provenance-протокола. Даже статус `TRANSFER_CANDIDATE_SURVIVES_CURRENT_SEALED_AND_NULL_EVIDENCE_NOT_LAW` остаётся кандидатом для дальнейшей независимой фальсификации, а не новым законом турбулентности.
+
 ## Темы и сообщества
 
 

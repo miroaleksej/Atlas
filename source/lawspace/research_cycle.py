@@ -2360,6 +2360,8 @@ class AdaptiveResearchKernelOwner:
                 target_field=target_field,
                 search_shell_budget=max(2, int(request.get("operator_language_search_budget", 8))),
                 carrier_factor_budget=max(1, int(request.get("operator_language_carrier_factor_budget", 1))),
+                target_action_mode=str(primitive.get("target_action_mode", "TIME_TRANSLATION_MOMENT_RESPONSE")),
+                predictor_fields=primitive.get("predictor_fields"),
             )
             if operator_language_birth.get("status") != "GENERATED_OPERATOR_LANGUAGE":
                 raise ValueError("Mathematical Invention did not generate an executable operator language")
@@ -2504,6 +2506,8 @@ class AdaptiveResearchKernelOwner:
                 "operator_coordinates_born_inside_atlas":True,
                 "operator_language_invented_from_meta_primitives":bool(operator_language_birth),
                 "operator_language_carrier_factor_budget":operator_language_birth.get("carrier_factor_budget") if isinstance(operator_language_birth, Mapping) else None,
+                "operator_language_target_action_mode":operator_language_birth.get("target_action_mode") if isinstance(operator_language_birth, Mapping) else None,
+                "direct_target_field_excluded_from_predictors":operator_language_birth.get("target_field_excluded_from_predictor_language") if isinstance(operator_language_birth, Mapping) else None,
                 "named_differential_operator_catalog_used":False if operator_language_birth else None,
                 "fixed_derivative_order_catalog_used":False if operator_language_birth else None,
                 "axis_birth_cardinality_is_adaptive":True,

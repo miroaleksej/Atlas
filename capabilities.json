@@ -45,9 +45,9 @@
     "single_axis_greedy_growth_required": false
   },
   "blind_real_physics_experiment": {
-    "digest": "d98970176525f0e4b2380b747c9e8521e9f739199cf70bf13c657e9307aa4cee",
+    "digest": "4a0054aa38fb6e8adad54dc00a643dbebdfe913d121ae7fcfbf00afbf2a113d0",
     "problem_id": "DLR-OLAF-FIRST-BLIND-REAL-PHYSICS-001",
-    "research_freeze_digest": "88ca6f462f48b43432a25bc6ad942734c00915e7f8c848ed9b068ce2a9d5ea6b",
+    "research_freeze_digest": "aa19b79bb521f74c8771622ae6b63819b69584ae80fc642d736adab3a4b6563e",
     "scientific_discovery_established": false,
     "status": "PASS_FIRST_BLIND_REAL_PHYSICS_EXPERIMENT"
   },
@@ -115,7 +115,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "a95877df4c2e896092024c887bcb03aabca8471a9a062f0bab7f83106726f710",
+  "digest": "666574efa6b74985ba0202a62aa2abd8295cbc35a30e3460b77c4910fe1d163a",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -267,7 +267,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "d2f003ab8ecaf65190ae4608922a237133cca6a51a04011370fd952ad364db73",
+  "qualification_digest": "f2f2ccdf9ed0325079cd3419ae425cfe73c448a8e6c988c9359b97e54bd80019",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,
@@ -409,5 +409,17 @@
     "historical_search_receipts_restored": 0
   },
   "status": "ADAPTIVE_TRIAGE_SANDBOX_HUMAN_REVIEW_AND_FUNCTION_LANGUAGE_EDA_INTEGRATED",
-  "system": "Phi-Compiler / ScienceAtlas Adaptive Triage + Exploration Sandbox + Human Review + Multi-Pi + Function-Language Birth + EDA Chip PPA Pilot"
+  "system": "Phi-Compiler / ScienceAtlas Adaptive Triage + Exploration Sandbox + Human Review + Multi-Pi + Function-Language Birth + EDA Chip PPA Pilot",
+  "turbulence_dns_closure_experiment": {
+    "caller_supplied_derivative_predictors_required": false,
+    "dataset_schema": "phi-dns-turbulence-closure-dataset/v1",
+    "discovery_and_sealed_regimes_must_be_disjoint": true,
+    "named_turbulence_closure_catalog_used": false,
+    "new_turbulence_law_established": false,
+    "null_control_enabled_by_default": true,
+    "owner": "BLIND-DNS-TURBULENCE-CLOSURE-EXPERIMENT/1.0.0",
+    "real_dns_result_bundled": false,
+    "target_action_mode": "DIRECT_FIELD_VALUE",
+    "target_field_excluded_from_predictor_language": true
+  }
 }

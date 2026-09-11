@@ -391,6 +391,8 @@ class OperatorLanguageBirthEngine:
         field_dimensions: Mapping[str, Sequence[float]], target_field: str,
         search_shell_budget: int=8,
         carrier_factor_budget: int=1,
+        target_action_mode: str="TIME_TRANSLATION_MOMENT_RESPONSE",
+        predictor_fields: Sequence[str] | None=None,
     ) -> Mapping[str, Any]:
         cdim={str(k):self._dim(v) for k,v in coordinate_dimensions.items()}
         fdim={str(k):self._dim(v) for k,v in field_dimensions.items()}
@@ -399,15 +401,43 @@ class OperatorLanguageBirthEngine:
             raise ValueError("operator-language birth requires coordinate/field dimensions and target_field")
         budget=max(2,int(search_shell_budget))
         factor_budget=max(1,int(carrier_factor_budget))
+        target_mode=str(target_action_mode).upper().strip()
+        if target_mode not in {"TIME_TRANSLATION_MOMENT_RESPONSE","DIRECT_FIELD_VALUE"}:
+            raise ValueError("unsupported operator-language target_action_mode")
+        if predictor_fields is None:
+            predictor_names=tuple(sorted(k for k in fdim if target_mode!="DIRECT_FIELD_VALUE" or k!=target_field))
+        else:
+            predictor_names=tuple(sorted({str(x) for x in predictor_fields}))
+            missing=[name for name in predictor_names if name not in fdim]
+            if missing:
+                raise ValueError(f"operator-language predictor_fields missing from field_dimensions: {missing}")
+        if target_mode=="DIRECT_FIELD_VALUE" and target_field in predictor_names:
+            raise ValueError("DIRECT_FIELD_VALUE target_field must be excluded from predictor_fields")
+        predictor_fdim={name:fdim[name] for name in predictor_names}
+        if not predictor_fdim:
+            raise ValueError("operator-language birth requires at least one predictor field")
         time_signature=(0.0,0.0,1.0,0.0,0.0,0.0,0.0)
         time_coords=[k for k,v in cdim.items() if self._eq(v,time_signature)]
-        if len(time_coords)!=1:
-            raise ValueError("operator-language birth requires exactly one time-like coordinate")
-        time_coord=time_coords[0]
-        target_relation_dim=self._sub(fdim[target_field],cdim[time_coord])
+        if target_mode=="TIME_TRANSLATION_MOMENT_RESPONSE":
+            if len(time_coords)!=1:
+                raise ValueError("operator-language birth requires exactly one time-like coordinate")
+            time_coord=time_coords[0]
+            target_relation_dim=self._sub(fdim[target_field],cdim[time_coord])
+            target_action=None
+        else:
+            time_coord=None
+            target_relation_dim=fdim[target_field]
+            target_action={
+                "kind":"DIRECT_FIELD_VALUE",
+                "response_field":target_field,
+                "coordinate":None,
+                "moment_rank":0,
+                "carrier_field":None,
+                "carrier_power":0,
+                "dimension":list(target_relation_dim),
+            }
 
         # The target action is itself born from the same translation-moment shells.
-        target_action=None
         generated=[]
         shell_journal=[]
         empty_after_signal=0
@@ -418,9 +448,9 @@ class OperatorLanguageBirthEngine:
                 # Evolution-target separation: the unique time-like coordinate is
                 # reserved for the target action so a predictor cannot reproduce
                 # the target through the same local response (identity leakage).
-                if coord == time_coord:
+                if target_mode=="TIME_TRANSLATION_MOMENT_RESPONSE" and coord == time_coord:
                     continue
-                for response_field,response_dim in sorted(fdim.items()):
+                for response_field,response_dim in sorted(predictor_fdim.items()):
                     response_out=self._sub(response_dim,self._scale(coord_dim,float(rank)))
                     # Bare local response.
                     if self._eq(response_out,target_relation_dim):
@@ -432,7 +462,7 @@ class OperatorLanguageBirthEngine:
                         })
                     # One pointwise factor is not a PDE-term template: both sign
                     # choices are generated generically and only typing may retain one.
-                    for carrier,carrier_dim in sorted(fdim.items()):
+                    for carrier,carrier_dim in sorted(predictor_fdim.items()):
                         for power in (-1,1):
                             out=self._add(response_out,self._scale(carrier_dim,float(power)))
                             if self._eq(out,target_relation_dim):
@@ -449,7 +479,7 @@ class OperatorLanguageBirthEngine:
                     # contain a catalogue of scientific terms.  Depth is a runtime
                     # search budget, never a scientific ceiling.
                     if factor_budget >= 2:
-                        atoms=[(name,power) for name in sorted(fdim) for power in (-1,1)]
+                        atoms=[(name,power) for name in sorted(predictor_fdim) for power in (-1,1)]
                         for depth in range(2,factor_budget+1):
                             for combo in itertools.combinations_with_replacement(atoms,depth):
                                 powers: dict[str,int] = defaultdict(int)
@@ -463,7 +493,7 @@ class OperatorLanguageBirthEngine:
                                 out=response_out
                                 factors=[]
                                 for name,power in sorted(powers.items()):
-                                    out=self._add(out,self._scale(fdim[name],float(power)))
+                                    out=self._add(out,self._scale(predictor_fdim[name],float(power)))
                                     factors.append({"field":name,"power":int(power)})
                                 if self._eq(out,target_relation_dim):
                                     shell.append({
@@ -475,14 +505,16 @@ class OperatorLanguageBirthEngine:
                                     })
             # Target must be a pure translation response of target_field along the
             # unique time-like coordinate.  Its rank is discovered, not supplied.
-            response_out=self._sub(fdim[target_field],self._scale(cdim[time_coord],float(rank)))
-            if target_action is None and self._eq(response_out,target_relation_dim):
-                target_action={
-                    "kind":"LOCAL_TRANSLATION_MOMENT_RESPONSE",
-                    "response_field":target_field,"coordinate":time_coord,
-                    "moment_rank":rank,"carrier_field":None,"carrier_power":0,
-                    "dimension":list(target_relation_dim),
-                }
+            if target_mode=="TIME_TRANSLATION_MOMENT_RESPONSE":
+                assert time_coord is not None
+                response_out=self._sub(fdim[target_field],self._scale(cdim[time_coord],float(rank)))
+                if target_action is None and self._eq(response_out,target_relation_dim):
+                    target_action={
+                        "kind":"LOCAL_TRANSLATION_MOMENT_RESPONSE",
+                        "response_field":target_field,"coordinate":time_coord,
+                        "moment_rank":rank,"carrier_field":None,"carrier_power":0,
+                        "dimension":list(target_relation_dim),
+                    }
             unique={digest_payload(x):x for x in shell}
             shell=[unique[k] for k in sorted(unique)]
             generated.extend(shell)
@@ -502,7 +534,10 @@ class OperatorLanguageBirthEngine:
             "schema":SCHEMA,"component":self.component_id,
             "status":"GENERATED_OPERATOR_LANGUAGE" if generated and target_action else "OPERATOR_LANGUAGE_BIRTH_INSUFFICIENT_TYPED_STRUCTURE",
             "seed_meta_primitives":list(self.contract()["seed_meta_primitives"]),
-            "target_field":target_field,"inferred_time_coordinate":time_coord,
+            "target_field":target_field,"target_action_mode":target_mode,
+            "predictor_fields":list(predictor_names),
+            "target_field_excluded_from_predictor_language":bool(target_mode=="DIRECT_FIELD_VALUE"),
+            "inferred_time_coordinate":time_coord,
             "target_relation_dimension":list(target_relation_dim),
             "target_action":target_action,"generated_signatures":generated,
             "generated_signature_count":len(generated),"shell_journal":shell_journal,

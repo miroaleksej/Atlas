@@ -1,0 +1,28 @@
+{
+  "schema": "phi-dns-turbulence-closure-dataset/v1",
+  "filter_ratio": 4,
+  "atlas_grid_points": 17,
+  "datasets": [
+    {
+      "study_id": "DNS-DISCOVERY-01",
+      "role": "DISCOVERY",
+      "regime_id": "FLOW-OR-REYNOLDS-A",
+      "path": "data/discovery_01.npz",
+      "subcube_offset": [0, 0, 0]
+    },
+    {
+      "study_id": "DNS-DISCOVERY-02",
+      "role": "DISCOVERY",
+      "regime_id": "FLOW-OR-REYNOLDS-A",
+      "path": "data/discovery_02.npz",
+      "subcube_offset": [4, 4, 4]
+    },
+    {
+      "study_id": "DNS-SEALED-01",
+      "role": "SEALED_HOLDOUT",
+      "regime_id": "FLOW-OR-REYNOLDS-B",
+      "path": "data/sealed_01.npz",
+      "subcube_offset": [0, 0, 0]
+    }
+  ]
+}

@@ -1164,3 +1164,12 @@ Human-review state is external and append-only at the action level. `SPONSOR_REV
 6. The top-level receipt SHALL bind `owner`, `schema`, `input_digest`, `axis_registry_digest`, `hypothesis_space_digest`, `code_digest`, `result_digest` and its own `digest`.
 7. Level-4 PASS SHALL fail closed unless `CLAIM-PROVENANCE-FIREWALL` verifies the receipt, code and result bindings.
 8. `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION` SHALL mean execution provenance only; it SHALL NOT establish causal or scientific truth.
+
+## Direct-target DNS residual research — контракт 0.15.29.0
+
+1. `DIRECT_FIELD_VALUE` SHALL use the declared target field as response only and SHALL exclude it from every predictor response and carrier signature.
+2. Caller-supplied derivative predictors and named turbulence-closure catalogues SHALL NOT be required by this route.
+3. Discovery and sealed datasets SHALL have disjoint `regime_id` sets before transfer evaluation.
+4. Sealed and null-control observations SHALL NOT generate axes, select support or refit coefficients.
+5. Finite operator-rank, carrier-depth and subset-trial budgets SHALL be execution guards, not scientific ceilings.
+6. `PASS_PROTOCOL_INTEGRITY` SHALL assert protocol execution only. A surviving transfer candidate SHALL remain `NOT_LAW` and `CAUSALLY_NOT_ESTABLISHED`.

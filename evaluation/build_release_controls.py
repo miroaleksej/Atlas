@@ -118,6 +118,18 @@ def run(root=None, *, allow_blocked=False):
   'causally_established':False,
   'new_physical_law_established':False,
  }
+ caps['turbulence_dns_closure_experiment']={
+  'owner':'BLIND-DNS-TURBULENCE-CLOSURE-EXPERIMENT/1.0.0',
+  'dataset_schema':'phi-dns-turbulence-closure-dataset/v1',
+  'target_action_mode':'DIRECT_FIELD_VALUE',
+  'target_field_excluded_from_predictor_language':True,
+  'caller_supplied_derivative_predictors_required':False,
+  'named_turbulence_closure_catalog_used':False,
+  'discovery_and_sealed_regimes_must_be_disjoint':True,
+  'null_control_enabled_by_default':True,
+  'real_dns_result_bundled':False,
+  'new_turbulence_law_established':False,
+ }
  caps['query_research']={
   'owner':query.get('owner'),
   'report_digest':query.get('digest'),
@@ -272,6 +284,9 @@ def run(root=None, *, allow_blocked=False):
   'hidden_term_discovery_is_causal_establishment':False,
   'hidden_term_top_level_provenance_is_mandatory':True,
   'atlas_native_provenance_is_scientific_promotion':False,
+  'direct_target_field_is_excluded_from_predictor_language':True,
+  'dns_closure_protocol_pass_is_not_turbulence_law':True,
+  'dns_closure_representation_gap_is_valid_outcome':True,
  })
  inv['digest']=digest_payload(inv); (root/'invariants.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
  files=controlled(root)
@@ -329,6 +344,10 @@ def run(root=None, *, allow_blocked=False):
   'hidden_term_representation_is_scientific_law':False,
   'hidden_term_top_level_provenance_required':True,
   'atlas_native_provenance_can_promote_scientific_truth':False,
+  'turbulence_dns_closure_experiment_enabled':True,
+  'direct_target_field_used_as_predictor':False,
+  'dns_discovery_and_sealed_regimes_may_overlap':False,
+  'dns_protocol_integrity_is_scientific_law':False,
  })
  man['research_state_policy'].update({
   'dynamic_quality_tiers_enabled':True,

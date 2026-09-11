@@ -2140,21 +2140,31 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
         length_dim = (1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         time_coords = [name for name, dim in cdim.items() if self._deq(dim, time_dim)]
         spatial_coords = [name for name, dim in cdim.items() if self._deq(dim, length_dim)]
-        if len(time_coords) != 1 or not spatial_coords:
-            raise ValueError("primitive-field birth requires exactly one time-like and at least one length-like coordinate")
-        time_coord = time_coords[0]
-        target_dim = self._dsub(fdim[target_field], cdim[time_coord])
-
         language = dict(operator_language or {})
         generated_language_mode = language.get("status") == "GENERATED_OPERATOR_LANGUAGE"
+        target_spec = dict(language.get("target_action") or {}) if generated_language_mode else {}
+        direct_target_mode = bool(generated_language_mode and str(target_spec.get("kind", "")) == "DIRECT_FIELD_VALUE")
+        if direct_target_mode:
+            if not spatial_coords:
+                raise ValueError("direct-target primitive-field birth requires at least one length-like coordinate")
+            time_coord = time_coords[0] if len(time_coords) == 1 else None
+            target_dim = fdim[target_field]
+        else:
+            if len(time_coords) != 1 or not spatial_coords:
+                raise ValueError("primitive-field birth requires exactly one time-like and at least one length-like coordinate")
+            time_coord = time_coords[0]
+            target_dim = self._dsub(fdim[target_field], cdim[time_coord])
+
         if generated_language_mode:
             # Mathematical Invention supplies frozen signatures generated from
             # translation/algebra meta-primitives. This owner executes them only.
             specs = [dict(x) for x in language.get("generated_signatures", ())]
-            target_spec = dict(language.get("target_action") or {})
             if not specs or not target_spec:
                 raise ValueError("generated operator language did not provide executable signatures")
-            if str(target_spec.get("response_field")) != target_field or str(target_spec.get("coordinate")) != time_coord:
+            if direct_target_mode:
+                if str(target_spec.get("response_field")) != target_field:
+                    raise ValueError("generated direct target action is incompatible with primitive-field request")
+            elif str(target_spec.get("response_field")) != target_field or str(target_spec.get("coordinate")) != time_coord:
                 raise ValueError("generated target action is incompatible with primitive-field request")
         else:
             # Level-2 compatibility path. New Level-3 research must use the
@@ -2204,14 +2214,19 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
             feature_arrays: dict[str,np.ndarray] = {}
             if generated_language_mode:
                 actions: dict[tuple[str,str,int],np.ndarray] = {}
-                needed={(str(target_spec["response_field"]),str(target_spec["coordinate"]),int(target_spec["moment_rank"]))}
+                needed=set()
+                if not direct_target_mode:
+                    needed.add((str(target_spec["response_field"]),str(target_spec["coordinate"]),int(target_spec["moment_rank"])))
                 for spec in specs:
                     needed.add((str(spec["response_field"]),str(spec["coordinate"]),int(spec["moment_rank"])))
                 for field_name,coord,rank in sorted(needed):
                     if rank > 2*self.stencil_radius:
                         raise ValueError("generated translation-moment rank exceeds current executable stencil resource")
                     actions[(field_name,coord,rank)] = self._differentiate(fields[field_name],coords[coord],coord_axis[coord],rank)
-                target_values=actions[(str(target_spec["response_field"]),str(target_spec["coordinate"]),int(target_spec["moment_rank"]))][interior]
+                if direct_target_mode:
+                    target_values=fields[target_field][interior]
+                else:
+                    target_values=actions[(str(target_spec["response_field"]),str(target_spec["coordinate"]),int(target_spec["moment_rank"]))][interior]
                 for axis_id,spec in spec_by_axis.items():
                     response=actions[(str(spec["response_field"]),str(spec["coordinate"]),int(spec["moment_rank"]))]
                     factors=spec.get("carrier_factors")
@@ -2302,6 +2317,7 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
             "owner_id":self.owner_id,
             "status":"PRIMITIVE_FIELD_OPERATOR_COORDINATES_BORN",
             "target_field":target_field,
+            "target_action_mode":"DIRECT_FIELD_VALUE" if direct_target_mode else "TIME_TRANSLATION_MOMENT_RESPONSE",
             "inferred_time_coordinate":time_coord,
             "inferred_spatial_coordinates":spatial_coords,
             "target_axis":target_axis,
@@ -2325,6 +2341,8 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
                 "named_differential_operator_catalog_used":False if generated_language_mode else None,
                 "fixed_derivative_order_catalog_used":False if generated_language_mode else None,
                 "operator_language_generated_by_mathematical_invention":bool(generated_language_mode),
+                "caller_supplied_direct_target_field_values":bool(direct_target_mode),
+                "direct_target_field_used_as_predictor":False if direct_target_mode else None,
             },
         }
         return _with_digest(core)

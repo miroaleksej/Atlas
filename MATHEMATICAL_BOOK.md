@@ -5562,3 +5562,19 @@ Scientific promotion по-прежнему запрещена автоматич
 \[
 \texttt{CAUSALLY\_NOT\_ESTABLISHED}.
 \]
+
+## DNS turbulence closure как open-world residual experiment
+
+Для frozen фильтра `G_Δ` и DNS velocity `u_i` определим resolved field `U_i = G_Δ u_i`. Наблюдаемый unresolved convective forcing задаётся как
+
+```math
+R_i = -[G_Δ(u_j partial_j u_i) - U_j partial_j U_i].
+```
+
+Atlas не получает аналитическое closure `C_i(U, Δ)`. Он порождает из типизированных primitive fields локальные operator coordinates `φ_k[U, Δ]` и проверяет представление
+
+```math
+R_i ≈ c_0 + Σ_k c_k φ_k
+```
+
+сначала на discovery regimes, затем на непересекающемся sealed regime. В режиме `DIRECT_FIELD_VALUE` поле `R_i` является только response и исключено из пространства predictors. Если residual остаётся, система фиксирует representation gap, а не отсутствие физики. Перенос и превосходство над детерминированно рассогласованным null-control создают лишь гипотезу для дальнейшей проверки; `scientific_law_established=false` и `CAUSALLY_NOT_ESTABLISHED` сохраняются.

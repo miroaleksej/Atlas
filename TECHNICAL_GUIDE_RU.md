@@ -1227,7 +1227,7 @@ make audit-read-only
 
 ## 17. Справочник по всем тестам
 
-В выпуске 0.15.29.0 собирается **128 тестов** (число собранных случаев может быть больше числа функций из-за параметризации). Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
+В выпуске 0.15.29.0 после интеграции DNS-эксперимента собирается **131 тест** (число собранных случаев может быть больше числа функций из-за параметризации). Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
 
 ```bash
 pytest -q -p no:cacheprovider \
@@ -1914,3 +1914,24 @@ python -m evaluation.navier_stokes_blind_experiment \
 ## Claim boundary
 
 Level-4 PASS означает только следующее: на controlled reference world Atlas смог обнаружить, что текущий representation language недостаточен, расширить его из уже разрешённых meta-primitives, выбрать новую typed composition и перенести найденную correction на unseen sealed parameters. Это **не** доказывает, что найден мировой новый закон, и не устанавливает причинность. `CAUSALLY_NOT_ESTABLISHED` сохраняется.
+
+# Blind DNS turbulence-closure experiment
+
+Эксперимент принимает периодические равномерные DNS snapshots с трёхмерными массивами `u`, `v`, `w`. Адаптер применяет frozen spectral low-pass и вычисляет exact unresolved convective forcing как разность между отфильтрованной нелинейной динамикой DNS и нелинейной динамикой resolved-поля. Это аттестованный target, а не переданная closure-гипотеза.
+
+В режиме `DIRECT_FIELD_VALUE` размерность response берётся непосредственно из target-field, а target исключается из `predictor_fields`. Mathematical Invention рождает размерностно допустимые координаты только из resolved velocity и filter-width полей; Theory Compiler вычисляет локальные translation-moment responses. Ресурсные rank/depth budgets ограничивают запуск, но не объявляют научный потолок языка.
+
+Полная инструкция находится в [RUN_TURBULENCE_DNS_CLOSURE_RU.md](RUN_TURBULENCE_DNS_CLOSURE_RU.md). Базовый запуск:
+
+```bash
+make turbulence-dns-closure \
+  DNS_MANIFEST=examples/turbulence_dns_closure_manifest.local.json
+```
+
+Допустимые научные исходы: переносимый кандидат, fit без прохождения null-control либо representation gap/transfer failure. Ни один из них автоматически не устанавливает причинность или новый закон.
+
+### Новые тесты DNS/direct-target
+
+- `tests/test_direct_target_residual_discovery.py::test_direct_target_field_is_excluded_and_recovered` — строит прямое residual-field отношение, проверяет исключение target из всех predictor signatures, точное восстановление коэффициента и sealed OOD без научного продвижения.
+- `tests/test_turbulence_dns_closure_experiment.py::test_sgs_residual_is_finite_and_nontrivial` — генерирует периодический 3D snapshot, применяет DNS adapter и проверяет конечность, размерность массивов и ненулевой coarse-graining residual.
+- `tests/test_turbulence_dns_closure_experiment.py::test_dns_closure_harness_completes_without_auto_promotion` — запускает полный discovery/sealed harness на controlled 3D данных. Ожидается `PASS_PROTOCOL_INTEGRITY`, непересекающиеся regimes, валидная Atlas provenance и `scientific_law_established=false`.
