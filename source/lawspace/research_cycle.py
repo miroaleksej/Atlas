@@ -2359,6 +2359,7 @@ class AdaptiveResearchKernelOwner:
                 field_dimensions=field_dimensions,
                 target_field=target_field,
                 search_shell_budget=max(2, int(request.get("operator_language_search_budget", 8))),
+                carrier_factor_budget=max(1, int(request.get("operator_language_carrier_factor_budget", 1))),
             )
             if operator_language_birth.get("status") != "GENERATED_OPERATOR_LANGUAGE":
                 raise ValueError("Mathematical Invention did not generate an executable operator language")
@@ -2411,13 +2412,28 @@ class AdaptiveResearchKernelOwner:
             }
             row["digest"]=digest_payload(row); baseline_trials.append(row)
         baseline_trials.sort(key=lambda r:(not bool(r["identifiable"]),float(r["holdout_nrmse"]),str(r["axis_id"])))
-        baseline_axis=str(baseline_trials[0]["axis_id"])
+        baseline_signature=request.get("baseline_operator_signature")
+        baseline_axis=None
+        if isinstance(baseline_signature, Mapping):
+            specs=dict(birth.get("candidate_axes",{}))
+            matches=[]
+            for axis_id,spec in specs.items():
+                if all(spec.get(k)==v for k,v in baseline_signature.items()):
+                    matches.append(str(axis_id))
+            if len(matches)!=1:
+                raise ValueError("baseline_operator_signature must identify exactly one Atlas-born operator coordinate")
+            if matches[0] not in candidate_axes:
+                raise ValueError("baseline_operator_signature identified a non-executable coordinate")
+            baseline_axis=matches[0]
+        if baseline_axis is None:
+            baseline_axis=str(baseline_trials[0]["axis_id"])
         dormant=[x for x in candidate_axes if x!=baseline_axis]
         baseline_search={
-            "policy":"DISCOVERY_ONLY_SINGLE_AXIS_BASELINE_BEFORE_ADAPTIVE_MULTI_AXIS_BIRTH",
+            "policy":"FROZEN_BASELINE_OPERATOR_SIGNATURE" if isinstance(baseline_signature, Mapping) else "DISCOVERY_ONLY_SINGLE_AXIS_BASELINE_BEFORE_ADAPTIVE_MULTI_AXIS_BIRTH",
             "sealed_holdout_used":False,
             "trial_count":len(baseline_trials),
             "selected_axis":baseline_axis,
+            "baseline_operator_signature":dict(baseline_signature) if isinstance(baseline_signature, Mapping) else None,
             "trials":baseline_trials,
         }
         baseline_search={**baseline_search,"digest":digest_payload(baseline_search)}
@@ -2487,6 +2503,7 @@ class AdaptiveResearchKernelOwner:
                 "known_equation_name_used_prefreeze":False,
                 "operator_coordinates_born_inside_atlas":True,
                 "operator_language_invented_from_meta_primitives":bool(operator_language_birth),
+                "operator_language_carrier_factor_budget":operator_language_birth.get("carrier_factor_budget") if isinstance(operator_language_birth, Mapping) else None,
                 "named_differential_operator_catalog_used":False if operator_language_birth else None,
                 "fixed_derivative_order_catalog_used":False if operator_language_birth else None,
                 "axis_birth_cardinality_is_adaptive":True,
@@ -2503,8 +2520,82 @@ class AdaptiveResearchKernelOwner:
         )
         return receipt
 
+    def _advance_residual_language(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
+        """Expand generated operator algebra only after a persistent blind residual.
+
+        The search starts at one pointwise carrier factor, executes the full
+        discovery/holdout cycle, and opens the next algebra-depth shell only when
+        the current representation fails the frozen fit gate.  The finite depth
+        budget is a runtime guard and is explicitly not a scientific ceiling.
+        """
+        depth_budget=max(2,int(request.get("residual_language_factor_depth_budget",3)))
+        base_problem=str(request.get("problem_id","RESIDUAL-LANGUAGE-DISCOVERY"))
+        journal=[]; receipts=[]; selected=None
+        for depth in range(1,depth_budget+1):
+            stage=dict(request)
+            stage["entry_mode"]="PRIMITIVE_FIELD_LANGUAGE_DISCOVERY"
+            stage["problem_id"]=f"{base_problem}-ALGEBRA-DEPTH-{depth}"
+            stage["operator_language_invention"]=True
+            stage["operator_language_carrier_factor_budget"]=depth
+            stage.pop("residual_driven_language_expansion",None)
+            receipt=self._advance_primitive_field(stage)
+            receipts.append(receipt)
+            best=dict(receipt.get("result",{}).get("best_hypothesis") or {})
+            nrmse=float(best.get("holdout_nrmse",float("inf")))
+            survived=receipt.get("result",{}).get("status")=="HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW"
+            row={
+                "algebra_carrier_factor_depth":depth,
+                "status":receipt.get("result",{}).get("status"),
+                "discovery_holdout_nrmse":nrmse,
+                "generated_signature_count":(receipt.get("operator_language_invention") or {}).get("generated_signature_count"),
+                "receipt_digest":receipt.get("digest"),
+                "fit_gate_reached":bool(survived),
+                "residual_persisted":not bool(survived),
+            }
+            row["digest"]=digest_payload(row); journal.append(row)
+            if survived:
+                selected=receipt; break
+        if selected is None:
+            selected=receipts[-1]
+        initial=receipts[0]; final=selected
+        result=dict(final.get("result",{}))
+        core={
+            "schema":"phi-adaptive-research-kernel-residual-language/v1",
+            "owner":self.owner_id,
+            "problem_id":base_problem,
+            "entry_mode":"PRIMITIVE_FIELD_RESIDUAL_LANGUAGE_DISCOVERY",
+            "input_digest":digest_payload({
+                "problem_id":base_problem,
+                "primitive_field_request":request.get("primitive_field_request"),
+                "baseline_operator_signature":request.get("baseline_operator_signature"),
+                "fit_tolerance_nrmse":request.get("fit_tolerance_nrmse"),
+            }),
+            "language_expansion_journal":journal,
+            "initial_language_receipt":initial,
+            "final_language_receipt":final,
+            "selected_algebra_carrier_factor_depth":int((final.get("operator_language_invention") or {}).get("carrier_factor_budget",1)),
+            "result":result,
+            "claim_boundary":{
+                "language_expansion_triggered_only_by_persistent_discovery_residual":True,
+                "sealed_holdout_used_to_trigger_language_expansion":False,
+                "carrier_factor_depth_budget_is_scientific_ceiling":False,
+                "named_hidden_term_supplied_to_search":False,
+                "scientific_law_established":False,
+                "world_novelty_established":False,
+            },
+        }
+        core["digest"]=digest_payload(core)
+        core["atlas_claim"]=self.firewall.seal_atlas_claim(
+            statement=f"Atlas residual-driven language cycle {base_problem} produced status {result.get('status')}",
+            execution_receipt=core,
+            payload={"status":result.get("status"),"selected_algebra_carrier_factor_depth":core["selected_algebra_carrier_factor_depth"]},
+        )
+        return core
+
     def advance(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         entry_mode=str(request.get("entry_mode", "")).upper()
+        if bool(request.get("residual_driven_language_expansion",False)) or entry_mode == "PRIMITIVE_FIELD_RESIDUAL_LANGUAGE_DISCOVERY":
+            return self._advance_residual_language(request)
         if bool(request.get("primitive_field_discovery", False)) or entry_mode in {"PRIMITIVE_FIELD_DISCOVERY", "PRIMITIVE_FIELD_LANGUAGE_DISCOVERY"}:
             return self._advance_primitive_field(request)
         if bool(request.get("representation_gap", False)) or entry_mode == "ATTESTED_REPRESENTATION_GAP":

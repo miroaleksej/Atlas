@@ -2214,19 +2214,42 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
                 target_values=actions[(str(target_spec["response_field"]),str(target_spec["coordinate"]),int(target_spec["moment_rank"]))][interior]
                 for axis_id,spec in spec_by_axis.items():
                     response=actions[(str(spec["response_field"]),str(spec["coordinate"]),int(spec["moment_rank"]))]
-                    carrier=spec.get("carrier_field"); power=int(spec.get("carrier_power",0))
-                    if carrier is None or power==0:
-                        arr=response
-                    elif power==1:
-                        arr=fields[str(carrier)]*response
-                    elif power==-1:
-                        base=fields[str(carrier)]
-                        if np.any(np.abs(base[interior])<=1e-14):
-                            arr=np.full_like(base,np.nan,dtype=float)
-                        else:
-                            arr=response/base
+                    factors=spec.get("carrier_factors")
+                    if isinstance(factors,(list,tuple)) and factors:
+                        arr=np.asarray(response,dtype=float).copy()
+                        invalid=False
+                        for factor in factors:
+                            field_name=str(dict(factor).get("field",""))
+                            power=int(dict(factor).get("power",0))
+                            if field_name not in fields or power==0:
+                                invalid=True; break
+                            base=fields[field_name]
+                            if power < 0 and np.any(np.abs(base[interior])<=1e-14):
+                                invalid=True; break
+                            arr=arr*np.power(base,power)
+                        if invalid:
+                            arr=np.full_like(response,np.nan,dtype=float)
                     else:
-                        raise ValueError("generated pointwise carrier power is outside executable seed algebra")
+                        carrier=spec.get("carrier_field"); power=int(spec.get("carrier_power",0))
+                        if carrier is None or power==0:
+                            arr=response
+                        elif power==1:
+                            arr=fields[str(carrier)]*response
+                        elif power==-1:
+                            base=fields[str(carrier)]
+                            if np.any(np.abs(base[interior])<=1e-14):
+                                arr=np.full_like(base,np.nan,dtype=float)
+                            else:
+                                arr=response/base
+                        else:
+                            # Repeated pointwise multiplication/reciprocal is a
+                            # composition of seed algebra operations, not a new
+                            # scientific primitive.
+                            base=fields[str(carrier)]
+                            if power < 0 and np.any(np.abs(base[interior])<=1e-14):
+                                arr=np.full_like(base,np.nan,dtype=float)
+                            else:
+                                arr=response*np.power(base,power)
                     feature_arrays[axis_id]=arr[interior]
             else:
                 d1: dict[tuple[str,str], np.ndarray] = {}

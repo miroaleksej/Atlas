@@ -227,3 +227,18 @@ def test_large_dormant_space_switches_to_sparse_forward_backward_search_without_
     assert result["axis_birth_search"]["selected_cardinality"] == 2
     assert result["axis_birth_search"]["fixed_axis_count_per_cycle"] is None
     assert result["axis_birth_search"]["resource_budget_is_scientific_cardinality_ceiling"] is False
+
+
+def test_residual_driven_language_expansion_discovers_hidden_two_factor_coordinate():
+    from evaluation.navier_stokes_blind_experiment import run_hidden_term_discovery
+    out = run_hidden_term_discovery()
+    assert out["status"] == "PASS_BLIND_HIDDEN_TERM_DISCOVERY"
+    assert out["passed"] == out["total"]
+    blind = out["blind_result"]
+    assert blind["selected_algebra_carrier_factor_depth"] == 2
+    assert blind["initial_discovery_holdout_nrmse"] > 1e-3
+    assert blind["final_discovery_holdout_nrmse"] < 2e-5
+    assert blind["sealed_holdout"]["nrmse"] < 3e-5
+    hidden = blind["hidden_candidate_axis_after_postfreeze_decode"]
+    assert hidden in set(blind["effective_predictor_variables"])
+    assert abs(blind["coefficients"][hidden] + 0.65) < 5e-3

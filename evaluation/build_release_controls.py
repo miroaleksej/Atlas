@@ -105,6 +105,16 @@ def run(root=None, *, allow_blocked=False):
   'resource_budget_is_scientific_ceiling':False,
   'world_mathematical_novelty_established':False,
  }
+ caps['persistent_residual_hidden_term_discovery']={
+  'level':4,
+  'language_expansion_trigger':'PERSISTENT_DISCOVERY_RESIDUAL',
+  'algebra_carrier_depth_adaptive':True,
+  'fixed_scientific_depth_ceiling':None,
+  'sealed_holdout_used_to_trigger_expansion':False,
+  'hidden_term_semantics_prefreeze_visible':False,
+  'causally_established':False,
+  'new_physical_law_established':False,
+ }
  caps['query_research']={
   'owner':query.get('owner'),
   'report_digest':query.get('digest'),
@@ -254,6 +264,9 @@ def run(root=None, *, allow_blocked=False):
   'operator_language_birth_uses_named_differential_catalog':False,
   'operator_language_resource_budget_is_scientific_ceiling':False,
   'operator_language_birth_establishes_world_mathematical_novelty':False,
+  'persistent_residual_may_expand_operator_language':True,
+  'sealed_holdout_triggers_language_expansion':False,
+  'hidden_term_discovery_is_causal_establishment':False,
  })
  inv['digest']=digest_payload(inv); (root/'invariants.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
  files=controlled(root)
@@ -306,6 +319,9 @@ def run(root=None, *, allow_blocked=False):
   'operator_language_named_differential_catalog_required':False,
   'operator_language_fixed_global_rank_ceiling':None,
   'operator_language_resource_budget_is_scientific_ceiling':False,
+  'persistent_residual_hidden_term_discovery_enabled':True,
+  'hidden_term_expansion_uses_sealed_holdout':False,
+  'hidden_term_representation_is_scientific_law':False,
  })
  man['research_state_policy'].update({
   'dynamic_quality_tiers_enabled':True,

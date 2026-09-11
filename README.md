@@ -1009,7 +1009,31 @@ RELEASE_MANIFEST.json и контролируемый реестр SHA-256.
 
 Atlas распространяется по лицензии [Apache License 2.0](LICENSE.md).
 
+## Blind Level 4: поиск неизвестного члена по устойчивому residual
+
+Текущий research patch добавляет controlled blind benchmark, в котором исходная локальная модель намеренно неполна. Atlas получает masked primitive fields и frozen baseline operator signature. Если initial generated language не проходит discovery fit gate, `ADAPTIVE-RESEARCH-KERNEL` открывает следующий algebra-depth shell из тех же meta-primitives и повторяет support search без использования sealed holdout.
+
+Запуск:
+
+```bash
+python -m evaluation.navier_stokes_blind_experiment --mode hidden-term --output reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_CURRENT.json --summary
+```
+
+Контрольный результат patch:
+
+```text
+PASS_BLIND_HIDDEN_TERM_DISCOVERY
+18 / 18 PASS
+initial discovery NRMSE = 5.555687904876772e-1
+final discovery NRMSE   = 1.5146444163333484e-13
+sealed OOD NRMSE        = 1.5289221198455143e-13
+```
+
+Hidden correction известна только reference-world builder и post-freeze verification. PASS является квалификацией механизма `persistent residual -> language expansion -> new coordinate birth -> sealed falsification`; он не является заявлением о новом физическом законе или причинности.
+
 ## Темы и сообщества
+
+
 
 Проект может быть интересен исследователям, инженерам, преподавателям и сообществам России и других стран, работающим на пересечении научного ИИ, вычислительной физики, анализа размерностей, автоматизации открытий, метрологии и воспроизводимой науки.
 

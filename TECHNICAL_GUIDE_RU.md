@@ -1227,7 +1227,7 @@ make audit-read-only
 
 ## 17. Справочник по всем тестам
 
-В выпуске 0.15.29.0 собирается **126 тестов**. Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
+В выпуске 0.15.29.0 собирается **128 тестов**. Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
 
 ```bash
 pytest -q -p no:cacheprovider \
@@ -1236,7 +1236,7 @@ pytest -q -p no:cacheprovider \
 
 Обозначение «ожидается PASS» означает прохождение программных утверждений теста, а не автоматическое подтверждение научного закона.
 
-### `tests/test_adaptive_axis_discovery.py` — 11 тестов
+### `tests/test_adaptive_axis_discovery.py` — 12 тестов
 
 - `test_scan_finds_context_axis_without_mutating_registry` — запускает поиск контекстной оси и сравнивает состояние реестра до и после. Ожидается обнаруженный кандидат при неизменном каноническом реестре.
 - `test_positive_causal_readiness_requires_positive_generalization_contract` — подаёт положительное причинное свидетельство без полного контракта обобщения. Ожидается запрет статуса causal-ready до выполнения всех условий.
@@ -1249,6 +1249,7 @@ pytest -q -p no:cacheprovider \
 - `test_first_blind_real_physics_cycle_replays` — воспроизводит зафиксированный слепой физический цикл и проверяет его квитанции и метрики. Ожидается детерминированный PASS без заявления нового закона.
 - `test_adaptive_research_kernel_can_birth_multiple_dormant_axes_in_one_cycle` — строит ответ, которому одновременно нужны две dormant-оси, и проверяет полный subset search. Ожидается активация ровно `z` и `w`, `selected_cardinality = 2`, разрешённый multi-axis birth и отсутствие фиксированного числа осей на цикл.
 - `test_large_dormant_space_switches_to_sparse_forward_backward_search_without_cardinality_ceiling` — создаёт большое dormant-пространство, превышающее exhaustive trial budget. Ожидается переход на sparse forward/backward search, восстановление `z` и `w` и явная фиксация, что ресурсный бюджет не является научным потолком cardinality.
+- `test_residual_driven_language_expansion_discovers_hidden_two_factor_coordinate` — запускает Level-4 incomplete-representation control. Ожидается persistent residual на depth 1, автоматическое открытие depth 2, восстановление скрытой двухфакторной координаты и sealed OOD PASS без causal promotion.
 
 ### `tests/test_curvature_memory_current.py` — 2 теста
 
@@ -1306,7 +1307,7 @@ pytest -q -p no:cacheprovider \
 - `test_example_numeric_control_is_within_declared_scale` — сравнивает оценку `G` с контрольным значением. Ожидается относительная ошибка в объявленном допустимом диапазоне.
 - `test_example_receipt_preserves_claim_boundary` — инспектирует финальную квитанцию. Ожидается воспроизведённый контроль без утверждения нового закона, новой константы или prospective validation.
 
-### `tests/test_function_language_birth.py` — 7 тестов
+### `tests/test_function_language_birth.py` — 8 тестов
 
 - `test_mathematical_invention_kernel_exposes_function_language_component_without_new_owner` — читает контракты Mathematical Invention Kernel и компонента рождения языка. Ожидается один существующий authority, компонент `FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT` и отсутствие фиксированного глобального каталога как первичного пространства.
 - `test_polynomial_control_does_not_birth_unneeded_language` — подаёт хорошо описываемую полиномом поверхность с малым шумом. Ожидается `CURRENT_LANGUAGE_RESIDUAL_WITHIN_BIRTH_TOLERANCE`, ноль порождённых языков и OOF NRMSE ниже `0.04`.
@@ -1315,6 +1316,7 @@ pytest -q -p no:cacheprovider \
 - `test_dynamic_language_birth_is_replayed_inside_permutation_null` — запускает пять перестановок периодической задачи. Ожидается повтор всей полиномиальной и порождённой поверхности на каждой перестановке и сохранённая граница отсутствия world-law/novelty claim.
 - `test_structureless_residual_does_not_force_language_birth` — подаёт независимый нормальный шум с высокой ошибкой baseline. Ожидается `NO_OPERATION_SIGNAL_ABOVE_BIRTH_GATE`, пустой список языков и ноль порождённых гипотез.
 - `test_operator_language_birth_uses_translation_meta_primitives_not_differential_catalog` — запускает operator-language birth из локального переноса, алгебры и dimension typing. Ожидаются rank shells 1–3, отсутствие каталога именованных производных и отсутствие фиксированного глобального потолка operator rank.
+- `test_operator_language_can_expand_pointwise_carrier_depth_without_named_term_catalog` — сравнивает carrier depth 1 и 2. Ожидается рождение двухфакторной typed composition только во втором shell и явное отсутствие научного потолка глубины.
 
 ### `tests/test_permutation_eprocess_current.py` — 2 теста
 
@@ -1812,3 +1814,85 @@ primitive sampled fields
 ```
 
 `REPRESENTATION_ACTIVATED` отдельно от `CAUSALLY_ESTABLISHED`; в текущем receipt causal status остаётся `CAUSALLY_NOT_ESTABLISHED`.
+
+# Level 4 — residual-driven discovery неизвестного члена
+
+## Цель
+
+Level 4 проверяет уже не восстановление известной PDE-структуры, а более строгий исследовательский цикл: текущая representation намеренно неполна, frozen baseline известен, а дополнительный член отсутствует в начальном generated language. Atlas должен сам зафиксировать persistent residual, открыть следующий algebra-depth shell, породить новые typed operator coordinates и проверить найденный кандидат на sealed OOD.
+
+Контрольный world не является заявлением о новой физике. Он специально сконструирован так, чтобы post-freeze известный дополнительный член требовал двух pointwise carrier factors, тогда как initial language разрешает только один. Поисковое ядро не получает ни semantic name этого члена, ни его coefficient, ни его operator signature.
+
+## Residual-driven algebra expansion
+
+`OPERATOR-LANGUAGE-BIRTH` теперь поддерживает pointwise monomial carrier depth как открываемый resource shell. При depth `1` сохраняется Level-3 язык. Если frozen discovery fit gate не достигнут, `ADAPTIVE-RESEARCH-KERNEL` запускает следующий shell с depth `2`, затем при необходимости может продолжить дальше в пределах текущего runtime budget.
+
+Budget не является scientific ceiling:
+
+```text
+carrier_factor_budget_is_scientific_ceiling = false
+language_expansion_triggered_only_by_persistent_discovery_residual = true
+sealed_holdout_used_to_trigger_language_expansion = false
+```
+
+Для carrier exponent vector `s=(s_1,...,s_m)` Atlas строит композиции
+
+```text
+product_j f_j^(s_j) * L_r[g]
+```
+
+только если dimensional typing допускает frozen target dimension. Противоположные factors, взаимно сокращающиеся до shallower shell, не считаются новым birth.
+
+## Контрольный Level-4 result
+
+Начальный frozen baseline использовал одну Atlas-born operator coordinate. При carrier depth `1` система породила только 4 typed signatures и не прошла fit gate:
+
+```text
+initial discovery NRMSE = 5.555687904876772e-1
+status = REPRESENTATION_GAP_OPERATOR_PROBE_PROTOCOL_FROZEN_AWAITING_ATTESTED_RESPONSES
+```
+
+Persistent residual автоматически открыл carrier depth `2`. Новый shell дал 26 typed signatures. Adaptive support search оставил ровно baseline + одну новую coordinate. После post-freeze decode новый член соответствует скрытой двухфакторной composition, а коэффициенты равны:
+
+```text
+baseline coefficient = -0.9999999999998731
+hidden candidate      = -0.6499999999999957
+reference lambda      =  0.65
+```
+
+Ошибка после discovery:
+
+```text
+final discovery NRMSE = 1.5146444163333484e-13
+sealed OOD NRMSE      = 1.5289221198455143e-13
+sealed record count   = 156
+```
+
+Acceptance:
+
+```text
+PASS_BLIND_HIDDEN_TERM_DISCOVERY
+18 / 18 PASS
+```
+
+## Запуск
+
+```bash
+make hidden-term-discovery
+```
+
+или напрямую:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 \
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 \
+python -m evaluation.navier_stokes_blind_experiment \
+  --mode hidden-term \
+  --output reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_CURRENT.json \
+  --summary
+```
+
+## Claim boundary
+
+Level-4 PASS означает только следующее: на controlled reference world Atlas смог обнаружить, что текущий representation language недостаточен, расширить его из уже разрешённых meta-primitives, выбрать новую typed composition и перенести найденную correction на unseen sealed parameters. Это **не** доказывает, что найден мировой новый закон, и не устанавливает причинность. `CAUSALLY_NOT_ESTABLISHED` сохраняется.

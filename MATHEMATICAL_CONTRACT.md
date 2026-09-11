@@ -1153,3 +1153,11 @@ Human-review state is external and append-only at the action level. `SPONSOR_REV
 5. Large candidate spaces MAY use sparse forward growth and backward minimization without a fixed target cardinality.
 6. Sealed OOD observations SHALL NOT generate the language, select support or refit coefficients.
 7. A passing controlled benchmark SHALL NOT establish mathematical novelty, a world law or causal establishment.
+
+## Persistent-residual hidden-term Level 4 — контракт
+
+1. Language expansion SHALL trigger only after the frozen current representation fails its discovery fit gate.
+2. Algebraic carrier depth MAY increase without a fixed scientific ceiling; finite shell budgets are runtime guards.
+3. Sealed holdout SHALL NOT trigger expansion, select a hidden term or refit it.
+4. Hidden-term semantics and coefficients SHALL remain unavailable to the search path until post-freeze verification.
+5. A surviving hidden-term representation SHALL remain `CAUSALLY_NOT_ESTABLISHED` and not a promoted law.

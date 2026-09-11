@@ -140,3 +140,31 @@ def test_operator_language_birth_uses_translation_meta_primitives_not_differenti
     assert {1,2,3}.issubset(ranks)
     assert language["search_may_resume_beyond_budget"] is True
     assert language["claim_boundary"]["resource_budget_is_scientific_rank_ceiling"] is False
+
+
+def test_operator_language_can_expand_pointwise_carrier_depth_without_named_term_catalog():
+    import pathlib
+    root = pathlib.Path(__file__).resolve().parents[1]
+    kernel = MathematicalInventionKernel(root)
+    common = dict(
+        coordinate_dimensions={"t":[0,0,1,0,0,0,0],"x":[1,0,0,0,0,0,0]},
+        field_dimensions={
+            "u":[1,0,-1,0,0,0,0],"a":[1,0,-1,0,0,0,0],
+            "c":[0,0,0,0,0,0,0],"d":[0,0,0,0,0,0,0],
+        },
+        target_field="u", search_shell_budget=5,
+    )
+    depth1 = kernel.operator_language.invent(**common, carrier_factor_budget=1)
+    depth2 = kernel.operator_language.invent(**common, carrier_factor_budget=2)
+    wanted = {
+        "kind":"POINTWISE_MONOMIAL_X_LOCAL_TRANSLATION_MOMENT_RESPONSE",
+        "response_field":"u","coordinate":"x","moment_rank":1,
+        "carrier_factors":[{"field":"c","power":1},{"field":"u","power":1}],
+        "carrier_factor_count":2,
+    }
+    def has(language):
+        return any(all(row.get(k)==v for k,v in wanted.items()) for row in language["generated_signatures"])
+    assert has(depth1) is False
+    assert has(depth2) is True
+    assert depth2["generated_signature_count"] > depth1["generated_signature_count"]
+    assert depth2["claim_boundary"]["carrier_factor_budget_is_scientific_ceiling"] is False

@@ -115,7 +115,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "4eadb790960ba037fb277a2534949506d8573d3dcef85ad5de99f26f07600352",
+  "digest": "fd11ae3cd07eee3064f1828017449c6f35271dfd6379ff49a137747521b2b735",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -227,6 +227,16 @@
     "type1_empirical_paths": 1000,
     "ville_threshold_20_is_system_wide_guarantee": false
   },
+  "persistent_residual_hidden_term_discovery": {
+    "algebra_carrier_depth_adaptive": true,
+    "causally_established": false,
+    "fixed_scientific_depth_ceiling": null,
+    "hidden_term_semantics_prefreeze_visible": false,
+    "language_expansion_trigger": "PERSISTENT_DISCOVERY_RESIDUAL",
+    "level": 4,
+    "new_physical_law_established": false,
+    "sealed_holdout_used_to_trigger_expansion": false
+  },
   "preserved": {
     "canonical_axis_count": 655,
     "computational_method_count": 24,
@@ -245,7 +255,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "4672d1502e0784b48aba2775915f6d368cdbe6fc75776301c5ad88c1f9b7d3d7",
+  "qualification_digest": "e66f546cb50a20881758f0da3897ae0e6032eb2be9986ffc7f33dc573678686f",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,

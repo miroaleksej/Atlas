@@ -390,6 +390,7 @@ class OperatorLanguageBirthEngine:
         self, *, coordinate_dimensions: Mapping[str, Sequence[float]],
         field_dimensions: Mapping[str, Sequence[float]], target_field: str,
         search_shell_budget: int=8,
+        carrier_factor_budget: int=1,
     ) -> Mapping[str, Any]:
         cdim={str(k):self._dim(v) for k,v in coordinate_dimensions.items()}
         fdim={str(k):self._dim(v) for k,v in field_dimensions.items()}
@@ -397,6 +398,7 @@ class OperatorLanguageBirthEngine:
         if target_field not in fdim or not cdim:
             raise ValueError("operator-language birth requires coordinate/field dimensions and target_field")
         budget=max(2,int(search_shell_budget))
+        factor_budget=max(1,int(carrier_factor_budget))
         time_signature=(0.0,0.0,1.0,0.0,0.0,0.0,0.0)
         time_coords=[k for k,v in cdim.items() if self._eq(v,time_signature)]
         if len(time_coords)!=1:
@@ -440,6 +442,37 @@ class OperatorLanguageBirthEngine:
                                     "moment_rank":rank,"carrier_field":carrier,"carrier_power":power,
                                     "dimension":list(target_relation_dim),
                                 })
+                    # Higher algebraic carrier depth is born only when the caller
+                    # explicitly opens a wider resource shell (for example after a
+                    # persistent residual).  This is a generic monomial closure of
+                    # the same pointwise multiply/reciprocal primitives; it does not
+                    # contain a catalogue of scientific terms.  Depth is a runtime
+                    # search budget, never a scientific ceiling.
+                    if factor_budget >= 2:
+                        atoms=[(name,power) for name in sorted(fdim) for power in (-1,1)]
+                        for depth in range(2,factor_budget+1):
+                            for combo in itertools.combinations_with_replacement(atoms,depth):
+                                powers: dict[str,int] = defaultdict(int)
+                                for name,power in combo:
+                                    powers[str(name)] += int(power)
+                                powers={name:power for name,power in powers.items() if power}
+                                # Opposite factors that cancel would merely recreate
+                                # a shallower shell and are therefore not a new birth.
+                                if sum(abs(power) for power in powers.values()) != depth:
+                                    continue
+                                out=response_out
+                                factors=[]
+                                for name,power in sorted(powers.items()):
+                                    out=self._add(out,self._scale(fdim[name],float(power)))
+                                    factors.append({"field":name,"power":int(power)})
+                                if self._eq(out,target_relation_dim):
+                                    shell.append({
+                                        "kind":"POINTWISE_MONOMIAL_X_LOCAL_TRANSLATION_MOMENT_RESPONSE",
+                                        "response_field":response_field,"coordinate":coord,
+                                        "moment_rank":rank,"carrier_factors":factors,
+                                        "carrier_factor_count":depth,
+                                        "dimension":list(target_relation_dim),
+                                    })
             # Target must be a pure translation response of target_field along the
             # unique time-like coordinate.  Its rank is discovered, not supplied.
             response_out=self._sub(fdim[target_field],self._scale(cdim[time_coord],float(rank)))
@@ -474,6 +507,7 @@ class OperatorLanguageBirthEngine:
             "target_action":target_action,"generated_signatures":generated,
             "generated_signature_count":len(generated),"shell_journal":shell_journal,
             "search_shell_budget":budget,"last_explored_rank_shell":stop_rank,
+            "carrier_factor_budget":factor_budget,
             "search_may_resume_beyond_budget":True,
             "claim_boundary":{
                 "named_differential_operator_catalog_used":False,
@@ -483,6 +517,7 @@ class OperatorLanguageBirthEngine:
                 "generated_language_is_scientific_law":False,
                 "world_novelty_established":False,
                 "resource_budget_is_scientific_rank_ceiling":False,
+                "carrier_factor_budget_is_scientific_ceiling":False,
             },
         }
         return _with_digest(payload)

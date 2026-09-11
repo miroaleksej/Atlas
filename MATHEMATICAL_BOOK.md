@@ -5442,3 +5442,115 @@ Cardinality определяется траекторией evidence, а не п
 \not\Rightarrow
 \text{new physical law or world mathematical novelty}.
 \]
+
+## 9. Residual-driven algebra-depth birth
+
+Level 4 вводит различие между rank shell локального translation response и algebraic carrier depth. Пусть
+
+\[
+L_r[f]
+\]
+
+— generated local response rank `r`. Вместо только одного pointwise carrier система допускает monomial family
+
+\[
+M_{\mathbf s,r}[f]
+=
+\left(\prod_{j=1}^{m} g_j^{s_j}\right)L_r[f],
+\qquad s_j\in\mathbb Z,
+\]
+
+с текущей resource complexity
+
+\[
+\|\mathbf s\|_1=\sum_j |s_j|.
+\]
+
+Начальный search использует `||s||_1 <= 1`. Если frozen discovery residual не проходит fit gate, следующий cycle открывает shell `||s||_1 <= 2`. Никакой конкретный hidden monomial не добавляется вручную: перечисляются composition signatures, разрешённые seed operations `POINTWISE_MULTIPLY`, `POINTWISE_RECIPROCAL` и dimensional typing.
+
+Комбинации с взаимным сокращением powers не являются новыми shells. Например, `g*g^-1` редуцируется к более низкой глубине и отбрасывается до support search.
+
+## 10. Controlled incomplete-theory world
+
+Для квалификации взят masked scalar local evolution world. Его semantic form хранится только в fixture builder и post-freeze verification:
+
+\[
+u_t=-a u_x-\lambda c u u_x,
+\qquad \lambda=0.65.
+\]
+
+Поле `c` безразмерно и независимо меняется между discovery и sealed realizations. Поэтому hidden correction
+
+\[
+-\lambda c u u_x
+\]
+
+нельзя заменить одним глобальным coefficient при `u u_x`.
+
+Для точного reference solution используется affine family
+
+\[
+u(x,t)=\frac{A_0x+B_0-aA_0t}{1+\lambda cA_0t},
+\]
+
+для которой непосредственно
+
+\[
+\partial_tu=-a\,\partial_xu-\lambda c u\,\partial_xu.
+\]
+
+В search input semantic symbols `u,a,c` заменены opaque field ids. Frozen baseline сообщает только одну operator signature, соответствующую известной неполной части; hidden term signature и `lambda` до freeze отсутствуют.
+
+## 11. Level-4 blind result
+
+Carrier depth `1` породил 4 signatures и оставил
+
+\[
+\operatorname{NRMSE}_{initial}=5.555687904876772\times10^{-1}.
+\]
+
+Это вызвало residual-driven expansion. Carrier depth `2` породил 26 signatures. Adaptive support minimization оставил baseline и одну новую coordinate. После post-freeze decode новая coordinate соответствует two-factor monomial `c*u*L_1[u]`.
+
+Recovered coefficients:
+
+\[
+\hat\beta_{base}=-0.9999999999998731,
+\qquad
+\hat\beta_{hidden}=-0.6499999999999957.
+\]
+
+Final errors:
+
+\[
+\operatorname{NRMSE}_{disc}=1.5146444163333484\times10^{-13},
+\]
+
+\[
+\operatorname{NRMSE}_{sealed}=1.5289221198455143\times10^{-13}.
+\]
+
+Итог:
+
+\[
+\boxed{\texttt{PASS\_BLIND\_HIDDEN\_TERM\_DISCOVERY}:18/18}
+\]
+
+Это квалифицирует mechanism
+
+\[
+\text{incomplete representation}
+\rightarrow\text{persistent residual}
+\rightarrow\text{operator-language expansion}
+\rightarrow\text{new coordinate birth}
+\rightarrow\text{sealed falsification}.
+\]
+
+Scientific promotion по-прежнему запрещена автоматически:
+
+\[
+\texttt{HYPOTHESIS\_SURVIVES\_CURRENT\_HELDOUT\_EVIDENCE\_NOT\_LAW},
+\]
+
+\[
+\texttt{CAUSALLY\_NOT\_ESTABLISHED}.
+\]

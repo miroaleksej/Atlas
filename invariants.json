@@ -1,5 +1,5 @@
 {
-  "digest": "8be4ae555f50881c53b46a21f9b95aa4559859f06d9a0a8d4cbf00d48b36cf72",
+  "digest": "d9d7a8e98da85d99f5c1f3e065e12eecb2ec27ff544610ccd9cc857387bd9455",
   "invariants": {
     "adaptive_subspace_search_has_no_fixed_order_ceiling": true,
     "agi_not_claimed": true,
@@ -48,6 +48,7 @@
     "finite_permutation_null_requires_exact_p_with_sufficient_resolution": true,
     "fixed_axis_count_per_cycle_is_absent": true,
     "global_online_fdr_control_not_yet_claimed": true,
+    "hidden_term_discovery_is_causal_establishment": false,
     "higher_order_interaction_axis_birth_is_allowed": true,
     "historical_research_state_remains_absent": true,
     "known_overlap_never_implies_falsification": true,
@@ -72,6 +73,7 @@
     "permutation_eprocess_orbit_cannot_write_genesis_journal": true,
     "permutation_eprocess_orbit_uses_one_frozen_genesis_journal_snapshot": true,
     "permutation_eprocess_ville_threshold_is_per_target_only": true,
+    "persistent_residual_may_expand_operator_language": true,
     "primitive_field_benchmark_establishes_new_physical_law": false,
     "primitive_field_operator_birth_requires_named_pde_template": false,
     "primitive_field_operator_coordinates_are_born_inside_atlas": true,
@@ -100,6 +102,7 @@
     "scientific_axis_primary_space_is_not_expression_tree": true,
     "scoped_epoch_alpha_uses_existing_acquisition_evidence_fingerprint": true,
     "sealed_holdout_is_not_used_for_search_or_refit": true,
+    "sealed_holdout_triggers_language_expansion": false,
     "sequential_null_level_is_exact_rational_and_summable_per_target": true,
     "sequential_permutation_null_is_not_claimed_anytime_valid": true,
     "source_derived_candidate_not_promoted_as_independent_new_law": true,

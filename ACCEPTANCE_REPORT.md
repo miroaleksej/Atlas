@@ -30,6 +30,15 @@ baseline. The control passes `46/46` checks with status
 `3.4519e-4` and `3.8246e-4`. This is implementation qualification inside a
 controlled reference world, not mathematical novelty or scientific promotion.
 
+## Persistent-residual hidden-term Level 4 acceptance
+
+The Level-4 controlled benchmark passes `18/18` checks with status
+`PASS_BLIND_HIDDEN_TERM_DISCOVERY`. A frozen depth-1 representation fails with
+discovery NRMSE about `0.55557`; persistent discovery residual opens carrier
+depth 2, after which the selected hidden coordinate reaches discovery and sealed
+NRMSE near `1.5e-13`. The hidden semantics are post-freeze only, sealed data do
+not trigger expansion, and no causal or scientific promotion is granted.
+
 
 
 ## Current 15.27.0 acceptance scope — Function-Language Birth

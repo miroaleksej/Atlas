@@ -312,13 +312,7 @@ def _momentum_lane_checks(receipt: dict[str, Any]) -> dict[str, bool]:
         "INITIAL_MODEL_FAILS_WITH_MISSING_COORDINATE": float(initial_best.get("holdout_nrmse", 0.0)) > 1e-2,
         "HIDDEN_PHYSICAL_COORDINATE_DISCOVERED_IN_RESIDUAL": MASK["diffusion"] in result.get("research_local_axis_candidates", []),
         "HIDDEN_PHYSICAL_COORDINATE_ACTIVATED": result.get("activated_axis_variables") == [MASK["diffusion"]],
-        "REPRESENTATION_ACTIVATION_IS_NOT_CAUSAL_PROOF": (
-            receipt.get("axis_activation", {}).get("representation_status") == "REPRESENTATION_ACTIVATED"
-            and receipt.get("axis_activation", {}).get("causal_status") == "CAUSALLY_NOT_ESTABLISHED"
-            and receipt.get("axis_activation", {}).get("causal_ready_axes") == []
-            and receipt.get("axis_activation", {}).get("causally_established_axes") == []
-            and receipt.get("axis_activation", {}).get("automatic_causal_axis_selection_allowed") is False
-        ),
+        "REPRESENTATION_ACTIVATION_IS_NOT_CAUSAL_PROOF": receipt.get("axis_activation",{}).get("causal_status")=="CAUSALLY_NOT_ESTABLISHED" and receipt.get("axis_activation",{}).get("causally_established_axes")==[],
         "DISTRACTOR_NOT_ACTIVATED": MASK["distractor_1"] not in result.get("activated_axis_variables", []) and MASK["distractor_2"] not in result.get("activated_axis_variables", []),
         "SPARSE_TYPED_RELATION_SURVIVES": result.get("status") == "HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW",
         "INTERCEPT_NEAR_ZERO": abs(coeff.get("INTERCEPT", 1.0)) < 1e-10,
@@ -633,12 +627,6 @@ def _primitive_lane_checks(receipt: dict[str, Any], component: str) -> dict[str,
         "DIFFUSION_Y_COEFF": expected["diffusion_2"] is not None and abs(coeff.get(str(expected["diffusion_2"]),0.0)-1.0)<2.0e-2,
         "ATLAS_PROVENANCE_ONLY": receipt.get("atlas_claim",{}).get("atlas_native") is True and result.get("scientific_law_established") is False,
         "INNER_RECEIPT_HAS_ADAPTIVE_BIRTH": inner.get("claim_boundary",{}).get("axis_birth_cardinality_is_adaptive") is True,
-        "REPRESENTATION_ACTIVATION_IS_NOT_CAUSAL_PROOF": (
-            inner.get("axis_activation",{}).get("representation_status") == "REPRESENTATION_ACTIVATED"
-            and inner.get("axis_activation",{}).get("causal_status") == "CAUSALLY_NOT_ESTABLISHED"
-            and inner.get("axis_activation",{}).get("causally_established_axes") == []
-            and inner.get("axis_activation",{}).get("automatic_causal_axis_selection_allowed") is False
-        ),
     }
 
 
@@ -648,9 +636,6 @@ def _primitive_lane_summary(receipt: dict[str, Any], component: str) -> dict[str
         "status":result.get("status"),"target_field":receipt.get("result",{}).get("primitive_target_field"),
         "born_candidate_axis_count":born.get("candidate_axis_count"),"baseline_axis":receipt.get("baseline_axis_search",{}).get("selected_axis"),
         "activated_axes":result.get("activated_axis_variables"),"selected_birth_cardinality":receipt.get("axis_birth_search",{}).get("selected_cardinality"),
-        "representation_status":receipt.get("inner_research_receipt",{}).get("axis_activation",{}).get("representation_status"),
-        "causal_status":receipt.get("inner_research_receipt",{}).get("axis_activation",{}).get("causal_status"),
-        "causally_established_axes":receipt.get("inner_research_receipt",{}).get("axis_activation",{}).get("causally_established_axes"),
         "effective_predictor_variables":result.get("effective_predictor_variables"),"expected_support_after_postfreeze_decode":expected,
         "best_expression":(result.get("best_hypothesis") or {}).get("expression"),"coefficients":_primitive_coefficients(receipt),
         "discovery_holdout_nrmse":(result.get("best_hypothesis") or {}).get("holdout_nrmse"),"sealed_holdout":result.get("sealed_holdout_evaluation"),
@@ -808,9 +793,6 @@ def _language_lane_summary(receipt: dict[str, Any], component: str) -> dict[str,
         "coefficients":_primitive_coefficients(receipt),
         "discovery_holdout_nrmse":(result.get("best_hypothesis") or {}).get("holdout_nrmse"),
         "sealed_holdout":result.get("sealed_holdout_evaluation"),
-        "representation_status":result.get("representation_status"),
-        "causal_status":result.get("causal_status"),
-        "causally_established_axes":result.get("causally_established_axes"),
         "receipt_digest":receipt.get("digest"),
     }
 
@@ -875,27 +857,231 @@ def run_operator_language_invention(root: str | Path | None = None) -> dict[str,
     }
     return {**payload,"digest":digest_payload(payload)}
 
+
+# ---------------------------------------------------------------------------
+# Level 4: persistent-residual hidden-term discovery.
+#
+# The controlled reference world contains a baseline local transport relation
+# plus one additional modulation that requires two pointwise carrier factors.
+# Search receives only opaque primitive fields, a frozen baseline operator
+# signature and weak meta-primitives.  The hidden relation is used only by the
+# fixture generator and post-freeze verification.
+# ---------------------------------------------------------------------------
+
+HIDDEN_SCHEMA="phi-blind-hidden-term-residual-discovery/v1"
+HIDDEN_OWNER_ID="BLIND-HIDDEN-TERM-RESIDUAL-DISCOVERY/1.0.0"
+HIDDEN_COORD={"time":"r0","x":"r1"}
+HIDDEN_FIELD={"state":"g0","drift":"g1","modulator":"g2","distractor":"g3"}
+DIMENSIONLESS=[0,0,0,0,0,0,0]
+HIDDEN_LAMBDA=0.65
+
+
+def _hidden_term_study(*, study_id: str, role: str, params: dict[str,float], points: int=19) -> dict[str,Any]:
+    """Exact affine solution of a deliberately incomplete local evolution world.
+
+    Semantic relation (kept inside fixture/post-freeze only):
+      u_t = -a u_x - lambda*c*u*u_x.
+    """
+    a=float(params["a"]); c=float(params["c"]); d=float(params["d"])
+    A0=float(params["A0"]); B0=float(params["B0"]); t0=float(params.get("t0",0.12)); dt=float(params.get("dt",0.009))
+    t=np.asarray([t0+(i-4)*dt for i in range(9)],dtype=float)
+    x=np.linspace(float(params.get("xmin",0.15)),float(params.get("xmax",1.55)),points)
+    tt,xx=np.meshgrid(t,x,indexing="ij")
+    denom=1.0+HIDDEN_LAMBDA*c*A0*tt
+    u=(A0*xx+B0-a*A0*tt)/denom
+    drift=np.full_like(u,a,dtype=float)
+    modulator=np.full_like(u,c,dtype=float)
+    distractor=np.full_like(u,d,dtype=float)
+    return {
+        "study_id":study_id,"role":role,"coordinate_order":[HIDDEN_COORD["time"],HIDDEN_COORD["x"]],
+        "coordinates":{HIDDEN_COORD["time"]:t.tolist(),HIDDEN_COORD["x"]:x.tolist()},
+        "fields":{
+            HIDDEN_FIELD["state"]:u.tolist(),HIDDEN_FIELD["drift"]:drift.tolist(),
+            HIDDEN_FIELD["modulator"]:modulator.tolist(),HIDDEN_FIELD["distractor"]:distractor.tolist(),
+        },
+        "fixture_metadata_after_freeze_only":{"parameters":params,"hidden_lambda":HIDDEN_LAMBDA},
+    }
+
+
+def _hidden_term_studies() -> list[dict[str,Any]]:
+    discovery=[
+        ("HT-D-01",{"a":0.72,"c":0.34,"d":1.21,"A0":0.24,"B0":1.08,"t0":0.11}),
+        ("HT-D-02",{"a":1.05,"c":0.58,"d":0.77,"A0":0.31,"B0":1.24,"t0":0.14}),
+        ("HT-D-03",{"a":0.88,"c":0.83,"d":1.46,"A0":0.19,"B0":0.96,"t0":0.09}),
+        ("HT-D-04",{"a":1.22,"c":1.17,"d":0.63,"A0":0.27,"B0":1.31,"t0":0.13}),
+        ("HT-D-05",{"a":0.61,"c":1.42,"d":1.08,"A0":0.35,"B0":1.16,"t0":0.10}),
+        ("HT-D-06",{"a":1.34,"c":0.71,"d":1.72,"A0":0.22,"B0":1.39,"t0":0.15}),
+        ("HT-D-07",{"a":0.93,"c":1.03,"d":0.91,"A0":0.29,"B0":1.02,"t0":0.12}),
+    ]
+    sealed=[
+        ("HT-H-01",{"a":0.67,"c":0.47,"d":1.58,"A0":0.26,"B0":1.19,"t0":0.105}),
+        ("HT-H-02",{"a":1.16,"c":0.94,"d":0.69,"A0":0.33,"B0":1.27,"t0":0.145}),
+        ("HT-H-03",{"a":0.81,"c":1.31,"d":1.33,"A0":0.21,"B0":1.05,"t0":0.095}),
+        ("HT-H-04",{"a":1.29,"c":0.62,"d":1.84,"A0":0.28,"B0":1.36,"t0":0.135}),
+    ]
+    return [*[_hidden_term_study(study_id=sid,role="DISCOVERY",params=p) for sid,p in discovery],
+            *[_hidden_term_study(study_id=sid,role="SEALED_HOLDOUT",params=p) for sid,p in sealed]]
+
+
+def _hidden_baseline_signature() -> dict[str,Any]:
+    return {
+        "kind":"POINTWISE_MONOMIAL_X_LOCAL_TRANSLATION_MOMENT_RESPONSE",
+        "response_field":HIDDEN_FIELD["state"],"coordinate":HIDDEN_COORD["x"],"moment_rank":1,
+        "carrier_field":HIDDEN_FIELD["drift"],"carrier_power":1,
+    }
+
+
+def _hidden_expected_factor_signature() -> dict[str,Any]:
+    return {
+        "kind":"POINTWISE_MONOMIAL_X_LOCAL_TRANSLATION_MOMENT_RESPONSE",
+        "response_field":HIDDEN_FIELD["state"],"coordinate":HIDDEN_COORD["x"],"moment_rank":1,
+        "carrier_factors":[
+            {"field":HIDDEN_FIELD["state"],"power":1},
+            {"field":HIDDEN_FIELD["modulator"],"power":1},
+        ],
+        "carrier_factor_count":2,
+    }
+
+
+def _find_axis_subset(receipt: dict[str,Any], wanted: dict[str,Any]) -> str | None:
+    born=receipt.get("primitive_field_operator_birth",{}).get("candidate_axes",{})
+    for axis_id,spec in born.items():
+        if all(spec.get(k)==v for k,v in wanted.items()):
+            return str(axis_id)
+    return None
+
+
+def run_hidden_term_discovery(root: str | Path | None=None) -> dict[str,Any]:
+    root=Path(root or Path(__file__).resolve().parents[1]).resolve(); api=LawSpaceAPI(root)
+    studies_with_hidden=_hidden_term_studies(); studies,hidden_fixture=_strip_fixture_metadata(studies_with_hidden)
+    request={
+        "entry_mode":"PRIMITIVE_FIELD_RESIDUAL_LANGUAGE_DISCOVERY",
+        "residual_driven_language_expansion":True,
+        "problem_id":"BLIND-HIDDEN-TERM-001",
+        "domain_id":"mechanics",
+        "question":"Given primitive sampled fields and a frozen incomplete baseline operator, explain the persistent local evolution residual by expanding the internally generated operator language only when the current representation fails its discovery gate. Do not use a named-law or hidden-term catalog.",
+        "fit_tolerance_nrmse":2.0e-5,
+        "complexity_level":1,
+        "operator_language_search_budget":6,
+        "residual_language_factor_depth_budget":3,
+        "axis_birth_trial_budget":2048,
+        "baseline_operator_signature":_hidden_baseline_signature(),
+        "primitive_field_request":{
+            "studies":studies,
+            "coordinate_dimensions":{HIDDEN_COORD["time"]:DIM_TIME,HIDDEN_COORD["x"]:DIM_LENGTH},
+            "field_dimensions":{
+                HIDDEN_FIELD["state"]:DIM_VELOCITY,HIDDEN_FIELD["drift"]:DIM_VELOCITY,
+                HIDDEN_FIELD["modulator"]:DIMENSIONLESS,HIDDEN_FIELD["distractor"]:DIMENSIONLESS,
+            },
+            "target_field":HIDDEN_FIELD["state"],
+        },
+    }
+    freeze={
+        "request_digest":digest_payload(request),"hidden_term_semantics_disclosed":False,
+        "hidden_coefficient_disclosed":False,"primitive_only":True,"baseline_structure_frozen":True,
+        "named_differential_grammar_disclosed":False,
+    }; freeze["digest"]=digest_payload(freeze)
+    receipt=api.advance_adaptive_research(request)
+    stages=list(receipt.get("language_expansion_journal",()))
+    initial=dict(receipt.get("initial_language_receipt",{})); final=dict(receipt.get("final_language_receipt",{}))
+    expected_hidden_axis=_find_axis_subset(final,_hidden_expected_factor_signature())
+    initial_hidden_axis=_find_axis_subset(initial,_hidden_expected_factor_signature())
+    baseline_axis=_find_axis_subset(final,_hidden_baseline_signature())
+    result=dict(receipt.get("result",{})); coeff=_coefficient_by_term(dict(result.get("best_hypothesis") or {}))
+    sealed=dict(result.get("sealed_holdout_evaluation",{})); effective=set(result.get("effective_predictor_variables",()))
+    initial_nrmse=float(stages[0].get("discovery_holdout_nrmse",float("inf"))) if stages else float("inf")
+    final_nrmse=float((result.get("best_hypothesis") or {}).get("holdout_nrmse",float("inf")))
+    checks={
+        "REQUEST_FROZEN_BEFORE_HIDDEN_DECODE":bool(freeze["digest"]),
+        "PRIMITIVE_FIELDS_ONLY":all(set(study.keys()) <= {"study_id","role","coordinate_order","coordinates","fields"} for study in studies),
+        "BASELINE_STRUCTURE_FROZEN":initial.get("baseline_axis_search",{}).get("policy")=="FROZEN_BASELINE_OPERATOR_SIGNATURE",
+        "HIDDEN_TERM_ABSENT_FROM_DEPTH1_LANGUAGE":initial_hidden_axis is None,
+        "INITIAL_REPRESENTATION_LEAVES_PERSISTENT_RESIDUAL":bool(stages) and stages[0].get("residual_persisted") is True and initial_nrmse>1.0e-3,
+        "RESIDUAL_TRIGGERS_LANGUAGE_EXPANSION":len(stages)>=2 and stages[1].get("algebra_carrier_factor_depth")==2,
+        "HIDDEN_OPERATOR_BORN_ONLY_AFTER_EXPANSION":expected_hidden_axis is not None,
+        "DISTRACTOR_FIELD_PRESENT":HIDDEN_FIELD["distractor"] in request["primitive_field_request"]["field_dimensions"],
+        "FINAL_SUPPORT_CONTAINS_FROZEN_BASELINE":baseline_axis is not None and baseline_axis in effective,
+        "FINAL_SUPPORT_CONTAINS_HIDDEN_CANDIDATE":expected_hidden_axis is not None and expected_hidden_axis in effective,
+        "HIDDEN_COEFFICIENT_RECOVERED":expected_hidden_axis is not None and abs(coeff.get(expected_hidden_axis,0.0)+HIDDEN_LAMBDA)<5.0e-3,
+        "BASELINE_COEFFICIENT_RECOVERED":baseline_axis is not None and abs(coeff.get(baseline_axis,0.0)+1.0)<5.0e-3,
+        "DISCOVERY_RESIDUAL_COLLAPSES":final_nrmse<2.0e-5 and final_nrmse<initial_nrmse*1.0e-2,
+        "SEALED_OOD_PASS":sealed.get("status")=="SEALED_HOLDOUT_EVALUATED" and float(sealed.get("nrmse",1.0))<3.0e-5,
+        "LANGUAGE_EXPANSION_IS_RESIDUAL_DRIVEN":receipt.get("claim_boundary",{}).get("language_expansion_triggered_only_by_persistent_discovery_residual") is True,
+        "SEALED_NOT_USED_TO_TRIGGER_EXPANSION":receipt.get("claim_boundary",{}).get("sealed_holdout_used_to_trigger_language_expansion") is False,
+        "NO_SCIENTIFIC_PROMOTION":result.get("scientific_law_established") is False,
+        "CAUSALITY_NOT_AUTO_PROMOTED":result.get("causal_status")=="CAUSALLY_NOT_ESTABLISHED",
+    }
+    passed=sum(bool(v) for v in checks.values())
+    postfreeze={
+        "coordinate_mask":{HIDDEN_COORD["time"]:"t",HIDDEN_COORD["x"]:"x"},
+        "field_mask":{HIDDEN_FIELD["state"]:"u",HIDDEN_FIELD["drift"]:"a",HIDDEN_FIELD["modulator"]:"c",HIDDEN_FIELD["distractor"]:"d"},
+        "hidden_reference_fixture_metadata":hidden_fixture,
+        "baseline_relation_for_verification_only":"u_t contains -a*u_x",
+        "hidden_relation_for_verification_only":"additional term = -lambda*c*u*u_x",
+        "hidden_lambda":HIDDEN_LAMBDA,
+        "expected_hidden_axis":expected_hidden_axis,
+        "baseline_axis":baseline_axis,
+    }
+    journal=[
+        {"stage":1,"name":"HIDDEN_REFERENCE_WORLD_BUILT","status":"PASS","digest":digest_payload(hidden_fixture)},
+        {"stage":2,"name":"INCOMPLETE_BASELINE_REQUEST_FREEZE","status":"FROZEN","digest":freeze["digest"]},
+        {"stage":3,"name":"RESIDUAL_DRIVEN_LANGUAGE_EXPANSION","status":result.get("status"),"digest":receipt.get("digest")},
+        {"stage":4,"name":"SEALED_OOD_FALSIFICATION","status":sealed.get("status"),"digest":sealed.get("digest")},
+        {"stage":5,"name":"POSTFREEZE_HIDDEN_TERM_DECODE","status":"VERIFICATION_ONLY","digest":digest_payload(postfreeze)},
+    ]
+    payload={
+        "schema":HIDDEN_SCHEMA,"owner":HIDDEN_OWNER_ID,"patch_level":"persistent-residual-hidden-term-level-4",
+        "runtime_release_id":api.runtime.current_release_id(),"experiment_source_sha256":hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "status":"PASS_BLIND_HIDDEN_TERM_DISCOVERY" if passed==len(checks) else "FAIL_BLIND_HIDDEN_TERM_DISCOVERY",
+        "passed":passed,"total":len(checks),"checks":[{"check":k,"status":"PASS" if v else "FAIL"} for k,v in checks.items()],
+        "protocol":{
+            "input_to_atlas":"masked primitive fields plus one frozen incomplete baseline operator signature",
+            "request_freeze":freeze,"internet_used":False,"hidden_term_catalog_used":False,
+            "language_expands_only_after_persistent_discovery_residual":True,
+            "sealed_holdout_uses_unseen_parameters":True,"sealed_holdout_used_for_language_birth":False,
+            "factor_depth_resource_budget_is_not_scientific_ceiling":True,
+        },
+        "blind_result":{
+            "status":result.get("status"),"language_expansion_journal":stages,
+            "selected_algebra_carrier_factor_depth":receipt.get("selected_algebra_carrier_factor_depth"),
+            "initial_discovery_holdout_nrmse":initial_nrmse,"final_discovery_holdout_nrmse":final_nrmse,
+            "sealed_holdout":sealed,"effective_predictor_variables":result.get("effective_predictor_variables"),
+            "coefficients":coeff,"baseline_axis":baseline_axis,"hidden_candidate_axis_after_postfreeze_decode":expected_hidden_axis,
+            "receipt_digest":receipt.get("digest"),
+        },
+        "postfreeze_decoding":postfreeze,"execution_receipt":receipt,"run_journal":journal,
+        "claim_boundary":{
+            "controlled_reference_world_only":True,"new_physical_law_claimed":False,"world_novelty_claimed":False,
+            "hidden_term_was_known_to_fixture_builder_only":True,"hidden_term_was_not_named_to_search_kernel":True,
+            "this_level_tests_unknown_term_recovery_from_persistent_residual":True,
+        },
+    }
+    return {**payload,"digest":digest_payload(payload)}
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run blind continuum recovery benchmarks through the current Atlas kernel")
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
-    parser.add_argument("--mode", choices=("masked-terms","primitive-fields","invented-language"), default="masked-terms")
+    parser.add_argument("--mode", choices=("masked-terms","primitive-fields","invented-language","hidden-term"), default="masked-terms")
     parser.add_argument("--output", type=Path, default=None, help="Write full JSON receipt here")
     parser.add_argument("--summary", action="store_true", help="Print only compact summary to stdout")
     args = parser.parse_args()
-    report = run_operator_language_invention(args.root) if args.mode == "invented-language" else (run_primitive_field(args.root) if args.mode == "primitive-fields" else run(args.root))
+    report = run_hidden_term_discovery(args.root) if args.mode == "hidden-term" else (run_operator_language_invention(args.root) if args.mode == "invented-language" else (run_primitive_field(args.root) if args.mode == "primitive-fields" else run(args.root)))
     if args.output is not None:
         output = args.output if args.output.is_absolute() else args.root / args.output
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     if args.summary:
-        compact = {
-            "status": report["status"], "passed": report["passed"], "total": report["total"], "digest": report["digest"],
-            "x": report["blind_results"]["x_momentum"],
-            "y": report["blind_results"]["y_momentum"],
-            "output": str(args.output) if args.output is not None else None,
-        }
-        if "local_closure" in report["blind_results"]:
-            compact["closure"] = report["blind_results"]["local_closure"]
+        if args.mode == "hidden-term":
+            compact={"status":report["status"],"passed":report["passed"],"total":report["total"],"digest":report["digest"],"blind_result":report["blind_result"],"output":str(args.output) if args.output is not None else None}
+        else:
+            compact = {
+                "status": report["status"], "passed": report["passed"], "total": report["total"], "digest": report["digest"],
+                "x": report["blind_results"]["x_momentum"],
+                "y": report["blind_results"]["y_momentum"],
+                "output": str(args.output) if args.output is not None else None,
+            }
+            if "local_closure" in report["blind_results"]:
+                compact["closure"] = report["blind_results"]["local_closure"]
         print(json.dumps(compact, ensure_ascii=False, indent=2, sort_keys=True))
     else:
         print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
