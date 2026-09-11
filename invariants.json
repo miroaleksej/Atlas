@@ -1,5 +1,5 @@
 {
-  "digest": "1fc3757e0107aa19c645aa8e0be7b3fcc32ff055440e1c8831506a282430d0b2",
+  "digest": "8be4ae555f50881c53b46a21f9b95aa4559859f06d9a0a8d4cbf00d48b36cf72",
   "invariants": {
     "adaptive_subspace_search_has_no_fixed_order_ceiling": true,
     "agi_not_claimed": true,
@@ -62,6 +62,10 @@
     "missing_qualification_evidence_is_pending_not_false": true,
     "multi_axis_birth_does_not_bypass_individual_axis_lifecycle": true,
     "multi_axis_birth_is_allowed": true,
+    "operator_language_birth_establishes_world_mathematical_novelty": false,
+    "operator_language_birth_uses_named_differential_catalog": false,
+    "operator_language_generated_from_weaker_meta_primitives": true,
+    "operator_language_resource_budget_is_scientific_ceiling": false,
     "permutation_eprocess_crossing_cannot_promote_atlas_wide_without_global_controller": true,
     "permutation_eprocess_fresh_epoch_sample_reuse_is_refused": true,
     "permutation_eprocess_group_average_e_is_exactly_one": true,

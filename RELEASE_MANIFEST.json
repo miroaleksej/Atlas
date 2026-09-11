@@ -79,13 +79,13 @@
     },
     {
       "path": "ACCEPTANCE_REPORT.md",
-      "sha256": "e47f55d869867ffd785177b7783ac3fefdb96c2bd69e776b4b3a67cdc960be1a",
-      "size": 64316
+      "sha256": "3bd54901dbccf7fa863342cf2883b7e12793264d18b84426ab074ce412d93a97",
+      "size": 65031
     },
     {
       "path": "CLAIM_BOUNDARY.md",
-      "sha256": "88ffb72670a4af704e7b931c27a74fd8736339fb1ae2c452302934981e8b26a2",
-      "size": 56481
+      "sha256": "c0b4f224988e4690efab8057034af8c7597595e85b765676c8b3bfa16944f1d4",
+      "size": 57343
     },
     {
       "path": "LICENSE.md",
@@ -94,33 +94,33 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "d100f6ab3a2a725933a24aee8861ad8b195ae6ce4f10b0e3191d4f8b2b4dfdc1",
-      "size": 222053
+      "sha256": "f2cd5de7f9a7c71d23dfaecaeaf0e9ba6fcd486a98182e6744572fae5ec32b40",
+      "size": 227590
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
-      "sha256": "6255bce1919382d06fe17cc8fc6489fec423f9524f9170d5cc12390e3096bfbd",
-      "size": 79712
+      "sha256": "428dc6ab28b29f7dfb5b1af7f1fdd23f9a35ef1b9530b9e18ebd0e6d03aa417e",
+      "size": 80656
     },
     {
       "path": "Makefile",
-      "sha256": "06d8150b7bc2cb3019f934b1a0633c4faf3a12f0bb82044fdfbba128772b9b07",
-      "size": 4097
+      "sha256": "5fb5f60d819ac6ad1d49ec82b09858fc30d7f30b0fd5584e30ebc7a4fcf75993",
+      "size": 4395
     },
     {
       "path": "README.md",
-      "sha256": "62ea27a53d9df663dc449e0ad2cc10fbed303fa778002c70ce5a09f428680b18",
-      "size": 103270
+      "sha256": "ffcb16832c48c906bdd77038b288924c58d9fe1fbd40a80db041590c40d7a325",
+      "size": 100519
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "674f7769fdad2704c18d704c990c2bdba8124b0b96743cc7896c173019516d6d",
-      "size": 138276
+      "sha256": "38815513b8e37f7b679548d1f6bfd554dc7557bc3e17a3736d37b9a9cf00677c",
+      "size": 144773
     },
     {
       "path": "capabilities.json",
-      "sha256": "471f91c3c5760cf51f5470feb586fc6ef59b9cbf16781bddf55ed905aa3f0110",
-      "size": 15152
+      "sha256": "8d945c86f543dde644b12517fc70bddb44229d34fea98ac573bd11f5516f0017",
+      "size": 15798
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -489,8 +489,8 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "4321d23d34e3d5761462fdca615b69f5886144031da734077e9c6ca3dd8f0abc",
-      "size": 38514
+      "sha256": "a07a5c22096c21a66a71fb7348c02026fdf37b83a3219939c842a729db2e7559",
+      "size": 39602
     },
     {
       "path": "evaluation/collective_coordination_qualification.py",
@@ -564,8 +564,8 @@
     },
     {
       "path": "evaluation/navier_stokes_blind_experiment.py",
-      "sha256": "09265aa26dd9106c8386a043cf558c9c510a82eb20da7609361f93862d34b6db",
-      "size": 42458
+      "sha256": "fefdc4532c8c4f5b8e02c4a1554badba53d077043a462d03c3148d6f33c4c842",
+      "size": 55427
     },
     {
       "path": "evaluation/neutrino_external_constraints_qualification.py",
@@ -654,8 +654,8 @@
     },
     {
       "path": "evaluation/release_files.py",
-      "sha256": "c3240c7aafee1351ad9ad128ad91a6b9621b44d4b01deb788a277d59b1f4e7c3",
-      "size": 904
+      "sha256": "d34aca8f9c8196f94e1aa9531664b90274e59f11b69cb8fba7f9bf44073941e9",
+      "size": 966
     },
     {
       "path": "evaluation/research_proof_qualification.py",
@@ -749,8 +749,8 @@
     },
     {
       "path": "examples/navier_stokes_blind_experiment.ipynb",
-      "sha256": "e67ff6db073ccfc04e3e9f36edbf5d5d7f7bb04b9fd37a6fa53b55e2452a9e92",
-      "size": 8884
+      "sha256": "e04a0ace216575682c67a800445335690e7228663a2d74aba8abbc843335c6db",
+      "size": 11783
     },
     {
       "path": "examples/next_generation_ai_architecture_search.ipynb",
@@ -1064,8 +1064,8 @@
     },
     {
       "path": "invariants.json",
-      "sha256": "351e355ad78fda9f6cbddaca68223124491eb6c1402780b696fc7d074d0140aa",
-      "size": 7575
+      "sha256": "d3a479c0efd53b6a822571220b40179511eeadb68e7c6be3f712223fdfd98aab",
+      "size": 7861
     },
     {
       "path": "pyproject.toml",
@@ -1299,8 +1299,8 @@
     },
     {
       "path": "source/lawspace/mathematical_invention.py",
-      "sha256": "6b018398f89f6426686ea2b20badea8f5857191b2bc67da373d5139a25be58a5",
-      "size": 32011
+      "sha256": "1b3edd944e0efb031db19575cbf7c78dde06fdede1cea66d06fd24188b2b1e73",
+      "size": 40804
     },
     {
       "path": "source/lawspace/model_selection.py",
@@ -1384,8 +1384,8 @@
     },
     {
       "path": "source/lawspace/research_cycle.py",
-      "sha256": "bbf44dfd3ccbe6d40f2d0227fc9127a48f66975057dc7ab8be1d27b2708b9501",
-      "size": 248988
+      "sha256": "fdccfc9bf06f62ab3f08cc2e9430f50db052c918ab4d6048de228f857e0c986b",
+      "size": 259284
     },
     {
       "path": "source/lawspace/research_triage.py",
@@ -1469,8 +1469,8 @@
     },
     {
       "path": "source/lawspace/theory_compiler.py",
-      "sha256": "829ab3624b6ff58c8b6bd2aadb1889937e5488f2debcbe6fff810bc5e9aa328d",
-      "size": 125082
+      "sha256": "b05c7617303bea2d3ed48f7684bbf8acf51fe3dbf1a52fdf1cb64951758bb04c",
+      "size": 128873
     },
     {
       "path": "source/multidomain_qg_bridge.py",
@@ -1494,8 +1494,8 @@
     },
     {
       "path": "tests/test_adaptive_axis_discovery.py",
-      "sha256": "ecfc7845ba0fcbdaf3df441395c1111c39bef494d8cb8c0768bccf661c034615",
-      "size": 11180
+      "sha256": "87a077bc2bbcae87ff873c0570dbb3aaf5eae03ffcb863c3853b5baf8a90fec2",
+      "size": 13040
     },
     {
       "path": "tests/test_curvature_memory_current.py",
@@ -1529,8 +1529,8 @@
     },
     {
       "path": "tests/test_function_language_birth.py",
-      "sha256": "da539757f302223863cf6f4d7e77683497b87741d3c1ba30a8f2887645af6299",
-      "size": 6155
+      "sha256": "22f91ba2354ea7d279fe4b468cf220e613e4b953c3b7abb1055ae9180d3933ca",
+      "size": 7559
     },
     {
       "path": "tests/test_permutation_eprocess_current.py",
@@ -1574,9 +1574,9 @@
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "6820bf2d1e5b8ba21b5ab7b8dc8d02f620dab2cf71a9261971504831235f11c3",
+  "current_state_qualification_digest": "4672d1502e0784b48aba2775915f6d368cdbe6fc75776301c5ad88c1f9b7d3d7",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "8d5754ac41316f94108e1981772ea5bfa799777337c2b1c898ebf2f2e42e8414",
+  "digest": "23d5ababa94d96b8acad1b5166db47ab1bd6983fad0be363e6d89528991135fe",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -1759,6 +1759,10 @@
     "materialized_relational_u4_complete": true,
     "multi_axis_birth_allowed": true,
     "multi_axis_birth_bypasses_axis_lifecycle": false,
+    "operator_language_fixed_global_rank_ceiling": null,
+    "operator_language_invention_enabled": true,
+    "operator_language_named_differential_catalog_required": false,
+    "operator_language_resource_budget_is_scientific_ceiling": false,
     "primitive_field_caller_supplies_derivative_columns": false,
     "primitive_field_control_establishes_new_physical_law": false,
     "primitive_field_named_pde_template_required": false,

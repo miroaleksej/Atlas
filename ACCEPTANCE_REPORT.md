@@ -18,6 +18,18 @@ for the y lane. Both receipts preserve `CAUSALLY_NOT_ESTABLISHED` and an empty
 `causally_established_axes` list. This acceptance qualifies the implementation
 and controlled reference benchmark only; it establishes no new physical law.
 
+## Operator-language invention Level 3 acceptance
+
+The cumulative Level-3 control is accepted when Atlas receives primitive fields
+and weak translation/algebra meta-primitives without a named differential
+operator grammar. It generates 20 typed signatures per momentum lane, retains
+14 discovery-identifiable support candidates, and uses sparse adaptive
+forward/backward search to activate four axes in addition to the selected
+baseline. The control passes `46/46` checks with status
+`PASS_BLIND_OPERATOR_LANGUAGE_INVENTION`; sealed NRMSE remains approximately
+`3.4519e-4` and `3.8246e-4`. This is implementation qualification inside a
+controlled reference world, not mathematical novelty or scientific promotion.
+
 
 
 ## Current 15.27.0 acceptance scope — Function-Language Birth

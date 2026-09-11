@@ -113,3 +113,30 @@ def test_structureless_residual_does_not_force_language_birth():
     assert out["function_language_birth"]["status"] == "NO_OPERATION_SIGNAL_ABOVE_BIRTH_GATE"
     assert out["function_language_birth"]["generated_languages"] == []
     assert out["search_surface"]["born_language_hypotheses_examined_total"] == 0
+
+
+def test_operator_language_birth_uses_translation_meta_primitives_not_differential_catalog():
+    import pathlib
+    root = pathlib.Path(__file__).resolve().parents[1]
+    kernel = MathematicalInventionKernel(root)
+    c = kernel.operator_language.contract()
+    assert c["authority"] == kernel.contract()["owner_id"]
+    assert c["named_differential_operator_catalog_used"] is False
+    assert c["fixed_derivative_order_catalog_used"] is False
+    assert c["fixed_global_operator_rank_ceiling"] is None
+    language = kernel.operator_language.invent(
+        coordinate_dimensions={"t":[0,0,1,0,0,0,0],"x":[1,0,0,0,0,0,0],"y":[1,0,0,0,0,0,0]},
+        field_dimensions={
+            "u":[1,0,-1,0,0,0,0],"v":[1,0,-1,0,0,0,0],
+            "p":[-1,1,-2,0,0,0,0],"rho":[-3,1,0,0,0,0,0],"nu":[2,0,-1,0,0,0,0],
+        },
+        target_field="u", search_shell_budget=6,
+    )
+    assert language["status"] == "GENERATED_OPERATOR_LANGUAGE"
+    assert language["target_action"]["coordinate"] == "t"
+    assert language["target_action"]["moment_rank"] == 1
+    assert all(row["coordinate"] != "t" for row in language["generated_signatures"])
+    ranks={row["moment_rank"] for row in language["generated_signatures"]}
+    assert {1,2,3}.issubset(ranks)
+    assert language["search_may_resume_beyond_budget"] is True
+    assert language["claim_boundary"]["resource_budget_is_scientific_rank_ceiling"] is False

@@ -1745,6 +1745,8 @@ class AdaptiveResearchKernelOwner:
             "fit_tolerance_nrmse": max(0.0, float(req.get("fit_tolerance_nrmse", 0.05))),
             "observations_origin": str(req.get("observations_origin", "USER_SUPPLIED")).upper(),
             "auto_activate_dormant_axes": bool(req.get("auto_activate_dormant_axes", True)),
+            "axis_birth_trial_budget": max(64, int(req.get("axis_birth_trial_budget", 2048))),
+            "axis_birth_sparse_search_allowed": bool(req.get("axis_birth_sparse_search_allowed", True)),
             "operator_probe_rows": tuple(dict(x) for x in req.get("operator_probe_rows", ())),
             "operator_probe_design_request": dict(req.get("operator_probe_design_request", {})) if isinstance(req.get("operator_probe_design_request"), Mapping) else {},
             "operator_fit_tolerance_nrmse": max(0.0, float(req.get("operator_fit_tolerance_nrmse", 1e-5))),
@@ -2350,19 +2352,45 @@ class AdaptiveResearchKernelOwner:
         target_field = str(primitive.get("target_field", "")).strip()
         if not studies or not coordinate_dimensions or not field_dimensions or not target_field:
             raise ValueError("primitive_field_request requires studies, coordinate_dimensions, field_dimensions and target_field")
+        operator_language_birth = None
+        if bool(request.get("operator_language_invention", False)) or str(request.get("entry_mode", "")).upper() == "PRIMITIVE_FIELD_LANGUAGE_DISCOVERY":
+            operator_language_birth = self.invention.operator_language.invent(
+                coordinate_dimensions=coordinate_dimensions,
+                field_dimensions=field_dimensions,
+                target_field=target_field,
+                search_shell_budget=max(2, int(request.get("operator_language_search_budget", 8))),
+            )
+            if operator_language_birth.get("status") != "GENERATED_OPERATOR_LANGUAGE":
+                raise ValueError("Mathematical Invention did not generate an executable operator language")
         birth = self.theory_compiler.primitive_field_birth.discover(
             studies=studies,
             coordinate_dimensions=coordinate_dimensions,
             field_dimensions=field_dimensions,
             target_field=target_field,
+            operator_language=operator_language_birth,
         )
         observations = tuple(dict(x) for x in birth.get("discovery_observations", ()))
         sealed = tuple(dict(x) for x in birth.get("sealed_holdout_observations", ()))
         target_axis = str(birth.get("target_axis", ""))
-        candidate_axes = tuple(sorted(str(x) for x in dict(birth.get("candidate_axes", {}))))
+        born_candidate_axes = tuple(sorted(str(x) for x in dict(birth.get("candidate_axes", {}))))
         variable_dimensions = dict(birth.get("variable_dimensions", {}))
-        if not observations or not sealed or not target_axis or not candidate_axes:
+        if not observations or not sealed or not target_axis or not born_candidate_axes:
             raise ValueError("primitive-field operator birth did not produce a complete discovery/holdout problem")
+        # Data-driven executability screen: generated signatures that are numerically
+        # constant/zero on all discovery observations cannot identify a coefficient.
+        # They remain in the birth receipt but do not enter combinatorial support search.
+        axis_screen=[]; usable=[]
+        for axis_id in born_candidate_axes:
+            vals=np.asarray([float(dict(o.get("values",o))[axis_id]) for o in observations],dtype=float)
+            std=float(np.std(vals)) if len(vals) else 0.0; amp=float(np.max(np.abs(vals))) if len(vals) else 0.0
+            floor=max(1e-14,amp*1e-12)
+            identifiable=bool(len(vals)>=3 and np.all(np.isfinite(vals)) and std>floor)
+            row={"axis_id":axis_id,"std":std,"amplitude":amp,"identifiability_floor":floor,"retained_for_support_search":identifiable}
+            row["digest"]=digest_payload(row); axis_screen.append(row)
+            if identifiable: usable.append(axis_id)
+        candidate_axes=tuple(usable)
+        if not candidate_axes:
+            raise ValueError("all Atlas-born operator coordinates are non-identifiable on discovery observations")
 
         # Atlas selects its own one-axis baseline from discovery evidence only.
         # Every other born coordinate remains dormant, so the subsequent kernel
@@ -2410,6 +2438,8 @@ class AdaptiveResearchKernelOwner:
             "fit_tolerance_nrmse":max(0.0,float(request.get("fit_tolerance_nrmse",0.02))),
             "observations_origin":"ATLAS_DERIVED_FROM_PRIMITIVE_FIELDS",
             "auto_activate_dormant_axes":True,
+            "axis_birth_trial_budget":max(64,int(request.get("axis_birth_trial_budget",2048))),
+            "axis_birth_sparse_search_allowed":bool(request.get("axis_birth_sparse_search_allowed",True)),
         }
         inner=self.advance(inner_request)
         inner_result=dict(inner.get("result",{}))
@@ -2418,7 +2448,8 @@ class AdaptiveResearchKernelOwner:
             "primitive_field_birth_digest":birth.get("digest"),
             "primitive_target_field":target_field,
             "baseline_axis":baseline_axis,
-            "born_candidate_axis_count":len(candidate_axes),
+            "born_candidate_axis_count":len(born_candidate_axes),
+            "support_search_candidate_axis_count":len(candidate_axes),
         }
         input_digest=digest_payload({
             "problem_id":problem_id,
@@ -2440,6 +2471,10 @@ class AdaptiveResearchKernelOwner:
             "code_digest":self._code_digest(),
             "result_digest":result_digest,
             "primitive_field_operator_birth":birth,
+            "operator_language_invention":operator_language_birth,
+            "candidate_axis_identifiability_screen":axis_screen,
+            "born_candidate_axis_count_before_screen":len(born_candidate_axes),
+            "support_search_candidate_axis_count":len(candidate_axes),
             "baseline_axis_search":baseline_search,
             "inner_research_receipt_digest":inner.get("digest"),
             "inner_research_receipt":inner,
@@ -2451,6 +2486,9 @@ class AdaptiveResearchKernelOwner:
                 "caller_supplied_named_pde_terms":False,
                 "known_equation_name_used_prefreeze":False,
                 "operator_coordinates_born_inside_atlas":True,
+                "operator_language_invented_from_meta_primitives":bool(operator_language_birth),
+                "named_differential_operator_catalog_used":False if operator_language_birth else None,
+                "fixed_derivative_order_catalog_used":False if operator_language_birth else None,
                 "axis_birth_cardinality_is_adaptive":True,
                 "sealed_holdout_used_for_axis_birth":False,
                 "scientific_law_established":False,
@@ -2467,7 +2505,7 @@ class AdaptiveResearchKernelOwner:
 
     def advance(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         entry_mode=str(request.get("entry_mode", "")).upper()
-        if bool(request.get("primitive_field_discovery", False)) or entry_mode == "PRIMITIVE_FIELD_DISCOVERY":
+        if bool(request.get("primitive_field_discovery", False)) or entry_mode in {"PRIMITIVE_FIELD_DISCOVERY", "PRIMITIVE_FIELD_LANGUAGE_DISCOVERY"}:
             return self._advance_primitive_field(request)
         if bool(request.get("representation_gap", False)) or entry_mode == "ATTESTED_REPRESENTATION_GAP":
             return self._advance_representation_gap(request)
@@ -2569,47 +2607,118 @@ class AdaptiveResearchKernelOwner:
         activation_improvement={**activation_improvement,"digest":digest_payload(activation_improvement)}
         axis_birth_trials=[]
         selected_trial=None
+        search_policy="ADAPTIVE_MINIMAL_CARDINALITY_SUBSET_SEARCH"
+        search_strategy="EXHAUSTIVE_CARDINALITY_SHELLS"
+        search_budget=int(req.get("axis_birth_trial_budget",2048))
+        search_budget_exhausted=False
         if (not fit_ok) and req["auto_activate_dormant_axes"] and signal_ids:
-            best_improving=None
-            for cardinality in range(1,len(signal_ids)+1):
-                shell_trials=[]
-                for subset in itertools.combinations(signal_ids,cardinality):
-                    expanded_predictors=tuple(req["predictor_variables"])+tuple(subset)
-                    trial_hypotheses=self.hypothesis_synthesis.synthesize(
-                        observations=req["observations"],target_variable=req["target_variable"],
-                        predictor_variables=expanded_predictors,variable_dimensions=req["variable_dimensions"],
-                        complexity_level=req["complexity_level"],
-                    )
-                    trial_best=trial_hypotheses.get("candidates",[None])[0] if trial_hypotheses.get("candidates") else None
-                    trial_improvement=self._activation_improvement(best,trial_best)
-                    trial_error=float(trial_best.get("holdout_nrmse",float("inf"))) if trial_best else float("inf")
-                    trial={
-                        "cardinality":cardinality,
-                        "axes":list(subset),
-                        "holdout_nrmse":trial_error,
-                        "improved":bool(trial_improvement.get("improved")),
-                        "reaches_fit_gate":bool(trial_best) and bool(trial_best.get("identifiable_on_train")) and trial_error<=req["fit_tolerance_nrmse"],
-                        "hypothesis_space_digest":trial_hypotheses.get("digest"),
-                        "best_hypothesis_id":trial_best.get("candidate_id") if trial_best else None,
-                    }
-                    trial["digest"]=digest_payload(trial)
-                    axis_birth_trials.append(trial)
-                    shell_trials.append((trial,trial_hypotheses,trial_best,trial_improvement))
-                    if trial["improved"]:
-                        key=(trial_error,cardinality,tuple(subset))
-                        if best_improving is None or key<best_improving[0]:
-                            best_improving=(key,trial,trial_hypotheses,trial_best,trial_improvement)
-                qualifying=[row for row in shell_trials if row[0]["reaches_fit_gate"]]
-                if qualifying:
-                    qualifying.sort(key=lambda row:(float(row[0]["holdout_nrmse"]),tuple(row[0]["axes"])))
-                    selected_trial,expanded_hypotheses,expanded_best,activation_improvement=qualifying[0]
+            total_subset_count=(1 << len(signal_ids))-1 if len(signal_ids)<63 else float("inf")
+            use_sparse=bool(req.get("axis_birth_sparse_search_allowed",True)) and total_subset_count>search_budget
+            if not use_sparse:
+                best_improving=None
+                for cardinality in range(1,len(signal_ids)+1):
+                    shell_trials=[]
+                    for subset in itertools.combinations(signal_ids,cardinality):
+                        expanded_predictors=tuple(req["predictor_variables"])+tuple(subset)
+                        trial_hypotheses=self.hypothesis_synthesis.synthesize(
+                            observations=req["observations"],target_variable=req["target_variable"],
+                            predictor_variables=expanded_predictors,variable_dimensions=req["variable_dimensions"],
+                            complexity_level=req["complexity_level"],
+                        )
+                        trial_best=trial_hypotheses.get("candidates",[None])[0] if trial_hypotheses.get("candidates") else None
+                        trial_improvement=self._activation_improvement(best,trial_best)
+                        trial_error=float(trial_best.get("holdout_nrmse",float("inf"))) if trial_best else float("inf")
+                        trial={
+                            "cardinality":cardinality,"axes":list(subset),"holdout_nrmse":trial_error,
+                            "improved":bool(trial_improvement.get("improved")),
+                            "reaches_fit_gate":bool(trial_best) and bool(trial_best.get("identifiable_on_train")) and trial_error<=req["fit_tolerance_nrmse"],
+                            "hypothesis_space_digest":trial_hypotheses.get("digest"),
+                            "best_hypothesis_id":trial_best.get("candidate_id") if trial_best else None,
+                        }
+                        trial["digest"]=digest_payload(trial); axis_birth_trials.append(trial)
+                        shell_trials.append((trial,trial_hypotheses,trial_best,trial_improvement))
+                        if trial["improved"]:
+                            key=(trial_error,cardinality,tuple(subset))
+                            if best_improving is None or key<best_improving[0]:
+                                best_improving=(key,trial,trial_hypotheses,trial_best,trial_improvement)
+                    qualifying=[row for row in shell_trials if row[0]["reaches_fit_gate"]]
+                    if qualifying:
+                        qualifying.sort(key=lambda row:(float(row[0]["holdout_nrmse"]),tuple(row[0]["axes"])))
+                        selected_trial,expanded_hypotheses,expanded_best,activation_improvement=qualifying[0]
+                        activated_axes=list(selected_trial["axes"]); break
+                if not activated_axes and best_improving is not None:
+                    _,selected_trial,expanded_hypotheses,expanded_best,activation_improvement=best_improving
                     activated_axes=list(selected_trial["axes"])
-                    break
-            if not activated_axes and best_improving is not None:
-                _,selected_trial,expanded_hypotheses,expanded_best,activation_improvement=best_improving
-                activated_axes=list(selected_trial["axes"])
+            else:
+                # Open-ended sparse route: forward support growth followed by
+                # backward deletion. It has no fixed cardinality target; the
+                # resource guard limits evaluated trials, not scientific order.
+                search_policy="SPARSE_ADAPTIVE_FORWARD_BACKWARD_SUBSET_SEARCH"
+                search_strategy="FORWARD_GROWTH_THEN_BACKWARD_MINIMIZATION"
+                current=[]; remaining=list(signal_ids); current_best=best
+                current_hypotheses=hypotheses; current_improvement=activation_improvement
+                while remaining and len(axis_birth_trials)<search_budget:
+                    shell=[]
+                    for axis_id in list(remaining):
+                        if len(axis_birth_trials)>=search_budget:
+                            search_budget_exhausted=True; break
+                        subset=tuple(current+[axis_id])
+                        expanded_predictors=tuple(req["predictor_variables"])+subset
+                        th=self.hypothesis_synthesis.synthesize(
+                            observations=req["observations"],target_variable=req["target_variable"],
+                            predictor_variables=expanded_predictors,variable_dimensions=req["variable_dimensions"],
+                            complexity_level=req["complexity_level"],
+                        )
+                        tb=th.get("candidates",[None])[0] if th.get("candidates") else None
+                        ti=self._activation_improvement(best,tb); err=float(tb.get("holdout_nrmse",float("inf"))) if tb else float("inf")
+                        tr={"cardinality":len(subset),"axes":list(subset),"holdout_nrmse":err,
+                            "improved":bool(ti.get("improved")),"reaches_fit_gate":bool(tb) and bool(tb.get("identifiable_on_train")) and err<=req["fit_tolerance_nrmse"],
+                            "hypothesis_space_digest":th.get("digest"),"best_hypothesis_id":tb.get("candidate_id") if tb else None,"phase":"FORWARD"}
+                        tr["digest"]=digest_payload(tr); axis_birth_trials.append(tr); shell.append((err,axis_id,tr,th,tb,ti))
+                    if not shell: break
+                    shell.sort(key=lambda row:(row[0],signal_ids.index(row[1]),row[1]))
+                    err,chosen,tr,th,tb,ti=shell[0]
+                    current.append(chosen); remaining.remove(chosen); current_best=tb; current_hypotheses=th; current_improvement=ti
+                    if tr["reaches_fit_gate"]:
+                        # Delete dispensable axes while preserving the fit gate.
+                        changed=True
+                        while changed and len(current)>1 and len(axis_birth_trials)<search_budget:
+                            changed=False; removals=[]
+                            for axis_id in list(current):
+                                if len(axis_birth_trials)>=search_budget:
+                                    search_budget_exhausted=True; break
+                                subset=tuple(x for x in current if x!=axis_id)
+                                th2=self.hypothesis_synthesis.synthesize(
+                                    observations=req["observations"],target_variable=req["target_variable"],
+                                    predictor_variables=tuple(req["predictor_variables"])+subset,variable_dimensions=req["variable_dimensions"],complexity_level=req["complexity_level"],
+                                )
+                                tb2=th2.get("candidates",[None])[0] if th2.get("candidates") else None
+                                ti2=self._activation_improvement(best,tb2); err2=float(tb2.get("holdout_nrmse",float("inf"))) if tb2 else float("inf")
+                                tr2={"cardinality":len(subset),"axes":list(subset),"holdout_nrmse":err2,"improved":bool(ti2.get("improved")),
+                                     "reaches_fit_gate":bool(tb2) and bool(tb2.get("identifiable_on_train")) and err2<=req["fit_tolerance_nrmse"],
+                                     "hypothesis_space_digest":th2.get("digest"),"best_hypothesis_id":tb2.get("candidate_id") if tb2 else None,"phase":"BACKWARD","removed_axis":axis_id}
+                                tr2["digest"]=digest_payload(tr2); axis_birth_trials.append(tr2)
+                                if tr2["reaches_fit_gate"]: removals.append((err2,axis_id,tr2,th2,tb2,ti2))
+                            if removals:
+                                removals.sort(key=lambda row:(row[0],row[1])); err2,removed,tr2,th2,tb2,ti2=removals[0]
+                                current.remove(removed); current_best=tb2; current_hypotheses=th2; current_improvement=ti2; changed=True
+                        activated_axes=list(current)
+                        expanded_hypotheses=current_hypotheses; expanded_best=current_best; activation_improvement=current_improvement
+                        selected_trial={"cardinality":len(current),"axes":list(current),"holdout_nrmse":float(current_best.get("holdout_nrmse",float("inf"))) if current_best else float("inf"),
+                                        "improved":True,"reaches_fit_gate":True,"hypothesis_space_digest":current_hypotheses.get("digest") if current_hypotheses else None,
+                                        "best_hypothesis_id":current_best.get("candidate_id") if current_best else None,"phase":"SPARSE_FINAL"}
+                        selected_trial["digest"]=digest_payload(selected_trial); break
+                if not activated_axes and current:
+                    activated_axes=list(current); expanded_hypotheses=current_hypotheses; expanded_best=current_best; activation_improvement=current_improvement
+                    selected_trial={"cardinality":len(current),"axes":list(current),"holdout_nrmse":float(current_best.get("holdout_nrmse",float("inf"))) if current_best else float("inf"),
+                                    "improved":bool(current_improvement.get("improved")),"reaches_fit_gate":False,"phase":"SPARSE_RESOURCE_STOP"}
+                    selected_trial["digest"]=digest_payload(selected_trial)
         axis_birth_search={
-            "policy":"ADAPTIVE_MINIMAL_CARDINALITY_SUBSET_SEARCH",
+            "policy":search_policy,
+            "search_strategy":search_strategy,
+            "trial_budget":search_budget,
+            "trial_budget_exhausted":search_budget_exhausted,
+            "resource_budget_is_scientific_cardinality_ceiling":False,
             "fixed_axis_count_per_cycle":None,
             "multi_axis_birth_allowed":True,
             "signal_axis_count":len(signal_ids),
@@ -2764,6 +2873,10 @@ class AdaptiveResearchKernelOwner:
             "execution_status": executable_execution.get("status") if isinstance(executable_execution, Mapping) else None,
             "next_state":next_state,
             "scientific_law_established":False,
+            "representation_status":"REPRESENTATION_ACTIVATED" if activated_axes else "REPRESENTATION_UNCHANGED",
+            "causal_status":"CAUSALLY_NOT_ESTABLISHED",
+            "causally_established_axes":[],
+            "representation_activated_does_not_equal_causally_established":True,
         }
         result_digest=digest_payload(result_core)
         code_digest=self._code_digest()
@@ -2793,14 +2906,14 @@ class AdaptiveResearchKernelOwner:
             "axis_activation":{
                 "dormant_axes_offered":list(req["dormant_axis_variables"]),
                 "activated_axes":list(activated_axes),
-                "representation_status":"REPRESENTATION_ACTIVATED" if activated_axes else "REPRESENTATION_NOT_ACTIVATED",
+                "activation_was_residual_driven":bool(activated_axes),
+                "improvement":activation_improvement,
+                "representation_status":"REPRESENTATION_ACTIVATED" if activated_axes else "REPRESENTATION_UNCHANGED",
                 "causal_status":"CAUSALLY_NOT_ESTABLISHED",
                 "causal_ready_axes":causal_ready_axes,
                 "causally_established_axes":[],
                 "automatic_causal_axis_selection_allowed":automatic_causal_selection_allowed,
                 "representation_activated_does_not_equal_causally_established":True,
-                "activation_was_residual_driven":bool(activated_axes),
-                "improvement":activation_improvement,
             },
             "axis_birth_search":axis_birth_search,
             "mathematical_invention":invention,
@@ -2822,9 +2935,11 @@ class AdaptiveResearchKernelOwner:
                 "axis_birth_cardinality_is_adaptive":True,
                 "multi_axis_birth_allowed":True,
                 "fixed_axis_count_per_cycle":None,
+                "sealed_holdout_used_for_axis_activation":False,
+                "representation_activation_is_causal_establishment":False,
                 "representation_activation_is_causal_proof":False,
                 "causal_establishment_requires_separate_authoritative_evidence":True,
-                "sealed_holdout_used_for_axis_activation":False,
+                "automatic_causal_axis_selection_allowed_without_causal_evidence":False,
                 "missing_operator_probe_values_filled_by_assistant":False,
                 "atlas_generated_probe_inputs": bool(isinstance(operator_probe_design, Mapping) and operator_probe_design.get("claim_boundary", {}).get("atlas_generated_probe_inputs") is True),
                 "atlas_generated_operator_responses": False,

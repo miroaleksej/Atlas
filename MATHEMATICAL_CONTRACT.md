@@ -1143,3 +1143,13 @@ Human-review state is external and append-only at the action level. `SPONSOR_REV
 4. Axis subset selection SHALL use discovery evidence only and SHALL permit adaptive multi-axis representation birth with no fixed axis count per cycle.
 5. Sealed holdout SHALL NOT select, refit or alter the born operator support.
 6. Primitive-field PASS SHALL NOT establish a physical law, world novelty, Navier–Stokes existence/smoothness or causality of activated axes.
+
+## Operator-language invention Level 3 — контракт 0.15.29.0
+
+1. `OPERATOR-LANGUAGE-BIRTH/1.0.0-COMPONENT` SHALL remain under `PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0`; it is not a parallel promotion authority.
+2. The pre-freeze Level-3 route SHALL receive weak translation/algebra meta-primitives and SHALL NOT receive a named PDE or catalog of differential operators/orders.
+3. Generated signatures SHALL pass exact dimension typing and discovery-data identifiability screening before support search.
+4. Finite operator-rank and support-trial budgets SHALL be execution guards, not scientific ceilings.
+5. Large candidate spaces MAY use sparse forward growth and backward minimization without a fixed target cardinality.
+6. Sealed OOD observations SHALL NOT generate the language, select support or refit coefficients.
+7. A passing controlled benchmark SHALL NOT establish mathematical novelty, a world law or causal establishment.

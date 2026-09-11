@@ -193,3 +193,37 @@ def test_adaptive_research_kernel_can_birth_multiple_dormant_axes_in_one_cycle()
     assert result["axis_birth_search"]["selected_cardinality"] == 2
     assert result["axis_birth_search"]["fixed_axis_count_per_cycle"] is None
     assert result["axis_birth_search"]["multi_axis_birth_allowed"] is True
+
+
+def test_large_dormant_space_switches_to_sparse_forward_backward_search_without_cardinality_ceiling():
+    from source.lawspace.api import LawSpaceAPI
+
+    rows=[]
+    distractors=[f"d{i}" for i in range(12)]
+    for i in range(96):
+        x=(i-48)/13.0
+        z=((i*7)%29-14)/7.0
+        w=((i*11)%31-15)/8.0
+        values={"y":0.65*x-1.15*z+0.85*w,"x":x,"z":z,"w":w}
+        for j,name in enumerate(distractors):
+            values[name]=(((i*(13+2*j))%(37+2*j))-(18+j))/(9.0+j)
+        rows.append({"record_id":f"SP-{i:03d}","study_id":f"S-{i%8}","values":values})
+    names=("y","x","z","w",*distractors)
+    result=LawSpaceAPI(ROOT).advance_adaptive_research({
+        "problem_id":"SPARSE-MULTI-AXIS-BIRTH-UNIT-CONTROL",
+        "domain_id":"physics",
+        "question":"Recover a typed response in a large dormant coordinate space using sparse adaptive birth.",
+        "observations":rows,"sealed_holdout_observations":[],
+        "target_variable":"y","predictor_variables":["x"],
+        "dormant_axis_variables":["z","w",*distractors],
+        "variable_dimensions":{k:[0,0,0,0,0,0,0] for k in names},
+        "complexity_level":1,"fit_tolerance_nrmse":1e-10,
+        "axis_birth_trial_budget":512,"axis_birth_sparse_search_allowed":True,
+        "observations_origin":"UNIT_CONTROL","auto_activate_dormant_axes":True,
+    })
+    assert result["result"]["status"] == "HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW"
+    assert set(result["result"]["activated_axis_variables"]) == {"z","w"}
+    assert result["axis_birth_search"]["policy"] == "SPARSE_ADAPTIVE_FORWARD_BACKWARD_SUBSET_SEARCH"
+    assert result["axis_birth_search"]["selected_cardinality"] == 2
+    assert result["axis_birth_search"]["fixed_axis_count_per_cycle"] is None
+    assert result["axis_birth_search"]["resource_budget_is_scientific_cardinality_ceiling"] is False

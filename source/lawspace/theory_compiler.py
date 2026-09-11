@@ -33,7 +33,7 @@ LOWERING_OWNER_ID = "THEORY-TO-EXECUTABLE-COMPILER/2.0.0"
 EXECUTOR_OWNER_ID = "EXECUTABLE-THEORY-RUNTIME/2.0.0"
 ERROR_OWNER_ID = "THEORY-ERROR-ESTIMATOR/2.0.0"
 PROBE_DESIGN_OWNER_ID = "OPERATOR-PROBE-DESIGN/2.1.0"
-PRIMITIVE_FIELD_OPERATOR_BIRTH_OWNER_ID = "PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH/1.0.0"
+PRIMITIVE_FIELD_OPERATOR_BIRTH_OWNER_ID = "PRIMITIVE-FIELD-OPERATOR-COORDINATE-BIRTH/1.1.0"
 ATOMIC_WORLD_INTERACTION_OWNER_ID = "ATOMIC-REFERENCE-WORLD-INTERACTION/1.0.0"
 VARIABLE_PARTICLE_PROBE_DESIGN_OWNER_ID = "VARIABLE-PARTICLE-PROBE-DESIGN/1.0.0"
 VARIABLE_PARTICLE_WORLD_INTERACTION_OWNER_ID = "ATOMIC-VARIABLE-PARTICLE-REFERENCE-WORLD/1.0.0"
@@ -2024,10 +2024,11 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
 
     The owner is deliberately equation-agnostic.  It receives coordinate charts,
     sampled fields and dimensions; it is not given named PDE terms or a target
-    formula.  It infers the unique time-like coordinate from dimensions, builds
-    high-order finite-difference actions from field values only, and opens a small
-    typed grammar of local products/inverse-carrier gradients.  The resulting
-    coordinates are research-local candidates, not world laws.
+    formula.  In current research mode it executes a frozen operator language
+    generated upstream by Mathematical Invention from translation/algebra
+    meta-primitives.  The older differential grammar remains compatibility-only
+    for replaying Level-2 receipts.  The resulting coordinates are research-local
+    candidates, not world laws.
     """
 
     owner_id = PRIMITIVE_FIELD_OPERATOR_BIRTH_OWNER_ID
@@ -2043,7 +2044,10 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
             "derivative_values_may_be_supplied_by_caller": False,
             "derivatives_born_from_sampled_fields": True,
             "fixed_operator_axis_count": None,
-            "operator_grammar": (
+            "primary_research_mode": "MATHEMATICAL_INVENTION_GENERATED_OPERATOR_LANGUAGE",
+            "generated_operator_language_input_supported": True,
+            "predeclared_differential_grammar_required_in_primary_mode": False,
+            "legacy_level2_grammar_compatibility_only": (
                 "FIRST_DERIVATIVE",
                 "SECOND_SPATIAL_DERIVATIVE",
                 "FIELD_TIMES_TARGET_DERIVATIVE",
@@ -2122,6 +2126,7 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
         coordinate_dimensions: Mapping[str, Sequence[float]],
         field_dimensions: Mapping[str, Sequence[float]],
         target_field: str,
+        operator_language: Mapping[str, Any] | None = None,
     ) -> Mapping[str, Any]:
         rows = [dict(x) for x in studies]
         if not rows:
@@ -2140,31 +2145,41 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
         time_coord = time_coords[0]
         target_dim = self._dsub(fdim[target_field], cdim[time_coord])
 
-        # Grammar is generated from types, not from a named equation.
-        specs: list[dict[str, Any]] = []
-        for coord in spatial_coords:
-            d1_dim = self._dsub(fdim[target_field], cdim[coord])
-            d2_dim = self._dsub(fdim[target_field], self._dscale(cdim[coord], 2.0))
-            for carrier, carrier_dim in fdim.items():
-                prod1_dim = self._dadd(carrier_dim, d1_dim)
-                if self._deq(prod1_dim, target_dim):
-                    specs.append({"kind":"FIELD_TIMES_TARGET_D1","carrier_field":carrier,"target_field":target_field,"coordinate":coord,"dimension":list(target_dim)})
-                prod2_dim = self._dadd(carrier_dim, d2_dim)
-                if self._deq(prod2_dim, target_dim):
-                    specs.append({"kind":"FIELD_TIMES_TARGET_D2","carrier_field":carrier,"target_field":target_field,"coordinate":coord,"dimension":list(target_dim)})
-            for other, other_dim in fdim.items():
-                grad_dim = self._dsub(other_dim, cdim[coord])
+        language = dict(operator_language or {})
+        generated_language_mode = language.get("status") == "GENERATED_OPERATOR_LANGUAGE"
+        if generated_language_mode:
+            # Mathematical Invention supplies frozen signatures generated from
+            # translation/algebra meta-primitives. This owner executes them only.
+            specs = [dict(x) for x in language.get("generated_signatures", ())]
+            target_spec = dict(language.get("target_action") or {})
+            if not specs or not target_spec:
+                raise ValueError("generated operator language did not provide executable signatures")
+            if str(target_spec.get("response_field")) != target_field or str(target_spec.get("coordinate")) != time_coord:
+                raise ValueError("generated target action is incompatible with primitive-field request")
+        else:
+            # Level-2 compatibility path. New Level-3 research must use the
+            # generated-language route above rather than this typed grammar.
+            specs: list[dict[str, Any]] = []
+            for coord in spatial_coords:
+                d1_dim = self._dsub(fdim[target_field], cdim[coord])
+                d2_dim = self._dsub(fdim[target_field], self._dscale(cdim[coord], 2.0))
                 for carrier, carrier_dim in fdim.items():
-                    inv_prod_dim = self._dadd(self._dscale(carrier_dim, -1.0), grad_dim)
-                    if self._deq(inv_prod_dim, target_dim):
-                        specs.append({"kind":"RECIPROCAL_FIELD_TIMES_OTHER_D1","carrier_field":carrier,"other_field":other,"coordinate":coord,"dimension":list(target_dim)})
-        # Exact duplicate signatures are removed deterministically.
-        unique = {}
-        for spec in specs:
-            unique[digest_payload(spec)] = spec
+                    prod1_dim = self._dadd(carrier_dim, d1_dim)
+                    if self._deq(prod1_dim, target_dim):
+                        specs.append({"kind":"FIELD_TIMES_TARGET_D1","carrier_field":carrier,"target_field":target_field,"coordinate":coord,"dimension":list(target_dim)})
+                    prod2_dim = self._dadd(carrier_dim, d2_dim)
+                    if self._deq(prod2_dim, target_dim):
+                        specs.append({"kind":"FIELD_TIMES_TARGET_D2","carrier_field":carrier,"target_field":target_field,"coordinate":coord,"dimension":list(target_dim)})
+                for other, other_dim in fdim.items():
+                    grad_dim = self._dsub(other_dim, cdim[coord])
+                    for carrier, carrier_dim in fdim.items():
+                        inv_prod_dim = self._dadd(self._dscale(carrier_dim, -1.0), grad_dim)
+                        if self._deq(inv_prod_dim, target_dim):
+                            specs.append({"kind":"RECIPROCAL_FIELD_TIMES_OTHER_D1","carrier_field":carrier,"other_field":other,"coordinate":coord,"dimension":list(target_dim)})
+            target_spec = {"kind":"TARGET_TIME_D1","field":target_field,"coordinate":time_coord,"dimension":list(target_dim)}
+        unique = {digest_payload(spec): spec for spec in specs}
         specs = [unique[k] for k in sorted(unique)]
         spec_by_axis = {self._axis_id(spec): spec for spec in specs}
-        target_spec = {"kind":"TARGET_TIME_D1","field":target_field,"coordinate":time_coord,"dimension":list(target_dim)}
         target_axis = "pf_target_" + digest_payload(target_spec)[:16]
 
         discovery_obs: list[dict[str, Any]] = []
@@ -2185,38 +2200,64 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
                 if field_name not in fields or fields[field_name].shape != expected_shape or not np.all(np.isfinite(fields[field_name])):
                     raise ValueError(f"study {sid}: field {field_name!r} must have finite shape {expected_shape}")
             coord_axis = {name: order.index(name) for name in order}
-            d1: dict[tuple[str,str], np.ndarray] = {}
-            d2: dict[tuple[str,str], np.ndarray] = {}
-            needed_d1 = {(target_field,time_coord)}
-            needed_d2 = set()
-            for spec in specs:
-                coord = str(spec["coordinate"]); kind = str(spec["kind"])
-                if kind == "FIELD_TIMES_TARGET_D1": needed_d1.add((target_field,coord))
-                elif kind == "FIELD_TIMES_TARGET_D2": needed_d2.add((target_field,coord))
-                elif kind == "RECIPROCAL_FIELD_TIMES_OTHER_D1": needed_d1.add((str(spec["other_field"]),coord))
-            for field_name, coord in sorted(needed_d1):
-                d1[(field_name,coord)] = self._differentiate(fields[field_name], coords[coord], coord_axis[coord], 1)
-            for field_name, coord in sorted(needed_d2):
-                d2[(field_name,coord)] = self._differentiate(fields[field_name], coords[coord], coord_axis[coord], 2)
-
             interior = tuple(slice(self.stencil_radius, n-self.stencil_radius) for n in expected_shape)
-            target_values = d1[(target_field,time_coord)][interior]
             feature_arrays: dict[str,np.ndarray] = {}
-            for axis_id, spec in spec_by_axis.items():
-                kind = str(spec["kind"]); coord = str(spec["coordinate"]); carrier = str(spec["carrier_field"])
-                if kind == "FIELD_TIMES_TARGET_D1":
-                    arr = fields[carrier] * d1[(target_field,coord)]
-                elif kind == "FIELD_TIMES_TARGET_D2":
-                    arr = fields[carrier] * d2[(target_field,coord)]
-                elif kind == "RECIPROCAL_FIELD_TIMES_OTHER_D1":
-                    base = fields[carrier]
-                    if np.any(np.abs(base[interior]) <= 1e-14):
-                        arr = np.full_like(base, np.nan, dtype=float)
+            if generated_language_mode:
+                actions: dict[tuple[str,str,int],np.ndarray] = {}
+                needed={(str(target_spec["response_field"]),str(target_spec["coordinate"]),int(target_spec["moment_rank"]))}
+                for spec in specs:
+                    needed.add((str(spec["response_field"]),str(spec["coordinate"]),int(spec["moment_rank"])))
+                for field_name,coord,rank in sorted(needed):
+                    if rank > 2*self.stencil_radius:
+                        raise ValueError("generated translation-moment rank exceeds current executable stencil resource")
+                    actions[(field_name,coord,rank)] = self._differentiate(fields[field_name],coords[coord],coord_axis[coord],rank)
+                target_values=actions[(str(target_spec["response_field"]),str(target_spec["coordinate"]),int(target_spec["moment_rank"]))][interior]
+                for axis_id,spec in spec_by_axis.items():
+                    response=actions[(str(spec["response_field"]),str(spec["coordinate"]),int(spec["moment_rank"]))]
+                    carrier=spec.get("carrier_field"); power=int(spec.get("carrier_power",0))
+                    if carrier is None or power==0:
+                        arr=response
+                    elif power==1:
+                        arr=fields[str(carrier)]*response
+                    elif power==-1:
+                        base=fields[str(carrier)]
+                        if np.any(np.abs(base[interior])<=1e-14):
+                            arr=np.full_like(base,np.nan,dtype=float)
+                        else:
+                            arr=response/base
                     else:
-                        arr = d1[(str(spec["other_field"]),coord)] / base
-                else:
-                    raise ValueError(f"unsupported primitive operation {kind!r}")
-                feature_arrays[axis_id] = arr[interior]
+                        raise ValueError("generated pointwise carrier power is outside executable seed algebra")
+                    feature_arrays[axis_id]=arr[interior]
+            else:
+                d1: dict[tuple[str,str], np.ndarray] = {}
+                d2: dict[tuple[str,str], np.ndarray] = {}
+                needed_d1 = {(target_field,time_coord)}
+                needed_d2 = set()
+                for spec in specs:
+                    coord = str(spec["coordinate"]); kind = str(spec["kind"])
+                    if kind == "FIELD_TIMES_TARGET_D1": needed_d1.add((target_field,coord))
+                    elif kind == "FIELD_TIMES_TARGET_D2": needed_d2.add((target_field,coord))
+                    elif kind == "RECIPROCAL_FIELD_TIMES_OTHER_D1": needed_d1.add((str(spec["other_field"]),coord))
+                for field_name, coord in sorted(needed_d1):
+                    d1[(field_name,coord)] = self._differentiate(fields[field_name], coords[coord], coord_axis[coord], 1)
+                for field_name, coord in sorted(needed_d2):
+                    d2[(field_name,coord)] = self._differentiate(fields[field_name], coords[coord], coord_axis[coord], 2)
+                target_values = d1[(target_field,time_coord)][interior]
+                for axis_id, spec in spec_by_axis.items():
+                    kind = str(spec["kind"]); coord = str(spec["coordinate"]); carrier = str(spec["carrier_field"])
+                    if kind == "FIELD_TIMES_TARGET_D1":
+                        arr = fields[carrier] * d1[(target_field,coord)]
+                    elif kind == "FIELD_TIMES_TARGET_D2":
+                        arr = fields[carrier] * d2[(target_field,coord)]
+                    elif kind == "RECIPROCAL_FIELD_TIMES_OTHER_D1":
+                        base = fields[carrier]
+                        if np.any(np.abs(base[interior]) <= 1e-14):
+                            arr = np.full_like(base, np.nan, dtype=float)
+                        else:
+                            arr = d1[(str(spec["other_field"]),coord)] / base
+                    else:
+                        raise ValueError(f"unsupported primitive operation {kind!r}")
+                    feature_arrays[axis_id] = arr[interior]
             flat_target = target_values.reshape(-1)
             flat_features = {k:v.reshape(-1) for k,v in feature_arrays.items()}
             valid = np.isfinite(flat_target)
@@ -2242,6 +2283,8 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
             "inferred_spatial_coordinates":spatial_coords,
             "target_axis":target_axis,
             "target_operation":target_spec,
+            "operator_language_mode":"INVENTED_FROM_META_PRIMITIVES" if generated_language_mode else "LEGACY_TYPED_DIFFERENTIAL_GRAMMAR",
+            "operator_language_birth":language if generated_language_mode else None,
             "candidate_axis_count":len(spec_by_axis),
             "candidate_axes":{axis_id:spec for axis_id,spec in sorted(spec_by_axis.items())},
             "variable_dimensions":variable_dimensions,
@@ -2256,6 +2299,9 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
                 "operator_coordinates_generated_inside_atlas_owner":True,
                 "operator_coordinate_is_scientific_law":False,
                 "sealed_holdout_used_to_generate_candidate_grammar":False,
+                "named_differential_operator_catalog_used":False if generated_language_mode else None,
+                "fixed_derivative_order_catalog_used":False if generated_language_mode else None,
+                "operator_language_generated_by_mathematical_invention":bool(generated_language_mode),
             },
         }
         return _with_digest(core)

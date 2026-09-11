@@ -1,4 +1,4 @@
-.PHONY: collect research-triage targeted first-experiment real-experiment navier-stokes-experiment navier-stokes-primitive-field frontier-scan science-atlas self-repair replay-prepare replay-batches replay-aggregate full qualify release-controls seal-audit audit-read-only clean
+.PHONY: collect research-triage targeted first-experiment real-experiment navier-stokes-experiment navier-stokes-primitive-field navier-stokes-operator-language frontier-scan science-atlas self-repair replay-prepare replay-batches replay-aggregate full qualify release-controls seal-audit audit-read-only clean
 
 PYENV = PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 
@@ -23,6 +23,9 @@ navier-stokes-experiment:
 
 navier-stokes-primitive-field:
 	$(PYENV) python -m evaluation.navier_stokes_blind_experiment --mode primitive-fields --output reports/NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json --summary
+
+navier-stokes-operator-language:
+	$(PYENV) python -m evaluation.navier_stokes_blind_experiment --mode invented-language --output reports/NAVIER_STOKES_OPERATOR_LANGUAGE_INVENTION_CURRENT.json --summary
 
 frontier-scan:
 	$(PYENV) python -c 'from source.lawspace.scientific_exploitation import write_current_state; write_current_state(".", ai_extension_verified=True)'
@@ -70,7 +73,7 @@ clean:
 	rm -rf .pytest_cache
 	find . -type f \( -name '*.pyc' -o -name '*.pyo' \) -delete
 	find reports -maxdepth 1 -type f -name '*.tmp' -delete
-	rm -f reports/FIRST_POST_CLEAN_ATLAS_EXPERIMENT_CURRENT.json reports/NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json reports/NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json
+	rm -f reports/FIRST_POST_CLEAN_ATLAS_EXPERIMENT_CURRENT.json reports/NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json reports/NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json reports/NAVIER_STOKES_OPERATOR_LANGUAGE_INVENTION_CURRENT.json
 	rm -f reports/THEORY_COMPILER_QUALIFICATION_CURRENT.json reports/ATOMIC_OPERATOR_PROBE_CYCLE_CURRENT.json reports/ATOMIC_VARIABLE_PARTICLE_SELF_CONSISTENT_CYCLE_CURRENT.json
 	rm -f reports/FULL_HEAVY_REPLAY_CURRENT.json
 	rm -rf reports/runtime

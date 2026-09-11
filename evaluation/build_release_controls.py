@@ -94,6 +94,17 @@ def run(root=None, *, allow_blocked=False):
   'representation_activation_is_causal_establishment':False,
   'controlled_reference_world_is_new_physical_law':False,
  }
+ caps['operator_language_invention']={
+  'component':'OPERATOR-LANGUAGE-BIRTH/1.0.0-COMPONENT',
+  'authority':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0',
+  'seed_meta_primitives':['LOCAL_TRANSLATION','LINEAR_SUPERPOSITION','POINTWISE_MULTIPLY','POINTWISE_RECIPROCAL','DIMENSION_TYPING'],
+  'named_differential_operator_catalog_used':False,
+  'fixed_derivative_order_catalog_used':False,
+  'fixed_global_operator_rank_ceiling':None,
+  'sparse_forward_backward_support_search':True,
+  'resource_budget_is_scientific_ceiling':False,
+  'world_mathematical_novelty_established':False,
+ }
  caps['query_research']={
   'owner':query.get('owner'),
   'report_digest':query.get('digest'),
@@ -239,6 +250,10 @@ def run(root=None, *, allow_blocked=False):
   'primitive_field_operator_coordinates_are_born_inside_atlas':True,
   'primitive_field_operator_birth_requires_named_pde_template':False,
   'primitive_field_benchmark_establishes_new_physical_law':False,
+  'operator_language_generated_from_weaker_meta_primitives':True,
+  'operator_language_birth_uses_named_differential_catalog':False,
+  'operator_language_resource_budget_is_scientific_ceiling':False,
+  'operator_language_birth_establishes_world_mathematical_novelty':False,
  })
  inv['digest']=digest_payload(inv); (root/'invariants.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
  files=controlled(root)
@@ -287,6 +302,10 @@ def run(root=None, *, allow_blocked=False):
   'primitive_field_named_pde_template_required':False,
   'primitive_field_sealed_holdout_used_for_axis_selection':False,
   'primitive_field_control_establishes_new_physical_law':False,
+  'operator_language_invention_enabled':True,
+  'operator_language_named_differential_catalog_required':False,
+  'operator_language_fixed_global_rank_ceiling':None,
+  'operator_language_resource_budget_is_scientific_ceiling':False,
  })
  man['research_state_policy'].update({
   'dynamic_quality_tiers_enabled':True,

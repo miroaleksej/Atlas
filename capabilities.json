@@ -115,7 +115,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "1138aa40ee9e5771810446c9f519e42d934ed1f2e45ad9955c37d2205bdbba22",
+  "digest": "4eadb790960ba037fb277a2534949506d8573d3dcef85ad5de99f26f07600352",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -182,6 +182,23 @@
     "new_physical_mechanism_established": false,
     "status": "PASS_LOW_FREQUENCY_GUST_ANOMALY_PUBLIC_EVIDENCE_ANALYSIS"
   },
+  "operator_language_invention": {
+    "authority": "PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0",
+    "component": "OPERATOR-LANGUAGE-BIRTH/1.0.0-COMPONENT",
+    "fixed_derivative_order_catalog_used": false,
+    "fixed_global_operator_rank_ceiling": null,
+    "named_differential_operator_catalog_used": false,
+    "resource_budget_is_scientific_ceiling": false,
+    "seed_meta_primitives": [
+      "LOCAL_TRANSLATION",
+      "LINEAR_SUPERPOSITION",
+      "POINTWISE_MULTIPLY",
+      "POINTWISE_RECIPROCAL",
+      "DIMENSION_TYPING"
+    ],
+    "sparse_forward_backward_support_search": true,
+    "world_mathematical_novelty_established": false
+  },
   "p2_closure": {
     "conservation_canonicalization": "COMPOSITION_ADDITIVITY_REQUIRED",
     "resident_restore_migration": "DIGEST_BOUND_EXTERNAL_ATOMIC_RESTORE",
@@ -228,7 +245,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "6820bf2d1e5b8ba21b5ab7b8dc8d02f620dab2cf71a9261971504831235f11c3",
+  "qualification_digest": "4672d1502e0784b48aba2775915f6d368cdbe6fc75776301c5ad88c1f9b7d3d7",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,

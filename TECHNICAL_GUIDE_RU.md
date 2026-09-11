@@ -1227,7 +1227,7 @@ make audit-read-only
 
 ## 17. Справочник по всем тестам
 
-В выпуске 0.15.29.0 собирается **124 теста**. Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
+В выпуске 0.15.29.0 собирается **126 тестов**. Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
 
 ```bash
 pytest -q -p no:cacheprovider \
@@ -1236,7 +1236,7 @@ pytest -q -p no:cacheprovider \
 
 Обозначение «ожидается PASS» означает прохождение программных утверждений теста, а не автоматическое подтверждение научного закона.
 
-### `tests/test_adaptive_axis_discovery.py` — 10 тестов
+### `tests/test_adaptive_axis_discovery.py` — 11 тестов
 
 - `test_scan_finds_context_axis_without_mutating_registry` — запускает поиск контекстной оси и сравнивает состояние реестра до и после. Ожидается обнаруженный кандидат при неизменном каноническом реестре.
 - `test_positive_causal_readiness_requires_positive_generalization_contract` — подаёт положительное причинное свидетельство без полного контракта обобщения. Ожидается запрет статуса causal-ready до выполнения всех условий.
@@ -1248,6 +1248,7 @@ pytest -q -p no:cacheprovider \
 - `test_axis_modeling_does_not_birth_interaction_with_train_constant_axis` — обучает модель при постоянной на FIT оси. Ожидается отсутствие ложной рождённой интеракции, неидентифицируемой по обучающим данным.
 - `test_first_blind_real_physics_cycle_replays` — воспроизводит зафиксированный слепой физический цикл и проверяет его квитанции и метрики. Ожидается детерминированный PASS без заявления нового закона.
 - `test_adaptive_research_kernel_can_birth_multiple_dormant_axes_in_one_cycle` — строит ответ, которому одновременно нужны две dormant-оси, и проверяет полный subset search. Ожидается активация ровно `z` и `w`, `selected_cardinality = 2`, разрешённый multi-axis birth и отсутствие фиксированного числа осей на цикл.
+- `test_large_dormant_space_switches_to_sparse_forward_backward_search_without_cardinality_ceiling` — создаёт большое dormant-пространство, превышающее exhaustive trial budget. Ожидается переход на sparse forward/backward search, восстановление `z` и `w` и явная фиксация, что ресурсный бюджет не является научным потолком cardinality.
 
 ### `tests/test_curvature_memory_current.py` — 2 теста
 
@@ -1305,7 +1306,7 @@ pytest -q -p no:cacheprovider \
 - `test_example_numeric_control_is_within_declared_scale` — сравнивает оценку `G` с контрольным значением. Ожидается относительная ошибка в объявленном допустимом диапазоне.
 - `test_example_receipt_preserves_claim_boundary` — инспектирует финальную квитанцию. Ожидается воспроизведённый контроль без утверждения нового закона, новой константы или prospective validation.
 
-### `tests/test_function_language_birth.py` — 6 тестов
+### `tests/test_function_language_birth.py` — 7 тестов
 
 - `test_mathematical_invention_kernel_exposes_function_language_component_without_new_owner` — читает контракты Mathematical Invention Kernel и компонента рождения языка. Ожидается один существующий authority, компонент `FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT` и отсутствие фиксированного глобального каталога как первичного пространства.
 - `test_polynomial_control_does_not_birth_unneeded_language` — подаёт хорошо описываемую полиномом поверхность с малым шумом. Ожидается `CURRENT_LANGUAGE_RESIDUAL_WITHIN_BIRTH_TOLERANCE`, ноль порождённых языков и OOF NRMSE ниже `0.04`.
@@ -1313,6 +1314,7 @@ pytest -q -p no:cacheprovider \
 - `test_local_bivariate_residual_births_kernel_language` — подаёт сумму двух локальных двумерных экспоненциальных областей. Ожидается язык `KERNEL` по координатам `{0,1}`, NRMSE ниже `0.55` и не более 70% ошибки полиномиального baseline.
 - `test_dynamic_language_birth_is_replayed_inside_permutation_null` — запускает пять перестановок периодической задачи. Ожидается повтор всей полиномиальной и порождённой поверхности на каждой перестановке и сохранённая граница отсутствия world-law/novelty claim.
 - `test_structureless_residual_does_not_force_language_birth` — подаёт независимый нормальный шум с высокой ошибкой baseline. Ожидается `NO_OPERATION_SIGNAL_ABOVE_BIRTH_GATE`, пустой список языков и ноль порождённых гипотез.
+- `test_operator_language_birth_uses_translation_meta_primitives_not_differential_catalog` — запускает operator-language birth из локального переноса, алгебры и dimension typing. Ожидаются rank shells 1–3, отсутствие каталога именованных производных и отсутствие фиксированного глобального потолка operator rank.
 
 ### `tests/test_permutation_eprocess_current.py` — 2 теста
 
@@ -1702,3 +1704,111 @@ reports/NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json
 ## Граница утверждений
 
 PASS второго уровня означает, что в controlled reference world Atlas получил только primitive sampled fields, сам построил допустимые локальные operator coordinates, сам выбрал multi-axis support и перенёс найденную структуру на unseen parameter holdout. Он всё ещё **не** доказывает существование/гладкость Navier—Stokes, мировой новый закон или универсальную способность открывать любой PDE. Следующий более строгий уровень должен убрать заранее заданную локальную operator grammar и заставить Mathematical Invention Kernel расширять сам набор допустимых операций при систематическом residual.
+
+# Level 3 — рождение языка операторов до поиска PDE support
+
+## Цель
+
+Level 3 убирает из pre-freeze research path заранее заданную differential grammar `D`, `D^2`, `field × D(target)` и `field^-1 × D(other)`. Вместо неё `PHI-MATHEMATICAL-INVENTION-KERNEL` получает только dimensions примитивных координат/полей и более слабые meta-primitives:
+
+- `LOCAL_TRANSLATION`;
+- `LINEAR_SUPERPOSITION`;
+- `POINTWISE_MULTIPLY`;
+- `POINTWISE_RECIPROCAL`;
+- `DIMENSION_TYPING`.
+
+Это не «изобретение математики из ничего»: перечисленные meta-primitives являются заранее доступным вычислительным субстратом. Квалифицируется более узкое и проверяемое утверждение — Atlas способен **породить локальный операторный язык без каталога именованных differential operators**, после чего тем же adaptive kernel найти support закона.
+
+## Механизм
+
+Компонент `OPERATOR-LANGUAGE-BIRTH/1.0.0-COMPONENT` исследует rank-shells локальных translation responses. Ранг не передаётся как «первая» или «вторая производная». Для каждого shell строятся moment-response signatures, затем dimensions разрешают только те pointwise compositions, которые могут иметь размерность frozen target relation.
+
+Уникальная time-like coordinate резервируется только для target action. Это предотвращает identity leakage: оператор, численно совпадающий с target time response, не может попасть в predictor language.
+
+Текущий контрольный replay породил 20 typed signatures:
+
+```text
+rank 1: 10 signatures
+rank 2:  8 signatures
+rank 3:  2 signatures
+rank 4:  0
+rank 5:  0
+```
+
+Shell budget является только runtime guard. Receipt явно фиксирует `search_may_resume_beyond_budget=true` и `resource_budget_is_scientific_rank_ceiling=false`.
+
+## Sparse adaptive support search
+
+После language birth 6 из 20 operator coordinates оказались численно неидентифицируемыми на discovery data (нулевая/машинная вариация). Они сохраняются в birth receipt, но не входят в support combinatorics. Осталось 14 empirically executable candidates.
+
+Для малых dormant spaces Atlas сохраняет exhaustive cardinality-shell search. Если полный subset count превышает trial resource budget, kernel автоматически использует:
+
+```text
+SPARSE_ADAPTIVE_FORWARD_BACKWARD_SUBSET_SEARCH
+```
+
+Forward stage наращивает support без заранее заданного cardinality, пока не пройден frozen fit gate. Backward stage удаляет лишние axes, сохраняя gate. Resource trial budget не является scientific cardinality ceiling.
+
+В текущем replay:
+
+```text
+x lane: 20 born -> 14 identifiable -> 106 support trials -> 4 activated axes
+
+y lane: 20 born -> 14 identifiable ->  78 support trials -> 4 activated axes
+```
+
+С baseline-осью effective support имеет 5 координат в каждом momentum lane.
+
+## Контрольный результат
+
+```text
+PASS_BLIND_OPERATOR_LANGUAGE_INVENTION
+46 / 46 PASS
+```
+
+После post-freeze decode support снова соответствует двум convective terms, pressure/density term и двум diffusion terms. Численные результаты:
+
+```text
+x discovery NRMSE ~= 2.6136e-4
+x sealed    NRMSE ~= 3.4519e-4
+
+y discovery NRMSE ~= 3.0600e-4
+y sealed    NRMSE ~= 3.8246e-4
+```
+
+Коэффициенты пяти выбранных членов находятся около `(-1,-1,-1,+1,+1)` с отклонениями порядка `1e-4`.
+
+## Запуск
+
+```bash
+make navier-stokes-operator-language
+```
+
+или:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 \
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 \
+python -m evaluation.navier_stokes_blind_experiment \
+  --mode invented-language \
+  --output reports/NAVIER_STOKES_OPERATOR_LANGUAGE_INVENTION_CURRENT.json \
+  --summary
+```
+
+Полный journal находится в том же JSON в `run_journal`, а Jupyter replay — в `examples/navier_stokes_blind_experiment.ipynb`.
+
+## Claim boundary
+
+Level-3 PASS не устанавливает новый физический закон, причинность выбранных axes, мировую математическую новизну или «изобретение дифференциального исчисления из ничего». Он квалифицирует более сильный механизм, чем Level 2:
+
+```text
+primitive sampled fields
+-> weak translation/algebra meta-primitives
+-> Atlas-generated operator language
+-> data-driven identifiability screen
+-> adaptive sparse multi-axis support search
+-> sealed OOD verification
+```
+
+`REPRESENTATION_ACTIVATED` отдельно от `CAUSALLY_ESTABLISHED`; в текущем receipt causal status остаётся `CAUSALLY_NOT_ESTABLISHED`.

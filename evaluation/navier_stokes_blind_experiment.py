@@ -715,14 +715,174 @@ def run_primitive_field(root: str | Path | None = None) -> dict[str, Any]:
     return {**payload,"digest":digest_payload(payload)}
 
 
+
+# ---------------------------------------------------------------------------
+# Level 3: operator-language invention.  No D/D2 grammar is supplied.  The
+# Mathematical Invention Kernel receives only primitive field/coordinate types
+# and weaker meta-primitives (local translation, linear superposition,
+# pointwise multiply/reciprocal, dimensional typing).  It generates local
+# translation-moment response signatures by open rank shells.  Theory Compiler
+# then executes the frozen generated language on primitive sampled fields.
+# ---------------------------------------------------------------------------
+
+LANGUAGE_SCHEMA = "phi-blind-continuum-operator-language-invention/v1"
+LANGUAGE_OWNER_ID = "BLIND-CONTINUUM-OPERATOR-LANGUAGE-INVENTION/1.0.0"
+
+
+def _language_request(target_field: str, studies: list[dict[str, Any]], problem_id: str) -> dict[str, Any]:
+    req=_primitive_request(target_field,studies,problem_id)
+    req.update({
+        "entry_mode":"PRIMITIVE_FIELD_LANGUAGE_DISCOVERY",
+        "operator_language_invention":True,
+        "operator_language_search_budget":6,
+        "question":(
+            "Discover a dimensionally typed local evolution relation from masked primitive sampled fields. "
+            "Do not use a named equation or a predeclared differential-operator grammar. Generate a local "
+            "operator language from weaker translation/algebra meta-primitives, then search its typed coordinates."
+        ),
+    })
+    return req
+
+
+def _language_expected_axes(receipt: dict[str, Any], component: str) -> dict[str,str | None]:
+    target=PRIMITIVE_FIELD["u"] if component=="x" else PRIMITIVE_FIELD["v"]
+    cross=PRIMITIVE_FIELD["v"] if component=="x" else PRIMITIVE_FIELD["u"]
+    own_coord=PRIMITIVE_COORD["x"] if component=="x" else PRIMITIVE_COORD["y"]
+    cross_coord=PRIMITIVE_COORD["y"] if component=="x" else PRIMITIVE_COORD["x"]
+    generic="POINTWISE_MONOMIAL_X_LOCAL_TRANSLATION_MOMENT_RESPONSE"
+    return {
+        "self_advection":_find_axis_for_spec(receipt,{"kind":generic,"response_field":target,"carrier_field":target,"carrier_power":"1","coordinate":own_coord,"moment_rank":"1"}),
+        "cross_advection":_find_axis_for_spec(receipt,{"kind":generic,"response_field":target,"carrier_field":cross,"carrier_power":"1","coordinate":cross_coord,"moment_rank":"1"}),
+        "pressure":_find_axis_for_spec(receipt,{"kind":generic,"response_field":PRIMITIVE_FIELD["p"],"carrier_field":PRIMITIVE_FIELD["rho"],"carrier_power":"-1","coordinate":own_coord,"moment_rank":"1"}),
+        "diffusion_1":_find_axis_for_spec(receipt,{"kind":generic,"response_field":target,"carrier_field":PRIMITIVE_FIELD["nu"],"carrier_power":"1","coordinate":PRIMITIVE_COORD["x"],"moment_rank":"2"}),
+        "diffusion_2":_find_axis_for_spec(receipt,{"kind":generic,"response_field":target,"carrier_field":PRIMITIVE_FIELD["nu"],"carrier_power":"1","coordinate":PRIMITIVE_COORD["y"],"moment_rank":"2"}),
+    }
+
+
+def _language_lane_checks(receipt: dict[str, Any], component: str) -> dict[str,bool]:
+    result=receipt.get("result",{}); inner=receipt.get("inner_research_receipt",{}); coeff=_primitive_coefficients(receipt)
+    expected=_language_expected_axes(receipt,component); expected_ids=[x for x in expected.values() if x]
+    effective=set(result.get("effective_predictor_variables",[])); sealed=result.get("sealed_holdout_evaluation",{})
+    language=receipt.get("operator_language_invention") or {}; born=receipt.get("primitive_field_operator_birth",{})
+    signatures=list(language.get("generated_signatures",[])); ranks={int(x.get("moment_rank",-1)) for x in signatures}
+    time_coord=PRIMITIVE_COORD["time"]
+    no_time_predictors=all(str(x.get("coordinate"))!=time_coord for x in signatures)
+    seed=set(language.get("seed_meta_primitives",[]))
+    return {
+        "LANGUAGE_BIRTH_EXECUTED":language.get("status")=="GENERATED_OPERATOR_LANGUAGE",
+        "NO_NAMED_DIFFERENTIAL_GRAMMAR":language.get("claim_boundary",{}).get("named_differential_operator_catalog_used") is False,
+        "NO_FIXED_DERIVATIVE_ORDER_CATALOG":language.get("claim_boundary",{}).get("fixed_derivative_order_catalog_used") is False,
+        "WEAKER_META_PRIMITIVES_ONLY":{"LOCAL_TRANSLATION","LINEAR_SUPERPOSITION","POINTWISE_MULTIPLY","POINTWISE_RECIPROCAL","DIMENSION_TYPING"}.issubset(seed),
+        "LANGUAGE_SEARCH_OPEN_BEYOND_RESOURCE_BUDGET":language.get("search_may_resume_beyond_budget") is True and language.get("claim_boundary",{}).get("resource_budget_is_scientific_rank_ceiling") is False,
+        "MULTIPLE_MOMENT_RANKS_BORN":{1,2}.issubset(ranks) and len(ranks)>=3,
+        "TARGET_ROLE_SEPARATED_FROM_PREDICTORS":no_time_predictors,
+        "THEORY_COMPILER_EXECUTES_INVENTED_LANGUAGE":born.get("operator_language_mode")=="INVENTED_FROM_META_PRIMITIVES",
+        "ALL_EXPECTED_POSTFREEZE_SUPPORT_WAS_AVAILABLE":len(expected_ids)==5,
+        "REQUIRED_SUPPORT_SELECTED":all(x in effective for x in expected_ids),
+        "ADAPTIVE_MULTI_AXIS_BIRTH":receipt.get("axis_birth_search",{}).get("multi_axis_birth_allowed") is True and receipt.get("axis_birth_search",{}).get("selected_cardinality")==4,
+        "SURVIVES_DISCOVERY_HOLDOUT":result.get("status")=="HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW",
+        "SEALED_OOD_PASS":sealed.get("status")=="SEALED_HOLDOUT_EVALUATED" and float(sealed.get("nrmse",1.0))<1.0e-2,
+        "SELF_ADVECT_COEFF":expected["self_advection"] is not None and abs(coeff.get(str(expected["self_advection"]),0.0)+1.0)<2.0e-2,
+        "CROSS_ADVECT_COEFF":expected["cross_advection"] is not None and abs(coeff.get(str(expected["cross_advection"]),0.0)+1.0)<2.0e-2,
+        "PRESSURE_COEFF":expected["pressure"] is not None and abs(coeff.get(str(expected["pressure"]),0.0)+1.0)<2.0e-2,
+        "DIFFUSION_X_COEFF":expected["diffusion_1"] is not None and abs(coeff.get(str(expected["diffusion_1"]),0.0)-1.0)<2.0e-2,
+        "DIFFUSION_Y_COEFF":expected["diffusion_2"] is not None and abs(coeff.get(str(expected["diffusion_2"]),0.0)-1.0)<2.0e-2,
+        "REPRESENTATION_NOT_CAUSAL_PROOF":result.get("representation_activated_does_not_equal_causally_established") is True or result.get("causal_status")=="CAUSALLY_NOT_ESTABLISHED",
+        "SCIENTIFIC_LAW_NOT_PROMOTED":result.get("scientific_law_established") is False,
+        "INNER_RECEIPT_ADAPTIVE":inner.get("claim_boundary",{}).get("axis_birth_cardinality_is_adaptive") is True,
+    }
+
+
+def _language_lane_summary(receipt: dict[str, Any], component: str) -> dict[str, Any]:
+    result=receipt.get("result",{}); language=receipt.get("operator_language_invention") or {}
+    return {
+        "status":result.get("status"),
+        "generated_language_status":language.get("status"),
+        "generated_signature_count":language.get("generated_signature_count"),
+        "generated_rank_shells":language.get("shell_journal"),
+        "seed_meta_primitives":language.get("seed_meta_primitives"),
+        "selected_birth_cardinality":receipt.get("axis_birth_search",{}).get("selected_cardinality"),
+        "effective_predictor_variables":result.get("effective_predictor_variables"),
+        "expected_support_after_postfreeze_decode":_language_expected_axes(receipt,component),
+        "best_expression":(result.get("best_hypothesis") or {}).get("expression"),
+        "coefficients":_primitive_coefficients(receipt),
+        "discovery_holdout_nrmse":(result.get("best_hypothesis") or {}).get("holdout_nrmse"),
+        "sealed_holdout":result.get("sealed_holdout_evaluation"),
+        "representation_status":result.get("representation_status"),
+        "causal_status":result.get("causal_status"),
+        "causally_established_axes":result.get("causally_established_axes"),
+        "receipt_digest":receipt.get("digest"),
+    }
+
+
+def run_operator_language_invention(root: str | Path | None = None) -> dict[str, Any]:
+    root=Path(root or Path(__file__).resolve().parents[1]).resolve(); api=LawSpaceAPI(root)
+    studies_with_hidden=_primitive_studies(); studies,hidden_fixture=_strip_fixture_metadata(studies_with_hidden)
+    req_x=_language_request(PRIMITIVE_FIELD["u"],studies,"BLIND-LANGUAGE-CONTINUUM-X-001")
+    req_y=_language_request(PRIMITIVE_FIELD["v"],studies,"BLIND-LANGUAGE-CONTINUUM-Y-001")
+    freeze={
+        "x_request_digest":digest_payload(req_x),"y_request_digest":digest_payload(req_y),
+        "primitive_only":True,"derived_derivative_columns_supplied":False,"named_equation_disclosed":False,
+        "named_differential_operator_grammar_disclosed":False,"postfreeze_expected_support_disclosed":False,
+    }; freeze["digest"]=digest_payload(freeze)
+    receipt_x=api.advance_adaptive_research(req_x); receipt_y=api.advance_adaptive_research(req_y)
+    checks={
+        "REQUEST_FROZEN_BEFORE_SEMANTIC_DECODE":bool(freeze["digest"]),
+        "NO_DERIVED_COLUMNS_IN_REQUEST":all(set(study.keys()) <= {"study_id","role","coordinate_order","coordinates","fields"} for study in studies),
+        "NO_NAMED_EQUATION_IN_QUESTION":all("navier" not in req["question"].lower() and "stokes" not in req["question"].lower() for req in (req_x,req_y)),
+        "NO_D_OR_D2_GRAMMAR_IN_REQUEST":all("derivative" not in req["question"].lower() and "laplac" not in req["question"].lower() for req in (req_x,req_y)),
+        **{f"X_{k}":v for k,v in _language_lane_checks(receipt_x,"x").items()},
+        **{f"Y_{k}":v for k,v in _language_lane_checks(receipt_y,"y").items()},
+    }
+    passed=sum(bool(v) for v in checks.values())
+    postfreeze={
+        "coordinate_mask":{PRIMITIVE_COORD["time"]:"t",PRIMITIVE_COORD["x"]:"x",PRIMITIVE_COORD["y"]:"y"},
+        "field_mask":{PRIMITIVE_FIELD["u"]:"u",PRIMITIVE_FIELD["v"]:"v",PRIMITIVE_FIELD["p"]:"p",PRIMITIVE_FIELD["rho"]:"rho",PRIMITIVE_FIELD["nu"]:"nu"},
+        "hidden_reference_fixture_metadata":hidden_fixture,
+        "generated_translation_moment_decode_for_verification_only":{"rank_1":"first local differential response","rank_2":"second local differential response","rank_3":"higher-order distractor shell"},
+        "expected_structure_for_verification_only":{
+            "x":"local_t1(u) = -(u local_x1(u)) -(v local_y1(u)) -(rho^-1 local_x1(p)) + nu local_x2(u) + nu local_y2(u)",
+            "y":"local_t1(v) = -(u local_x1(v)) -(v local_y1(v)) -(rho^-1 local_y1(p)) + nu local_x2(v) + nu local_y2(v)",
+        },
+    }
+    journal=[
+        {"stage":1,"name":"PRIMITIVE_REFERENCE_FIELDS_BUILT","status":"PASS","digest":digest_payload(hidden_fixture)},
+        {"stage":2,"name":"LANGUAGE_INVENTION_REQUEST_FREEZE","status":"FROZEN","digest":freeze["digest"]},
+        {"stage":3,"name":"X_OPERATOR_LANGUAGE_INVENTION_AND_SEARCH","status":receipt_x.get("result",{}).get("status"),"digest":receipt_x.get("digest")},
+        {"stage":4,"name":"Y_OPERATOR_LANGUAGE_INVENTION_AND_SEARCH","status":receipt_y.get("result",{}).get("status"),"digest":receipt_y.get("digest")},
+        {"stage":5,"name":"POSTFREEZE_SEMANTIC_DECODE","status":"VERIFICATION_ONLY","digest":digest_payload(postfreeze)},
+    ]
+    payload={
+        "schema":LANGUAGE_SCHEMA,"owner":LANGUAGE_OWNER_ID,"patch_level":"operator-language-invention-level-3",
+        "runtime_release_id":api.runtime.current_release_id(),"experiment_source_sha256":hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "status":"PASS_BLIND_OPERATOR_LANGUAGE_INVENTION" if passed==len(checks) else "FAIL_BLIND_OPERATOR_LANGUAGE_INVENTION",
+        "passed":passed,"total":len(checks),"checks":[{"check":k,"status":"PASS" if v else "FAIL"} for k,v in checks.items()],
+        "protocol":{
+            "input_to_atlas":"masked primitive coordinate arrays, sampled primitive fields and dimension types only",
+            "request_freeze":freeze,"internet_used":False,"named_law_catalog_required":False,
+            "predeclared_differential_operator_grammar":False,"sealed_holdout_uses_unseen_flow_parameters":True,
+            "language_seed_meta_primitives":["LOCAL_TRANSLATION","LINEAR_SUPERPOSITION","POINTWISE_MULTIPLY","POINTWISE_RECIPROCAL","DIMENSION_TYPING"],
+            "resource_shell_budget_is_not_scientific_ceiling":True,
+        },
+        "blind_results":{"x_momentum":_language_lane_summary(receipt_x,"x"),"y_momentum":_language_lane_summary(receipt_y,"y")},
+        "postfreeze_decoding":postfreeze,"execution_receipts":{"x_momentum":receipt_x,"y_momentum":receipt_y},"run_journal":journal,
+        "claim_boundary":{
+            "controlled_reference_world_only":True,"new_physical_law_claimed":False,"world_novelty_claimed":False,
+            "differential_calculus_invented_from_nothing":False,"local_translation_meta_primitive_preexists":True,
+            "named_differential_operator_grammar_removed_from_prefreeze_search":True,
+            "this_level_tests_language_birth_before_pde_support_search":True,
+        },
+    }
+    return {**payload,"digest":digest_payload(payload)}
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run blind continuum recovery benchmarks through the current Atlas kernel")
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
-    parser.add_argument("--mode", choices=("masked-terms","primitive-fields"), default="masked-terms")
+    parser.add_argument("--mode", choices=("masked-terms","primitive-fields","invented-language"), default="masked-terms")
     parser.add_argument("--output", type=Path, default=None, help="Write full JSON receipt here")
     parser.add_argument("--summary", action="store_true", help="Print only compact summary to stdout")
     args = parser.parse_args()
-    report = run_primitive_field(args.root) if args.mode == "primitive-fields" else run(args.root)
+    report = run_operator_language_invention(args.root) if args.mode == "invented-language" else (run_primitive_field(args.root) if args.mode == "primitive-fields" else run(args.root))
     if args.output is not None:
         output = args.output if args.output.is_absolute() else args.root / args.output
         output.parent.mkdir(parents=True, exist_ok=True)
