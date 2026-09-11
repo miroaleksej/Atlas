@@ -1010,6 +1010,8 @@ def run_hidden_term_discovery(root: str | Path | None=None) -> dict[str,Any]:
         "SEALED_NOT_USED_TO_TRIGGER_EXPANSION":receipt.get("claim_boundary",{}).get("sealed_holdout_used_to_trigger_language_expansion") is False,
         "NO_SCIENTIFIC_PROMOTION":result.get("scientific_law_established") is False,
         "CAUSALITY_NOT_AUTO_PROMOTED":result.get("causal_status")=="CAUSALLY_NOT_ESTABLISHED",
+        "TOP_LEVEL_ATLAS_PROVENANCE_ACCEPTED":receipt.get("atlas_claim",{}).get("atlas_native") is True
+            and receipt.get("atlas_claim",{}).get("status")=="ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION",
     }
     passed=sum(bool(v) for v in checks.values())
     postfreeze={

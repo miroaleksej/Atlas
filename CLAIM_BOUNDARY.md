@@ -557,4 +557,10 @@ Human-in-the-loop здесь является **аудируемым механ�
 
 **Не установлено:** AGI, сознание, глобальная оптимальность архитектуры, превосходство над внешними AI-системами, перенос holdout-результата на открытый мир.
 
-**Reproducibility blocker текущей среды:** полный unified seal остаётся заблокирован ровно старым function-language digest, потому что release pin требует NumPy 2.4.2, а доступна 2.3.5 (2.4.4 имеется в отдельном окружении, но также не совпадает битово). Digest-гейт не ослаблен.
+**Reproducibility state:** текущий pinned numerical stack воспроизводит function-language digest и unified qualification. Если версия NumPy/SciPy/SymPy отличается от `pyproject.toml`, digest-гейт по-прежнему обязан закрыться с отказом и не может быть ослаблен ради прохождения.
+
+## Level-4 top-level provenance seal — граница утверждений
+
+Разрешено утверждать, что верхняя квитанция residual-driven Level 4 контентно связывает input, реестр осей, пространство гипотез, исполняемый код и результат, а `CLAIM-PROVENANCE-FIREWALL` проверяет эти связи до общего PASS.
+
+Статус `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION` означает только подтверждённое происхождение вычисления внутри Atlas. Он не означает истинность формулы, причинность активированной оси, открытие нового физического закона, мировую новизну или прохождение U5–U10. Даже при принятой provenance-печати сохраняются `REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED`, `CAUSALLY_NOT_ESTABLISHED` и запрет автоматического научного продвижения.

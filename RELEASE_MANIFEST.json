@@ -18,7 +18,7 @@
     "verified_required_permutations": 319,
     "verified_stop": "DEFERRED_RESOURCE"
   },
-  "blind_real_physics_experiment_digest": "710a80f5188c21278a1819071469804d929c2c0cbfd0352b802414beeac22ffd",
+  "blind_real_physics_experiment_digest": "d98970176525f0e4b2380b747c9e8521e9f739199cf70bf13c657e9307aa4cee",
   "collective_coordination": {
     "digest": "b846dd7407318c14241144ce784132e3c6d729f1eb62da3b0a2c41df27453728",
     "holdout": {
@@ -79,13 +79,13 @@
     },
     {
       "path": "ACCEPTANCE_REPORT.md",
-      "sha256": "c529cb45cc0865608a9261287b4fbcf8ba131b7e4b81f704777892d500100c43",
-      "size": 65544
+      "sha256": "02d9eb1264ddc486bde6c8a5fee9e09b15052f7d813d4aff00940b3f4bd241f6",
+      "size": 65897
     },
     {
       "path": "CLAIM_BOUNDARY.md",
-      "sha256": "a115fbbad0e37da56ad2bac8afc409fc52ef67b0e05f8af7033828925fa7b091",
-      "size": 57726
+      "sha256": "7345e0710e4a4583a3829e08037e921e27f1a9f639287f602d11f609725171ed",
+      "size": 58852
     },
     {
       "path": "LICENSE.md",
@@ -94,13 +94,13 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "153c39616cb27dbfdc4a42c4dee53a26b969b900e70089c6f45d15c13985b523",
-      "size": 231193
+      "sha256": "bb608722dc39b067e55130c88cce0225fd8533ef0632f69c6cb08fad3b33995b",
+      "size": 231809
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
-      "sha256": "1456c3c687cea22ef5c52f391b9657fc0e311ccd0cef38c9c8f8305ad0a40d89",
-      "size": 81255
+      "sha256": "3b624f48b8ee8453af19d234d456af6be9ef5f41489667d112306794230569dc",
+      "size": 81699
     },
     {
       "path": "Makefile",
@@ -109,18 +109,18 @@
     },
     {
       "path": "README.md",
-      "sha256": "27c6f832c7f156c8b357566d933799616b375f5b464b5beddc418c4023ba9b28",
-      "size": 101987
+      "sha256": "084ffcb22767c5931d1606febf30791377b43881fb519d93aa1cc812b7463e90",
+      "size": 102889
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "d982d74117696582159b779fee1ef8d6cbc55b8dcc1d96ce556b15bc86ff2cd7",
-      "size": 150108
+      "sha256": "67478847765035a231565461a0d8f0937fd08c5444bda2785a85025152821762",
+      "size": 151868
     },
     {
       "path": "capabilities.json",
-      "sha256": "505f0c40304aaa3c7375729a2b6c97248d2230125c9743f70985c28bb95444b0",
-      "size": 16209
+      "sha256": "7b47df963425549c342a27382dc2d376b13f93e7c980e7c9f5628ac7f050f43e",
+      "size": 16545
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -489,8 +489,8 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "6ccb678448f9cb68eceffa011b256de9b530db04b1c14ebe7ec24d4bd4b08271",
-      "size": 40331
+      "sha256": "910f15b2462f2943ef5a4d59c2eaf71a853e360ce9299c9c72ed8976b665feab",
+      "size": 40828
     },
     {
       "path": "evaluation/collective_coordination_qualification.py",
@@ -564,8 +564,8 @@
     },
     {
       "path": "evaluation/navier_stokes_blind_experiment.py",
-      "sha256": "a68ac33986b77044cbb6f9f36ad2892c19ab785e5f4c66aa9e4cee425c933a7e",
-      "size": 67170
+      "sha256": "cd20fb5b9dc1e7888480375e3b3d12fb0fa488193613936d11986c9605855e81",
+      "size": 67396
     },
     {
       "path": "evaluation/neutrino_external_constraints_qualification.py",
@@ -654,8 +654,8 @@
     },
     {
       "path": "evaluation/release_files.py",
-      "sha256": "ce0b6c44dd1fadd1e5fad5d8d6a6ffa637714e6b4c13263edcbb72d302d561fb",
-      "size": 1017
+      "sha256": "de55917110219511278f3c08804a6732793a06f7161f931ba437b6eeb32fd7fd",
+      "size": 1091
     },
     {
       "path": "evaluation/research_proof_qualification.py",
@@ -749,8 +749,8 @@
     },
     {
       "path": "examples/navier_stokes_blind_experiment.ipynb",
-      "sha256": "480227ce43239dd8a9bc62db4c5517e69478c0fbbe6c7f588e5e2e403526ff3e",
-      "size": 12986
+      "sha256": "65f41cd89ec648b28af932abfa0fc304598e2e8f43da234f8b35f45d504c9026",
+      "size": 14769
     },
     {
       "path": "examples/next_generation_ai_architecture_search.ipynb",
@@ -1064,8 +1064,8 @@
     },
     {
       "path": "invariants.json",
-      "sha256": "609e1987b47da901b2bf31c6ccfff4cc5c68aa489030335b0b7977b880918cbd",
-      "size": 8040
+      "sha256": "38c18fc3030a0f21117100ecbf95a70a789f93bf72c080d33c34195a4af4b823",
+      "size": 8161
     },
     {
       "path": "pyproject.toml",
@@ -1079,8 +1079,8 @@
     },
     {
       "path": "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json",
-      "sha256": "c024e29a3b947f2232af9034619c195d2abaeab12e3261f00adace28aae87dca",
-      "size": 800007
+      "sha256": "1918f385bc73b39bda91d410d25cbd2e0967ed4b55e4d71cd7e564a2b9b107ea",
+      "size": 814380
     },
     {
       "path": "reports/history/version-control/ATLAS_15_23_CURRENT_QUALIFICATION_AFTER_ORCHESTRATION.json",
@@ -1384,8 +1384,8 @@
     },
     {
       "path": "source/lawspace/research_cycle.py",
-      "sha256": "9c212cd04b76fdb3354f9404bed965d6951fcd194a5200a016dc8ae9c1c3618f",
-      "size": 264785
+      "sha256": "67ad665a8b995898fd1b653ed94ec11571513a7086aa0fd4c361faed71cd470c",
+      "size": 265418
     },
     {
       "path": "source/lawspace/research_triage.py",
@@ -1494,8 +1494,8 @@
     },
     {
       "path": "tests/test_adaptive_axis_discovery.py",
-      "sha256": "3534ce4feee03cad3376378bafd493dc7d31f4bc70b8324c3734f3c26d5169eb",
-      "size": 13809
+      "sha256": "4fd96f8599f4078e75747e83fdcd9abc7275e91d0c09cdab25397678d560914c",
+      "size": 14176
     },
     {
       "path": "tests/test_curvature_memory_current.py",
@@ -1574,9 +1574,9 @@
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "e66f546cb50a20881758f0da3897ae0e6032eb2be9986ffc7f33dc573678686f",
+  "current_state_qualification_digest": "d2f003ab8ecaf65190ae4608922a237133cca6a51a04011370fd952ad364db73",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "498f255791065b3f0e6cb7231c7670c659e27b5d1b5e0f7fc71e760e3fd8bc1a",
+  "digest": "354736b8a243356e6292e86f3a0ef002a783b1ea990db7817de96267e2387d55",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -1695,10 +1695,11 @@
   "release": "0.15.29.0",
   "release_candidate_sealed": true,
   "release_candidate_status": "SEALED_CANDIDATE",
-  "research_freeze_digest": "47e2414d891239328c143d5639f27f21fa7392fdfeba3432e051e91752903c73",
+  "research_freeze_digest": "88ca6f462f48b43432a25bc6ad942734c00915e7f8c848ed9b068ce2a9d5ea6b",
   "research_state_policy": {
     "ai_feynman_100_preserved": false,
     "all_axes_required_per_candidate": false,
+    "atlas_native_provenance_can_promote_scientific_truth": false,
     "axes_preserved": true,
     "axis_birth_cardinality": "ADAPTIVE",
     "axis_search_policy": [
@@ -1746,6 +1747,7 @@
     "fixed_axis_count_per_cycle": null,
     "hidden_term_expansion_uses_sealed_holdout": false,
     "hidden_term_representation_is_scientific_law": false,
+    "hidden_term_top_level_provenance_required": true,
     "higher_order_interaction_axes_allowed": true,
     "historical_calculation_results_preserved": false,
     "historical_search_results_preserved": false,

@@ -1161,3 +1161,6 @@ Human-review state is external and append-only at the action level. `SPONSOR_REV
 3. Sealed holdout SHALL NOT trigger expansion, select a hidden term or refit it.
 4. Hidden-term semantics and coefficients SHALL remain unavailable to the search path until post-freeze verification.
 5. A surviving hidden-term representation SHALL remain `CAUSALLY_NOT_ESTABLISHED` and not a promoted law.
+6. The top-level receipt SHALL bind `owner`, `schema`, `input_digest`, `axis_registry_digest`, `hypothesis_space_digest`, `code_digest`, `result_digest` and its own `digest`.
+7. Level-4 PASS SHALL fail closed unless `CLAIM-PROVENANCE-FIREWALL` verifies the receipt, code and result bindings.
+8. `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION` SHALL mean execution provenance only; it SHALL NOT establish causal or scientific truth.

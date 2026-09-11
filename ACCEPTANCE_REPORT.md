@@ -32,12 +32,17 @@ controlled reference world, not mathematical novelty or scientific promotion.
 
 ## Persistent-residual hidden-term Level 4 acceptance
 
-The Level-4 controlled benchmark passes `18/18` checks with status
+The Level-4 controlled benchmark passes `19/19` checks with status
 `PASS_BLIND_HIDDEN_TERM_DISCOVERY`. A frozen depth-1 representation fails with
 discovery NRMSE about `0.55557`; persistent discovery residual opens carrier
 depth 2, after which the selected hidden coordinate reaches discovery and sealed
 NRMSE near `1.5e-13`. The hidden semantics are post-freeze only, sealed data do
-not trigger expansion, and no causal or scientific promotion is granted.
+not trigger expansion, and no causal or scientific promotion is granted. The
+nineteenth mandatory gate verifies the top-level Atlas provenance chain: the
+execution receipt binds the input, axis registry, hypothesis space, code,
+result and receipt digests. Its claim status is
+`ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION`; this authenticates
+the computation path without asserting scientific truth or causality.
 
 
 

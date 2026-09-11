@@ -5532,7 +5532,7 @@ Final errors:
 Итог:
 
 \[
-\boxed{\texttt{PASS\_BLIND\_HIDDEN\_TERM\_DISCOVERY}:18/18}
+\boxed{\texttt{PASS\_BLIND\_HIDDEN\_TERM\_DISCOVERY}:19/19}
 \]
 
 Это квалифицирует mechanism
@@ -5544,6 +5544,14 @@ Final errors:
 \rightarrow\text{new coordinate birth}
 \rightarrow\text{sealed falsification}.
 \]
+
+Верхняя квитанция Level 4 дополнительно вводит provenance-связь:
+
+```math
+Pi_L4 = Bind(D_input, D_axis, D_H, D_code, D_result, D_receipt).
+```
+
+Общий PASS допустим только при полной проверке обязательных полей, валидном digest квитанции и совпадении привязок к коду и результату. Статус `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION` утверждает происхождение вычисления, но не научную истинность.
 
 Scientific promotion по-прежнему запрещена автоматически:
 

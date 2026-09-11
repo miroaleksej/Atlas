@@ -16,26 +16,26 @@
     "language_expansion_journal": [
       {
         "algebra_carrier_factor_depth": 1,
-        "digest": "834c9e6ac7e7a038d6ceea027fb7916147c72599479af87648142c990cf2a159",
+        "digest": "77105bd88d7afe7f9d80551dcae76a7f1f3df7d57c7a982b974668c3b1282658",
         "discovery_holdout_nrmse": 0.555568790487687,
         "fit_gate_reached": false,
         "generated_signature_count": 4,
-        "receipt_digest": "29790a1fa400bd35d83cbca220e7e48f722c2fbd358d16d4a5c1f08b10205912",
+        "receipt_digest": "9ff4cab27393ec8b05f58c66e37f00ab96cfc3fdfa157b903c88771401adff12",
         "residual_persisted": true,
         "status": "REPRESENTATION_GAP_OPERATOR_PROBE_PROTOCOL_FROZEN_AWAITING_ATTESTED_RESPONSES"
       },
       {
         "algebra_carrier_factor_depth": 2,
-        "digest": "33388a2f446fc993311783bc964244db7ac9eb711794d7bf46478170916a6b80",
+        "digest": "9d778f286d1b747603f2ae641b35787d896cd14e4e48aba4526ef0b8caba61b1",
         "discovery_holdout_nrmse": 1.4972717850205206e-13,
         "fit_gate_reached": true,
         "generated_signature_count": 26,
-        "receipt_digest": "abb4f03c12d2c4b3721e400dccd44f1fb74d0c3641a519687fd4ab08e5797baa",
+        "receipt_digest": "de5eeba8859b74adf0c749ae81ee89f3e38ef33c97927d49285dc3d84d9e79b3",
         "residual_persisted": false,
         "status": "HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW"
       }
     ],
-    "receipt_digest": "89345d4aee2ab6c5973633d2e4d1d3a9a1fc4dcb82fc7de7957dfd55fc441f65",
+    "receipt_digest": "d4c434ee8cd7f5b71ac8b0e9ceb14fceeb040e1e6d40d2b4ffc7643b5d3b7605",
     "sealed_holdout": {
       "count": 156,
       "digest": "006908933d27d4372a444aa1db4628be28add7808c8113f7015dc2c1f75482ee",
@@ -119,6 +119,10 @@
     {
       "check": "CAUSALITY_NOT_AUTO_PROMOTED",
       "status": "PASS"
+    },
+    {
+      "check": "TOP_LEVEL_ATLAS_PROVENANCE_ACCEPTED",
+      "status": "PASS"
     }
   ],
   "claim_boundary": {
@@ -129,31 +133,32 @@
     "this_level_tests_unknown_term_recovery_from_persistent_residual": true,
     "world_novelty_claimed": false
   },
-  "digest": "2ec7adf548f6365b6402de68c020a97c621626e5b5b112f04bc2c8db35ebe5c7",
+  "digest": "bccc5912cacdb0ba95164dd5739d691902a0f136cbb5f0896a12d5485ec25476",
   "execution_receipt": {
     "atlas_claim": {
-      "atlas_native": false,
+      "atlas_native": true,
       "checks": {
-        "code_digest_bound": false,
+        "code_digest_bound": true,
         "issuer_is_adaptive_research_kernel": true,
         "receipt_digest_valid": true,
-        "required_receipt_fields_present": false,
-        "result_digest_bound": false
+        "required_receipt_fields_present": true,
+        "result_digest_bound": true
       },
-      "digest": "adbfecab9a283b2e81d9a7c8a4d74030aa4268b248c1e44ce0157d6f8b19a6e8",
-      "missing_receipt_fields": [
-        "axis_registry_digest",
-        "hypothesis_space_digest",
-        "code_digest",
-        "result_digest"
-      ],
-      "origin": "UNKNOWN",
+      "digest": "b909e3acd8fd6894c7c3d00ade03fbe2ea390b356253837b89642de377280716",
+      "execution_receipt_digest": "d4c434ee8cd7f5b71ac8b0e9ceb14fceeb040e1e6d40d2b4ffc7643b5d3b7605",
+      "origin": "ATLAS_NATIVE",
       "owner": "CLAIM-PROVENANCE-FIREWALL/15.2.8",
+      "payload": {
+        "selected_algebra_carrier_factor_depth": 2,
+        "status": "HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW"
+      },
+      "result_digest": "2656c4829732e0edbfc2a7e1d764af6afbb6117018ed6f1a23978dde0cb0bf8a",
       "schema": "phi-claim-provenance-firewall/v1",
       "scientific_truth_established": false,
       "statement": "Atlas residual-driven language cycle BLIND-HIDDEN-TERM-001 produced status HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW",
-      "status": "REJECTED_ATLAS_NATIVE_PROVENANCE"
+      "status": "ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION"
     },
+    "axis_registry_digest": "059fa1d005baa1b0092bc374617b71081fcfc1c1da8e9efa0e97c7da113070ff",
     "claim_boundary": {
       "carrier_factor_depth_budget_is_scientific_ceiling": false,
       "language_expansion_triggered_only_by_persistent_discovery_residual": true,
@@ -162,7 +167,8 @@
       "sealed_holdout_used_to_trigger_language_expansion": false,
       "world_novelty_established": false
     },
-    "digest": "89345d4aee2ab6c5973633d2e4d1d3a9a1fc4dcb82fc7de7957dfd55fc441f65",
+    "code_digest": "254fea7288422cc00e3c6f7d1e70f5ff2c5c03c4ef14a0066e1b211959ba7ca2",
+    "digest": "d4c434ee8cd7f5b71ac8b0e9ceb14fceeb040e1e6d40d2b4ffc7643b5d3b7605",
     "entry_mode": "PRIMITIVE_FIELD_RESIDUAL_LANGUAGE_DISCOVERY",
     "final_language_receipt": {
       "atlas_claim": {
@@ -174,8 +180,8 @@
           "required_receipt_fields_present": true,
           "result_digest_bound": true
         },
-        "digest": "52217e2bf6b33bbe127b9c1d03939b55a03c19d71224b692b1892d7cd802a030",
-        "execution_receipt_digest": "abb4f03c12d2c4b3721e400dccd44f1fb74d0c3641a519687fd4ab08e5797baa",
+        "digest": "ef67630bd81e3db405c66e4bac3631dd674296b1bb2f6e60c98ad2257a6c448e",
+        "execution_receipt_digest": "de5eeba8859b74adf0c749ae81ee89f3e38ef33c97927d49285dc3d84d9e79b3",
         "origin": "ATLAS_NATIVE",
         "owner": "CLAIM-PROVENANCE-FIREWALL/15.2.8",
         "payload": {
@@ -673,8 +679,8 @@
         "sealed_holdout_used_for_axis_birth": false,
         "world_novelty_established": false
       },
-      "code_digest": "7668721cb27743480d178a4eaccdcf4ec01e46af227401a139ec5e1fca804f11",
-      "digest": "abb4f03c12d2c4b3721e400dccd44f1fb74d0c3641a519687fd4ab08e5797baa",
+      "code_digest": "254fea7288422cc00e3c6f7d1e70f5ff2c5c03c4ef14a0066e1b211959ba7ca2",
+      "digest": "de5eeba8859b74adf0c749ae81ee89f3e38ef33c97927d49285dc3d84d9e79b3",
       "entry_mode": "PRIMITIVE_FIELD_DISCOVERY",
       "hypothesis_space_digest": "5c0b012dd258164154525fb2cf1516489e3ef676ff88b1773a59450c6708a542",
       "inner_research_receipt": {
@@ -687,8 +693,8 @@
             "required_receipt_fields_present": true,
             "result_digest_bound": true
           },
-          "digest": "ab1dcb74f4cd01e7c5957dc0f0115a8a8f9ab75d07ca57e84801f2720d9f3b20",
-          "execution_receipt_digest": "991a27c2148f0410b27ff1555e8a401ef051c9269f39f9ef8e86da1e362b77b0",
+          "digest": "6bc00da2727bdc7a6bb0797009b7a9e2060dbe164ae992301d44715cf09cbbc1",
+          "execution_receipt_digest": "979e0d09a1b2dc135e74f2fcf7a2ab5e4b153c07a198291380182c0505a3a5ff",
           "origin": "ATLAS_NATIVE",
           "owner": "CLAIM-PROVENANCE-FIREWALL/15.2.8",
           "payload": {
@@ -916,8 +922,8 @@
           "representation_activation_is_causal_proof": false,
           "sealed_holdout_used_for_axis_activation": false
         },
-        "code_digest": "7668721cb27743480d178a4eaccdcf4ec01e46af227401a139ec5e1fca804f11",
-        "digest": "991a27c2148f0410b27ff1555e8a401ef051c9269f39f9ef8e86da1e362b77b0",
+        "code_digest": "254fea7288422cc00e3c6f7d1e70f5ff2c5c03c4ef14a0066e1b211959ba7ca2",
+        "digest": "979e0d09a1b2dc135e74f2fcf7a2ab5e4b153c07a198291380182c0505a3a5ff",
         "discriminating_experiment": {
           "digest": "bf156314e5ca760d06bd3e8dc00f7bb13e79468c931d7cc99d9d5e441123b783",
           "rows": [],
@@ -3161,7 +3167,7 @@
         "result_digest": "68ba4a8c6a7d8a0a526f207077025704c939b2a7ccc3d489583e29962265f3ee",
         "schema": "phi-adaptive-research-kernel/v2"
       },
-      "inner_research_receipt_digest": "991a27c2148f0410b27ff1555e8a401ef051c9269f39f9ef8e86da1e362b77b0",
+      "inner_research_receipt_digest": "979e0d09a1b2dc135e74f2fcf7a2ab5e4b153c07a198291380182c0505a3a5ff",
       "input_digest": "946f6ed2ca90b6d2e6693951eb436dea5277f174a5c79204291cd3cc8e031553",
       "observations_origin": "CALLER_SUPPLIED_PRIMITIVE_FIELDS_ONLY",
       "operator_language_invention": {
@@ -20194,6 +20200,7 @@
       "schema": "phi-adaptive-research-kernel-primitive-field/v1",
       "support_search_candidate_axis_count": 10
     },
+    "hypothesis_space_digest": "5c0b012dd258164154525fb2cf1516489e3ef676ff88b1773a59450c6708a542",
     "initial_language_receipt": {
       "atlas_claim": {
         "atlas_native": true,
@@ -20204,8 +20211,8 @@
           "required_receipt_fields_present": true,
           "result_digest_bound": true
         },
-        "digest": "d3de1eb9880f9724c278e5078fcc82bb76d87dd7a3cc46286842da86bd358c20",
-        "execution_receipt_digest": "29790a1fa400bd35d83cbca220e7e48f722c2fbd358d16d4a5c1f08b10205912",
+        "digest": "d46c409c3410bc5e5f1b696385843f2b7f34fc7ddc253bd9f8a61859ca28bfaa",
+        "execution_receipt_digest": "9ff4cab27393ec8b05f58c66e37f00ab96cfc3fdfa157b903c88771401adff12",
         "origin": "ATLAS_NATIVE",
         "owner": "CLAIM-PROVENANCE-FIREWALL/15.2.8",
         "payload": {
@@ -20343,8 +20350,8 @@
         "sealed_holdout_used_for_axis_birth": false,
         "world_novelty_established": false
       },
-      "code_digest": "7668721cb27743480d178a4eaccdcf4ec01e46af227401a139ec5e1fca804f11",
-      "digest": "29790a1fa400bd35d83cbca220e7e48f722c2fbd358d16d4a5c1f08b10205912",
+      "code_digest": "254fea7288422cc00e3c6f7d1e70f5ff2c5c03c4ef14a0066e1b211959ba7ca2",
+      "digest": "9ff4cab27393ec8b05f58c66e37f00ab96cfc3fdfa157b903c88771401adff12",
       "entry_mode": "PRIMITIVE_FIELD_DISCOVERY",
       "hypothesis_space_digest": "bbfda51dc5b5095a16dae0d169eddb2235f4ec4bbcfa235d4c470608076813dd",
       "inner_research_receipt": {
@@ -20357,8 +20364,8 @@
             "required_receipt_fields_present": true,
             "result_digest_bound": true
           },
-          "digest": "aee873400646233ba9ae8b8ce2512a80d0f8ef8607c8893f9ab6c42a9ad96db0",
-          "execution_receipt_digest": "f2395763fe71ad9a7bee7b2d9300c03d031308031819065725e7ca20024af6c2",
+          "digest": "07fad3852b397bfd3e30feed25b23fb16868c722e2eefc46afd9fef13a771f3e",
+          "execution_receipt_digest": "d8792c8757b7dba7259d0d873ae112a092934588bd506f9a7c08d0bd5fc0c4b0",
           "origin": "ATLAS_NATIVE",
           "owner": "CLAIM-PROVENANCE-FIREWALL/15.2.8",
           "payload": {
@@ -20458,8 +20465,8 @@
           "representation_activation_is_causal_proof": false,
           "sealed_holdout_used_for_axis_activation": false
         },
-        "code_digest": "7668721cb27743480d178a4eaccdcf4ec01e46af227401a139ec5e1fca804f11",
-        "digest": "f2395763fe71ad9a7bee7b2d9300c03d031308031819065725e7ca20024af6c2",
+        "code_digest": "254fea7288422cc00e3c6f7d1e70f5ff2c5c03c4ef14a0066e1b211959ba7ca2",
+        "digest": "d8792c8757b7dba7259d0d873ae112a092934588bd506f9a7c08d0bd5fc0c4b0",
         "discriminating_experiment": {
           "digest": "bf156314e5ca760d06bd3e8dc00f7bb13e79468c931d7cc99d9d5e441123b783",
           "rows": [],
@@ -22006,7 +22013,7 @@
         "result_digest": "62c4da4ef2a68656c291713b88fc760471a756a0a82869994e51ce14a618b285",
         "schema": "phi-adaptive-research-kernel/v2"
       },
-      "inner_research_receipt_digest": "f2395763fe71ad9a7bee7b2d9300c03d031308031819065725e7ca20024af6c2",
+      "inner_research_receipt_digest": "d8792c8757b7dba7259d0d873ae112a092934588bd506f9a7c08d0bd5fc0c4b0",
       "input_digest": "d89950e4416cb8631cdeaa06def1fae6362fdc0a3bd124904ab4e804093d820c",
       "observations_origin": "CALLER_SUPPLIED_PRIMITIVE_FIELDS_ONLY",
       "operator_language_invention": {
@@ -27554,21 +27561,21 @@
     "language_expansion_journal": [
       {
         "algebra_carrier_factor_depth": 1,
-        "digest": "834c9e6ac7e7a038d6ceea027fb7916147c72599479af87648142c990cf2a159",
+        "digest": "77105bd88d7afe7f9d80551dcae76a7f1f3df7d57c7a982b974668c3b1282658",
         "discovery_holdout_nrmse": 0.555568790487687,
         "fit_gate_reached": false,
         "generated_signature_count": 4,
-        "receipt_digest": "29790a1fa400bd35d83cbca220e7e48f722c2fbd358d16d4a5c1f08b10205912",
+        "receipt_digest": "9ff4cab27393ec8b05f58c66e37f00ab96cfc3fdfa157b903c88771401adff12",
         "residual_persisted": true,
         "status": "REPRESENTATION_GAP_OPERATOR_PROBE_PROTOCOL_FROZEN_AWAITING_ATTESTED_RESPONSES"
       },
       {
         "algebra_carrier_factor_depth": 2,
-        "digest": "33388a2f446fc993311783bc964244db7ac9eb711794d7bf46478170916a6b80",
+        "digest": "9d778f286d1b747603f2ae641b35787d896cd14e4e48aba4526ef0b8caba61b1",
         "discovery_holdout_nrmse": 1.4972717850205206e-13,
         "fit_gate_reached": true,
         "generated_signature_count": 26,
-        "receipt_digest": "abb4f03c12d2c4b3721e400dccd44f1fb74d0c3641a519687fd4ab08e5797baa",
+        "receipt_digest": "de5eeba8859b74adf0c749ae81ee89f3e38ef33c97927d49285dc3d84d9e79b3",
         "residual_persisted": false,
         "status": "HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW"
       }
@@ -28013,12 +28020,13 @@
       "status": "HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW",
       "support_search_candidate_axis_count": 10
     },
+    "result_digest": "2656c4829732e0edbfc2a7e1d764af6afbb6117018ed6f1a23978dde0cb0bf8a",
     "schema": "phi-adaptive-research-kernel-residual-language/v1",
     "selected_algebra_carrier_factor_depth": 2
   },
-  "experiment_source_sha256": "a68ac33986b77044cbb6f9f36ad2892c19ab785e5f4c66aa9e4cee425c933a7e",
+  "experiment_source_sha256": "cd20fb5b9dc1e7888480375e3b3d12fb0fa488193613936d11986c9605855e81",
   "owner": "BLIND-HIDDEN-TERM-RESIDUAL-DISCOVERY/1.0.0",
-  "passed": 18,
+  "passed": 19,
   "patch_level": "persistent-residual-hidden-term-level-4",
   "postfreeze_decoding": {
     "baseline_axis": "pf_c71a23da4736858c",
@@ -28192,7 +28200,7 @@
       "status": "FROZEN"
     },
     {
-      "digest": "89345d4aee2ab6c5973633d2e4d1d3a9a1fc4dcb82fc7de7957dfd55fc441f65",
+      "digest": "d4c434ee8cd7f5b71ac8b0e9ceb14fceeb040e1e6d40d2b4ffc7643b5d3b7605",
       "name": "RESIDUAL_DRIVEN_LANGUAGE_EXPANSION",
       "stage": 3,
       "status": "HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW"
@@ -28213,5 +28221,5 @@
   "runtime_release_id": "0.15.29.0",
   "schema": "phi-blind-hidden-term-residual-discovery/v1",
   "status": "PASS_BLIND_HIDDEN_TERM_DISCOVERY",
-  "total": 18
+  "total": 19
 }

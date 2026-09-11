@@ -1227,7 +1227,7 @@ make audit-read-only
 
 ## 17. Справочник по всем тестам
 
-В выпуске 0.15.29.0 собирается **128 тестов**. Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
+В выпуске 0.15.29.0 собирается **128 тестов** (число собранных случаев может быть больше числа функций из-за параметризации). Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
 
 ```bash
 pytest -q -p no:cacheprovider \
@@ -1249,7 +1249,7 @@ pytest -q -p no:cacheprovider \
 - `test_first_blind_real_physics_cycle_replays` — воспроизводит зафиксированный слепой физический цикл и проверяет его квитанции и метрики. Ожидается детерминированный PASS без заявления нового закона.
 - `test_adaptive_research_kernel_can_birth_multiple_dormant_axes_in_one_cycle` — строит ответ, которому одновременно нужны две dormant-оси, и проверяет полный subset search. Ожидается активация ровно `z` и `w`, `selected_cardinality = 2`, разрешённый multi-axis birth и отсутствие фиксированного числа осей на цикл.
 - `test_large_dormant_space_switches_to_sparse_forward_backward_search_without_cardinality_ceiling` — создаёт большое dormant-пространство, превышающее exhaustive trial budget. Ожидается переход на sparse forward/backward search, восстановление `z` и `w` и явная фиксация, что ресурсный бюджет не является научным потолком cardinality.
-- `test_residual_driven_language_expansion_discovers_hidden_two_factor_coordinate` — запускает Level-4 incomplete-representation control. Ожидается persistent residual на depth 1, автоматическое открытие depth 2, восстановление скрытой двухфакторной координаты и sealed OOD PASS без causal promotion.
+- `test_residual_driven_language_expansion_discovers_hidden_two_factor_coordinate` — запускает Level-4 incomplete-representation control. Ожидается persistent residual на depth 1, автоматическое открытие depth 2, восстановление скрытой двухфакторной координаты и sealed OOD PASS без causal promotion. Дополнительно проверяется верхняя provenance-квитанция: `atlas_native=true`, полный набор обязательных полей, а также привязка `code_digest` и `result_digest`.
 
 ### `tests/test_curvature_memory_current.py` — 2 теста
 
@@ -1872,8 +1872,26 @@ Acceptance:
 
 ```text
 PASS_BLIND_HIDDEN_TERM_DISCOVERY
-18 / 18 PASS
+19 / 19 PASS
+TOP_LEVEL_ATLAS_PROVENANCE_ACCEPTED = PASS
 ```
+
+## Верхняя provenance-печать Level 4
+
+Успешная численная подгонка сама по себе больше не достаточна для PASS этого контроля. `execution_receipt` обязан содержать `owner`, `schema`, `input_digest`, `axis_registry_digest`, `hypothesis_space_digest`, `code_digest`, `result_digest` и итоговый `digest`. `CLAIM-PROVENANCE-FIREWALL` пересчитывает цепочку и выдаёт `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION` только при её целостности.
+
+Проверить поля можно так:
+
+```bash
+python - <<'PY'
+import json
+r = json.load(open('reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_CURRENT.json'))['execution_receipt']
+print(r['atlas_claim']['status'])
+print(r['atlas_claim']['checks'])
+PY
+```
+
+Ожидаются `atlas_native = true`, `required_receipt_fields_present = true`, `code_digest_bound = true`, `result_digest_bound = true` и `receipt_digest_valid = true`. Эта печать удостоверяет происхождение выполнения, но не превращает representation coordinate в причинно установленную переменную и не продвигает гипотезу в научный закон.
 
 ## Запуск
 

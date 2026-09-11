@@ -1,5 +1,5 @@
 {
-  "digest": "d9d7a8e98da85d99f5c1f3e065e12eecb2ec27ff544610ccd9cc857387bd9455",
+  "digest": "cd75a223eed05196144d03da61b3edff87c97970669ab51b24c382ead1c7f2fe",
   "invariants": {
     "adaptive_subspace_search_has_no_fixed_order_ceiling": true,
     "agi_not_claimed": true,
@@ -7,6 +7,7 @@
     "all_axes_not_required_in_each_candidate": true,
     "assessment_epoch_is_never_reused_as_genesis_confirmation": true,
     "atlas_native_provenance_is_not_scientific_truth": true,
+    "atlas_native_provenance_is_scientific_promotion": false,
     "autonomous_epoch_genesis_uses_fresh_confirmation_data_after_shell_decision": true,
     "axis_birth_cardinality_is_adaptive": true,
     "axis_search_is_sparse_adaptive_and_open_ended": true,
@@ -49,6 +50,7 @@
     "fixed_axis_count_per_cycle_is_absent": true,
     "global_online_fdr_control_not_yet_claimed": true,
     "hidden_term_discovery_is_causal_establishment": false,
+    "hidden_term_top_level_provenance_is_mandatory": true,
     "higher_order_interaction_axis_birth_is_allowed": true,
     "historical_research_state_remains_absent": true,
     "known_overlap_never_implies_falsification": true,

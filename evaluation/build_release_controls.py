@@ -112,6 +112,9 @@ def run(root=None, *, allow_blocked=False):
   'fixed_scientific_depth_ceiling':None,
   'sealed_holdout_used_to_trigger_expansion':False,
   'hidden_term_semantics_prefreeze_visible':False,
+  'top_level_provenance_required_fields':['owner','schema','input_digest','axis_registry_digest','hypothesis_space_digest','code_digest','result_digest','digest'],
+  'top_level_provenance_fail_closed':True,
+  'atlas_native_provenance_is_scientific_promotion':False,
   'causally_established':False,
   'new_physical_law_established':False,
  }
@@ -267,6 +270,8 @@ def run(root=None, *, allow_blocked=False):
   'persistent_residual_may_expand_operator_language':True,
   'sealed_holdout_triggers_language_expansion':False,
   'hidden_term_discovery_is_causal_establishment':False,
+  'hidden_term_top_level_provenance_is_mandatory':True,
+  'atlas_native_provenance_is_scientific_promotion':False,
  })
  inv['digest']=digest_payload(inv); (root/'invariants.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
  files=controlled(root)
@@ -322,6 +327,8 @@ def run(root=None, *, allow_blocked=False):
   'persistent_residual_hidden_term_discovery_enabled':True,
   'hidden_term_expansion_uses_sealed_holdout':False,
   'hidden_term_representation_is_scientific_law':False,
+  'hidden_term_top_level_provenance_required':True,
+  'atlas_native_provenance_can_promote_scientific_truth':False,
  })
  man['research_state_policy'].update({
   'dynamic_quality_tiers_enabled':True,

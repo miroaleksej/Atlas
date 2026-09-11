@@ -1023,13 +1023,16 @@ python -m evaluation.navier_stokes_blind_experiment --mode hidden-term --output 
 
 ```text
 PASS_BLIND_HIDDEN_TERM_DISCOVERY
-18 / 18 PASS
+19 / 19 PASS
+TOP_LEVEL_ATLAS_PROVENANCE_ACCEPTED = PASS
 initial discovery NRMSE = 5.555687904876772e-1
 final discovery NRMSE   = 1.5146444163333484e-13
 sealed OOD NRMSE        = 1.5289221198455143e-13
 ```
 
-Hidden correction известна только reference-world builder и post-freeze verification. PASS является квалификацией механизма `persistent residual -> language expansion -> new coordinate birth -> sealed falsification`; он не является заявлением о новом физическом законе или причинности.
+Hidden correction известна только reference-world builder и post-freeze verification. Верхняя квитанция цикла теперь обязательно связывает владельца и схему с `input_digest`, `axis_registry_digest`, `hypothesis_space_digest`, `code_digest`, `result_digest` и собственным `digest`. Firewall принимает происхождение только при валидной полной цепочке; иначе весь Level 4 завершается с отказом независимо от качества численной аппроксимации.
+
+Статус `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION` означает подтверждённое происхождение вычисления внутри Atlas, а не истинность закона. PASS квалифицирует механизм `persistent residual -> language expansion -> new coordinate birth -> sealed falsification`; он не является заявлением о новом физическом законе или причинности. По-прежнему выполняется `REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED`.
 
 ## Темы и сообщества
 

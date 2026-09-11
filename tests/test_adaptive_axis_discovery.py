@@ -242,3 +242,9 @@ def test_residual_driven_language_expansion_discovers_hidden_two_factor_coordina
     hidden = blind["hidden_candidate_axis_after_postfreeze_decode"]
     assert hidden in set(blind["effective_predictor_variables"])
     assert abs(blind["coefficients"][hidden] + 0.65) < 5e-3
+    claim = out["execution_receipt"]["atlas_claim"]
+    assert claim["atlas_native"] is True
+    assert claim["status"] == "ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION"
+    assert claim["checks"]["required_receipt_fields_present"] is True
+    assert claim["checks"]["code_digest_bound"] is True
+    assert claim["checks"]["result_digest_bound"] is True

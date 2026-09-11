@@ -2559,6 +2559,14 @@ class AdaptiveResearchKernelOwner:
             selected=receipts[-1]
         initial=receipts[0]; final=selected
         result=dict(final.get("result",{}))
+        selected_depth=int((final.get("operator_language_invention") or {}).get("carrier_factor_budget",1))
+        orchestration_result_digest=digest_payload({
+            "result":result,
+            "language_expansion_journal":journal,
+            "selected_algebra_carrier_factor_depth":selected_depth,
+            "initial_language_receipt_digest":initial.get("digest"),
+            "final_language_receipt_digest":final.get("digest"),
+        })
         core={
             "schema":"phi-adaptive-research-kernel-residual-language/v1",
             "owner":self.owner_id,
@@ -2570,10 +2578,14 @@ class AdaptiveResearchKernelOwner:
                 "baseline_operator_signature":request.get("baseline_operator_signature"),
                 "fit_tolerance_nrmse":request.get("fit_tolerance_nrmse"),
             }),
+            "axis_registry_digest":final.get("axis_registry_digest"),
+            "hypothesis_space_digest":final.get("hypothesis_space_digest"),
+            "code_digest":self._code_digest(),
+            "result_digest":orchestration_result_digest,
             "language_expansion_journal":journal,
             "initial_language_receipt":initial,
             "final_language_receipt":final,
-            "selected_algebra_carrier_factor_depth":int((final.get("operator_language_invention") or {}).get("carrier_factor_budget",1)),
+            "selected_algebra_carrier_factor_depth":selected_depth,
             "result":result,
             "claim_boundary":{
                 "language_expansion_triggered_only_by_persistent_discovery_residual":True,

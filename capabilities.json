@@ -45,9 +45,9 @@
     "single_axis_greedy_growth_required": false
   },
   "blind_real_physics_experiment": {
-    "digest": "710a80f5188c21278a1819071469804d929c2c0cbfd0352b802414beeac22ffd",
+    "digest": "d98970176525f0e4b2380b747c9e8521e9f739199cf70bf13c657e9307aa4cee",
     "problem_id": "DLR-OLAF-FIRST-BLIND-REAL-PHYSICS-001",
-    "research_freeze_digest": "47e2414d891239328c143d5639f27f21fa7392fdfeba3432e051e91752903c73",
+    "research_freeze_digest": "88ca6f462f48b43432a25bc6ad942734c00915e7f8c848ed9b068ce2a9d5ea6b",
     "scientific_discovery_established": false,
     "status": "PASS_FIRST_BLIND_REAL_PHYSICS_EXPERIMENT"
   },
@@ -115,7 +115,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "fd11ae3cd07eee3064f1828017449c6f35271dfd6379ff49a137747521b2b735",
+  "digest": "a95877df4c2e896092024c887bcb03aabca8471a9a062f0bab7f83106726f710",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -229,13 +229,25 @@
   },
   "persistent_residual_hidden_term_discovery": {
     "algebra_carrier_depth_adaptive": true,
+    "atlas_native_provenance_is_scientific_promotion": false,
     "causally_established": false,
     "fixed_scientific_depth_ceiling": null,
     "hidden_term_semantics_prefreeze_visible": false,
     "language_expansion_trigger": "PERSISTENT_DISCOVERY_RESIDUAL",
     "level": 4,
     "new_physical_law_established": false,
-    "sealed_holdout_used_to_trigger_expansion": false
+    "sealed_holdout_used_to_trigger_expansion": false,
+    "top_level_provenance_fail_closed": true,
+    "top_level_provenance_required_fields": [
+      "owner",
+      "schema",
+      "input_digest",
+      "axis_registry_digest",
+      "hypothesis_space_digest",
+      "code_digest",
+      "result_digest",
+      "digest"
+    ]
   },
   "preserved": {
     "canonical_axis_count": 655,
@@ -255,7 +267,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "e66f546cb50a20881758f0da3897ae0e6032eb2be9986ffc7f33dc573678686f",
+  "qualification_digest": "d2f003ab8ecaf65190ae4608922a237133cca6a51a04011370fd952ad364db73",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,
