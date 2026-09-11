@@ -1,4 +1,4 @@
-.PHONY: collect research-triage targeted first-experiment real-experiment navier-stokes-experiment navier-stokes-primitive-field navier-stokes-operator-language hidden-term-discovery turbulence-dns-closure frontier-scan science-atlas self-repair replay-prepare replay-batches replay-aggregate full qualify release-controls seal-audit audit-read-only clean
+.PHONY: collect research-triage targeted first-experiment real-experiment navier-stokes-experiment navier-stokes-primitive-field navier-stokes-operator-language hidden-term-discovery turbulence-dns-closure turbulence-dns-fetch-real turbulence-dns-closure-real frontier-scan science-atlas self-repair replay-prepare replay-batches replay-aggregate full qualify release-controls seal-audit audit-read-only clean
 
 PYENV = PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 
@@ -34,6 +34,18 @@ hidden-term-discovery:
 turbulence-dns-closure:
 	@test -n "$(DNS_MANIFEST)" || (echo "DNS_MANIFEST is required" && exit 2)
 	$(PYENV) python -m evaluation.turbulence_dns_closure_experiment --manifest "$(DNS_MANIFEST)" --components "$${DNS_COMPONENTS:-x,y,z}" --output reports/TURBULENCE_DNS_CLOSURE_CURRENT.json --summary
+
+# Download the frozen real JHTDB cross-Re dataset into examples/dns_snapshots.
+# Optional: export JHTDB_TOKEN=<registered token>; otherwise the public testing token is used sequentially.
+turbulence-dns-fetch-real:
+	$(PYENV) python -m evaluation.fetch_jhtdb_real_snapshots
+
+# Ready-to-run real experiment. Downloads data only if the frozen real manifest is absent.
+turbulence-dns-closure-real:
+	@if [ ! -f examples/turbulence_dns_closure_manifest.real.json ]; then \
+		$(PYENV) python -m evaluation.fetch_jhtdb_real_snapshots; \
+	fi
+	$(PYENV) python -m evaluation.turbulence_dns_closure_experiment --manifest examples/turbulence_dns_closure_manifest.real.json --components "$${DNS_COMPONENTS:-x,y,z}" --output reports/TURBULENCE_DNS_CLOSURE_CURRENT.json --summary
 
 frontier-scan:
 	$(PYENV) python -c 'from source.lawspace.scientific_exploitation import write_current_state; write_current_state(".", ai_extension_verified=True)'

@@ -14,6 +14,7 @@ LOCAL_DIRECTORY_NAMES = frozenset({
     ".nox",
     "__pycache__",
     "node_modules",
+    "dns_snapshots",
 })
 LOCAL_FILE_NAMES = frozenset({
     ".DS_Store",
@@ -23,6 +24,7 @@ LOCAL_FILE_NAMES = frozenset({
     "HIDDEN_TERM_RESIDUAL_DISCOVERY_CURRENT.json",
     "HIDDEN_TERM_RESIDUAL_DISCOVERY_PROVENANCE_SEAL_REFERENCE_PASS.json",
     "TURBULENCE_DNS_CLOSURE_CURRENT.json",
+    "turbulence_dns_closure_manifest.real.json",
 })
 LOCAL_SUFFIXES = frozenset({".pyc", ".pyo"})
 

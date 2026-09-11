@@ -1,0 +1,100 @@
+{
+  "endpoint": "https://web.idies.jhu.edu/turbulence-svc/cutout/api/local",
+  "owner": "JHTDB-REAL-DNS-SNAPSHOT-ADAPTER/1.0.0",
+  "points_per_query": 2916,
+  "public_testing_token_point_limit": "<4096 points per query",
+  "queries_per_snapshot": 2,
+  "snapshots": [
+    {
+      "dataset": "isotropic1024coarse",
+      "filename": "dns_discovery_01.npz",
+      "grid_spacing": 0.006135923151542565,
+      "regime_id": "JHTDB-ISOTROPIC1024-RLAMBDA-APPROX-433",
+      "reynolds_note": "R_lambda approximately 433",
+      "role": "DISCOVERY",
+      "start_xyz": [
+        65,
+        129,
+        193
+      ],
+      "study_id": "DNS-DISCOVERY-01",
+      "time_index": 1
+    },
+    {
+      "dataset": "isotropic1024coarse",
+      "filename": "dns_discovery_02.npz",
+      "grid_spacing": 0.006135923151542565,
+      "regime_id": "JHTDB-ISOTROPIC1024-RLAMBDA-APPROX-433",
+      "reynolds_note": "R_lambda approximately 433",
+      "role": "DISCOVERY",
+      "start_xyz": [
+        257,
+        321,
+        385
+      ],
+      "study_id": "DNS-DISCOVERY-02",
+      "time_index": 501
+    },
+    {
+      "dataset": "isotropic1024coarse",
+      "filename": "dns_discovery_03.npz",
+      "grid_spacing": 0.006135923151542565,
+      "regime_id": "JHTDB-ISOTROPIC1024-RLAMBDA-APPROX-433",
+      "reynolds_note": "R_lambda approximately 433",
+      "role": "DISCOVERY",
+      "start_xyz": [
+        449,
+        513,
+        577
+      ],
+      "study_id": "DNS-DISCOVERY-03",
+      "time_index": 1001
+    },
+    {
+      "dataset": "isotropic1024coarse",
+      "filename": "dns_discovery_04.npz",
+      "grid_spacing": 0.006135923151542565,
+      "regime_id": "JHTDB-ISOTROPIC1024-RLAMBDA-APPROX-433",
+      "reynolds_note": "R_lambda approximately 433",
+      "role": "DISCOVERY",
+      "start_xyz": [
+        641,
+        705,
+        769
+      ],
+      "study_id": "DNS-DISCOVERY-04",
+      "time_index": 1501
+    },
+    {
+      "dataset": "isotropic4096",
+      "filename": "dns_sealed_01.npz",
+      "grid_spacing": 0.0015339807878856412,
+      "regime_id": "JHTDB-ISOTROPIC4096-RLAMBDA-610-57",
+      "reynolds_note": "R_lambda = 610.57",
+      "role": "SEALED_HOLDOUT",
+      "start_xyz": [
+        1025,
+        1537,
+        2049
+      ],
+      "study_id": "DNS-SEALED-01",
+      "time_index": 1
+    },
+    {
+      "dataset": "isotropic4096",
+      "filename": "dns_sealed_02.npz",
+      "grid_spacing": 0.0015339807878856412,
+      "regime_id": "JHTDB-ISOTROPIC4096-RLAMBDA-610-57",
+      "reynolds_note": "R_lambda = 610.57",
+      "role": "SEALED_HOLDOUT",
+      "start_xyz": [
+        2561,
+        3073,
+        3585
+      ],
+      "study_id": "DNS-SEALED-02",
+      "time_index": 1
+    }
+  ],
+  "source_cube_edge": 18
+}

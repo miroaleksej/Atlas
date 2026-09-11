@@ -1165,11 +1165,12 @@ Human-review state is external and append-only at the action level. `SPONSOR_REV
 7. Level-4 PASS SHALL fail closed unless `CLAIM-PROVENANCE-FIREWALL` verifies the receipt, code and result bindings.
 8. `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION` SHALL mean execution provenance only; it SHALL NOT establish causal or scientific truth.
 
-## Direct-target DNS residual research — контракт 0.15.29.0
+## Direct-target JHTDB DNS residual research — контракт 0.15.29.0
 
-1. `DIRECT_FIELD_VALUE` SHALL use the declared target field as response only and SHALL exclude it from every predictor response and carrier signature.
-2. Caller-supplied derivative predictors and named turbulence-closure catalogues SHALL NOT be required by this route.
-3. Discovery and sealed datasets SHALL have disjoint `regime_id` sets before transfer evaluation.
-4. Sealed and null-control observations SHALL NOT generate axes, select support or refit coefficients.
-5. Finite operator-rank, carrier-depth and subset-trial budgets SHALL be execution guards, not scientific ceilings.
-6. `PASS_PROTOCOL_INTEGRITY` SHALL assert protocol execution only. A surviving transfer candidate SHALL remain `NOT_LAW` and `CAUSALLY_NOT_ESTABLISHED`.
+1. `DIRECT_FIELD_VALUE` SHALL use the target field as response only and SHALL exclude it from every predictor response and carrier signature.
+2. JHTDB acquisition SHALL download raw velocity only; derivative and closure predictors SHALL NOT be supplied to Atlas.
+3. Discovery and sealed datasets SHALL have disjoint `regime_id`, dataset and Reynolds-regime identities before transfer evaluation.
+4. Each generated NPZ SHALL be SHA-256-bound to its acquisition receipt; user-supplied private tokens SHALL be redacted.
+5. Sealed and null observations SHALL NOT generate axes, select support or refit coefficients.
+6. Finite operator-rank, carrier-depth, subset-trial and HTTP request budgets SHALL be execution guards, not scientific ceilings.
+7. `PASS_PROTOCOL_INTEGRITY` SHALL assert protocol execution only. A surviving transfer candidate SHALL remain `NOT_LAW` and `CAUSALLY_NOT_ESTABLISHED`.

@@ -1227,7 +1227,7 @@ make audit-read-only
 
 ## 17. Справочник по всем тестам
 
-В выпуске 0.15.29.0 после интеграции DNS-эксперимента собирается **131 тест** (число собранных случаев может быть больше числа функций из-за параметризации). Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
+В выпуске 0.15.29.0 после интеграции JHTDB bootstrap собирается **134 теста** (число собранных случаев может быть больше числа функций из-за параметризации). Ниже описан каждый тест: что проверяется, каким способом и какой результат считается успешным. Идентификатор после имени файла можно передать `pytest` для отдельного запуска:
 
 ```bash
 pytest -q -p no:cacheprovider \
@@ -1915,23 +1915,26 @@ python -m evaluation.navier_stokes_blind_experiment \
 
 Level-4 PASS означает только следующее: на controlled reference world Atlas смог обнаружить, что текущий representation language недостаточен, расширить его из уже разрешённых meta-primitives, выбрать новую typed composition и перенести найденную correction на unseen sealed parameters. Это **не** доказывает, что найден мировой новый закон, и не устанавливает причинность. `CAUSALLY_NOT_ESTABLISHED` сохраняется.
 
-# Blind DNS turbulence-closure experiment
+# Реальный JHTDB DNS turbulence-closure experiment
 
-Эксперимент принимает периодические равномерные DNS snapshots с трёхмерными массивами `u`, `v`, `w`. Адаптер применяет frozen spectral low-pass и вычисляет exact unresolved convective forcing как разность между отфильтрованной нелинейной динамикой DNS и нелинейной динамикой resolved-поля. Это аттестованный target, а не переданная closure-гипотеза.
+Эксперимент принимает периодические равномерные DNS snapshots с трёхмерными массивами `u`, `v`, `w`. Адаптер применяет frozen spectral low-pass и вычисляет unresolved convective forcing как разность между отфильтрованной нелинейной динамикой DNS и нелинейной динамикой resolved-поля. Это аттестованный target, а не переданная closure-гипотеза.
 
-В режиме `DIRECT_FIELD_VALUE` размерность response берётся непосредственно из target-field, а target исключается из `predictor_fields`. Mathematical Invention рождает размерностно допустимые координаты только из resolved velocity и filter-width полей; Theory Compiler вычисляет локальные translation-moment responses. Ресурсные rank/depth budgets ограничивают запуск, но не объявляют научный потолок языка.
+В режиме `DIRECT_FIELD_VALUE` target исключается из всех predictor response/carrier signatures. Mathematical Invention рождает размерностно допустимые coordinates только из resolved velocity и filter-width fields; Theory Compiler вычисляет локальные translation-moment responses. Ресурсные rank/depth budgets являются ограничителями запуска, а не научным потолком языка.
 
-Полная инструкция находится в [RUN_TURBULENCE_DNS_CLOSURE_RU.md](RUN_TURBULENCE_DNS_CLOSURE_RU.md). Базовый запуск:
+Frozen cross-Re plan находится в `examples/JHTDB_REAL_DNS_DOWNLOAD_PLAN.json`: четыре discovery cutout из `isotropic1024coarse` и два sealed cutout из `isotropic4096`. Downloader разбивает каждый куб на последовательные запросы по 2916 точек, преобразует официальный layout `z,y,x,component` в Atlas layout `x,y,z`, записывает `.npz` и SHA-256 provenance без сохранения private token.
 
 ```bash
-make turbulence-dns-closure \
-  DNS_MANIFEST=examples/turbulence_dns_closure_manifest.local.json
+python -m evaluation.fetch_jhtdb_real_snapshots --dry-run
+python -m evaluation.run_real_jhtdb_dns_closure
 ```
 
-Допустимые научные исходы: переносимый кандидат, fit без прохождения null-control либо representation gap/transfer failure. Ни один из них автоматически не устанавливает причинность или новый закон.
+Полная инструкция: [RUN_TURBULENCE_DNS_CLOSURE_RU.md](RUN_TURBULENCE_DNS_CLOSURE_RU.md). Generated snapshots, real manifest и текущий result являются локальными внешними артефактами и не входят в release seal.
 
-### Новые тесты DNS/direct-target
+### Новые тесты direct-target, DNS и JHTDB
 
-- `tests/test_direct_target_residual_discovery.py::test_direct_target_field_is_excluded_and_recovered` — строит прямое residual-field отношение, проверяет исключение target из всех predictor signatures, точное восстановление коэффициента и sealed OOD без научного продвижения.
-- `tests/test_turbulence_dns_closure_experiment.py::test_sgs_residual_is_finite_and_nontrivial` — генерирует периодический 3D snapshot, применяет DNS adapter и проверяет конечность, размерность массивов и ненулевой coarse-graining residual.
-- `tests/test_turbulence_dns_closure_experiment.py::test_dns_closure_harness_completes_without_auto_promotion` — запускает полный discovery/sealed harness на controlled 3D данных. Ожидается `PASS_PROTOCOL_INTEGRITY`, непересекающиеся regimes, валидная Atlas provenance и `scientific_law_established=false`.
+- `tests/test_direct_target_residual_discovery.py::test_direct_target_field_is_excluded_and_recovered` — проверяет anti-leakage direct-target пути, восстановление коэффициента и sealed OOD без promotion.
+- `tests/test_turbulence_dns_closure_experiment.py::test_sgs_residual_is_finite_and_nontrivial` — проверяет конечный ненулевой coarse-graining residual на periodic 3D snapshot.
+- `tests/test_turbulence_dns_closure_experiment.py::test_dns_closure_harness_completes_without_auto_promotion` — выполняет controlled discovery/sealed harness, provenance и claim boundary.
+- `tests/test_fetch_jhtdb_real_snapshots.py::test_query_size_remains_below_testing_token_limit` — подтверждает, что запрос 18×18×9 содержит 2916 точек и остаётся ниже публичного лимита 4096.
+- `tests/test_fetch_jhtdb_real_snapshots.py::test_download_snapshot_assembles_xyz_and_writes_npz` — подменяет HTTP локальным ответом, собирает два slab, проверяет перестановку осей и записанный grid spacing.
+- `tests/test_fetch_jhtdb_real_snapshots.py::test_manifest_is_real_cross_re_and_sha_bound` — строит manifest из шести файлов и проверяет реальные dataset statuses, discovery/sealed roles, два режима и SHA-256 каждого snapshot.

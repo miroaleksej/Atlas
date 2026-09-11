@@ -115,7 +115,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "666574efa6b74985ba0202a62aa2abd8295cbc35a30e3460b77c4910fe1d163a",
+  "digest": "aabb241df4cf9c4ee105af3831ca38cf2e6393622bfa81484776ae83ee9893e5",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -412,13 +412,18 @@
   "system": "Phi-Compiler / ScienceAtlas Adaptive Triage + Exploration Sandbox + Human Review + Multi-Pi + Function-Language Birth + EDA Chip PPA Pilot",
   "turbulence_dns_closure_experiment": {
     "caller_supplied_derivative_predictors_required": false,
+    "data_adapter": "JHTDB-REAL-DNS-SNAPSHOT-ADAPTER/1.0.0",
     "dataset_schema": "phi-dns-turbulence-closure-dataset/v1",
     "discovery_and_sealed_regimes_must_be_disjoint": true,
+    "discovery_dataset": "isotropic1024coarse",
+    "downloaded_npz_sha256_bound": true,
     "named_turbulence_closure_catalog_used": false,
     "new_turbulence_law_established": false,
     "null_control_enabled_by_default": true,
     "owner": "BLIND-DNS-TURBULENCE-CLOSURE-EXPERIMENT/1.0.0",
-    "real_dns_result_bundled": false,
+    "real_dns_bytes_bundled": false,
+    "sealed_dataset": "isotropic4096",
+    "snapshot_plan_frozen": true,
     "target_action_mode": "DIRECT_FIELD_VALUE",
     "target_field_excluded_from_predictor_language": true
   }

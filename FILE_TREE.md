@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 308
+Controlled files: 312
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -94,6 +94,7 @@ Controlled files: 308
 - `evaluation/developmental_open_endedness_qualification.py`
 - `evaluation/discriminating_experiment_qualification.py`
 - `evaluation/eda_chip_pilot.py`
+- `evaluation/fetch_jhtdb_real_snapshots.py`
 - `evaluation/first_atlas_native_experiment.py`
 - `evaluation/full_replay_qualification.py`
 - `evaluation/function_language_birth_qualification.py`
@@ -126,6 +127,7 @@ Controlled files: 308
 - `evaluation/research_triage_qualification.py`
 - `evaluation/resource_theory_qualification.py`
 - `evaluation/rotating_cubic_euler_qualification.py`
+- `evaluation/run_real_jhtdb_dns_closure.py`
 - `evaluation/science_atlas_core_qualification.py`
 - `evaluation/scientific_data_ingestion_qualification.py`
 - `evaluation/scientific_exploitation_qualification.py`
@@ -139,6 +141,7 @@ Controlled files: 308
 - `evaluation/theory_compiler_qualification.py`
 - `evaluation/turbulence_dns_closure_experiment.py`
 - `evaluation/unified_release_qualification.py`
+- `examples/JHTDB_REAL_DNS_DOWNLOAD_PLAN.json`
 - `examples/data/exoplanets_g_dimension_nasa2018.csv`
 - `examples/exoplanets_dimensional_birth_of_G.ipynb`
 - `examples/navier_stokes_blind_experiment.ipynb`
@@ -300,6 +303,7 @@ Controlled files: 308
 - `tests/test_electronic_state_space_current.py`
 - `tests/test_epoch_genesis_autonomous.py`
 - `tests/test_exoplanet_dimensional_closure_example.py`
+- `tests/test_fetch_jhtdb_real_snapshots.py`
 - `tests/test_function_language_birth.py`
 - `tests/test_permutation_eprocess_current.py`
 - `tests/test_query_driven_research_current.py`

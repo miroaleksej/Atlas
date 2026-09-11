@@ -12,3 +12,6 @@ reports/FIRST_POST_CLEAN_ATLAS_EXPERIMENT_CURRENT.json
 reports/THEORY_COMPILER_QUALIFICATION_CURRENT.json
 reports/ATOMIC_OPERATOR_PROBE_CYCLE_CURRENT.json
 reports/ATOMIC_VARIABLE_PARTICLE_SELF_CONSISTENT_CYCLE_CURRENT.json
+reports/TURBULENCE_DNS_CLOSURE_CURRENT.json
+examples/dns_snapshots/
+examples/turbulence_dns_closure_manifest.real.json

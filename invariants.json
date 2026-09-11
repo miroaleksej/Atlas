@@ -1,5 +1,5 @@
 {
-  "digest": "83b6676f269378003981a56635fd4612fad5e379798661258bca5164985a883e",
+  "digest": "a97e4f55cfc9cb01b9d051412a9d9c35e2bf07d4c77ffcf90094462bac87da42",
   "invariants": {
     "adaptive_subspace_search_has_no_fixed_order_ceiling": true,
     "agi_not_claimed": true,
@@ -56,6 +56,8 @@
     "hidden_term_top_level_provenance_is_mandatory": true,
     "higher_order_interaction_axis_birth_is_allowed": true,
     "historical_research_state_remains_absent": true,
+    "jhtdb_adapter_downloads_raw_velocity_only": true,
+    "jhtdb_private_token_is_not_persisted": true,
     "known_overlap_never_implies_falsification": true,
     "known_source_knowledge_is_not_a_search_result": true,
     "legacy_15_13_adaptive_frontier_identity_set_is_preserved": true,

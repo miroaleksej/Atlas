@@ -565,8 +565,8 @@ Human-in-the-loop здесь является **аудируемым механ�
 
 Статус `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION` означает только подтверждённое происхождение вычисления внутри Atlas. Он не означает истинность формулы, причинность активированной оси, открытие нового физического закона, мировую новизну или прохождение U5–U10. Даже при принятой provenance-печати сохраняются `REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED`, `CAUSALLY_NOT_ESTABLISHED` и запрет автоматического научного продвижения.
 
-## DNS turbulence-closure experiment — граница утверждений
+## Real JHTDB DNS turbulence-closure — граница утверждений
 
-Разрешено утверждать, что Atlas принимает periodic uniform DNS velocity snapshots, детерминированно строит аттестованный coarse-graining residual и исследует размерностно типизированные локальные representation coordinates без каталога известных closure-моделей. Разрешено сообщать отдельно protocol integrity, sealed transfer error и результат null-control.
+Разрешено утверждать, что bootstrap автоматически получает frozen raw-velocity cutout из JHTDB, связывает их SHA-256 и разделяет `isotropic1024coarse` discovery от `isotropic4096` sealed evidence. Разрешено отдельно сообщать protocol integrity, transfer error и null-control outcome.
 
-Запрещено называть `PASS_PROTOCOL_INTEGRITY` физическим открытием. Статус переносимого кандидата не устанавливает универсальное turbulence closure, причинность, независимое эмпирическое измерение target или новый закон. Реальные DNS-данные в патч не входят; без независимых discovery/sealed regimes научный результат отсутствует. `REPRESENTATION_GAP_OR_TRANSFER_FAILURE` является допустимым исходом, а не ошибкой системы.
+Архив не содержит реальные DNS bytes или готовый научный результат. Успешная загрузка данных не является открытием; `PASS_PROTOCOL_INTEGRITY` не устанавливает universal closure. Даже переносимый кандидат не доказывает причинность или новый закон турбулентности. Сетевой сбой, representation gap и transfer failure должны сохраняться явно и не могут заменяться синтетическими данными.

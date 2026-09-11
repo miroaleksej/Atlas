@@ -5563,18 +5563,16 @@ Scientific promotion по-прежнему запрещена автоматич
 \texttt{CAUSALLY\_NOT\_ESTABLISHED}.
 \]
 
-## DNS turbulence closure как open-world residual experiment
+## DNS turbulence closure и frozen cross-Re JHTDB protocol
 
-Для frozen фильтра `G_Δ` и DNS velocity `u_i` определим resolved field `U_i = G_Δ u_i`. Наблюдаемый unresolved convective forcing задаётся как
+Для frozen фильтра `G_Δ` и DNS velocity `u_i` определим resolved field `U_i = G_Δu_i` и наблюдаемый unresolved convective forcing
 
 ```math
 R_i = -[G_Δ(u_j partial_j u_i) - U_j partial_j U_i].
 ```
 
-Atlas не получает аналитическое closure `C_i(U, Δ)`. Он порождает из типизированных primitive fields локальные operator coordinates `φ_k[U, Δ]` и проверяет представление
+Atlas не получает аналитическое closure `C_i(U, Δ)`. В `DIRECT_FIELD_VALUE` поле `R_i` является только response и исключается из predictors. Ядро порождает локальные типизированные coordinates `φ_k[U, Δ]` и проверяет `R_i ≈ c_0 + Σ_k c_k φ_k` сначала на discovery regimes, затем без refit на sealed regime.
 
-```math
-R_i ≈ c_0 + Σ_k c_k φ_k
-```
+Frozen acquisition использует JHTDB `isotropic1024coarse` как discovery evidence и отдельный `isotropic4096` как sealed evidence. До поиска фиксируются dataset, time index, grid coordinates, spacing и SHA-256 raw-velocity `.npz`. JHTDB adapter не вычисляет derivative/closure predictors. Отрицательный контроль рассогласует target и predictors детерминированно.
 
-сначала на discovery regimes, затем на непересекающемся sealed regime. В режиме `DIRECT_FIELD_VALUE` поле `R_i` является только response и исключено из пространства predictors. Если residual остаётся, система фиксирует representation gap, а не отсутствие физики. Перенос и превосходство над детерминированно рассогласованным null-control создают лишь гипотезу для дальнейшей проверки; `scientific_law_established=false` и `CAUSALLY_NOT_ESTABLISHED` сохраняются.
+Transfer и превосходство над null создают только гипотезу для дальнейшей проверки. Representation gap является допустимым исходом; `scientific_law_established=false` и `CAUSALLY_NOT_ESTABLISHED` сохраняются.

@@ -1,84 +1,132 @@
-# Запуск blind DNS turbulence-closure experiment
+# Реальный blind DNS turbulence-closure experiment (JHTDB)
 
-Этот эксперимент предназначен для **реальных periodic DNS snapshots**. Он не содержит заранее выбранной turbulence-closure модели и не гарантирует научный `PASS`: `REPRESENTATION_GAP_OR_TRANSFER_FAILURE` является допустимым результатом.
+Этот комплект предназначен для **реального** эксперимента на Johns Hopkins Turbulence Database. Synthetic snapshots для научного запуска не используются.
 
-## 1. Подготовьте DNS snapshots
+## Что зафиксировано до запуска Atlas
 
-Каждый файл `.npz` должен содержать:
+Discovery и sealed данные выбраны заранее и записаны в `examples/JHTDB_REAL_DNS_DOWNLOAD_PLAN.json`.
 
-- `u`, `v`, `w` — три конечных 3D массива одинаковой формы;
-- либо один scalar `dx` для изотропной равномерной сетки;
-- либо scalar `dx`, `dy`, `dz`;
-- либо 1D arrays `x`, `y`, `z`.
+- **DISCOVERY**: 4 независимых cutout из `isotropic1024coarse`, DNS 1024³, Taylor-scale Reynolds number примерно `R_lambda ~ 433`.
+- **SEALED_HOLDOUT**: 2 пространственно разнесённых cutout из отдельного `isotropic4096`, DNS 4096³, `R_lambda = 610.57`.
+- source cube: `18×18×18` grid points;
+- spectral coarse-graining in Atlas: `filter_ratio = 2`;
+- Atlas grid after coarse-graining: `9×9×9`;
+- только raw velocity `u,v,w` загружается из JHTDB;
+- derivative/closure predictors из JHTDB не загружаются;
+- известная LES/RANS closure модель Atlas не передаётся.
 
-Минимальный пример сохранения уже имеющихся NumPy-массивов:
+Таким образом sealed часть отличается не только пространственной областью, но и Reynolds regime / DNS resolution.
 
-```python
-import numpy as np
-np.savez_compressed("dns_snapshot.npz", u=u, v=v, w=w, dx=dx)
+## 1. Скачать реальные DNS snapshots
+
+Никаких `.npz` вручную создавать не нужно. Выполните из корня Atlas:
+
+```bash
+python -m evaluation.fetch_jhtdb_real_snapshots
 ```
 
-Текущий adapter использует spectral low-pass и поэтому предполагает periodic uniform DNS.
+Downloader использует официальный JHTDB REST `getCutout`. По умолчанию применяется публичный testing token JHTDB. Каждый запрос содержит 2916 grid points, то есть остаётся ниже публичного лимита `<4096`, и запросы выполняются **последовательно**, не параллельно.
 
-## 2. Создайте manifest
+Если у вас есть собственный JHTDB token:
 
-Скопируйте:
+Windows PowerShell:
 
-`examples/turbulence_dns_closure_manifest.template.json`
+```powershell
+$env:JHTDB_TOKEN="ВАШ_TOKEN"
+python -m evaluation.fetch_jhtdb_real_snapshots
+```
 
-в, например:
+Linux/macOS:
 
-`examples/turbulence_dns_closure_manifest.local.json`
+```bash
+export JHTDB_TOKEN="ВАШ_TOKEN"
+python -m evaluation.fetch_jhtdb_real_snapshots
+```
 
-и замените `path` на реальные файлы. Discovery и sealed наборы должны иметь **разные `regime_id`**. Для настоящего transfer-test желательно, чтобы это были разные Reynolds number, forcing regime или другой flow regime.
+После успешной загрузки появятся:
 
-Также шаблон можно сгенерировать командой:
+```text
+examples/dns_snapshots/
+    dns_discovery_01.npz
+    dns_discovery_02.npz
+    dns_discovery_03.npz
+    dns_discovery_04.npz
+    dns_sealed_01.npz
+    dns_sealed_02.npz
+    JHTDB_DOWNLOAD_PROVENANCE.json
+
+examples/turbulence_dns_closure_manifest.real.json
+```
+
+Каждый `.npz` содержит:
+
+- `u`, `v`, `w` — реальные JHTDB velocity arrays формы `18×18×18`;
+- `dx` — реальный grid spacing соответствующего DNS.
+
+`JHTDB_DOWNLOAD_PROVENANCE.json` фиксирует исходный dataset, time index, 1-based grid coordinates, REST request metadata, response SHA-256 и SHA-256 каждого итогового `.npz`. Private token в receipt не записывается.
+
+Для просмотра frozen download plan без сети:
+
+```bash
+python -m evaluation.fetch_jhtdb_real_snapshots --dry-run
+```
+
+## 2. Запустить Atlas
+
+После получения шести `.npz`:
 
 ```bash
 python -m evaluation.turbulence_dns_closure_experiment \
-  --write-manifest-template examples/turbulence_dns_closure_manifest.local.json
-```
-
-## 3. Запустите
-
-Первый полный запуск:
-
-```bash
-python -m evaluation.turbulence_dns_closure_experiment \
-  --manifest examples/turbulence_dns_closure_manifest.local.json \
+  --manifest examples/turbulence_dns_closure_manifest.real.json \
   --components x,y,z \
   --output reports/TURBULENCE_DNS_CLOSURE_CURRENT.json \
   --summary
 ```
 
-Или:
+Самый простой вариант — одна Python-команда, работающая и в Windows PowerShell:
 
 ```bash
-make turbulence-dns-closure DNS_MANIFEST=examples/turbulence_dns_closure_manifest.local.json
+python -m evaluation.run_real_jhtdb_dns_closure
 ```
 
-Null-control включён по умолчанию. Для диагностического быстрого запуска его можно временно отключить `--skip-null-control`, но такой запуск слабее как научное свидетельство.
+Она сначала скачает и SHA-256-зафиксирует реальные JHTDB `.npz` (если их ещё нет), затем запустит Atlas.
 
-## 4. Что прислать обратно
+Если `make` доступен, эквивалентно:
 
-Пришлите один файл:
+```bash
+make turbulence-dns-closure-real
+```
+
+Эта цель скачает реальные JHTDB snapshots только если готового real manifest ещё нет, затем запустит Atlas.
+
+## 3. Что именно проверяется
+
+DNS adapter вычисляет наблюдаемый coarse-graining residual
+
+`target_i = -( filter(u_j * d_j u_i) - U_j * d_j U_i )`,
+
+где `U` — frozen spectral low-pass velocity. Это **target**, а не подсказанная closure модель.
+
+Atlas получает masked resolved velocity fields, filter width и target. Производные и operator coordinates должны возникнуть внутри Atlas. Sealed `isotropic4096` не используется для axis birth.
+
+Null-control включён по умолчанию.
+
+## 4. Честные возможные исходы
+
+- `TRANSFER_CANDIDATE_SURVIVES_CURRENT_SEALED_AND_NULL_EVIDENCE_NOT_LAW` — найден переносимый кандидат, но это ещё не закон;
+- `TRANSFER_FIT_SURVIVES_BUT_NULL_CONTROL_NOT_REJECTED` — fit есть, но отрицательный контроль не отделён;
+- `REPRESENTATION_GAP_OR_TRANSFER_FAILURE` — текущего языка Atlas недостаточно или перенос не подтверждён.
+
+Последний исход не является ошибкой программы: это исследовательский результат.
+
+## 5. Что прислать обратно
+
+После запуска пришлите:
 
 `reports/TURBULENCE_DNS_CLOSURE_CURRENT.json`
 
-Ключевые поля:
+Желательно также сохранить:
 
-- `protocol_status` — корректность blind/freeze/provenance протокола;
-- `component_outcomes` — научный результат по x/y/z;
-- `components[*].summary.selected_axes` — Atlas-born operator coordinates;
-- `real_sealed_nrmse` — transfer error;
-- `null_sealed_nrmse` — negative-control error;
-- `atlas_native` — provenance;
-- `claim_boundary` — запрет автоматического объявления закона.
+`examples/dns_snapshots/JHTDB_DOWNLOAD_PROVENANCE.json`
 
-Возможные научные исходы:
-
-- `TRANSFER_CANDIDATE_SURVIVES_CURRENT_SEALED_AND_NULL_EVIDENCE_NOT_LAW`;
-- `TRANSFER_FIT_SURVIVES_BUT_NULL_CONTROL_NOT_REJECTED`;
-- `REPRESENTATION_GAP_OR_TRANSFER_FAILURE`.
-
-Даже первый статус означает только сильного кандидата для дальнейшей независимой фальсификации, а не новый закон турбулентности.
+по нему можно независимо проверить, какие реальные JHTDB данные вошли в experiment freeze.

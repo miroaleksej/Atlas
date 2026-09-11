@@ -44,17 +44,16 @@ result and receipt digests. Its claim status is
 `ATLAS_NATIVE_PROVENANCE_ACCEPTED_NOT_SCIENTIFIC_PROMOTION`; this authenticates
 the computation path without asserting scientific truth or causality.
 
-## DNS turbulence-closure experiment acceptance
+## Real JHTDB DNS turbulence-closure bootstrap acceptance
 
-The patch adds a generic `DIRECT_FIELD_VALUE` route and a periodic DNS adapter.
-Acceptance requires the target field to be absent from all predictor signatures,
-disjoint discovery/sealed regime identities, Atlas-native top-level provenance,
-sealed evaluation without refit, and no automatic scientific promotion. The
-three new tests cover direct-target anti-leakage and coefficient recovery,
-nontrivial finite SGS residual construction, and full controlled 3D harness
-execution. The bundled smoke data qualify software and protocol behavior only;
-no real DNS result, universal closure, causal claim or new turbulence law is
-accepted.
+The replacement patch adds the generic `DIRECT_FIELD_VALUE` route, periodic DNS
+adapter and automatic JHTDB raw-velocity acquisition. Acceptance requires target
+anti-leakage, disjoint cross-Re discovery/sealed identities, SHA-256-bound NPZ
+provenance, redaction of user tokens, sequential public-token requests below
+4096 points, sealed evaluation without refit and no scientific promotion. Six
+tests cover direct-target/DNS behavior and the downloader/manifest bootstrap.
+The patch contains no real DNS bytes or scientific result; real network replay
+remains a separate external experiment and synthetic substitution is forbidden.
 
 
 

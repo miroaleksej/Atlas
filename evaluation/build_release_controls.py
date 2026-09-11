@@ -120,14 +120,19 @@ def run(root=None, *, allow_blocked=False):
  }
  caps['turbulence_dns_closure_experiment']={
   'owner':'BLIND-DNS-TURBULENCE-CLOSURE-EXPERIMENT/1.0.0',
+  'data_adapter':'JHTDB-REAL-DNS-SNAPSHOT-ADAPTER/1.0.0',
   'dataset_schema':'phi-dns-turbulence-closure-dataset/v1',
   'target_action_mode':'DIRECT_FIELD_VALUE',
   'target_field_excluded_from_predictor_language':True,
   'caller_supplied_derivative_predictors_required':False,
   'named_turbulence_closure_catalog_used':False,
+  'discovery_dataset':'isotropic1024coarse',
+  'sealed_dataset':'isotropic4096',
   'discovery_and_sealed_regimes_must_be_disjoint':True,
+  'snapshot_plan_frozen':True,
+  'downloaded_npz_sha256_bound':True,
   'null_control_enabled_by_default':True,
-  'real_dns_result_bundled':False,
+  'real_dns_bytes_bundled':False,
   'new_turbulence_law_established':False,
  }
  caps['query_research']={
@@ -285,6 +290,8 @@ def run(root=None, *, allow_blocked=False):
   'hidden_term_top_level_provenance_is_mandatory':True,
   'atlas_native_provenance_is_scientific_promotion':False,
   'direct_target_field_is_excluded_from_predictor_language':True,
+  'jhtdb_adapter_downloads_raw_velocity_only':True,
+  'jhtdb_private_token_is_not_persisted':True,
   'dns_closure_protocol_pass_is_not_turbulence_law':True,
   'dns_closure_representation_gap_is_valid_outcome':True,
  })
@@ -345,9 +352,11 @@ def run(root=None, *, allow_blocked=False):
   'hidden_term_top_level_provenance_required':True,
   'atlas_native_provenance_can_promote_scientific_truth':False,
   'turbulence_dns_closure_experiment_enabled':True,
+  'jhtdb_real_dns_bootstrap_enabled':True,
   'direct_target_field_used_as_predictor':False,
   'dns_discovery_and_sealed_regimes_may_overlap':False,
   'dns_protocol_integrity_is_scientific_law':False,
+  'real_dns_scientific_result_included_in_release':False,
  })
  man['research_state_policy'].update({
   'dynamic_quality_tiers_enabled':True,
