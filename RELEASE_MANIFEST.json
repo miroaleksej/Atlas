@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 316,
+  "controlled_file_count": 319,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -94,13 +94,13 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "607b35e2fa86831e7f8ac1d3cf04b91d78099eb2916370908241c9c7092cfd34",
-      "size": 234451
+      "sha256": "4ea83075075597e3b396ee134f01cd1f3f1b8c36e163079b5ed23d1c56c5d8c0",
+      "size": 262916
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
-      "sha256": "b1a997fc5071e53f67145f3220eaa7e732a991316c56bad8e231adb51747d8f8",
-      "size": 82672
+      "sha256": "5d75a0775722ad0e2675dad9addd51068dab5356aef26d79a889fbae70e2b112",
+      "size": 91252
     },
     {
       "path": "Makefile",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "03ddb22e5ca9fcc3b652fc9cdea5d98d55e3dc36323425e412d001f96f0dc694",
-      "size": 108943
+      "sha256": "6c9e9f1dd82bb6a22cdcfe0c875ca9d527cc67d8629afe6c4b32a00fac96e6f4",
+      "size": 110859
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -124,13 +124,13 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "112f4384e3ef71534b3c38f65f36dbc61b6400615d8d92589898a211ea73884a",
-      "size": 163748
+      "sha256": "1aadb581e0caff20ae60ef8fbca992181fdcd0925179b35799a192cd0ad84647",
+      "size": 168493
     },
     {
       "path": "capabilities.json",
-      "sha256": "d4f4ee84896879c4985304a9a0267b32b84484d162addb544a9c52ab78c96a82",
-      "size": 17997
+      "sha256": "182113eca92b818c3e8d83f74197e18850c45ce826df93f3ff54348e4da77dcd",
+      "size": 18458
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -489,8 +489,8 @@
     },
     {
       "path": "evaluation/axis_modeling_realdata_qualification.py",
-      "sha256": "c691fe83b9cfc5cf18fe1e5e8eba1db9285b699852445e43a5d26dab5fa6df05",
-      "size": 25396
+      "sha256": "565ae109b7be157e207b5321277a1e1054e20c8b2378f8739f044e13f8b553c6",
+      "size": 25770
     },
     {
       "path": "evaluation/build_pharmaceutical_problem_atlas_v8_3.py",
@@ -499,8 +499,8 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "c6e1abb7ccda572d88452919cb087d774d5da773fd373e439f17e77b0d1df3b3",
-      "size": 42796
+      "sha256": "37ee97355f92632fdf5579717fed1ce03296ab973724c81f437d911a1d9e0902",
+      "size": 43233
     },
     {
       "path": "evaluation/closed_loop_research_experiment.py",
@@ -531,6 +531,16 @@
       "path": "evaluation/eda_chip_pilot.py",
       "sha256": "9543b5f1680e122c1117403d94947dcac9567d88f2985e6ca03fef8f88adccc4",
       "size": 1852
+    },
+    {
+      "path": "evaluation/exoplanet_language_shell_exploratory.py",
+      "sha256": "7bda39488ddc1a3517c61ed5e27eea9dce1d76d24f485f800868453acbd764a0",
+      "size": 48808
+    },
+    {
+      "path": "evaluation/exoplanet_nasa2026_blind_experiment.py",
+      "sha256": "5d10f1fb15f589b3dcf198d93fc27f17a104cc7ebbbf0236a10ec87f6a40a1a7",
+      "size": 18780
     },
     {
       "path": "evaluation/fetch_jhtdb_real_snapshots.py",
@@ -764,8 +774,8 @@
     },
     {
       "path": "evaluation/unified_release_qualification.py",
-      "sha256": "15a210a61f7ca4af83af830510096bbcf1cb0bce14de2c4c66b9fb122afdc7e3",
-      "size": 40479
+      "sha256": "d08cf6f5aa9a35cbb4a272acedf45c35648c71190f57ea3c2148706675018576",
+      "size": 40771
     },
     {
       "path": "examples/JHTDB_REAL_DNS_DOWNLOAD_PLAN.json",
@@ -1114,8 +1124,8 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "05edd7a067ac1d5e01db34507b4e0b8fe0225e105c714542e61041e0fc3380e8",
-      "size": 639
+      "sha256": "4a41e13e6c4d8c113f4996dcaef55a80de93c60720f6ba58171e07515c2e1764",
+      "size": 700
     },
     {
       "path": "reports/ATLAS_FRONTIER_SCAN_CURRENT.json",
@@ -1126,6 +1136,11 @@
       "path": "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json",
       "sha256": "4075a32151693ce49f902283e30fa2f7e1a295e1c9d9b4a8d084b47a5fe80082",
       "size": 814380
+    },
+    {
+      "path": "reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md",
+      "sha256": "5c03d9472dbc303c9122dbe5b5f480d855881a8d79e3648635a6b4c2d9a81d58",
+      "size": 23641
     },
     {
       "path": "reports/history/version-control/ATLAS_15_23_CURRENT_QUALIFICATION_AFTER_ORCHESTRATION.json",
@@ -1434,8 +1449,8 @@
     },
     {
       "path": "source/lawspace/research_cycle.py",
-      "sha256": "8d6fd028bbb7225814cd54486023d769c0d6b11c3bba28c84e6a4d3c0e16bceb",
-      "size": 272665
+      "sha256": "6eb1af579195e65219b33112db9392876cb979ffdac4a89f90e240713db410ee",
+      "size": 313885
     },
     {
       "path": "source/lawspace/research_triage.py",
@@ -1544,8 +1559,8 @@
     },
     {
       "path": "tests/test_adaptive_axis_discovery.py",
-      "sha256": "4fd96f8599f4078e75747e83fdcd9abc7275e91d0c09cdab25397678d560914c",
-      "size": 14176
+      "sha256": "133867fdf41ebeb2788f16896d666a0970e551adc5f1ef176308462dd714d25b",
+      "size": 20405
     },
     {
       "path": "tests/test_closed_loop_research.py",
@@ -1644,9 +1659,9 @@
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "628f3fbc71c8f6fbbc8d853cb6f7f80c24e439656ca612aa8ef4f613a2907cde",
+  "current_state_qualification_digest": "dd627a42149f5d82dadc64099d35af959586991159cefc95ee4beb27f0b15971",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "fbf732db4728e1834d5dd8f9f3244564cb1f6a6d2f99586e3e2fb0321195d2ed",
+  "digest": "a397f7c37b02d2528c8483474802d195d93d53961b147b285ed13c3b752f9410",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

@@ -5125,21 +5125,205 @@ a_{19}\leftrightarrow \rho^{-1}\partial_xp,\qquad
 
 ## 4. Residual-driven adaptive-cardinality axis activation
 
-Начальная гипотеза строится в пространстве активных координат. Если её held-out NRMSE превышает tolerance, Atlas строит residual evidence и оценивает dormant coordinates. Для множества доступных осей (D) ядро проверяет discovery-only подмножества (S\subseteq D) по мощности (1,\ldots,|D|). Выбирается минимальная мощность, для которой модель идентифицируема и
+Начальная гипотеза строится только в уже активном представлении. Если frozen residual
+сохраняет структуру, dormant coordinates могут быть предложены ядру, но само наличие
+координаты больше не является достаточным условием активации. После NASA-2026 audit
+selection contract разделяет три разных объекта:
 
 \[
-\operatorname{NRMSE}_{holdout}(S)\le\varepsilon_{fit}.
+D=\{\text{offered dormant axes}\},\qquad
+A_{repr}\subseteq D,\qquad
+S_{eff}\subseteq A_{repr}.
 \]
 
-Если fit gate не достигнут, сохраняется только лучшее действительно улучшающее research-local подмножество. Поэтому `AXIS_BIRTH_CARDINALITY=ADAPTIVE`, `MULTI_AXIS_BIRTH=ALLOWED`, а фиксированного числа осей на цикл нет. Sealed OOD evidence не участвует в выборе. В masked-term контроле минимальная мощность остаётся равной единице: выбирается `a23`.
-
-После активации ожидается безразмерный коэффициентный вектор
+`A_repr` — координаты, которые прошли evidence gate и были допущены в research-local
+representation. `S_eff` — координаты, реально присутствующие в замороженной выбранной
+формуле. Поэтому
 
 \[
-(c_{a07},c_{a12},c_{a19},c_{a23})=(-1,-1,-1,+1)
+\boxed{\mathrm{REPRESENTATION\_ACTIVATED}\;\not\equiv\;\mathrm{EFFECTIVE\_FORMULA\_SUPPORT}}
 \]
 
-с нулевым intercept в пределах численной точности.
+так же, как ранее было зафиксировано
+`REPRESENTATION_ACTIVATED != CAUSALLY_ESTABLISHED`.
+
+### 4.1 Selective deep-zone search вместо единственного greedy-пути
+
+Первоначальная реализация большого dormant-пространства использовала один sparse forward
+trajectory. NASA-2026 audit показал, что это принципиально неполно: если истинный эффект
+появляется только совместно, например
+
+\[
+y=z\,w,
+\]
+
+то ни `z`, ни `w` по отдельности не обязаны проходить singleton stability. Поэтому один
+forward path может вообще не посетить правильную область.
+
+Текущий large-space route сначала делает multi-start joint-zone reconnaissance. Для пары
+или другой совместной зоны \(S\subset D\) строится гипотеза непосредственно в полном
+подпространстве \(S\) и сравнивается с исходной representation. Стабильный singleton parent
+для рождения \(S\) не требуется. Затем только перспективные зоны углубляются на следующий
+cardinality shell. Это **выборочное углубление**, а не полный перебор:
+
+\[
+D\rightarrow\{S_1,S_2,\ldots\}_{recon}
+\rightarrow\{S_j\cup\{a\}\}_{deep}
+\rightarrow\text{marginal continuation}.
+\]
+
+Finite `axis_birth_trial_budget` ограничивает только текущий вычислительный tranche. Поэтому
+исчерпание 256 trials означает `RESOURCE STOP`, а не утверждение, что все подпространства
+исследованы или что новых осей нет.
+
+После выбора текущей зоны \(A_k\) обычный forward step остаётся marginal:
+
+\[
+\Delta_j=\frac{E(A_k)-E(A_k\cup\{a_j\})}
+                 {\max(|E(A_k)|,\epsilon)},
+\]
+
+где \(E\) — discovery holdout NRMSE. Backward minimization удаляет dispensable coordinates.
+
+### 4.2 Discovery-only stability: screen и repeated selection ensemble
+
+Один group split используется только как дешёвый screening gate. Наблюдения группируются по
+`study_id`, когда независимых study-групп достаточно для репликации (не менее `2K`), иначе
+используется `record_id`. Для каждого fold baseline и trial refit выполняются заново только
+на остальных discovery observations.
+
+Для одной partition при gains \(\Delta_k\):
+
+\[
+m=\operatorname{median}(\Delta_k),\qquad
+\sigma_{rob}=1.4826\,\operatorname{MAD}(\Delta_k),\qquad
+R=m-\sigma_{rob}.
+\]
+
+Reconnaissance screen требует
+
+\[
+\frac{\#\{k:\Delta_k>0\}}{K}\ge0.75,
+\qquad m>0,\qquad R>0.
+\]
+
+Но глубокая зона больше не выбирается по одной partition. Для shortlist перспективных зон
+kernel повторяет тот же discovery-only grouped test на нескольких детерминированных salted
+partitions. Пусть \(R_r\) — robust margin repeat \(r\). Selection ensemble требует одновременно:
+
+\[
+\Pr_r(\text{partition pass})\ge0.60,
+\quad \operatorname{median}_r R_r>0,
+\]
+
+а также положительный robust margin по pooled held-out fold gains. Validation и sealed rows
+в этом ensemble отсутствуют. Это уменьшает partition luck, но всё равно не превращает
+внутреннюю устойчивость в независимую научную репликацию.
+
+### 4.3 Effective support и рождение производных осей
+
+Для выбранной representation
+
+\[
+S_{eff}=\{a\in A_{repr}: \exists t\in\text{basis},\ e_{t,a}\ne0\}.
+\]
+
+Joint zone может быть активирована только при full-support: каждая её admitted coordinate
+должна реально участвовать в выбранной formula. После этого composite basis terms не
+теряются внутри строки формулы. Если выбранный term имеет взаимодействие или higher-order
+power, например
+
+\[
+z\,w,\qquad z^2,\qquad z^{-1}w,
+\]
+
+Atlas материализует отдельную запись
+`RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE` с `source_axis_ids`, exponent map, typed dimension и
+provenance digest. Она переносится в `next_state.research_local_axes`, но
+
+\[
+\boxed{\text{research-local birth}\ne\text{canonical promotion}\ne\text{causal establishment}}.
+\]
+
+Canonical registry этим шагом не мутируется.
+
+Синтетический pure-synergy regression \(y=z\,w\) специально проверяет этот механизм:
+ни один singleton parent не нужен; Atlas находит совместную зону \({z,w}\), получает 4/4
+положительных discovery folds, практически нулевой NRMSE и сохраняет производную ось
+`z*w` как research-local candidate. Этот контроль нужен именно для исключения подгонки под
+экзопланетные данные.
+
+### 4.4 NASA-2026: исправление прежнего поверхностного вывода
+
+Ранее раскрытый `PSCompPars_2026.09.20_07.33.39.csv` остаётся regression/exploratory fixture,
+а не новым scientific confirmation. Первый residual run был только shell-1:
+
+- 17 singleton trials;
+- одна выбранная ветвь;
+- 16 добавлений только к этой ветви;
+- всего 33 trials;
+- `complexity_level=1`;
+- без joint birth для пар, не имеющих stable singleton parent;
+- без selective deepening и без materialized derived interaction axes.
+
+Поэтому прежнюю формулировку, будто residual space практически исчерпан, считать нельзя.
+Корректная формулировка: **shell-1 greedy route не подтвердил переносимую residual law**.
+
+После multi-start deep-zone patch Atlas выполнил 256 exploratory trials при
+`complexity_level=2`: pair reconnaissance, selective triple deepening и subsequent marginal
+search. До усиления partition stability были найдены зоны, которые старый 33-trial маршрут
+вообще не посещал. Например зона
+
+\[
+(\log M_p,\log R_\star,\log d)
+\]
+
+проходила одну discovery group-stability partition и давала validation
+\(NRMSE:1.001672\to0.998242\), но повторяемые discovery partitions показали, что её
+устойчивость зависит от разбиения. Поэтому этот эффект остаётся exploratory signal, а не
+подтверждённой representation.
+
+После repeated discovery-only stability selection текущий exploratory route выбрал зону
+
+\[
+(\log R_\star,\log g_\star),
+\]
+
+с composite term \(\log R_\star\,\log g_\star\). Пять salted 4-fold partitions дали
+pass fraction \(0.60\), median repeat robust margin \(0.0060033\) и pooled robust margin
+\(0.0004657\). Discovery holdout улучшился лишь
+
+\[
+1.2613404\to1.2603280,
+\]
+
+а уже после freeze независимая validation ухудшилась
+
+\[
+1.0016716\to1.0042192.
+\]
+
+Следовательно, **deep search обнаруживает скрытые зоны и рождает новые research-local
+coordinates, но текущий PSCompPars не дал переносимого нового физического закона**. Это уже
+не вывод из поверхностного shell: это результат более глубокого selective scan, всё ещё
+ограниченного конечным trial tranche и composite nature источника.
+
+### 4.5 Residual-driven function-language birth
+
+Одновременно существующий `FunctionLanguageBirthEngine` был применён к discovery residual,
+не используя validation/sealed. Multiplicity-aware diagnostic потребовал расширения языка и
+выдал наибольшие operation-level сигналы для:
+
+\[
+\text{LATENT}:0.2269,\qquad
+\text{EXPONENTIAL}:0.1405.
+\]
+
+Это не готовые законы и не выбранные физические механизмы. Это направления следующего
+representation shell: low-rank/interaction latent coordinates и exponential transforms.
+Их необходимо исследовать в следующем selective tranche с тем же discovery-only stability
+contract, а затем проверять на **новом** self-consistent `PS/default_flag=1` или новом sealed
+snapshot.
 
 ## 5. Sealed OOD protocol
 
@@ -5594,3 +5778,433 @@ D_q = 2D_U-D_L,
 \]
 
 Это не turbulence law и не заранее заданное число Reynolds: relation следует из primitive dimension types и discovery-born scale rules. После freeze тот же rule применяется к sealed predictor fields; sealed target используется только для оценки. Повторно использованный после адаптации holdout не считается новым scientific evidence.
+
+## 2026-09-20 — Exoplanet selective language shell: LATENT + EXPONENTIAL
+
+Предыдущий polynomial deep-zone shell не является исчерпывающим поиском пространства. Следующий цикл
+использует сохранённое `research_local_axes` состояние и residual-driven `FunctionLanguageBirthEngine`.
+На вход следующего shell передана born-axis
+
+\[
+D=\log R_\star\,\log g_\star,
+\]
+
+сохраняемая только как `RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE`.
+
+После refit предыдущей deep-zone representation residual повторно диагностирован. Текущая residual-support:
+
+\[
+S_{\rm LATENT}=0.230717>0.12,
+\qquad
+S_{\rm EXP}=0.111972<0.12.
+\]
+
+Таким образом LATENT повторно рождается текущим residual, а EXPONENTIAL сохраняется только как ранее
+рождённая exploratory language-branch и не считается текущей residual-supported language.
+
+Поиск реализован как selective language deepening, а не как полный перебор:
+
+1. residual-ranked coordinate preferences задают несколько seed regions;
+2. stage 1 исследует single/pair zones;
+3. несколько сильнейших discovery-only branches углубляются до triple zones;
+4. каждая zone/variant проходит repeated host-group CV;
+5. validation не участвует в выборе;
+6. nonlinear coordinates materialize as non-canonical research-local axes.
+
+В текущем tranche исследовано 207 stage-1 specifications и 246 stage-2 specifications. При 3 и 5
+повторениях по 4 folds это соответствует до 7404 fold-level refit/evaluation operations. Конечный budget
+является только вычислительным tranche и не научным потолком пространства.
+
+EXPONENTIAL exploratory branch на discovery выбрал
+
+\[
+(\log R_\star,\log g_\star),\qquad s=0.5,
+\]
+
+и проходит repeated discovery stability с repeat-pass fraction 1.0, pooled median gain 0.04630 и
+robust margin 0.02302. Однако post-freeze outer validation ухудшается:
+
+\[
+NRMSE:1.002209\rightarrow1.053033,
+\]
+
+поэтому EXPONENTIAL representation не переносится и не может быть promoted.
+
+LATENT branch выбрал пространство
+
+\[
+(D,\log M_p,\log R_p)
+\]
+
+и one-component degree-2 representation. Родившаяся координата равна
+
+\[
+L=-0.446144\,z(D)-0.632923\,z(\log M_p)-0.632743\,z(\log R_p),
+\]
+
+где \(z(x)=(x-\mu_x)/\sigma_x\) и параметры стандартизации сохраняются в receipt. Residual correction имеет
+форму
+
+\[
+\Delta r = 0.0199049 + 0.00163121 L -0.00908232 L^2.
+\]
+
+LATENT branch проходит 5/5 repeated discovery stability; pooled median relative gain 0.006515,
+pooled robust margin 0.002079, pooled positive fraction 0.95. После discovery freeze на ранее раскрытой
+outer validation наблюдается небольшое улучшение
+
+\[
+1.002209\rightarrow0.997443,
+\qquad \Delta_{rel}=+0.4756\%.
+\]
+
+Эта validation уже не является свежим blind confirmation, поэтому результат имеет статус только
+`SURVIVING_RESEARCH_LOCAL_REPRESENTATION_CANDIDATE`. Новый закон, causal axis или canonical axis не
+установлены. Для научного promotion требуется новый независимый `PS/default_flag=1` snapshot либо иной
+fresh external holdout.
+
+## 2026-09-20 — Recursive residual continuation after frozen latent axis L
+
+Предыдущий selective-language shell породил research-local axis
+
+\[
+L=-0.446144\,z(D)-0.632923\,z(\log M_p)-0.632743\,z(\log R_p),
+\qquad D=\log R_\star\log g_\star.
+\]
+
+Новый цикл не пересчитывает смысл `L` заново. Веса, стандартизация и source-axis binding являются frozen research state.
+Для discovery fold \(F\) refit разрешён только для коэффициентов уже выбранного stack:
+
+\[
+\hat r_{\rm prior}^{(-F)}
+=\hat r_D^{(-F)}+c_0^{(-F)}+c_1^{(-F)}L+c_2^{(-F)}L^2.
+\]
+
+Новый остаток
+
+\[
+e^{(-F)}=r-\hat r_{\rm prior}^{(-F)}
+\]
+
+используется для function-language birth. Это отделяет сохранение родившейся координаты от повторного подбора её определения
+по test-fold.
+
+Для текущего discovery residual получено
+
+\[
+S_{\rm LATENT}=0.232729,
+\qquad
+S_{\rm KERNEL}=0.123338,
+\qquad
+S_{\rm EXP}=0.117986<0.12.
+\]
+
+Следовательно, новый residual самостоятельно рождает LATENT и KERNEL; EXPONENTIAL остаётся только persistent historical
+research state. Selective tranche исследовал 246 reconnaissance и 83 deepened specifications. Финальный stage-2 gate использует
+5 deterministic host-group partitions и требует положительный pooled robust margin.
+
+Discovery-only LATENT winner использует пространство
+
+\[
+(E_{g,-},E_{R,-},\log R_\star),
+\]
+
+где \(E_{g,-}\) и \(E_{R,-}\) — ранее родившиеся отрицательные exponential coordinates для standardized stellar \(\log g\)
+и stellar radius. SVD birth создаёт две latent components:
+
+\[
+L_1=-0.527291\,z(E_{g,-})+0.560657\,z(E_{R,-})-0.638457\,z(\log R_\star),
+\]
+
+\[
+L_2=0.760714\,z(E_{g,-})+0.646235\,z(E_{R,-})-0.060773\,z(\log R_\star).
+\]
+
+Они сохраняются как `RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE`, но не становятся canonical axes.
+Discovery NRMSE улучшается
+
+\[
+0.990131\rightarrow0.957212,
+\]
+
+однако outer validation ухудшается
+
+\[
+0.997443\rightarrow1.021304.
+\]
+
+Поэтому эти latent axes являются только исследовательскими координатами, а не переносимым законом.
+
+KERNEL birth также прошёл operation-level gate, но его лучшая deep-zone representation имеет отрицательный pooled robust margin
+\(-0.006322\) и final repeated-stability не проходит. Kernel centers поэтому не получают effective-support status.
+
+После subtraction выбранной discovery representation residual снова показывает
+
+\[
+S_{\rm LATENT}=0.243003,
+\qquad
+S_{\rm KERNEL}=0.140678.
+\]
+
+Это формально означает `REPRESENTATION_GAP_REMAINS`: следующий adaptive cycle разрешён, но текущий раскрытый validation set
+не может использоваться для настройки новой ветви. Конечный tranche не является доказательством исчерпания пространства.
+
+
+## NASA Exoplanet: полная теория текущего цикла и multibranch closure
+
+### 1. Что является объектом исследования
+
+Для каждой наблюдаемой системы сначала рассматривается размерностное семейство
+
+\[
+C_{\alpha\beta\gamma}=a^\alpha P^\beta M_\star^\gamma .
+\]
+
+До физического распознавания констант Atlas выбирает структуру только по наблюдаемой замкнутости на discovery-наборе. В текущем snapshot среди 172 primitive integer-кандидатов устойчиво выбран
+
+\[
+(\alpha,\beta,\gamma)=(3,-2,-1),\qquad
+C=\frac{a^3}{P^2M_\star}.
+\]
+
+Кандидат сохраняет rank 1 на discovery, validation и ранее раскрытом sealed split. После freeze его размерность
+
+\[
+[C]=L^3M^{-1}T^{-2}
+\]
+
+совпадает с размерностью гравитационной постоянной. Post-freeze numeric control дал
+
+\[
+\widehat G=6.668362037\times10^{-11}\;\mathrm{m^3kg^{-1}s^{-2}},
+\]
+
+что отличается от registry-value \(6.67430\times10^{-11}\) примерно на \(-0.089\%\). Это positive control; он не является новым законом.
+
+После freeze вводится безразмерный логарифмический остаток
+
+\[
+r_i=\log\!\left(\frac{C_i}{\widehat C_D}\right),
+\]
+
+где \(\widehat C_D\) определяется только discovery-частью. Исследовательская задача Atlas состоит не в полном переборе бесконечного пространства функций, а в адаптивном построении последовательности research-local representations, объясняющих остаток и переживающих независимые discovery-only stability gates.
+
+### 2. Пространство состояний Atlas
+
+На шаге \(k\) состояние удобно записывать как
+
+\[
+\mathcal S_k=(X,A_k,B_k,\mathcal F_k,\mathcal H_k,r_k),
+\]
+
+где:
+
+- \(X\) — исходные наблюдаемые координаты;
+- \(A_k\) — активное representation-space;
+- \(B_k\) — родившиеся research-local axes;
+- \(\mathcal F_k\) — доступные/родившиеся function languages;
+- \(\mathcal H_k\) — frontier конкурирующих hypotheses/branches;
+- \(r_k\) — residual после уже замороженных representation corrections.
+
+Важно:
+
+\[
+B_k\not\equiv A_k\not\equiv\text{causal variables}.
+\]
+
+Рождение координаты означает только, что она является математически допустимым объектом следующего исследовательского цикла. Оно не означает физическую причинность и не регистрирует координату как canonical axis.
+
+### 3. Почему исходный greedy-поиск был недостаточен
+
+Первый residual-run фактически выполнил только 33 trial: 17 singleton-осей и 16 добавлений к одной выбранной ветви. Поэтому он не мог обнаруживать pure-synergy ситуации
+
+\[
+f(x_i,x_j)\neq f_i(x_i)+f_j(x_j),
+\]
+
+когда ни \(x_i\), ни \(x_j\) поодиночке не проходят gate. Это было подтверждено независимым synthetic control \(y=zw\): старый маршрут пропускал пару \((z,w)\), новый multi-zone search рождает её совместно.
+
+После исправления search стал многолучевым:
+
+\[
+r\rightarrow\text{wide reconnaissance}\rightarrow
+\text{несколько seed-зон}\rightarrow
+\text{selective deepening}\rightarrow
+\text{new axes}\rightarrow r'.
+\]
+
+Finite trial budget является вычислительным tranche, а не границей научного пространства.
+
+### 4. Рождённые координаты и representations
+
+Первый deep interaction shell породил
+
+\[
+D=\log R_\star\,\log g_\star,
+\]
+
+со статусом `RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE`.
+
+Следующий function-language shell породил LATENT-направление
+
+\[
+L=-0.446144\,z(D)-0.632923\,z(\log M_p)-0.632743\,z(\log R_p),
+\]
+
+и quadratic correction по \(L\). В текущей уже раскрытой outer validation эта ветвь давала небольшой положительный transfer, но новый regime/tail gate показал, что она не является устойчивой на discovery tails: median tail gain около \(0.00131\), positive fraction \(0.625\), robust margin
+
+\[
+0.00131-1.4826\,MAD=-0.02578<0.
+\]
+
+Следовательно, \(L\) остаётся research-local representation и не является устойчивой новой физической координатой.
+
+Из последующего post-\(L\) residual были рождены дополнительные LATENT-компоненты \(L_1,L_2\) и KERNEL-направление. Они улучшали отдельные discovery-разбиения, но не давали устойчивого внешнего transfer.
+
+### 5. Multibranch budget allocation
+
+Чтобы не превращать один неудачный deep-path в новый greedy bottleneck, current state одновременно содержит старый \(L\), \(L_1,L_2\), \(D\), EXP-derived axes и KERNEL-frontier.
+
+Финальный multibranch tranche выполняет:
+
+\[
+\text{wide representative reconnaissance}
+\rightarrow
+E_b
+\rightarrow
+\text{budget}_b
+\rightarrow
+\text{full repeated deepening},
+\]
+
+где discovery-only evidence branch \(b\) задаётся положительной частью robust margins и долей положительных fold-effects. В выполненном tranche было 311 reconnaissance zones и 48 дорогих repeated-deep candidates. Evidence распределил budget как 34 LATENT-кандидата и 14 KERNEL-кандидатов; KERNEL получил exploration floor и не был удалён.
+
+Лучший pre-stress discovery-кандидат:
+
+\[
+\text{LATENT}\big(\exp(0.5z(\log R_\star)),\,\log g_\star\big)
+\]
+
+прошёл repeated host-group CV:
+
+\[
+\text{repeat pass fraction}=0.8,
+\]
+
+\[
+\widetilde{\Delta}=0.03376,
+\qquad
+R_{group}=0.005765>0,
+\qquad
+f_+=0.95.
+\]
+
+На полном discovery он уменьшил NRMSE
+
+\[
+0.990131\rightarrow0.950448,
+\]
+
+то есть примерно на \(4.01\%\).
+
+Однако эта же nonlinear representation оказалась резко неустойчивой к regime extrapolation.
+
+### 6. Второй обязательный gate: discovery-only tail stress
+
+Обычные hash/group folds проверяют интерполяционную устойчивость между группами, но могут не обнаруживать опасное поведение нелинейной representation на краях её support. Поэтому введён единый regime-stress gate, не использующий validation или sealed.
+
+Для каждой координаты выбранной зоны отдельно удаляются нижние и верхние 15% discovery-support. Модель refit-ится на оставшихся 85% и проверяется на удалённом хвосте. Для tail gains \(\Delta_t\) применяется тот же robust contract:
+
+\[
+f_+\ge0.75,
+\qquad
+\operatorname{median}(\Delta_t)>0,
+\qquad
+R_{tail}=\operatorname{median}(\Delta_t)-1.4826\,MAD(\Delta_t)>0.
+\]
+
+Для лучшей multibranch representation получено
+
+\[
+\operatorname{median}(\Delta_t)=-3.21028,
+\]
+
+\[
+R_{tail}=-7.91015,
+\qquad
+f_+=0.
+\]
+
+Она категорически отвергается regime gate. Outer validation, прочитанная только после discovery selection, подтверждает риск: NRMSE
+
+\[
+0.997443\rightarrow1.352566,
+\]
+
+то есть ухудшение примерно на \(35.60\%\). Validation не использовалась для отбора и не нужна для самого отказа: кандидат уже отвергнут discovery-only tail stress.
+
+### 7. Финальный статус текущего цикла
+
+Ни одна ветвь текущего frontier не прошла одновременно
+
+\[
+\boxed{
+\text{repeated group stability}
+\land
+\text{tail/regime stability}
+}.
+\]
+
+Количество joint-pass branches:
+
+\[
+\boxed{0}.
+\]
+
+Поэтому текущий исследовательский tranche закрыт статусом
+
+`REPRESENTATION_GAP_FRONTIER_OPEN_NO_STRESS_ROBUST_BRANCH`.
+
+Это не означает, что бесконечное пространство функций исчерпано. Это означает более строгое утверждение: **при текущем observed coordinate set, current born languages и объявленном adaptive budget ни одна residual representation не получила достаточного discovery-only evidence для дальнейшей научной promotion**.
+
+### 8. Что фактически найдено
+
+Наиболее сильный результат — воспроизводимая орбитально-гравитационная структура
+
+\[
+\frac{a^3}{P^2M_\star}\approx\text{const},
+\]
+
+которая после freeze соответствует известной кеплеровско-гравитационной связи и восстанавливает \(G\) с ошибкой порядка \(0.089\%\) на composite snapshot.
+
+Поверх неё Atlas действительно обнаруживает структурированный residual и многократно рождает LATENT/KERNEL languages. Но эти residual candidates связаны прежде всего с областями, включающими stellar radius/logg, planet mass/radius, distance, discovery epoch и uncertainty coordinates; при переходе к tail/regime stress нелинейные representations разрушаются. Поэтому текущие данные поддерживают не новый универсальный физический закон, а состояние
+
+\[
+\boxed{
+\text{KNOWN PHYSICAL INVARIANT}
++
+\text{STRUCTURED BUT NON-ROBUST RESIDUAL}
++
+\text{REPRESENTATION / DATA-GENERATING-PROCESS GAP}
+}.
+\]
+
+Интерпретация residual как следствия heterogeneous measurement pipelines, catalogue compositing, selection effects или пропущенных физических переменных остаётся гипотезой; текущий эксперимент не различает эти причины.
+
+### 9. Условия будущей научной promotion
+
+Residual-кандидат может быть повышен только если одновременно выполняются:
+
+\[
+G_{group}=1,
+\qquad
+G_{tail}=1,
+\qquad
+G_{fresh}=1,
+\qquad
+G_{claim}=1,
+\]
+
+где `fresh` означает новый self-consistent dataset/snapshot, не использованный при построении нынешнего frontier. Для экзопланет приоритетным подтверждением остаётся свежий NASA `PS/default_flag=1`, а не повторное чтение раскрытого `PSCompPars` validation/sealed.
+
+Текущий цикл поэтому завершён; frontier сохраняется как исследовательское состояние, но ни \(D\), ни \(L\), ни \(L_1,L_2\), ни KERNEL/EXP-derived axes не являются новым физическим законом.

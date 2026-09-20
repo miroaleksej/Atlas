@@ -75,6 +75,7 @@ def _genesis_ledger_checks() -> dict[str, bool]:
 RELEASE='0.15.29.0'; OWNER_ID='UNIFIED-CURRENT-QUALIFICATION/0.15.29.0'
 REAL_REPORT='reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json'
 FRONTIER_REPORT='reports/ATLAS_FRONTIER_SCAN_CURRENT.json'
+DEEP_RESEARCH_DOCUMENTATION='reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md'
 FRONTIER_LEDGER='data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl'
 PRIOR_ART_RECEIPT='data/frontiers/ATLAS_POSTFREEZE_PRIOR_ART_CURRENT.json'
 DOVETAIL_STATE=str(DOVETAIL_STATE_RELATIVE_PATH)
@@ -100,7 +101,9 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     residues={rel:[str(p.relative_to(root)) for p in _files(root,rel)] for rel in DERIVED_EMPTY_DIRS}
     derived_files_present=[rel for rel in DERIVED_FILES if (root/rel).exists()]
     feynman_present=[rel for rel in AI_FEYNMAN_PATHS if (root/rel).exists()]
-    report_files=sorted(str(p.relative_to(root)) for p in (root/'reports').glob('*') if p.is_file() and not is_local_artifact(p,root))
+    # The imported Markdown study is documentation, not a third locally replayed
+    # scientific receipt. It remains a controlled file in the release seal.
+    report_files=sorted(str(p.relative_to(root)) for p in (root/'reports').glob('*') if p.is_file() and not is_local_artifact(p,root) and str(p.relative_to(root)) != DEEP_RESEARCH_DOCUMENTATION)
     allowed_reports={REAL_REPORT,FRONTIER_REPORT}; unexpected_reports=sorted(set(report_files)-allowed_reports)
     frontier_files=sorted(str(p.relative_to(root)) for p in _files(root,'data/frontiers'))
     allowed_frontier_files={FRONTIER_LEDGER,PRIOR_ART_RECEIPT,DOVETAIL_STATE,'data/frontiers/ATLAS_SCIENTIFIC_EXPLOITATION_CURRENT.json',EPROCESS_REPORT,SCALAR_LAW_REPORT,QUERY_RESEARCH_REPORT}

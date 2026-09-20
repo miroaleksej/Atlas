@@ -58,6 +58,17 @@ def run(root=None, *, allow_blocked=False):
   'whole_pipeline_null_calibrated':False,
   'scientific_law_promotion_allowed':False,
  }
+ caps['deep_residual_research']={
+  'python_api':'advance_adaptive_research',
+  'intercept_only_baseline':True,
+  'joint_axis_reconnaissance':True,
+  'repeated_group_stability':True,
+  'final_exact_subset_stability':True,
+  'derived_axes_research_local_only':True,
+  'external_stability_requires_complete_digest_verified_receipt':True,
+  'exoplanet_runners_require_external_observations':True,
+  'new_physical_law_established':False,
+ }
  caps['release_control']={
   'current_state_qualification_status':q.get('status'),
   'current_state_qualification_passed':qualification_passed,

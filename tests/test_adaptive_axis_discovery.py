@@ -193,6 +193,12 @@ def test_adaptive_research_kernel_can_birth_multiple_dormant_axes_in_one_cycle()
     assert result["axis_birth_search"]["selected_cardinality"] == 2
     assert result["axis_birth_search"]["fixed_axis_count_per_cycle"] is None
     assert result["axis_birth_search"]["multi_axis_birth_allowed"] is True
+    assert result["axis_birth_search"]["selection_contract"] == "MARGINAL_GAIN_PLUS_GROUP_STABILITY_PLUS_PARSIMONY"
+    assert result["axis_birth_search"]["activation_requires_group_stability"] is True
+    assert result["axis_birth_search"]["sealed_holdout_used_for_activation_or_stability"] is False
+    assert set(result["result"]["effective_support_axis_variables"]) == {"z","w"}
+    assert result["result"]["activated_but_not_effective_support_axis_variables"] == []
+    assert result["result"]["representation_activation_is_effective_formula_support"] is False
 
 
 def test_large_dormant_space_switches_to_sparse_forward_backward_search_without_cardinality_ceiling():
@@ -227,6 +233,49 @@ def test_large_dormant_space_switches_to_sparse_forward_backward_search_without_
     assert result["axis_birth_search"]["selected_cardinality"] == 2
     assert result["axis_birth_search"]["fixed_axis_count_per_cycle"] is None
     assert result["axis_birth_search"]["resource_budget_is_scientific_cardinality_ceiling"] is False
+    assert result["axis_birth_search"]["search_strategy"] == "MULTISTART_JOINT_ZONE_RECONNAISSANCE_THEN_MARGINAL_DEEPENING"
+    assert set(result["result"]["effective_support_axis_variables"]) == {"z","w"}
+    assert result["result"]["activated_but_not_effective_support_axis_variables"] == []
+    assert result["axis_birth_search"]["final_selection_stability"]["passes"] is True
+
+
+def test_sparse_deep_zone_search_can_birth_pure_joint_interaction_without_single_axis_parent():
+    from source.lawspace.api import LawSpaceAPI
+
+    rows=[]
+    distractors=[f"d{i}" for i in range(12)]
+    for i in range(160):
+        z=((i*37)%101-50)/17.0
+        w=((i*53)%103-51)/19.0
+        values={"y":z*w,"z":z,"w":w}
+        for j,name in enumerate(distractors):
+            values[name]=(((i*(11+2*j))%(97+2*j))-(48+j))/(13.0+j)
+        rows.append({"record_id":f"JZ-{i:03d}","study_id":f"HOST-{i:03d}","values":values})
+    names=("y","z","w",*distractors)
+    result=LawSpaceAPI(ROOT).advance_adaptive_research({
+        "problem_id":"PURE-JOINT-ZONE-BIRTH-CONTROL",
+        "domain_id":"physics",
+        "question":"Recover a pure two-axis interaction even when neither one-axis parent is stable.",
+        "observations":rows,"sealed_holdout_observations":[],
+        "target_variable":"y","predictor_variables":[],
+        "dormant_axis_variables":["z","w",*distractors],
+        "variable_dimensions":{k:[0,0,0,0,0,0,0] for k in names},
+        "complexity_level":2,"fit_tolerance_nrmse":1e-10,
+        "axis_birth_trial_budget":256,"axis_birth_sparse_search_allowed":True,
+        "observations_origin":"UNIT_CONTROL","auto_activate_dormant_axes":True,
+    })
+    assert result["axis_birth_search"]["search_strategy"] == "MULTISTART_JOINT_ZONE_RECONNAISSANCE_THEN_MARGINAL_DEEPENING"
+    assert set(result["result"]["activated_axis_variables"]) == {"z","w"}
+    assert set(result["result"]["effective_support_axis_variables"]) == {"z","w"}
+    joint=[t for t in result["axis_birth_search"]["trials"] if set(t.get("axes",()))=={"z","w"}]
+    assert joint and joint[0]["phase"] == "JOINT_ZONE_SEED"
+    assert joint[0]["stable_improvement"] is True
+    assert joint[0]["group_stability"]["positive_fraction"] == 1.0
+    assert joint[0]["holdout_nrmse"] < 1e-10
+    born=result["result"]["research_local_derived_axis_births"]
+    assert born and any(set(row["source_axis_ids"])=={"z","w"} for row in born)
+    assert all(row["status"]=="RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE" for row in born)
+    assert all(row["canonical_registry_mutated"] is False for row in born)
 
 
 def test_residual_driven_language_expansion_discovers_hidden_two_factor_coordinate():
@@ -248,3 +297,60 @@ def test_residual_driven_language_expansion_discovers_hidden_two_factor_coordina
     assert claim["checks"]["required_receipt_fields_present"] is True
     assert claim["checks"]["code_digest_bound"] is True
     assert claim["checks"]["result_digest_bound"] is True
+
+
+
+def test_residual_only_cycle_can_start_from_intercept_and_birth_dormant_axes():
+    from source.lawspace.api import LawSpaceAPI
+
+    rows=[]
+    for i in range(84):
+        z=((i*7)%29-14)/7.0
+        w=((i*11)%31-15)/8.0
+        d=((i*5)%23-11)/6.0
+        y=-1.1*z+0.8*w
+        rows.append({"record_id":f"RB-{i:03d}","study_id":f"HOST-{i:03d}","values":{"residual":y,"z":z,"w":w,"d":d}})
+    result=LawSpaceAPI(ROOT).advance_adaptive_research({
+        "problem_id":"RESIDUAL-INTERCEPT-ONLY-UNIT-CONTROL",
+        "domain_id":"physics",
+        "question":"Begin from an intercept-only frozen residual representation and activate only axes supported by held-out residual evidence.",
+        "observations":rows,"sealed_holdout_observations":[],
+        "target_variable":"residual","predictor_variables":[],
+        "dormant_axis_variables":["z","w","d"],
+        "variable_dimensions":{k:[0,0,0,0,0,0,0] for k in ("residual","z","w","d")},
+        "complexity_level":1,"fit_tolerance_nrmse":1e-10,
+        "observations_origin":"UNIT_CONTROL","auto_activate_dormant_axes":True,
+    })
+    assert result["initial_hypothesis_space"]["candidate_count"] == 1
+    assert result["initial_hypothesis_space"]["candidates"][0]["expression"] == "c0"
+    assert set(result["result"]["activated_axis_variables"]) == {"z","w"}
+    assert result["axis_birth_search"]["selected_cardinality"] == 2
+    assert set(result["result"]["effective_support_axis_variables"]) == {"z","w"}
+    assert result["result"]["activated_but_not_effective_support_axis_variables"] == []
+    assert result["axis_birth_search"]["final_selection_stability"]["passes"] is True
+    assert result["claim_boundary"]["dormant_axis_inserted_into_initial_formula"] is False
+
+
+def test_external_stability_requires_matching_complete_owner_receipt():
+    from copy import deepcopy
+    from source.lawspace.research_cycle import AdaptiveResearchKernelOwner
+    from source.lawspace.schema import digest_payload
+
+    source = {
+        "owner": "AXIS-MODELING/8.0.0",
+        "best_axis_birth": {"axis_id": "generated_z", "ood_rmse_fractional_improvement": 0.4},
+        "dataset": {"freeze_split": {"fit_regimes": ["FIT"], "validation_regimes": ["VALIDATE"]}},
+    }
+    source["digest"] = digest_payload(source)
+    row = dict(axes=["z"], source_owner=source["owner"], source_digest=source["digest"],
+               independent_validation=True, sealed_holdout_used=False, fractional_improvement=0.4)
+    check = AdaptiveResearchKernelOwner._axis_subset_external_stability
+    assert check([row], ["z"])["passes"] is False
+    row.update(source_receipt=source, source_axis_mapping={"z": "generated_z"})
+    assert check([row], ["z"])["passes"] is True
+    tampered = deepcopy(row)
+    tampered["source_receipt"]["best_axis_birth"]["ood_rmse_fractional_improvement"] = 0.9
+    assert check([tampered], ["z"])["passes"] is False
+    wrong_axis = {**row, "source_axis_mapping": {"z": "unrelated_axis"}}
+    assert check([wrong_axis], ["z"])["passes"] is False
+    assert check([{**row, "sealed_holdout_used": True}], ["z"])["passes"] is False

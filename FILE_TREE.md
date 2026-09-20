@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 316
+Controlled files: 319
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -96,6 +96,8 @@ Controlled files: 316
 - `evaluation/developmental_open_endedness_qualification.py`
 - `evaluation/discriminating_experiment_qualification.py`
 - `evaluation/eda_chip_pilot.py`
+- `evaluation/exoplanet_language_shell_exploratory.py`
+- `evaluation/exoplanet_nasa2026_blind_experiment.py`
 - `evaluation/fetch_jhtdb_real_snapshots.py`
 - `evaluation/first_atlas_native_experiment.py`
 - `evaluation/full_replay_qualification.py`
@@ -215,6 +217,7 @@ Controlled files: 316
 - `pyproject.toml`
 - `reports/ATLAS_FRONTIER_SCAN_CURRENT.json`
 - `reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json`
+- `reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md`
 - `reports/history/version-control/ATLAS_15_23_CURRENT_QUALIFICATION_AFTER_ORCHESTRATION.json`
 - `reports/history/version-control/ATLAS_15_23_JOINT_QUALIFICATION.json`
 - `reports/history/version-control/ATLAS_15_23_REPLAY_PREPARE_AFTER_ORCHESTRATION.json`

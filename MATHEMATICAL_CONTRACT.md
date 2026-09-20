@@ -1135,6 +1135,22 @@ Human-review state is external and append-only at the action level. `SPONSOR_REV
 4. Empty `causal_ready_axes` and `automatic_causal_axis_selection_allowed=false` SHALL remain compatible with research-local representation activation.
 5. `causally_established_axes` SHALL remain empty unless a separate authoritative causal evidence path explicitly establishes the axis.
 
+## Adaptive axis-selection / effective-support — контракт
+
+1. Offered dormant axes SHALL NOT become active merely because they are observable or dimensionally admissible.
+2. Large dormant spaces SHALL NOT be treated as exhaustively scanned by a single greedy forward path. The sparse route SHALL perform multi-start joint-zone reconnaissance, allowing pair/multi-axis birth even when no singleton parent is stable, and SHALL selectively deepen only nominated zones under a finite execution budget.
+3. Joint-zone activation SHALL require full effective support: every axis admitted by a selected joint zone SHALL occur with non-zero exponent in the selected frozen hypothesis. Unused available axes remain diagnostic only.
+4. A first discovery-only group-held-out split MAY be used as a reconnaissance screen. Selection between competing deep zones SHALL use repeated deterministic group partitions with different salts, refitting baseline and trial representations on every repeat; validation and sealed observations SHALL NOT participate.
+5. The per-partition screen SHALL require at least 75% positive valid folds and `median(relative_gain) - 1.4826*MAD(relative_gain) > 0`. The repeated selection ensemble SHALL additionally require a majority of partitions to pass, positive median robust margin, and positive pooled robust margin across all held-out discovery folds.
+6. Sparse marginal growth after joint-zone selection SHALL score each new axis relative to the current selected representation, not repeatedly relative to the original baseline. Runtime trial budget SHALL remain an execution tranche and SHALL NOT be interpreted as a scientific cardinality ceiling or proof that the remaining space is empty.
+7. Parsimony SHALL prefer the smallest stable support that reaches the frozen fit gate; when no support reaches it, growth SHALL stop when no further stable marginal improvement exists. The final activated representation SHALL receive repeated exact-set stability attestation after backward minimization; failure SHALL cancel activation.
+8. `REPRESENTATION_ACTIVATED` SHALL NOT mean `EFFECTIVE_FORMULA_SUPPORT`. Effective support SHALL be derived only from non-zero use in the selected frozen hypothesis and SHALL be emitted separately as `effective_support_axis_variables`.
+9. Composite terms actually used by the selected hypothesis (interactions, powers or inverse monomials) SHALL be materialized into the next research state as `RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE`. Such birth SHALL NOT mutate the canonical registry, establish causality or imply scientific promotion.
+10. `activated_but_not_effective_support_axis_variables` SHALL remain explicit research state; availability SHALL NOT be rewritten as formula dependence.
+11. An exact-subset stability attestation from another existing owner MAY substitute only when it is digest-bound, independently validated, positively transferring and explicitly sealed-free.
+12. Validation and sealed evidence MAY test a frozen representation after selection, but SHALL NOT retroactively select its axes, tune the stability ensemble or rescue a candidate that fails discovery stability.
+13. Passing this selection contract SHALL establish only a stable research-local representation candidate, not causality, a natural law or scientific novelty.
+
 ## Primitive-field operator-coordinate birth — контракт 0.15.29.0
 
 1. Caller input SHALL contain primitive sampled fields, coordinate charts and seven-component quantity dimensions; caller-supplied derivative columns and named PDE templates are forbidden in the primitive-field route.
@@ -1174,3 +1190,82 @@ Human-review state is external and append-only at the action level. `SPONSOR_REV
 5. Sealed and null observations SHALL NOT generate axes, select support or refit coefficients.
 6. Finite operator-rank, carrier-depth, subset-trial and HTTP request budgets SHALL be execution guards, not scientific ceilings.
 7. `PASS_PROTOCOL_INTEGRITY` SHALL assert protocol execution only. A surviving transfer candidate SHALL remain `NOT_LAW` and `CAUSALLY_NOT_ESTABLISHED`.
+
+## Selective function-language continuation contract (2026-09-20)
+
+A born function language is research state, not a world law. A later residual cycle distinguishes:
+
+- `CURRENT_RESIDUAL_SUPPORTED_LANGUAGE`: the family crosses the current residual birth gate;
+- `PERSISTED_EXPLORATORY_LANGUAGE`: born in a previous shell and retained for branch exploration, but not
+  currently above the birth gate.
+
+Persisted languages may be searched so that research state is not forgotten, but failure to cross the current
+birth gate must remain visible in the receipt. Validation/sealed observations may not be used to select a
+language family, coordinate zone, scale or latent rank. Nonlinear/latent features born by a discovery-stable
+language are stored as `RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE`; canonical registration and causal claims
+remain forbidden without the ordinary promotion gates and fresh external evidence.
+
+The finite selective language tranche is a compute allocation, not a claim of exhaustive mathematical search.
+
+## Recursive research-local representation continuation — contract extension
+
+1. A research-local axis born in shell \(k\) MAY enter shell \(k+1\) as a frozen coordinate whose source binding, weights,
+   standardization and expression are immutable during that continuation cycle.
+2. When evaluating incremental shell \(k+1\) candidates by discovery folds, coefficients of the already-frozen representation
+   MAY be refit inside each training fold, but the born coordinate definition SHALL NOT be relearned from the held-out fold.
+3. Function-language birth SHALL be re-diagnosed on the residual after the complete prior research-local stack, rather than on
+   the original residual. Persisted historical languages remain available research state but SHALL be distinguished from
+   families that cross the current residual birth gate.
+4. Selective reconnaissance MAY use a cheaper finite screen, but final effective selection SHALL require repeated deterministic
+   discovery-only group stability. Validation and sealed evidence SHALL NOT select family, zone, latent rank, kernel scale,
+   kernel centers or representation depth.
+5. LATENT components and KERNEL basis coordinates that arise from a discovery-stable representation SHALL be recorded only as
+   `RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE`; their birth SHALL NOT imply scientific transfer, causality or canonical registration.
+6. Failure of outer validation SHALL block promotion but SHALL NOT be interpreted as proof that the remaining representation
+   space is empty. A further shell requires residual evidence and remains exploratory until fresh external confirmation exists.
+7. A finite recursive shell budget SHALL remain an execution tranche, not a scientific-space cardinality ceiling.
+
+
+## Contract: multibranch residual closure and regime stress
+
+Для adaptive residual research обязательны следующие различия состояний:
+
+\[
+\texttt{BORN\_AXIS}\neq\texttt{STABLE\_REPRESENTATION}\neq\texttt{CANONICAL\_AXIS}\neq\texttt{CAUSAL\_LAW}.
+\]
+
+### Multibranch contract
+
+1. Не допускается продолжать только один greedy branch, если current state содержит несколько research-local alternatives.
+2. Wide reconnaissance может использовать дешёвый representative variant, но expensive deep budget распределяется только по discovery evidence.
+3. Каждая language family получает ненулевой exploration floor, если она рождена current residual и не исключена математически.
+4. Validation и sealed не участвуют в branch budget allocation или выборе branch.
+5. Finite budget не является scientific-space ceiling.
+
+### Joint stability contract
+
+Для продвижения нелинейного residual branch требуется
+
+\[
+G_{joint}=G_{group}\land G_{tail}.
+\]
+
+`G_group` — repeated discovery-only grouped stability с существующим robust gate.
+
+`G_tail` — discovery-only support/regime stress: для каждой координаты candidate-zone отдельно holdout-ятся нижний и верхний 15% empirical support; branch и frozen prior stack refit-ятся без этого tail и проверяются на нём. Tail gains проходят тот же robust gate:
+
+\[
+\text{positive fraction}\ge0.75,
+\quad
+m>0,
+\quad
+m-1.4826MAD>0.
+\]
+
+Если `G_group=true`, но `G_tail=false`, representation получает статус `TAIL_FRAGILE_RESEARCH_CANDIDATE` и не может быть parent branch следующей scientific-promotion цепочки. Validation не может «спасти» такой branch.
+
+Если ни одна frontier branch не имеет `G_joint=true`, current tranche закрывается как
+
+`REPRESENTATION_GAP_FRONTIER_OPEN_NO_STRESS_ROBUST_BRANCH`.
+
+Этот статус означает локальное завершение объявленного adaptive tranche, а не доказательство отсутствия неизвестной структуры во всём открытом пространстве.

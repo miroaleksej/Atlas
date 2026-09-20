@@ -1489,8 +1489,10 @@ class AdaptiveHypothesisSynthesisOwner:
             }
             return {**payload, "digest": digest_payload(payload)}
         names = tuple(str(x) for x in predictor_variables)
-        if not names:
-            raise ValueError("at least one predictor variable is required")
+        # A frozen law may leave a residual whose current representation has no
+        # active coordinate at all.  In that case the correct null model is an
+        # intercept-only chart; dormant axes remain invisible until residual
+        # evidence activates them.  Do not fabricate a dummy predictor.
         target_dim = _dim_tuple(variable_dimensions[target_variable])
         predictor_dims = {name: _dim_tuple(variable_dimensions[name]) for name in names}
         rows = []
@@ -1541,7 +1543,7 @@ class AdaptiveHypothesisSynthesisOwner:
         for new_term in shell_terms:
             for lower_term in lower_terms:
                 basis_sets.append((lower_term, new_term))
-        unique_basis = []
+        unique_basis = [tuple()] if not names else []
         seen = set()
         for basis in basis_sets:
             key = tuple(sorted(set(basis)))
@@ -1680,6 +1682,13 @@ class AdaptiveResearchKernelOwner:
                 "axis_birth_cardinality": "ADAPTIVE",
                 "multi_axis_birth_allowed": True,
                 "fixed_axis_count_per_cycle": None,
+                "axis_selection_contract": "MARGINAL_GAIN_PLUS_GROUP_STABILITY_PLUS_PARSIMONY",
+                "selective_deep_zone_search": True,
+                "joint_zone_birth_without_stable_single_axis_parent": True,
+                "single_path_greedy_search_is_complete": False,
+                "joint_zone_requires_full_effective_support_before_activation": True,
+                "representation_activation_is_effective_formula_support": False,
+                "effective_formula_support_is_read_from_selected_hypothesis": True,
                 "representation_activation_is_causal_establishment": False,
                 "representation_activation_may_proceed_while_causal_readiness_fails_closed": True,
                 "representation_activated_does_not_equal_causally_established": True,
@@ -1720,10 +1729,12 @@ class AdaptiveResearchKernelOwner:
         dims = {str(k): list(_dim_tuple(v)) for k, v in dict(req.get("variable_dimensions", {})).items()}
         if not target or target not in dims:
             raise ValueError("target_variable and its dimension are required")
-        if not predictors or any(name not in dims for name in predictors):
-            raise ValueError("predictor_variables and their dimensions are required")
+        if any(name not in dims for name in predictors):
+            raise ValueError("predictor_variables must have declared dimensions")
         if any(name not in dims for name in dormant):
             raise ValueError("dormant_axis_variables and their dimensions are required")
+        if not predictors and not dormant:
+            raise ValueError("at least one active or dormant predictor axis is required")
         if target in predictors or target in dormant:
             raise ValueError("target_variable cannot also be an active or dormant predictor axis")
         overlap = sorted(set(predictors) & set(dormant))
@@ -1747,6 +1758,11 @@ class AdaptiveResearchKernelOwner:
             "auto_activate_dormant_axes": bool(req.get("auto_activate_dormant_axes", True)),
             "axis_birth_trial_budget": max(64, int(req.get("axis_birth_trial_budget", 2048))),
             "axis_birth_sparse_search_allowed": bool(req.get("axis_birth_sparse_search_allowed", True)),
+            "axis_birth_stability_folds": max(3, int(req.get("axis_birth_stability_folds", 4))),
+            "axis_birth_stability_repeats": max(3, int(req.get("axis_birth_stability_repeats", 5))),
+            "axis_birth_external_stability_evidence": tuple(
+                dict(x) for x in req.get("axis_birth_external_stability_evidence", ()) if isinstance(x, Mapping)
+            ),
             "operator_probe_rows": tuple(dict(x) for x in req.get("operator_probe_rows", ())),
             "operator_probe_design_request": dict(req.get("operator_probe_design_request", {})) if isinstance(req.get("operator_probe_design_request"), Mapping) else {},
             "operator_fit_tolerance_nrmse": max(0.0, float(req.get("operator_fit_tolerance_nrmse", 1e-5))),
@@ -1846,6 +1862,391 @@ class AdaptiveResearchKernelOwner:
             "improved":bool(finite and after < before),
         }
         return {**payload,"digest":digest_payload(payload)}
+
+    @staticmethod
+    def _candidate_support_axis_variables(
+        candidate: Mapping[str, Any] | None,
+        predictor_variables: Sequence[str],
+    ) -> tuple[str, ...]:
+        """Return only coordinates actually used by the selected formula.
+
+        A coordinate can be activated in the representation so that synthesis
+        may inspect it without becoming part of the effective formula support.
+        Support is read from non-zero monomial exponents in the frozen selected
+        hypothesis; it is never inferred from availability alone.
+        """
+        if not candidate:
+            return tuple()
+        names = tuple(str(x) for x in predictor_variables)
+        support: set[str] = set()
+        for term in candidate.get("basis", ()):
+            expmap = dict(term.get("exponents", {}))
+            for name in names:
+                try:
+                    exponent = int(expmap.get(name, 0))
+                except (TypeError, ValueError):
+                    exponent = 0
+                if exponent != 0:
+                    support.add(name)
+        return tuple(name for name in names if name in support)
+
+    @staticmethod
+    def _candidate_research_local_derived_axes(
+        candidate: Mapping[str, Any] | None,
+        predictor_variables: Sequence[str],
+        variable_dimensions: Mapping[str, Sequence[float]],
+    ) -> tuple[Mapping[str, Any], ...]:
+        """Materialize composite terms as non-canonical research-local axes.
+
+        Hypothesis synthesis may discover an interaction or higher-order power
+        even when no single source coordinate is useful alone.  Those terms must
+        not disappear inside an opaque formula: they are persisted as typed
+        research-local derived-axis candidates for the next research cycle.
+        This is *not* canonical promotion and it makes no causal claim.
+        """
+        if not candidate:
+            return tuple()
+        names=tuple(str(x) for x in predictor_variables)
+        rows=[]; seen=set()
+        for term in candidate.get("basis",()):
+            raw=dict(term.get("exponents",{}))
+            exponents={}
+            for name in names:
+                try:
+                    exponent=int(raw.get(name,0))
+                except (TypeError,ValueError):
+                    exponent=0
+                if exponent!=0:
+                    exponents[name]=exponent
+            # Linear source coordinates are already represented explicitly; axis
+            # birth here is reserved for interactions, powers, and inverse terms.
+            if not exponents or (len(exponents)==1 and next(iter(exponents.values()))==1):
+                continue
+            key=tuple(sorted(exponents.items()))
+            if key in seen:
+                continue
+            seen.add(key)
+            dim=np.zeros(7,dtype=float)
+            typed=True
+            for name,exponent in exponents.items():
+                row=variable_dimensions.get(name)
+                if row is None or len(row)!=7:
+                    typed=False; break
+                dim += float(exponent)*np.asarray(row,dtype=float)
+            core={
+                "source_axis_ids":sorted(exponents),
+                "exponents":{k:int(v) for k,v in sorted(exponents.items())},
+                "expression":str(term.get("term") or "*".join(f"{k}^{v}" for k,v in sorted(exponents.items()))),
+                "dimension":[float(x) for x in dim] if typed else None,
+                "origin":"SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            }
+            axis_id="DERIVED-"+digest_payload(core)[:20].upper()
+            row={
+                **core,
+                "axis_id":axis_id,
+                "status":"RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE",
+                "activation_state":"RESEARCH_LOCAL_DERIVED_CANDIDATE",
+                "canonical":False,
+                "canonical_registry_mutated":False,
+                "causally_established":False,
+                "promotion_required_for_canonical_registration":True,
+            }
+            rows.append({**row,"digest":digest_payload(row)})
+        return tuple(rows)
+
+    def _axis_subset_group_stability(
+        self,
+        *,
+        observations: Sequence[Mapping[str, Any]],
+        target_variable: str,
+        base_predictor_variables: Sequence[str],
+        trial_predictor_variables: Sequence[str],
+        variable_dimensions: Mapping[str, Sequence[float]],
+        complexity_level: int,
+        fold_count: int,
+        partition_salt: str = "",
+    ) -> Mapping[str, Any]:
+        """Discovery-only, group-held-out stability test for an axis birth.
+
+        The grouping key is ``study_id`` when there are enough independent
+        study groups to populate the folds with replication; otherwise record_id.
+        Every fold refits both the current and proposed representations using
+        only the other discovery groups, then compares them on the omitted
+        groups.  The gate is deliberately scale-free: a birth survives only if
+        at least 75% of valid folds improve and median relative gain exceeds one
+        robust sigma, estimated as ``1.4826 * MAD``.  Thus tiny gains smaller
+        than their own split-to-split instability do not activate coordinates.
+        """
+        folds = max(3, int(fold_count))
+        # A tiny number of study regimes is not a replication partition: leaving
+        # one such regime out can remove an entire identifying mechanism (for
+        # example one exact-flow family) and confound stability with regime
+        # ablation.  Use study-level groups only when there are enough distinct
+        # studies to populate folds with replication; otherwise fall back to the
+        # finest attested record identity while keeping the test discovery-only.
+        study_groups = {str(obs.get("study_id")) for obs in observations if str(obs.get("study_id", "")).strip()}
+        use_study_id = len(study_groups) >= 2 * folds
+        group_key = "study_id" if use_study_id else "record_id"
+        fold_rows: list[list[Mapping[str, Any]]] = [[] for _ in range(folds)]
+        for idx, obs in enumerate(observations):
+            if use_study_id:
+                group = str(obs.get("study_id"))
+            else:
+                group = str(obs.get("record_id") or f"ROW-{idx:08d}")
+            partition_key = f"{partition_salt}::{group}" if partition_salt else group
+            bucket = int(hashlib.sha256(partition_key.encode("utf-8")).hexdigest()[:16], 16) % folds
+            fold_rows[bucket].append(obs)
+
+        rows: list[dict[str, Any]] = []
+        gains: list[float] = []
+        for fold_index in range(folds):
+            test = tuple(fold_rows[fold_index])
+            train = tuple(
+                obs
+                for j, part in enumerate(fold_rows)
+                if j != fold_index
+                for obs in part
+            )
+            if len(test) < 2 or len(train) < 8:
+                rows.append({"fold": fold_index, "status": "INSUFFICIENT_GROUP_HELDOUT_ROWS", "train_count": len(train), "test_count": len(test)})
+                continue
+            base_space = self.hypothesis_synthesis.synthesize(
+                observations=train,
+                target_variable=target_variable,
+                predictor_variables=tuple(base_predictor_variables),
+                variable_dimensions=variable_dimensions,
+                complexity_level=complexity_level,
+            )
+            trial_space = self.hypothesis_synthesis.synthesize(
+                observations=train,
+                target_variable=target_variable,
+                predictor_variables=tuple(trial_predictor_variables),
+                variable_dimensions=variable_dimensions,
+                complexity_level=complexity_level,
+            )
+            base_best = (base_space.get("candidates") or [None])[0]
+            trial_best = (trial_space.get("candidates") or [None])[0]
+            base_eval = self._evaluate_candidate_on_observations(base_best, test, tuple(base_predictor_variables), target_variable)
+            trial_eval = self._evaluate_candidate_on_observations(trial_best, test, tuple(trial_predictor_variables), target_variable)
+            before = base_eval.get("nrmse")
+            after = trial_eval.get("nrmse")
+            if before is None or after is None or not math.isfinite(float(before)) or not math.isfinite(float(after)):
+                rows.append({"fold": fold_index, "status": "NONFINITE_FOLD_EVALUATION", "train_count": len(train), "test_count": len(test)})
+                continue
+            before_f = float(before); after_f = float(after)
+            gain = (before_f - after_f) / max(abs(before_f), 1e-30)
+            gains.append(gain)
+            rows.append({
+                "fold": fold_index,
+                "status": "EVALUATED",
+                "train_count": len(train),
+                "test_count": len(test),
+                "base_nrmse": before_f,
+                "trial_nrmse": after_f,
+                "relative_gain": gain,
+            })
+
+        if gains:
+            arr = np.asarray(gains, dtype=float)
+            median_gain = float(np.median(arr))
+            mad_gain = float(np.median(np.abs(arr - median_gain)))
+            positive_fraction = float(np.mean(arr > 0.0))
+            robust_sigma = 1.4826 * mad_gain
+            robust_margin = median_gain - robust_sigma
+        else:
+            median_gain = mad_gain = robust_sigma = robust_margin = 0.0
+            positive_fraction = 0.0
+        required_valid = max(3, int(math.ceil(0.75 * folds)))
+        passes = bool(
+            len(gains) >= required_valid
+            and positive_fraction >= 0.75
+            and median_gain > 0.0
+            and robust_margin > 0.0
+        )
+        payload = {
+            "schema": "phi-axis-birth-group-stability/v1",
+            "group_key": group_key,
+            "study_group_count": len(study_groups),
+            "study_group_minimum_for_group_holdout": 2 * folds,
+            "fold_count": folds,
+            "partition_salt": str(partition_salt),
+            "valid_fold_count": len(gains),
+            "required_valid_fold_count": required_valid,
+            "positive_fraction": positive_fraction,
+            "median_relative_gain": median_gain,
+            "mad_relative_gain": mad_gain,
+            "robust_sigma_1p4826_mad": robust_sigma,
+            "robust_margin_median_minus_sigma": robust_margin,
+            "passes": passes,
+            "rows": rows,
+            "sealed_holdout_used": False,
+        }
+        return {**payload, "digest": digest_payload(payload)}
+
+    def _axis_subset_repeated_group_stability(
+        self,
+        *,
+        observations: Sequence[Mapping[str, Any]],
+        target_variable: str,
+        base_predictor_variables: Sequence[str],
+        trial_predictor_variables: Sequence[str],
+        variable_dimensions: Mapping[str, Sequence[float]],
+        complexity_level: int,
+        fold_count: int,
+        repeat_count: int = 5,
+    ) -> Mapping[str, Any]:
+        """Repeated discovery-only grouped stability for selecting between zones.
+
+        A single deterministic group partition is a useful screening gate but is
+        not strong enough to rank several deep zones: a fragile interaction can
+        win one partition by chance.  This ensemble repeats the *same frozen*
+        fit/evaluation contract under deterministic salted group assignments.
+        No validation or sealed observations are consumed.  Promotion requires
+        the majority of partitions to pass and the median robust margin across
+        partitions to stay positive.
+        """
+        repeats=max(3,int(repeat_count))
+        rows=[]
+        margins=[]
+        medians=[]
+        positives=[]
+        valid_repeat_passes=[]
+        all_fold_gains=[]
+        for repeat_index in range(repeats):
+            row=self._axis_subset_group_stability(
+                observations=observations,
+                target_variable=target_variable,
+                base_predictor_variables=base_predictor_variables,
+                trial_predictor_variables=trial_predictor_variables,
+                variable_dimensions=variable_dimensions,
+                complexity_level=complexity_level,
+                fold_count=fold_count,
+                partition_salt=f"REPEAT-{repeat_index:02d}",
+            )
+            rows.append(row)
+            margins.append(float(row.get("robust_margin_median_minus_sigma",0.0)))
+            medians.append(float(row.get("median_relative_gain",0.0)))
+            positives.append(float(row.get("positive_fraction",0.0)))
+            valid_repeat_passes.append(bool(row.get("passes") is True))
+            for fold_row in row.get("rows",()):
+                if fold_row.get("status")=="EVALUATED":
+                    try:
+                        gain=float(fold_row.get("relative_gain"))
+                    except (TypeError,ValueError):
+                        continue
+                    if math.isfinite(gain):
+                        all_fold_gains.append(gain)
+        margin_arr=np.asarray(margins,dtype=float)
+        median_margin=float(np.median(margin_arr)) if len(margin_arr) else 0.0
+        median_gain=float(np.median(np.asarray(medians,dtype=float))) if medians else 0.0
+        median_positive=float(np.median(np.asarray(positives,dtype=float))) if positives else 0.0
+        repeat_pass_fraction=float(np.mean(np.asarray(valid_repeat_passes,dtype=float))) if valid_repeat_passes else 0.0
+        if all_fold_gains:
+            gains_arr=np.asarray(all_fold_gains,dtype=float)
+            pooled_median=float(np.median(gains_arr))
+            pooled_mad=float(np.median(np.abs(gains_arr-pooled_median)))
+            pooled_sigma=1.4826*pooled_mad
+            pooled_margin=pooled_median-pooled_sigma
+            pooled_positive=float(np.mean(gains_arr>0.0))
+        else:
+            pooled_median=pooled_mad=pooled_sigma=pooled_margin=pooled_positive=0.0
+        required_repeat_fraction=0.60
+        passes=bool(
+            repeat_pass_fraction>=required_repeat_fraction
+            and median_margin>0.0
+            and median_gain>0.0
+            and median_positive>=0.75
+            and pooled_margin>0.0
+            and pooled_positive>=0.70
+        )
+        payload={
+            "schema":"phi-axis-birth-repeated-group-stability/v1",
+            "repeat_count":repeats,
+            "fold_count_per_repeat":max(3,int(fold_count)),
+            "repeat_pass_fraction":repeat_pass_fraction,
+            "required_repeat_pass_fraction":required_repeat_fraction,
+            "median_repeat_robust_margin":median_margin,
+            "median_repeat_relative_gain":median_gain,
+            "median_repeat_positive_fraction":median_positive,
+            "pooled_fold_positive_fraction":pooled_positive,
+            "pooled_fold_median_relative_gain":pooled_median,
+            "pooled_fold_mad_relative_gain":pooled_mad,
+            "pooled_fold_robust_sigma_1p4826_mad":pooled_sigma,
+            "pooled_fold_robust_margin_median_minus_sigma":pooled_margin,
+            "passes":passes,
+            "partitions":rows,
+            "validation_holdout_used":False,
+            "sealed_holdout_used":False,
+        }
+        return {**payload,"digest":digest_payload(payload)}
+
+    @staticmethod
+    def _axis_subset_external_stability(
+        evidence_rows: Sequence[Mapping[str, Any]],
+        axes: Sequence[str],
+    ) -> Mapping[str, Any] | None:
+        """Resolve exact-subset stability attested by another existing owner.
+
+        This is not a bypass around validation.  It accepts only an exact axis
+        set whose evidence explicitly states independent validation, positive
+        transfer, no sealed-holdout consumption, and binds the assertion to a
+        verified full source receipt. Missing evidence falls back to the
+        discovery-only group-stability test; a supplied invalid exact-set
+        attestation fails closed. Receipt integrity is not world attestation.
+        """
+        wanted = tuple(sorted(str(x) for x in axes))
+        for row in evidence_rows:
+            got = tuple(sorted(str(x) for x in row.get("axes", ())))
+            if got != wanted:
+                continue
+            try:
+                gain = float(row.get("fractional_improvement", float("nan")))
+            except (TypeError, ValueError):
+                gain = float("nan")
+            source_digest = str(row.get("source_digest", "")).strip()
+            # A caller-supplied digest string alone is not evidence. Require the
+            # complete existing-owner receipt and verify its content binding.
+            receipt = row.get("source_receipt")
+            receipt_valid = False
+            if isinstance(receipt, Mapping):
+                core = {k: v for k, v in receipt.items() if k != "digest"}
+                candidate = receipt.get("best_axis_birth") or {}
+                split = receipt.get("dataset", {}).get("freeze_split", {})
+                fit = set(split.get("fit_regimes", ()))
+                validation = set(split.get("validation_regimes", ()))
+                mapping = row.get("source_axis_mapping", {})
+                receipt_valid = bool(
+                    source_digest == receipt.get("digest") == digest_payload(core)
+                    and receipt.get("owner") == row.get("source_owner") == "AXIS-MODELING/8.0.0"
+                    and len(wanted) == 1
+                    and isinstance(mapping, Mapping)
+                    and set(mapping) == set(wanted)
+                    and mapping.get(wanted[0]) == candidate.get("axis_id")
+                    and candidate.get("axis_id")
+                    and gain == candidate.get("ood_rmse_fractional_improvement")
+                    and fit and validation and not fit.intersection(validation)
+                )
+            passes = bool(
+                row.get("independent_validation") is True
+                and row.get("sealed_holdout_used") is False
+                and math.isfinite(gain)
+                and gain > 0.0
+                and receipt_valid
+            )
+            payload = {
+                "schema": "phi-axis-birth-external-stability/v1",
+                "axes": list(wanted),
+                "source_owner": str(row.get("source_owner", "EXTERNAL_OWNER")),
+                "source_digest": source_digest,
+                "source_receipt_verified": receipt_valid,
+                "source_receipt_is_world_attestation": False,
+                "independent_validation": row.get("independent_validation") is True,
+                "fractional_improvement": gain if math.isfinite(gain) else None,
+                "sealed_holdout_used": row.get("sealed_holdout_used") is True,
+                "passes": passes,
+            }
+            return {**payload, "digest": digest_payload(payload)}
+        return None
 
     @staticmethod
     def _evaluate_candidate_on_observations(
@@ -2828,6 +3229,7 @@ class AdaptiveResearchKernelOwner:
         search_strategy="EXHAUSTIVE_CARDINALITY_SHELLS"
         search_budget=int(req.get("axis_birth_trial_budget",2048))
         search_budget_exhausted=False
+        stability_stop=False
         if (not fit_ok) and req["auto_activate_dormant_axes"] and signal_ids:
             total_subset_count=(1 << len(signal_ids))-1 if len(signal_ids)<63 else float("inf")
             use_sparse=bool(req.get("axis_birth_sparse_search_allowed",True)) and total_subset_count>search_budget
@@ -2852,13 +3254,28 @@ class AdaptiveResearchKernelOwner:
                             "hypothesis_space_digest":trial_hypotheses.get("digest"),
                             "best_hypothesis_id":trial_best.get("candidate_id") if trial_best else None,
                         }
+                        stability=None
+                        if trial["improved"]:
+                            stability=self._axis_subset_external_stability(
+                                req["axis_birth_external_stability_evidence"], subset
+                            )
+                            if stability is None:
+                                stability=self._axis_subset_group_stability(
+                                    observations=req["observations"],target_variable=req["target_variable"],
+                                    base_predictor_variables=tuple(req["predictor_variables"]),
+                                    trial_predictor_variables=expanded_predictors,
+                                    variable_dimensions=req["variable_dimensions"],complexity_level=req["complexity_level"],
+                                    fold_count=req["axis_birth_stability_folds"],
+                                )
+                        trial["group_stability"]=stability
+                        trial["stable_improvement"]=bool(stability and stability.get("passes") is True)
                         trial["digest"]=digest_payload(trial); axis_birth_trials.append(trial)
                         shell_trials.append((trial,trial_hypotheses,trial_best,trial_improvement))
-                        if trial["improved"]:
+                        if trial["improved"] and trial["stable_improvement"]:
                             key=(trial_error,cardinality,tuple(subset))
                             if best_improving is None or key<best_improving[0]:
                                 best_improving=(key,trial,trial_hypotheses,trial_best,trial_improvement)
-                    qualifying=[row for row in shell_trials if row[0]["reaches_fit_gate"]]
+                    qualifying=[row for row in shell_trials if row[0]["reaches_fit_gate"] and row[0]["stable_improvement"]]
                     if qualifying:
                         qualifying.sort(key=lambda row:(float(row[0]["holdout_nrmse"]),tuple(row[0]["axes"])))
                         selected_trial,expanded_hypotheses,expanded_best,activation_improvement=qualifying[0]
@@ -2867,13 +3284,180 @@ class AdaptiveResearchKernelOwner:
                     _,selected_trial,expanded_hypotheses,expanded_best,activation_improvement=best_improving
                     activated_axes=list(selected_trial["axes"])
             else:
-                # Open-ended sparse route: forward support growth followed by
-                # backward deletion. It has no fixed cardinality target; the
-                # resource guard limits evaluated trials, not scientific order.
+                # Open-ended sparse route.  A single forward path is not enough:
+                # pure joint effects can have no stable one-axis parent at all.
+                # Therefore every finite tranche first performs a multi-start
+                # selective joint-zone reconnaissance, then deepens the best
+                # *fully-supported* stable zones and only afterwards resumes
+                # marginal forward/backward growth.  The trial budget bounds this
+                # execution tranche only; it is not a scientific cardinality cap.
                 search_policy="SPARSE_ADAPTIVE_FORWARD_BACKWARD_SUBSET_SEARCH"
-                search_strategy="FORWARD_GROWTH_THEN_BACKWARD_MINIMIZATION"
+                search_strategy="MULTISTART_JOINT_ZONE_RECONNAISSANCE_THEN_MARGINAL_DEEPENING"
                 current=[]; remaining=list(signal_ids); current_best=best
                 current_hypotheses=hypotheses; current_improvement=activation_improvement
+
+                joint_zone_candidates=[]
+                joint_zone_seen=set()
+                # Reserve at most ~60% of the finite tranche for pair reconnaissance
+                # so that promising zones can still be deepened to cardinality >=3.
+                pair_budget=max(1, int(math.floor(search_budget*0.60)))
+                pair_subsets=list(itertools.combinations(signal_ids,2))
+                if len(pair_subsets)>pair_budget:
+                    rank={axis_id:i for i,axis_id in enumerate(signal_ids)}
+                    pair_subsets.sort(key=lambda s:(max(rank[s[0]],rank[s[1]]),rank[s[0]]+rank[s[1]],s))
+                    pair_subsets=pair_subsets[:pair_budget]
+                for subset in pair_subsets:
+                    if len(axis_birth_trials)>=search_budget:
+                        search_budget_exhausted=True; break
+                    expanded_predictors=tuple(req["predictor_variables"])+tuple(subset)
+                    th=self.hypothesis_synthesis.synthesize(
+                        observations=req["observations"],target_variable=req["target_variable"],
+                        predictor_variables=expanded_predictors,variable_dimensions=req["variable_dimensions"],
+                        complexity_level=req["complexity_level"],
+                    )
+                    tb=th.get("candidates",[None])[0] if th.get("candidates") else None
+                    ti=self._activation_improvement(best,tb)
+                    err=float(tb.get("holdout_nrmse",float("inf"))) if tb else float("inf")
+                    support=self._candidate_support_axis_variables(tb,expanded_predictors)
+                    tr={"cardinality":len(subset),"axes":list(subset),"holdout_nrmse":err,
+                        "improved":bool(ti.get("improved")),
+                        "reaches_fit_gate":bool(tb) and bool(tb.get("identifiable_on_train")) and err<=req["fit_tolerance_nrmse"],
+                        "hypothesis_space_digest":th.get("digest"),"best_hypothesis_id":tb.get("candidate_id") if tb else None,
+                        "phase":"JOINT_ZONE_SEED","effective_support_axes":list(support),
+                        "full_subset_support":set(support)==set(subset),"group_stability":None,"stable_improvement":False}
+                    stability=None
+                    if tr["improved"]:
+                        stability=self._axis_subset_external_stability(req["axis_birth_external_stability_evidence"], subset)
+                        if stability is None:
+                            stability=self._axis_subset_group_stability(
+                                observations=req["observations"],target_variable=req["target_variable"],
+                                base_predictor_variables=tuple(req["predictor_variables"]),
+                                trial_predictor_variables=expanded_predictors,variable_dimensions=req["variable_dimensions"],
+                                complexity_level=req["complexity_level"],fold_count=req["axis_birth_stability_folds"],
+                            )
+                    tr["group_stability"]=stability
+                    tr["stable_improvement"]=bool(stability and stability.get("passes") is True)
+                    tr["digest"]=digest_payload(tr); axis_birth_trials.append(tr)
+                    joint_zone_seen.add(tuple(subset))
+                    joint_zone_candidates.append((err,tuple(subset),tr,th,tb,ti))
+
+                # Multi-start seeds combine the strongest exact-set stable zones
+                # with the strongest raw improving zones.  This lets a cardinality-3
+                # interaction be reached even when its pair parent is not itself
+                # promotion-ready, while stable zones are never starved.
+                stable_seed_rows=[row for row in joint_zone_candidates if row[2]["stable_improvement"] and row[2]["full_subset_support"]]
+                stable_seed_rows.sort(key=lambda row:(-float(row[2]["group_stability"].get("robust_margin_median_minus_sigma",0.0)),row[0],row[1]))
+                improving_seed_rows=[row for row in joint_zone_candidates if row[2]["improved"] and row[2]["full_subset_support"]]
+                improving_seed_rows.sort(key=lambda row:(row[0],row[1]))
+                beam_width=max(2,min(8,int(math.sqrt(max(search_budget,1)))))
+                seed_rows=[]; seed_keys=set()
+                for row in stable_seed_rows[:beam_width]+improving_seed_rows[:beam_width]:
+                    if row[1] not in seed_keys:
+                        seed_rows.append(row); seed_keys.add(row[1])
+
+                # Selective deepening: expand each nominated zone by one coordinate
+                # and judge the complete child jointly against the original
+                # discovery representation.  This is intentionally not a
+                # single-parent marginal gate.
+                for _,seed_subset,_,_,_,_ in seed_rows:
+                    for axis_id in signal_ids:
+                        if axis_id in seed_subset or len(axis_birth_trials)>=search_budget:
+                            continue
+                        subset=tuple(list(seed_subset)+[axis_id])
+                        key=tuple(sorted(subset))
+                        if key in joint_zone_seen:
+                            continue
+                        joint_zone_seen.add(key)
+                        expanded_predictors=tuple(req["predictor_variables"])+subset
+                        th=self.hypothesis_synthesis.synthesize(
+                            observations=req["observations"],target_variable=req["target_variable"],
+                            predictor_variables=expanded_predictors,variable_dimensions=req["variable_dimensions"],
+                            complexity_level=req["complexity_level"],
+                        )
+                        tb=th.get("candidates",[None])[0] if th.get("candidates") else None
+                        ti=self._activation_improvement(best,tb)
+                        err=float(tb.get("holdout_nrmse",float("inf"))) if tb else float("inf")
+                        support=self._candidate_support_axis_variables(tb,expanded_predictors)
+                        tr={"cardinality":len(subset),"axes":list(subset),"holdout_nrmse":err,
+                            "improved":bool(ti.get("improved")),
+                            "reaches_fit_gate":bool(tb) and bool(tb.get("identifiable_on_train")) and err<=req["fit_tolerance_nrmse"],
+                            "hypothesis_space_digest":th.get("digest"),"best_hypothesis_id":tb.get("candidate_id") if tb else None,
+                            "phase":"JOINT_ZONE_DEEPEN","parent_axes":list(seed_subset),
+                            "effective_support_axes":list(support),"full_subset_support":set(support)==set(subset),
+                            "group_stability":None,"stable_improvement":False}
+                        stability=None
+                        if tr["improved"]:
+                            stability=self._axis_subset_external_stability(req["axis_birth_external_stability_evidence"], subset)
+                            if stability is None:
+                                stability=self._axis_subset_group_stability(
+                                    observations=req["observations"],target_variable=req["target_variable"],
+                                    base_predictor_variables=tuple(req["predictor_variables"]),
+                                    trial_predictor_variables=expanded_predictors,variable_dimensions=req["variable_dimensions"],
+                                    complexity_level=req["complexity_level"],fold_count=req["axis_birth_stability_folds"],
+                                )
+                        tr["group_stability"]=stability
+                        tr["stable_improvement"]=bool(stability and stability.get("passes") is True)
+                        tr["digest"]=digest_payload(tr); axis_birth_trials.append(tr)
+                        joint_zone_candidates.append((err,subset,tr,th,tb,ti))
+                    if len(axis_birth_trials)>=search_budget:
+                        search_budget_exhausted=True; break
+
+                # Start subsequent marginal deepening from the best stable joint
+                # zone.  A selected zone must use every activated coordinate;
+                # otherwise it remains a diagnostic hypothesis but is not an axis birth.
+                selectable=[row for row in joint_zone_candidates if row[2]["stable_improvement"] and row[2]["full_subset_support"]]
+                if selectable:
+                    # A single four-fold partition is only a reconnaissance gate.
+                    # Rank deep zones using a repeated discovery-only group
+                    # ensemble before choosing the branch to deepen.  Keep the
+                    # ensemble selective: union the strongest stability-margin
+                    # and lowest-holdout candidates, then evaluate only that
+                    # shortlist rather than pretending to exhaust the space.
+                    by_margin=sorted(
+                        selectable,
+                        key=lambda row:(-float((row[2].get("group_stability") or {}).get("robust_margin_median_minus_sigma",0.0)),row[0],len(row[1]),row[1]),
+                    )
+                    by_error=sorted(selectable,key=lambda row:(row[0],len(row[1]),row[1]))
+                    shortlist=[]; shortlist_keys=set()
+                    shortlist_width=max(4,min(10,beam_width+2))
+                    for row in by_margin[:shortlist_width]+by_error[:shortlist_width]:
+                        key=tuple(sorted(row[1]))
+                        if key not in shortlist_keys:
+                            shortlist.append(row); shortlist_keys.add(key)
+                    ensemble_selectable=[]
+                    for row in shortlist:
+                        _,subset,tr,th,tb,ti=row
+                        external=self._axis_subset_external_stability(
+                            req["axis_birth_external_stability_evidence"], subset
+                        )
+                        if external is not None:
+                            selection_stability=external
+                        else:
+                            selection_stability=self._axis_subset_repeated_group_stability(
+                                observations=req["observations"],target_variable=req["target_variable"],
+                                base_predictor_variables=tuple(req["predictor_variables"]),
+                                trial_predictor_variables=tuple(req["predictor_variables"])+tuple(subset),
+                                variable_dimensions=req["variable_dimensions"],complexity_level=req["complexity_level"],
+                                fold_count=req["axis_birth_stability_folds"],repeat_count=req["axis_birth_stability_repeats"],
+                            )
+                        tr["selection_stability"]=selection_stability
+                        tr["selection_stability_pass"]=bool(selection_stability.get("passes") is True)
+                        tr["digest"]=digest_payload({k:v for k,v in tr.items() if k!="digest"})
+                        if tr["selection_stability_pass"]:
+                            ensemble_selectable.append(row)
+                    if ensemble_selectable:
+                        qualifying=[row for row in ensemble_selectable if row[2]["reaches_fit_gate"]]
+                        pool=qualifying if qualifying else ensemble_selectable
+                        def _ensemble_rank(row):
+                            st=row[2].get("selection_stability") or {}
+                            margin=float(st.get("median_repeat_robust_margin",st.get("robust_margin_median_minus_sigma",0.0)))
+                            pooled=float(st.get("pooled_fold_robust_margin_median_minus_sigma",margin))
+                            return (-min(margin,pooled),row[0],len(row[1]),row[1])
+                        pool.sort(key=_ensemble_rank)
+                        _,chosen_subset,chosen_trial,current_hypotheses,current_best,current_improvement=pool[0]
+                        current=list(chosen_subset)
+                        remaining=[a for a in signal_ids if a not in set(current)]
+
                 while remaining and len(axis_birth_trials)<search_budget:
                     shell=[]
                     for axis_id in list(remaining):
@@ -2887,14 +3471,41 @@ class AdaptiveResearchKernelOwner:
                             complexity_level=req["complexity_level"],
                         )
                         tb=th.get("candidates",[None])[0] if th.get("candidates") else None
-                        ti=self._activation_improvement(best,tb); err=float(tb.get("holdout_nrmse",float("inf"))) if tb else float("inf")
+                        ti=self._activation_improvement(current_best,tb); err=float(tb.get("holdout_nrmse",float("inf"))) if tb else float("inf")
                         tr={"cardinality":len(subset),"axes":list(subset),"holdout_nrmse":err,
                             "improved":bool(ti.get("improved")),"reaches_fit_gate":bool(tb) and bool(tb.get("identifiable_on_train")) and err<=req["fit_tolerance_nrmse"],
-                            "hypothesis_space_digest":th.get("digest"),"best_hypothesis_id":tb.get("candidate_id") if tb else None,"phase":"FORWARD"}
+                            "hypothesis_space_digest":th.get("digest"),"best_hypothesis_id":tb.get("candidate_id") if tb else None,"phase":"FORWARD",
+                            "marginal_against_axes":list(current),"group_stability":None,"stable_improvement":False}
                         tr["digest"]=digest_payload(tr); axis_birth_trials.append(tr); shell.append((err,axis_id,tr,th,tb,ti))
                     if not shell: break
                     shell.sort(key=lambda row:(row[0],signal_ids.index(row[1]),row[1]))
-                    err,chosen,tr,th,tb,ti=shell[0]
+                    stable_choice=None
+                    base_predictors=tuple(req["predictor_variables"])+tuple(current)
+                    for row in shell:
+                        err,axis_id,tr,th,tb,ti=row
+                        if not tr["improved"]:
+                            continue
+                        trial_predictors=tuple(req["predictor_variables"])+tuple(current+[axis_id])
+                        stability=self._axis_subset_external_stability(
+                            req["axis_birth_external_stability_evidence"], tuple(current+[axis_id])
+                        )
+                        if stability is None:
+                            stability=self._axis_subset_group_stability(
+                                observations=req["observations"],target_variable=req["target_variable"],
+                                base_predictor_variables=base_predictors,trial_predictor_variables=trial_predictors,
+                                variable_dimensions=req["variable_dimensions"],complexity_level=req["complexity_level"],
+                                fold_count=req["axis_birth_stability_folds"],
+                            )
+                        tr["group_stability"]=stability
+                        tr["stable_improvement"]=bool(stability.get("passes") is True)
+                        tr["digest"]=digest_payload({k:v for k,v in tr.items() if k!="digest"})
+                        if tr["stable_improvement"]:
+                            stable_choice=row
+                            break
+                    if stable_choice is None:
+                        stability_stop=True
+                        break
+                    err,chosen,tr,th,tb,ti=stable_choice
                     current.append(chosen); remaining.remove(chosen); current_best=tb; current_hypotheses=th; current_improvement=ti
                     if tr["reaches_fit_gate"]:
                         # Delete dispensable axes while preserving the fit gate.
@@ -2928,13 +3539,53 @@ class AdaptiveResearchKernelOwner:
                 if not activated_axes and current:
                     activated_axes=list(current); expanded_hypotheses=current_hypotheses; expanded_best=current_best; activation_improvement=current_improvement
                     selected_trial={"cardinality":len(current),"axes":list(current),"holdout_nrmse":float(current_best.get("holdout_nrmse",float("inf"))) if current_best else float("inf"),
-                                    "improved":bool(current_improvement.get("improved")),"reaches_fit_gate":False,"phase":"SPARSE_RESOURCE_STOP"}
+                                    "improved":True,"reaches_fit_gate":False,"phase":"SPARSE_STABILITY_STOP" if stability_stop else "SPARSE_RESOURCE_STOP"}
                     selected_trial["digest"]=digest_payload(selected_trial)
+        # Final representation support must itself carry a stability receipt.
+        # Forward marginal stability is necessary during growth, but a final
+        # exact-set attestation prevents backward minimization (or interacting
+        # additions) from leaving an activated representation whose complete
+        # support is not stable against the original discovery representation.
+        final_selection_stability=None
+        if activated_axes and expanded_best is not None:
+            final_selection_stability=self._axis_subset_external_stability(
+                req["axis_birth_external_stability_evidence"], tuple(activated_axes)
+            )
+            if final_selection_stability is None:
+                final_selection_stability=self._axis_subset_repeated_group_stability(
+                    observations=req["observations"],target_variable=req["target_variable"],
+                    base_predictor_variables=tuple(req["predictor_variables"]),
+                    trial_predictor_variables=tuple(req["predictor_variables"])+tuple(activated_axes),
+                    variable_dimensions=req["variable_dimensions"],complexity_level=req["complexity_level"],
+                    fold_count=req["axis_birth_stability_folds"],repeat_count=req["axis_birth_stability_repeats"],
+                )
+            if final_selection_stability.get("passes") is not True:
+                activated_axes=[]
+                expanded_hypotheses=None
+                expanded_best=None
+                selected_trial=None
+                stability_stop=True
+                activation_improvement={
+                    "improved":False,
+                    "initial_holdout_nrmse":float(best.get("holdout_nrmse",float("inf"))) if best else float("inf"),
+                    "expanded_holdout_nrmse":float("inf"),
+                    "absolute_improvement":0.0,
+                    "relative_improvement":0.0,
+                }
+                activation_improvement={**activation_improvement,"digest":digest_payload(activation_improvement)}
+            else:
+                activation_improvement=self._activation_improvement(best,expanded_best)
         axis_birth_search={
             "policy":search_policy,
             "search_strategy":search_strategy,
+            "selection_contract":"MARGINAL_GAIN_PLUS_GROUP_STABILITY_PLUS_PARSIMONY",
             "trial_budget":search_budget,
             "trial_budget_exhausted":search_budget_exhausted,
+            "stability_stop":stability_stop,
+            "stability_folds":req["axis_birth_stability_folds"],
+            "stability_repeats_for_zone_selection":req["axis_birth_stability_repeats"],
+            "stability_gate":"screen: positive_fraction>=0.75 AND median_relative_gain-1.4826*MAD>0; selection: repeated discovery-group ensemble with majority partition pass and positive pooled robust margin",
+            "external_stability_evidence_count":len(req["axis_birth_external_stability_evidence"]),
             "resource_budget_is_scientific_cardinality_ceiling":False,
             "fixed_axis_count_per_cycle":None,
             "multi_axis_birth_allowed":True,
@@ -2943,6 +3594,12 @@ class AdaptiveResearchKernelOwner:
             "direct_residual_scores":{k:float(v) for k,v in sorted(direct_residual_scores.items())},
             "partition_information_scores":{k:float(v) for k,v in sorted(partition_scores.items())},
             "activation_requires_discovery_holdout_improvement":True,
+            "activation_requires_group_stability":True,
+            "joint_zone_search_enabled": search_strategy.startswith("MULTISTART_JOINT_ZONE"),
+            "joint_zone_requires_stable_single_axis_parent":False,
+            "joint_zone_full_effective_support_required":True,
+            "sealed_holdout_used_for_activation_or_stability":False,
+            "final_selection_stability":final_selection_stability,
             "trial_count":len(axis_birth_trials),
             "trials":axis_birth_trials,
             "selected_axes":list(activated_axes),
@@ -3012,7 +3669,20 @@ class AdaptiveResearchKernelOwner:
 
         effective_hypotheses=expanded_hypotheses if activated_axes and expanded_hypotheses is not None else hypotheses
         effective_best=expanded_best if activated_axes and expanded_best is not None else best
-        effective_predictors=tuple(req["predictor_variables"])+tuple(activated_axes)
+        representation_predictors=tuple(req["predictor_variables"])+tuple(activated_axes)
+        effective_predictors=self._candidate_support_axis_variables(effective_best,representation_predictors)
+        effective_activated_axes=[x for x in activated_axes if x in set(effective_predictors)]
+        activated_but_unsupported_axes=[x for x in activated_axes if x not in set(effective_predictors)]
+        derived_axis_births=self._candidate_research_local_derived_axes(
+            effective_best,representation_predictors,req["variable_dimensions"]
+        )
+        axis_birth_search={
+            **axis_birth_search,
+            "effective_support_axes":list(effective_activated_axes),
+            "activated_but_not_effective_support_axes":list(activated_but_unsupported_axes),
+            "representation_activation_is_effective_formula_support":False,
+        }
+        axis_birth_search={**{k:v for k,v in axis_birth_search.items() if k!="digest"},"digest":digest_payload({k:v for k,v in axis_birth_search.items() if k!="digest"})}
         effective_fit_ok=bool(effective_best) and bool(effective_best.get("identifiable_on_train")) and float(effective_best.get("holdout_nrmse",float("inf")))<=req["fit_tolerance_nrmse"]
         sealed_holdout=self._evaluate_candidate_on_observations(
             effective_best,req["sealed_holdout_observations"],effective_predictors,req["target_variable"]
@@ -3051,17 +3721,23 @@ class AdaptiveResearchKernelOwner:
                 next_local[axis_id]={
                     **previous,
                     "axis_id":axis_id,"origin":"RESIDUAL_DISCOVERY","canonical":False,
-                    "activation_state":"ACTIVE_MODEL_AXIS" if axis_id in activated_axes else previous.get("activation_state","RESEARCH_LOCAL_CANDIDATE"),
+                    "activation_state":"EFFECTIVE_MODEL_SUPPORT_AXIS" if axis_id in effective_activated_axes else "REPRESENTATION_ACTIVE_UNUSED" if axis_id in activated_axes else previous.get("activation_state","RESEARCH_LOCAL_CANDIDATE"),
                     "representation_activation_state":"REPRESENTATION_ACTIVATED" if axis_id in activated_axes else "REPRESENTATION_CANDIDATE",
+                    "effective_formula_support_state":"EFFECTIVE_SUPPORT" if axis_id in effective_activated_axes else "NOT_IN_EFFECTIVE_SUPPORT",
                     "causal_establishment_state":"CAUSALLY_NOT_ESTABLISHED",
                     "evidence_digest":axis_scan.get("digest"),
                     "information_gain_bits":float(row.get("information_gain_bits",0.0)),
                     "identifiability_status":str(row.get("identifiability_status","UNRESOLVED")),
                 }
+        for row in derived_axis_births:
+            axis_id=str(row.get("axis_id"))
+            if axis_id:
+                next_local[axis_id]=dict(row)
         next_state_core={
             "problem_id":str(req.get("problem_id","ARK-"+input_digest[:12].upper())),
             "research_local_axes":next_local,
-            "active_predictor_variables":list(effective_predictors),
+            "active_predictor_variables":list(representation_predictors),
+            "effective_support_predictor_variables":list(effective_predictors),
             "remaining_dormant_axis_variables":[x for x in req["dormant_axis_variables"] if x not in activated_axes],
             "complexity_level":req["complexity_level"] if effective_fit_ok else req["complexity_level"]+1,
             "surviving_hypothesis_ids":[str(r.get("candidate_id")) for r in effective_hypotheses.get("candidates",())[:12]],
@@ -3076,14 +3752,20 @@ class AdaptiveResearchKernelOwner:
             "dormant_axis_variables":list(req["dormant_axis_variables"]),
             "activated_axis_variables":list(activated_axes),
             "representation_activated_axis_variables":list(activated_axes),
+            "effective_support_axis_variables":list(effective_activated_axes),
+            "activated_but_not_effective_support_axis_variables":list(activated_but_unsupported_axes),
             "causal_ready_axis_variables":causal_ready_axes,
             "causally_established_axis_variables":[],
             "automatic_causal_axis_selection_allowed":automatic_causal_selection_allowed,
             "representation_activation_is_causal_establishment":False,
             "effective_predictor_variables":list(effective_predictors),
+            "representation_predictor_variables":list(representation_predictors),
+            "representation_activation_is_effective_formula_support":False,
             "axis_activation_improvement":activation_improvement,
             "sealed_holdout_evaluation":sealed_holdout,
             "research_local_axis_candidates":[str(r.get("context_dimension")) for r in candidate_axes],
+            "research_local_derived_axis_births":[dict(r) for r in derived_axis_births],
+            "research_local_derived_axis_count":len(derived_axis_births),
             "executable_representation_status": executable_synthesis.get("status"),
             "executable_candidate_id": executable_synthesis.get("candidate_id"),
             "executable_id": executable_compilation.get("executable_id") if isinstance(executable_compilation, Mapping) else None,
@@ -3123,6 +3805,8 @@ class AdaptiveResearchKernelOwner:
             "axis_activation":{
                 "dormant_axes_offered":list(req["dormant_axis_variables"]),
                 "activated_axes":list(activated_axes),
+                "effective_support_axes":list(effective_activated_axes),
+                "activated_but_not_effective_support_axes":list(activated_but_unsupported_axes),
                 "activation_was_residual_driven":bool(activated_axes),
                 "improvement":activation_improvement,
                 "representation_status":"REPRESENTATION_ACTIVATED" if activated_axes else "REPRESENTATION_UNCHANGED",
@@ -3131,6 +3815,7 @@ class AdaptiveResearchKernelOwner:
                 "causally_established_axes":[],
                 "automatic_causal_axis_selection_allowed":automatic_causal_selection_allowed,
                 "representation_activated_does_not_equal_causally_established":True,
+                "representation_activation_is_effective_formula_support":False,
             },
             "axis_birth_search":axis_birth_search,
             "mathematical_invention":invention,
@@ -3149,10 +3834,14 @@ class AdaptiveResearchKernelOwner:
                 "fixed_competitor_count_used_as_truth_gate":False,
                 "dormant_axis_inserted_into_initial_formula":False,
                 "axis_activation_requires_residual_evidence":True,
+                "axis_activation_requires_group_stability":True,
+                "axis_selection_uses_parsimony":True,
                 "axis_birth_cardinality_is_adaptive":True,
                 "multi_axis_birth_allowed":True,
                 "fixed_axis_count_per_cycle":None,
                 "sealed_holdout_used_for_axis_activation":False,
+                "sealed_holdout_used_for_axis_stability":False,
+                "representation_activation_is_effective_formula_support":False,
                 "representation_activation_is_causal_establishment":False,
                 "representation_activation_is_causal_proof":False,
                 "causal_establishment_requires_separate_authoritative_evidence":True,

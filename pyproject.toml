@@ -19,3 +19,6 @@ pythonpath = ["."]
 
 [project.scripts]
 phi-compiler = "interfaces.phi_compiler_cli:main"
+
+[project.optional-dependencies]
+exoplanet = ["pandas>=2.2"]
