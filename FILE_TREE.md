@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 313
+Controlled files: 316
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -90,6 +90,7 @@ Controlled files: 313
 - `evaluation/axis_modeling_realdata_qualification.py`
 - `evaluation/build_pharmaceutical_problem_atlas_v8_3.py`
 - `evaluation/build_release_controls.py`
+- `evaluation/closed_loop_research_experiment.py`
 - `evaluation/collective_coordination_qualification.py`
 - `evaluation/dayabay_likelihood_qualification.py`
 - `evaluation/developmental_open_endedness_qualification.py`
@@ -239,6 +240,7 @@ Controlled files: 313
 - `source/lawspace/black_hole.py`
 - `source/lawspace/candidates.py`
 - `source/lawspace/catalog.py`
+- `source/lawspace/closed_loop_research.py`
 - `source/lawspace/cognitive_core.py`
 - `source/lawspace/collective_coordination.py`
 - `source/lawspace/constraint_atlas.py`
@@ -297,6 +299,7 @@ Controlled files: 313
 - `source/qpdtr_bridge.py`
 - `static/index.html`
 - `tests/test_adaptive_axis_discovery.py`
+- `tests/test_closed_loop_research.py`
 - `tests/test_curvature_memory_current.py`
 - `tests/test_direct_target_residual_discovery.py`
 - `tests/test_domain_plugin_architecture.py`

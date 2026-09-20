@@ -22,6 +22,7 @@ class LawSpaceAPI:
         "get_frontier_world_attestation", "get_frontier_higher_order_expansion",
     )
     MUTATION_TOOLS = ("run_autonomous_research", "commit_phi_candidate_world_binding", "commit_phi_candidate_response_projection", "execute_phi_candidate_measurement", "commit_phi_domain_birth", "commit_phi_axis_lifecycle", "commit_phi_domain_split", "commit_phi_domain_merge", "promote_dynamic_axis", "run_axis_modeling_with_dynamic_expansion", "run_phi_cognitive_cycle", "run_phi_generated_axis_cycle", "run_phi_resident_heartbeat", "record_phi_world_action_experience", "learn_phi_world_action_model", "learn_phi_contextual_world_action_model", "online_update_phi_world_action_model", "bind_phi_typed_world_action_result", "evolve_phi_resident_ontology", "evolve_phi_higher_order_operator", "run_phi_resident_long_horizon", "run_phi_reflexive_architecture_cycle", "run_phi_runtime_self_repair_cycle", "run_phi_developmental_open_endedness_cycle", "advance_atlas_dovetail_traversal", "record_hypothesis_council_action", "apply_hypothesis_council_weight_recommendation")
+    MUTATION_TOOLS = MUTATION_TOOLS + ("run_closed_loop_research",)
     FORBIDDEN_AI_ASSIGNMENTS = ("ATLAS_NATIVE", "ESTABLISHED_LAW", "CONFIRMED_CONSTANT", "EXPERIMENT_PASS")
     ALLOWED_AI_STATES = ("PENDING_PROPOSAL", "PENDING_BRIDGE", "PENDING_NORMALIZATION", "PENDING_CELL_ASSIGNMENT")
 
@@ -1790,6 +1791,15 @@ class LawSpaceAPI:
     def get_adaptive_research_kernel_contract(self) -> Mapping[str, Any]:
         from .research_cycle import AdaptiveResearchKernelOwner
         return AdaptiveResearchKernelOwner(self.runtime).contract()
+
+    def run_closed_loop_research(self, request: Mapping[str, Any], *, measurement_adapter: Any) -> Mapping[str, Any]:
+        """Execute authorized adapter measurements; never promote a scientific law.
+
+        Python-only integration: the adapter is an explicit execution capability,
+        not a serializable AI read tool or automatic hardware connection.
+        """
+        from .closed_loop_research import ClosedLoopResearchOwner
+        return ClosedLoopResearchOwner().run(request, measurement_adapter)
 
     def advance_adaptive_research(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         from .research_cycle import AdaptiveResearchKernelOwner

@@ -4,7 +4,7 @@
     "architecture_restored": true,
     "consciousness_claimed": false,
     "historical_capability_snapshot_used": false,
-    "live_capability_count": 312,
+    "live_capability_count": 313,
     "mutable_state_bundled_in_release": false,
     "mutable_state_external_to_seal": true,
     "open_architecture_obligations": [],
@@ -50,6 +50,20 @@
     "research_freeze_digest": "00c497b3f262117f8eac856a8f3e05938ae6487d8bef65e372fe7e5db62a09df",
     "scientific_discovery_established": false,
     "status": "PASS_FIRST_BLIND_REAL_PHYSICS_EXPERIMENT"
+  },
+  "closed_loop_axis_research": {
+    "explicit_measurement_adapter_required": true,
+    "final_holdout_committed_before_search": true,
+    "final_holdout_used_for_refit": false,
+    "measurement_response_bound_to_frozen_request": true,
+    "measurement_then_model_revision": true,
+    "new_physical_observable_discovery_implemented": false,
+    "owner": "CLOSED-LOOP-AXIS-RESEARCH/1.0.0",
+    "python_api": "run_closed_loop_research",
+    "representation_class": "RESIDUAL_LOCALIZATION_DERIVED_COORDINATE",
+    "residual_axis_owner": "AXIS-MODELING/8.0.0",
+    "scientific_law_promotion_allowed": false,
+    "whole_pipeline_null_calibrated": false
   },
   "collective_coordination": {
     "agi_claimed": false,
@@ -115,7 +129,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "f97aaf17b59d04d2ca34e176bb6d4477b850efa10b4790d19697215a3795f740",
+  "digest": "108b89b12f881c085d436f1575f7b97bcd99d3e64da2a32dfe79e9cf113f534a",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -267,7 +281,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "e0ab1101976311a40ec66a184bc2c2058f2dabaf8fab69281b74f77b5debe3ed",
+  "qualification_digest": "628f3fbc71c8f6fbbc8d853cb6f7f80c24e439656ca612aa8ef4f613a2907cde",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,

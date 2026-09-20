@@ -44,6 +44,20 @@ def run(root=None, *, allow_blocked=False):
   'external_superiority_claimed':False,
   'agi_claimed':False,
  }
+ caps['closed_loop_axis_research']={
+  'owner':'CLOSED-LOOP-AXIS-RESEARCH/1.0.0',
+  'python_api':'run_closed_loop_research',
+  'explicit_measurement_adapter_required':True,
+  'residual_axis_owner':'AXIS-MODELING/8.0.0',
+  'measurement_response_bound_to_frozen_request':True,
+  'final_holdout_committed_before_search':True,
+  'measurement_then_model_revision':True,
+  'final_holdout_used_for_refit':False,
+  'representation_class':'RESIDUAL_LOCALIZATION_DERIVED_COORDINATE',
+  'new_physical_observable_discovery_implemented':False,
+  'whole_pipeline_null_calibrated':False,
+  'scientific_law_promotion_allowed':False,
+ }
  caps['release_control']={
   'current_state_qualification_status':q.get('status'),
   'current_state_qualification_passed':qualification_passed,

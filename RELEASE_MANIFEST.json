@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 313,
+  "controlled_file_count": 316,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "8d83862de78a6a6ab6b7c259dc0fbd1d984bc11ac5c7c064678e996501ca04e2",
-      "size": 107159
+      "sha256": "03ddb22e5ca9fcc3b652fc9cdea5d98d55e3dc36323425e412d001f96f0dc694",
+      "size": 108943
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -124,13 +124,13 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "45d1f9f96f502efeb22dba22d13e91e28a52bffd8899d952cc64b8330af5452a",
-      "size": 157018
+      "sha256": "112f4384e3ef71534b3c38f65f36dbc61b6400615d8d92589898a211ea73884a",
+      "size": 163748
     },
     {
       "path": "capabilities.json",
-      "sha256": "5adedf601260d39a4606b6a07e809aa03f5ae86ac29bcf5cef61269804a64c1a",
-      "size": 17344
+      "sha256": "d4f4ee84896879c4985304a9a0267b32b84484d162addb544a9c52ab78c96a82",
+      "size": 17997
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -499,8 +499,13 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "37000349fa2405d3e5b0a91807ef2391a9b42b748a191f1e72ab5ca5e4a207b9",
-      "size": 42176
+      "sha256": "c6e1abb7ccda572d88452919cb087d774d5da773fd373e439f17e77b0d1df3b3",
+      "size": 42796
+    },
+    {
+      "path": "evaluation/closed_loop_research_experiment.py",
+      "sha256": "ff08f869ec44f774720fd86b2d696ccb5c6e25393194d9fea5f3e9a4da21595e",
+      "size": 5658
     },
     {
       "path": "evaluation/collective_coordination_qualification.py",
@@ -1209,8 +1214,8 @@
     },
     {
       "path": "source/lawspace/api.py",
-      "sha256": "bf628f26dbdb82502c8f4cdc792004e6f848bb07f0e742f67e2ffdad4668dd19",
-      "size": 125393
+      "sha256": "f9e6f5e650df9cf8a93e65eec754e6daf1a4d578aace07d17573fa707fe1399e",
+      "size": 125974
     },
     {
       "path": "source/lawspace/atomic_dirac_evaluator.py",
@@ -1229,8 +1234,8 @@
     },
     {
       "path": "source/lawspace/axis_modeling.py",
-      "sha256": "52f8bc881c47c5f4ecf00429f04b71155868bc77793c5cc7faf5b931ad69b775",
-      "size": 43609
+      "sha256": "bd64e04bffe46717a10b1b064bf48fc97f3ce59902ae179d09e1e7ca835bf881",
+      "size": 44308
     },
     {
       "path": "source/lawspace/black_hole.py",
@@ -1246,6 +1251,11 @@
       "path": "source/lawspace/catalog.py",
       "sha256": "70b5befdc7fcabd0e93f8e0c259c474fe7a97b42bfb71cd87adaf72b29700d15",
       "size": 6968
+    },
+    {
+      "path": "source/lawspace/closed_loop_research.py",
+      "sha256": "595f1a3953886b9cf873248d3c9125aadf8b25fcba91f7403eee7364d9472af4",
+      "size": 9684
     },
     {
       "path": "source/lawspace/cognitive_core.py",
@@ -1538,6 +1548,11 @@
       "size": 14176
     },
     {
+      "path": "tests/test_closed_loop_research.py",
+      "sha256": "af2752f66e18745e5154d488bdf1e820ce2b18a255da8a8e95691177f7290f84",
+      "size": 3283
+    },
+    {
       "path": "tests/test_curvature_memory_current.py",
       "sha256": "8c604d2eab4999a936ec70b63c02e77ed47c4370f9ee586d604c684cc1e52fef",
       "size": 1017
@@ -1629,9 +1644,9 @@
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "e0ab1101976311a40ec66a184bc2c2058f2dabaf8fab69281b74f77b5debe3ed",
+  "current_state_qualification_digest": "628f3fbc71c8f6fbbc8d853cb6f7f80c24e439656ca612aa8ef4f613a2907cde",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "5d5142831a842a7bd207aa244a8da7afb887cf6aee92df299691a22802a4df55",
+  "digest": "fbf732db4728e1834d5dd8f9f3244564cb1f6a6d2f99586e3e2fb0321195d2ed",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

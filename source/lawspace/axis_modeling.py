@@ -282,6 +282,15 @@ class AxisModelingOwner:
             raise ValueError("frozen augmented coefficient shape mismatch")
         return A @ coef
 
+    def predict_frozen_axis_candidate(self, modeling_result: Mapping[str, Any], point: Mapping[str, float]) -> Mapping[str, float]:
+        """Predict a proposed measurement without requiring or reading its target."""
+        frozen = modeling_result["best_axis_birth"]["frozen_model"]
+        matrix = np.asarray([[float(point[a]) for a in frozen["axis_ids"]]])
+        if not np.all(np.isfinite(matrix)):
+            raise ValueError("measurement coordinates must be finite")
+        return {"baseline_prediction": float(self._predict_frozen_model(frozen, matrix, augmented=False)[0]),
+                "augmented_prediction": float(self._predict_frozen_model(frozen, matrix, augmented=True)[0])}
+
     def evaluate_frozen_axis_candidate(self, modeling_result: Mapping[str, Any], dataset: Mapping[str, Any]) -> Mapping[str, Any]:
         """Evaluate a frozen axis-born model on data unavailable during search."""
         ds = AxisModelingDataset.from_mapping(dataset); ds.validate()
