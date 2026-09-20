@@ -1,0 +1,19 @@
+{
+  "schema": "atlas-observational-snapshot-provenance/v1",
+  "file": "PSCompPars_2026.09.20_07.33.39.csv",
+  "sha256": "6129d26e657e1a26256b12fe151886fa28f5530e460578b5d68ab8bda939af9a",
+  "raw_rows": 6366,
+  "raw_columns": 84,
+  "source_as_declared_in_csv": "NASA Exoplanet Archive",
+  "source_url_as_declared_in_csv": "http://exoplanetarchive.ipac.caltech.edu",
+  "export_timestamp_as_declared_in_csv": "Sun Sep 20 07:33:39 2026",
+  "table": "PSCompPars",
+  "acquisition": "USER_SUPPLIED_CSV",
+  "copied_without_transformation": true,
+  "independently_downloaded_by_agent": false,
+  "same_snapshot_as_imported_deep_research_patch": true,
+  "fresh_independent_confirmation": false,
+  "composite_or_derived_catalog_values_possible": true,
+  "missing_values_imputed": false,
+  "new_law_established": false
+}

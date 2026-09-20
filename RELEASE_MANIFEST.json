@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 319,
+  "controlled_file_count": 325,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "6c9e9f1dd82bb6a22cdcfe0c875ca9d527cc67d8629afe6c4b32a00fac96e6f4",
-      "size": 110859
+      "sha256": "70d9ef5cd4a3b38a0c5e8d33477fa92c4126447e2f2a65f2051efa15f6c835ab",
+      "size": 111504
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -124,8 +124,8 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "1aadb581e0caff20ae60ef8fbca992181fdcd0925179b35799a192cd0ad84647",
-      "size": 168493
+      "sha256": "bb6f06d191fac0f129f8e76ea1320a62bdff28f15dad3a04e2c111b94d84d461",
+      "size": 169886
     },
     {
       "path": "capabilities.json",
@@ -306,6 +306,21 @@
       "path": "data/measurement_requests/ATLAS_MEASUREMENT_REQUESTS_CURRENT.json",
       "sha256": "8f9bab090839452bbc89ddd799da16db686521ab5bfe9b984afa0d3f86d1e2bb",
       "size": 8136
+    },
+    {
+      "path": "data/observations/nasa_exoplanet/PROVENANCE.json",
+      "sha256": "5ac53c2243784b44a6c4ede325f4834b39788819583ee224115062ac4e2fd61c",
+      "size": 808
+    },
+    {
+      "path": "data/observations/nasa_exoplanet/PSCompPars_2026.09.20_07.33.39.csv",
+      "sha256": "6129d26e657e1a26256b12fe151886fa28f5530e460578b5d68ab8bda939af9a",
+      "size": 3989776
+    },
+    {
+      "path": "data/observations/nasa_exoplanet/README_RU.md",
+      "sha256": "23e77109911fb606c36c7ee81547cd959748fdaad3530934a2abde0644b65842",
+      "size": 2336
     },
     {
       "path": "data/passports/aeronautics_intersection_laws.json",
@@ -539,8 +554,8 @@
     },
     {
       "path": "evaluation/exoplanet_nasa2026_blind_experiment.py",
-      "sha256": "5d10f1fb15f589b3dcf198d93fc27f17a104cc7ebbbf0236a10ec87f6a40a1a7",
-      "size": 18780
+      "sha256": "d423111c86a4587129c9e22c255209ee12c96b7eb4ae8953c9a6eb3fcfd21b95",
+      "size": 18943
     },
     {
       "path": "evaluation/fetch_jhtdb_real_snapshots.py",
@@ -1143,6 +1158,16 @@
       "size": 23641
     },
     {
+      "path": "reports/exoplanet/NASA_EXOPLANET_2026_LOCAL_RUN.json",
+      "sha256": "046bfce6b266b40127db611de4fcdd198e78c200bc4574e811bcb3c9e4ccc831",
+      "size": 724777
+    },
+    {
+      "path": "reports/exoplanet/RESULT_RU.md",
+      "sha256": "af3ce8655141225cd43d404019d0e4c67f5e40a8f893e7b0c1c4d73511708eac",
+      "size": 4077
+    },
+    {
       "path": "reports/history/version-control/ATLAS_15_23_CURRENT_QUALIFICATION_AFTER_ORCHESTRATION.json",
       "sha256": "96d294caace3233ec6c45dc381855a28bc774986ba2b4d932bc2abac76dc4173",
       "size": 154830
@@ -1603,6 +1628,11 @@
       "size": 3681
     },
     {
+      "path": "tests/test_exoplanet_observations_2026.py",
+      "sha256": "329c596fb733c76557645f55dfb43e04fdc7c3633d657b17df941fc66d3f033f",
+      "size": 2075
+    },
+    {
       "path": "tests/test_fetch_jhtdb_real_snapshots.py",
       "sha256": "4461887d0453c7a621d808df8096e903a26797196297bc8e6f0fabdc698cfdaf",
       "size": 3011
@@ -1661,7 +1691,7 @@
   "current_state_failed_checks": [],
   "current_state_qualification_digest": "dd627a42149f5d82dadc64099d35af959586991159cefc95ee4beb27f0b15971",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "a397f7c37b02d2528c8483474802d195d93d53961b147b285ed13c3b752f9410",
+  "digest": "af0d8e05d91105aec8aea3009d3e846804426da739d3e53e9c963ad71f38d3ab",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

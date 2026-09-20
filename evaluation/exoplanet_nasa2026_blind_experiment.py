@@ -132,7 +132,9 @@ def add_base_columns(df: pd.DataFrame) -> pd.DataFrame:
 def representative_hosts(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
     out["planet_hash"] = out["pl_name"].map(h64)
-    out = out.sort_values(["hostname", "planet_hash"]).groupby("hostname", as_index=False).first()
+    # groupby.first() selects the first non-null value separately per column,
+    # silently combining different planets. Keep one actual unmodified row.
+    out = out.sort_values(["hostname", "planet_hash", "pl_name"]).drop_duplicates("hostname", keep="first")
     return out
 
 

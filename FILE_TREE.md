@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 319
+Controlled files: 325
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -51,6 +51,9 @@ Controlled files: 319
 - `data/manifests/si_codata_core.json`
 - `data/manifests/workbook_v2_4.json`
 - `data/measurement_requests/ATLAS_MEASUREMENT_REQUESTS_CURRENT.json`
+- `data/observations/nasa_exoplanet/PROVENANCE.json`
+- `data/observations/nasa_exoplanet/PSCompPars_2026.09.20_07.33.39.csv`
+- `data/observations/nasa_exoplanet/README_RU.md`
 - `data/passports/aeronautics_intersection_laws.json`
 - `data/passports/archetypes.jsonl`
 - `data/passports/computational_methods.jsonl`
@@ -218,6 +221,8 @@ Controlled files: 319
 - `reports/ATLAS_FRONTIER_SCAN_CURRENT.json`
 - `reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json`
 - `reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md`
+- `reports/exoplanet/NASA_EXOPLANET_2026_LOCAL_RUN.json`
+- `reports/exoplanet/RESULT_RU.md`
 - `reports/history/version-control/ATLAS_15_23_CURRENT_QUALIFICATION_AFTER_ORCHESTRATION.json`
 - `reports/history/version-control/ATLAS_15_23_JOINT_QUALIFICATION.json`
 - `reports/history/version-control/ATLAS_15_23_REPLAY_PREPARE_AFTER_ORCHESTRATION.json`
@@ -310,6 +315,7 @@ Controlled files: 319
 - `tests/test_electronic_state_space_current.py`
 - `tests/test_epoch_genesis_autonomous.py`
 - `tests/test_exoplanet_dimensional_closure_example.py`
+- `tests/test_exoplanet_observations_2026.py`
 - `tests/test_fetch_jhtdb_real_snapshots.py`
 - `tests/test_function_language_birth.py`
 - `tests/test_permutation_eprocess_current.py`

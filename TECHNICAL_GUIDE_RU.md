@@ -10,6 +10,8 @@
 
 ### Запуск экзопланетных маршрутов
 
+Включён локальный снимок `data/observations/nasa_exoplanet/PSCompPars_2026.09.20_07.33.39.csv`. Его происхождение и контрольная сумма находятся рядом в `PROVENANCE.json`. Подставьте этот путь вместо `/path/to/catalog.csv` в первой команде ниже. Результат выполненного запуска и ограничение отбора описаны в `reports/exoplanet/RESULT_RU.md`: одна звезда представлена целой исходной строкой без заполнения пропусков из соседних планет. Повторный запуск на том же снимке не является независимым подтверждением.
+
 Нужен локальный NASA-каталог с колонками из `REQUIRED_COLUMNS` в `evaluation/exoplanet_nasa2026_blind_experiment.py`. Исходных наблюдений в патче нет. Установите дополнительную зависимость и явно укажите внешний путь результатов:
 
 ```bash
@@ -17,10 +19,12 @@ python -m pip install -e '.[exoplanet]'
 python -m evaluation.exoplanet_nasa2026_blind_experiment /path/to/catalog.csv \
   --out /tmp/atlas-exoplanet-deep.json
 python -m evaluation.exoplanet_language_shell_exploratory /path/to/catalog.csv \
-  /tmp/atlas-exoplanet-deep.json --out /tmp/atlas-exoplanet-language.json
+  /path/to/deep_shell_receipt.json --out /tmp/atlas-exoplanet-language.json
 ```
 
 Дальнейшие ветви доступны через `--previous-language-receipt`, `--post-latent-receipt` и `--multibranch-closure`; точные параметры показывает `--help`. Каталог и ранее раскрытые проверки нельзя объявлять новой независимой выборкой. Семейства `LATENT / EXPONENTIAL / KERNEL` расширяют представление в пределах реализованного поиска, а не гарантируют открытие закона.
+
+Вторая команда — отдельный маршрут: ей нужен совместимый deep-shell receipt с `best_hypothesis` и `function_language_birth`, а не общий отчёт первой команды. Прямое соединение этих двух CLI без преобразования состояния пока не реализовано. При добавлении наблюдений проверен первый маршрут; полный языковой continuation не заявляется выполненным.
 
 ### Дополнительные тесты
 
