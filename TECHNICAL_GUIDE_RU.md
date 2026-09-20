@@ -1938,3 +1938,13 @@ python -m evaluation.run_real_jhtdb_dns_closure
 - `tests/test_fetch_jhtdb_real_snapshots.py::test_query_size_remains_below_testing_token_limit` — подтверждает, что запрос 18×18×9 содержит 2916 точек и остаётся ниже публичного лимита 4096.
 - `tests/test_fetch_jhtdb_real_snapshots.py::test_download_snapshot_assembles_xyz_and_writes_npz` — подменяет HTTP локальным ответом, собирает два slab, проверяет перестановку осей и записанный grid spacing.
 - `tests/test_fetch_jhtdb_real_snapshots.py::test_manifest_is_real_cross_re_and_sha_bound` — строит manifest из шести файлов и проверяет реальные dataset statuses, discovery/sealed roles, два режима и SHA-256 каждого snapshot.
+
+## Scale-Invariant Representation Birth после real-DNS gap
+
+Новый authoritative component: `SCALE-INVARIANT-REPRESENTATION-BIRTH/1.0.0` внутри `PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0`.
+
+Вход: только discovery primitive predictor fields, coordinate/field dimensions и target dimension type. Target values не используются для вычисления масштабов. Sealed studies не участвуют в рождении chart.
+
+Алгоритм не содержит turbulence-specific формул. Для каждого класса размерности owner ищет discovery-stable constant predictor carrier; если его нет — строит joint-RMS scale same-dimension fields; для отсутствующей coordinate dimension возможен coordinate-span fallback. Затем integer dimensional solver ищет минимальный набор степеней scale carriers, воспроизводящий target dimension. Numerical values переводятся в frozen canonical chart, но physical dimension typing сохраняется для Operator Language Birth.
+
+Важный falsification rule: если representation был изменён после просмотра старого sealed результата, тот же sealed dataset больше не является свежим holdout. Harness помечает overlap по SHA-256 и запрещает scientific transfer promotion до нового unseen sealed evidence.

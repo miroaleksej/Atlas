@@ -1,0 +1,126 @@
+{
+  "schema": "phi-turbulence-dns-scale-invariant-patch-qualification/v1",
+  "base_archive_sha256": "a30250292691c368f00f2815b8c0d8b276baa5472fb2f80855705bbab1cd0ef4",
+  "runtime_release_preserved": "0.15.29.0",
+  "status": "PASS_SCALE_INVARIANT_REPRESENTATION_PATCH_QUALIFICATION",
+  "mechanism": {
+    "owner_id": "SCALE-INVARIANT-REPRESENTATION-BIRTH/1.0.0",
+    "chart_status": "SCALE_INVARIANT_REPRESENTATION_BORN",
+    "chart_digest": "5cbdbc2e6db43466f012c4ec8fc7604084f7c9fb732d1c91f556eba2abd57f43",
+    "rules": [
+      {
+        "rule_id": "scale_05dcfe3963d420f8",
+        "kind": "CONSTANT_FIELD_MEDIAN_ABS",
+        "members": [
+          "g3"
+        ],
+        "dimension": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "rule_id": "scale_624e3f9caca4969c",
+        "kind": "JOINT_RMS_FIELDS",
+        "members": [
+          "g0",
+          "g1",
+          "g2"
+        ],
+        "dimension": [
+          1.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "target_scale_exponents": {
+      "scale_05dcfe3963d420f8": -1,
+      "scale_624e3f9caca4969c": 2
+    },
+    "named_dimensionless_group_catalog_used": false,
+    "reynolds_number_supplied_to_representation_owner": false,
+    "sealed_target_used_for_birth": false
+  },
+  "tests": {
+    "pytest_adaptive_plus_dns": "16/16 PASS",
+    "adaptive_axis_research_qualification": "25/25 PASS",
+    "mathematical_invention_qualification": "33/33 PASS",
+    "theory_compiler_qualification": "80/80 PASS",
+    "level1_masked_terms": "34/34 PASS",
+    "level2_primitive_fields": "32/32 PASS",
+    "level3_operator_language": "46/46 PASS",
+    "level4_hidden_term": "19/19 PASS"
+  },
+  "real_jhtdb_development_replay": [
+    {
+      "component": "x",
+      "qualification_resource_budget": {
+        "rank_shell_budget": 3,
+        "factor_depth_budget": 2,
+        "axis_birth_trial_budget": 256,
+        "null_control": false
+      },
+      "status": "SCALE_INVARIANT_REPRESENTATION_STILL_GAPPED",
+      "discovery_holdout_nrmse": 0.7967111115147203,
+      "sealed_nrmse": 5.790385209257921,
+      "selected_algebra_carrier_factor_depth": 2,
+      "chart_digest": "5cbdbc2e6db43466f012c4ec8fc7604084f7c9fb732d1c91f556eba2abd57f43",
+      "atlas_native": true,
+      "fresh_sealed_evidence": false,
+      "full_local_report_sha256": "738b929fd746eaf5d7a87b633603052a382ae1ad2162c71127f598a359892c40"
+    },
+    {
+      "component": "y",
+      "qualification_resource_budget": {
+        "rank_shell_budget": 3,
+        "factor_depth_budget": 2,
+        "axis_birth_trial_budget": 256,
+        "null_control": false
+      },
+      "status": "SCALE_INVARIANT_REPRESENTATION_STILL_GAPPED",
+      "discovery_holdout_nrmse": 0.4726780254827147,
+      "sealed_nrmse": 2.6975273681483736,
+      "selected_algebra_carrier_factor_depth": 2,
+      "chart_digest": "5cbdbc2e6db43466f012c4ec8fc7604084f7c9fb732d1c91f556eba2abd57f43",
+      "atlas_native": true,
+      "fresh_sealed_evidence": false,
+      "full_local_report_sha256": "89a090d9f894d88f83bbeef4e6ee66154bb84487b2064a7b6189441f6a772630"
+    },
+    {
+      "component": "z",
+      "qualification_resource_budget": {
+        "rank_shell_budget": 3,
+        "factor_depth_budget": 2,
+        "axis_birth_trial_budget": 256,
+        "null_control": false
+      },
+      "status": "SCALE_INVARIANT_REPRESENTATION_STILL_GAPPED",
+      "discovery_holdout_nrmse": 0.7478004166161358,
+      "sealed_nrmse": 12.38338886948495,
+      "selected_algebra_carrier_factor_depth": 2,
+      "chart_digest": "5cbdbc2e6db43466f012c4ec8fc7604084f7c9fb732d1c91f556eba2abd57f43",
+      "atlas_native": true,
+      "fresh_sealed_evidence": false,
+      "full_local_report_sha256": "f715ec7e9dcfdcce1a530c254d39c77397313f000e0c141c02b759013f865867"
+    }
+  ],
+  "scientific_boundary": {
+    "full_default_depth3_search_completed_in_this_environment": false,
+    "reason": "full scale-invariant depth-3 x/y/z search exceeded the available single-call execution window; reduced qualification was completed for mechanism validation",
+    "previous_sealed_files_already_exposed": true,
+    "development_replay_is_new_scientific_holdout": false,
+    "fresh_unseen_sealed_required_for_transfer_claim": true,
+    "new_turbulence_law_claimed": false
+  },
+  "digest": "d949abc73ae9895c04317e29b795772253a82353fc45d3239537903735b2ad05"
+}

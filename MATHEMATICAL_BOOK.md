@@ -5576,3 +5576,21 @@ Atlas не получает аналитическое closure `C_i(U, Δ)`. В 
 Frozen acquisition использует JHTDB `isotropic1024coarse` как discovery evidence и отдельный `isotropic4096` как sealed evidence. До поиска фиксируются dataset, time index, grid coordinates, spacing и SHA-256 raw-velocity `.npz`. JHTDB adapter не вычисляет derivative/closure predictors. Отрицательный контроль рассогласует target и predictors детерминированно.
 
 Transfer и превосходство над null создают только гипотезу для дальнейшей проверки. Representation gap является допустимым исходом; `scientific_law_established=false` и `CAUSALLY_NOT_ESTABLISHED` сохраняются.
+
+## Scale-invariant representation после cross-regime gap
+
+Пусть target relation имеет размерность \(D_q\), а Atlas-born scale carriers имеют размерности \(D_1,\dots,D_m\). Representation owner решает целочисленную задачу
+
+\[
+D_q = \sum_{j=1}^{m} a_j D_j,
+\]
+
+с минимизацией сначала числа ненулевых \(a_j\), затем \(\ell_1\)-нормы показателей. Для real-DNS discovery текущий dimensional basis породил два carriers: length и velocity, а solver получил
+
+\[
+D_q = 2D_U-D_L,
+\qquad
+\hat q = q\,\frac{L_*}{U_*^2}.
+\]
+
+Это не turbulence law и не заранее заданное число Reynolds: relation следует из primitive dimension types и discovery-born scale rules. После freeze тот же rule применяется к sealed predictor fields; sealed target используется только для оценки. Повторно использованный после адаптации holdout не считается новым scientific evidence.

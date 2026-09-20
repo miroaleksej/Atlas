@@ -18,7 +18,7 @@
     "verified_required_permutations": 319,
     "verified_stop": "DEFERRED_RESOURCE"
   },
-  "blind_real_physics_experiment_digest": "4a0054aa38fb6e8adad54dc00a643dbebdfe913d121ae7fcfbf00afbf2a113d0",
+  "blind_real_physics_experiment_digest": "742d68b8e0485f91ea4c4d7a091d8b392dc313d6663d04b7e4112c2d0dd03dec",
   "collective_coordination": {
     "digest": "b846dd7407318c14241144ce784132e3c6d729f1eb62da3b0a2c41df27453728",
     "holdout": {
@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 312,
+  "controlled_file_count": 313,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -74,8 +74,8 @@
     },
     {
       "path": ".gitignore",
-      "sha256": "907b3b40ae2638d5e1cd2001bda64c11edfc2fea2494d697c1bcf7b9305cea94",
-      "size": 544
+      "sha256": "37c8e22a01baf41325cec961b0f9bc762cb80ff073b0b0e134dbd74e201e7c6f",
+      "size": 596
     },
     {
       "path": "ACCEPTANCE_REPORT.md",
@@ -94,8 +94,8 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "ab2c0971012c5b02fb2178ee6955c7772ea7724c427d78eda2995fd2f5a1f00b",
-      "size": 233313
+      "sha256": "607b35e2fa86831e7f8ac1d3cf04b91d78099eb2916370908241c9c7092cfd34",
+      "size": 234451
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
@@ -104,27 +104,32 @@
     },
     {
       "path": "Makefile",
-      "sha256": "1b0242df84839c3d63249c42aa7367c0583c826c38f74d21ecc4f480051ac821",
-      "size": 5921
+      "sha256": "0da854343595b89676b3999814f785c181978ca7942b44f28b987eeaf35b5cf1",
+      "size": 6672
+    },
+    {
+      "path": "PATCH_MANIFEST_SCALE_INVARIANT_DNS_REPRESENTATION.json",
+      "sha256": "187678305c218b3cfca966594b3940cd7bc2aaba565ae931c04058a0d84f0a7f",
+      "size": 4535
     },
     {
       "path": "README.md",
-      "sha256": "5be915df2142dade95bb78ade867881663d4c412f3e3c9afaff2462264b9a810",
-      "size": 105397
+      "sha256": "8d83862de78a6a6ab6b7c259dc0fbd1d984bc11ac5c7c064678e996501ca04e2",
+      "size": 107159
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
-      "sha256": "5d3178b41fc9477aa05ab7332cb61d5dd9d88832ca2015e88c840259de546fc6",
-      "size": 5871
+      "sha256": "098a25d3e6c97ce80350cb9ff743b32877eb173557891e827a7815314f3e9435",
+      "size": 8407
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "f263ba7eb3637f213fa04ac7007a9a51df703f849eba4afeed73c9d1c6f69194",
-      "size": 155478
+      "sha256": "45d1f9f96f502efeb22dba22d13e91e28a52bffd8899d952cc64b8330af5452a",
+      "size": 157018
     },
     {
       "path": "capabilities.json",
-      "sha256": "3c110f7c9e4022eb6b209d7fe7adca57210d6575b9f427bab4107926ee1a29f3",
+      "sha256": "5adedf601260d39a4606b6a07e809aa03f5ae86ac29bcf5cef61269804a64c1a",
       "size": 17344
     },
     {
@@ -664,8 +669,8 @@
     },
     {
       "path": "evaluation/release_files.py",
-      "sha256": "400bbb740c66b29cec3433f3bb8d5eb27bbff0812ddbb143dcac650f73196168",
-      "size": 1204
+      "sha256": "3bb3e8c75bda7e40917d3ad3cbc704bcf492883892d65707c408a88135e79c70",
+      "size": 1318
     },
     {
       "path": "evaluation/research_proof_qualification.py",
@@ -749,8 +754,8 @@
     },
     {
       "path": "evaluation/turbulence_dns_closure_experiment.py",
-      "sha256": "3cc91847591dbd42542750ae7f938c213c2a20fe70926b9e76b3c73a3df8b0de",
-      "size": 29805
+      "sha256": "2a016d1a28be6aa51038261534ec5ee1af3eafebf0732ab998888024d981cf24",
+      "size": 43966
     },
     {
       "path": "evaluation/unified_release_qualification.py",
@@ -784,8 +789,8 @@
     },
     {
       "path": "examples/turbulence_dns_closure_experiment.ipynb",
-      "sha256": "39c120a52969557e2fc99ff6f80517fbee2f7d75f27bc06610318a9beaba4e62",
-      "size": 2880
+      "sha256": "341ada40b65536902c21ba6913d200e7d497b54e8f578bd2215a5366575ffa00",
+      "size": 4343
     },
     {
       "path": "examples/turbulence_dns_closure_manifest.template.json",
@@ -1114,7 +1119,7 @@
     },
     {
       "path": "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json",
-      "sha256": "97ad9f0229244bfb44a5da836060d8b3c5e2991caf85551a8c8a10a3a382e520",
+      "sha256": "4075a32151693ce49f902283e30fa2f7e1a295e1c9d9b4a8d084b47a5fe80082",
       "size": 814380
     },
     {
@@ -1334,8 +1339,8 @@
     },
     {
       "path": "source/lawspace/mathematical_invention.py",
-      "sha256": "8a0e951488c13bb3f5e041d80856ab4ce4a389e75b457d8885d6fe2e020f65c4",
-      "size": 45449
+      "sha256": "f6f98197b908eb432547c58f6fca392fe5bf4863c38e8f0e91273a66a3fc955f",
+      "size": 59523
     },
     {
       "path": "source/lawspace/model_selection.py",
@@ -1419,8 +1424,8 @@
     },
     {
       "path": "source/lawspace/research_cycle.py",
-      "sha256": "b64693c97561368675c6fc642ad3061c0d70c7faae4be52327fc192b951d83c5",
-      "size": 265962
+      "sha256": "8d6fd028bbb7225814cd54486023d769c0d6b11c3bba28c84e6a4d3c0e16bceb",
+      "size": 272665
     },
     {
       "path": "source/lawspace/research_triage.py",
@@ -1614,8 +1619,8 @@
     },
     {
       "path": "tests/test_turbulence_dns_closure_experiment.py",
-      "sha256": "00b17dc83ef0ac15557d3c7cd5c8a2b049ecf91825cf64b14354745021388fc7",
-      "size": 3019
+      "sha256": "6d5103eb7a5b3de5d885fb365ca9bbc2401442b01865a1f6a1fa18260c952644",
+      "size": 7204
     },
     {
       "path": "tests/test_unified_current.py",
@@ -1624,9 +1629,9 @@
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "f2f2ccdf9ed0325079cd3419ae425cfe73c448a8e6c988c9359b97e54bd80019",
+  "current_state_qualification_digest": "e0ab1101976311a40ec66a184bc2c2058f2dabaf8fab69281b74f77b5debe3ed",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "22c11ea08c5bebf4315788c7b666b8c75cab91855ef08ca7da6166492b42736b",
+  "digest": "5d5142831a842a7bd207aa244a8da7afb887cf6aee92df299691a22802a4df55",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -1745,7 +1750,7 @@
   "release": "0.15.29.0",
   "release_candidate_sealed": true,
   "release_candidate_status": "SEALED_CANDIDATE",
-  "research_freeze_digest": "aa19b79bb521f74c8771622ae6b63819b69584ae80fc642d736adab3a4b6563e",
+  "research_freeze_digest": "00c497b3f262117f8eac856a8f3e05938ae6487d8bef65e372fe7e5db62a09df",
   "research_state_policy": {
     "ai_feynman_100_preserved": false,
     "all_axes_required_per_candidate": false,

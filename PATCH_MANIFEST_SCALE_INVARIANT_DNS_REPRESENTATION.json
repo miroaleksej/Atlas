@@ -1,0 +1,100 @@
+{
+  "schema": "phi-overlay-patch-manifest/v1",
+  "patch_id": "0.15.29.0-SCALE-INVARIANT-DNS-REPRESENTATION",
+  "base_archive": "PhiCompiler_UNIFIED_CURRENT_STATE_15_24_0_QUERY_SCALAR_LAW_CURRENT_SNAPSHOT.zip",
+  "base_archive_sha256": "a30250292691c368f00f2815b8c0d8b276baa5472fb2f80855705bbab1cd0ef4",
+  "runtime_release_expected": "0.15.29.0",
+  "release_manifest_modified": false,
+  "purpose": "After an attested primitive-field cross-regime representation gap, birth a generic discovery-only scale-invariant numerical chart instead of blindly increasing carrier depth.",
+  "authoritative_owner_added": "SCALE-INVARIANT-REPRESENTATION-BIRTH/1.0.0",
+  "entry_mode_added": "PRIMITIVE_FIELD_SCALE_INVARIANT_DISCOVERY",
+  "scientific_boundaries": {
+    "named_dimensionless_group_catalog_used": false,
+    "reynolds_number_supplied_to_representation_owner": false,
+    "sealed_target_used_for_chart_birth": false,
+    "previously_exposed_holdout_can_promote_new_transfer_claim": false,
+    "fresh_unseen_holdout_required_after_representation_adaptation": true,
+    "new_turbulence_law_claimed": false
+  },
+  "qualification": {
+    "pytest_adaptive_plus_dns": "16/16 PASS",
+    "adaptive_axis_research": "25/25 PASS",
+    "mathematical_invention": "33/33 PASS",
+    "theory_compiler": "80/80 PASS",
+    "level1": "34/34 PASS",
+    "level2": "32/32 PASS",
+    "level3": "46/46 PASS",
+    "level4": "19/19 PASS",
+    "real_jhtdb_reduced_development_replay": "COMPLETED_X_Y_Z_NO_TRANSFER_PROMOTION",
+    "reference_report": "reports/TURBULENCE_DNS_SCALE_INVARIANT_PATCH_QUALIFICATION.json"
+  },
+  "files": [
+    {
+      "path": "source/lawspace/mathematical_invention.py",
+      "old_sha256": "8a0e951488c13bb3f5e041d80856ab4ce4a389e75b457d8885d6fe2e020f65c4",
+      "new_sha256": "f6f98197b908eb432547c58f6fca392fe5bf4863c38e8f0e91273a66a3fc955f",
+      "new_size": 59523
+    },
+    {
+      "path": "source/lawspace/research_cycle.py",
+      "old_sha256": "b64693c97561368675c6fc642ad3061c0d70c7faae4be52327fc192b951d83c5",
+      "new_sha256": "8d6fd028bbb7225814cd54486023d769c0d6b11c3bba28c84e6a4d3c0e16bceb",
+      "new_size": 272665
+    },
+    {
+      "path": "evaluation/turbulence_dns_closure_experiment.py",
+      "old_sha256": "3cc91847591dbd42542750ae7f938c213c2a20fe70926b9e76b3c73a3df8b0de",
+      "new_sha256": "2a016d1a28be6aa51038261534ec5ee1af3eafebf0732ab998888024d981cf24",
+      "new_size": 43966
+    },
+    {
+      "path": "tests/test_turbulence_dns_closure_experiment.py",
+      "old_sha256": "00b17dc83ef0ac15557d3c7cd5c8a2b049ecf91825cf64b14354745021388fc7",
+      "new_sha256": "6d5103eb7a5b3de5d885fb365ca9bbc2401442b01865a1f6a1fa18260c952644",
+      "new_size": 7204
+    },
+    {
+      "path": "Makefile",
+      "old_sha256": "1b0242df84839c3d63249c42aa7367c0583c826c38f74d21ecc4f480051ac821",
+      "new_sha256": "0da854343595b89676b3999814f785c181978ca7942b44f28b987eeaf35b5cf1",
+      "new_size": 6672
+    },
+    {
+      "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
+      "old_sha256": "5d3178b41fc9477aa05ab7332cb61d5dd9d88832ca2015e88c840259de546fc6",
+      "new_sha256": "098a25d3e6c97ce80350cb9ff743b32877eb173557891e827a7815314f3e9435",
+      "new_size": 8407
+    },
+    {
+      "path": "README.md",
+      "old_sha256": "5be915df2142dade95bb78ade867881663d4c412f3e3c9afaff2462264b9a810",
+      "new_sha256": "51719fb9e6e64549be47cb87cdccbf667feb78d4ccdfe215664f72bc62fb6b69",
+      "new_size": 106385
+    },
+    {
+      "path": "TECHNICAL_GUIDE_RU.md",
+      "old_sha256": "f263ba7eb3637f213fa04ac7007a9a51df703f849eba4afeed73c9d1c6f69194",
+      "new_sha256": "45d1f9f96f502efeb22dba22d13e91e28a52bffd8899d952cc64b8330af5452a",
+      "new_size": 157018
+    },
+    {
+      "path": "MATHEMATICAL_BOOK.md",
+      "old_sha256": "ab2c0971012c5b02fb2178ee6955c7772ea7724c427d78eda2995fd2f5a1f00b",
+      "new_sha256": "607b35e2fa86831e7f8ac1d3cf04b91d78099eb2916370908241c9c7092cfd34",
+      "new_size": 234451
+    },
+    {
+      "path": "examples/turbulence_dns_closure_experiment.ipynb",
+      "old_sha256": "39c120a52969557e2fc99ff6f80517fbee2f7d75f27bc06610318a9beaba4e62",
+      "new_sha256": "341ada40b65536902c21ba6913d200e7d497b54e8f578bd2215a5366575ffa00",
+      "new_size": 4343
+    },
+    {
+      "path": "reports/TURBULENCE_DNS_SCALE_INVARIANT_PATCH_QUALIFICATION.json",
+      "old_sha256": null,
+      "new_sha256": "3ea358a765b6560208c445f990f39e1207741191e5b3c84a14875361f10064b9",
+      "new_size": 4481
+    }
+  ],
+  "digest": "56ef754680f50ed6320d4c641bc51d0f718cb155888e9b6caec33ad7c42c4bcc"
+}

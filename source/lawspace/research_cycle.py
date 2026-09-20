@@ -2524,6 +2524,114 @@ class AdaptiveResearchKernelOwner:
         )
         return receipt
 
+
+    def _advance_scale_invariant_primitive_field(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
+        """Birth and freeze a scale-normalized relation chart after an attested gap.
+
+        The representation rule is born from DISCOVERY predictor fields and
+        dimension types only.  Sealed predictor fields may be transformed by the
+        already frozen rule, but sealed target values never participate in chart
+        birth or scale estimation.  This is a representation change, not another
+        carrier-depth shell.
+        """
+        primitive = dict(request.get("primitive_field_request", {})) if isinstance(request.get("primitive_field_request"), Mapping) else {}
+        studies = tuple(dict(x) for x in primitive.get("studies", ()))
+        coordinate_dimensions = dict(primitive.get("coordinate_dimensions", {}))
+        field_dimensions = dict(primitive.get("field_dimensions", {}))
+        target_field = str(primitive.get("target_field", "")).strip()
+        predictor_fields = tuple(str(x) for x in primitive.get("predictor_fields", ()) if str(x))
+        if not studies or not coordinate_dimensions or not field_dimensions or not target_field or not predictor_fields:
+            raise ValueError("scale-invariant primitive-field entry requires complete primitive_field_request")
+        prior = dict(request.get("attested_prior_representation_gap", {})) if isinstance(request.get("attested_prior_representation_gap"), Mapping) else {}
+        prior_status = str(prior.get("status", ""))
+        prior_digest = str(prior.get("receipt_digest", ""))
+        if not prior_digest or "GAP" not in prior_status.upper():
+            raise ValueError("scale-invariant representation birth requires a digest-bound attested prior representation gap")
+
+        discovery_studies = tuple(x for x in studies if str(x.get("role", "DISCOVERY")).upper() == "DISCOVERY")
+        chart = self.invention.scale_invariant.invent(
+            discovery_studies=discovery_studies,
+            coordinate_dimensions=coordinate_dimensions,
+            field_dimensions=field_dimensions,
+            target_field=target_field,
+            predictor_fields=predictor_fields,
+            exponent_radius=max(1, int(request.get("scale_balance_exponent_radius", 4))),
+        )
+        if chart.get("status") != "SCALE_INVARIANT_REPRESENTATION_BORN":
+            raise ValueError("Mathematical Invention did not birth an executable scale-invariant representation")
+        normalized_studies, application_receipts = self.invention.scale_invariant.apply(
+            studies=studies, chart=chart, target_field=target_field,
+        )
+        normalized_primitive = dict(primitive)
+        normalized_primitive["studies"] = normalized_studies
+        normalized_primitive["representation_chart_digest"] = chart.get("digest")
+        normalized_primitive["numerical_chart"] = "SCALE_INVARIANT_DIMENSION_PRESERVING"
+
+        stage = dict(request)
+        stage["entry_mode"] = "PRIMITIVE_FIELD_RESIDUAL_LANGUAGE_DISCOVERY"
+        stage["problem_id"] = str(request.get("problem_id", "SCALE-INVARIANT-PRIMITIVE-FIELD")) + "-SCALE-CHART"
+        stage["primitive_field_request"] = normalized_primitive
+        stage["residual_driven_language_expansion"] = True
+        stage.pop("scale_invariant_representation_birth", None)
+        stage.pop("attested_prior_representation_gap", None)
+        inner = self._advance_residual_language(stage)
+        result = dict(inner.get("result", {}))
+        result_core = {
+            **result,
+            "representation_chart_status": chart.get("status"),
+            "representation_chart_digest": chart.get("digest"),
+            "prior_representation_gap_receipt_digest": prior_digest,
+        }
+        result_digest = digest_payload({
+            "result": result_core,
+            "chart_digest": chart.get("digest"),
+            "inner_receipt_digest": inner.get("digest"),
+            "application_receipt_digests": [x.get("digest") for x in application_receipts],
+        })
+        base_problem = str(request.get("problem_id", "SCALE-INVARIANT-PRIMITIVE-FIELD"))
+        core = {
+            "schema": "phi-adaptive-research-kernel-scale-invariant-primitive-field/v1",
+            "owner": self.owner_id,
+            "problem_id": base_problem,
+            "entry_mode": "PRIMITIVE_FIELD_SCALE_INVARIANT_DISCOVERY",
+            "input_digest": digest_payload({
+                "problem_id": base_problem,
+                "primitive_field_request": primitive,
+                "prior_representation_gap": prior,
+                "fit_tolerance_nrmse": request.get("fit_tolerance_nrmse"),
+            }),
+            "axis_registry_digest": inner.get("axis_registry_digest"),
+            "hypothesis_space_digest": inner.get("hypothesis_space_digest"),
+            "code_digest": self._code_digest(),
+            "result_digest": result_digest,
+            "attested_prior_representation_gap": prior,
+            "scale_invariant_representation_birth": chart,
+            "scale_chart_application_receipts": application_receipts,
+            "normalized_inner_receipt_digest": inner.get("digest"),
+            "normalized_inner_receipt": inner,
+            "selected_algebra_carrier_factor_depth": inner.get("selected_algebra_carrier_factor_depth"),
+            "result": result_core,
+            "claim_boundary": {
+                "representation_change_triggered_by_attested_prior_gap": True,
+                "scale_chart_born_from_discovery_predictors_only": True,
+                "sealed_target_values_used_for_scale_chart_birth": False,
+                "sealed_target_values_used_for_scale_estimation": False,
+                "sealed_predictor_values_may_be_transformed_by_frozen_rule": True,
+                "named_dimensionless_group_catalog_used": False,
+                "reynolds_number_supplied_to_representation_owner": False,
+                "physical_dimension_typing_preserved": True,
+                "scientific_law_established": False,
+                "world_novelty_established": False,
+            },
+        }
+        core["digest"] = digest_payload(core)
+        core["atlas_claim"] = self.firewall.seal_atlas_claim(
+            statement=f"Atlas scale-invariant representation cycle {base_problem} produced status {result_core.get('status')}",
+            execution_receipt=core,
+            payload={"status": result_core.get("status"), "representation_chart_digest": chart.get("digest")},
+        )
+        return core
+
     def _advance_residual_language(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         """Expand generated operator algebra only after a persistent blind residual.
 
@@ -2610,6 +2718,8 @@ class AdaptiveResearchKernelOwner:
 
     def advance(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         entry_mode=str(request.get("entry_mode", "")).upper()
+        if bool(request.get("scale_invariant_representation_birth",False)) or entry_mode == "PRIMITIVE_FIELD_SCALE_INVARIANT_DISCOVERY":
+            return self._advance_scale_invariant_primitive_field(request)
         if bool(request.get("residual_driven_language_expansion",False)) or entry_mode == "PRIMITIVE_FIELD_RESIDUAL_LANGUAGE_DISCOVERY":
             return self._advance_residual_language(request)
         if bool(request.get("primitive_field_discovery", False)) or entry_mode in {"PRIMITIVE_FIELD_DISCOVERY", "PRIMITIVE_FIELD_LANGUAGE_DISCOVERY"}:

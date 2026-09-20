@@ -45,9 +45,9 @@
     "single_axis_greedy_growth_required": false
   },
   "blind_real_physics_experiment": {
-    "digest": "4a0054aa38fb6e8adad54dc00a643dbebdfe913d121ae7fcfbf00afbf2a113d0",
+    "digest": "742d68b8e0485f91ea4c4d7a091d8b392dc313d6663d04b7e4112c2d0dd03dec",
     "problem_id": "DLR-OLAF-FIRST-BLIND-REAL-PHYSICS-001",
-    "research_freeze_digest": "aa19b79bb521f74c8771622ae6b63819b69584ae80fc642d736adab3a4b6563e",
+    "research_freeze_digest": "00c497b3f262117f8eac856a8f3e05938ae6487d8bef65e372fe7e5db62a09df",
     "scientific_discovery_established": false,
     "status": "PASS_FIRST_BLIND_REAL_PHYSICS_EXPERIMENT"
   },
@@ -115,7 +115,7 @@
     "parallel_symbolic_regression_core_added": false,
     "whole_pipeline_permutation_null_required_before_promotion": true
   },
-  "digest": "aabb241df4cf9c4ee105af3831ca38cf2e6393622bfa81484776ae83ee9893e5",
+  "digest": "f97aaf17b59d04d2ca34e176bb6d4477b850efa10b4790d19697215a3795f740",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -267,7 +267,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "f2f2ccdf9ed0325079cd3419ae425cfe73c448a8e6c988c9359b97e54bd80019",
+  "qualification_digest": "e0ab1101976311a40ec66a184bc2c2058f2dabaf8fab69281b74f77b5debe3ed",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,

@@ -27,6 +27,8 @@ from source.lawspace.schema import digest_payload
 
 OWNER_ID = "BLIND-DNS-TURBULENCE-CLOSURE-EXPERIMENT/1.0.0"
 SCHEMA = "phi-blind-dns-turbulence-closure/v1"
+SCALE_OWNER_ID = "BLIND-DNS-SCALE-INVARIANT-REPRESENTATION-EXTENSION/1.0.0"
+SCALE_SCHEMA = "phi-blind-dns-scale-invariant-representation-extension/v1"
 MANIFEST_SCHEMA = "phi-dns-turbulence-closure-dataset/v1"
 
 DIM_LENGTH = [1, 0, 0, 0, 0, 0, 0]
@@ -341,8 +343,15 @@ def _request(
     }
 
 
+def _terminal_residual_receipt(receipt: Mapping[str, Any]) -> Mapping[str, Any]:
+    if str(receipt.get("schema", "")) == "phi-adaptive-research-kernel-scale-invariant-primitive-field/v1":
+        return dict(receipt.get("normalized_inner_receipt", {}))
+    return receipt
+
+
 def _selected_specs(receipt: Mapping[str, Any]) -> list[dict[str, Any]]:
-    final = dict(receipt.get("final_language_receipt", {}))
+    terminal = _terminal_residual_receipt(receipt)
+    final = dict(terminal.get("final_language_receipt", {}))
     born = dict(final.get("primitive_field_operator_birth", {}).get("candidate_axes", {}))
     selected = list(receipt.get("result", {}).get("effective_predictor_variables", ()))
     return [{"axis_id": axis, "signature": born.get(axis)} for axis in selected]
@@ -371,10 +380,14 @@ def _component_summary(component: str, receipt: Mapping[str, Any]) -> dict[str, 
     best = dict(result.get("best_hypothesis") or {})
     sealed = dict(result.get("sealed_holdout_evaluation") or {})
     specs = _selected_specs(receipt)
+    terminal = _terminal_residual_receipt(receipt)
+    chart = dict(receipt.get("scale_invariant_representation_birth", {})) if isinstance(receipt.get("scale_invariant_representation_birth"), Mapping) else {}
     return {
         "component": component,
         "status": result.get("status"),
-        "selected_algebra_carrier_factor_depth": receipt.get("selected_algebra_carrier_factor_depth"),
+        "selected_algebra_carrier_factor_depth": terminal.get("selected_algebra_carrier_factor_depth"),
+        "representation_chart_status": chart.get("status"),
+        "representation_chart_digest": chart.get("digest"),
         "discovery_holdout_nrmse": best.get("holdout_nrmse"),
         "sealed_nrmse": sealed.get("nrmse"),
         "sealed_rmse": sealed.get("rmse"),
@@ -553,6 +566,223 @@ def run_experiment(
     return payload
 
 
+
+def _validate_report_digest(report: Mapping[str, Any]) -> bool:
+    embedded = report.get("digest")
+    if not embedded:
+        return False
+    return str(embedded) == digest_payload({k: v for k, v in report.items() if k != "digest"})
+
+
+def _prior_component_receipt(report: Mapping[str, Any], component: str) -> tuple[Mapping[str, Any], str]:
+    outcome_status = ""
+    for row in report.get("component_outcomes", ()):
+        if str(row.get("component", "")) == component:
+            outcome_status = str(row.get("status", ""))
+            break
+    for row in report.get("components", ()):
+        summary = dict(row.get("summary", {}))
+        if str(summary.get("component", "")) == component:
+            receipt = dict(row.get("execution_receipt", {}))
+            status = outcome_status or str(summary.get("status", ""))
+            return receipt, status
+    raise ValueError(f"prior report does not contain component {component!r}")
+
+
+def _sealed_hashes_from_freeze(freeze: Mapping[str, Any]) -> set[str]:
+    return {
+        str(row.get("source_sha256"))
+        for row in freeze.get("datasets", ())
+        if str(row.get("role", "")).upper() == "SEALED_HOLDOUT" and row.get("source_sha256")
+    }
+
+
+def run_scale_invariant_extension(
+    *, manifest_path: str | Path, components: Sequence[str] = ("x",), fit_tolerance: float = 0.25,
+    rank_shell_budget: int = 4, factor_depth_budget: int = 3, axis_birth_trial_budget: int = 4096,
+    run_null_control: bool = True, prior_report_path: str | Path | None = None,
+    root: str | Path | None = None,
+) -> dict[str, Any]:
+    """Run a representation-level continuation after an attested raw-chart gap.
+
+    The prior gap may have exposed an earlier sealed set.  If the current sealed
+    source hashes overlap that prior set, the run is explicitly development
+    replay and cannot be promoted as fresh transfer evidence even if the fit
+    improves.  A new manifest with unseen sealed hashes is required for a fresh
+    scientific holdout.
+    """
+    manifest_path = Path(manifest_path).resolve()
+    manifest = _load_json(manifest_path)
+    entries = _manifest_entries(manifest)
+    components = _canonical_component_list(components)
+    freeze = _freeze_manifest(
+        manifest_path, manifest, entries, components, fit_tolerance,
+        rank_shell_budget, factor_depth_budget, axis_birth_trial_budget,
+    )
+    if not freeze["regimes_disjoint"]:
+        raise ValueError("transfer experiment requires discovery and sealed regime_id sets to be disjoint")
+    api = LawSpaceAPI(Path(root or Path(__file__).resolve().parents[1]).resolve())
+
+    prior_report: dict[str, Any] | None = None
+    prior_report_digest_valid = False
+    if prior_report_path is not None:
+        prior_report = _load_json(Path(prior_report_path).resolve())
+        prior_report_digest_valid = _validate_report_digest(prior_report)
+        if not prior_report_digest_valid:
+            raise ValueError("prior report digest is invalid")
+
+    prior_exposed_hashes = _sealed_hashes_from_freeze(dict(prior_report.get("freeze", {}))) if prior_report else set()
+    current_sealed_hashes = _sealed_hashes_from_freeze(freeze)
+    sealed_overlap = sorted(prior_exposed_hashes & current_sealed_hashes)
+    fresh_sealed_evidence = bool(current_sealed_hashes) and not sealed_overlap
+
+    component_reports: list[dict[str, Any]] = []
+    null_reports: list[dict[str, Any]] = []
+    dataset_receipts: dict[str, list[dict[str, Any]]] = {}
+    prior_gap_receipts: dict[str, dict[str, Any]] = {}
+
+    for component in components:
+        studies, prep = _prepare_component_studies(manifest_path, manifest, entries, component)
+        dataset_receipts[component] = prep
+        if prior_report is not None:
+            raw_receipt, prior_status = _prior_component_receipt(prior_report, component)
+        else:
+            raw_request = _request(
+                component=component, studies=studies, fit_tolerance=fit_tolerance,
+                rank_shell_budget=rank_shell_budget, factor_depth_budget=factor_depth_budget,
+                axis_birth_trial_budget=axis_birth_trial_budget, null_control=False,
+            )
+            raw_receipt = api.advance_adaptive_research(raw_request)
+            prior_status = str(raw_receipt.get("result", {}).get("status", ""))
+            # This execution has just exposed the current sealed target, so it is
+            # not fresh evidence for the following representation adaptation.
+            fresh_sealed_evidence = False
+            sealed_overlap = sorted(current_sealed_hashes)
+        if "GAP" not in prior_status.upper():
+            raise ValueError(f"component {component}: prior run is not an attested representation gap")
+        prior_gap = {
+            "status": prior_status,
+            "receipt_digest": raw_receipt.get("digest"),
+            "atlas_native": raw_receipt.get("atlas_claim", {}).get("atlas_native"),
+            "source_report_digest": prior_report.get("digest") if prior_report else None,
+        }
+        prior_gap["digest"] = digest_payload(prior_gap)
+        prior_gap_receipts[component] = prior_gap
+
+        request = _request(
+            component=component, studies=studies, fit_tolerance=fit_tolerance,
+            rank_shell_budget=rank_shell_budget, factor_depth_budget=factor_depth_budget,
+            axis_birth_trial_budget=axis_birth_trial_budget, null_control=False,
+        )
+        request["entry_mode"] = "PRIMITIVE_FIELD_SCALE_INVARIANT_DISCOVERY"
+        request["scale_invariant_representation_birth"] = True
+        request["attested_prior_representation_gap"] = prior_gap
+        receipt = api.advance_adaptive_research(request)
+        component_reports.append({"summary": _component_summary(component, receipt), "execution_receipt": receipt})
+
+        if run_null_control:
+            null_request = _request(
+                component=component, studies=_null_studies(studies, component), fit_tolerance=fit_tolerance,
+                rank_shell_budget=rank_shell_budget, factor_depth_budget=factor_depth_budget,
+                axis_birth_trial_budget=axis_birth_trial_budget, null_control=True,
+            )
+            null_request["entry_mode"] = "PRIMITIVE_FIELD_SCALE_INVARIANT_DISCOVERY"
+            null_request["scale_invariant_representation_birth"] = True
+            null_request["attested_prior_representation_gap"] = prior_gap
+            null_receipt = api.advance_adaptive_research(null_request)
+            null_reports.append({"summary": _component_summary(component, null_receipt), "execution_receipt": null_receipt})
+
+    protocol_checks = {
+        "DATASET_FREEZE_CREATED": bool(freeze.get("digest")),
+        "DISCOVERY_AND_SEALED_REGIMES_DISJOINT": freeze.get("regimes_disjoint") is True,
+        "PRIOR_GAP_ATTESTED_FOR_EACH_COMPONENT": all(bool(prior_gap_receipts[c].get("receipt_digest")) and "GAP" in str(prior_gap_receipts[c].get("status", "")).upper() for c in components),
+        "SCALE_REPRESENTATION_BORN_FOR_EACH_COMPONENT": all(row["summary"].get("representation_chart_status") == "SCALE_INVARIANT_REPRESENTATION_BORN" for row in component_reports),
+        "SCALE_CHART_DISCOVERY_ONLY": all(row["execution_receipt"].get("claim_boundary", {}).get("scale_chart_born_from_discovery_predictors_only") is True for row in component_reports),
+        "SEALED_TARGET_NOT_USED_FOR_SCALE_BIRTH": all(row["execution_receipt"].get("claim_boundary", {}).get("sealed_target_values_used_for_scale_chart_birth") is False for row in component_reports),
+        "SEALED_TARGET_NOT_USED_FOR_SCALE_ESTIMATION": all(row["execution_receipt"].get("claim_boundary", {}).get("sealed_target_values_used_for_scale_estimation") is False for row in component_reports),
+        "NO_NAMED_DIMENSIONLESS_GROUP_CATALOG": all(row["execution_receipt"].get("claim_boundary", {}).get("named_dimensionless_group_catalog_used") is False for row in component_reports),
+        "ALL_TOP_LEVEL_ATLAS_PROVENANCE_ACCEPTED": all(row["summary"].get("atlas_native") is True for row in component_reports),
+        "ALL_SEALED_HOLDOUTS_EVALUATED": all(row["execution_receipt"].get("result", {}).get("sealed_holdout_evaluation", {}).get("status") == "SEALED_HOLDOUT_EVALUATED" for row in component_reports),
+        "NO_SCIENTIFIC_AUTO_PROMOTION": all(row["summary"].get("scientific_law_established") is False for row in component_reports),
+    }
+    if run_null_control:
+        protocol_checks["NULL_CONTROL_TOP_LEVEL_PROVENANCE_ACCEPTED"] = all(row["summary"].get("atlas_native") is True for row in null_reports)
+
+    outcomes = []
+    for row in component_reports:
+        component = str(row["summary"]["component"])
+        real = row["summary"].get("sealed_nrmse")
+        null = next((x["summary"].get("sealed_nrmse") for x in null_reports if x["summary"]["component"] == component), None)
+        real_f = float(real) if real is not None else float("inf")
+        null_f = float(null) if null is not None else None
+        survives = bool(real_f <= float(fit_tolerance))
+        null_rejected = bool(null_f is None or (math.isfinite(null_f) and real_f < 0.8 * null_f))
+        if survives and null_rejected and fresh_sealed_evidence:
+            status = "FRESH_TRANSFER_CANDIDATE_SURVIVES_SCALE_INVARIANT_SEALED_AND_NULL_EVIDENCE_NOT_LAW"
+        elif survives and null_rejected:
+            status = "DEVELOPMENT_REPLAY_FIT_SURVIVES_REQUIRES_FRESH_SEALED"
+        elif survives:
+            status = "SCALE_INVARIANT_FIT_SURVIVES_BUT_NULL_CONTROL_NOT_REJECTED"
+        else:
+            status = "SCALE_INVARIANT_REPRESENTATION_STILL_GAPPED"
+        outcomes.append({
+            "component": component, "status": status,
+            "real_sealed_nrmse": real_f, "null_sealed_nrmse": null_f,
+            "fit_tolerance_nrmse": float(fit_tolerance), "null_rejected": null_rejected,
+            "fresh_sealed_evidence": fresh_sealed_evidence,
+        })
+
+    protocol_passed = sum(bool(v) for v in protocol_checks.values())
+    fresh_survival = bool(outcomes) and all(x["status"] == "FRESH_TRANSFER_CANDIDATE_SURVIVES_SCALE_INVARIANT_SEALED_AND_NULL_EVIDENCE_NOT_LAW" for x in outcomes)
+    development_survival = bool(outcomes) and all(x["status"] in {"FRESH_TRANSFER_CANDIDATE_SURVIVES_SCALE_INVARIANT_SEALED_AND_NULL_EVIDENCE_NOT_LAW", "DEVELOPMENT_REPLAY_FIT_SURVIVES_REQUIRES_FRESH_SEALED"} for x in outcomes)
+    if fresh_survival:
+        overall = "FRESH_SCALE_INVARIANT_TRANSFER_CANDIDATE_SURVIVES_NOT_LAW"
+    elif development_survival:
+        overall = "SCALE_INVARIANT_DEVELOPMENT_REPLAY_SURVIVES_REQUIRES_FRESH_SEALED"
+    else:
+        overall = "SCALE_INVARIANT_REPRESENTATION_EVALUATED_WITHOUT_TRANSFER_PROMOTION"
+
+    payload = {
+        "schema": SCALE_SCHEMA, "owner": SCALE_OWNER_ID,
+        "runtime_release_id": api.runtime.current_release_id(),
+        "experiment_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "status": overall,
+        "protocol_status": "PASS_PROTOCOL_INTEGRITY" if protocol_passed == len(protocol_checks) else "FAIL_PROTOCOL_INTEGRITY",
+        "protocol_passed": protocol_passed, "protocol_total": len(protocol_checks),
+        "protocol_checks": [{"check": k, "status": "PASS" if v else "FAIL"} for k, v in protocol_checks.items()],
+        "freeze": freeze,
+        "prior_report": {
+            "path": str(Path(prior_report_path).resolve()) if prior_report_path is not None else None,
+            "digest": prior_report.get("digest") if prior_report else None,
+            "digest_valid": prior_report_digest_valid if prior_report else None,
+            "previously_exposed_sealed_hashes": sorted(prior_exposed_hashes),
+        },
+        "holdout_reuse_assessment": {
+            "fresh_sealed_evidence": fresh_sealed_evidence,
+            "overlapping_previously_exposed_sealed_hashes": sealed_overlap,
+            "same_exposed_holdout_may_be_used_for_development_diagnostics_only": bool(sealed_overlap),
+            "fresh_unseen_sealed_required_for_scientific_transfer_promotion": True,
+        },
+        "prior_gap_receipts": prior_gap_receipts,
+        "dataset_preparation_receipts": dataset_receipts,
+        "component_outcomes": outcomes,
+        "components": component_reports,
+        "null_controls": null_reports,
+        "claim_boundary": {
+            "new_turbulence_law_claimed": False,
+            "universal_closure_claimed": False,
+            "causality_established": False,
+            "named_dimensionless_group_catalog_used": False,
+            "reynolds_number_supplied_to_representation_owner": False,
+            "sealed_target_used_for_representation_birth": False,
+            "previously_exposed_holdout_can_establish_new_transfer_claim": False,
+            "fresh_unseen_holdout_required_after_representation_adaptation": True,
+        },
+    }
+    payload["digest"] = digest_payload(payload)
+    return payload
+
+
 def _write_template(path: Path) -> None:
     template = {
         "schema": MANIFEST_SCHEMA,
@@ -595,6 +825,8 @@ def main() -> int:
     parser.add_argument("--factor-depth-budget", type=int, default=3)
     parser.add_argument("--axis-birth-trial-budget", type=int, default=4096)
     parser.add_argument("--skip-null-control", action="store_true")
+    parser.add_argument("--representation-mode", choices=("raw", "scale-invariant-after-gap"), default="raw")
+    parser.add_argument("--prior-report", help="prior raw DNS report that attests the representation gap")
     parser.add_argument("--output", default="reports/TURBULENCE_DNS_CLOSURE_CURRENT.json")
     parser.add_argument("--write-manifest-template")
     parser.add_argument("--summary", action="store_true")
@@ -605,7 +837,8 @@ def main() -> int:
         return 0
     if not args.manifest:
         parser.error("--manifest is required unless --write-manifest-template is used")
-    report = run_experiment(
+    runner = run_scale_invariant_extension if args.representation_mode == "scale-invariant-after-gap" else run_experiment
+    kwargs = dict(
         manifest_path=args.manifest,
         components=_canonical_component_list(args.components),
         fit_tolerance=args.fit_tolerance,
@@ -614,6 +847,9 @@ def main() -> int:
         axis_birth_trial_budget=args.axis_birth_trial_budget,
         run_null_control=not args.skip_null_control,
     )
+    if args.representation_mode == "scale-invariant-after-gap":
+        kwargs["prior_report_path"] = args.prior_report
+    report = runner(**kwargs)
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

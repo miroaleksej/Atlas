@@ -130,3 +130,39 @@ Null-control включён по умолчанию.
 `examples/dns_snapshots/JHTDB_DOWNLOAD_PROVENANCE.json`
 
 по нему можно независимо проверить, какие реальные JHTDB данные вошли в experiment freeze.
+
+## Продолжение после representation gap: scale-invariant chart
+
+Если исходный real-DNS запуск завершился `REPRESENTATION_GAP_OR_TRANSFER_FAILURE`, следующий этап не увеличивает `carrier_depth` вслепую. Atlas открывает отдельный representation-level цикл:
+
+1. подтверждает digest предыдущего gap;
+2. использует только `DISCOVERY` primitive predictor fields и их физические размерности;
+3. рождает масштабные carriers без каталога Reynolds/LES/RANS;
+4. решает размерностный баланс target relation;
+5. замораживает chart;
+6. применяет уже замороженное преобразование к sealed predictor fields;
+7. sealed target используется только для финальной оценки.
+
+Запуск на текущем JHTDB manifest:
+
+```bash
+make turbulence-dns-scale-invariant
+```
+
+Эквивалентная команда:
+
+```bash
+python -m evaluation.turbulence_dns_closure_experiment \
+  --manifest examples/turbulence_dns_closure_manifest.real.json \
+  --components x,y,z \
+  --representation-mode scale-invariant-after-gap \
+  --prior-report reports/TURBULENCE_DNS_CLOSURE_CURRENT.json \
+  --output reports/TURBULENCE_DNS_SCALE_INVARIANT_CURRENT.json \
+  --summary
+```
+
+### Важная граница holdout
+
+`dns_sealed_01.npz` и `dns_sealed_02.npz` уже были раскрыты исходным experiment report. Поэтому повторная оценка нового representation на них имеет статус **development replay**, а не новое sealed evidence. Даже если такой replay даст хороший fit, Atlas не имеет права повысить его до нового transfer-candidate без нового, ранее неиспользованного sealed manifest.
+
+Новый owner является общим механизмом Mathematical Invention. Он не получает Reynolds number и не содержит готовую формулу безразмерной группы. В текущем DNS случае discovery-only dimensional synthesis рождает length scale из постоянного predictor carrier `g3`, velocity scale из joint RMS полей `g0,g1,g2` и решает баланс размерностей target автоматически.

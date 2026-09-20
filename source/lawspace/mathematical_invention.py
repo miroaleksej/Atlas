@@ -806,12 +806,276 @@ class ControlledLimitEngine:
         })
 
 
+SCALE_REPRESENTATION_OWNER_ID = "SCALE-INVARIANT-REPRESENTATION-BIRTH/1.0.0"
+
+
+class ScaleInvariantRepresentationBirthOwner:
+    """Birth a dimension-preserving numerical chart from primitive predictor scales.
+
+    This owner is generic: it receives only typed primitive coordinates/fields and
+    discovery studies.  It does not receive a Reynolds number, a turbulence model,
+    a named dimensionless group, or sealed target values.  It searches for stable
+    scale carriers among predictor fields, falls back to joint RMS scales for a
+    dimension class, and solves a small integer dimensional-balance problem for
+    the target relation.  Applying the frozen chart rescales numbers while keeping
+    the original physical dimension type available to the operator-language owner.
+    """
+
+    owner_id = SCALE_REPRESENTATION_OWNER_ID
+
+    def contract(self) -> Mapping[str, Any]:
+        return {
+            "owner_id": self.owner_id,
+            "input": "DISCOVERY_PRIMITIVE_PREDICTOR_FIELDS_PLUS_DIMENSION_TYPES",
+            "output": "FROZEN_DIMENSION_PRESERVING_SCALE_CHART",
+            "named_dimensionless_group_catalog_used": False,
+            "sealed_target_values_used_for_birth": False,
+            "target_values_used_for_scale_estimation": False,
+            "dimension_type_preserved_after_numerical_rescaling": True,
+            "scale_sources": (
+                "DISCOVERY_CONSTANT_PREDICTOR_FIELD_MEDIAN_ABS",
+                "DISCOVERY_JOINT_RMS_OF_SAME_DIMENSION_PREDICTOR_FIELDS",
+                "DISCOVERY_COORDINATE_SPAN_FALLBACK",
+            ),
+        }
+
+    @staticmethod
+    def _dim(v: Sequence[float]) -> tuple[float, ...]:
+        row = tuple(float(x) for x in v)
+        if len(row) != 7:
+            raise ValueError("scale-representation dimensions must have seven base exponents")
+        return row
+
+    @staticmethod
+    def _dim_key(v: Sequence[float]) -> str:
+        return digest_payload([float(x) for x in v])[:16]
+
+    @staticmethod
+    def _eq(a: Sequence[float], b: Sequence[float], tol: float = 1e-12) -> bool:
+        return all(abs(float(x)-float(y)) <= tol for x, y in zip(a, b))
+
+    @staticmethod
+    def _scale_value(rule: Mapping[str, Any], study: Mapping[str, Any]) -> float:
+        fields = dict(study.get("fields", {}))
+        coords = dict(study.get("coordinates", {}))
+        kind = str(rule.get("kind", ""))
+        names = tuple(str(x) for x in rule.get("members", ()))
+        if kind == "CONSTANT_FIELD_MEDIAN_ABS":
+            if len(names) != 1 or names[0] not in fields:
+                raise ValueError("constant-field scale rule cannot be evaluated")
+            arr = np.asarray(fields[names[0]], dtype=float)
+            value = float(np.median(np.abs(arr)))
+        elif kind == "JOINT_RMS_FIELDS":
+            arrays = [np.asarray(fields[name], dtype=float) for name in names if name in fields]
+            if len(arrays) != len(names) or not arrays:
+                raise ValueError("joint-RMS field scale rule cannot be evaluated")
+            value = float(np.sqrt(np.mean(np.sum([a*a for a in arrays], axis=0))))
+        elif kind == "COORDINATE_SPAN":
+            spans = []
+            for name in names:
+                arr = np.asarray(coords.get(name, ()), dtype=float)
+                if arr.size < 2:
+                    raise ValueError("coordinate-span scale rule cannot be evaluated")
+                spans.append(float(np.max(arr)-np.min(arr)))
+            value = float(np.exp(np.mean(np.log(np.asarray(spans, dtype=float)))))
+        else:
+            raise ValueError(f"unsupported scale rule kind {kind!r}")
+        if not math.isfinite(value) or value <= 1e-14:
+            raise ValueError("scale rule produced a non-positive/non-finite value")
+        return value
+
+    @classmethod
+    def _constant_field_candidate(cls, name: str, discovery_studies: Sequence[Mapping[str, Any]]) -> bool:
+        for study in discovery_studies:
+            arr = np.asarray(dict(study.get("fields", {})).get(name), dtype=float)
+            if arr.size == 0 or not np.all(np.isfinite(arr)):
+                return False
+            mean_abs = float(np.mean(np.abs(arr)))
+            if mean_abs <= 1e-14:
+                return False
+            spread = float(np.std(arr))
+            if spread > max(1e-12, mean_abs * 1e-10):
+                return False
+        return True
+
+    @classmethod
+    def _integer_balance(
+        cls, target_dim: Sequence[float], rules: Sequence[Mapping[str, Any]], exponent_radius: int
+    ) -> dict[str, int] | None:
+        target = cls._dim(target_dim)
+        rows = [(str(r["rule_id"]), cls._dim(r["dimension"])) for r in rules]
+        if not rows:
+            return None
+        radius = max(1, int(exponent_radius))
+        solutions: list[tuple[tuple[int, int, tuple[int, ...]], dict[str, int]]] = []
+        for exponents in itertools.product(range(-radius, radius+1), repeat=len(rows)):
+            if not any(exponents):
+                continue
+            out = [0.0] * 7
+            for exponent, (_, dim) in zip(exponents, rows):
+                for i, value in enumerate(dim):
+                    out[i] += float(exponent) * float(value)
+            if cls._eq(out, target):
+                active = sum(1 for e in exponents if e)
+                l1 = sum(abs(e) for e in exponents)
+                key = (active, l1, tuple(int(e) for e in exponents))
+                solutions.append((key, {rid: int(e) for e, (rid, _) in zip(exponents, rows) if e}))
+        if not solutions:
+            return None
+        solutions.sort(key=lambda item: item[0])
+        return solutions[0][1]
+
+    def invent(
+        self, *, discovery_studies: Sequence[Mapping[str, Any]],
+        coordinate_dimensions: Mapping[str, Sequence[float]],
+        field_dimensions: Mapping[str, Sequence[float]], target_field: str,
+        predictor_fields: Sequence[str], exponent_radius: int = 4,
+    ) -> Mapping[str, Any]:
+        discovery = tuple(dict(x) for x in discovery_studies if str(x.get("role", "DISCOVERY")).upper() == "DISCOVERY")
+        if not discovery:
+            raise ValueError("scale representation birth requires discovery studies")
+        target_field = str(target_field)
+        predictors = tuple(sorted({str(x) for x in predictor_fields if str(x) != target_field}))
+        fdim = {str(k): self._dim(v) for k, v in field_dimensions.items()}
+        cdim = {str(k): self._dim(v) for k, v in coordinate_dimensions.items()}
+        if target_field not in fdim or not predictors:
+            raise ValueError("scale representation birth requires target and predictor field dimensions")
+        missing = [name for name in predictors if name not in fdim]
+        if missing:
+            raise ValueError(f"predictor fields missing dimensions: {missing}")
+
+        by_dim: dict[tuple[float, ...], list[str]] = defaultdict(list)
+        for name in predictors:
+            by_dim[fdim[name]].append(name)
+        rules: list[dict[str, Any]] = []
+        field_rule: dict[str, str] = {}
+        for dim, members in sorted(by_dim.items(), key=lambda item: self._dim_key(item[0])):
+            constants = [name for name in sorted(members) if self._constant_field_candidate(name, discovery)]
+            if constants:
+                # Each independent constant carrier is a distinct candidate scale.
+                # Freeze the lexicographically first one for deterministic replay;
+                # no target values are consulted in this choice.
+                chosen = constants[0]
+                kind = "CONSTANT_FIELD_MEDIAN_ABS"
+                scale_members = [chosen]
+            else:
+                kind = "JOINT_RMS_FIELDS"
+                scale_members = sorted(members)
+            rid = "scale_" + digest_payload({"kind": kind, "members": scale_members, "dimension": list(dim)})[:16]
+            rule = {"rule_id": rid, "kind": kind, "members": scale_members, "dimension": list(dim)}
+            rules.append(rule)
+            for name in members:
+                field_rule[name] = rid
+
+        # Coordinates inherit an existing same-dimension field scale when one is
+        # available.  Otherwise birth a coordinate-span scale from discovery only.
+        coordinate_rule: dict[str, str] = {}
+        dim_to_rule = {tuple(self._dim(r["dimension"])): str(r["rule_id"]) for r in rules}
+        for dim in sorted(set(cdim.values()), key=self._dim_key):
+            if dim in dim_to_rule:
+                rid = dim_to_rule[dim]
+            else:
+                members = sorted(name for name, d in cdim.items() if d == dim)
+                rid = "scale_" + digest_payload({"kind": "COORDINATE_SPAN", "members": members, "dimension": list(dim)})[:16]
+                rules.append({"rule_id": rid, "kind": "COORDINATE_SPAN", "members": members, "dimension": list(dim)})
+                dim_to_rule[dim] = rid
+            for name, d in cdim.items():
+                if d == dim:
+                    coordinate_rule[name] = rid
+
+        target_exponents = self._integer_balance(fdim[target_field], rules, exponent_radius)
+        if target_exponents is None:
+            payload = {
+                "schema": SCHEMA, "owner_id": self.owner_id,
+                "status": "SCALE_REPRESENTATION_BIRTH_INSUFFICIENT_DIMENSIONAL_BASIS",
+                "rules": rules, "target_field": target_field,
+                "predictor_fields": list(predictors),
+                "claim_boundary": {"sealed_target_values_used_for_birth": False, "named_dimensionless_group_catalog_used": False},
+            }
+            return _with_digest(payload)
+
+        # Verify every frozen scale rule on discovery predictor/coordinate values.
+        scale_receipts = []
+        for study in discovery:
+            values = {str(r["rule_id"]): self._scale_value(r, study) for r in rules}
+            scale_receipts.append({"study_id": str(study.get("study_id", "")), "scale_values": values})
+
+        payload = {
+            "schema": SCHEMA, "owner_id": self.owner_id,
+            "status": "SCALE_INVARIANT_REPRESENTATION_BORN",
+            "birth_evidence_role": "DISCOVERY_ONLY",
+            "target_field": target_field, "predictor_fields": list(predictors),
+            "rules": rules, "field_scale_rule": field_rule,
+            "coordinate_scale_rule": coordinate_rule,
+            "target_scale_exponents": target_exponents,
+            "discovery_scale_receipts": scale_receipts,
+            "exponent_search_radius": max(1, int(exponent_radius)),
+            "exponent_search_radius_is_scientific_ceiling": False,
+            "claim_boundary": {
+                "named_dimensionless_group_catalog_used": False,
+                "reynolds_number_supplied_to_owner": False,
+                "sealed_studies_used_for_birth": False,
+                "sealed_target_values_used_for_birth": False,
+                "target_values_used_for_scale_estimation": False,
+                "numerical_rescaling_preserves_physical_dimension_type": True,
+                "representation_birth_establishes_scientific_law": False,
+            },
+        }
+        return _with_digest(payload)
+
+    def apply(
+        self, *, studies: Sequence[Mapping[str, Any]], chart: Mapping[str, Any], target_field: str,
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        if chart.get("status") != "SCALE_INVARIANT_REPRESENTATION_BORN":
+            raise ValueError("cannot apply an unqualified scale representation")
+        target_field = str(target_field)
+        rules = [dict(x) for x in chart.get("rules", ())]
+        field_rule = {str(k): str(v) for k, v in dict(chart.get("field_scale_rule", {})).items()}
+        coordinate_rule = {str(k): str(v) for k, v in dict(chart.get("coordinate_scale_rule", {})).items()}
+        target_exponents = {str(k): int(v) for k, v in dict(chart.get("target_scale_exponents", {})).items()}
+        out: list[dict[str, Any]] = []
+        receipts: list[dict[str, Any]] = []
+        for source in studies:
+            study = {k: v for k, v in dict(source).items() if k not in {"fields", "coordinates"}}
+            fields = {str(k): np.asarray(v, dtype=float) for k, v in dict(source.get("fields", {})).items()}
+            coords = {str(k): np.asarray(v, dtype=float) for k, v in dict(source.get("coordinates", {})).items()}
+            scale_values = {str(r["rule_id"]): self._scale_value(r, source) for r in rules}
+            target_scale = 1.0
+            for rid, exponent in target_exponents.items():
+                target_scale *= float(scale_values[rid]) ** int(exponent)
+            if not math.isfinite(target_scale) or abs(target_scale) <= 1e-14:
+                raise ValueError("target scale is invalid")
+            normalized_fields: dict[str, Any] = {}
+            for name, arr in fields.items():
+                if name == target_field:
+                    normalized_fields[name] = (arr / target_scale).tolist()
+                else:
+                    rid = field_rule.get(name)
+                    normalized_fields[name] = (arr / float(scale_values[rid])).tolist() if rid else arr.tolist()
+            normalized_coords: dict[str, Any] = {}
+            for name, arr in coords.items():
+                rid = coordinate_rule.get(name)
+                normalized_coords[name] = (arr / float(scale_values[rid])).tolist() if rid else arr.tolist()
+            study["fields"] = normalized_fields
+            study["coordinates"] = normalized_coords
+            out.append(study)
+            receipt = {
+                "study_id": str(source.get("study_id", "")), "role": str(source.get("role", "")),
+                "scale_values": scale_values, "target_scale": float(target_scale),
+                "target_value_used_to_compute_scales": False,
+            }
+            receipt["digest"] = digest_payload(receipt)
+            receipts.append(receipt)
+        return out, receipts
+
+
 class MathematicalInventionKernel:
     def __init__(self, root: str|Path) -> None:
         self.root=Path(root); self.runtime=LawSpaceRuntime(self.root)
         self.unknown_unknown=UnknownUnknownRepresentationOwner(self.runtime)
         self.function_language=FunctionLanguageBirthEngine()
         self.operator_language=OperatorLanguageBirthEngine()
+        self.scale_invariant=ScaleInvariantRepresentationBirthOwner()
         self.primitive=PrimitiveSynthesisOwner(); self.morphism=MorphismDiscoveryOwner(); self.limit=ControlledLimitEngine()
 
     def contract(self)->Mapping[str,Any]:
@@ -823,7 +1087,7 @@ class MathematicalInventionKernel:
                 "morphism_discovery":MORPHISM_OWNER_ID,
                 "controlled_limit":LIMIT_OWNER_ID,
             },
-            "components":{"function_language_birth":"FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT","operator_language_birth":self.operator_language.component_id},
+            "components":{"function_language_birth":"FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT","operator_language_birth":self.operator_language.component_id,"scale_invariant_representation_birth":self.scale_invariant.owner_id},
             "pipeline":"PHI_SCAN->REPRESENTATION_OBLIGATIONS->GENERATED_PRIMITIVE->MORPHISM->CONTROLLED_LIMIT",
             "function_language_pipeline":"QUERY_OOF_RESIDUAL->OPERATION_SIGNAL->GENERATED_LANGUAGE_SIGNATURE->QUERY_REFIT_AND_NULL",
             "operator_language_pipeline":"LOCAL_TRANSLATION_PLUS_POINTWISE_ALGEBRA->MOMENT_RANK_SHELLS->TYPED_SIGNATURES->EMPIRICAL_SUPPORT_SEARCH",
@@ -835,6 +1099,6 @@ class MathematicalInventionKernel:
 
 __all__=[
     "MathematicalInventionKernel","UnknownUnknownRepresentationOwner","PrimitiveSynthesisOwner",
-    "MorphismDiscoveryOwner","ControlledLimitEngine","FunctionLanguageBirthEngine","OperatorLanguageBirthEngine", "KERNEL_OWNER_ID", "UNKNOWN_OWNER_ID",
-    "PRIMITIVE_OWNER_ID","MORPHISM_OWNER_ID","LIMIT_OWNER_ID",
+    "MorphismDiscoveryOwner","ControlledLimitEngine","FunctionLanguageBirthEngine","OperatorLanguageBirthEngine","ScaleInvariantRepresentationBirthOwner", "KERNEL_OWNER_ID", "UNKNOWN_OWNER_ID",
+    "PRIMITIVE_OWNER_ID","MORPHISM_OWNER_ID","LIMIT_OWNER_ID","SCALE_REPRESENTATION_OWNER_ID",
 ]

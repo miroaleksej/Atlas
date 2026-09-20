@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 312
+Controlled files: 313
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -11,6 +11,7 @@ Controlled files: 312
 - `MATHEMATICAL_BOOK.md`
 - `MATHEMATICAL_CONTRACT.md`
 - `Makefile`
+- `PATCH_MANIFEST_SCALE_INVARIANT_DNS_REPRESENTATION.json`
 - `README.md`
 - `RUN_TURBULENCE_DNS_CLOSURE_RU.md`
 - `TECHNICAL_GUIDE_RU.md`

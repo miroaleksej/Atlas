@@ -1,4 +1,4 @@
-.PHONY: collect research-triage targeted first-experiment real-experiment navier-stokes-experiment navier-stokes-primitive-field navier-stokes-operator-language hidden-term-discovery turbulence-dns-closure turbulence-dns-fetch-real turbulence-dns-closure-real frontier-scan science-atlas self-repair replay-prepare replay-batches replay-aggregate full qualify release-controls seal-audit audit-read-only clean
+.PHONY: collect research-triage targeted first-experiment real-experiment navier-stokes-experiment navier-stokes-primitive-field navier-stokes-operator-language hidden-term-discovery turbulence-dns-closure turbulence-dns-fetch-real turbulence-dns-closure-real turbulence-dns-scale-invariant frontier-scan science-atlas self-repair replay-prepare replay-batches replay-aggregate full qualify release-controls seal-audit audit-read-only clean
 
 PYENV = PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 
@@ -46,6 +46,13 @@ turbulence-dns-closure-real:
 		$(PYENV) python -m evaluation.fetch_jhtdb_real_snapshots; \
 	fi
 	$(PYENV) python -m evaluation.turbulence_dns_closure_experiment --manifest examples/turbulence_dns_closure_manifest.real.json --components "$${DNS_COMPONENTS:-x,y,z}" --output reports/TURBULENCE_DNS_CLOSURE_CURRENT.json --summary
+
+# Representation-level continuation after the attested raw-chart gap.
+# Reusing the old sealed files is development evidence only; a fresh manifest is
+# required before any new cross-regime transfer claim may be promoted.
+turbulence-dns-scale-invariant:
+	@test -f reports/TURBULENCE_DNS_CLOSURE_CURRENT.json || (echo "Run make turbulence-dns-closure-real first" && exit 2)
+	$(PYENV) python -m evaluation.turbulence_dns_closure_experiment --manifest examples/turbulence_dns_closure_manifest.real.json --components "$${DNS_COMPONENTS:-x,y,z}" --representation-mode scale-invariant-after-gap --prior-report reports/TURBULENCE_DNS_CLOSURE_CURRENT.json --output reports/TURBULENCE_DNS_SCALE_INVARIANT_CURRENT.json --summary
 
 frontier-scan:
 	$(PYENV) python -c 'from source.lawspace.scientific_exploitation import write_current_state; write_current_state(".", ai_extension_verified=True)'
