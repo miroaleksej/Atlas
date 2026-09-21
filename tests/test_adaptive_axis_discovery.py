@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 from source.lawspace.adaptive_axis import AdaptiveAxisDiscoveryOwner
-from source.lawspace.research_cycle import DynamicAxisProposal
+from source.lawspace.research_cycle import DynamicAxisProposal, PredictionFalsificationOwner
 from source.lawspace.scientific_rules import CommonScientificRulesCore
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -329,6 +329,38 @@ def test_residual_only_cycle_can_start_from_intercept_and_birth_dormant_axes():
     assert result["result"]["activated_but_not_effective_support_axis_variables"] == []
     assert result["axis_birth_search"]["final_selection_stability"]["passes"] is True
     assert result["claim_boundary"]["dormant_axis_inserted_into_initial_formula"] is False
+
+
+
+def test_prediction_contract_is_two_sided_attack_plus_defense():
+    competitive={
+        "candidate_freeze_digest":"freeze-1",
+        "candidates":[{"candidate_id":"A"},{"candidate_id":"B"}],
+    }
+    candidates={
+        "A":{
+            "formula":{"digest":"formula-A","source":"x"},
+            "required_measurements":["x"],
+            "falsification_criterion":"fails transfer",
+            "defense_criterion":"profile x uncertainty without heldout refit",
+            "validity_domain":"REGIME-A",
+            "nuisance_coordinates":["n"],
+        },
+        "B":{
+            "formula":{"digest":"formula-B","source":"x*x"},
+            "required_measurements":["x"],
+            "falsification_criterion":"fails tail stress",
+        },
+    }
+    result=PredictionFalsificationOwner().derive(competitive,candidates)
+    assert result["all_candidates_have_falsification_contract"] is True
+    assert result["all_candidates_have_defense_contract"] is True
+    assert result["candidate_evaluation_is_two_sided_attack_plus_defense"] is True
+    rows={row["candidate_id"]:row for row in result["predictions"]}
+    assert rows["A"]["candidate_defense_contract"]["validity_domain"] == "REGIME-A"
+    assert rows["A"]["candidate_defense_contract"]["heldout_refit_allowed"] is False
+    assert rows["B"]["candidate_defense_contract"]["upper_lower_limits_must_be_profiled_or_interval_propagated"] is True
+    assert all(row["gates"]["DEFENSE_PROTOCOL_DECLARED"] for row in rows.values())
 
 
 def test_external_stability_requires_matching_complete_owner_receipt():

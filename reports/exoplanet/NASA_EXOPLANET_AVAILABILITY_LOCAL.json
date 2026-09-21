@@ -1,0 +1,2011 @@
+{
+  "schema": "atlas-exoplanet-availability-adaptive/v3",
+  "status": "FULL_CATALOGUE_AVAILABILITY_ADAPTIVE_PASS_EXECUTED",
+  "source": {
+    "path": "/Users/miro-aleksejyandex.ru/Desktop/Ai/0. Рабочие проекты/Доказательство пространства/Финальный проект/Последний/PhiCompiler_UNIFIED_CURRENT_STATE_15_24_0_QUERY_SCALAR_LAW_CURRENT_SNAPSHOT/data/observations/nasa_exoplanet/PSCompPars_2026.09.20_07.33.39.csv",
+    "sha256": "6129d26e657e1a26256b12fe151886fa28f5530e460578b5d68ab8bda939af9a",
+    "table_kind": "PSCompPars_COMPOSITE",
+    "rows": 6366,
+    "columns": 84
+  },
+  "frozen_positive_control_binding": {
+    "runner_sha256": "d423111c86a4587129c9e22c255209ee12c96b7eb4ae8953c9a6eb3fcfd21b95",
+    "winner_exponents": [
+      3,
+      -2,
+      -1
+    ],
+    "winner_C_hat_SI": 1.6891158364826438e-12,
+    "winner_rho": 0.02823979266556339,
+    "known_registry_used_for_winner_selection": false
+  },
+  "availability_adaptive_passports": {
+    "schema": "atlas-exoplanet-availability-adaptive-passports/v3",
+    "rows_preserved": 6366,
+    "all_input_rows_preserved": true,
+    "unique_planets": 6366,
+    "unique_hosts": 4775,
+    "zone_counts": {
+      "ORBITAL_OBSERVED_CLOSURE": 5589,
+      "ORBITAL_MODEL_ASSISTED": 761,
+      "PLANET_STRUCTURE": 6098,
+      "STELLAR_STRUCTURE": 6033,
+      "IRRADIATION_MODEL_CHECK": 5609,
+      "ECCENTRIC_ORBIT_GEOMETRY": 4933,
+      "CATALOGUE_CONTEXT": 6366,
+      "UNCERTAINTY_ORBIT": 3313
+    },
+    "axis_availability_counts": {
+      "log_planet_mass_earth": 6101,
+      "log_planet_radius_earth": 6311,
+      "eccentricity": 5005,
+      "log_insolation_earth": 5730,
+      "log_equilibrium_temperature_K": 5829,
+      "log_stellar_temperature_K": 6061,
+      "log_stellar_radius_solar": 6038,
+      "stellar_metallicity_FeH": 5718,
+      "stellar_logg_cgs": 6028,
+      "log_distance_pc": 6338,
+      "discovery_year_centered": 6366,
+      "system_planet_count": 6366,
+      "ttv_flag": 6366,
+      "controversial_flag": 6366,
+      "relative_period_uncertainty": 5523,
+      "relative_semimajor_axis_uncertainty": 4001,
+      "relative_stellar_mass_uncertainty": 6080
+    },
+    "available_axis_count_distribution": {
+      "5": 1,
+      "6": 2,
+      "7": 3,
+      "8": 16,
+      "9": 272,
+      "10": 22,
+      "11": 17,
+      "12": 65,
+      "13": 171,
+      "14": 224,
+      "15": 569,
+      "16": 2536,
+      "17": 2468
+    },
+    "orbital_status_counts": {
+      "OBSERVED_P_A_MSTAR": 5589,
+      "MODEL_INFERRED_A_FROM_P_MSTAR": 420,
+      "MODEL_INFERRED_P_FROM_A_MSTAR": 337,
+      "INSUFFICIENT_ORBITAL_OBSERVATIONS": 16,
+      "TWO_STAGE_INFERRED_MSTAR_THEN_P": 3,
+      "TWO_STAGE_INFERRED_MSTAR_THEN_A": 1
+    },
+    "passport_status_counts": {
+      "OBSERVED_ORBITAL_PHYSICS": 3122,
+      "FULL_17_AXIS_OBSERVED_ORBITAL": 2467,
+      "MODEL_ASSISTED_ORBITAL_PHYSICS": 761,
+      "PARTIAL_OBSERVED_PHYSICS": 16
+    },
+    "observed_orbital_closure_count": 5589,
+    "model_assisted_orbital_count": 761,
+    "orbital_calculable_count": 6350,
+    "orbital_unresolved_count": 16,
+    "derived_stellar_mass_from_logg_radius_count": 4,
+    "full_17_axis_observed_orbital_count": 2467,
+    "planet_structure_count": 6098,
+    "extreme_density_robust_count": 2,
+    "extreme_density_robust_thresholds": {
+      "count": 6098,
+      "median_log": -0.7838174839691043,
+      "robust_sigma_log": 0.9025253868345541,
+      "lower": 0.002031522422927017,
+      "upper": 102.6509950501198,
+      "sigma_multiple": 6.0
+    },
+    "irradiation_consistency_count": 5567,
+    "insolation_ratio_median": 0.997497832811278,
+    "extreme_insolation_consistency_robust_count": 363,
+    "insolation_ratio_robust_thresholds": {
+      "count": 5567,
+      "median_log": -0.002505302840751337,
+      "robust_sigma_log": 0.11721334440246522,
+      "lower": 0.4937206689174229,
+      "upper": 2.0153134942576507,
+      "sigma_multiple": 6.0
+    },
+    "equilibrium_temperature_consistency_count": 5606,
+    "equilibrium_temperature_ratio_median": 0.9787442729229513,
+    "extreme_temperature_consistency_robust_count": 86,
+    "equilibrium_temperature_ratio_robust_thresholds": {
+      "count": 5606,
+      "median_log": -0.021484883576058194,
+      "robust_sigma_log": 0.06536957985807562,
+      "lower": 0.6611977190694062,
+      "upper": 1.448795607223804,
+      "sigma_multiple": 6.0
+    },
+    "limit_semantics": {
+      "mass_limit_rows_catalogue": 234,
+      "radius_limit_rows_catalogue": 5,
+      "limits_used_as_central_values": false,
+      "limits_preserved_as_inequality_constraints": true,
+      "best_mass_msini_preserved_as_true_mass_lower_bound": true,
+      "snapshot_limit_sign_semantics": {
+        "+1": "UPPER_BOUND",
+        "-1": "LOWER_BOUND",
+        "0": "POINT_OR_UNCENSORED"
+      }
+    },
+    "density_provenance_audit": {
+      "candidate_class_counts": {
+        "INPUT_LIMIT_NOT_PHYSICAL_POINT": 194,
+        "UNCERTAINTY_UNRESOLVED": 2
+      },
+      "central_extreme_count_after_limit_filter": 2,
+      "stress_robust_physical_extreme_count": 0,
+      "uncertainty_unresolved_extreme_count": 2,
+      "censored_mass_or_radius_rows": 194,
+      "legacy_naive_extreme_count": 13,
+      "candidate_defense_counts": {
+        "EXTREME_ALLOWED_BY_CONSTRAINTS": 13
+      },
+      "constraint_extreme_required_count": 0,
+      "constraint_extreme_allowed_count": 13,
+      "constraint_extreme_excluded_count": 0,
+      "legacy_naive_extreme_reclassification": [
+        {
+          "pl_name": "K2-137 b",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 3342.6563644409175,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        },
+        {
+          "pl_name": "KOI-2513.01",
+          "mass_limit_flag": 0.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 1831.761476127792,
+          "reclassified_as": "UNCERTAINTY_UNRESOLVED"
+        },
+        {
+          "pl_name": "KOI-4777.01",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 4123.518103896691,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        },
+        {
+          "pl_name": "Kepler-238 b",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 3519.6748451103067,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        },
+        {
+          "pl_name": "Kepler-245 e",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 1858.4758558600583,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        },
+        {
+          "pl_name": "Kepler-32 b",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 674.7503756574002,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        },
+        {
+          "pl_name": "Kepler-32 f",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 18622.18072140567,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        },
+        {
+          "pl_name": "Kepler-324 b",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 8985.896875151873,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        },
+        {
+          "pl_name": "Kepler-37 e",
+          "mass_limit_flag": 0.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 881.7523147691155,
+          "reclassified_as": "UNCERTAINTY_UNRESOLVED"
+        },
+        {
+          "pl_name": "Kepler-42 c",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 855.2279669011897,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        },
+        {
+          "pl_name": "Kepler-58 e",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 789.8454822476607,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        },
+        {
+          "pl_name": "Kepler-80 f",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 13880.950878914133,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        },
+        {
+          "pl_name": "Kepler-82 d",
+          "mass_limit_flag": 1.0,
+          "radius_limit_flag": 0.0,
+          "naive_density_g_cm3": 880.1127692921108,
+          "reclassified_as": "INPUT_LIMIT_NOT_PHYSICAL_POINT"
+        }
+      ]
+    },
+    "irradiation_provenance_audit": {
+      "candidate_class_counts": {
+        "COMPOSITE_INSOLATION_ONLY_MISMATCH": 312,
+        "COHERENT_LITERATURE_A03_LIKE": 22,
+        "COHERENT_SOURCE_SCALE_ZERO_ALBEDO_LIKE": 18,
+        "OTHER_PROVENANCE_OR_CONVENTION": 10,
+        "MULTISTAR_OR_PROVENANCE_UNRESOLVED": 1
+      },
+      "candidate_count": 363,
+      "unresolved_candidate_count": 11,
+      "unresolved_candidates": [
+        {
+          "pl_name": "DMPP-2 b",
+          "hostname": "DMPP-2",
+          "audit_class": "OTHER_PROVENANCE_OR_CONVENTION",
+          "S_catalog_model_ratio": 0.24923876557779912,
+          "Teq_catalog_model_ratio": 0.6161152640322461,
+          "Q": 1.7296877830649795
+        },
+        {
+          "pl_name": "K2-11 b",
+          "hostname": "K2-11",
+          "audit_class": "OTHER_PROVENANCE_OR_CONVENTION",
+          "S_catalog_model_ratio": 0.02407632671500888,
+          "Teq_catalog_model_ratio": 0.5865232360746714,
+          "Q": 0.2034460863086461
+        },
+        {
+          "pl_name": "K2-22 b",
+          "hostname": "K2-22",
+          "audit_class": "MULTISTAR_OR_PROVENANCE_UNRESOLVED",
+          "S_catalog_model_ratio": 0.13457365699345863,
+          "Teq_catalog_model_ratio": 1.3985354368879528,
+          "Q": 0.03517759571458112
+        },
+        {
+          "pl_name": "Kepler-1006 b",
+          "hostname": "Kepler-1006",
+          "audit_class": "OTHER_PROVENANCE_OR_CONVENTION",
+          "S_catalog_model_ratio": 8.274765849531795,
+          "Teq_catalog_model_ratio": 1.3694104826444347,
+          "Q": 2.352995634283533
+        },
+        {
+          "pl_name": "Kepler-1504 b",
+          "hostname": "Kepler-1504",
+          "audit_class": "OTHER_PROVENANCE_OR_CONVENTION",
+          "S_catalog_model_ratio": 6.906193499277303,
+          "Teq_catalog_model_ratio": 1.2611623585918712,
+          "Q": 2.7299503096743725
+        },
+        {
+          "pl_name": "Kepler-1624 b",
+          "hostname": "Kepler-1624",
+          "audit_class": "OTHER_PROVENANCE_OR_CONVENTION",
+          "S_catalog_model_ratio": 0.11613243577261077,
+          "Teq_catalog_model_ratio": 0.7233590267142515,
+          "Q": 0.4241680119510713
+        },
+        {
+          "pl_name": "Kepler-577 b",
+          "hostname": "Kepler-577",
+          "audit_class": "OTHER_PROVENANCE_OR_CONVENTION",
+          "S_catalog_model_ratio": 0.3488886224406017,
+          "Teq_catalog_model_ratio": 0.561438037286378,
+          "Q": 3.511393302237032
+        },
+        {
+          "pl_name": "Kepler-785 b",
+          "hostname": "Kepler-785",
+          "audit_class": "OTHER_PROVENANCE_OR_CONVENTION",
+          "S_catalog_model_ratio": 0.44709521931629176,
+          "Teq_catalog_model_ratio": 0.6183235669831424,
+          "Q": 3.0586996082907434
+        },
+        {
+          "pl_name": "Kepler-789 b",
+          "hostname": "Kepler-789",
+          "audit_class": "OTHER_PROVENANCE_OR_CONVENTION",
+          "S_catalog_model_ratio": 2.5382896622252265,
+          "Teq_catalog_model_ratio": 1.5307390765761875,
+          "Q": 0.4623134251358686
+        },
+        {
+          "pl_name": "Kepler-913 b",
+          "hostname": "Kepler-913",
+          "audit_class": "OTHER_PROVENANCE_OR_CONVENTION",
+          "S_catalog_model_ratio": 3.7064951215506743,
+          "Teq_catalog_model_ratio": 2.0316381350329227,
+          "Q": 0.2175594779731769
+        },
+        {
+          "pl_name": "NGTS-30 b",
+          "hostname": "NGTS-30",
+          "audit_class": "OTHER_PROVENANCE_OR_CONVENTION",
+          "S_catalog_model_ratio": 43.270509852410136,
+          "Teq_catalog_model_ratio": 1.270681316670137,
+          "Q": 16.5976053917767
+        }
+      ],
+      "host_shared_factor_rows": 56,
+      "host_shared_factor_hosts": 25,
+      "candidate_defense_counts": {
+        "OPEN_CANDIDATE": 275,
+        "SUPPORTED_HOST_LATENT_SCALE": 51,
+        "DEFENDED_BY_OBSERVATIONAL_INTERVAL": 26,
+        "SUPPORTED_MULTISTAR_FLUX_CANDIDATE": 6,
+        "DEFENDED_HOST_LATENT_SCALE_THERMALLY_COHERENT": 5
+      },
+      "observational_interval_defended_count": 43,
+      "host_latent_scale_candidate_rows": 56,
+      "host_latent_scale_candidate_hosts": 25,
+      "host_latent_scale_cv_median": 0.0009320175606020919,
+      "host_latent_scale_thermally_coherent_rows": 5,
+      "thermal_balance_defended_candidate_count": 359,
+      "temperature_normal_3mad_bounds": [
+        0.8044522860368145,
+        1.1907982207540346
+      ],
+      "q_definition": "(S_catalog/S_model)/(Teq_catalog/Teq_model)^4",
+      "cleaned_nonextreme_residual_scan": {
+        "selection_population": "DISCOVERY_ONLY_CENTRAL_NONEXTREME_INSOLATION_ROWS_PER_AXIS_MAXIMAL_AVAILABILITY",
+        "excluded_tautological_axes": [
+          "log_insolation_earth",
+          "log_equilibrium_temperature_K"
+        ],
+        "passing_discovery_axis_count": 2,
+        "passing_and_outer_validation_positive_count": 0,
+        "axes": [
+          {
+            "axis": "CLEAN-IRRADIATION::log_planet_radius_earth",
+            "rows": 3049,
+            "hosts": 2260,
+            "pooled_median_gain": 0.0025443707596719137,
+            "pooled_robust_margin": 0.0005300504946783424,
+            "pooled_positive_fraction": 0.8625,
+            "repeat_pass_fraction": 0.85,
+            "passes": true,
+            "original_axis": "log_planet_radius_earth",
+            "outer_validation_gain": -0.0005669177802202487,
+            "outer_validation_nrmse_baseline": 1.0009019228855311,
+            "outer_validation_nrmse_candidate": 1.0014693519818716,
+            "outer_validation_rows": 1073
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::discovery_year_centered",
+            "rows": 3072,
+            "hosts": 2266,
+            "pooled_median_gain": 0.0012865234539167075,
+            "pooled_robust_margin": 0.00020971313672913413,
+            "pooled_positive_fraction": 0.775,
+            "repeat_pass_fraction": 0.65,
+            "passes": true,
+            "original_axis": "discovery_year_centered",
+            "outer_validation_gain": -0.0019078029247063936,
+            "outer_validation_nrmse_baseline": 1.0009616614895371,
+            "outer_validation_nrmse_candidate": 1.0028712990748458,
+            "outer_validation_rows": 1079
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::relative_period_uncertainty",
+            "rows": 2807,
+            "hosts": 2066,
+            "pooled_median_gain": -8.366543200329724e-06,
+            "pooled_robust_margin": -6.502056723255828e-05,
+            "pooled_positive_fraction": 0.4125,
+            "repeat_pass_fraction": 0.2,
+            "passes": false,
+            "original_axis": "relative_period_uncertainty",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::controversial_flag",
+            "rows": 3072,
+            "hosts": 2266,
+            "pooled_median_gain": -5.2117271706124575e-05,
+            "pooled_robust_margin": -0.00014381420044998368,
+            "pooled_positive_fraction": 0.25,
+            "repeat_pass_fraction": 0.0,
+            "passes": false,
+            "original_axis": "controversial_flag",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::log_planet_mass_earth",
+            "rows": 2925,
+            "hosts": 2207,
+            "pooled_median_gain": 0.0008567679511768385,
+            "pooled_robust_margin": -0.000220304496931693,
+            "pooled_positive_fraction": 0.7,
+            "repeat_pass_fraction": 0.35,
+            "passes": false,
+            "original_axis": "log_planet_mass_earth",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::eccentricity",
+            "rows": 2699,
+            "hosts": 1990,
+            "pooled_median_gain": -8.330825444320759e-05,
+            "pooled_robust_margin": -0.00023185235076795017,
+            "pooled_positive_fraction": 0.2625,
+            "repeat_pass_fraction": 0.1,
+            "passes": false,
+            "original_axis": "eccentricity",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::stellar_logg_cgs",
+            "rows": 3065,
+            "hosts": 2259,
+            "pooled_median_gain": -3.4118774965589775e-05,
+            "pooled_robust_margin": -0.00024554212757932055,
+            "pooled_positive_fraction": 0.4625,
+            "repeat_pass_fraction": 0.25,
+            "passes": false,
+            "original_axis": "stellar_logg_cgs",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::log_stellar_radius_solar",
+            "rows": 3072,
+            "hosts": 2266,
+            "pooled_median_gain": -9.237000330920801e-05,
+            "pooled_robust_margin": -0.00039112771274013266,
+            "pooled_positive_fraction": 0.375,
+            "repeat_pass_fraction": 0.15,
+            "passes": false,
+            "original_axis": "log_stellar_radius_solar",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::log_distance_pc",
+            "rows": 3061,
+            "hosts": 2255,
+            "pooled_median_gain": 0.0007253897451712813,
+            "pooled_robust_margin": -0.0004112777931642726,
+            "pooled_positive_fraction": 0.7,
+            "repeat_pass_fraction": 0.5,
+            "passes": false,
+            "original_axis": "log_distance_pc",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::log_stellar_temperature_K",
+            "rows": 3072,
+            "hosts": 2266,
+            "pooled_median_gain": -6.524166989656031e-05,
+            "pooled_robust_margin": -0.000500724055296234,
+            "pooled_positive_fraction": 0.4625,
+            "repeat_pass_fraction": 0.25,
+            "passes": false,
+            "original_axis": "log_stellar_temperature_K",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::relative_stellar_mass_uncertainty",
+            "rows": 2932,
+            "hosts": 2172,
+            "pooled_median_gain": -0.000202563140003888,
+            "pooled_robust_margin": -0.0005484431835267675,
+            "pooled_positive_fraction": 0.25,
+            "repeat_pass_fraction": 0.05,
+            "passes": false,
+            "original_axis": "relative_stellar_mass_uncertainty",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::stellar_metallicity_FeH",
+            "rows": 2971,
+            "hosts": 2185,
+            "pooled_median_gain": 0.0005740704390875432,
+            "pooled_robust_margin": -0.0005810214617770197,
+            "pooled_positive_fraction": 0.6875,
+            "repeat_pass_fraction": 0.35,
+            "passes": false,
+            "original_axis": "stellar_metallicity_FeH",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::relative_semimajor_axis_uncertainty",
+            "rows": 2047,
+            "hosts": 1560,
+            "pooled_median_gain": 0.0001399668822336603,
+            "pooled_robust_margin": -0.0007331926746453258,
+            "pooled_positive_fraction": 0.5625,
+            "repeat_pass_fraction": 0.2,
+            "passes": false,
+            "original_axis": "relative_semimajor_axis_uncertainty",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::ttv_flag",
+            "rows": 3072,
+            "hosts": 2266,
+            "pooled_median_gain": -0.0002710763973515078,
+            "pooled_robust_margin": -0.0007352614842104047,
+            "pooled_positive_fraction": 0.3125,
+            "repeat_pass_fraction": 0.1,
+            "passes": false,
+            "original_axis": "ttv_flag",
+            "outer_validation_gain": NaN
+          },
+          {
+            "axis": "CLEAN-IRRADIATION::system_planet_count",
+            "rows": 3072,
+            "hosts": 2266,
+            "pooled_median_gain": -0.00016035084571864583,
+            "pooled_robust_margin": -0.0007514919756069442,
+            "pooled_positive_fraction": 0.4,
+            "repeat_pass_fraction": 0.15,
+            "passes": false,
+            "original_axis": "system_planet_count",
+            "outer_validation_gain": NaN
+          }
+        ]
+      },
+      "regime_local_candidate_defense": {
+        "principle": "FAILED_GLOBAL_CANDIDATE_MAY_SURVIVE_IN_A_PREDECLARED_OBSERVATIONAL_REGIME",
+        "regime_axis": "discoverymethod",
+        "selection_uses_validation": false,
+        "defended_transfer_and_tail_count": 2,
+        "defended_transfer_tail_limited_count": 1,
+        "candidates": [
+          {
+            "regime_axis": "discoverymethod",
+            "regime_value": "Transit",
+            "candidate_axis": "log_planet_radius_earth",
+            "status": "DEFENDED_REGIME_LOCAL_TRANSFER_AND_TAIL",
+            "discovery_stability": {
+              "axis": "DEFENSE::Transit::log_planet_radius_earth",
+              "rows": 2351,
+              "hosts": 1792,
+              "pooled_median_gain": 0.006124000730570676,
+              "pooled_robust_margin": 0.0014372919045387263,
+              "pooled_positive_fraction": 0.8375,
+              "repeat_pass_fraction": 0.7,
+              "passes": true
+            },
+            "tail_stress": {
+              "passes": true,
+              "rows": 2351,
+              "median_gain": 0.022709130477621357,
+              "robust_margin": 0.016976343924836577,
+              "positive_fraction": 1.0,
+              "tails": [
+                {
+                  "tail": "LOW",
+                  "relative_gain": 0.026575842033526375,
+                  "rows": 353
+                },
+                {
+                  "tail": "HIGH",
+                  "relative_gain": 0.01884241892171634,
+                  "rows": 353
+                }
+              ]
+            },
+            "outer_validation": {
+              "rows_discovery": 2351,
+              "rows_validation": 836,
+              "nrmse_baseline": 1.0015668442667092,
+              "nrmse_candidate": 1.0006469925759691,
+              "gain": 0.0009184126810961993,
+              "beta": [
+                0.028077246462325057,
+                -0.028495735522344787
+              ]
+            },
+            "within_host_scope_audit": {
+              "status": "HOST_OR_SURVEY_MEDIATED_CANDIDATE",
+              "discovery_rows": 916,
+              "discovery_hosts": 360,
+              "validation_rows": 365,
+              "validation_hosts": 143,
+              "frozen_within_host_beta": -0.02517459732673971,
+              "discovery_within_host_gain": 0.004310472163160939,
+              "validation_within_host_gain": -0.008688348008476732
+            },
+            "candidate_scope": "HOST_OR_SURVEY_MEDIATED_CANDIDATE",
+            "canonical_or_causal_claim": false
+          },
+          {
+            "regime_axis": "discoverymethod",
+            "regime_value": "Transit",
+            "candidate_axis": "log_planet_mass_earth",
+            "status": "DEFENDED_REGIME_LOCAL_TRANSFER_AND_TAIL",
+            "discovery_stability": {
+              "axis": "DEFENSE::Transit::log_planet_mass_earth",
+              "rows": 2228,
+              "hosts": 1738,
+              "pooled_median_gain": 0.0035083019462283115,
+              "pooled_robust_margin": 0.00034204652929097036,
+              "pooled_positive_fraction": 0.8875,
+              "repeat_pass_fraction": 0.8,
+              "passes": true
+            },
+            "tail_stress": {
+              "passes": true,
+              "rows": 2228,
+              "median_gain": 0.02024153782037867,
+              "robust_margin": 0.01718549845708286,
+              "positive_fraction": 1.0,
+              "tails": [
+                {
+                  "tail": "LOW",
+                  "relative_gain": 0.018180267509238908,
+                  "rows": 336
+                },
+                {
+                  "tail": "HIGH",
+                  "relative_gain": 0.022302808131518432,
+                  "rows": 335
+                }
+              ]
+            },
+            "outer_validation": {
+              "rows_discovery": 2228,
+              "rows_validation": 797,
+              "nrmse_baseline": 1.0014744390789163,
+              "nrmse_candidate": 0.999871697046664,
+              "gain": 0.0016003823659507359,
+              "beta": [
+                0.022222643193462538,
+                -0.010611957132372994
+              ]
+            },
+            "within_host_scope_audit": {
+              "status": "HOST_OR_SURVEY_MEDIATED_CANDIDATE",
+              "discovery_rows": 822,
+              "discovery_hosts": 334,
+              "validation_rows": 338,
+              "validation_hosts": 135,
+              "frozen_within_host_beta": -0.01046395501220197,
+              "discovery_within_host_gain": 0.0036531677474721524,
+              "validation_within_host_gain": -0.0035450501515252864
+            },
+            "candidate_scope": "HOST_OR_SURVEY_MEDIATED_CANDIDATE",
+            "canonical_or_causal_claim": false
+          },
+          {
+            "regime_axis": "discoverymethod",
+            "regime_value": "Transit",
+            "candidate_axis": "log_distance_pc",
+            "status": "DEFENDED_REGIME_LOCAL_TRANSFER_TAIL_LIMITED",
+            "discovery_stability": {
+              "axis": "DEFENSE::Transit::log_distance_pc",
+              "rows": 2343,
+              "hosts": 1784,
+              "pooled_median_gain": 0.002207244981483948,
+              "pooled_robust_margin": 0.0006725385781168776,
+              "pooled_positive_fraction": 0.8125,
+              "repeat_pass_fraction": 0.7,
+              "passes": true
+            },
+            "tail_stress": {
+              "passes": false,
+              "rows": 2343,
+              "median_gain": -0.041712289330921776,
+              "robust_margin": -0.10309844914115848,
+              "positive_fraction": 0.0,
+              "tails": [
+                {
+                  "tail": "LOW",
+                  "relative_gain": -0.08311668688267998,
+                  "rows": 352
+                },
+                {
+                  "tail": "HIGH",
+                  "relative_gain": -0.0003078917791635673,
+                  "rows": 352
+                }
+              ]
+            },
+            "outer_validation": {
+              "rows_discovery": 2343,
+              "rows_validation": 832,
+              "nrmse_baseline": 1.0015709802187691,
+              "nrmse_candidate": 1.0007714569856754,
+              "gain": 0.0007982691680215201,
+              "beta": [
+                -0.09013895722096478,
+                0.01445407030575896
+              ]
+            },
+            "within_host_scope_audit": {
+              "status": "INSUFFICIENT_MULTIPLANET_HOST_SUPPORT",
+              "discovery_rows": 0,
+              "discovery_hosts": 0,
+              "validation_rows": 0,
+              "validation_hosts": 0
+            },
+            "candidate_scope": "INSUFFICIENT_MULTIPLANET_HOST_SUPPORT",
+            "canonical_or_causal_claim": false
+          },
+          {
+            "regime_axis": "discoverymethod",
+            "regime_value": "Transit",
+            "candidate_axis": "discovery_year_centered",
+            "status": "DISCOVERY_STABLE_REGIME_CANDIDATE_OUTER_TRANSFER_NOT_YET_DEFENDED",
+            "discovery_stability": {
+              "axis": "DEFENSE::Transit::discovery_year_centered",
+              "rows": 2352,
+              "hosts": 1793,
+              "pooled_median_gain": 0.002078305617132648,
+              "pooled_robust_margin": 9.089998604792362e-05,
+              "pooled_positive_fraction": 0.825,
+              "repeat_pass_fraction": 0.7,
+              "passes": true
+            },
+            "tail_stress": {
+              "passes": false,
+              "rows": 2352,
+              "median_gain": 0.010080999678822722,
+              "robust_margin": -0.011544553327248483,
+              "positive_fraction": 0.5,
+              "tails": [
+                {
+                  "tail": "LOW",
+                  "relative_gain": -0.004505235992343611,
+                  "rows": 646
+                },
+                {
+                  "tail": "HIGH",
+                  "relative_gain": 0.024667235349989054,
+                  "rows": 374
+                }
+              ]
+            },
+            "outer_validation": {
+              "rows_discovery": 2352,
+              "rows_validation": 836,
+              "nrmse_baseline": 1.0015675680135043,
+              "nrmse_candidate": 1.004897404266221,
+              "gain": -0.003324624677415543,
+              "beta": [
+                0.06336876573340497,
+                -0.0038887937910963843
+              ]
+            },
+            "within_host_scope_audit": {
+              "status": "HOST_OR_SURVEY_MEDIATED_CANDIDATE",
+              "discovery_rows": 265,
+              "discovery_hosts": 94,
+              "validation_rows": 112,
+              "validation_hosts": 36,
+              "frozen_within_host_beta": 0.007310130966828444,
+              "discovery_within_host_gain": 0.008896892028288805,
+              "validation_within_host_gain": -0.00587843847196412
+            },
+            "candidate_scope": "HOST_OR_SURVEY_MEDIATED_CANDIDATE",
+            "canonical_or_causal_claim": false
+          }
+        ]
+      }
+    },
+    "star_only_log_G_residual_sd": 0.163391477325106,
+    "two_body_log_G_residual_sd": 0.15909095330233947,
+    "two_body_rows": 5344,
+    "two_body_relative_sd_reduction": 0.02632036929447445,
+    "high_mass_ratio_q_gt_0_01": {
+      "count": 112,
+      "star_only_median_abs_log_G_residual": 0.016166598593682167,
+      "two_body_median_abs_log_G_residual": 0.00811930647991316,
+      "star_only_sd_log_G_residual": 0.42204245031246146,
+      "two_body_sd_log_G_residual": 0.410576302483063
+    },
+    "maximal_subspace_single_axis_stability": {
+      "selection_population": "DISCOVERY_ONLY_OBSERVED_ORBITAL_ROWS_PER_AXIS_MAXIMAL_AVAILABILITY",
+      "passing_axis_count": 0,
+      "axes": [
+        {
+          "axis": "log_stellar_radius_solar",
+          "rows": 3293,
+          "hosts": 2430,
+          "pooled_median_gain": 0.0028204062744983235,
+          "pooled_robust_margin": -8.043772681833299e-05,
+          "pooled_positive_fraction": 0.7375,
+          "repeat_pass_fraction": 0.4,
+          "passes": false
+        },
+        {
+          "axis": "discovery_year_centered",
+          "rows": 3319,
+          "hosts": 2447,
+          "pooled_median_gain": 0.0009435518988712541,
+          "pooled_robust_margin": -0.00011973640021685928,
+          "pooled_positive_fraction": 0.7375,
+          "repeat_pass_fraction": 0.45,
+          "passes": false
+        },
+        {
+          "axis": "system_planet_count",
+          "rows": 3319,
+          "hosts": 2447,
+          "pooled_median_gain": 0.0001895806244220571,
+          "pooled_robust_margin": -0.00021808933654157014,
+          "pooled_positive_fraction": 0.65,
+          "repeat_pass_fraction": 0.2,
+          "passes": false
+        },
+        {
+          "axis": "relative_period_uncertainty",
+          "rows": 3048,
+          "hosts": 2250,
+          "pooled_median_gain": -6.0816325920237544e-05,
+          "pooled_robust_margin": -0.00031753528003612014,
+          "pooled_positive_fraction": 0.3625,
+          "repeat_pass_fraction": 0.1,
+          "passes": false
+        },
+        {
+          "axis": "log_equilibrium_temperature_K",
+          "rows": 3293,
+          "hosts": 2430,
+          "pooled_median_gain": 0.00041092021138365543,
+          "pooled_robust_margin": -0.0003400265317448544,
+          "pooled_positive_fraction": 0.625,
+          "repeat_pass_fraction": 0.35,
+          "passes": false
+        },
+        {
+          "axis": "eccentricity",
+          "rows": 2928,
+          "hosts": 2153,
+          "pooled_median_gain": 0.0009447842176984287,
+          "pooled_robust_margin": -0.0003441266958266558,
+          "pooled_positive_fraction": 0.6375,
+          "repeat_pass_fraction": 0.3,
+          "passes": false
+        },
+        {
+          "axis": "log_planet_radius_earth",
+          "rows": 3293,
+          "hosts": 2440,
+          "pooled_median_gain": 5.253174530294873e-05,
+          "pooled_robust_margin": -0.00036065210583716774,
+          "pooled_positive_fraction": 0.525,
+          "repeat_pass_fraction": 0.1,
+          "passes": false
+        },
+        {
+          "axis": "log_stellar_temperature_K",
+          "rows": 3302,
+          "hosts": 2433,
+          "pooled_median_gain": 0.0001088946976763746,
+          "pooled_robust_margin": -0.0004401040016058246,
+          "pooled_positive_fraction": 0.575,
+          "repeat_pass_fraction": 0.15,
+          "passes": false
+        },
+        {
+          "axis": "stellar_metallicity_FeH",
+          "rows": 3194,
+          "hosts": 2348,
+          "pooled_median_gain": -0.00014842849571432547,
+          "pooled_robust_margin": -0.0006072690968771528,
+          "pooled_positive_fraction": 0.375,
+          "repeat_pass_fraction": 0.0,
+          "passes": false
+        },
+        {
+          "axis": "ttv_flag",
+          "rows": 3319,
+          "hosts": 2447,
+          "pooled_median_gain": 0.0003350554877394837,
+          "pooled_robust_margin": -0.0006885285246885486,
+          "pooled_positive_fraction": 0.675,
+          "repeat_pass_fraction": 0.15,
+          "passes": false
+        },
+        {
+          "axis": "log_distance_pc",
+          "rows": 3305,
+          "hosts": 2433,
+          "pooled_median_gain": 0.0003772777589932015,
+          "pooled_robust_margin": -0.0007093711104134693,
+          "pooled_positive_fraction": 0.6125,
+          "repeat_pass_fraction": 0.15,
+          "passes": false
+        },
+        {
+          "axis": "stellar_logg_cgs",
+          "rows": 3287,
+          "hosts": 2421,
+          "pooled_median_gain": 0.0012953614091630668,
+          "pooled_robust_margin": -0.0008709919554842258,
+          "pooled_positive_fraction": 0.7,
+          "repeat_pass_fraction": 0.4,
+          "passes": false
+        },
+        {
+          "axis": "log_insolation_earth",
+          "rows": 3294,
+          "hosts": 2427,
+          "pooled_median_gain": 0.0003407914013795268,
+          "pooled_robust_margin": -0.0009110964351151662,
+          "pooled_positive_fraction": 0.5625,
+          "repeat_pass_fraction": 0.2,
+          "passes": false
+        },
+        {
+          "axis": "controversial_flag",
+          "rows": 3319,
+          "hosts": 2447,
+          "pooled_median_gain": -0.0001621392756872488,
+          "pooled_robust_margin": -0.0010460526298788357,
+          "pooled_positive_fraction": 0.45,
+          "repeat_pass_fraction": 0.0,
+          "passes": false
+        },
+        {
+          "axis": "log_planet_mass_earth",
+          "rows": 3162,
+          "hosts": 2383,
+          "pooled_median_gain": -0.0005083900577446873,
+          "pooled_robust_margin": -0.0012172912923812578,
+          "pooled_positive_fraction": 0.075,
+          "repeat_pass_fraction": 0.0,
+          "passes": false
+        },
+        {
+          "axis": "relative_stellar_mass_uncertainty",
+          "rows": 3166,
+          "hosts": 2347,
+          "pooled_median_gain": 0.0014363314467746098,
+          "pooled_robust_margin": -0.0040399185099005315,
+          "pooled_positive_fraction": 0.6,
+          "repeat_pass_fraction": 0.15,
+          "passes": false
+        },
+        {
+          "axis": "relative_semimajor_axis_uncertainty",
+          "rows": 2203,
+          "hosts": 1676,
+          "pooled_median_gain": -0.0019045944915940466,
+          "pooled_robust_margin": -0.00696327383046733,
+          "pooled_positive_fraction": 0.275,
+          "repeat_pass_fraction": 0.0,
+          "passes": false
+        }
+      ]
+    },
+    "complete_case_selection_bias": {
+      "full_17_axis_observed_count": 2467,
+      "nonfull_observed_count": 3122,
+      "full_17_axis_median_abs_log_G_residual": 0.009228544726299614,
+      "nonfull_median_abs_log_G_residual": 0.026988962611723476,
+      "nonfull_to_full_median_abs_ratio": 2.924509054478548
+    },
+    "candidate_attack_defense_contract": {
+      "attack": "TRY_TO_FALSIFY_WITH_TRANSFER_TAIL_STRESS_AND_PROVENANCE_CONSISTENCY",
+      "defense": "MAXIMIZE_CANDIDATE_CONSISTENCY_WITHIN_OBSERVATIONAL_INTERVALS_CENSORING_VALIDITY_DOMAINS_AND_PREDECLARED_REGIMES",
+      "censored_observation_is_evidence": true,
+      "failure_of_global_law_implies_local_candidate_rejected": false,
+      "candidate_can_be_required_allowed_excluded_or_regime_local": true,
+      "heldout_data_may_define_defense_after_selection": false
+    },
+    "missing_observation_semantics": "NOT_OBSERVED_NE_NO_EFFECT_NE_EXCLUDED",
+    "model_inference_semantics": "MODEL_INFERRED_NE_OBSERVED",
+    "digest": "80521098dc50ee7bcceccbbe231747374b999959fe296e81957fe35604ed7563"
+  },
+  "hierarchical_observational_theory": {
+    "schema": "phi-hierarchical-observational-theory/v1",
+    "owner": "HIERARCHICAL-OBSERVATIONAL-THEORY/1.0.0",
+    "theory_id": "EXOPLANET-HIERARCHICAL-OBSERVATIONAL-SPACE/1.1",
+    "evidence_digest": "aa5dac5efe2f5b9876ca7f5338c0dfe49d39e024ec30fe4fa7945382fe7133cc",
+    "layers": {
+      "universal_structure": {
+        "equation": "S_phys/S_earth = (R_star/R_sun)^2 * (T_eff/5772 K)^4 / (a/AU)^2",
+        "role": "ESTABLISHED_UNIVERSAL_BASELINE_NOT_NOVELTY_CLAIM",
+        "catalogue_model_ratio": "lambda_hp = S_catalog_hp / S_phys_hp",
+        "rows_with_consistency_ratio": 5567,
+        "median_ratio": 0.997497832811278,
+        "status": "UNIVERSAL_BASELINE_BOUND"
+      },
+      "group_or_host_latent_state": {
+        "coordinate": "alpha_h = log(lambda_h)",
+        "lambda_definition": "lambda_h = exp(alpha_h)",
+        "planet_observation_model": "log(lambda_hp) = alpha_h + f_R(x_hp) + epsilon_hp",
+        "leave_one_planet_out_prediction": {
+          "prediction": "HELD_OUT_PLANET_LOG_INSOLATION_SCALE_FROM_OTHER_PLANETS_OF_SAME_HOST",
+          "estimator": "MEDIAN_LOG_SCALE_OF_OTHER_PLANETS_ONLY",
+          "global_baseline_frozen_from": "DISCOVERY_HOSTS_ONLY",
+          "discovery": {
+            "rows": 1434,
+            "hosts": 567,
+            "baseline_discovery_global_log_scale": -2.1420475656908133e-05,
+            "mae_baseline": 0.19450242142175636,
+            "mae_host_loo": 0.10424786719849104,
+            "mae_relative_gain": 0.46402792090468936,
+            "rmse_baseline": 0.38548974008772197,
+            "rmse_host_loo": 0.3665122610588233,
+            "rmse_relative_gain": 0.049229530790054654,
+            "host_prediction_lower_abs_error_fraction": 0.7677824267782427,
+            "median_absolute_error_reduction": 0.040510157901694446
+          },
+          "validation": {
+            "rows": 515,
+            "hosts": 206,
+            "baseline_discovery_global_log_scale": -2.1420475656908133e-05,
+            "mae_baseline": 0.14115908097022467,
+            "mae_host_loo": 0.05258098624962947,
+            "mae_relative_gain": 0.6275054648399091,
+            "rmse_baseline": 0.2768524949176355,
+            "rmse_host_loo": 0.18956732086579603,
+            "rmse_relative_gain": 0.3152768194406451,
+            "host_prediction_lower_abs_error_fraction": 0.8058252427184466,
+            "median_absolute_error_reduction": 0.025738258764759266
+          },
+          "sealed_reporting_only": {
+            "rows": 475,
+            "hosts": 193,
+            "baseline_discovery_global_log_scale": -2.1420475656908133e-05,
+            "mae_baseline": 0.1727460726664849,
+            "mae_host_loo": 0.08684448446449114,
+            "mae_relative_gain": 0.49727086049499425,
+            "rmse_baseline": 0.3215223817151274,
+            "rmse_host_loo": 0.2701458734223259,
+            "rmse_relative_gain": 0.15979139000756015,
+            "host_prediction_lower_abs_error_fraction": 0.7852631578947369,
+            "median_absolute_error_reduction": 0.037306652405370275
+          },
+          "heldout_target_used_to_estimate_its_host_scale": false,
+          "status": "HOST_LATENT_PREDICTIVE_SUPPORT"
+        },
+        "within_host_coherence_null_test": {
+          "multi_planet_hosts": 966,
+          "multi_planet_rows": 2424,
+          "actual_fraction_max_min_within_10_percent": 0.8053830227743272,
+          "actual_median_max_min_ratio": 1.007219513387161,
+          "null_permutations": 64,
+          "null_fraction_within_10_percent_mean": 0.250097049689441,
+          "null_fraction_within_10_percent_max": 0.2784679089026915,
+          "null_median_max_min_ratio_mean": 1.2810849535971789,
+          "coherence_exceeds_every_null_permutation": true
+        },
+        "known_host_axis_attack": {
+          "host_count": 966,
+          "discovery_hosts": 567,
+          "validation_hosts": 206,
+          "single_axis_explanations": [
+            {
+              "axis": "system_star_count",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::system_star_count",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": 0.001257794637950057,
+                "pooled_robust_margin": -0.0004117100291737585,
+                "pooled_positive_fraction": 0.675,
+                "repeat_pass_fraction": 0.4,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "system_planet_count",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::system_planet_count",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": 0.0006041482792856971,
+                "pooled_robust_margin": -0.0005007348763920963,
+                "pooled_positive_fraction": 0.6875,
+                "repeat_pass_fraction": 0.2,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "discovery_year_centered",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::discovery_year_centered",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": 4.3733629704780896e-05,
+                "pooled_robust_margin": -0.0013482123233869883,
+                "pooled_positive_fraction": 0.5125,
+                "repeat_pass_fraction": 0.1,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "stellar_metallicity_FeH",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::stellar_metallicity_FeH",
+                "rows": 552,
+                "hosts": 552,
+                "pooled_median_gain": -9.284506236619032e-05,
+                "pooled_robust_margin": -0.0016132536782005012,
+                "pooled_positive_fraction": 0.4625,
+                "repeat_pass_fraction": 0.05,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "log_stellar_mass_solar",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::log_stellar_mass_solar",
+                "rows": 566,
+                "hosts": 566,
+                "pooled_median_gain": -0.00037174365849843824,
+                "pooled_robust_margin": -0.0019113442162588062,
+                "pooled_positive_fraction": 0.425,
+                "repeat_pass_fraction": 0.1,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "log_stellar_radius_solar",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::log_stellar_radius_solar",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": -0.0008119459830726678,
+                "pooled_robust_margin": -0.0019742810166976615,
+                "pooled_positive_fraction": 0.1,
+                "repeat_pass_fraction": 0.0,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "log_stellar_temperature_K",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::log_stellar_temperature_K",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": -0.0009682622493475486,
+                "pooled_robust_margin": -0.0023299336498883764,
+                "pooled_positive_fraction": 0.025,
+                "repeat_pass_fraction": 0.0,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "log_distance_pc",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::log_distance_pc",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": 0.0032369343240042335,
+                "pooled_robust_margin": -0.002461766422500144,
+                "pooled_positive_fraction": 0.65,
+                "repeat_pass_fraction": 0.25,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "stellar_logg_cgs",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::stellar_logg_cgs",
+                "rows": 566,
+                "hosts": 566,
+                "pooled_median_gain": -0.0015191828890706834,
+                "pooled_robust_margin": -0.003313729634434399,
+                "pooled_positive_fraction": 0.0,
+                "repeat_pass_fraction": 0.0,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            }
+          ],
+          "supported_single_axis_count": 0,
+          "known_axes_multivariate_attack": {
+            "status": "KNOWN_HOST_AXES_MULTIVARIATE_TESTED",
+            "columns": [
+              "log_stellar_mass_solar",
+              "log_stellar_radius_solar",
+              "log_stellar_temperature_K",
+              "stellar_logg_cgs",
+              "stellar_metallicity_FeH",
+              "log_distance_pc",
+              "discovery_year_centered",
+              "system_star_count",
+              "system_planet_count"
+            ],
+            "selected_ridge_lambda_discovery_only": 100.0,
+            "discovery_fold_gains": [
+              0.00829013259912867,
+              -0.004928055475252541,
+              -0.011675510934792355,
+              0.003759114025193186
+            ],
+            "discovery_robust_margin": -0.01038311354456847,
+            "validation_rows": 203,
+            "validation_nrmse_baseline": 1.0208436838665542,
+            "validation_nrmse_candidate": 1.0291711977315041,
+            "validation_relative_gain": -0.008157481891261307,
+            "joint_explanation_supported": false
+          },
+          "status": "HOST_LATENT_SCALE_NOT_EXPLAINED_BY_TESTED_KNOWN_HOST_AXES"
+        },
+        "effective_stellar_luminosity_mechanism": {
+          "mechanism_identity": "lambda_hp = L_eff_from_catalog_insolation / L_RT_from_composite_radius_temperature",
+          "effective_luminosity_definition": "L_eff/L_sun = (S_catalog/S_earth) * (a/AU)^2",
+          "radius_temperature_luminosity_definition": "L_RT/L_sun = (R_star/R_sun)^2 * (T_eff/5772 K)^4",
+          "identity_max_abs_log_error": 4.440892098500626e-16,
+          "coherence": {
+            "multi_planet_hosts": 966,
+            "median_effective_luminosity_cv": 0.002886996425916755,
+            "fraction_effective_luminosity_cv_le_1pct": 0.7028985507246377,
+            "fraction_effective_luminosity_cv_le_5pct": 0.8633540372670807,
+            "fraction_effective_luminosity_cv_le_10pct": 0.9057971014492754,
+            "median_radius_temperature_luminosity_cv": 0.0,
+            "median_lambda_h": 0.9990554122153019
+          },
+          "leave_one_planet_out_effective_luminosity_prediction": {
+            "discovery": {
+              "rows": 1434,
+              "hosts": 567,
+              "mae_RT_baseline": 0.1945024590385547,
+              "mae_sibling_effective_luminosity": 0.0855166696337936,
+              "mae_relative_gain": 0.5603311646726158,
+              "rmse_RT_baseline": 0.385487759929572,
+              "rmse_sibling_effective_luminosity": 0.3357161827313844,
+              "rmse_relative_gain": 0.12911324916588995,
+              "sibling_prediction_better_fraction": 0.7900976290097629
+            },
+            "validation": {
+              "rows": 515,
+              "hosts": 206,
+              "mae_RT_baseline": 0.14116259869091843,
+              "mae_sibling_effective_luminosity": 0.042205306961905435,
+              "mae_relative_gain": 0.701016364438602,
+              "rmse_RT_baseline": 0.2768515618561201,
+              "rmse_sibling_effective_luminosity": 0.18585768331620234,
+              "rmse_relative_gain": 0.32867388549249843,
+              "sibling_prediction_better_fraction": 0.8252427184466019
+            },
+            "sealed_reporting_only": {
+              "rows": 475,
+              "hosts": 193,
+              "mae_RT_baseline": 0.1727476510173228,
+              "mae_sibling_effective_luminosity": 0.06429141019723081,
+              "mae_relative_gain": 0.6278304809436523,
+              "rmse_RT_baseline": 0.3215234528599095,
+              "rmse_sibling_effective_luminosity": 0.24485197458180183,
+              "rmse_relative_gain": 0.23846309684760103,
+              "sibling_prediction_better_fraction": 0.848421052631579
+            },
+            "heldout_target_used_to_estimate_L_eff": false
+          },
+          "representation_mechanism_identified": true,
+          "causal_origin_resolved": false,
+          "remaining_competing_origins": [
+            "PUBLISHED_OR_ARCHIVE_STELLAR_LUMINOSITY_SOURCE_DIFFERS_FROM_COMPOSITE_R_T",
+            "STELLAR_STATE_OR_MODEL_DIFFERENCE",
+            "HOST_LEVEL_PROVENANCE_OR_CALIBRATION",
+            "UNMODELED_STELLAR_PHYSICS_ONLY_IF_SELF_CONSISTENT_FRESH_DATA_PRESERVES_THE_GAP"
+          ],
+          "status": "HOST_EFFECTIVE_LUMINOSITY_REPRESENTATION_IDENTIFIED_ORIGIN_UNRESOLVED",
+          "claim_boundary": "ALGEBRAIC_REPRESENTATION_IDENTIFICATION_IS_NOT_CAUSAL_ORIGIN_IDENTIFICATION"
+        },
+        "status": "PREDICTIVE_HOST_EFFECTIVE_LUMINOSITY_REPRESENTATION_IDENTIFIED_ORIGIN_UNRESOLVED",
+        "canonical_or_causal_claim": false
+      },
+      "regime_local_structure": {
+        "term": "f_R(M_p, R_p, e, observational_regime, ...)",
+        "predeclared_regime_axis": "discoverymethod",
+        "defended_regime_candidates": [
+          {
+            "regime_axis": "discoverymethod",
+            "regime_value": "Transit",
+            "candidate_axis": "log_planet_radius_earth",
+            "status": "DEFENDED_REGIME_LOCAL_TRANSFER_AND_TAIL",
+            "discovery_stability": {
+              "axis": "DEFENSE::Transit::log_planet_radius_earth",
+              "rows": 2351,
+              "hosts": 1792,
+              "pooled_median_gain": 0.006124000730570676,
+              "pooled_robust_margin": 0.0014372919045387263,
+              "pooled_positive_fraction": 0.8375,
+              "repeat_pass_fraction": 0.7,
+              "passes": true
+            },
+            "tail_stress": {
+              "passes": true,
+              "rows": 2351,
+              "median_gain": 0.022709130477621357,
+              "robust_margin": 0.016976343924836577,
+              "positive_fraction": 1.0,
+              "tails": [
+                {
+                  "tail": "LOW",
+                  "relative_gain": 0.026575842033526375,
+                  "rows": 353
+                },
+                {
+                  "tail": "HIGH",
+                  "relative_gain": 0.01884241892171634,
+                  "rows": 353
+                }
+              ]
+            },
+            "outer_validation": {
+              "rows_discovery": 2351,
+              "rows_validation": 836,
+              "nrmse_baseline": 1.0015668442667092,
+              "nrmse_candidate": 1.0006469925759691,
+              "gain": 0.0009184126810961993,
+              "beta": [
+                0.028077246462325057,
+                -0.028495735522344787
+              ]
+            },
+            "within_host_scope_audit": {
+              "status": "HOST_OR_SURVEY_MEDIATED_CANDIDATE",
+              "discovery_rows": 916,
+              "discovery_hosts": 360,
+              "validation_rows": 365,
+              "validation_hosts": 143,
+              "frozen_within_host_beta": -0.02517459732673971,
+              "discovery_within_host_gain": 0.004310472163160939,
+              "validation_within_host_gain": -0.008688348008476732
+            },
+            "candidate_scope": "HOST_OR_SURVEY_MEDIATED_CANDIDATE",
+            "canonical_or_causal_claim": false
+          },
+          {
+            "regime_axis": "discoverymethod",
+            "regime_value": "Transit",
+            "candidate_axis": "log_planet_mass_earth",
+            "status": "DEFENDED_REGIME_LOCAL_TRANSFER_AND_TAIL",
+            "discovery_stability": {
+              "axis": "DEFENSE::Transit::log_planet_mass_earth",
+              "rows": 2228,
+              "hosts": 1738,
+              "pooled_median_gain": 0.0035083019462283115,
+              "pooled_robust_margin": 0.00034204652929097036,
+              "pooled_positive_fraction": 0.8875,
+              "repeat_pass_fraction": 0.8,
+              "passes": true
+            },
+            "tail_stress": {
+              "passes": true,
+              "rows": 2228,
+              "median_gain": 0.02024153782037867,
+              "robust_margin": 0.01718549845708286,
+              "positive_fraction": 1.0,
+              "tails": [
+                {
+                  "tail": "LOW",
+                  "relative_gain": 0.018180267509238908,
+                  "rows": 336
+                },
+                {
+                  "tail": "HIGH",
+                  "relative_gain": 0.022302808131518432,
+                  "rows": 335
+                }
+              ]
+            },
+            "outer_validation": {
+              "rows_discovery": 2228,
+              "rows_validation": 797,
+              "nrmse_baseline": 1.0014744390789163,
+              "nrmse_candidate": 0.999871697046664,
+              "gain": 0.0016003823659507359,
+              "beta": [
+                0.022222643193462538,
+                -0.010611957132372994
+              ]
+            },
+            "within_host_scope_audit": {
+              "status": "HOST_OR_SURVEY_MEDIATED_CANDIDATE",
+              "discovery_rows": 822,
+              "discovery_hosts": 334,
+              "validation_rows": 338,
+              "validation_hosts": 135,
+              "frozen_within_host_beta": -0.01046395501220197,
+              "discovery_within_host_gain": 0.0036531677474721524,
+              "validation_within_host_gain": -0.0035450501515252864
+            },
+            "candidate_scope": "HOST_OR_SURVEY_MEDIATED_CANDIDATE",
+            "canonical_or_causal_claim": false
+          },
+          {
+            "regime_axis": "discoverymethod",
+            "regime_value": "Transit",
+            "candidate_axis": "log_distance_pc",
+            "status": "DEFENDED_REGIME_LOCAL_TRANSFER_TAIL_LIMITED",
+            "discovery_stability": {
+              "axis": "DEFENSE::Transit::log_distance_pc",
+              "rows": 2343,
+              "hosts": 1784,
+              "pooled_median_gain": 0.002207244981483948,
+              "pooled_robust_margin": 0.0006725385781168776,
+              "pooled_positive_fraction": 0.8125,
+              "repeat_pass_fraction": 0.7,
+              "passes": true
+            },
+            "tail_stress": {
+              "passes": false,
+              "rows": 2343,
+              "median_gain": -0.041712289330921776,
+              "robust_margin": -0.10309844914115848,
+              "positive_fraction": 0.0,
+              "tails": [
+                {
+                  "tail": "LOW",
+                  "relative_gain": -0.08311668688267998,
+                  "rows": 352
+                },
+                {
+                  "tail": "HIGH",
+                  "relative_gain": -0.0003078917791635673,
+                  "rows": 352
+                }
+              ]
+            },
+            "outer_validation": {
+              "rows_discovery": 2343,
+              "rows_validation": 832,
+              "nrmse_baseline": 1.0015709802187691,
+              "nrmse_candidate": 1.0007714569856754,
+              "gain": 0.0007982691680215201,
+              "beta": [
+                -0.09013895722096478,
+                0.01445407030575896
+              ]
+            },
+            "within_host_scope_audit": {
+              "status": "INSUFFICIENT_MULTIPLANET_HOST_SUPPORT",
+              "discovery_rows": 0,
+              "discovery_hosts": 0,
+              "validation_rows": 0,
+              "validation_hosts": 0
+            },
+            "candidate_scope": "INSUFFICIENT_MULTIPLANET_HOST_SUPPORT",
+            "canonical_or_causal_claim": false
+          }
+        ],
+        "defended_but_host_or_survey_mediated_count": 2,
+        "planet_local_component_supported_count": 0,
+        "status": "PLANET_LOCAL_TERM_OPEN_BUT_NOT_YET_WITHIN_HOST_TRANSFER_SUPPORTED",
+        "canonical_or_causal_claim": false
+      },
+      "feasible_observational_domains": {
+        "planet_domain": "Omega_hp = observational interval/censoring constraints for each measured coordinate",
+        "host_domain": {
+          "host_domain_definition": "OMEGA_h = INTERSECTION_p LOG(S_obs_interval / S_model_interval)",
+          "multi_planet_hosts_with_interval_domains": 966,
+          "hosts_with_nonempty_common_lambda_domain": 922,
+          "common_domain_fraction": 0.9544513457556936,
+          "previous_candidate_hosts_with_interval_domains": 25,
+          "previous_candidate_hosts_with_nonempty_common_domain": 25,
+          "all_previous_candidate_hosts_defensible_by_common_interval_lambda": true,
+          "claim_boundary": "NONEMPTY_INTERSECTION_MEANS_ALLOWED_NOT_CAUSALLY_ESTABLISHED"
+        },
+        "semantics": [
+          "REQUIRED",
+          "ALLOWED",
+          "EXCLUDED",
+          "REGIME_LOCAL"
+        ],
+        "limits_are_constraints": true,
+        "model_inferred_is_observed": false,
+        "status": "FEASIBLE_DOMAIN_LAYER_ACTIVE"
+      }
+    },
+    "competing_explanations": [
+      {
+        "id": "H-KNOWN-STELLAR-STATE",
+        "statement": "alpha_h is explained by tested observed stellar/system coordinates",
+        "current_status": "WEAKENED",
+        "attack": "discovery host-CV + tail stress + outer validation",
+        "defense": "allow multivariate combination of predeclared known host axes selected discovery-only"
+      },
+      {
+        "id": "H-HOST-EFFECTIVE-LUMINOSITY",
+        "statement": "alpha_h is the ratio between effective stellar luminosity implied by catalogue insolation and luminosity reconstructed from composite R_star,T_eff",
+        "current_status": "REPRESENTATION_IDENTIFIED_ORIGIN_UNRESOLVED",
+        "attack": "break the algebraic identity, sibling L_eff coherence, or held-out sibling prediction on fresh self-consistent data",
+        "defense": "S_catalog*a^2 defines L_eff and lambda_h=L_eff/L_RT exactly; sibling planets estimate L_eff without using the held-out target"
+      },
+      {
+        "id": "H-HOST-PROVENANCE-CALIBRATION",
+        "statement": "the effective-luminosity representation gap is caused by shared host/source/calibration provenance",
+        "current_status": "LIVE_STRONGLY_COMPATIBLE",
+        "attack": "require the gap to persist when pl_insol, a, R_star and T_eff come from one self-consistent PS solution",
+        "defense": "PSCompPars explicitly permits mixed sources and archive-calculated values; common host L_eff is expected from a shared luminosity source"
+      },
+      {
+        "id": "H-MISSING-HOST-PHYSICS",
+        "statement": "the effective-luminosity representation gap contains a missing physical stellar coordinate not represented by tested R_star,T_eff and other host axes",
+        "current_status": "LIVE_UNRESOLVED",
+        "attack": "explain L_eff/L_RT using provenance/method/source variables or remove the luminosity gap in self-consistent PS",
+        "defense": "predict sibling planets and survive fresh self-consistent host-level data"
+      },
+      {
+        "id": "H-PLANET-LOCAL-REGIME",
+        "statement": "f_R contains planet-local mass/radius/regime physics after host state is removed",
+        "current_status": "WEAKENED_NOT_EXCLUDED",
+        "attack": "within-host outer transfer after host centering",
+        "defense": "restrict to predeclared regimes and propagate censoring/uncertainty"
+      }
+    ],
+    "predictions": [
+      {
+        "id": "P-HOST-SIBLING",
+        "prediction": "for a held-out planet in a multi-planet host, log(S_catalog/S_phys) is predicted by the median log scale of the other planets of that host",
+        "observed_test": {
+          "prediction": "HELD_OUT_PLANET_LOG_INSOLATION_SCALE_FROM_OTHER_PLANETS_OF_SAME_HOST",
+          "estimator": "MEDIAN_LOG_SCALE_OF_OTHER_PLANETS_ONLY",
+          "global_baseline_frozen_from": "DISCOVERY_HOSTS_ONLY",
+          "discovery": {
+            "rows": 1434,
+            "hosts": 567,
+            "baseline_discovery_global_log_scale": -2.1420475656908133e-05,
+            "mae_baseline": 0.19450242142175636,
+            "mae_host_loo": 0.10424786719849104,
+            "mae_relative_gain": 0.46402792090468936,
+            "rmse_baseline": 0.38548974008772197,
+            "rmse_host_loo": 0.3665122610588233,
+            "rmse_relative_gain": 0.049229530790054654,
+            "host_prediction_lower_abs_error_fraction": 0.7677824267782427,
+            "median_absolute_error_reduction": 0.040510157901694446
+          },
+          "validation": {
+            "rows": 515,
+            "hosts": 206,
+            "baseline_discovery_global_log_scale": -2.1420475656908133e-05,
+            "mae_baseline": 0.14115908097022467,
+            "mae_host_loo": 0.05258098624962947,
+            "mae_relative_gain": 0.6275054648399091,
+            "rmse_baseline": 0.2768524949176355,
+            "rmse_host_loo": 0.18956732086579603,
+            "rmse_relative_gain": 0.3152768194406451,
+            "host_prediction_lower_abs_error_fraction": 0.8058252427184466,
+            "median_absolute_error_reduction": 0.025738258764759266
+          },
+          "sealed_reporting_only": {
+            "rows": 475,
+            "hosts": 193,
+            "baseline_discovery_global_log_scale": -2.1420475656908133e-05,
+            "mae_baseline": 0.1727460726664849,
+            "mae_host_loo": 0.08684448446449114,
+            "mae_relative_gain": 0.49727086049499425,
+            "rmse_baseline": 0.3215223817151274,
+            "rmse_host_loo": 0.2701458734223259,
+            "rmse_relative_gain": 0.15979139000756015,
+            "host_prediction_lower_abs_error_fraction": 0.7852631578947369,
+            "median_absolute_error_reduction": 0.037306652405370275
+          },
+          "heldout_target_used_to_estimate_its_host_scale": false,
+          "status": "HOST_LATENT_PREDICTIVE_SUPPORT"
+        },
+        "falsification": "fresh validation hosts show no improvement over the discovery-global scale baseline",
+        "defense": "estimate alpha_h from sibling planets only; never use the held-out target",
+        "heldout_refit_allowed": false
+      },
+      {
+        "id": "P-HOST-FEASIBLE-DOMAIN",
+        "prediction": "sibling planets of a host admit a nonempty common alpha_h interval after uncertainty/censoring propagation",
+        "observed_test": {
+          "host_domain_definition": "OMEGA_h = INTERSECTION_p LOG(S_obs_interval / S_model_interval)",
+          "multi_planet_hosts_with_interval_domains": 966,
+          "hosts_with_nonempty_common_lambda_domain": 922,
+          "common_domain_fraction": 0.9544513457556936,
+          "previous_candidate_hosts_with_interval_domains": 25,
+          "previous_candidate_hosts_with_nonempty_common_domain": 25,
+          "all_previous_candidate_hosts_defensible_by_common_interval_lambda": true,
+          "claim_boundary": "NONEMPTY_INTERSECTION_MEANS_ALLOWED_NOT_CAUSALLY_ESTABLISHED"
+        },
+        "falsification": "fresh self-consistent hosts produce empty common alpha_h domains beyond declared uncertainty",
+        "defense": "propagate full observational intervals and one-sided limits without point imputation",
+        "heldout_refit_allowed": false
+      },
+      {
+        "id": "P-KNOWN-HOST-AXES",
+        "prediction": "if alpha_h is reducible to tested known stellar coordinates, at least one discovery-stable explanation or discovery-selected multivariate model transfers to validation hosts",
+        "observed_test": {
+          "host_count": 966,
+          "discovery_hosts": 567,
+          "validation_hosts": 206,
+          "single_axis_explanations": [
+            {
+              "axis": "system_star_count",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::system_star_count",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": 0.001257794637950057,
+                "pooled_robust_margin": -0.0004117100291737585,
+                "pooled_positive_fraction": 0.675,
+                "repeat_pass_fraction": 0.4,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "system_planet_count",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::system_planet_count",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": 0.0006041482792856971,
+                "pooled_robust_margin": -0.0005007348763920963,
+                "pooled_positive_fraction": 0.6875,
+                "repeat_pass_fraction": 0.2,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "discovery_year_centered",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::discovery_year_centered",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": 4.3733629704780896e-05,
+                "pooled_robust_margin": -0.0013482123233869883,
+                "pooled_positive_fraction": 0.5125,
+                "repeat_pass_fraction": 0.1,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "stellar_metallicity_FeH",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::stellar_metallicity_FeH",
+                "rows": 552,
+                "hosts": 552,
+                "pooled_median_gain": -9.284506236619032e-05,
+                "pooled_robust_margin": -0.0016132536782005012,
+                "pooled_positive_fraction": 0.4625,
+                "repeat_pass_fraction": 0.05,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "log_stellar_mass_solar",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::log_stellar_mass_solar",
+                "rows": 566,
+                "hosts": 566,
+                "pooled_median_gain": -0.00037174365849843824,
+                "pooled_robust_margin": -0.0019113442162588062,
+                "pooled_positive_fraction": 0.425,
+                "repeat_pass_fraction": 0.1,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "log_stellar_radius_solar",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::log_stellar_radius_solar",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": -0.0008119459830726678,
+                "pooled_robust_margin": -0.0019742810166976615,
+                "pooled_positive_fraction": 0.1,
+                "repeat_pass_fraction": 0.0,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "log_stellar_temperature_K",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::log_stellar_temperature_K",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": -0.0009682622493475486,
+                "pooled_robust_margin": -0.0023299336498883764,
+                "pooled_positive_fraction": 0.025,
+                "repeat_pass_fraction": 0.0,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "log_distance_pc",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::log_distance_pc",
+                "rows": 567,
+                "hosts": 567,
+                "pooled_median_gain": 0.0032369343240042335,
+                "pooled_robust_margin": -0.002461766422500144,
+                "pooled_positive_fraction": 0.65,
+                "repeat_pass_fraction": 0.25,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            },
+            {
+              "axis": "stellar_logg_cgs",
+              "discovery_stability": {
+                "axis": "HOST-LATENT::stellar_logg_cgs",
+                "rows": 566,
+                "hosts": 566,
+                "pooled_median_gain": -0.0015191828890706834,
+                "pooled_robust_margin": -0.003313729634434399,
+                "pooled_positive_fraction": 0.0,
+                "repeat_pass_fraction": 0.0,
+                "passes": false
+              },
+              "tail_stress": {
+                "passes": false
+              },
+              "outer_validation": {
+                "gain": NaN
+              },
+              "joint_explanation_supported": false
+            }
+          ],
+          "supported_single_axis_count": 0,
+          "known_axes_multivariate_attack": {
+            "status": "KNOWN_HOST_AXES_MULTIVARIATE_TESTED",
+            "columns": [
+              "log_stellar_mass_solar",
+              "log_stellar_radius_solar",
+              "log_stellar_temperature_K",
+              "stellar_logg_cgs",
+              "stellar_metallicity_FeH",
+              "log_distance_pc",
+              "discovery_year_centered",
+              "system_star_count",
+              "system_planet_count"
+            ],
+            "selected_ridge_lambda_discovery_only": 100.0,
+            "discovery_fold_gains": [
+              0.00829013259912867,
+              -0.004928055475252541,
+              -0.011675510934792355,
+              0.003759114025193186
+            ],
+            "discovery_robust_margin": -0.01038311354456847,
+            "validation_rows": 203,
+            "validation_nrmse_baseline": 1.0208436838665542,
+            "validation_nrmse_candidate": 1.0291711977315041,
+            "validation_relative_gain": -0.008157481891261307,
+            "joint_explanation_supported": false
+          },
+          "status": "HOST_LATENT_SCALE_NOT_EXPLAINED_BY_TESTED_KNOWN_HOST_AXES"
+        },
+        "falsification": "all tested known-axis explanations fail discovery robustness or outer transfer",
+        "defense": "allow discovery-only multivariate ridge combination of all predeclared host axes",
+        "heldout_refit_allowed": false
+      },
+      {
+        "id": "P-HOST-EFFECTIVE-LUMINOSITY",
+        "prediction": "for a held-out sibling planet, L_eff=S_catalog*a^2 estimated from the other planets predicts its catalogue insolation better than the composite R_star,T_eff luminosity baseline",
+        "observed_test": {
+          "mechanism_identity": "lambda_hp = L_eff_from_catalog_insolation / L_RT_from_composite_radius_temperature",
+          "effective_luminosity_definition": "L_eff/L_sun = (S_catalog/S_earth) * (a/AU)^2",
+          "radius_temperature_luminosity_definition": "L_RT/L_sun = (R_star/R_sun)^2 * (T_eff/5772 K)^4",
+          "identity_max_abs_log_error": 4.440892098500626e-16,
+          "coherence": {
+            "multi_planet_hosts": 966,
+            "median_effective_luminosity_cv": 0.002886996425916755,
+            "fraction_effective_luminosity_cv_le_1pct": 0.7028985507246377,
+            "fraction_effective_luminosity_cv_le_5pct": 0.8633540372670807,
+            "fraction_effective_luminosity_cv_le_10pct": 0.9057971014492754,
+            "median_radius_temperature_luminosity_cv": 0.0,
+            "median_lambda_h": 0.9990554122153019
+          },
+          "leave_one_planet_out_effective_luminosity_prediction": {
+            "discovery": {
+              "rows": 1434,
+              "hosts": 567,
+              "mae_RT_baseline": 0.1945024590385547,
+              "mae_sibling_effective_luminosity": 0.0855166696337936,
+              "mae_relative_gain": 0.5603311646726158,
+              "rmse_RT_baseline": 0.385487759929572,
+              "rmse_sibling_effective_luminosity": 0.3357161827313844,
+              "rmse_relative_gain": 0.12911324916588995,
+              "sibling_prediction_better_fraction": 0.7900976290097629
+            },
+            "validation": {
+              "rows": 515,
+              "hosts": 206,
+              "mae_RT_baseline": 0.14116259869091843,
+              "mae_sibling_effective_luminosity": 0.042205306961905435,
+              "mae_relative_gain": 0.701016364438602,
+              "rmse_RT_baseline": 0.2768515618561201,
+              "rmse_sibling_effective_luminosity": 0.18585768331620234,
+              "rmse_relative_gain": 0.32867388549249843,
+              "sibling_prediction_better_fraction": 0.8252427184466019
+            },
+            "sealed_reporting_only": {
+              "rows": 475,
+              "hosts": 193,
+              "mae_RT_baseline": 0.1727476510173228,
+              "mae_sibling_effective_luminosity": 0.06429141019723081,
+              "mae_relative_gain": 0.6278304809436523,
+              "rmse_RT_baseline": 0.3215234528599095,
+              "rmse_sibling_effective_luminosity": 0.24485197458180183,
+              "rmse_relative_gain": 0.23846309684760103,
+              "sibling_prediction_better_fraction": 0.848421052631579
+            },
+            "heldout_target_used_to_estimate_L_eff": false
+          },
+          "representation_mechanism_identified": true,
+          "causal_origin_resolved": false,
+          "remaining_competing_origins": [
+            "PUBLISHED_OR_ARCHIVE_STELLAR_LUMINOSITY_SOURCE_DIFFERS_FROM_COMPOSITE_R_T",
+            "STELLAR_STATE_OR_MODEL_DIFFERENCE",
+            "HOST_LEVEL_PROVENANCE_OR_CALIBRATION",
+            "UNMODELED_STELLAR_PHYSICS_ONLY_IF_SELF_CONSISTENT_FRESH_DATA_PRESERVES_THE_GAP"
+          ],
+          "status": "HOST_EFFECTIVE_LUMINOSITY_REPRESENTATION_IDENTIFIED_ORIGIN_UNRESOLVED",
+          "claim_boundary": "ALGEBRAIC_REPRESENTATION_IDENTIFICATION_IS_NOT_CAUSAL_ORIGIN_IDENTIFICATION"
+        },
+        "falsification": "the lambda identity fails or sibling-inferred L_eff loses validation-host predictive gain",
+        "defense": "freeze L_eff estimator to sibling planets only and preserve the causal-origin claim boundary",
+        "heldout_refit_allowed": false
+      },
+      {
+        "id": "P-PLANET-LOCAL-TERM",
+        "prediction": "a genuine planet-local f_R term remains predictive after within-host centering on new hosts",
+        "observed_test": {
+          "planet_local_supported_count": 0,
+          "host_or_survey_mediated_count": 2
+        },
+        "falsification": "candidate gains reverse after within-host centering on validation hosts",
+        "defense": "retain regime-local scope and censored feasible domains rather than demanding a global effect",
+        "heldout_refit_allowed": false
+      }
+    ],
+    "gates": {
+      "UNIVERSAL_LAYER_DECLARED": true,
+      "HOST_LAYER_DECLARED": true,
+      "REGIME_LAYER_DECLARED": true,
+      "FEASIBLE_DOMAIN_LAYER_DECLARED": true,
+      "MULTIPLE_COMPETING_EXPLANATIONS": true,
+      "PREDICTIONS_ARE_ATTACK_AND_DEFENSE_READY": true,
+      "EVIDENCE_DIGEST_BOUND": true
+    },
+    "fresh_external_confirmation": false,
+    "status": "HIERARCHICAL_THEORY_CANDIDATE_COMPILED",
+    "claim_boundary": {
+      "compiled_theory_is_causal_truth": false,
+      "compiled_theory_is_new_law": false,
+      "host_latent_coordinate_is_physical_variable": false,
+      "representation_identity_is_causal_origin": false,
+      "regime_local_term_is_universal": false,
+      "fresh_external_data_required_for_scientific_promotion": true,
+      "heldout_refit_allowed": false
+    },
+    "digest": "bd5dda3efa4ca23a2979f0452368323d8e9cb7ad3be0c7706a39dbb2d1d649d5",
+    "domain_status": "PREDICTIVE_HOST_EFFECTIVE_LUMINOSITY_REPRESENTATION_SUPPORTED_ORIGIN_UNRESOLVED",
+    "scientific_promotion": false,
+    "fresh_self_consistent_PS_required": true
+  },
+  "claim_boundary": {
+    "all_input_rows_preserved": true,
+    "model_inferred_values_are_observations": false,
+    "consistency_outliers_are_new_physical_classes": false,
+    "new_residual_law_claimed": false,
+    "fresh_external_confirmation_used": false
+  },
+  "digest": "9e3a51616d576fe2a43c0b81f1d0f80b21bfc681fdefb0c58ca898877c023e70"
+}

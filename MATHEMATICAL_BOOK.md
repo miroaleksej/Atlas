@@ -6208,3 +6208,703 @@ G_{claim}=1,
 где `fresh` означает новый self-consistent dataset/snapshot, не использованный при построении нынешнего frontier. Для экзопланет приоритетным подтверждением остаётся свежий NASA `PS/default_flag=1`, а не повторное чтение раскрытого `PSCompPars` validation/sealed.
 
 Текущий цикл поэтому завершён; frontier сохраняется как исследовательское состояние, но ни \(D\), ни \(L\), ни \(L_1,L_2\), ни KERNEL/EXP-derived axes не являются новым физическим законом.
+
+## Availability-adaptive observational passports — полный каталог без complete-case удаления
+
+Complete-case фильтрация не является нейтральной операцией. Для объекта \(i\) вводится маска наблюдаемости
+
+\[
+m_i\in\{0,1\}^d,
+\qquad
+\mathcal X_i=\{x_j\mid m_{ij}=1\}.
+\]
+
+Atlas не требует, чтобы все объекты имели одну и ту же полную координатную систему. Каждый объект получает паспорт
+
+\[
+\mathcal P_i=(O_i,D_i,I_i,C_i,U_i,\mathcal Z_i),
+\]
+
+где \(O_i\) — центральные наблюдаемые значения, \(D_i\) — детерминированно вычисленные из наблюдений величины, \(I_i\) — величины, восстановленные из ранее замороженного отношения/established identity, \(C_i\) — censored observations (upper/lower limits), \(U_i\) — ненаблюдавшиеся величины, \(\mathcal Z_i\) — доступные исследовательские зоны. Обязательная семантика:
+
+\[
+\boxed{\text{NOT OBSERVED}\neq\text{NO EFFECT}\neq\text{EXCLUDED}},
+\]
+
+\[
+\boxed{\text{MODEL INFERRED}\neq\text{OBSERVED}},
+\qquad
+\boxed{\text{LIMIT}\neq\text{CENTRAL VALUE}}.
+\]
+
+NASA limit fields (`*lim`) являются частью observational semantics. Значение с non-zero limit flag не используется как точечная масса, радиус, period, semimajor axis, stellar parameter, insolation или equilibrium temperature. Оно сохраняется как censored evidence. Это правило обязательно для derived physics: density, two-body correction, axis availability и consistency diagnostics не имеют права превращать upper/lower limit в измеренную центральную величину.
+
+Модельное восстановление разрешено только когда после freeze известного отношения остаётся ровно одна неизвестная координата. Для positive control
+
+\[
+C_\star=\frac{a^3}{P^2M_\star}
+\]
+
+можно вычислить отсутствующий \(a\), \(P\) или \(M_\star\), но такие строки не участвуют в измерении ошибки самого closure.
+
+### Полный snapshot после корректной limit-семантики
+
+На `PSCompPars_2026.09.20_07.33.39.csv` сохранены все **6366/6366** паспортов. После исключения limit-values из point physics:
+
+- наблюдаемый центральный triplet \((P,a,M_\star)\): **5589**;
+- model-assisted orbit после freeze: **761**;
+- полный orbital passport: **6350**;
+- orbital unresolved: **16**;
+- центральные planet mass+radius пары: **6098**;
+- stellar mass+radius structure: **6033**;
+- irradiation/model check: **5609**;
+- eccentric-orbit geometry: **4933**;
+- полный набор 17 residual-осей вместе с центральным observed orbit: **2467**.
+
+В catalogue присутствуют **234** non-zero planet-mass limits и **5** planet-radius limits. Они не исчезают из state, но не считаются точечными физическими измерениями.
+
+### Complete-case selection bias — исправленная оценка
+
+После корректной обработки limits полный 17-axis subset всё равно статистически особый. Для 2467 complete-case observed-orbital объектов
+
+\[
+\operatorname{median}\left|\log\frac{\widehat G}{G}\right|=0.0092285,
+\]
+
+для остальных 3122 central observed-orbital объектов
+
+\[
+0.0269890.
+\]
+
+Отношение
+
+\[
+\boxed{2.9245}
+\]
+
+показывает сильный completeness-selection effect, но прежняя оценка `4.14×` была завышена из-за ошибочного использования limit-values как central measurements и заменяется этой величиной.
+
+### Maximal-subspace stability
+
+Для каждой из 17 residual axes Atlas использует максимально доступные discovery-only central rows и 20 deterministic repeated host-group partitions. Итог остаётся прежним по смыслу: **0/17** одиночных осей проходят robust population-wide gate. Следовательно, расширение к maximal-availability population не подтверждает универсальную singleton-поправку поверх orbital closure.
+
+### Provenance audit старых 13 density-candidates
+
+Старый availability pass дал 13 экстремальных mass-radius density flags. После восстановления limit semantics результат полностью переинтерпретирован:
+
+- **11/13** использовали `pl_bmasselim != 0`: это censored mass limits, а не точечные массы. Они имеют статус `INPUT_LIMIT_NOT_PHYSICAL_POINT`.
+- Остаются только **2** central-value extremes: `KOI-2513.01` и `Kepler-37 e`.
+- У обеих uncertainty/provenance interval пересекает non-extreme population envelope; статус `UNCERTAINTY_UNRESOLVED`.
+- Число stress-robust physical high-density anomalies после audit:
+
+\[
+\boxed{0}.
+\]
+
+Следовательно, прежняя группа «13 сверхплотных кандидатов» закрыта как observational-semantics/provenance effect, а не новый класс планет.
+
+### Irradiation provenance/regime decomposition — все 363 кандидата
+
+После central-value filtering число robust insolation-consistency candidates остаётся **363**. Atlas разделяет их не по вручную заданному имени объекта, а по совместной согласованности
+
+\[
+R_S=\frac{S_{catalog}}{S_{model}},\qquad
+R_T=\frac{T_{eq,catalog}}{T_{eq,model}},
+\]
+
+и
+
+\[
+Q=\frac{R_S}{R_T^4}.
+\]
+
+Классификация всех 363:
+
+- **312** — `COMPOSITE_INSOLATION_ONLY_MISMATCH`: \(R_T\) лежит в normal 3-MAD regime, тогда как \(R_S\) экстремален; это сильный data/provenance-consistency signal, а не отдельная planet physics branch.
+- **22** — `COHERENT_LITERATURE_A03_LIKE`: совместный сдвиг \(S,T_{eq}\) согласуется по масштабу с convention порядка Bond albedo \(A\sim0.3\); это regime/convention candidate, не доказательство конкретного albedo для каждой строки.
+- **18** — `COHERENT_SOURCE_SCALE_ZERO_ALBEDO_LIKE`: \(S\) и \(T_{eq}\) изменены взаимно согласованно при zero-albedo-like scaling.
+- **1** — `MULTISTAR_OR_PROVENANCE_UNRESOLVED`.
+- **10** — `OTHER_PROVENANCE_OR_CONVENTION`; это оставшийся unresolved frontier.
+
+Дополнительно **56 строк / 25 host-систем** имеют почти одинаковый insolation discrepancy factor для нескольких планет одного host (разброс ≤10%). Это host/source-level signature и резко ослабляет planet-specific new-physics интерпретацию.
+
+NASA документирует, что `PSCompPars` может объединять параметры из разных references и не гарантирует внутреннюю self-consistency; в `PS` каждая строка соответствует одному published solution. Поэтому эти классы являются provenance hypotheses до self-consistent PS confirmation, а не постулированными причинами.
+
+### Cleaned-class rerun
+
+После удаления 363 robust insolation extremes Atlas повторно исследовал residual
+
+\[
+y=\log(S_{catalog}/S_{model})
+\]
+
+на central non-extreme discovery population. Тавтологические predictors `pl_insol` и `pl_eqt` исключены. Из оставшихся осей discovery-only gate прошли только две слабые ветви:
+
+- `log_planet_radius_earth`: pooled median gain ~`0.00254`, robust margin ~`0.00053`;
+- `discovery_year_centered`: pooled median gain ~`0.00129`, robust margin ~`0.00021`.
+
+Но обе меняют знак на outer validation:
+
+\[
+\Delta_{val}(\log R_p)=-5.67\times10^{-4},
+\]
+
+\[
+\Delta_{val}(year)=-1.91\times10^{-3}.
+\]
+
+Следовательно,
+
+\[
+\boxed{N_{cleaned,transferable}=0}.
+\]
+
+После provenance/regime cleaning Atlas не обнаруживает остаточной переносимой одиночной физической координаты в irradiation relation. Слабые discovery-сигналы интерпретируются как survey/catalogue-selection candidates.
+
+### Исправленная two-body проверка
+
+После исключения mass limits известная поправка
+
+\[
+M_\star\rightarrow M_\star+M_p
+\]
+
+оценивается на **5344** central-mass rows. Глобальный SD log-residual уменьшается примерно на **2.63%**. Для **112** central systems с \(q=M_p/M_\star>0.01\):
+
+\[
+0.0161666\rightarrow0.0081193
+\]
+
+по median absolute log residual, то есть улучшение примерно **49.8%**. Это известная two-body physics, не новый закон Atlas; прежние числа `125` и `~43%` заменяются этой censored-data-corrected оценкой.
+
+### Научный итог provenance audit
+
+На текущем composite snapshot после полного audit:
+
+\[
+\boxed{13\ \text{density flags}\rightarrow0\ \text{stress-robust physical anomalies}},
+\]
+
+\[
+\boxed{363\ \text{irradiation flags}\rightarrow352\ \text{classified provenance/regime cases}+11\ \text{unresolved}},
+\]
+
+где 11 = 10 other provenance/convention + 1 multistar/provenance unresolved. На этом остатке недостаточно объектов для честного рождения универсального закона; он сохраняется как provenance frontier для будущего self-consistent `PS/default_flag=1` audit.
+
+Финальный вывод availability/provenance слоя: текущий `PSCompPars` не подтверждает новый population-wide residual law. Atlas обнаружил и исправил более важный methodological effect: censored observations, completeness selection и composite provenance способны порождать ложные deep-physics candidates, если их семантика не входит в research state.
+
+Frozen NASA runner SHA остаётся `5d10f1fb15f589b3dcf198d93fc27f17a104cc7ebbbf0236a10ec87f6a40a1a7`; availability/provenance runner остаётся отдельным exploratory layer. Full release-wide pytest этим разделом не заявляется.
+
+
+### Public-PS spot checks of the unresolved irradiation frontier
+
+The remaining 11 unresolved irradiation rows are not treated as one physical class. Public NASA PS/overview solutions were used as provenance spot checks without modifying the frozen blind runner. Four representative cases already have ordinary explanations: `DMPP-2 b` uses a published equilibrium-temperature convention with Bond albedo 0.5; `K2-11 b` has strongly inconsistent published stellar/planet solutions and a composite stellar radius incompatible with the solution carrying its insolation value; `K2-22 b` is a documented multiple-star system; `Kepler-1624 b` has published insolation solutions spanning roughly 6--44 Earth fluxes. These checks support `provenance/regime` over `new universal law` for the residual frontier. Exact bulk per-parameter reference reconstruction still requires a self-consistent `PS/default_flag=1` file containing the reference columns.
+
+### Qualification after limit/provenance integration
+
+Targeted affected orchestration passes **54/54** tests: `14 adaptive + 13 exoplanet + 8 function-language + 10 closed-loop + 9 query/direct-target/turbulence`. Test collection contains **151** tests total; full release-wide execution is not claimed. Frozen NASA blind runner SHA remains `5d10f1fb15f589b3dcf198d93fc27f17a104cc7ebbbf0236a10ec87f6a40a1a7`.
+
+
+## ATTACK + DEFENSE: симметричный контракт кандидата (2026-09-20)
+
+Предыдущая версия observational audit была методологически асимметрична: найденный кандидат преимущественно подвергался разрушению через transfer, tail stress и provenance checks. Это необходимо, но недостаточно. Atlas теперь обязан одновременно строить **наиболее сильную допустимую версию кандидата**, не используя held-out для подгонки.
+
+Для каждого кандидата \(H\) вводятся два независимых контура:
+
+\[
+\boxed{\mathcal A(H)=\text{ATTACK}(H)},\qquad
+\boxed{\mathcal D(H)=\text{DEFENSE}(H)}.
+\]
+
+`ATTACK` пытается опровергнуть гипотезу через group transfer, tail/regime stress, provenance consistency, competing representations и fresh evidence. `DEFENSE` профилирует допустимые nuisance/latent coordinates, observational uncertainty, censoring и заранее объявленные validity domains, чтобы проверить не только «ломается ли точечный fit», но и **может ли кандидат быть физически совместим со всеми наблюдательными ограничениями**.
+
+### Censoring — это ограничение, а не отсутствие данных
+
+Если измерение задано верхним пределом \(x\le u\), Atlas хранит
+
+\[
+\mathcal I_x=[0,u]
+\]
+
+для положительной физической величины; при нижнем пределе \(x\ge l\):
+
+\[
+\mathcal I_x=[l,+\infty).
+\]
+
+Если величина дана как \(M\sin i\), то без известного \(i\) это нижняя граница истинной массы:
+
+\[
+M_{true}\ge M\sin i.
+\]
+
+Следовательно, `LIMIT != CENTRAL VALUE`, но также
+
+\[
+\boxed{\text{LIMIT}\neq\text{NO DATA}}.
+\]
+
+Для derived quantity \(q=f(x_1,\ldots,x_n)\) Atlas распространяет допустимые интервалы и получает feasible set \(\mathcal I_q\). Кандидат относительно объявленного extreme/physical region \(\mathcal R_H\) получает один из статусов:
+
+\[
+\boxed{
+\begin{aligned}
+&\mathcal I_q\subseteq\mathcal R_H &&\Rightarrow \texttt{REQUIRED},\\
+&\mathcal I_q\cap\mathcal R_H\neq\varnothing &&\Rightarrow \texttt{ALLOWED},\\
+&\mathcal I_q\cap\mathcal R_H=\varnothing &&\Rightarrow \texttt{EXCLUDED}.
+\end{aligned}}
+\]
+
+Поэтому censored observation не может автоматически уничтожать кандидата.
+
+### Density candidates: переинтерпретация прежних 13
+
+После interval/censoring propagation все 13 прежних extreme-density flags имеют статус
+
+\[
+\boxed{\texttt{EXTREME\_ALLOWED\_BY\_CONSTRAINTS}=13/13},
+\]
+
+а число объектов, где extreme-density region **вынуждается** всеми допустимыми значениями, равно
+
+\[
+\boxed{\texttt{EXTREME\_REQUIRED\_BY\_CONSTRAINTS}=0/13}.
+\]
+
+Это принципиально отличается от формулировки «13 аномалий закрыты». Корректный вывод: текущие observational constraints **разрешают** extreme-density candidate для каждого из 13 объектов, но пока не заставляют принять его как физическую истину. Например, upper-mass limits задают широкое множество допустимых плотностей; `M sini` задаёт нижнюю границу истинной массы; большие radius uncertainties также сохраняют несколько конкурирующих физических состояний.
+
+### Irradiation candidates: защита через интервалы, regimes и latent host scale
+
+Для irradiation используется не только точечное отношение, но и propagating intervals и общая radiative-equilibrium envelope. Если
+
+\[
+T_0=T_\star\sqrt{\frac{R_\star}{2a}}
+\]
+
+есть zero-albedo/full-redistribution proxy, то более общий energy-balance допускает
+
+\[
+\left(\frac{T}{T_0}\right)^4=\frac{4(1-A)}{n},
+\qquad 0\le A\le1,\quad 1\le n\le4.
+\]
+
+Это определяет физически допустимый nuisance-domain вместо немедленного отказа от кандидата.
+
+На текущем `PSCompPars`:
+
+- 43/363 irradiation candidates непосредственно защищаются пересечением observational uncertainty intervals;
+- 359/363 имеют thermal state, совместимый с широкой radiative-equilibrium envelope;
+- 56 строк в 25 multi-planet hosts образуют отдельный кандидат `HOST_LATENT_SCALE`: несколько планет одной звезды имеют почти одинаковый multiplicative factor \(S_{catalog}/S_{model}\), что требует исследовать общий host/source latent coordinate, а не уничтожать каждую планету как отдельный outlier;
+- 5 из этих строк одновременно имеют thermally coherent host-scale support.
+
+Модель host-scale:
+
+\[
+\boxed{S_{catalog,p}\approx\lambda_h S_{model,p}},\qquad p\in h,
+\]
+
+где \(\lambda_h\) — research-local latent coordinate host-system. Его возможные интерпретации (stellar luminosity/source solution/multiplicity/convention) остаются конкурирующими hypotheses до provenance-resolved проверки.
+
+### Global failure не убивает regime-local candidate
+
+Если глобальная population hypothesis не проходит, Atlas обязан проверить заранее объявленные observational regimes, а не выбирать regime после просмотра validation. На текущем cleaned irradiation residual такие regimes определялись `discoverymethod`.
+
+В Transit-regime две оси переживают полный defense stack:
+
+1. `log_planet_radius_earth`: repeated discovery host-CV robust margin \(0.001437>0\), tail robust margin \(0.016976>0\), outer validation gain \(+9.18\times10^{-4}\).
+2. `log_planet_mass_earth`: repeated discovery host-CV robust margin \(0.000342>0\), tail robust margin \(0.017185>0\), outer validation gain \(+1.60\times10^{-3}\).
+
+Их статус:
+
+\[
+\boxed{\texttt{DEFENDED\_REGIME\_LOCAL\_TRANSFER\_AND\_TAIL}}.
+\]
+
+Это **не causal/new-physics claim**. Сигналы малы и могут отражать survey geometry, host-level effects или catalogue construction. Но они уже не могут быть корректно описаны словом «разрушены»: на объявленном Transit-domain они пережили attack и получили defense evidence.
+
+`log_distance_pc` переносится на outer validation, но не переживает tail stress, поэтому сохраняется как
+
+\[
+\texttt{DEFENDED\_REGIME\_LOCAL\_TRANSFER\_TAIL\_LIMITED},
+\]
+
+то есть candidate с ограниченной validity domain, а не автоматически отвергнутая ось.
+
+
+### Защита механистического масштаба: planet-local против host/survey-mediated
+
+Даже кандидат, прошедший regime transfer и tail stress, Atlas теперь не обязан трактовать как planet-local. Для multi-planet hosts выполняется fixed-effect scope audit: из target и candidate-axis вычитаются host means, discovery within-host slope замораживается и проверяется на independent validation hosts.
+
+Для Transit `log_planet_radius_earth`:
+
+\[
+\Delta_{within,disc}=+0.00431,
+\qquad
+\Delta_{within,val}=-0.00869.
+\]
+
+Для Transit `log_planet_mass_earth`:
+
+\[
+\Delta_{within,disc}=+0.00365,
+\qquad
+\Delta_{within,val}=-0.00355.
+\]
+
+То есть обе оси сохраняют статус defended **Transit association**, но direct within-host planet-local component не переносится. Их текущая mechanistic scope поэтому понижается, а не уничтожается:
+
+\[
+\boxed{\texttt{HOST\_OR\_SURVEY\_MEDIATED\_CANDIDATE}}.
+\]
+
+Это указывает, что сигнал вероятнее живёт на уровне host/source/survey selection или их взаимодействия с planet population, чем в простой индивидуальной поправке вида \(r=f(M_p)\) или \(r=f(R_p)\).
+
+Отдельно `HOST_LATENT_SCALE` оказался очень когерентным: для 56 строк / 25 hosts медианный within-host coefficient of variation мультипликативного фактора составляет
+
+\[
+\boxed{CV_{median}\approx9.32\times10^{-4}=0.0932\%}.
+\]
+
+Такой уровень согласованности внутри многопланетной системы является сильным evidence именно для общей host/source latent coordinate \(\lambda_h\). Он всё ещё не выбирает её физическую интерпретацию: stellar luminosity, reference solution, multiplicity, calibration/convention остаются конкурирующими hypotheses.
+
+### Финальная семантика кандидата
+
+Atlas больше не использует бинарную схему `SURVIVED / REJECTED`. На observational frontier допустимы состояния:
+
+\[
+\boxed{
+\texttt{REQUIRED},\;
+\texttt{ALLOWED},\;
+\texttt{EXCLUDED},\;
+\texttt{REGIME\_LOCAL},\;
+\texttt{TAIL\_LIMITED},\;
+\texttt{PROVENANCE\_UNRESOLVED}
+}
+\]
+
+с обязательным разделением evidence attack/defense. Fresh/sealed data нельзя использовать для изобретения defense protocol после выбора кандидата; они только проверяют заранее замороженную защиту.
+
+Итог текущего исследования поэтому формулируется не как «аномалии устранены», а так: **Atlas сузил feasible physical state, сохранил кандидатов, которые допускаются observational constraints, выделил host-latent и Transit-regime structures и одновременно показал, какие из них пока не вынуждаются данными и не имеют causal status.**
+
+
+## Иерархическая теория экзопланетного наблюдаемого пространства — formal theory object v1.0
+
+После введения симметричного `ATTACK + DEFENSE` Atlas больше не рассматривает каталог как одну прямоугольную регрессионную таблицу. Текущий observational state компилируется владельцем `HIERARCHICAL-OBSERVATIONAL-THEORY/1.0.0` в четыре различённых слоя:
+
+\[
+\boxed{
+\mathcal T=
+(\mathcal U,\,\mathcal H,\,\mathcal R,\,\Omega)
+}
+\]
+
+где \(\mathcal U\) — универсальная физическая структура, \(\mathcal H\) — общий host/group latent state, \(\mathcal R\) — regime-local object state, а \(\Omega\) — feasible observational domain с uncertainties и censoring.
+
+### 1. Universal layer
+
+Базовая установленная структура для stellar irradiation:
+
+\[
+\boxed{
+\frac{S^{phys}_{hp}}{S_\oplus}
+=
+\left(\frac{R_{\star,h}}{R_\odot}\right)^2
+\left(\frac{T_{\star,h}}{5772\,K}\right)^4
+\left(\frac{a_{hp}}{AU}\right)^{-2}
+}
+\]
+
+не является claim новизны. Она служит reference layer, относительно которого определена наблюдаемая residual-coordinate
+
+\[
+\lambda_{hp}=\frac{S^{catalog}_{hp}}{S^{phys}_{hp}},
+\qquad
+ y_{hp}=\log\lambda_{hp}.
+\]
+
+### 2. Host latent layer
+
+Теория допускает общий параметр системы
+
+\[
+\boxed{\alpha_h=\log\lambda_h}
+\]
+
+и декомпозицию
+
+\[
+\boxed{
+y_{hp}=\alpha_h+f_{\mathcal R}(x_{hp})+\varepsilon_{hp}.
+}
+\]
+
+Ключевая проверка \(\alpha_h\) — не correlation fit. Для каждого target planet в multi-planet host значение \(\alpha_h\) оценивается **только по другим планетам этого host**:
+
+\[
+\widehat\alpha_{h,-p}
+=
+\operatorname{median}_{q\in h,\,q\ne p}y_{hq}.
+\]
+
+На independent validation-hosts (206 систем, 515 удержанных planet predictions) это уменьшает MAE
+
+\[
+0.141159\to0.052581,
+\]
+
+то есть на
+
+\[
+\boxed{62.75\%},
+\]
+
+а RMSE
+
+\[
+0.276852\to0.189567,
+\]
+
+то есть на
+
+\[
+\boxed{31.53\%}.
+\]
+
+У \(80.54\%\) из 966 multi-planet hosts отношение max/min для \(\lambda_{hp}\) находится в пределах 10%, медианное max/min равно
+
+\[
+\boxed{1.00722}.
+\]
+
+В 64 deterministic permutation null-controls средняя доля случайно сгруппированных hosts в том же 10%-коридоре равна лишь
+
+\[
+0.2501,
+\]
+
+а максимум среди всех null permutations —
+
+\[
+0.2785.
+\]
+
+Фактическая host coherence \(0.8054\) превосходит каждый null-control. Следовательно, `HOST_LATENT_SCALE` является **предсказательно поддержанным observational coordinate**, но пока не доказанной физической переменной.
+
+### 3. Feasible-domain layer
+
+Каждое измерение задаёт множество допустимых состояний, а не обязательно точку. Для planet \(p\) host \(h\) из propagated intervals строится
+
+\[
+\Omega_{hp}^{(\alpha)}
+=
+\left[
+\log\frac{S^{obs}_{lo}}{S^{model}_{hi}},
+\log\frac{S^{obs}_{hi}}{S^{model}_{lo}}
+\right].
+\]
+
+Общий host state допустим, если
+
+\[
+\boxed{
+\Omega_h^{(\alpha)}
+=
+\bigcap_{p\in h}\Omega_{hp}^{(\alpha)}
+\ne\varnothing.
+}
+\]
+
+В текущем snapshot интервальные domains доступны для 966 multi-planet hosts. Для
+
+\[
+\boxed{922/966=95.45\%}
+\]
+
+пересечение непусто. Для всех 25 ранее выделенных host-latent candidate systems общий interval также непуст:
+
+\[
+\boxed{25/25}.
+\]
+
+Это означает `ALLOWED`, а не `CAUSALLY ESTABLISHED`.
+
+### 4. Attack known-host explanation
+
+Atlas попытался объяснить \(\alpha_h\) уже известными host coordinates:
+
+\[
+M_\star,\,R_\star,\,T_{eff},\,\log g,\,[Fe/H],\,d,\,year,\,N_\star,\,N_p.
+\]
+
+Ни одна single-axis model не прошла совместно discovery stability, tail stress и outer transfer. Затем все девять координат были допущены в один discovery-only ridge model. Лучший regularization shell всё равно получил отрицательный discovery robust margin
+
+\[
+\boxed{-0.01038}
+\]
+
+и ухудшил validation:
+
+\[
+NRMSE:1.02084\to1.02917,
+\qquad
+\Delta=-0.00816.
+\]
+
+Следовательно, текущий формальный статус:
+
+\[
+\boxed{
+\texttt{HOST\_LATENT\_SCALE\_NOT\_EXPLAINED\_BY\_TESTED\_KNOWN\_HOST\_AXES}
+}
+\]
+
+без утверждения, что причина обязательно является новой физикой. Competing explanations остаются: source/provenance/calibration, unrepresented host state, multiplicity/regime, либо missing physical coordinate.
+
+### 5. Regime-local planet layer
+
+\(f_{\mathcal R}\) не объявляется универсальной функцией. В Transit-domain `log M_p` и `log R_p` ранее пережили population transfer + tail defense, но после within-host centering их validation gains стали отрицательными. Поэтому
+
+\[
+\boxed{
+\texttt{PLANET\_LOCAL\_TERM\_OPEN\_BUT\_NOT\_YET\_WITHIN\_HOST\_TRANSFER\_SUPPORTED}
+}
+\]
+
+и текущая теория предпочитает более широкий scope
+
+\[
+\texttt{HOST\_OR\_SURVEY\_MEDIATED\_CANDIDATE}
+\]
+
+вместо преждевременного planet-local mechanism claim.
+
+### 6. Предсказания теории
+
+Теория считается научным кандидатом только потому, что делает различающие предсказания:
+
+1. **Sibling-host prediction.** Для новой/удержанной планеты известного multi-planet host отношение \(S^{catalog}/S^{phys}\) должно предсказываться другими планетами этой системы лучше, чем global baseline.
+2. **Common-domain prediction.** После uncertainty/censoring propagation sibling planets должны иметь непустой общий \(\Omega_h^{(\alpha)}\), если single-host latent scale достаточен.
+3. **Known-host-axis discrimination.** Если \(\alpha_h\) — просто функция известных stellar axes, discovery-only host model должен перенестись на fresh hosts. Текущий тест это не подтверждает.
+4. **Planet-local discrimination.** Если \(f_{\mathcal R}\) физически planet-local, эффект обязан пережить within-host centering и transfer на новые hosts. Текущие \(M_p,R_p\) кандидаты этого пока не делают.
+5. **Fresh self-consistent PS.** Host coherence и sibling prediction должны сохраниться в `PS/default_flag=1`; если исчезнут, provenance/composite explanation получает преимущество.
+
+### 7. Научный статус
+
+Compiled theory object имеет статус
+
+\[
+\boxed{
+\texttt{PREDICTIVE\_HOST\_LAYER\_SUPPORTED\_MECHANISM\_UNRESOLVED}
+}
+\]
+
+и не имеет scientific promotion. Это означает: структура \(\alpha_h\) уже имеет независимую предсказательную поддержку внутри текущего observational state, но механизм \(\alpha_h\) не идентифицирован и свежая self-consistent проверка отсутствует.
+
+Таким образом, теория Atlas на данном этапе — не «новый закон irradiance», а иерархическая модель
+
+\[
+\boxed{
+S^{catalog}_{hp}
+=
+S^{phys}_{hp}
+\exp\!\left(\alpha_h+f_{\mathcal R}(x_{hp})+\varepsilon_{hp}\right),
+\qquad
+x_{hp}\in\Omega_{hp}.
+}
+\]
+
+Её сила состоит в том, что universal physics, host state, regime-local state и observational constraints больше не смешиваются в один residual fit.
+
+## Refinement: host latent coordinate resolved as a stellar-luminosity representation gap
+
+The previous hierarchical theory introduced
+
+\[
+\lambda_{hp}=\frac{S^{catalog}_{hp}}{S^{phys}_{hp}},
+\qquad
+\alpha_h=\log \lambda_h,
+\]
+
+and established that sibling planets of the same host share a predictive common scale. The present refinement identifies the **mathematical representation** of that scale before any causal interpretation.
+
+Because insolation obeys
+
+\[
+\frac{S}{S_\oplus}=\frac{L_\star/L_\odot}{(a/\mathrm{AU})^2},
+\]
+
+every central-valued planet defines an effective stellar luminosity
+
+\[
+\boxed{
+\frac{L^{eff}_{h,p}}{L_\odot}
+=\frac{S^{catalog}_{h,p}}{S_\oplus}
+\left(\frac{a_{h,p}}{\mathrm{AU}}\right)^2
+}
+\]
+
+while the composite stellar radius and effective temperature define
+
+\[
+\boxed{
+\frac{L^{(R,T)}_{h,p}}{L_\odot}
+=\left(\frac{R_{\star,h,p}}{R_\odot}\right)^2
+\left(\frac{T_{\star,h,p}}{5772\,\mathrm K}\right)^4.
+}
+\]
+
+Therefore
+
+\[
+\boxed{
+\lambda_{h,p}
+=\frac{L^{eff}_{h,p}}{L^{(R,T)}_{h,p}}
+}
+\]
+
+identically. On the current 6366-row PSCompPars snapshot the maximum numerical discrepancy between the original \(\lambda\) definition and the luminosity-ratio definition is \(4.44\times10^{-16}\) in absolute log space.
+
+This changes the interpretation of the host layer. \(\lambda_h\) is no longer an unspecified abstract host latent variable. It is a **stellar-luminosity representation-gap coordinate**. Its causal origin remains unresolved: the effective luminosity may come from a published/archive luminosity source that differs from the composite \(R_\star,T_{eff}\) source, from a different stellar state/model, from calibration/provenance, or — only if the gap survives fresh self-consistent solutions — from missing stellar physics.
+
+### Predictive evidence for the luminosity representation
+
+For 966 multi-planet hosts the median coefficient of variation of
+
+\[
+L^{eff}_{h,p}=S^{catalog}_{h,p}a_{h,p}^{2}
+\]
+
+within a host is
+
+\[
+\boxed{2.887\times10^{-3}}
+\]
+
+(about 0.289%). 70.29% of multi-planet hosts have \(CV\le1\%\), 86.34% have \(CV\le5\%\), and 90.58% have \(CV\le10\%\).
+
+A stronger target-held-out test estimates \(L^{eff}_h\) only from sibling planets and predicts the held-out planet through
+
+\[
+\widehat S_{h,p}
+=\frac{\widehat L^{eff}_{h,-p}}{a_{h,p}^{2}}.
+\]
+
+On 206 independent validation hosts / 515 held-out planet predictions this reduces MAE from 0.141163 to 0.042205 in log-insolation space (70.10% relative improvement) and RMSE from 0.276852 to 0.185858 (32.87% relative improvement); the sibling-luminosity prediction has lower absolute error for 82.52% of targets.
+
+Thus the current hierarchy is refined to
+
+\[
+\boxed{
+S^{catalog}_{h,p}
+=\frac{L^{eff}_{h}}{a_{h,p}^{2}}\,\exp\!\left(f_{\mathcal R}(x_{h,p})+\epsilon_{h,p}\right),
+\qquad
+L^{eff}_{h}=\lambda_h L^{(R,T)}_h.
+}
+\]
+
+The representation mechanism is identified; the origin of \(L^{eff}_h/L^{(R,T)}_h\) is not. Scientific promotion still requires a self-consistent fresh `PS/default_flag=1` test with provenance-linked stellar luminosity, radius, temperature and insolation.
+
+Current status:
+
+`PREDICTIVE_HOST_EFFECTIVE_LUMINOSITY_REPRESENTATION_SUPPORTED_ORIGIN_UNRESOLVED`.

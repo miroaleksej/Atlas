@@ -69,6 +69,15 @@ def run(root=None, *, allow_blocked=False):
   'exoplanet_runners_require_external_observations':True,
   'new_physical_law_established':False,
  }
+ caps['hierarchical_observational_research']={
+  'owner':'HierarchicalObservationalTheoryOwner',
+  'evaluation_runner':'evaluation.exoplanet_availability_adaptive',
+  'one_passport_per_input_row':True,
+  'censored_measurements_are_constraints':True,
+  'attack_and_defense_contracts':True,
+  'caller_flag_cannot_establish_external_confirmation':True,
+  'new_physical_law_established':False,
+ }
  caps['release_control']={
   'current_state_qualification_status':q.get('status'),
   'current_state_qualification_passed':qualification_passed,

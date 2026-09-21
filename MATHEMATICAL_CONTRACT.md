@@ -1269,3 +1269,73 @@ m-1.4826MAD>0.
 `REPRESENTATION_GAP_FRONTIER_OPEN_NO_STRESS_ROBUST_BRANCH`.
 
 Этот статус означает локальное завершение объявленного adaptive tranche, а не доказательство отсутствия неизвестной структуры во всём открытом пространстве.
+
+## Availability-adaptive observational contract
+
+1. Every input observation row SHALL produce exactly one observational passport; missing coordinates SHALL NOT delete the row from the catalogue state.
+2. For object \(i\), Atlas SHALL retain the observed mask \(m_i\) and maximal compatible subspace \(\mathcal X_i\).
+3. `NOT_OBSERVED`, `NO_EFFECT`, `EXCLUDED`, `MODEL_INFERRED`, and `CENSORED_LIMIT` SHALL remain distinct states. `LIMIT != CENTRAL_VALUE`: any non-zero Archive `*lim` field MUST prevent that numerical value from being used as an exact point observation in derived physics or feature availability.
+4. Upper/lower limits MAY remain as censored evidence and MAY participate only in methods whose likelihood/constraint semantics explicitly support censoring. They MUST NOT silently enter density, two-body correction, ordinary least-squares residual search, or exact closure as central values.
+5. A frozen relation MAY infer one missing coordinate only when all remaining required coordinates are observed central values or already derived from an established identity. Inferred coordinates SHALL be provenance-labelled and SHALL NOT be treated as observations.
+6. Rows containing model-inferred orbital coordinates SHALL NOT be used to estimate the residual/error of the same frozen orbital relation.
+7. Derived physical zones MAY include orbital closure, planet structure, stellar structure, irradiation consistency, eccentric geometry, uncertainty space and catalogue context; each zone SHALL declare its required observed coordinates.
+8. Residual-axis stability MAY use different row subsets per axis/zone, but every selection SHALL remain discovery-only and host-group aware. A complete-case population SHALL NOT be treated as representative without an explicit selection-bias comparison.
+9. Availability-adaptive analysis SHALL report coverage counts, unresolved objects, inference provenance and consistency outliers. Outlier status is a research/data-quality flag, not a causal or world-law claim.
+10. Finite availability zones do not imply exhaustion of the observational space. Missingness patterns and provenance MAY themselves become research-local coordinates, but only under the ordinary claim/stability gates.
+11. Scientific promotion of any residual law still requires group stability, regime/tail stability and fresh external/self-consistent evidence; availability expansion does not weaken these gates.
+
+
+
+## Candidate ATTACK + DEFENSE contract (2026-09-20)
+
+1. Every promoted research candidate SHALL have both an explicit falsification/attack contract and an explicit defense contract. Absence of either SHALL block scientific promotion.
+2. `ATTACK` SHALL attempt transfer failure, tail/regime failure, provenance inconsistency, competing-representation superiority and fresh-evidence falsification.
+3. `DEFENSE` SHALL maximize candidate consistency only inside predeclared observational uncertainty, censoring constraints, nuisance coordinates and validity domains. Held-out or sealed observations SHALL NOT be used to invent, tune or select the defense.
+4. `LIMIT != CENTRAL_VALUE`, but `LIMIT != NO_DATA`. Upper/lower limits SHALL remain inequality evidence. `M sini` SHALL be treated as a lower bound on true mass unless inclination is independently resolved.
+5. For a candidate region \(R_H\) and propagated feasible interval/set \(I_q\), Atlas SHALL distinguish: `REQUIRED` if \(I_q\subseteq R_H\); `ALLOWED` if \(I_q\cap R_H\neq\emptyset\); `EXCLUDED` if \(I_q\cap R_H=\emptyset\). Wide uncertainty SHALL NOT be silently converted into rejection.
+6. Failure of a population-wide candidate SHALL NOT imply failure in every predeclared regime. Regime-local defense is allowed only when the regime definition is independent of held-out outcome and frozen before outer validation.
+7. A coherent shared discrepancy across multiple objects in one host/source MAY generate a research-local latent coordinate (e.g. \(S_{catalog}=\lambda_h S_{model}\)). Such a coordinate SHALL remain non-canonical and non-causal until provenance-resolved/fresh evidence distinguishes competing interpretations.
+8. A candidate may receive `REGIME_LOCAL` or `TAIL_LIMITED` status when its declared validity domain is narrower than the full population. These states SHALL NOT be rewritten as universal laws, but SHALL NOT be discarded as null effects either.
+9. Prediction/falsification owners SHALL emit `candidate_defense_contract` alongside `falsification_criterion`, including supporting measurements, validity domain, nuisance coordinates and censoring semantics.
+10. Scientific promotion requires both attack survival and defense evidence plus the ordinary fresh-evidence/claim-provenance firewall. Defense evidence alone never establishes causality.
+11. When a regime-local candidate survives population transfer but loses its effect after a predeclared within-group/host fixed-effect scope audit, Atlas SHALL lower the mechanism scope to `HOST_OR_SURVEY_MEDIATED_CANDIDATE` (or the corresponding group-level state) rather than erase the association or claim a planet/object-local mechanism.
+
+
+## Hierarchical observational theory contract v1.0 (2026-09-20)
+
+1. A compiled observational theory SHALL explicitly separate `UNIVERSAL_STRUCTURE`, `GROUP_OR_HOST_LATENT_STATE`, `REGIME_LOCAL_STRUCTURE` and `FEASIBLE_OBSERVATIONAL_DOMAINS`.
+2. A group/host latent coordinate SHALL NOT be promoted from same-group correlation alone. It SHALL make a target-held-out prediction using only sibling/group observations that exclude the target.
+3. For host theory \(y_{hp}=\alpha_h+f_R(x_{hp})+\epsilon_{hp}\), the target planet SHALL NOT be used to estimate \(\alpha_h\) for its own predictive test.
+4. Global baselines and model-selection choices SHALL be frozen from discovery data. Validation/sealed observations SHALL NOT choose the latent estimator, feature family, regularization, regime definition or defense protocol.
+5. Censored and uncertain observations SHALL define feasible sets \(\Omega_i\). A common group latent state is `ALLOWED` only when the intersection of member feasible sets is non-empty; non-empty intersection SHALL NOT imply causality.
+6. Known-coordinate explanations for a born host/group latent state SHALL receive an ATTACK that includes discovery stability, regime/tail stress and outer transfer. Multivariate known-axis explanations MAY be tried only with discovery-only model selection.
+7. Failure of tested known coordinates to explain a latent state SHALL yield `MECHANISM_UNRESOLVED`, not `NEW_PHYSICS_PROVEN`.
+8. Regime-local object terms SHALL be scope-audited with within-group/host centering when repeated objects per group exist. A term that fails within-group outer transfer SHALL be lowered to `HOST_OR_SURVEY_MEDIATED_CANDIDATE` rather than erased or claimed object-local.
+9. Compiled hierarchical theories SHALL include at least two competing explanations and at least one prospective prediction with explicit falsification and defense criteria.
+10. `HIERARCHICAL_THEORY_CANDIDATE_COMPILED` establishes only formal completeness/testability. Scientific promotion requires fresh external/self-consistent evidence and the ordinary claim-provenance firewall.
+11. For the current exoplanet theory the observational equation is
+
+\[
+\log\frac{S^{catalog}_{hp}}{S^{phys}_{hp}}
+=\alpha_h+f_{\mathcal R}(x_{hp})+\varepsilon_{hp},
+\]
+
+with \(S^{phys}\) bound to the established stellar irradiation baseline. `alpha_h` remains research-local and non-causal until competing provenance/calibration/physical interpretations are discriminated.
+
+## Hierarchical observational theory contract v1.1 — representation mechanism vs causal origin
+
+1. A predictive group/host latent coordinate SHALL be algebraically reduced to known derived representations whenever possible before being treated as an unidentified physical coordinate.
+2. `REPRESENTATION_MECHANISM_IDENTIFIED` SHALL NOT imply `CAUSAL_ORIGIN_RESOLVED`.
+3. For an irradiation host layer Atlas SHALL recognize the identity
+   \[
+   L^{eff}_{h,p}/L_\odot=(S^{catalog}_{h,p}/S_\oplus)(a_{h,p}/\mathrm{AU})^2,
+   \]
+   \[
+   L^{(R,T)}_{h,p}/L_\odot=(R_\star/R_\odot)^2(T_{eff}/5772\,\mathrm K)^4,
+   \]
+   and hence \(\lambda_{h,p}=L^{eff}_{h,p}/L^{(R,T)}_{h,p}\).
+4. The representation identity SHALL be checked numerically against the previously defined latent coordinate; mismatch beyond floating-point tolerance blocks mechanism identification.
+5. A host luminosity representation SHALL make a target-held-out sibling prediction: estimate \(L^{eff}_h\) from sibling planets only, then predict the target with \(\widehat S=\widehat L^{eff}_h/a^2\). The held-out target SHALL NOT contribute to \(\widehat L^{eff}_h\).
+6. Causal-origin candidates SHALL remain separate: source/provenance/calibration, alternative stellar state/model, or missing stellar physics. No origin may be promoted merely because the luminosity representation is predictive.
+7. Fresh self-consistent `PS/default_flag=1` evidence with provenance-linked stellar and planetary parameters is required to distinguish those causal origins.
+8. Scientific promotion SHALL be blocked while `causal_origin_resolved=false`, even when the representation identity and sibling prediction are supported.

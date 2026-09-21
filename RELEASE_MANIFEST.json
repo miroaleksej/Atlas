@@ -60,17 +60,17 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 325,
+  "controlled_file_count": 330,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
-      "sha256": "eabcf43b0dc7001f1a00b9ac3b63bf3c34816ffbeb884ca23435b08ad3ac0af5",
-      "size": 3730
+      "sha256": "4f02460cce6e7f7d9bc96dbec979f29c95b519a156911bb23deba26ee1f201a2",
+      "size": 3743
     },
     {
       "path": ".github/workflows/exoplanet-g-example.yml",
-      "sha256": "f2a4fca096e8017524e3044ef4dea906600d1022de22c3e35d82b2b5e92a30c9",
-      "size": 3540
+      "sha256": "b5088b6a453d2d8065a8728757607104aecb1cffd669ec76bdddb80cb8dc85a6",
+      "size": 3552
     },
     {
       "path": ".gitignore",
@@ -94,13 +94,13 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "4ea83075075597e3b396ee134f01cd1f3f1b8c36e163079b5ed23d1c56c5d8c0",
-      "size": 262916
+      "sha256": "c4e8c038ec239fb973f9face45b1e8de6ea8a46185dfebe883243924ce60714f",
+      "size": 298491
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
-      "sha256": "5d75a0775722ad0e2675dad9addd51068dab5356aef26d79a889fbae70e2b112",
-      "size": 91252
+      "sha256": "3952cf028708f7501b78b61d9f01e7e55fc4102d5978a6ff433bf0f5df0727b4",
+      "size": 100510
     },
     {
       "path": "Makefile",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "70d9ef5cd4a3b38a0c5e8d33477fa92c4126447e2f2a65f2051efa15f6c835ab",
-      "size": 111504
+      "sha256": "331bf79b63a79a21f9932cbdf3d2c54f85a7759ca98ec014278e3eab58979512",
+      "size": 112576
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -124,13 +124,13 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "bb6f06d191fac0f129f8e76ea1320a62bdff28f15dad3a04e2c111b94d84d461",
-      "size": 169886
+      "sha256": "2429acec4b7defe13d401be98c5d83d8b93fa513e0db5a0e9eeaffa21b2ba2c6",
+      "size": 172773
     },
     {
       "path": "capabilities.json",
-      "sha256": "182113eca92b818c3e8d83f74197e18850c45ce826df93f3ff54348e4da77dcd",
-      "size": 18458
+      "sha256": "4910c9b02f387513e8ded7ce52bd9e768bc2d9b61e3e7cfc7b4693063cf994e4",
+      "size": 18869
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -514,8 +514,8 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "37ee97355f92632fdf5579717fed1ce03296ab973724c81f437d911a1d9e0902",
-      "size": 43233
+      "sha256": "685238446e8fa143f590322e2fbe8b4666a9d95d527f5fd45a3c6ea4bc58a306",
+      "size": 43626
     },
     {
       "path": "evaluation/closed_loop_research_experiment.py",
@@ -546,6 +546,11 @@
       "path": "evaluation/eda_chip_pilot.py",
       "sha256": "9543b5f1680e122c1117403d94947dcac9567d88f2985e6ca03fef8f88adccc4",
       "size": 1852
+    },
+    {
+      "path": "evaluation/exoplanet_availability_adaptive.py",
+      "sha256": "0dfbfd1ecac13edbb2215402f729b96d2a1230d629a82536cb20c834062f504b",
+      "size": 100916
     },
     {
       "path": "evaluation/exoplanet_language_shell_exploratory.py",
@@ -1154,13 +1159,28 @@
     },
     {
       "path": "reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md",
-      "sha256": "5c03d9472dbc303c9122dbe5b5f480d855881a8d79e3648635a6b4c2d9a81d58",
-      "size": 23641
+      "sha256": "a3cf6ec80a3081c07ff60123647a9fa2543490a9aa1ab67671f608ef6ba0cb95",
+      "size": 35784
     },
     {
       "path": "reports/exoplanet/NASA_EXOPLANET_2026_LOCAL_RUN.json",
       "sha256": "046bfce6b266b40127db611de4fcdd198e78c200bc4574e811bcb3c9e4ccc831",
       "size": 724777
+    },
+    {
+      "path": "reports/exoplanet/NASA_EXOPLANET_AVAILABILITY_LOCAL.json",
+      "sha256": "00b2fd8d62029dcf6e0daeac33e990743145205f8f494be0906affc9f98c5a22",
+      "size": 81102
+    },
+    {
+      "path": "reports/exoplanet/NASA_EXOPLANET_AVAILABILITY_PASSPORTS_LOCAL.csv",
+      "sha256": "bfc049c0c22c8d96c13844d0a947a5240cff2871a26f3be8e8a1e92fec08eb59",
+      "size": 10865202
+    },
+    {
+      "path": "reports/exoplanet/P2_RESULT_RU.md",
+      "sha256": "8bda1b22972ee755ca1d57858a0eb1289a75ec52e8db26e3e1e3825168b30fad",
+      "size": 2896
     },
     {
       "path": "reports/exoplanet/RESULT_RU.md",
@@ -1474,8 +1494,8 @@
     },
     {
       "path": "source/lawspace/research_cycle.py",
-      "sha256": "6eb1af579195e65219b33112db9392876cb979ffdac4a89f90e240713db410ee",
-      "size": 313885
+      "sha256": "a424e7af1a08082ba98e288bb33347d3223955f636967dd67dfef031a3a2b38f",
+      "size": 315391
     },
     {
       "path": "source/lawspace/research_triage.py",
@@ -1559,8 +1579,8 @@
     },
     {
       "path": "source/lawspace/theory_compiler.py",
-      "sha256": "843c9a267a85b181a1af0b710b24c39711106eac2d8f9383ed3d75517becd558",
-      "size": 131471
+      "sha256": "9e00ecf481a40c613ead85d825002e637158c0fe40bac49138708d4d6dd4bf86",
+      "size": 137135
     },
     {
       "path": "source/multidomain_qg_bridge.py",
@@ -1584,8 +1604,8 @@
     },
     {
       "path": "tests/test_adaptive_axis_discovery.py",
-      "sha256": "133867fdf41ebeb2788f16896d666a0970e551adc5f1ef176308462dd714d25b",
-      "size": 20405
+      "sha256": "be8b76d991f519b2090ae3d8b244661a2d31dc4e0dc2003b354a17d7429bfdad",
+      "size": 21931
     },
     {
       "path": "tests/test_closed_loop_research.py",
@@ -1624,8 +1644,8 @@
     },
     {
       "path": "tests/test_exoplanet_dimensional_closure_example.py",
-      "sha256": "43655e4f9bf176f2f87daeac351c012b045d86ec0abe3900414b889d14ef2007",
-      "size": 3681
+      "sha256": "07a3fa13150b3c65a84df39e6d26fdf97063fdfd367eb2a7c4c9191cdc361b4f",
+      "size": 13276
     },
     {
       "path": "tests/test_exoplanet_observations_2026.py",
@@ -1641,6 +1661,11 @@
       "path": "tests/test_function_language_birth.py",
       "sha256": "cc372ce81c4ac6b0b030902b232b66e730ec80b8c4067f4f2fa5d345dbedb118",
       "size": 8867
+    },
+    {
+      "path": "tests/test_hierarchical_confirmation_boundary.py",
+      "sha256": "46e18d26a4400cb969117dfbff1b7cea287bed55bd194554c3f90c9114642ea9",
+      "size": 757
     },
     {
       "path": "tests/test_permutation_eprocess_current.py",
@@ -1684,14 +1709,14 @@
     },
     {
       "path": "tests/test_unified_current.py",
-      "sha256": "24abb5deca561ee6913f73aa81855344d308e3c2e4379191f015c66f19b70b25",
-      "size": 49169
+      "sha256": "658aba569cba11ab0a92d6740c1aa51ebf9d523633b04bcf550ce471e4d3a470",
+      "size": 49998
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "dd627a42149f5d82dadc64099d35af959586991159cefc95ee4beb27f0b15971",
+  "current_state_qualification_digest": "4d798c4994691df3ee365692b19a8a0f6ad3db429b2614966321454e874c9773",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "af0d8e05d91105aec8aea3009d3e846804426da739d3e53e9c963ad71f38d3ab",
+  "digest": "3c9d645202ef33eb89657a1a35bfec582fc3e4a7ca6611387fa2ae3ddef786cd",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

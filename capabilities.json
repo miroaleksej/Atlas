@@ -140,7 +140,7 @@
     "python_api": "advance_adaptive_research",
     "repeated_group_stability": true
   },
-  "digest": "d251a164daf035e2141a3ddb76c3e5d38ef7bfdef6df7ed96b8e3f8ea70471f1",
+  "digest": "be84dc10e9f5604967995acdec41353fa128bc7d3420315f0c36af2193e7de0f",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -200,6 +200,15 @@
     "digest": "c6692aae39202f5db8588dd407da82a79b159d85c009b20e639e1778d02b6384",
     "new_scientific_law_established": false,
     "status": "PASS_ATLAS_FRONTIER_CANDIDATE_SCAN"
+  },
+  "hierarchical_observational_research": {
+    "attack_and_defense_contracts": true,
+    "caller_flag_cannot_establish_external_confirmation": true,
+    "censored_measurements_are_constraints": true,
+    "evaluation_runner": "evaluation.exoplanet_availability_adaptive",
+    "new_physical_law_established": false,
+    "one_passport_per_input_row": true,
+    "owner": "HierarchicalObservationalTheoryOwner"
   },
   "low_frequency_gust_anomaly": {
     "conditional_effective_input_ratio_4_8_hz": 0.8165672757732683,
@@ -292,7 +301,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "dd627a42149f5d82dadc64099d35af959586991159cefc95ee4beb27f0b15971",
+  "qualification_digest": "4d798c4994691df3ee365692b19a8a0f6ad3db429b2614966321454e874c9773",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,

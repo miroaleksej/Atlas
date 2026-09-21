@@ -61,6 +61,22 @@ def test_preexisting_domain_owners_remain_live():
     assert len({c['owner_id'] for c in contracts}) == len(contracts)
 
 
+def test_closed_loop_research_is_registered_as_mutation_tool():
+    from source.lawspace.api import LawSpaceAPI
+    assert "run_closed_loop_research" in LawSpaceAPI.MUTATION_TOOLS
+    assert "run_closed_loop_research" not in LawSpaceAPI.READ_TOOLS
+
+
+def test_theory_compiler_exposes_hierarchical_observational_owner():
+    contract = TheoryCompilerKernel(ROOT).contract()
+    owner = contract["hierarchical_observational_theory_owner"]
+    assert owner["owner_id"].startswith("HIERARCHICAL-OBSERVATIONAL-THEORY/")
+    assert owner["candidate_evaluation"] == "ATTACK_PLUS_DEFENSE"
+    assert owner["group_latent_state_must_make_prediction"] is True
+    assert owner["representation_mechanism_may_be_identified_before_causal_origin"] is True
+    assert owner["causal_origin_resolution_required_for_scientific_promotion"] is True
+
+
 def test_typed_bridge_can_transfer_or_refuse_without_merging_axes():
     owner = CrossDomainBridgeOwner()
     positive = owner.certify_typed_law_bridge(

@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 325
+Controlled files: 330
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -99,6 +99,7 @@ Controlled files: 325
 - `evaluation/developmental_open_endedness_qualification.py`
 - `evaluation/discriminating_experiment_qualification.py`
 - `evaluation/eda_chip_pilot.py`
+- `evaluation/exoplanet_availability_adaptive.py`
 - `evaluation/exoplanet_language_shell_exploratory.py`
 - `evaluation/exoplanet_nasa2026_blind_experiment.py`
 - `evaluation/fetch_jhtdb_real_snapshots.py`
@@ -222,6 +223,9 @@ Controlled files: 325
 - `reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json`
 - `reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md`
 - `reports/exoplanet/NASA_EXOPLANET_2026_LOCAL_RUN.json`
+- `reports/exoplanet/NASA_EXOPLANET_AVAILABILITY_LOCAL.json`
+- `reports/exoplanet/NASA_EXOPLANET_AVAILABILITY_PASSPORTS_LOCAL.csv`
+- `reports/exoplanet/P2_RESULT_RU.md`
 - `reports/exoplanet/RESULT_RU.md`
 - `reports/history/version-control/ATLAS_15_23_CURRENT_QUALIFICATION_AFTER_ORCHESTRATION.json`
 - `reports/history/version-control/ATLAS_15_23_JOINT_QUALIFICATION.json`
@@ -318,6 +322,7 @@ Controlled files: 325
 - `tests/test_exoplanet_observations_2026.py`
 - `tests/test_fetch_jhtdb_real_snapshots.py`
 - `tests/test_function_language_birth.py`
+- `tests/test_hierarchical_confirmation_boundary.py`
 - `tests/test_permutation_eprocess_current.py`
 - `tests/test_query_driven_research_current.py`
 - `tests/test_research_triage.py`

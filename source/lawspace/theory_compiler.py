@@ -42,6 +42,7 @@ MANY_BODY_PROBE_DESIGN_OWNER_ID = "MANY-BODY-OPERATOR-PROBE-DESIGN/1.0.0"
 ATOMIC_MANY_BODY_WORLD_OWNER_ID = "ATOMIC-MANY-BODY-REFERENCE-WORLD/1.0.0"
 MANY_BODY_SYNTHESIS_OWNER_ID = "MANY-BODY-OPERATOR-COORDINATE-SYNTHESIS/1.0.0"
 SCHEMA = "phi-theory-executable-ir/v2"
+HIERARCHICAL_OBSERVATIONAL_THEORY_OWNER_ID = "HIERARCHICAL-OBSERVATIONAL-THEORY/1.0.0"
 
 
 def _digest(payload: Mapping[str, Any]) -> str:
@@ -2348,6 +2349,119 @@ class PrimitiveFieldOperatorCoordinateBirthOwner:
         return _with_digest(core)
 
 
+class HierarchicalObservationalTheoryOwner:
+    """Compile a layered observational theory without collapsing uncertainty into points.
+
+    This owner is domain-neutral.  It does not fit data itself; a domain/evaluation
+    owner supplies frozen evidence for each layer.  The compiler checks that a
+    candidate theory explicitly separates universal structure, shared group/host
+    state, regime-local structure and feasible observational domains, and that it
+    exposes prospective predictions together with symmetric ATTACK+DEFENSE rules.
+
+    Compilation means that the theory is well-formed and testable.  It does not
+    imply causal truth, novelty, or external confirmation.
+    """
+
+    owner_id = HIERARCHICAL_OBSERVATIONAL_THEORY_OWNER_ID
+
+    def contract(self) -> Mapping[str, Any]:
+        return {
+            "owner_id": self.owner_id,
+            "input": "FROZEN_LAYERED_OBSERVATIONAL_EVIDENCE",
+            "output": "TYPED_HIERARCHICAL_THEORY_CANDIDATE",
+            "required_layers": [
+                "UNIVERSAL_STRUCTURE",
+                "GROUP_OR_HOST_LATENT_STATE",
+                "REGIME_LOCAL_STRUCTURE",
+                "FEASIBLE_OBSERVATIONAL_DOMAINS",
+            ],
+            "candidate_evaluation": "ATTACK_PLUS_DEFENSE",
+            "censored_observations": "INEQUALITY_CONSTRAINTS_NOT_MISSING_POINTS",
+            "group_latent_state_must_make_prediction": True,
+            "representation_mechanism_may_be_identified_before_causal_origin": True,
+            "causal_origin_resolution_required_for_scientific_promotion": True,
+            "heldout_refit_allowed": False,
+            "global_failure_may_lower_scope": True,
+            "compilation_implies_world_truth": False,
+            "compilation_implies_novelty": False,
+        }
+
+    def compile(
+        self,
+        *,
+        theory_id: str,
+        universal_layer: Mapping[str, Any],
+        host_layer: Mapping[str, Any],
+        regime_layer: Mapping[str, Any],
+        feasible_domain_layer: Mapping[str, Any],
+        competing_explanations: Sequence[Mapping[str, Any]],
+        predictions: Sequence[Mapping[str, Any]],
+        evidence_digest: str,
+        fresh_external_confirmation: bool = False,
+    ) -> Mapping[str, Any]:
+        if not str(theory_id).strip():
+            raise ValueError("hierarchical theory requires a non-empty theory_id")
+        if not str(evidence_digest).strip():
+            raise ValueError("hierarchical theory requires an evidence digest")
+        if fresh_external_confirmation:
+            raise ValueError("external confirmation requires verified evidence; a caller flag cannot establish it")
+        layers = {
+            "universal_structure": dict(universal_layer),
+            "group_or_host_latent_state": dict(host_layer),
+            "regime_local_structure": dict(regime_layer),
+            "feasible_observational_domains": dict(feasible_domain_layer),
+        }
+        predictions = [dict(row) for row in predictions]
+        competing = [dict(row) for row in competing_explanations]
+
+        prediction_gates = []
+        for row in predictions:
+            prediction_gates.append(bool(
+                str(row.get("prediction", "")).strip()
+                and str(row.get("falsification", "")).strip()
+                and str(row.get("defense", "")).strip()
+                and row.get("heldout_refit_allowed") is False
+            ))
+        gates = {
+            "UNIVERSAL_LAYER_DECLARED": bool(layers["universal_structure"]),
+            "HOST_LAYER_DECLARED": bool(layers["group_or_host_latent_state"]),
+            "REGIME_LAYER_DECLARED": bool(layers["regime_local_structure"]),
+            "FEASIBLE_DOMAIN_LAYER_DECLARED": bool(layers["feasible_observational_domains"]),
+            "MULTIPLE_COMPETING_EXPLANATIONS": len(competing) >= 2,
+            "PREDICTIONS_ARE_ATTACK_AND_DEFENSE_READY": bool(predictions) and all(prediction_gates),
+            "EVIDENCE_DIGEST_BOUND": bool(str(evidence_digest).strip()),
+        }
+        well_formed = all(gates.values())
+        payload: dict[str, Any] = {
+            "schema": "phi-hierarchical-observational-theory/v1",
+            "owner": self.owner_id,
+            "theory_id": str(theory_id),
+            "evidence_digest": str(evidence_digest),
+            "layers": layers,
+            "competing_explanations": competing,
+            "predictions": predictions,
+            "gates": gates,
+            "fresh_external_confirmation": bool(fresh_external_confirmation),
+            "status": (
+                "HIERARCHICAL_THEORY_EXTERNALLY_CONFIRMED"
+                if well_formed and fresh_external_confirmation
+                else "HIERARCHICAL_THEORY_CANDIDATE_COMPILED"
+                if well_formed
+                else "BLOCKED_INCOMPLETE_HIERARCHICAL_THEORY"
+            ),
+            "claim_boundary": {
+                "compiled_theory_is_causal_truth": False,
+                "compiled_theory_is_new_law": False,
+                "host_latent_coordinate_is_physical_variable": False,
+                "representation_identity_is_causal_origin": False,
+                "regime_local_term_is_universal": False,
+                "fresh_external_data_required_for_scientific_promotion": True,
+                "heldout_refit_allowed": False,
+            },
+        }
+        return _with_digest(payload)
+
+
 class TheoryCompilerKernel:
     def __init__(self, root: str | Path) -> None:
         self.root = Path(root)
@@ -2363,6 +2477,7 @@ class TheoryCompilerKernel:
         self.many_body_coordinate_synthesis = ManyBodyOperatorCoordinateSynthesisOwner()
         self.compiler = TheoryToExecutableCompilerOwner()
         self.runtime = ExecutableTheoryRuntimeOwner()
+        self.hierarchical_observational_theory = HierarchicalObservationalTheoryOwner()
 
     def contract(self) -> Mapping[str, Any]:
         return {
@@ -2379,6 +2494,7 @@ class TheoryCompilerKernel:
             "many_body_coordinate_synthesis_owner": self.many_body_coordinate_synthesis.contract(),
             "lowering_owner": self.compiler.contract(),
             "runtime_owner": self.runtime.contract(),
+            "hierarchical_observational_theory_owner": self.hierarchical_observational_theory.contract(),
             "input_source": "FROZEN_INTERNAL_PHI_THEORY_OR_TYPED_OPERATOR_PROBES",
             "internet_prefreeze": "FORBIDDEN",
             "representation_policy": {
@@ -2405,6 +2521,7 @@ __all__ = [
     "ExecutableRepresentationSynthesisOwner", "SelfConsistentRepresentationSynthesisOwner",
     "ManyBodyOperatorProbeDesignOwner", "AtomicManyBodyReferenceWorldInteractionOwner",
     "ManyBodyOperatorCoordinateSynthesisOwner",
+    "HierarchicalObservationalTheoryOwner",
     "TheoryToExecutableCompilerOwner", "ExecutableTheoryRuntimeOwner",
     "KERNEL_OWNER_ID", "PROBE_DESIGN_OWNER_ID", "ATOMIC_WORLD_INTERACTION_OWNER_ID",
     "VARIABLE_PARTICLE_PROBE_DESIGN_OWNER_ID", "VARIABLE_PARTICLE_WORLD_INTERACTION_OWNER_ID",

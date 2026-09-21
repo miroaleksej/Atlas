@@ -603,6 +603,11 @@ class PredictionFalsificationOwner:
                 "coordinate_delta": candidate.get("coordinate_delta", {}),
             })
             all_signatures[candidate_id] = predictive_signature
+            defense_criterion = str(
+                candidate.get("defense_criterion")
+                or candidate.get("support_criterion")
+                or "MAXIMIZE_CANDIDATE_CONSISTENCY_WITHIN_DECLARED_UNCERTAINTY_CENSORING_NUISANCE_AND_VALIDITY_DOMAIN_WITHOUT_HELDOUT_REFIT"
+            ).strip()
             rows.append({
                 "candidate_id": candidate_id,
                 "prediction_contract_id": "PRED-" + predictive_signature[:20].upper(),
@@ -614,11 +619,23 @@ class PredictionFalsificationOwner:
                 },
                 "required_measurements": list(measurements),
                 "falsification_criterion": criterion,
+                "candidate_defense_contract": {
+                    "defense_criterion": defense_criterion,
+                    "supporting_measurements": list(candidate.get("supporting_measurements", measurements)),
+                    "validity_domain": candidate.get("validity_domain") or candidate.get("domain_definition") or "RESEARCH_LOCAL_UNRESOLVED",
+                    "nuisance_coordinates": list(candidate.get("nuisance_coordinates", candidate.get("nuisance_axes", ()))),
+                    "censored_measurements_are_constraints_not_absences": True,
+                    "upper_lower_limits_must_be_profiled_or_interval_propagated": True,
+                    "global_failure_may_lower_candidate_to_regime_local_instead_of_rejection": True,
+                    "heldout_refit_allowed": False,
+                    "status": "CANDIDATE_DEFENSE_CONTRACT_READY",
+                },
                 "prediction_signature": predictive_signature,
                 "gates": {
                     "FORMULA_BOUND": bool(formula_digest),
                     "MEASUREMENTS_DECLARED": bool(measurements),
                     "FALSIFICATION_DECLARED": bool(criterion),
+                    "DEFENSE_PROTOCOL_DECLARED": bool(defense_criterion),
                 },
             })
         for row in rows:
@@ -637,6 +654,8 @@ class PredictionFalsificationOwner:
             "candidate_freeze_digest": competitive_set.get("candidate_freeze_digest"),
             "predictions": rows,
             "all_candidates_have_falsification_contract": bool(rows) and all(bool(row["falsification_criterion"]) for row in rows),
+            "all_candidates_have_defense_contract": bool(rows) and all(bool(row.get("candidate_defense_contract", {}).get("defense_criterion")) for row in rows),
+            "candidate_evaluation_is_two_sided_attack_plus_defense": True,
             "all_predictions_discriminate_at_least_one_competitor": bool(rows) and all(bool(row["discriminates_from_candidate_ids"]) for row in rows),
         }
         result["status"] = (

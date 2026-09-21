@@ -62,8 +62,8 @@ Atlas kernel status: `REPRESENTATION_GAP_OPERATOR_PROBE_PROTOCOL_FROZEN_AWAITING
 - Общий axis-selection contract модернизирован в существующем `AdaptiveResearchKernel`: marginal gain + group stability + parsimony + final exact-set stability.
 - Состояния `representation activated` и `effective formula support` разделены.
 - Выявленный интеграционный разрыв public API для существующего closed-loop owner устранён: `run_closed_loop_research` зарегистрирован как mutation surface.
-- После финальных правок критический regression-набор adaptive/exoplanet/function-language/query/direct-target/turbulence/closed-loop + ключевые unified checks: **53/53 PASS**.
-- Полный `pytest` собирает **147 tests**, но монолитный запуск и длинные frontier-тесты превышают лимит исполнения текущего контейнера; поэтому полный release-wide PASS не заявляется. Явных failure после исправления трёх найденных интеграционных дефектов в доступных завершённых наборах нет.
+- После финальных правок критический regression-набор adaptive/exoplanet/function-language/query/direct-target/turbulence/closed-loop + ключевые unified checks: **54/54 PASS** после limit/provenance integration.
+- Полный `pytest` сейчас собирает **151 tests**, но монолитный запуск и длинные frontier-тесты превышают лимит исполнения текущего контейнера; поэтому полный release-wide PASS не заявляется. Явных failure после исправления трёх найденных интеграционных дефектов в доступных завершённых наборах нет.
 - `seal_audit` пока остаётся FAIL, потому что текущая рабочая ветка содержит ранее не включённые в release controls файлы и изменённые controlled files; новый sealed release в рамках этого эксперимента не объявляется.
 
 ## 6. Следующий корректный шаг
@@ -280,3 +280,162 @@ Outer validation была прочитана только после discovery s
 Следовательно, прежнюю формулировку о «surviving LATENT representation» следует читать только как историю exploratory search. После введения regime stress ни один residual-born объект не имеет достаточного evidence для scientific promotion.
 
 Научно устойчивым результатом остаётся positive control `a^3/(P^2 M_star)` с rank 1 на всех исходных splits и post-freeze `G_hat = 6.668362037e-11`, relative difference около `-0.089%`. Всё последующее является структурированным, но не stress-robust residual frontier.
+
+## Availability-adaptive full-catalogue pass — 6366/6366 passports
+
+Все 6366 input rows сохранены как observational passports. После provenance audit non-zero NASA `*lim` fields больше не трактуются как центральные физические значения: `LIMIT != CENTRAL VALUE`.
+
+Исправленное покрытие:
+
+- observed central `(P,a,M_star)`: **5589**;
+- model-assisted orbital: **761**;
+- orbital-calculable: **6350**;
+- orbital unresolved: **16**;
+- central mass+radius planet structure: **6098**;
+- stellar structure: **6033**;
+- irradiation checks: **5609**;
+- eccentric geometry: **4933**;
+- full 17-axis central observed-orbit subset: **2467**.
+
+В snapshot содержатся 234 planet-mass limits и 5 planet-radius limits. Они остаются censored evidence и не участвуют как point values в density/two-body/residual calculations.
+
+### Исправленный selection effect
+
+Complete-case median absolute orbital residual: `0.0092285`; non-complete central observed population: `0.0269890`; отношение **2.9245×**. Прежнее `4.14×` заменено: оно было завышено из-за limit-semantics bug. Population-wide maximal-availability scan по-прежнему даёт **0/17** устойчивых singleton orbital residual axes.
+
+### Provenance audit 13 density flags
+
+Legacy naïve calculation воспроизводит ровно 13 прежних flags. После limit/uncertainty audit:
+
+- 11/13 = `INPUT_LIMIT_NOT_PHYSICAL_POINT` (`pl_bmasselim != 0`);
+- `KOI-2513.01` и `Kepler-37 e` = `UNCERTAINTY_UNRESOLVED`;
+- **0/13** остаются stress-robust physical high-density anomalies.
+
+### Provenance/regime audit 363 irradiation flags
+
+Все 363 классифицированы по joint `S`/`Teq` consistency:
+
+- 312 `COMPOSITE_INSOLATION_ONLY_MISMATCH`;
+- 22 `COHERENT_LITERATURE_A03_LIKE`;
+- 18 `COHERENT_SOURCE_SCALE_ZERO_ALBEDO_LIKE`;
+- 1 `MULTISTAR_OR_PROVENANCE_UNRESOLVED`;
+- 10 `OTHER_PROVENANCE_OR_CONVENTION`.
+
+56 candidate rows in 25 multi-planet hosts share near-identical discrepancy factors (≤10% spread), supporting host/source-level provenance rather than planet-specific law.
+
+A cleaned non-extreme insolation residual scan leaves two very weak discovery-only singleton candidates (`log_planet_radius`, `discovery_year`), but both worsen outer validation. Therefore **0 cleaned singleton branches transfer**.
+
+
+### PS/public-solution spot checks remaining irradiation frontier
+
+Public NASA PS overview records independently support the catalogue/provenance interpretation for several of the final 11 unresolved rows:
+
+- `DMPP-2 b`: published equilibrium temperature explicitly assumes Bond albedo 0.5; this explains why a zero-albedo proxy is not the correct convention for that row.
+- `K2-11 b`: published solutions disagree strongly in stellar/planet parameters; the composite row combines a 5.15 R_sun stellar radius with an insolation value traceable to a solution whose host is ~0.83 R_sun, a direct source-mixing signature.
+- `K2-22 b`: NASA records stellar multiplicity; a single-star irradiation proxy is not an adequate regime model.
+- `Kepler-1624 b`: NASA PS exposes multiple published insolation solutions spanning approximately 6 to 44 S_Earth, directly demonstrating solution/provenance heterogeneity.
+
+These spot checks reduce confidence that the remaining frontier is new planet physics. They do not replace a bulk self-consistent `PS/default_flag=1` replay, which remains the required fresh confirmation surface.
+
+### Corrected known two-body control
+
+After removing censored planet masses, two-body calculation uses 5344 rows. For 112 central systems with `q>0.01`, median absolute log-G residual improves `0.0161666 -> 0.0081193` (~49.8%). This remains known Newtonian two-body physics, not a new Atlas law.
+
+### Final audit status
+
+`13 density flags -> 0 robust physical anomalies`.
+
+`363 irradiation flags -> 352 classified provenance/regime cases + 11 unresolved provenance-frontier cases`.
+
+No new transferable physical residual law survives the cleaned-class rerun. The important new result is methodological and catalogue-specific: censored values, completeness selection and composite-source heterogeneity can create apparently deep residual structure unless provenance semantics are first-class Atlas state.
+
+Frozen NASA runner remains unchanged at SHA-256 `5d10f1fb15f589b3dcf198d93fc27f17a104cc7ebbbf0236a10ec87f6a40a1a7`.
+
+
+
+## ATTACK + DEFENSE reinterpretation — candidates are not only falsified
+
+The earlier wording `13 density flags -> 0 robust physical anomalies` was too one-sided. It remains true that none of the 13 is *required* to be an extreme-density object by current constraints, but this does not mean the candidate region is excluded.
+
+After propagating censoring/uncertainty constraints, all 13 legacy density candidates are classified as `EXTREME_ALLOWED_BY_CONSTRAINTS`; `EXTREME_REQUIRED_BY_CONSTRAINTS=0`, `EXTREME_EXCLUDED_BY_CONSTRAINTS=0`. Thus the correct status is **allowed but not forced**, not “destroyed”. Upper limits and `M sini` are retained as inequality evidence.
+
+The 363 irradiation candidates are likewise defended, not only audited. Current defense accounting gives:
+
+- 43/363 directly compatible after observational interval propagation;
+- 359/363 thermally compatible with a broad physically admissible albedo/redistribution envelope;
+- 56 rows / 25 multi-planet hosts support a coherent `HOST_LATENT_SCALE` candidate, with 5 rows also thermally coherent at the host-scale level.
+
+A cleaned global singleton search still yields no population-wide transferable axis, but predeclared observational-regime defense changes the result. In the `Transit` regime:
+
+- `log_planet_radius_earth` is `DEFENDED_REGIME_LOCAL_TRANSFER_AND_TAIL`: discovery robust margin `0.0014373`, tail robust margin `0.0169763`, outer-validation gain `+0.0009184`;
+- `log_planet_mass_earth` is `DEFENDED_REGIME_LOCAL_TRANSFER_AND_TAIL`: discovery robust margin `0.0003420`, tail robust margin `0.0171855`, outer-validation gain `+0.0016004`;
+- `log_distance_pc` has positive outer transfer but fails tail stress and is retained as `DEFENDED_REGIME_LOCAL_TRANSFER_TAIL_LIMITED` rather than discarded.
+
+These are small research-local signals, not causal or new-physics claims. The important methodological correction is that Atlas now has symmetric candidate semantics:
+
+`ATTACK(candidate)` tries to falsify; `DEFENSE(candidate)` profiles declared uncertainty/censoring/nuisance/validity domains without held-out refit. Global failure may lower a candidate to a regime-local or tail-limited state instead of erasing it.
+
+Therefore the current catalogue result is: **no universal new law is established, but several candidate regions remain observationally allowed, a coherent host-latent scale frontier exists, and two weak Transit-regime axes survive the complete attack+defense stack.**
+
+
+### Scope defense of the surviving Transit candidates
+
+The two defended Transit associations were additionally challenged/defended with a within-host fixed-effect audit rather than being interpreted immediately as planet-local physics.
+
+- `log_planet_radius_earth`: discovery within-host gain `+0.0043105`, validation within-host gain `-0.0086883` (916 discovery rows / 360 hosts; 365 validation rows / 143 hosts).
+- `log_planet_mass_earth`: discovery within-host gain `+0.0036532`, validation within-host gain `-0.0035451` (822 discovery rows / 334 hosts; 338 validation rows / 135 hosts).
+
+Thus both remain real `DEFENDED_REGIME_LOCAL_TRANSFER_AND_TAIL` **associations**, but their current mechanism scope is `HOST_OR_SURVEY_MEDIATED_CANDIDATE`, not a defended planet-local law. This is a scope refinement, not candidate deletion.
+
+The independent host-latent-scale frontier is unusually coherent: across the 56 flagged rows in 25 multi-planet systems, the median within-host coefficient of variation of `S_catalog/S_model` is `0.0009320` (~0.0932%). This strengthens `HOST_LATENT_SCALE` as a research-local coordinate while leaving its physical/provenance interpretation open.
+
+
+## Formal hierarchical theory compiled from the 6366-object observational state
+
+Atlas now compiles the exoplanet result into a four-layer theory rather than a flat residual claim:
+
+\[
+\log(S_{catalog}/S_{phys})=\alpha_h+f_{\mathcal R}(x_p)+\epsilon.
+\]
+
+`alpha_h` is the shared host latent scale, `f_R` is a regime-local planet term and all measured coordinates are constrained by per-object feasible domains `Omega`.
+
+The strongest new result is predictive. On 206 independent validation hosts / 515 held-out planet predictions, estimating `alpha_h` from the other planets of the same system reduces MAE `0.141159 -> 0.052581` (62.75%) and RMSE `0.276852 -> 0.189567` (31.53%). The held-out target planet is never used to estimate its own host scale.
+
+Across 966 multi-planet hosts, 80.54% have max/min `S_catalog/S_model` within 10%; median max/min is `1.00722`. In 64 deterministic null permutations the mean corresponding fraction is 25.01% and the maximum is 27.85%, so the observed same-host coherence exceeds every null permutation.
+
+After interval/censoring propagation, 922/966 (95.45%) multi-planet hosts admit a non-empty common `alpha_h` feasible domain. All 25 previously identified high-coherence host-latent candidates remain feasible (25/25).
+
+Atlas then ATTACKED the host latent coordinate with the tested known host axes (`M*`, `R*`, `Teff`, `logg`, metallicity, distance, discovery year, star count, planet count). No single axis survived the full discovery-stability/transfer logic. A discovery-selected multivariate ridge model also failed (`discovery robust margin=-0.01038`; validation NRMSE `1.02084 -> 1.02917`). Therefore the current status is `HOST_LATENT_SCALE_NOT_EXPLAINED_BY_TESTED_KNOWN_HOST_AXES`, not a new-physics claim.
+
+The previously defended Transit `M_p` and `R_p` associations do not survive within-host outer transfer, so the planet layer remains open and is currently scoped as `HOST_OR_SURVEY_MEDIATED_CANDIDATE` rather than planet-local law.
+
+Formal compiled status:
+
+`PREDICTIVE_HOST_LAYER_SUPPORTED_MECHANISM_UNRESOLVED` (historical pre-refinement status; superseded below by the effective-luminosity representation identification).
+
+Fresh self-consistent `PS/default_flag=1` is still required to decide whether `alpha_h` is catalogue/provenance state, a known but currently unrepresented host variable, or a genuinely missing physical coordinate.
+
+## Host-layer mechanism refinement: effective stellar luminosity representation
+
+The previously predictive `alpha_h=log(lambda_h)` host coordinate has now been algebraically resolved at the representation level.
+
+Define
+
+`L_eff/L_sun = pl_insol * pl_orbsmax^2`
+
+and
+
+`L_RT/L_sun = st_rad^2 * (st_teff/5772)^4`.
+
+Then `lambda_hp = L_eff/L_RT` identically; the maximum observed absolute log-identity error on the current snapshot is `4.44e-16`.
+
+Across 966 multi-planet hosts, median within-host CV of `L_eff` is `0.002887`; 70.29% of hosts are coherent within 1%, 86.34% within 5%, and 90.58% within 10%.
+
+A target-held-out sibling test estimates `L_eff` from the other planets of the host and predicts `S_catalog=L_eff/a^2`. On 206 validation hosts / 515 held-out planets, MAE improves `0.141163 -> 0.042205` (70.10%) and RMSE improves `0.276852 -> 0.185858` (32.87%); 82.52% of targets have lower absolute error than the radius-temperature luminosity baseline.
+
+Thus the earlier status `PREDICTIVE_HOST_LAYER_SUPPORTED_MECHANISM_UNRESOLVED` is refined to
+
+`PREDICTIVE_HOST_EFFECTIVE_LUMINOSITY_REPRESENTATION_SUPPORTED_ORIGIN_UNRESOLVED`.
+
+This does **not** identify the causal origin. The remaining hypotheses are: a published/archive stellar-luminosity source different from the composite `R_star,T_eff` source; a different stellar state/model; host-level provenance/calibration; or, only if the gap persists on fresh self-consistent PS solutions, a missing stellar-physics coordinate.
