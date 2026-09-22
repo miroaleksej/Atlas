@@ -442,19 +442,16 @@ This does **not** identify the causal origin. The remaining hypotheses are: a pu
 
 ## P3 — Theory → Experiment Design → Theory Revision
 
-Hierarchical observational theory now carries frozen explanation-specific experimental models. The current exoplanet theory has three live explanations for the host effective-luminosity representation gap: mixed/composite provenance, missing host physics, and planet-local regime structure.
+Hierarchical observational theory carries frozen explanation-specific experimental models, but the post-install integrity audit found that the exoplanet theory freezes five competing explanation IDs while each P3 experimental model supplies predictions for only three branches. The original model dictionary also used the non-canonical ID `H-PROVENANCE-MIX`; the source is corrected to `H-HOST-PROVENANCE-CALIBRATION` without inventing predictions for the two still-uncovered explanations.
 
-Without inspecting any future measurement, the P3 observational experiment owner selected:
+Therefore the current real exoplanet portfolio is fail-closed:
 
-- `experiment_id`: `E-SELF-CONSISTENT-PS-RETEST`
-- observable: `FRESH_SELF_CONSISTENT_PS_HOST_GAP_STATE`
-- selection rule: maximize minimum pairwise explanation divergence, then mean divergence per cost
-- cost: 1.0
-- frozen utility: 1.25
+- status: `BLOCKED_INCOMPLETE_EXPERIMENT_PREDICTIONS`
+- selected experiment: none
+- previously reported `E-SELF-CONSISTENT-PS-RETEST` utility `1.25`: not valid for the complete five-explanation frozen set
+- future measurement inspected during selection: no
 
-The experiment asks whether the host-level luminosity gap collapses, persists, or collapses while a planet-local residual survives when the same systems are re-evaluated on fresh self-consistent `PS/default_flag=1` solutions. The outcome has not been observed in this P3 run. Therefore no explanation is promoted or demoted yet. The experiment is a prospective discriminating test, not evidence.
-
-The generic closed-loop mechanism was separately qualified on a hidden synthetic world: experiment selection happened before the hidden measurement, the maximally discriminating experiment was selected, and the post-freeze measurement correctly identified the hidden explanation without refit.
+`E-SELF-CONSISTENT-PS-RETEST` remains a prospective scientific candidate, but it cannot be frozen automatically until the theory has a complete justified prediction map (or the competing-explanation set is prospectively changed before freeze). The generic closed-loop mechanism remains separately qualified on complete synthetic controls; an unsupported post-freeze outcome requires `REPRESENTATION_EXPANSION_REQUIRED` rather than nearest-theory assignment.
 
 ## P3 — Frozen representational-novelty benchmark
 

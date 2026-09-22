@@ -971,7 +971,7 @@ def build_hierarchical_exoplanet_theory(
             "observable":"FRESH_SELF_CONSISTENT_PS_HOST_GAP_STATE",
             "cost":1.0,"feasible":True,
             "predictions":{
-                "H-PROVENANCE-MIX":{"kind":"categorical","value":"HOST_GAP_COLLAPSES"},
+                "H-HOST-PROVENANCE-CALIBRATION":{"kind":"categorical","value":"HOST_GAP_COLLAPSES"},
                 "H-MISSING-HOST-PHYSICS":{"kind":"categorical","value":"HOST_GAP_PERSISTS"},
                 "H-PLANET-LOCAL-REGIME":{"kind":"categorical","value":"HOST_GAP_COLLAPSES_PLANET_RESIDUAL_PERSISTS"},
             },
@@ -981,7 +981,7 @@ def build_hierarchical_exoplanet_theory(
             "observable":"INDEPENDENT_STELLAR_LUMINOSITY_VS_SIBLING_EFFECTIVE_LUMINOSITY",
             "cost":2.0,"feasible":True,
             "predictions":{
-                "H-PROVENANCE-MIX":{"kind":"categorical","value":"L_EFF_MATCHES_INDEPENDENT_L_AFTER_SOURCE_ALIGNMENT"},
+                "H-HOST-PROVENANCE-CALIBRATION":{"kind":"categorical","value":"L_EFF_MATCHES_INDEPENDENT_L_AFTER_SOURCE_ALIGNMENT"},
                 "H-MISSING-HOST-PHYSICS":{"kind":"categorical","value":"L_EFF_GAP_PERSISTS_AFTER_SOURCE_ALIGNMENT"},
                 "H-PLANET-LOCAL-REGIME":{"kind":"categorical","value":"HOST_LUMINOSITY_ALIGNS_PLANET_RESIDUAL_REMAINS"},
             },
@@ -991,7 +991,7 @@ def build_hierarchical_exoplanet_theory(
             "observable":"NEW_PLANET_SIBLING_PREDICTION_TRANSFER",
             "cost":1.5,"feasible":True,
             "predictions":{
-                "H-PROVENANCE-MIX":{"kind":"categorical","value":"PREDICTION_DEPENDS_ON_SHARED_SOURCE_STATE"},
+                "H-HOST-PROVENANCE-CALIBRATION":{"kind":"categorical","value":"PREDICTION_DEPENDS_ON_SHARED_SOURCE_STATE"},
                 "H-MISSING-HOST-PHYSICS":{"kind":"categorical","value":"PREDICTION_PERSISTS_ACROSS_INDEPENDENT_SOURCE_STATE"},
                 "H-PLANET-LOCAL-REGIME":{"kind":"categorical","value":"PLANET_RESIDUAL_DOMINATES_AFTER_HOST_CORRECTION"},
             },

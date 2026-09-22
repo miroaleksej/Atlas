@@ -895,6 +895,61 @@ def test_hierarchical_observational_cycle_selects_before_measurement_and_revises
     assert r['claim_boundary']['postfreeze_evidence_reused_for_experiment_selection'] is False
 
 
+def test_hierarchical_observational_cycle_blocks_incomplete_prediction_portfolio():
+    from source.lawspace.theory_compiler import HierarchicalObservationalTheoryOwner
+    from source.lawspace.long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
+    t=HierarchicalObservationalTheoryOwner().compile(
+        theory_id='UNIT-HIERARCHICAL-INCOMPLETE-PORTFOLIO',
+        universal_layer={'law':'known'},host_layer={'alpha':'latent'},regime_layer={'f_R':'open'},feasible_domain_layer={'Omega':'interval'},
+        competing_explanations=[{'id':'H1'},{'id':'H2'},{'id':'H3'},{'id':'H4'},{'id':'H5'}],
+        predictions=[{'prediction':'discriminate','falsification':'wrong outcome','defense':'freeze before measurement','heldout_refit_allowed':False}],
+        evidence_digest='UNIT-EVIDENCE-INCOMPLETE',
+        experimental_models=[
+            {'experiment_id':'E-INCOMPLETE','observable':'o','cost':1.0,'feasible':True,'predictions':{
+                'H1':{'kind':'categorical','value':'A'},
+                'H2':{'kind':'categorical','value':'B'},
+                'H3':{'kind':'categorical','value':'C'},
+            }},
+        ],
+    )
+    k=LongHorizonBlindScientificCycleKernel(ROOT, state_path=ROOT/'state'/'unit_observational_incomplete_nonpersistent.json')
+    f=k.freeze_observational_round(theory=t,cost_budget=2.0)
+    assert f['status']=='BLOCKED_INCOMPLETE_EXPERIMENT_PREDICTIONS'
+    assert f['selected_experiment'] is None
+    assert f['missing_explanation_ids']==['H4','H5']
+    assert f['unknown_explanation_ids']==[]
+
+
+def test_hierarchical_observational_cycle_unknown_outcome_requires_representation_expansion():
+    from source.lawspace.theory_compiler import HierarchicalObservationalTheoryOwner
+    from source.lawspace.long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
+    t=HierarchicalObservationalTheoryOwner().compile(
+        theory_id='UNIT-HIERARCHICAL-UNKNOWN-OUTCOME',
+        universal_layer={'law':'known'},host_layer={'alpha':'latent'},regime_layer={'f_R':'open'},feasible_domain_layer={'Omega':'interval'},
+        competing_explanations=[{'id':'H1'},{'id':'H2'},{'id':'H3'}],
+        predictions=[{'prediction':'discriminate','falsification':'wrong outcome','defense':'freeze before measurement','heldout_refit_allowed':False}],
+        evidence_digest='UNIT-EVIDENCE-UNKNOWN',
+        experimental_models=[
+            {'experiment_id':'E-STRONG','observable':'o','cost':1.0,'feasible':True,'predictions':{
+                'H1':{'kind':'categorical','value':'A'},
+                'H2':{'kind':'categorical','value':'B'},
+                'H3':{'kind':'categorical','value':'C'},
+            }},
+        ],
+    )
+    k=LongHorizonBlindScientificCycleKernel(ROOT, state_path=ROOT/'state'/'unit_observational_unknown_nonpersistent.json')
+    f=k.freeze_observational_round(theory=t,cost_budget=2.0)
+    assert f['status']=='HIERARCHICAL_OBSERVATIONAL_EXPERIMENT_FROZEN'
+    r=k.absorb_observational_measurement(
+        frozen_experiment=f,
+        measurement={'experiment_id':'E-STRONG','freeze_digest':f['freeze_digest'],'value':'D','measurement_id':'M-UNKNOWN'},
+    )
+    assert r['status']=='REPRESENTATION_EXPANSION_REQUIRED'
+    assert r['representation_expansion_required'] is True
+    assert r['surviving_explanation_ids']==[]
+    assert r['leading_explanation_id'] is None
+
+
 def test_representation_birth_novelty_benchmark_passes_frozen_contract():
     from evaluation.representation_birth_novelty_benchmark import run_benchmark
     r=run_benchmark(ROOT)

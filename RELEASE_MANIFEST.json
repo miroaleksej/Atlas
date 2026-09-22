@@ -94,13 +94,13 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "95b88497cd3bad5865aa722f22c2b66f0d8ee3e22f4490c3ba2cdf063015b3f9",
-      "size": 303174
+      "sha256": "363555a5567692949c463a1b5ae31960e604230c2865c839f706ad54cf7d7b0f",
+      "size": 304118
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
-      "sha256": "1e60fc809c4d5141354932da481f322de787a3cfd3118bb9f3c130c4ef2dbb3d",
-      "size": 102577
+      "sha256": "c779e0867eaf5c51e48fc074ab7f736d752af773717dc06eb6c34a4b1606050a",
+      "size": 103151
     },
     {
       "path": "Makefile",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "8f9c9111df6d303f9153a8d0d50b9352af2f26335530476e860c13513f68eaa1",
-      "size": 113627
+      "sha256": "89f6e73995f18b9a159ebf01dd6ceca306f4e8ffc0315c5f7b2eb0d506af546b",
+      "size": 113642
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -124,8 +124,8 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "87384bc5ad523bff9a44c797ac16d1c9c4a1399528ce0eb20c23c670ff766817",
-      "size": 176211
+      "sha256": "7c97f8fb6595493ae3447ae8fc57b6f54a33496663ce4b2f0ac431c2a5269d0f",
+      "size": 176322
     },
     {
       "path": "capabilities.json",
@@ -549,8 +549,8 @@
     },
     {
       "path": "evaluation/exoplanet_availability_adaptive.py",
-      "sha256": "5c5b51394b7bd3c11f2dedfd8523d0bdd5651aaa5c29ee9c8c79fc9002141375",
-      "size": 103086
+      "sha256": "1a4ff9b0f9bbd828fa07ad59dcb2c688836c5a5b8bbce2551150658e67c07db5",
+      "size": 103125
     },
     {
       "path": "evaluation/exoplanet_language_shell_exploratory.py",
@@ -1164,8 +1164,8 @@
     },
     {
       "path": "reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md",
-      "sha256": "e45be097ecb480b17a7aaa39700bec0a1b178d1b475da71ef758ddbc73b4119b",
-      "size": 37780
+      "sha256": "70711e0d9f1189a22979c92d92bae8bbc0e6fb6a0c64e82528b5dd37590bb206",
+      "size": 37737
     },
     {
       "path": "reports/exoplanet/NASA_EXOPLANET_2026_LOCAL_RUN.json",
@@ -1184,8 +1184,8 @@
     },
     {
       "path": "reports/exoplanet/NASA_EXOPLANET_P3_LOCAL.json",
-      "sha256": "fe7673fa218141d1e48e0b416a2c022dfde26d1545688bcc091348126047f560",
-      "size": 83745
+      "sha256": "5365b5c3d71c426bd77dc0959775015c041ca8aa976b5265602200e6da937849",
+      "size": 83715
     },
     {
       "path": "reports/exoplanet/P2_RESULT_RU.md",
@@ -1239,8 +1239,8 @@
     },
     {
       "path": "reports/p3/RESULT_RU.md",
-      "sha256": "2c8a029380add6508125ac00dd3c9eabfc4bb888054d706980534ffda704b119",
-      "size": 3620
+      "sha256": "a4f8c7c15d8427a6128c2540a80420d697d2f03a6621796eeb46c1bb7e6592e8",
+      "size": 3728
     },
     {
       "path": "reports/runtime/FULL_REPLAY_PLAN_CURRENT.json",
@@ -1744,14 +1744,14 @@
     },
     {
       "path": "tests/test_unified_current.py",
-      "sha256": "b3f6650507cb720adf65be8f6efed562e93f8fbdfd8d6918e43157878aee37b8",
-      "size": 52791
+      "sha256": "de0ba0814ca99d8422d9a573786552b202445ffc34caa7b5266f4e28240dde05",
+      "size": 56159
     }
   ],
   "current_state_failed_checks": [],
   "current_state_qualification_digest": "f29d3e7792bc5d1eb2655288d9f7f95002036d32a640a733303b4a2a1eab1b5d",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "f233d5810d0ad210623b887b8ad5976858f31ccfe2f560b33cda66063eb26422",
+  "digest": "ed08543d1aca243e604420cd9f2b88379ce05c260666c7823167f64a7dc9a237",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

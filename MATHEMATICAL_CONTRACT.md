@@ -1342,16 +1342,19 @@ with \(S^{phys}\) bound to the established stellar irradiation baseline. `alpha_
 
 ## P3: Scientific closed-loop contract
 
-`HIERARCHICAL_OBSERVATIONAL_THEORY/1.0.0` MAY carry frozen `experimental_models`. Automatic experiment selection is permitted only when at least two competing explanation IDs and explanation-specific predictions are frozen before measurement.
+`HIERARCHICAL_OBSERVATIONAL_THEORY/1.0.0` MAY carry frozen `experimental_models`. Automatic experiment selection is permitted only when at least two competing explanation IDs and a complete explanation-specific prediction map are frozen before measurement.
 
 Required invariants:
 
 1. `measurement_visible_during_selection = false`.
 2. Experiment selection MUST use only frozen theory digest, experimental models, declared feasibility and cost budget.
-3. A post-freeze measurement MUST match both `experiment_id` and `freeze_digest`; otherwise revision fails closed.
-4. Post-freeze evidence MUST NOT be reused to redesign the already selected experiment.
-5. If no frozen explanation is compatible with the new observation, the required state is `REPRESENTATION_EXPANSION_REQUIRED`; nearest-theory guessing is forbidden.
-6. Closed-loop qualification on synthetic hidden worlds is not world confirmation or novelty evidence.
+3. For every selectable experiment, `set(predictions.keys())` MUST equal the full frozen `set(competing_explanation_ids)`. Missing or unknown explanation IDs MUST block selection; missing scientific predictions MUST NOT be invented merely to make the portfolio complete.
+4. `fully_distinguishes_all_explanations` is meaningful only after all `n(n-1)/2` pairs of the complete frozen explanation set are represented by valid predictions.
+5. The theory digest, frozen portfolio digest and selected experiment binding MUST be verified before post-freeze revision.
+6. A post-freeze measurement MUST match both `experiment_id` and `freeze_digest`; otherwise revision fails closed.
+7. Post-freeze evidence MUST NOT be reused to redesign the already selected experiment.
+8. If no frozen explanation is compatible with the new observation, the required state is `REPRESENTATION_EXPANSION_REQUIRED`; nearest-theory guessing is forbidden.
+9. Closed-loop qualification on synthetic hidden worlds is not world confirmation or novelty evidence.
 
 Experiment scoring for P3 is
 

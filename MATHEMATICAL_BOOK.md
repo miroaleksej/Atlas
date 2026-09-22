@@ -6911,7 +6911,7 @@ Current status:
 
 ## Автономный цикл Theory → Experiment → Evidence → Revision (P3)
 
-Начиная с P3 иерархическая наблюдательная теория Atlas может содержать не только предсказания и competing explanations, но и замороженные `experimental_models`. Каждый experimental model задаёт эксперимент, стоимость, наблюдаемую величину и ожидаемые результаты для каждой конкурирующей версии теории. До чтения нового измерения Atlas строит конечный portfolio и выбирает эксперимент по правилу
+Начиная с P3 иерархическая наблюдательная теория Atlas может содержать не только предсказания и competing explanations, но и замороженные `experimental_models`. Каждый selectable experimental model обязан задавать эксперимент, стоимость, наблюдаемую величину и ожидаемый результат для **каждого** frozen competing explanation. После integrity-аудита P3 неполный prediction map или неизвестный explanation ID является fail-closed состоянием `BLOCKED_INCOMPLETE_EXPERIMENT_PREDICTIONS`; недостающие научные прогнозы не синтезируются ради открытия selection. До чтения нового измерения Atlas строит конечный portfolio и выбирает эксперимент по правилу
 
 \[
 e^*=\arg\max_e \frac{D_{\min}(e)+\tfrac14\bar D(e)}{C(e)},
@@ -6928,11 +6928,11 @@ e^*=\arg\max_e \frac{D_{\min}(e)+\tfrac14\bar D(e)}{C(e)},
 
 Последнее состояние означает, что наблюдение не должно быть насильно приписано ближайшей теории: необходимо расширять representation.
 
-Для текущей экзопланетной теории frozen portfolio содержит три конкурирующих проверки происхождения host-level luminosity gap. Atlas без просмотра будущего результата выбрал
+Для текущей экзопланетной теории frozen set содержит пять competing explanations, тогда как каждый P3 experimental model содержит научные прогнозы только для трёх causal branches. Исходный ID `H-PROVENANCE-MIX` также не совпадал с каноническим `H-HOST-PROVENANCE-CALIBRATION`; ID исправляется, но два отсутствующих прогноза не выдумываются. Поэтому текущий реальный portfolio корректно остаётся заблокированным:
 
-`E-SELF-CONSISTENT-PS-RETEST`
+`BLOCKED_INCOMPLETE_EXPERIMENT_PREDICTIONS`.
 
-как максимальный discriminating experiment при текущем budget. Его observable — повторная проверка host-gap на свежем self-consistent `PS/default_flag=1`. Это связывает текущую теорию напрямую с будущим внешним тестом.
+`E-SELF-CONSISTENT-PS-RETEST` остаётся научно релевантным candidate experiment для свежего self-consistent `PS/default_flag=1`, но не является frozen selected experiment полного пятигипотезного portfolio, пока не существует обоснованного complete prediction map либо заранее изменённого theory contract. Generic closed-loop mechanism при этом остаётся квалифицирован на полном synthetic portfolio.
 
 ## Frozen benchmark representational novelty (P3)
 

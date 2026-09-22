@@ -1982,7 +1982,7 @@
         "cost": 1.0,
         "feasible": true,
         "predictions": {
-          "H-PROVENANCE-MIX": {
+          "H-HOST-PROVENANCE-CALIBRATION": {
             "kind": "categorical",
             "value": "HOST_GAP_COLLAPSES"
           },
@@ -2002,7 +2002,7 @@
         "cost": 2.0,
         "feasible": true,
         "predictions": {
-          "H-PROVENANCE-MIX": {
+          "H-HOST-PROVENANCE-CALIBRATION": {
             "kind": "categorical",
             "value": "L_EFF_MATCHES_INDEPENDENT_L_AFTER_SOURCE_ALIGNMENT"
           },
@@ -2022,7 +2022,7 @@
         "cost": 1.5,
         "feasible": true,
         "predictions": {
-          "H-PROVENANCE-MIX": {
+          "H-HOST-PROVENANCE-CALIBRATION": {
             "kind": "categorical",
             "value": "PREDICTION_DEPENDS_ON_SHARED_SOURCE_STATE"
           },
@@ -2057,7 +2057,7 @@
       "fresh_external_data_required_for_scientific_promotion": true,
       "heldout_refit_allowed": false
     },
-    "digest": "5bcac2c7aa79d093befab6f41c0a08cb1e10270459a03e8c75d136cffc265ea1",
+    "digest": "d68551c5226a156c36c08b7bf376c83057f1e89fcb2d8c39b92569811e62a13c",
     "domain_status": "PREDICTIVE_HOST_EFFECTIVE_LUMINOSITY_REPRESENTATION_SUPPORTED_ORIGIN_UNRESOLVED",
     "scientific_promotion": false,
     "fresh_self_consistent_PS_required": true
@@ -2069,14 +2069,11 @@
     "experiment_id": "E-SELF-CONSISTENT-PS-RETEST",
     "missing_explanation_ids": [
       "H-HOST-EFFECTIVE-LUMINOSITY",
-      "H-HOST-PROVENANCE-CALIBRATION",
       "H-KNOWN-STELLAR-STATE"
     ],
-    "unknown_explanation_ids": [
-      "H-PROVENANCE-MIX"
-    ],
+    "unknown_explanation_ids": [],
     "selected_experiment": null,
-    "digest": "5c37cc9a9abde75129ca15526ea06e6c567e892fe2d34777ad1b36d9f3c208ec"
+    "digest": "8727258d941d57510ae1297cd56bcf9d35080833ef5c96153a9bfaee7c24313d"
   },
   "claim_boundary": {
     "all_input_rows_preserved": true,
@@ -2085,5 +2082,5 @@
     "new_residual_law_claimed": false,
     "fresh_external_confirmation_used": false
   },
-  "digest": "95d3d8b913f0494bd6660dc6a205274cca7ce7f4a9de1c96023c6f12dfaf271a"
+  "digest": "ef5fadb0cd119392eba147d6c0d18e23c2e6de789b3efd2e4b4ab529f75b577e"
 }
