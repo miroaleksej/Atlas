@@ -6934,6 +6934,71 @@ e^*=\arg\max_e \frac{D_{\min}(e)+\tfrac14\bar D(e)}{C(e)},
 
 `E-SELF-CONSISTENT-PS-RETEST` остаётся научно релевантным candidate experiment для свежего self-consistent `PS/default_flag=1`, но не является frozen selected experiment полного пятигипотезного portfolio, пока не существует обоснованного complete prediction map либо заранее изменённого theory contract. Generic closed-loop mechanism при этом остаётся квалифицирован на полном synthetic portfolio.
 
+## Универсальная квалификация scientific portfolio для P3-core
+
+P3 closed-loop является **общим научным алгоритмом**, а не экзопланетным алгоритмом. Предметная область поставляет типизированное содержание задачи — observables, competing explanations, experimental models, outcome semantics и measurement evidence, — но не выбирает отдельный reasoning owner. Для всех поддерживаемых областей используется одна цепочка:
+
+\[
+\text{HierarchicalObservationalTheoryOwner}
+\rightarrow\text{HierarchicalObservationalExperimentOwner}
+\rightarrow\text{HierarchicalObservationalTheoryRevisionOwner}.
+\]
+
+Ядро experiment selection получает только frozen множество объяснений \(H_i\), experimental models \(E_j\), prediction map \(P(Y\mid H_i,E_j)\), cost и feasibility. `domain_id`, название науки и предметная терминология не входят в формулу utility и не переключают алгоритм. Таким образом, один и тот же selection rule
+
+\[
+U(E)=\frac{D_{\min}(E)+0.25\,\bar D(E)}{\max(C(E),\epsilon)}
+\]
+
+применяется независимо от того, означает observable host-luminosity gap, параметр материала, интервал closure или результат proof/counterexample computation.
+
+Для qualification один и тот же P3-core запускается на четырёх разных типизированных portfolio без domain-specific ветвления:
+
+1. **astronomy / categorical** — три competing explanations и дискретный observational outcome;
+2. **materials / Gaussian** — непрерывная величина с mean/sigma predictive semantics;
+3. **fluid dynamics / interval** — интервальные прогнозы для controlled closure observable;
+4. **mathematics / categorical proof evidence** — witness/counterexample/inconclusive как frozen outcome semantics.
+
+Для каждого portfolio сильный discriminating experiment должен быть выбран до measurement, а post-freeze evidence — идентифицировать заранее заданную hidden explanation. Для categorical/interval cases отдельный outcome вне frozen support обязан переводить цикл в `REPRESENTATION_EXPANSION_REQUIRED`. Для гауссовых прогнозов полная математическая поддержка не означает приемлемость любого наблюдения: если все оценки совместимости ниже замороженного порога, требуется расширение представления. Это диагностический порог, а не доказательство логической невозможности наблюдения или калиброванный статистический тест.
+
+Дополнительно выполняется **domain-label invariance control**: один и тот же абстрактный portfolio запускается с метаданными `astronomy`, `nuclear`, `chemistry`, `biology` и `mathematics`. Selected experiment и utility обязаны совпадать. Этот контроль проверяет, что domain metadata является содержанием/происхождением задачи, а не скрытым переключателем алгоритма.
+
+Квалификация также содержит общий fail-closed control: prediction map, который не покрывает полный frozen explanation set, не имеет права разблокировать selection независимо от науки.
+
+Внутренний qualification contract содержит 22 проверки. Его прохождение устанавливает только следующее: **для протестированных contracts один и тот же P3 reasoning-core работает в разных научных семантиках без domain-specific selector/revision algorithm**. Это не означает, что все науки решены, что domain adapters не нужны, либо что synthetic qualification является world attestation.
+
+
+### Ingress реальных scientific portfolios в общий P3 contract
+
+Следующий слой квалификации не создаёт отдельные алгоритмы для astronomy, fluid dynamics или pharmaceutical science. Вместо этого любой существующий scientific portfolio представляется как частично заполненное состояние общего цикла. Общий ingress-router принимает только `portfolio_id`, `domain_id`, provenance и, если она уже существует, `HierarchicalObservationalTheory`. Он не имеет ветвей вида `if domain == ...` и не изобретает отсутствующие hypotheses, predictions или measurements.
+
+Для частичного portfolio определяется ровно следующий недостающий gate:
+
+\[
+\text{NO THEORY}\to\texttt{PORTFOLIO\_P3\_THEORY\_CONTRACT\_REQUIRED},
+\]
+\[
+\text{THEORY WITHOUT EXPERIMENTS}\to\texttt{PORTFOLIO\_EXPERIMENTAL\_MODELS\_REQUIRED},
+\]
+\[
+\text{INCOMPLETE PREDICTIONS}\to\texttt{PORTFOLIO\_PREDICTION\_CONTRACT\_REQUIRED},
+\]
+\[
+\text{VALID FROZEN SELECTION}\to\texttt{PORTFOLIO\_FROZEN\_FRESH\_MEASUREMENT\_REQUIRED}.
+\]
+
+Главный временной инвариант:
+
+```text
+existing/pre-freeze evidence != new post-freeze measurement
+```
+
+Реальные данные, уже использованные для построения theory или старого blind/retrospective исследования, могут оставаться provenance/evidence для theory construction, но не имеют права автоматически закрывать measurement gate вновь замороженного P3 experiment. Иначе prospective boundary была бы фиктивной.
+
+Текущая repository-level qualification вводит через этот единый contract как минимум два разных реальных научных маршрута. Экзопланетный NASA portfolio уже содержит `HierarchicalObservationalTheory` и поэтому передаётся существующему `HierarchicalObservationalExperimentOwner`; если prediction map неполон, он остаётся fail-closed, а если когда-либо станет полным — тот же код переведёт его к fresh-measurement gate. Реальный JHTDB turbulence-closure pipeline имеет собственный аттестованный blind DNS protocol, но не объявляется автоматически P3 competing-theory portfolio: для следующего prospective P3 цикла ему сначала требуется явный theory/prediction contract. При наличии существующего pharmaceutical evidence оно входит в тот же ingress как evidence-bearing portfolio и получает тот же theory gate, без фармацевтического selector.
+
+Таким образом предметный adapter имеет право только отобразить свои observables/evidence в общий типизированный envelope. Он не имеет права владеть выбором эксперимента, полнотой prediction map, freeze semantics, пересмотром theory или научным promotion. Если новой науке требуется отдельный алгоритм для одной из этих операций, это фиксируется как недостаточность общего representation contract, а не как штатный способ расширения Atlas.
+
 ## Frozen benchmark representational novelty (P3)
 
 Для проверки того, что Atlas не просто выигрывает за счёт заранее заданной feature grammar, введён замороженный benchmark `ATLAS-FROZEN-REPRESENTATION-BIRTH-BENCHMARK/1.0.0`. Он содержит четыре задачи:

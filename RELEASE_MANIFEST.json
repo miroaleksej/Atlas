@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 337,
+  "controlled_file_count": 339,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -94,13 +94,13 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "363555a5567692949c463a1b5ae31960e604230c2865c839f706ad54cf7d7b0f",
-      "size": 304118
+      "sha256": "f56db6898003ed19693046855af799d2fff339e3b9beda03784ded8f6ded6616",
+      "size": 312538
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
-      "sha256": "c779e0867eaf5c51e48fc074ab7f736d752af773717dc06eb6c34a4b1606050a",
-      "size": 103151
+      "sha256": "b0052ea5be7eabff83e6c749d4b4a0a0870933287dd0db4c2fcd8bd8dc3f1ec0",
+      "size": 107225
     },
     {
       "path": "Makefile",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "89f6e73995f18b9a159ebf01dd6ceca306f4e8ffc0315c5f7b2eb0d506af546b",
-      "size": 113642
+      "sha256": "578587e2e0cfd1b8c5455fa1bf2d09b4183f7e5342bcd36ae752b0d6f127c88c",
+      "size": 116494
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -124,13 +124,13 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "7c97f8fb6595493ae3447ae8fc57b6f54a33496663ce4b2f0ac431c2a5269d0f",
-      "size": 176322
+      "sha256": "921e8d58465b10bbd75a41705d38f53140ac4639f9a51b377b52ee74b63d6407",
+      "size": 182595
     },
     {
       "path": "capabilities.json",
-      "sha256": "da3826c33e2c353f5d57940008ca7a41bdd7ce3c30973fd85f34dbc95b87df04",
-      "size": 19280
+      "sha256": "ee8e2a692d24f31e0ec3ecfd7d2736df2592cbdccb7b6db5333447ecde473a05",
+      "size": 19740
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -514,8 +514,8 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "779bb736ed93f650d26d104e6a3120c535ecc65a730adef1d7cc124325a23921",
-      "size": 44019
+      "sha256": "872191ed48734a12fc4db6076c344dff0541e985889b508728fe4a0ae67b6cf4",
+      "size": 44435
     },
     {
       "path": "evaluation/closed_loop_research_experiment.py",
@@ -604,8 +604,8 @@
     },
     {
       "path": "evaluation/long_horizon_blind_cycle_qualification.py",
-      "sha256": "ce294496c18bbed89921eb17a2f490d226c092037ad99b476bd5305a53e5ab23",
-      "size": 11270
+      "sha256": "a5f4f8efc2be92901c77fc517e18a63dc949c13b7aacf9bc4d1782ccd45734b1",
+      "size": 36330
     },
     {
       "path": "evaluation/mathematical_invention_qualification.py",
@@ -1229,8 +1229,8 @@
     },
     {
       "path": "reports/p3/LONG_HORIZON_QUALIFICATION.json",
-      "sha256": "6e0ffae4077f4134e93aa6c4d6a163fe0cbe53edf2c36dcef84c7f21eeaf6374",
-      "size": 90523
+      "sha256": "4f2414dfb5db0a3fc3b0dcd8755ce4a923291742615edf21add7b439c3cd09c7",
+      "size": 102869
     },
     {
       "path": "reports/p3/REPRESENTATION_BIRTH_BENCHMARK.json",
@@ -1241,6 +1241,11 @@
       "path": "reports/p3/RESULT_RU.md",
       "sha256": "a4f8c7c15d8427a6128c2540a80420d697d2f03a6621796eeb46c1bb7e6592e8",
       "size": 3728
+    },
+    {
+      "path": "reports/p3/UNIVERSAL_PORTFOLIO_RESULT_RU.md",
+      "sha256": "59162f60efb58af804e59b9a1851dc4d7f9dd89a9bd72d3ef13535fbd8d32193",
+      "size": 5534
     },
     {
       "path": "reports/runtime/FULL_REPLAY_PLAN_CURRENT.json",
@@ -1746,12 +1751,17 @@
       "path": "tests/test_unified_current.py",
       "sha256": "de0ba0814ca99d8422d9a573786552b202445ffc34caa7b5266f4e28240dde05",
       "size": 56159
+    },
+    {
+      "path": "tests/test_universal_scientific_portfolio.py",
+      "sha256": "e762b0d46e20f7b9924e60ff5e1853003b5f11a79a9ae8908b7dd1267b9ff655",
+      "size": 6301
     }
   ],
   "current_state_failed_checks": [],
   "current_state_qualification_digest": "f29d3e7792bc5d1eb2655288d9f7f95002036d32a640a733303b4a2a1eab1b5d",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "ed08543d1aca243e604420cd9f2b88379ce05c260666c7823167f64a7dc9a237",
+  "digest": "99cc979b2e9c3b6644832fd50e15b837b1cd7675e9115eec787b0d1e3d2fa2ea",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

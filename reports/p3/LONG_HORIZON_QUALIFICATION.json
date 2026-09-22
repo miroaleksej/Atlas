@@ -9,6 +9,22 @@
       "status": "PASS"
     },
     {
+      "check": "universal_cross_domain_portfolios_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "domain_metadata_does_not_change_common_reasoning",
+      "status": "PASS"
+    },
+    {
+      "check": "real_scientific_portfolio_ingress_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "real_portfolio_prospective_boundary_preserved",
+      "status": "PASS"
+    },
+    {
       "check": "observational_experiment_selected_prefreeze",
       "status": "PASS"
     },
@@ -2046,8 +2062,142 @@
       ]
     }
   },
-  "digest": "cc2504dbf8941a20eb406474238abc86191d841788cc400ff320d97a96646d49",
-  "passed": 26,
+  "digest": "296d3ca3bffdef5911a29f3528ab9ab4fe377318c53171caead4daffd2fb5d0e",
+  "passed": 30,
+  "real_scientific_portfolio_ingress_qualification": {
+    "checks": [
+      {
+        "check": "real_exoplanet_portfolio_present",
+        "status": "PASS"
+      },
+      {
+        "check": "real_exoplanet_uses_common_reasoning_owner",
+        "status": "PASS"
+      },
+      {
+        "check": "real_exoplanet_route_is_fail_closed_or_measurement_ready",
+        "status": "PASS"
+      },
+      {
+        "check": "real_exoplanet_existing_evidence_not_reused_postfreeze",
+        "status": "PASS"
+      },
+      {
+        "check": "real_jhtdb_portfolio_definition_present",
+        "status": "PASS"
+      },
+      {
+        "check": "real_jhtdb_enters_common_contract_without_domain_selector",
+        "status": "PASS"
+      },
+      {
+        "check": "real_jhtdb_requires_p3_theory_before_new_selection",
+        "status": "PASS"
+      },
+      {
+        "check": "real_jhtdb_existing_evidence_not_reused_postfreeze",
+        "status": "PASS"
+      },
+      {
+        "check": "at_least_two_distinct_real_science_domains_ingressed",
+        "status": "PASS"
+      },
+      {
+        "check": "all_ingressed_portfolios_use_same_reasoning_owner",
+        "status": "PASS"
+      },
+      {
+        "check": "no_ingressed_portfolio_reuses_prior_evidence_as_postfreeze_measurement",
+        "status": "PASS"
+      },
+      {
+        "check": "every_ingressed_portfolio_has_explicit_next_gate",
+        "status": "PASS"
+      }
+    ],
+    "claim_boundary": {
+      "common_readiness_selection_revision_rules_required": true,
+      "domain_adapters_may_supply_typed_content": true,
+      "domain_specific_reasoning_algorithm_introduced": false,
+      "existing_real_evidence_is_prospective_p3_measurement": false,
+      "missing_predictions_may_be_synthesized_from_postfreeze_evidence": false
+    },
+    "digest": "7ce0ac379e43d9a16b90272e78f38bcd3feb2461ee55d33ca04262cec6a369ce",
+    "passed": 12,
+    "portfolios": [
+      {
+        "competing_explanation_count": 5,
+        "digest": "c018005a25cefc554532702d927cf410d73b2260edf37f43871eb579e4f2afbb",
+        "domain_id": "astronomy",
+        "existing_evidence_reused_as_postfreeze_measurement": false,
+        "experimental_model_count": 3,
+        "freeze_digest": null,
+        "next_gate": "COMPLETE_FROZEN_PREDICTION_MAP",
+        "portfolio_id": "REAL-EXOPLANET-P3",
+        "provenance": {
+          "artifact_path": "reports/exoplanet/NASA_EXOPLANET_P3_LOCAL.json",
+          "evidence_mode": "REAL_RETROSPECTIVE_OR_EXISTING_OBSERVATIONAL",
+          "sealed_sha256": "5365b5c3d71c426bd77dc0959775015c041ca8aa976b5265602200e6da937849",
+          "source_rows": 6366,
+          "source_sha256": "6129d26e657e1a26256b12fe151886fa28f5530e460578b5d68ab8bda939af9a"
+        },
+        "reasoning_owner": "HIERARCHICAL-OBSERVATIONAL-EXPERIMENT/1.0.0",
+        "revision_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY-REVISION/1.0.0",
+        "schema": "phi-universal-real-scientific-portfolio-ingress/v1",
+        "selected_experiment_id": null,
+        "selection_attempted": true,
+        "selection_status": "BLOCKED_INCOMPLETE_EXPERIMENT_PREDICTIONS",
+        "status": "PORTFOLIO_PREDICTION_CONTRACT_REQUIRED",
+        "theory_digest": "d68551c5226a156c36c08b7bf376c83057f1e89fcb2d8c39b92569811e62a13c"
+      },
+      {
+        "digest": "d4310ead7eed48c464b4347f15f35d4ff33b2500764b87ab72033fc9c103c1b1",
+        "domain_id": "fluid_dynamics",
+        "existing_evidence_reused_as_postfreeze_measurement": false,
+        "next_gate": "COMPILE_COMPETING_EXPLANATIONS_AND_EXPERIMENTAL_MODELS",
+        "portfolio_id": "REAL-JHTDB-TURBULENCE-CLOSURE",
+        "provenance": {
+          "evidence_mode": "REAL_EXTERNAL_JHTDB_BLIND_DNS",
+          "existing_result_path": null,
+          "existing_result_present": false,
+          "existing_result_sealed_sha256": null,
+          "guide_path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
+          "guide_sealed_sha256": "098a25d3e6c97ce80350cb9ff743b32877eb173557891e827a7815314f3e9435",
+          "measurement_executed_by_this_qualification": false,
+          "runner_path": "evaluation/run_real_jhtdb_dns_closure.py",
+          "runner_sealed_sha256": "36e0050237625ddb52e8bc11c5215f6748afdd257e6a86b746479d415d6dd083",
+          "synthetic_substitution_allowed": false
+        },
+        "reasoning_owner": "HIERARCHICAL-OBSERVATIONAL-EXPERIMENT/1.0.0",
+        "revision_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY-REVISION/1.0.0",
+        "schema": "phi-universal-real-scientific-portfolio-ingress/v1",
+        "selected_experiment_id": null,
+        "selection_attempted": false,
+        "status": "PORTFOLIO_P3_THEORY_CONTRACT_REQUIRED"
+      },
+      {
+        "digest": "f221a758334f99bd2ee5ff213094934d80fb84f06850d39b4241b7c42eeebbad",
+        "domain_id": "pharmaceutical",
+        "existing_evidence_reused_as_postfreeze_measurement": false,
+        "next_gate": "COMPILE_COMPETING_EXPLANATIONS_AND_EXPERIMENTAL_MODELS",
+        "portfolio_id": "REAL-PHARMACEUTICAL-EVIDENCE",
+        "provenance": {
+          "artifact_path": "data/pharmaceutical/metformin_renal_function_pk_summary_v7_9.json",
+          "evidence_mode": "REAL_OR_LITERATURE_GROUNDED_EXISTING_EVIDENCE",
+          "sealed_sha256": "030d1a8da05f00c24927f45ff406d971e3c2b8451d0c37ebda307cc8695aab6b"
+        },
+        "reasoning_owner": "HIERARCHICAL-OBSERVATIONAL-EXPERIMENT/1.0.0",
+        "revision_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY-REVISION/1.0.0",
+        "schema": "phi-universal-real-scientific-portfolio-ingress/v1",
+        "selected_experiment_id": null,
+        "selection_attempted": false,
+        "status": "PORTFOLIO_P3_THEORY_CONTRACT_REQUIRED"
+      }
+    ],
+    "schema": "phi-real-scientific-portfolio-ingress-qualification/v1",
+    "status": "PASS_REAL_SCIENTIFIC_PORTFOLIO_INGRESS_QUALIFICATION",
+    "total": 12
+  },
   "release": "10.7.0",
   "schema": "phi-long-horizon-blind-cycle-qualification/v1",
   "status": "PASS_PHI_LONG_HORIZON_BLIND_CYCLE_QUALIFICATION",
@@ -2064,5 +2214,194 @@
     },
     "total_rounds": 54
   },
-  "total": 26
+  "total": 30,
+  "universal_scientific_portfolio_qualification": {
+    "cases": [
+      {
+        "domain_id": "astronomy",
+        "experiment_owner": "HIERARCHICAL-OBSERVATIONAL-EXPERIMENT/1.0.0",
+        "leading_explanation_id": "A2",
+        "outside_status": "REPRESENTATION_EXPANSION_REQUIRED",
+        "prediction_kind": "categorical",
+        "revision_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY-REVISION/1.0.0",
+        "revision_status": "HIERARCHICAL_EXPLANATION_IDENTIFIED_POSTFREEZE",
+        "selected_experiment_id": "E-STRONG",
+        "theory_id": "QUAL-UNIVERSAL-ASTRONOMY",
+        "theory_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY/1.0.0",
+        "utility": 0.8333333333333334
+      },
+      {
+        "domain_id": "materials",
+        "experiment_owner": "HIERARCHICAL-OBSERVATIONAL-EXPERIMENT/1.0.0",
+        "leading_explanation_id": "M2",
+        "outside_status": null,
+        "prediction_kind": "gaussian",
+        "revision_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY-REVISION/1.0.0",
+        "revision_status": "HIERARCHICAL_EXPLANATION_IDENTIFIED_POSTFREEZE",
+        "selected_experiment_id": "E-STRONG",
+        "theory_id": "QUAL-UNIVERSAL-MATERIALS",
+        "theory_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY/1.0.0",
+        "utility": 0.625
+      },
+      {
+        "domain_id": "fluid_dynamics",
+        "experiment_owner": "HIERARCHICAL-OBSERVATIONAL-EXPERIMENT/1.0.0",
+        "leading_explanation_id": "F2",
+        "outside_status": "REPRESENTATION_EXPANSION_REQUIRED",
+        "prediction_kind": "interval",
+        "revision_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY-REVISION/1.0.0",
+        "revision_status": "HIERARCHICAL_EXPLANATION_IDENTIFIED_POSTFREEZE",
+        "selected_experiment_id": "E-STRONG",
+        "theory_id": "QUAL-UNIVERSAL-FLUIDS",
+        "theory_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY/1.0.0",
+        "utility": 1.0416666666666667
+      },
+      {
+        "domain_id": "mathematics",
+        "experiment_owner": "HIERARCHICAL-OBSERVATIONAL-EXPERIMENT/1.0.0",
+        "leading_explanation_id": "P2",
+        "outside_status": "REPRESENTATION_EXPANSION_REQUIRED",
+        "prediction_kind": "categorical",
+        "revision_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY-REVISION/1.0.0",
+        "revision_status": "HIERARCHICAL_EXPLANATION_IDENTIFIED_POSTFREEZE",
+        "selected_experiment_id": "E-STRONG",
+        "theory_id": "QUAL-UNIVERSAL-MATHEMATICS",
+        "theory_owner": "HIERARCHICAL-OBSERVATIONAL-THEORY/1.0.0",
+        "utility": 0.6944444444444444
+      }
+    ],
+    "checks": [
+      {
+        "check": "astronomy_frozen",
+        "status": "PASS"
+      },
+      {
+        "check": "astronomy_strong_selected",
+        "status": "PASS"
+      },
+      {
+        "check": "astronomy_postfreeze_identified",
+        "status": "PASS"
+      },
+      {
+        "check": "astronomy_outside_support_expands_representation",
+        "status": "PASS"
+      },
+      {
+        "check": "materials_frozen",
+        "status": "PASS"
+      },
+      {
+        "check": "materials_strong_selected",
+        "status": "PASS"
+      },
+      {
+        "check": "materials_postfreeze_identified",
+        "status": "PASS"
+      },
+      {
+        "check": "fluid_dynamics_frozen",
+        "status": "PASS"
+      },
+      {
+        "check": "fluid_dynamics_strong_selected",
+        "status": "PASS"
+      },
+      {
+        "check": "fluid_dynamics_postfreeze_identified",
+        "status": "PASS"
+      },
+      {
+        "check": "fluid_dynamics_outside_support_expands_representation",
+        "status": "PASS"
+      },
+      {
+        "check": "mathematics_frozen",
+        "status": "PASS"
+      },
+      {
+        "check": "mathematics_strong_selected",
+        "status": "PASS"
+      },
+      {
+        "check": "mathematics_postfreeze_identified",
+        "status": "PASS"
+      },
+      {
+        "check": "mathematics_outside_support_expands_representation",
+        "status": "PASS"
+      },
+      {
+        "check": "gaussian_all_incompatible_requires_expansion",
+        "status": "PASS"
+      },
+      {
+        "check": "domain_label_does_not_change_selection",
+        "status": "PASS"
+      },
+      {
+        "check": "domain_label_does_not_change_utility",
+        "status": "PASS"
+      },
+      {
+        "check": "incomplete_prediction_map_fail_closed",
+        "status": "PASS"
+      },
+      {
+        "check": "incomplete_prediction_map_selects_nothing",
+        "status": "PASS"
+      },
+      {
+        "check": "same_reasoning_owners_across_domains",
+        "status": "PASS"
+      },
+      {
+        "check": "all_prediction_kinds_exercised",
+        "status": "PASS"
+      }
+    ],
+    "claim_boundary": {
+      "cross_domain_synthetic_qualification_proves_all_sciences_solved": false,
+      "domain_independent_reasoning_core_qualified_for_tested_contracts": true,
+      "domain_semantics_may_require_typed_adapters": true,
+      "domain_specific_reasoning_algorithm_required": false
+    },
+    "digest": "02515a89eb68af2f13c0cae9e4a91a63377d915a48733680d6502ea032e8d4e5",
+    "domain_label_invariance": [
+      {
+        "domain_id": "astronomy",
+        "selected_experiment_id": "E-STRONG",
+        "utility": 0.8333333333333334
+      },
+      {
+        "domain_id": "nuclear",
+        "selected_experiment_id": "E-STRONG",
+        "utility": 0.8333333333333334
+      },
+      {
+        "domain_id": "chemistry",
+        "selected_experiment_id": "E-STRONG",
+        "utility": 0.8333333333333334
+      },
+      {
+        "domain_id": "biology",
+        "selected_experiment_id": "E-STRONG",
+        "utility": 0.8333333333333334
+      },
+      {
+        "domain_id": "mathematics",
+        "selected_experiment_id": "E-STRONG",
+        "utility": 0.8333333333333334
+      }
+    ],
+    "passed": 22,
+    "schema": "phi-universal-scientific-portfolio-qualification/v1",
+    "shared_owner_ids": [
+      "HIERARCHICAL-OBSERVATIONAL-THEORY/1.0.0",
+      "HIERARCHICAL-OBSERVATIONAL-EXPERIMENT/1.0.0",
+      "HIERARCHICAL-OBSERVATIONAL-THEORY-REVISION/1.0.0"
+    ],
+    "status": "PASS_UNIVERSAL_SCIENTIFIC_PORTFOLIO_QUALIFICATION",
+    "total": 22
+  }
 }

@@ -87,6 +87,15 @@ def run(root=None, *, allow_blocked=False):
   'novelty_benchmark_is_synthetic':True,
   'new_physical_law_established':False,
  }
+ caps['universal_scientific_portfolio_qualification']={
+  'runner':'evaluation.long_horizon_blind_cycle_qualification',
+  'domain_independent_p3_owners':True,
+  'prediction_kinds':['categorical','gaussian','interval'],
+  'readiness_router_is_qualification_diagnostic':True,
+  'prior_evidence_is_new_postfreeze_measurement':False,
+  'local_unsealed_dns_reports_used':False,
+  'new_physical_law_established':False,
+ }
  caps['release_control']={
   'current_state_qualification_status':q.get('status'),
   'current_state_qualification_passed':qualification_passed,

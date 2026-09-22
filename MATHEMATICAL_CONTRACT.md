@@ -1364,6 +1364,42 @@ U(e)=\frac{D_{\min}(e)+0.25\,\bar D(e)}{\max(C(e),\epsilon)}.
 
 `D` is computed from frozen categorical, interval, or Gaussian prediction semantics. Cost/feasibility filtering occurs before argmax.
 
+### P3 domain-independent reasoning invariant
+
+The P3 experiment-selection and post-freeze revision algorithms MUST be domain-independent. A scientific domain MAY provide typed observables, units/dimensions, constraints, competing explanations, experimental models, outcome semantics, measurement adapters and evidence provenance. A domain MUST NOT select a different experiment-scoring or theory-revision algorithm merely because its `domain_id` differs.
+
+Normative invariants:
+
+1. Changing only `domain_id` or domain labels MUST NOT change experiment utility, pairwise divergence, prediction-completeness rules or revision status. Domain metadata remains bound by the theory and freeze digests; domain independence does not permit removing provenance from integrity checks.
+2. The same owners MUST process qualified astronomy, materials, fluid-dynamics, mathematics and other scientific portfolio contracts: `HIERARCHICAL-OBSERVATIONAL-THEORY/1.0.0` → `HIERARCHICAL-OBSERVATIONAL-EXPERIMENT/1.0.0` → `HIERARCHICAL-OBSERVATIONAL-THEORY-REVISION/1.0.0`.
+3. Domain adapters MAY transform real measurements into the frozen observable/outcome contract, but MUST NOT bypass completeness, blindness, digest binding, cost/feasibility filtering or unsupported-outcome handling.
+4. A new science SHOULD be integrated by typed contracts/adapters and existing owners first. A new reasoning algorithm requires an explicit proof that the existing general contract cannot represent the needed semantics; a domain name alone is never sufficient justification.
+5. Qualification MUST include a domain-label invariance control in which the abstract portfolio is held fixed while only domain metadata changes; selected experiment and utility MUST remain unchanged.
+6. Qualification MUST exercise more than one predictive semantics. The current universal portfolio qualification covers categorical, interval and Gaussian models and proof/counterexample evidence represented through the same frozen categorical contract.
+7. Cross-domain synthetic qualification demonstrates algorithmic portability only. It MUST NOT be relabelled as real-world scientific confirmation, proof that all sciences are solved, or evidence that domain-specific measurement semantics are unnecessary.
+
+The release qualification embeds `phi-universal-scientific-portfolio-qualification/v1` inside the existing long-horizon qualification instead of introducing a second scientific-cycle owner.
+
+### Real scientific portfolio ingress invariant
+
+Existing scientific portfolios from any domain MUST enter P3 through one domain-independent readiness contract. Domain-specific code MAY map source schemas, units, observables and measurement adapters into the common representation, but MUST NOT decide experiment utility, prediction completeness, freeze validity, theory revision or promotion.
+
+Required fail-closed readiness states include:
+
+```text
+PORTFOLIO_P3_THEORY_CONTRACT_REQUIRED
+PORTFOLIO_COMPETING_EXPLANATIONS_REQUIRED
+PORTFOLIO_EXPERIMENTAL_MODELS_REQUIRED
+PORTFOLIO_PREDICTION_CONTRACT_REQUIRED
+PORTFOLIO_FROZEN_FRESH_MEASUREMENT_REQUIRED
+```
+
+An existing real, retrospective, blind-holdout or literature-grounded artifact MUST NOT be re-labelled as the post-freeze measurement of a newly frozen P3 experiment unless its acquisition was bound to that exact freeze before observation. Missing hypotheses or predictive distributions MUST NOT be inferred from evidence observed after the prospective boundary merely to unblock selection.
+
+A requirement for `NuclearExperimentSelector`, `ChemistryRevisionAlgorithm`, `AstronomyPredictionCompleteness`, or any equivalent domain-specific reasoning owner is an architectural gap in the common representation contract and MUST NOT be treated as normal extension. A domain adapter is allowed to expose typed content; the common P3 owners retain selection and revision authority.
+
+The repository-level qualification MUST route at least two distinct real-science domains through this common ingress contract without reusing prior evidence as post-freeze measurement.
+
 ## P3: Frozen representational-novelty benchmark contract
 
 Benchmark task definitions, discovery/sealed split semantics, baseline classes and metrics are bound by a content digest before execution. Sealed rows MUST NOT participate in representation selection. Required checks are:

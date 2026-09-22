@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 337
+Controlled files: 339
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -238,6 +238,7 @@ Controlled files: 337
 - `reports/p3/LONG_HORIZON_QUALIFICATION.json`
 - `reports/p3/REPRESENTATION_BIRTH_BENCHMARK.json`
 - `reports/p3/RESULT_RU.md`
+- `reports/p3/UNIVERSAL_PORTFOLIO_RESULT_RU.md`
 - `reports/runtime/FULL_REPLAY_PLAN_CURRENT.json`
 - `reports/runtime/full_replay_batches/batch_000.json`
 - `reports/runtime/full_replay_batches/batch_001.json`
@@ -339,3 +340,4 @@ Controlled files: 337
 - `tests/test_tensor_axisymmetric_current.py`
 - `tests/test_turbulence_dns_closure_experiment.py`
 - `tests/test_unified_current.py`
+- `tests/test_universal_scientific_portfolio.py`
