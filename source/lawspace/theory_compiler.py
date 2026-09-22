@@ -2381,6 +2381,7 @@ class HierarchicalObservationalTheoryOwner:
             "representation_mechanism_may_be_identified_before_causal_origin": True,
             "causal_origin_resolution_required_for_scientific_promotion": True,
             "heldout_refit_allowed": False,
+            "experimental_models_optional_but_required_for_automatic_experiment_selection": True,
             "global_failure_may_lower_scope": True,
             "compilation_implies_world_truth": False,
             "compilation_implies_novelty": False,
@@ -2398,6 +2399,7 @@ class HierarchicalObservationalTheoryOwner:
         predictions: Sequence[Mapping[str, Any]],
         evidence_digest: str,
         fresh_external_confirmation: bool = False,
+        experimental_models: Sequence[Mapping[str, Any]] = (),
     ) -> Mapping[str, Any]:
         if not str(theory_id).strip():
             raise ValueError("hierarchical theory requires a non-empty theory_id")
@@ -2413,6 +2415,7 @@ class HierarchicalObservationalTheoryOwner:
         }
         predictions = [dict(row) for row in predictions]
         competing = [dict(row) for row in competing_explanations]
+        experimental_models = [dict(row) for row in experimental_models]
 
         prediction_gates = []
         for row in predictions:
@@ -2440,6 +2443,7 @@ class HierarchicalObservationalTheoryOwner:
             "layers": layers,
             "competing_explanations": competing,
             "predictions": predictions,
+            "experimental_models": experimental_models,
             "gates": gates,
             "fresh_external_confirmation": bool(fresh_external_confirmation),
             "status": (

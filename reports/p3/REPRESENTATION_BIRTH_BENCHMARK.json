@@ -1,0 +1,137 @@
+{
+  "benchmark_id": "ATLAS-FROZEN-REPRESENTATION-BIRTH-BENCHMARK/1.0.0",
+  "checks": [
+    {
+      "check": "freeze_digest_bound",
+      "status": "PASS"
+    },
+    {
+      "check": "pure_joint_birth",
+      "status": "PASS"
+    },
+    {
+      "check": "pure_joint_unseen_transfer",
+      "status": "PASS"
+    },
+    {
+      "check": "double_joint_birth",
+      "status": "PASS"
+    },
+    {
+      "check": "double_joint_unseen_transfer",
+      "status": "PASS"
+    },
+    {
+      "check": "raw_linear_cannot_close_pure_joint",
+      "status": "PASS"
+    },
+    {
+      "check": "raw_linear_cannot_close_double_joint",
+      "status": "PASS"
+    },
+    {
+      "check": "oracle_quadratic_can_close_when_grammar_is_given",
+      "status": "PASS"
+    },
+    {
+      "check": "null_false_birth_zero",
+      "status": "PASS"
+    },
+    {
+      "check": "theory_experiment_evidence_revision_closed",
+      "status": "PASS"
+    }
+  ],
+  "claim_boundary": {
+    "benchmark_establishes_priority_over_external_systems": false,
+    "sealed_rows_used_for_representation_selection": false,
+    "synthetic_benchmark_establishes_world_scientific_novelty": false
+  },
+  "digest": "d5012c6e2e3e729c235d329c74e56d6c1db080d120d156cecd4ed7e9eeb8d164",
+  "freeze_digest": "9e20ab608677a08b9d2e16d6975044921e1d855f78bf160b7368672cc7379f6c",
+  "freeze_spec": {
+    "baselines": [
+      "RAW_LINEAR_NO_BIRTH",
+      "FIXED_QUADRATIC_ORACLE"
+    ],
+    "metrics": [
+      "representation_birth_success",
+      "sealed_nrmse",
+      "false_birth_count",
+      "closed_loop_identification"
+    ],
+    "sealed_refit": false,
+    "selection_data": "DISCOVERY_ONLY",
+    "tasks": [
+      "PURE_JOINT_INTERACTION",
+      "DOUBLE_JOINT_INTERACTION",
+      "NULL_NO_BIRTH",
+      "HIERARCHICAL_CLOSED_LOOP"
+    ]
+  },
+  "interpretation": {
+    "atlas": "must discover and persist interaction coordinates from discovery data and transfer them without sealed refit",
+    "fixed_quadratic_oracle": "upper bound with the correct interaction grammar supplied in advance; not a discovery baseline",
+    "raw_linear": "no representation birth; expected to fail interaction tasks"
+  },
+  "passed": 10,
+  "schema": "atlas-representation-novelty-benchmark/v1",
+  "status": "PASS_FROZEN_REPRESENTATION_NOVELTY_BENCHMARK",
+  "tasks": [
+    {
+      "activated_axes": [
+        "z",
+        "w"
+      ],
+      "born_terms": [
+        "z*w"
+      ],
+      "expected_terms": [
+        "z*w"
+      ],
+      "fixed_quadratic_oracle_sealed_nrmse": 6.863987717161039e-16,
+      "raw_linear_sealed_nrmse": 1.0236087347573917,
+      "representation_birth_success": true,
+      "sealed_nrmse": 6.739418682141852e-16,
+      "sealed_refit_performed": false,
+      "task_id": "PURE_JOINT_INTERACTION"
+    },
+    {
+      "activated_axes": [
+        "z",
+        "u",
+        "v",
+        "w"
+      ],
+      "born_terms": [
+        "u*v",
+        "z*w"
+      ],
+      "expected_terms": [
+        "u*v",
+        "z*w"
+      ],
+      "fixed_quadratic_oracle_sealed_nrmse": 8.195201496263364e-16,
+      "raw_linear_sealed_nrmse": 1.0042997962078508,
+      "representation_birth_success": true,
+      "sealed_nrmse": 3.9009688779720235e-16,
+      "sealed_refit_performed": false,
+      "task_id": "DOUBLE_JOINT_INTERACTION"
+    },
+    {
+      "activated_axes": [],
+      "false_birth_count": 0,
+      "pass": true,
+      "task_id": "NULL_NO_BIRTH"
+    },
+    {
+      "leading_explanation_id": "H-B",
+      "pass": true,
+      "revision_status": "HIERARCHICAL_EXPLANATION_IDENTIFIED_POSTFREEZE",
+      "selected_experiment": "E-STRONG",
+      "selection_before_measurement": true,
+      "task_id": "HIERARCHICAL_CLOSED_LOOP"
+    }
+  ],
+  "total": 10
+}

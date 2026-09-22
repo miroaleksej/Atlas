@@ -78,6 +78,15 @@ def run(root=None, *, allow_blocked=False):
   'caller_flag_cannot_establish_external_confirmation':True,
   'new_physical_law_established':False,
  }
+ caps['observational_theory_continuation']={
+  'freeze_api':'freeze_phi_observational_theory_round',
+  'revision_api':'revise_phi_observational_theory',
+  'theory_and_experiment_digests_verified':True,
+  'incomplete_prediction_portfolios_blocked':True,
+  'outside_prediction_support_requires_expansion':True,
+  'novelty_benchmark_is_synthetic':True,
+  'new_physical_law_established':False,
+ }
  caps['release_control']={
   'current_state_qualification_status':q.get('status'),
   'current_state_qualification_passed':qualification_passed,

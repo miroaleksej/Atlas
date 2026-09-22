@@ -6908,3 +6908,44 @@ The representation mechanism is identified; the origin of \(L^{eff}_h/L^{(R,T)}_
 Current status:
 
 `PREDICTIVE_HOST_EFFECTIVE_LUMINOSITY_REPRESENTATION_SUPPORTED_ORIGIN_UNRESOLVED`.
+
+## Автономный цикл Theory → Experiment → Evidence → Revision (P3)
+
+Начиная с P3 иерархическая наблюдательная теория Atlas может содержать не только предсказания и competing explanations, но и замороженные `experimental_models`. Каждый experimental model задаёт эксперимент, стоимость, наблюдаемую величину и ожидаемые результаты для каждой конкурирующей версии теории. До чтения нового измерения Atlas строит конечный portfolio и выбирает эксперимент по правилу
+
+\[
+e^*=\arg\max_e \frac{D_{\min}(e)+\tfrac14\bar D(e)}{C(e)},
+\]
+
+где \(D_{\min}\) — минимальная попарная различимость всех конкурирующих объяснений, \(\bar D\) — средняя попарная различимость, \(C\) — стоимость. Поддерживаются categorical, interval и Gaussian prediction semantics. Если измерение уже было прочитано, оно не может участвовать в выборе эксперимента.
+
+После freeze measurement связывается с `experiment_id` и `freeze_digest`. Post-freeze owner вычисляет совместимость/likelihood competing explanations и обновляет их относительные веса без refit. Возможные состояния:
+
+- `HIERARCHICAL_EXPLANATION_IDENTIFIED_POSTFREEZE`;
+- `HIERARCHICAL_EXPLANATION_SET_REDUCED_POSTFREEZE`;
+- `HIERARCHICAL_THEORY_EVIDENCE_UPDATED`;
+- `REPRESENTATION_EXPANSION_REQUIRED`.
+
+Последнее состояние означает, что наблюдение не должно быть насильно приписано ближайшей теории: необходимо расширять representation.
+
+Для текущей экзопланетной теории frozen portfolio содержит три конкурирующих проверки происхождения host-level luminosity gap. Atlas без просмотра будущего результата выбрал
+
+`E-SELF-CONSISTENT-PS-RETEST`
+
+как максимальный discriminating experiment при текущем budget. Его observable — повторная проверка host-gap на свежем self-consistent `PS/default_flag=1`. Это связывает текущую теорию напрямую с будущим внешним тестом.
+
+## Frozen benchmark representational novelty (P3)
+
+Для проверки того, что Atlas не просто выигрывает за счёт заранее заданной feature grammar, введён замороженный benchmark `ATLAS-FROZEN-REPRESENTATION-BIRTH-BENCHMARK/1.0.0`. Он содержит четыре задачи:
+
+1. чистое совместное взаимодействие \(y=zw\), где ни одна одиночная ось не обязана быть достаточным родителем;
+2. двойное взаимодействие \(y=zw+0.8uv\), требующее рождения нескольких interaction coordinates;
+3. нулевой контроль, где intercept-only уже полностью объясняет наблюдения и любое рождение оси является ложным;
+4. closed scientific loop: compiled hierarchical theory → frozen discriminating experiment → скрытое post-freeze evidence → theory revision.
+
+Сравниваются два внутренних baseline:
+
+- `RAW_LINEAR_NO_BIRTH` — фиксированное исходное representation без рождения осей;
+- `FIXED_QUADRATIC_ORACLE` — верхняя граница, которой заранее подарена правильная quadratic grammar и которая поэтому не является discovery baseline.
+
+Atlas обязан родить `z*w`, затем одновременно `z*w` и `u*v`, перенести их на sealed rows без refit и не родить ни одной оси на нулевом контроле. Benchmark не устанавливает мировой научный приоритет и не заменяет сравнение с внешними системами; он фиксирует минимальный внутренний критерий заявляемого механизма representational ontogenesis.

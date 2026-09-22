@@ -16,6 +16,7 @@ from evaluation.exoplanet_nasa2026_blind_experiment import (
 )
 from source.lawspace.schema import digest_payload
 from source.lawspace.theory_compiler import HierarchicalObservationalTheoryOwner
+from source.lawspace.long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
 
 def _positive_numeric(df: pd.DataFrame, name: str) -> pd.Series:
     x = pd.to_numeric(df[name], errors="coerce")
@@ -964,6 +965,38 @@ def build_hierarchical_exoplanet_theory(
         "feasible": feasible,
         "known_axis_attack": known_axis_attack,
     })
+    experimental_models = [
+        {
+            "experiment_id":"E-SELF-CONSISTENT-PS-RETEST",
+            "observable":"FRESH_SELF_CONSISTENT_PS_HOST_GAP_STATE",
+            "cost":1.0,"feasible":True,
+            "predictions":{
+                "H-PROVENANCE-MIX":{"kind":"categorical","value":"HOST_GAP_COLLAPSES"},
+                "H-MISSING-HOST-PHYSICS":{"kind":"categorical","value":"HOST_GAP_PERSISTS"},
+                "H-PLANET-LOCAL-REGIME":{"kind":"categorical","value":"HOST_GAP_COLLAPSES_PLANET_RESIDUAL_PERSISTS"},
+            },
+        },
+        {
+            "experiment_id":"E-INDEPENDENT-STELLAR-LUMINOSITY",
+            "observable":"INDEPENDENT_STELLAR_LUMINOSITY_VS_SIBLING_EFFECTIVE_LUMINOSITY",
+            "cost":2.0,"feasible":True,
+            "predictions":{
+                "H-PROVENANCE-MIX":{"kind":"categorical","value":"L_EFF_MATCHES_INDEPENDENT_L_AFTER_SOURCE_ALIGNMENT"},
+                "H-MISSING-HOST-PHYSICS":{"kind":"categorical","value":"L_EFF_GAP_PERSISTS_AFTER_SOURCE_ALIGNMENT"},
+                "H-PLANET-LOCAL-REGIME":{"kind":"categorical","value":"HOST_LUMINOSITY_ALIGNS_PLANET_RESIDUAL_REMAINS"},
+            },
+        },
+        {
+            "experiment_id":"E-FRESH-SIBLING-PREDICTION",
+            "observable":"NEW_PLANET_SIBLING_PREDICTION_TRANSFER",
+            "cost":1.5,"feasible":True,
+            "predictions":{
+                "H-PROVENANCE-MIX":{"kind":"categorical","value":"PREDICTION_DEPENDS_ON_SHARED_SOURCE_STATE"},
+                "H-MISSING-HOST-PHYSICS":{"kind":"categorical","value":"PREDICTION_PERSISTS_ACROSS_INDEPENDENT_SOURCE_STATE"},
+                "H-PLANET-LOCAL-REGIME":{"kind":"categorical","value":"PLANET_RESIDUAL_DOMINATES_AFTER_HOST_CORRECTION"},
+            },
+        },
+    ]
     compiled = HierarchicalObservationalTheoryOwner().compile(
         theory_id="EXOPLANET-HIERARCHICAL-OBSERVATIONAL-SPACE/1.1",
         universal_layer=universal,
@@ -974,6 +1007,7 @@ def build_hierarchical_exoplanet_theory(
         predictions=predictions,
         evidence_digest=evidence_digest,
         fresh_external_confirmation=False,
+        experimental_models=experimental_models,
     )
     compiled = dict(compiled)
     compiled["domain_status"] = (
@@ -985,7 +1019,7 @@ def build_hierarchical_exoplanet_theory(
     )
     compiled["scientific_promotion"] = False
     compiled["fresh_self_consistent_PS_required"] = True
-    compiled["digest"] = digest_payload(compiled)
+    compiled["digest"] = digest_payload({k: v for k, v in compiled.items() if k != "digest"})
     return compiled
 
 
@@ -1694,6 +1728,9 @@ def run(root: Path, csv_path: Path, *, passports_out: Path | None = None) -> dic
         raw, frozen_c_hat_si=float(winner_score["C_hat_SI"]), g_reference_si=g_reference
     )
     hierarchical_theory = build_hierarchical_exoplanet_theory(raw, passports, summary)
+    next_experiment = LongHorizonBlindScientificCycleKernel(root).freeze_observational_round(
+        theory=hierarchical_theory, cost_budget=2.0
+    )
     if passports_out is not None:
         passports_out = Path(passports_out)
         passports_out.parent.mkdir(parents=True, exist_ok=True)
@@ -1719,6 +1756,7 @@ def run(root: Path, csv_path: Path, *, passports_out: Path | None = None) -> dic
         },
         "availability_adaptive_passports": summary,
         "hierarchical_observational_theory": hierarchical_theory,
+        "next_discriminating_experiment": next_experiment,
         "claim_boundary": {
             "all_input_rows_preserved": True,
             "model_inferred_values_are_observations": False,

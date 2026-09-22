@@ -439,3 +439,23 @@ Thus the earlier status `PREDICTIVE_HOST_LAYER_SUPPORTED_MECHANISM_UNRESOLVED` i
 `PREDICTIVE_HOST_EFFECTIVE_LUMINOSITY_REPRESENTATION_SUPPORTED_ORIGIN_UNRESOLVED`.
 
 This does **not** identify the causal origin. The remaining hypotheses are: a published/archive stellar-luminosity source different from the composite `R_star,T_eff` source; a different stellar state/model; host-level provenance/calibration; or, only if the gap persists on fresh self-consistent PS solutions, a missing stellar-physics coordinate.
+
+## P3 — Theory → Experiment Design → Theory Revision
+
+Hierarchical observational theory now carries frozen explanation-specific experimental models. The current exoplanet theory has three live explanations for the host effective-luminosity representation gap: mixed/composite provenance, missing host physics, and planet-local regime structure.
+
+Without inspecting any future measurement, the P3 observational experiment owner selected:
+
+- `experiment_id`: `E-SELF-CONSISTENT-PS-RETEST`
+- observable: `FRESH_SELF_CONSISTENT_PS_HOST_GAP_STATE`
+- selection rule: maximize minimum pairwise explanation divergence, then mean divergence per cost
+- cost: 1.0
+- frozen utility: 1.25
+
+The experiment asks whether the host-level luminosity gap collapses, persists, or collapses while a planet-local residual survives when the same systems are re-evaluated on fresh self-consistent `PS/default_flag=1` solutions. The outcome has not been observed in this P3 run. Therefore no explanation is promoted or demoted yet. The experiment is a prospective discriminating test, not evidence.
+
+The generic closed-loop mechanism was separately qualified on a hidden synthetic world: experiment selection happened before the hidden measurement, the maximally discriminating experiment was selected, and the post-freeze measurement correctly identified the hidden explanation without refit.
+
+## P3 — Frozen representational-novelty benchmark
+
+The frozen benchmark passed 10/10 checks. Atlas independently birthed `z*w` on a pure joint-interaction task and both `z*w` and `u*v` on a double-interaction task, transferred the representations to sealed rows at machine-level error, and produced zero false births on an intercept-closed null control. A raw-linear no-birth baseline failed the interaction tasks; a fixed quadratic oracle succeeded only because the interaction grammar was supplied in advance. The benchmark is an internal mechanism qualification and does not establish external scientific priority.

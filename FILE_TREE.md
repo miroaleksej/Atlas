@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 330
+Controlled files: 337
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -131,6 +131,7 @@ Controlled files: 330
 - `evaluation/read_only_audit.py`
 - `evaluation/reflexive_architecture_qualification.py`
 - `evaluation/release_files.py`
+- `evaluation/representation_birth_novelty_benchmark.py`
 - `evaluation/research_proof_qualification.py`
 - `evaluation/research_triage_qualification.py`
 - `evaluation/resource_theory_qualification.py`
@@ -225,6 +226,7 @@ Controlled files: 330
 - `reports/exoplanet/NASA_EXOPLANET_2026_LOCAL_RUN.json`
 - `reports/exoplanet/NASA_EXOPLANET_AVAILABILITY_LOCAL.json`
 - `reports/exoplanet/NASA_EXOPLANET_AVAILABILITY_PASSPORTS_LOCAL.csv`
+- `reports/exoplanet/NASA_EXOPLANET_P3_LOCAL.json`
 - `reports/exoplanet/P2_RESULT_RU.md`
 - `reports/exoplanet/RESULT_RU.md`
 - `reports/history/version-control/ATLAS_15_23_CURRENT_QUALIFICATION_AFTER_ORCHESTRATION.json`
@@ -232,6 +234,10 @@ Controlled files: 330
 - `reports/history/version-control/ATLAS_15_23_REPLAY_PREPARE_AFTER_ORCHESTRATION.json`
 - `reports/history/version-control/SNAPSHOT_STATUS_15_23_0.json`
 - `reports/history/version-control/SNAPSHOT_STATUS_15_24_0.json`
+- `reports/p3/DISCRIMINATING_EXPERIMENT_QUALIFICATION.json`
+- `reports/p3/LONG_HORIZON_QUALIFICATION.json`
+- `reports/p3/REPRESENTATION_BIRTH_BENCHMARK.json`
+- `reports/p3/RESULT_RU.md`
 - `reports/runtime/FULL_REPLAY_PLAN_CURRENT.json`
 - `reports/runtime/full_replay_batches/batch_000.json`
 - `reports/runtime/full_replay_batches/batch_001.json`
@@ -323,6 +329,7 @@ Controlled files: 330
 - `tests/test_fetch_jhtdb_real_snapshots.py`
 - `tests/test_function_language_birth.py`
 - `tests/test_hierarchical_confirmation_boundary.py`
+- `tests/test_observational_round_integrity.py`
 - `tests/test_permutation_eprocess_current.py`
 - `tests/test_query_driven_research_current.py`
 - `tests/test_research_triage.py`

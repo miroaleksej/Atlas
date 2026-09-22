@@ -867,3 +867,42 @@ def test_collective_coordination_selected_architecture_executes_fail_closed():
     assert r['status']=='COLLECTIVE_PLAN_SELECTED'
     assert r['conflict_free'] is True
     assert r['resource_used']<=r['budget']
+
+
+def test_hierarchical_observational_cycle_selects_before_measurement_and_revises_postfreeze():
+    from source.lawspace.theory_compiler import HierarchicalObservationalTheoryOwner
+    from source.lawspace.long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
+    t=HierarchicalObservationalTheoryOwner().compile(
+        theory_id='UNIT-HIERARCHICAL-CLOSED-LOOP',
+        universal_layer={'law':'known'},host_layer={'alpha':'latent'},regime_layer={'f_R':'open'},feasible_domain_layer={'Omega':'interval'},
+        competing_explanations=[{'id':'H1'},{'id':'H2'},{'id':'H3'}],
+        predictions=[{'prediction':'discriminate','falsification':'wrong outcome','defense':'freeze before measurement','heldout_refit_allowed':False}],
+        evidence_digest='UNIT-EVIDENCE',
+        experimental_models=[
+            {'experiment_id':'E-WEAK','observable':'o1','cost':1.0,'feasible':True,'predictions':{'H1':{'kind':'categorical','value':'A'},'H2':{'kind':'categorical','value':'A'},'H3':{'kind':'categorical','value':'B'}}},
+            {'experiment_id':'E-STRONG','observable':'o2','cost':1.5,'feasible':True,'predictions':{'H1':{'kind':'categorical','value':'A'},'H2':{'kind':'categorical','value':'B'},'H3':{'kind':'categorical','value':'C'}}},
+        ],
+    )
+    k=LongHorizonBlindScientificCycleKernel(ROOT, state_path=ROOT/'state'/'unit_observational_nonpersistent.json')
+    f=k.freeze_observational_round(theory=t,cost_budget=2.0)
+    assert f['status']=='HIERARCHICAL_OBSERVATIONAL_EXPERIMENT_FROZEN'
+    assert f['selected_experiment']['experiment_id']=='E-STRONG'
+    assert f['frozen']['measurement_inspected_before_selection'] is False
+    m={'experiment_id':'E-STRONG','freeze_digest':f['freeze_digest'],'value':'B','measurement_id':'M-UNIT'}
+    r=k.absorb_observational_measurement(frozen_experiment=f,measurement=m)
+    assert r['status']=='HIERARCHICAL_EXPLANATION_IDENTIFIED_POSTFREEZE'
+    assert r['leading_explanation_id']=='H2'
+    assert r['claim_boundary']['postfreeze_evidence_reused_for_experiment_selection'] is False
+
+
+def test_representation_birth_novelty_benchmark_passes_frozen_contract():
+    from evaluation.representation_birth_novelty_benchmark import run_benchmark
+    r=run_benchmark(ROOT)
+    assert r['status']=='PASS_FROZEN_REPRESENTATION_NOVELTY_BENCHMARK'
+    assert r['passed']==r['total']==10
+    assert r['claim_boundary']['synthetic_benchmark_establishes_world_scientific_novelty'] is False
+    tasks={x['task_id']:x for x in r['tasks']}
+    assert tasks['PURE_JOINT_INTERACTION']['representation_birth_success'] is True
+    assert tasks['DOUBLE_JOINT_INTERACTION']['representation_birth_success'] is True
+    assert tasks['NULL_NO_BIRTH']['false_birth_count']==0
+    assert tasks['HIERARCHICAL_CLOSED_LOOP']['pass'] is True

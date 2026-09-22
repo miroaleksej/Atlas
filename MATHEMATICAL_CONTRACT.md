@@ -1339,3 +1339,38 @@ with \(S^{phys}\) bound to the established stellar irradiation baseline. `alpha_
 6. Causal-origin candidates SHALL remain separate: source/provenance/calibration, alternative stellar state/model, or missing stellar physics. No origin may be promoted merely because the luminosity representation is predictive.
 7. Fresh self-consistent `PS/default_flag=1` evidence with provenance-linked stellar and planetary parameters is required to distinguish those causal origins.
 8. Scientific promotion SHALL be blocked while `causal_origin_resolved=false`, even when the representation identity and sibling prediction are supported.
+
+## P3: Scientific closed-loop contract
+
+`HIERARCHICAL_OBSERVATIONAL_THEORY/1.0.0` MAY carry frozen `experimental_models`. Automatic experiment selection is permitted only when at least two competing explanation IDs and explanation-specific predictions are frozen before measurement.
+
+Required invariants:
+
+1. `measurement_visible_during_selection = false`.
+2. Experiment selection MUST use only frozen theory digest, experimental models, declared feasibility and cost budget.
+3. A post-freeze measurement MUST match both `experiment_id` and `freeze_digest`; otherwise revision fails closed.
+4. Post-freeze evidence MUST NOT be reused to redesign the already selected experiment.
+5. If no frozen explanation is compatible with the new observation, the required state is `REPRESENTATION_EXPANSION_REQUIRED`; nearest-theory guessing is forbidden.
+6. Closed-loop qualification on synthetic hidden worlds is not world confirmation or novelty evidence.
+
+Experiment scoring for P3 is
+
+\[
+U(e)=\frac{D_{\min}(e)+0.25\,\bar D(e)}{\max(C(e),\epsilon)}.
+\]
+
+`D` is computed from frozen categorical, interval, or Gaussian prediction semantics. Cost/feasibility filtering occurs before argmax.
+
+## P3: Frozen representational-novelty benchmark contract
+
+Benchmark task definitions, discovery/sealed split semantics, baseline classes and metrics are bound by a content digest before execution. Sealed rows MUST NOT participate in representation selection. Required checks are:
+
+- pure joint interaction birth;
+- multiple joint interaction birth;
+- unseen transfer without sealed refit;
+- zero false births on an intercept-closed task;
+- raw-linear baseline failure on interaction tasks;
+- fixed-quadratic oracle success only as a supplied-grammar upper bound;
+- successful theory→experiment→evidence→revision on a hidden synthetic outcome.
+
+Passing this benchmark establishes only that the implemented Atlas mechanism works on the frozen synthetic controls. It does not establish external scientific novelty, superiority over named external systems, or scientific priority.

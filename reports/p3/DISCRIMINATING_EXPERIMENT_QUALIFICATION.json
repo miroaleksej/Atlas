@@ -1,0 +1,3297 @@
+{
+  "checks": [
+    {
+      "check": "kernel_owner",
+      "status": "PASS"
+    },
+    {
+      "check": "frontier_owner",
+      "status": "PASS"
+    },
+    {
+      "check": "selection_owner",
+      "status": "PASS"
+    },
+    {
+      "check": "attestation_bridge_owner",
+      "status": "PASS"
+    },
+    {
+      "check": "candidate_compiled",
+      "status": "PASS"
+    },
+    {
+      "check": "baselines_compiled",
+      "status": "PASS"
+    },
+    {
+      "check": "internal_phi_scan_all_current",
+      "status": "PASS"
+    },
+    {
+      "check": "no_fixed_owner_budget",
+      "status": "PASS"
+    },
+    {
+      "check": "no_fixed_axis_ceiling",
+      "status": "PASS"
+    },
+    {
+      "check": "blind_firewall",
+      "status": "PASS"
+    },
+    {
+      "check": "frontier_frozen",
+      "status": "PASS"
+    },
+    {
+      "check": "no_arbitrary_depth_ceiling",
+      "status": "PASS"
+    },
+    {
+      "check": "frontier_nonempty",
+      "status": "PASS"
+    },
+    {
+      "check": "selection_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "selected_content_addressed",
+      "status": "PASS"
+    },
+    {
+      "check": "selected_executable",
+      "status": "PASS"
+    },
+    {
+      "check": "selected_identifiable",
+      "status": "PASS"
+    },
+    {
+      "check": "selected_within_budget",
+      "status": "PASS"
+    },
+    {
+      "check": "selected_positive_divergence",
+      "status": "PASS"
+    },
+    {
+      "check": "selection_is_actual_argmax",
+      "status": "PASS"
+    },
+    {
+      "check": "predictions_runtime_derived",
+      "status": "PASS"
+    },
+    {
+      "check": "caller_prediction_table_forbidden",
+      "status": "PASS"
+    },
+    {
+      "check": "internet_prefreeze_false",
+      "status": "PASS"
+    },
+    {
+      "check": "world_result_not_seen",
+      "status": "PASS"
+    },
+    {
+      "check": "attestation_protocol_pending",
+      "status": "PASS"
+    },
+    {
+      "check": "attestation_not_world_evidence",
+      "status": "PASS"
+    },
+    {
+      "check": "nondistinct_control",
+      "status": "PASS"
+    },
+    {
+      "check": "nondistinct_no_promotion",
+      "status": "PASS"
+    },
+    {
+      "check": "low_budget_fail_closed",
+      "status": "PASS"
+    },
+    {
+      "check": "tamper_blocked",
+      "status": "PASS"
+    },
+    {
+      "check": "world_falsification_not_claimed",
+      "status": "PASS"
+    },
+    {
+      "check": "world_confirmation_not_claimed",
+      "status": "PASS"
+    },
+    {
+      "check": "world_novelty_not_claimed",
+      "status": "PASS"
+    },
+    {
+      "check": "next_roadmap_long_blind_cycle",
+      "status": "PASS"
+    }
+  ],
+  "claim_boundary": {
+    "internet_used_prefreeze": false,
+    "synthetic_qualification_is_world_falsification": false,
+    "world_novelty_established": false
+  },
+  "demonstration": {
+    "low_budget_control": {
+      "attestation_bridge": {
+        "digest": "76b51c936495067e45577c9cc21e0d3fd90e69c80ecd38dd69e355b3c2cfd326",
+        "owner_id": "DISCRIMINATING-EXPERIMENT-ATTESTATION-BRIDGE/1.0.0",
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "status": "ATTESTATION_BRIDGE_BLOCKED_NO_SELECTED_EXPERIMENT"
+      },
+      "claim_boundary": {
+        "internet_used_prefreeze": false,
+        "world_novelty_established": false,
+        "world_theory_confirmed": false,
+        "world_theory_falsified": false
+      },
+      "digest": "b119db398ab2e38f1b80139a508047bb48f3b4549ec928d23bb8c4071df02702",
+      "frontier": {
+        "claim_boundary": {
+          "experiment_world_validity_established": false,
+          "internet_used_prefreeze": false,
+          "world_observation_inspected_before_selection": false
+        },
+        "digest": "f479448906bc41cadbb4d3dbb6c2515f0f0361e2f41f76950df30f3ba00fab86",
+        "freeze_digest": "942c2e5ed70ba970a62151e6250cc98dd6dd0125d6197b881bde011abdf87a6c",
+        "frozen": {
+          "baseline_compiled_digests": [
+            "872a2739d22b2c46d2e2f20cad0109222f00102919a5c7690d864307733f7027",
+            "1ea2aad39e5f91986caca31879bdebac00016c58a13c37d736010ea7ee1796e4"
+          ],
+          "baseline_executable_ids": [
+            "E-ED7BB0F355D61EAD",
+            "E-8080459E7D2FEF75"
+          ],
+          "candidate_compiled_digest": "6bfb7a49568f943f7b692fc41aca28d06d92143d3e7eb5daef94e3edc2ef116b",
+          "candidate_executable_id": "E-3E89C0AFD7860BE5",
+          "common_actions": [
+            "a",
+            "b"
+          ],
+          "common_states": [
+            "x0",
+            "x1",
+            "x2"
+          ],
+          "cost_budget": 2.0,
+          "external_world_observations_used_for_selection": false,
+          "frontier": [
+            {
+              "actions": [
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-1571D10C18181A36",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x2",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-2A87492169DDA500",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x0",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "B"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-501406BB5190F726",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x0",
+                "x0",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-E82BD79F0E83DA9A",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x1",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-EA995305374C070F",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x1",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-3F27C1BED108EE34",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x2",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-41670037C26FD564",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x0",
+                "x1",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-539AB3890456C5D3",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x2",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-593558DB73A3D8B6",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x1",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-65C4354DF5F509B7",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x0",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-75928192C3780B94",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x1",
+                "x2",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "A"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-B10498A3FD093DEB",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x1",
+                "x0",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "A"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-E38699746C3CA08F",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x1",
+                "x1",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "C"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-0A98251156218F7D",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x2",
+                "x1",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-2A8CC1CB116E702C",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x2",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-464C4DCDB07A7129",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x2",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-7414761ECF2DFF37",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x1",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-7F9D3694D0CB339C",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x0",
+                "x2",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-B70B39E3F1C5BDFE",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x2",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-B8ADBC214166A6AB",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x0",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-D06869306FA99149",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x1",
+                "x0",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "B"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-D1404E33135753A2",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x0",
+                "x1",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-F249EE978041CEC3",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x0",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-20C1E92136F701DD",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x1",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-22DE94D786144031",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x0",
+                "x0",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "B"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-24FB8D9B7798EEC5",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x0",
+                "x2",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "A"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-29C70EFA37849498",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x1",
+                "x2",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-3785CDA914AFD0CC",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x0",
+                "x2",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-61DEB0393660CE16",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x2",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-860E9EB29B28BE51",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x0",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-AE6E033FE1BEE24C",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x1",
+                "x0",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-B9165381EB50D844",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x0",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-F628A9D4C405FF7A",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x1",
+                "x1",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-242F37E18B9ED88D",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x1",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-392CB1073EE9CFB0",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x0",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-73263E6EA1D49DD1",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x0",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-83D347FEBB0997DF",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x1",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-B12F529947C497B9",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x1",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.0,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-DE3C7E2E8D1BAF86",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x2",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "C"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-FD4EB8F97837C896",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x2",
+                "x0",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-97D6E641A26C27A5",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x0",
+                "x1",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 7.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-F0DBDF391A7EE6D8",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x1",
+                "x2",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 7.0
+            }
+          ],
+          "frontier_generation": "FINITE_JOINT_STATE_PRODUCT_CLOSURE_NO_ARBITRARY_DEPTH_CEILING",
+          "internet_used_prefreeze": false,
+          "phi_scan_digest": "c8c9568af33c58456314ac92b54f6d66043ce8245c91edae03232932c1e1ae85",
+          "question": "test under insufficient experimental budget"
+        },
+        "owner_id": "DISCRIMINATING-EXPERIMENT-FRONTIER/1.0.0",
+        "phi_scan": {
+          "all_registered_axes_visited": true,
+          "fixed_candidate_axis_order_ceiling": null,
+          "fixed_owner_visit_budget": null,
+          "knowledge_firewall": {
+            "active_source_owners_are_explicit_declared_source_laws_only": false,
+            "active_source_owners_are_explicit_primitive_seeds_only": true,
+            "known_law_owner_import_from_target_axes": false,
+            "literature_novelty_used_for_source_scoring": null,
+            "mode": "BLIND_PRIMITIVE_FIREWALL",
+            "passport_formulas_used_for_source_scoring": false,
+            "passport_names_used_for_source_scoring": false,
+            "passport_provenance_used_for_source_scoring": false,
+            "postfreeze_information_feedback_allowed": false,
+            "published_model_vocabulary_used_for_source_scoring": false,
+            "source_law_formulas_available_to_closure_engine": false
+          },
+          "owner_visits": 445,
+          "registered_axis_count": 655
+        },
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "status": "DISCRIMINATING_EXPERIMENT_FRONTIER_FROZEN"
+      },
+      "owner_id": "PHI-AUTOMATIC-DISCRIMINATING-EXPERIMENT/1.0.0",
+      "schema": "phi-automatic-discriminating-experiment/v1",
+      "selection": {
+        "digest": "c913ab51bf2b708454ea0ecd686fd67d5c76b014f66c0d379cb9ba8c83ea63fb",
+        "max_divergence_bits": 0.5,
+        "owner_id": "DISCRIMINATING-EXPERIMENT-SELECTION/1.0.0",
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "selected_experiment": null,
+        "status": "NO_FULLY_IDENTIFIABLE_EXPERIMENT_WITHIN_BUDGET",
+        "theory_promotion_allowed": false
+      },
+      "status": "NO_FULLY_IDENTIFIABLE_EXPERIMENT_WITHIN_BUDGET"
+    },
+    "nondistinct_control": {
+      "attestation_bridge": {
+        "digest": "76b51c936495067e45577c9cc21e0d3fd90e69c80ecd38dd69e355b3c2cfd326",
+        "owner_id": "DISCRIMINATING-EXPERIMENT-ATTESTATION-BRIDGE/1.0.0",
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "status": "ATTESTATION_BRIDGE_BLOCKED_NO_SELECTED_EXPERIMENT"
+      },
+      "claim_boundary": {
+        "internet_used_prefreeze": false,
+        "world_novelty_established": false,
+        "world_theory_confirmed": false,
+        "world_theory_falsified": false
+      },
+      "digest": "8485169920b83aae55c21cd7c8355ed9759faee618abc158f90e30a089a2f2eb",
+      "frontier": {
+        "claim_boundary": {
+          "experiment_world_validity_established": false,
+          "internet_used_prefreeze": false,
+          "world_observation_inspected_before_selection": false
+        },
+        "digest": "f63678d2e5079b9b86857fa2d1877ab7a6cbf3b32363623332947ea122909ad5",
+        "freeze_digest": "891da3ea55322c665c601844c0a42b399287c86e40c68b60516ecf459749ae71",
+        "frozen": {
+          "baseline_compiled_digests": [
+            "c6174b533a5b547ec6dc6c6776d5ae2b546f11c074a96f325cdedaa43900ae21"
+          ],
+          "baseline_executable_ids": [
+            "E-DCCE9A05DA4563BE"
+          ],
+          "candidate_compiled_digest": "6bfb7a49568f943f7b692fc41aca28d06d92143d3e7eb5daef94e3edc2ef116b",
+          "candidate_executable_id": "E-3E89C0AFD7860BE5",
+          "common_actions": [
+            "a",
+            "b"
+          ],
+          "common_states": [
+            "x0",
+            "x1",
+            "x2"
+          ],
+          "cost_budget": 4.0,
+          "external_world_observations_used_for_selection": false,
+          "frontier": [
+            {
+              "actions": [
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-6A4247887219C435",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.0,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-7A72A45E3DA442D6",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.0,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-81754E3617F9939C",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x0",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.0,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-932BADC8F47FC3A4",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.0,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-33C215D30AFCB415",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.0,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-3738383E40A6FE9E",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x1",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.0,
+              "protocol_cost": 3.0
+            }
+          ],
+          "frontier_generation": "FINITE_JOINT_STATE_PRODUCT_CLOSURE_NO_ARBITRARY_DEPTH_CEILING",
+          "internet_used_prefreeze": false,
+          "phi_scan_digest": "d711a30385c04dc13cfde1b4a6ea104eca71f7bcda75d44229a98933fcf6d549",
+          "question": "test observational equivalence"
+        },
+        "owner_id": "DISCRIMINATING-EXPERIMENT-FRONTIER/1.0.0",
+        "phi_scan": {
+          "all_registered_axes_visited": true,
+          "fixed_candidate_axis_order_ceiling": null,
+          "fixed_owner_visit_budget": null,
+          "knowledge_firewall": {
+            "active_source_owners_are_explicit_declared_source_laws_only": false,
+            "active_source_owners_are_explicit_primitive_seeds_only": true,
+            "known_law_owner_import_from_target_axes": false,
+            "literature_novelty_used_for_source_scoring": null,
+            "mode": "BLIND_PRIMITIVE_FIREWALL",
+            "passport_formulas_used_for_source_scoring": false,
+            "passport_names_used_for_source_scoring": false,
+            "passport_provenance_used_for_source_scoring": false,
+            "postfreeze_information_feedback_allowed": false,
+            "published_model_vocabulary_used_for_source_scoring": false,
+            "source_law_formulas_available_to_closure_engine": false
+          },
+          "owner_visits": 445,
+          "registered_axis_count": 655
+        },
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "status": "DISCRIMINATING_EXPERIMENT_FRONTIER_FROZEN"
+      },
+      "owner_id": "PHI-AUTOMATIC-DISCRIMINATING-EXPERIMENT/1.0.0",
+      "schema": "phi-automatic-discriminating-experiment/v1",
+      "selection": {
+        "digest": "f73c0fa703c44d4bf5d0e8ab893aa3cfd6dbf8fffc30d2ea27664cf459754ce1",
+        "max_divergence_bits": 0.0,
+        "owner_id": "DISCRIMINATING-EXPERIMENT-SELECTION/1.0.0",
+        "reason": "NO_EXECUTABLE_BUDGET_FEASIBLE_QUERY_HAS_PREDICTIVE_DIVERGENCE",
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "selected_experiment": null,
+        "status": "OBSERVATIONALLY_NON_DISTINCT",
+        "theory_promotion_allowed": false
+      },
+      "status": "OBSERVATIONALLY_NON_DISTINCT"
+    },
+    "result": {
+      "attestation_bridge": {
+        "claim_boundary": {
+          "experiment_selected_before_world_result": true,
+          "protocol_is_measurement": false,
+          "protocol_is_world_evidence": false
+        },
+        "digest": "4b87562d2ae48e5f0c3dc6f908b837efc552a7f789e9989091426d8b4163d724",
+        "measurement_protocol": {
+          "actions": [
+            "b",
+            "a"
+          ],
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "initial_state": "x1",
+          "measurement_id": "M-214087386560718F",
+          "measurement_owner": "PENDING_TYPED_WORLD_ACTION_OR_EXPERIMENT_OWNER",
+          "observable_id": "FINAL_TYPED_OBSERVATION",
+          "protocol_digest": "9e3929d113c3a620004d042277c4de34f33d724478bbd3f025b0960eabb2c349",
+          "required_result_fields": [
+            "data_digest",
+            "uncertainty",
+            "environment_id",
+            "measurement_owner"
+          ]
+        },
+        "owner_id": "DISCRIMINATING-EXPERIMENT-ATTESTATION-BRIDGE/1.0.0",
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "status": "WORLD_ATTESTATION_PENDING_EXTERNAL_MEASUREMENT",
+        "world_attestation_ready": false
+      },
+      "claim_boundary": {
+        "internet_used_prefreeze": false,
+        "world_novelty_established": false,
+        "world_theory_confirmed": false,
+        "world_theory_falsified": false
+      },
+      "digest": "3f8a518d97ee2a5e36de9d69bd8dbb9051dcec587ba6d2435e6842638eddca8f",
+      "frontier": {
+        "claim_boundary": {
+          "experiment_world_validity_established": false,
+          "internet_used_prefreeze": false,
+          "world_observation_inspected_before_selection": false
+        },
+        "digest": "0d9afc93b679d03a8819a2aaafc521ec60f148ec7b0317e138cc8a726f5c294b",
+        "freeze_digest": "ccd3150678a4dee3658f6a219934e0a94971a3258c17d111968a5e7c5291aaa8",
+        "frozen": {
+          "baseline_compiled_digests": [
+            "872a2739d22b2c46d2e2f20cad0109222f00102919a5c7690d864307733f7027",
+            "1ea2aad39e5f91986caca31879bdebac00016c58a13c37d736010ea7ee1796e4"
+          ],
+          "baseline_executable_ids": [
+            "E-ED7BB0F355D61EAD",
+            "E-8080459E7D2FEF75"
+          ],
+          "candidate_compiled_digest": "6bfb7a49568f943f7b692fc41aca28d06d92143d3e7eb5daef94e3edc2ef116b",
+          "candidate_executable_id": "E-3E89C0AFD7860BE5",
+          "common_actions": [
+            "a",
+            "b"
+          ],
+          "common_states": [
+            "x0",
+            "x1",
+            "x2"
+          ],
+          "cost_budget": 4.0,
+          "external_world_observations_used_for_selection": false,
+          "frontier": [
+            {
+              "actions": [
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-1571D10C18181A36",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x2",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-2A87492169DDA500",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x0",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "B"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-501406BB5190F726",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x0",
+                "x0",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-E82BD79F0E83DA9A",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x1",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-EA995305374C070F",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x1",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 2.0
+            },
+            {
+              "actions": [
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-00815EDA62CB5DD0",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x1",
+                "x2",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-3A68D0256B790550",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x2",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-66279C4DC8930D45",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x2",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-6B9815DE7CC8F91C",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x0",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-86A3A085928E9DD3",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x1",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "A"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-8B6D72B262BA39F4",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x1",
+                "x1",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "A"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-E7B52849C7663D87",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x1",
+                "x0",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-FC08306055279676",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x0",
+                "x1",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 3.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-211800B626E02E53",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x2",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "C"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-24F3BFF69102B056",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x2",
+                "x1",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-675108E564552541",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x2",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-6E765E84D8DE7C67",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x1",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-7A07C5DDB0F4737F",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x0",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-A88D68F4AA675534",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x0",
+                "x2",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "B"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-AEEF5F899976AC81",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x0",
+                "x1",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-D0A1F7F5241F5FFB",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x2",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                0.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-D7AC6AE739E840DC",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x0",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": true,
+              "executable": true,
+              "experiment_id": "Q-EEA33C9D3EF3A044",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x1",
+                "x0",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 4.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-20C1E92136F701DD",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x1",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-22DE94D786144031",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x0",
+                "x0",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "B"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-24FB8D9B7798EEC5",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x0",
+                "x2",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "A"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-29C70EFA37849498",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x1",
+                "x2",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-3785CDA914AFD0CC",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x0",
+                "x2",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-61DEB0393660CE16",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x2",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-860E9EB29B28BE51",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x0",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-AE6E033FE1BEE24C",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x1",
+                "x0",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-B9165381EB50D844",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x0",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-F628A9D4C405FF7A",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x1",
+                "x1",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 5.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "C"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-242F37E18B9ED88D",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x1",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "B"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-392CB1073EE9CFB0",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x2",
+                "x0",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "C"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-73263E6EA1D49DD1",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x0",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "A"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                1.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-83D347FEBB0997DF",
+              "identifiable_against_all_baselines": true,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x2",
+                "x1",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 1.0,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                0.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-B12F529947C497B9",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x1",
+                "x1",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.0,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-DE3C7E2E8D1BAF86",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x0",
+                "x2",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "a"
+              ],
+              "baseline_final_observations": [
+                "A",
+                "C"
+              ],
+              "candidate_final_observation": "C",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-FD4EB8F97837C896",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x2",
+              "joint_final_states": [
+                "x2",
+                "x0",
+                "x2"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 6.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "B",
+                "A"
+              ],
+              "candidate_final_observation": "A",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-97D6E641A26C27A5",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x0",
+              "joint_final_states": [
+                "x0",
+                "x1",
+                "x0"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 7.0
+            },
+            {
+              "actions": [
+                "a",
+                "a",
+                "b",
+                "a",
+                "a",
+                "b"
+              ],
+              "baseline_final_observations": [
+                "C",
+                "B"
+              ],
+              "candidate_final_observation": "B",
+              "candidate_vs_baseline_js_bits": [
+                1.0,
+                0.0
+              ],
+              "cost_within_budget": false,
+              "executable": true,
+              "experiment_id": "Q-F0DBDF391A7EE6D8",
+              "identifiable_against_all_baselines": false,
+              "initial_state": "x1",
+              "joint_final_states": [
+                "x1",
+                "x2",
+                "x1"
+              ],
+              "mean_predictive_divergence_bits": 0.5,
+              "protocol_cost": 7.0
+            }
+          ],
+          "frontier_generation": "FINITE_JOINT_STATE_PRODUCT_CLOSURE_NO_ARBITRARY_DEPTH_CEILING",
+          "internet_used_prefreeze": false,
+          "phi_scan_digest": "7a8496bb323cee0f2026a020d2a40043e80138c87ebe506b99347b0436556328",
+          "question": "find an executable identifiable budget-feasible experiment that maximally separates a frozen generated theory from frozen baselines"
+        },
+        "owner_id": "DISCRIMINATING-EXPERIMENT-FRONTIER/1.0.0",
+        "phi_scan": {
+          "all_registered_axes_visited": true,
+          "fixed_candidate_axis_order_ceiling": null,
+          "fixed_owner_visit_budget": null,
+          "knowledge_firewall": {
+            "active_source_owners_are_explicit_declared_source_laws_only": false,
+            "active_source_owners_are_explicit_primitive_seeds_only": true,
+            "known_law_owner_import_from_target_axes": false,
+            "literature_novelty_used_for_source_scoring": null,
+            "mode": "BLIND_PRIMITIVE_FIREWALL",
+            "passport_formulas_used_for_source_scoring": false,
+            "passport_names_used_for_source_scoring": false,
+            "passport_provenance_used_for_source_scoring": false,
+            "postfreeze_information_feedback_allowed": false,
+            "published_model_vocabulary_used_for_source_scoring": false,
+            "source_law_formulas_available_to_closure_engine": false
+          },
+          "owner_visits": 445,
+          "registered_axis_count": 655
+        },
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "status": "DISCRIMINATING_EXPERIMENT_FRONTIER_FROZEN"
+      },
+      "owner_id": "PHI-AUTOMATIC-DISCRIMINATING-EXPERIMENT/1.0.0",
+      "schema": "phi-automatic-discriminating-experiment/v1",
+      "selection": {
+        "claim_boundary": {
+          "selected_experiment_result_already_observed": false,
+          "selection_is_world_falsification": false,
+          "world_theory_novelty_established": false
+        },
+        "digest": "e7ab19bbea24f629f90dc1484a7aeb0d219f6b02caa2fcfdfcd40bce03fe32da",
+        "frontier_freeze_digest": "ccd3150678a4dee3658f6a219934e0a94971a3258c17d111968a5e7c5291aaa8",
+        "owner_id": "DISCRIMINATING-EXPERIMENT-SELECTION/1.0.0",
+        "ranked_admissible_experiments": [
+          {
+            "actions": [
+              "b",
+              "a"
+            ],
+            "baseline_final_observations": [
+              "C",
+              "C"
+            ],
+            "candidate_final_observation": "B",
+            "candidate_vs_baseline_js_bits": [
+              1.0,
+              1.0
+            ],
+            "cost_within_budget": true,
+            "executable": true,
+            "experiment_id": "Q-00815EDA62CB5DD0",
+            "identifiable_against_all_baselines": true,
+            "initial_state": "x1",
+            "joint_final_states": [
+              "x1",
+              "x2",
+              "x2"
+            ],
+            "mean_predictive_divergence_bits": 1.0,
+            "protocol_cost": 3.0
+          },
+          {
+            "actions": [
+              "b",
+              "a"
+            ],
+            "baseline_final_observations": [
+              "B",
+              "A"
+            ],
+            "candidate_final_observation": "C",
+            "candidate_vs_baseline_js_bits": [
+              1.0,
+              1.0
+            ],
+            "cost_within_budget": true,
+            "executable": true,
+            "experiment_id": "Q-86A3A085928E9DD3",
+            "identifiable_against_all_baselines": true,
+            "initial_state": "x0",
+            "joint_final_states": [
+              "x2",
+              "x1",
+              "x0"
+            ],
+            "mean_predictive_divergence_bits": 1.0,
+            "protocol_cost": 3.0
+          },
+          {
+            "actions": [
+              "a",
+              "b"
+            ],
+            "baseline_final_observations": [
+              "A",
+              "A"
+            ],
+            "candidate_final_observation": "B",
+            "candidate_vs_baseline_js_bits": [
+              1.0,
+              1.0
+            ],
+            "cost_within_budget": true,
+            "executable": true,
+            "experiment_id": "Q-E7B52849C7663D87",
+            "identifiable_against_all_baselines": true,
+            "initial_state": "x2",
+            "joint_final_states": [
+              "x1",
+              "x0",
+              "x0"
+            ],
+            "mean_predictive_divergence_bits": 1.0,
+            "protocol_cost": 3.0
+          },
+          {
+            "actions": [
+              "a",
+              "b"
+            ],
+            "baseline_final_observations": [
+              "B",
+              "C"
+            ],
+            "candidate_final_observation": "A",
+            "candidate_vs_baseline_js_bits": [
+              1.0,
+              1.0
+            ],
+            "cost_within_budget": true,
+            "executable": true,
+            "experiment_id": "Q-FC08306055279676",
+            "identifiable_against_all_baselines": true,
+            "initial_state": "x0",
+            "joint_final_states": [
+              "x0",
+              "x1",
+              "x2"
+            ],
+            "mean_predictive_divergence_bits": 1.0,
+            "protocol_cost": 3.0
+          },
+          {
+            "actions": [
+              "b",
+              "a",
+              "b"
+            ],
+            "baseline_final_observations": [
+              "B",
+              "B"
+            ],
+            "candidate_final_observation": "C",
+            "candidate_vs_baseline_js_bits": [
+              1.0,
+              1.0
+            ],
+            "cost_within_budget": true,
+            "executable": true,
+            "experiment_id": "Q-6E765E84D8DE7C67",
+            "identifiable_against_all_baselines": true,
+            "initial_state": "x0",
+            "joint_final_states": [
+              "x2",
+              "x1",
+              "x1"
+            ],
+            "mean_predictive_divergence_bits": 1.0,
+            "protocol_cost": 4.0
+          },
+          {
+            "actions": [
+              "b",
+              "a",
+              "a"
+            ],
+            "baseline_final_observations": [
+              "A",
+              "B"
+            ],
+            "candidate_final_observation": "C",
+            "candidate_vs_baseline_js_bits": [
+              1.0,
+              1.0
+            ],
+            "cost_within_budget": true,
+            "executable": true,
+            "experiment_id": "Q-7A07C5DDB0F4737F",
+            "identifiable_against_all_baselines": true,
+            "initial_state": "x1",
+            "joint_final_states": [
+              "x2",
+              "x0",
+              "x1"
+            ],
+            "mean_predictive_divergence_bits": 1.0,
+            "protocol_cost": 4.0
+          },
+          {
+            "actions": [
+              "b",
+              "a",
+              "a"
+            ],
+            "baseline_final_observations": [
+              "C",
+              "C"
+            ],
+            "candidate_final_observation": "A",
+            "candidate_vs_baseline_js_bits": [
+              1.0,
+              1.0
+            ],
+            "cost_within_budget": true,
+            "executable": true,
+            "experiment_id": "Q-A88D68F4AA675534",
+            "identifiable_against_all_baselines": true,
+            "initial_state": "x0",
+            "joint_final_states": [
+              "x0",
+              "x2",
+              "x2"
+            ],
+            "mean_predictive_divergence_bits": 1.0,
+            "protocol_cost": 4.0
+          },
+          {
+            "actions": [
+              "a",
+              "a",
+              "b"
+            ],
+            "baseline_final_observations": [
+              "B",
+              "B"
+            ],
+            "candidate_final_observation": "A",
+            "candidate_vs_baseline_js_bits": [
+              1.0,
+              1.0
+            ],
+            "cost_within_budget": true,
+            "executable": true,
+            "experiment_id": "Q-AEEF5F899976AC81",
+            "identifiable_against_all_baselines": true,
+            "initial_state": "x2",
+            "joint_final_states": [
+              "x0",
+              "x1",
+              "x1"
+            ],
+            "mean_predictive_divergence_bits": 1.0,
+            "protocol_cost": 4.0
+          },
+          {
+            "actions": [
+              "b",
+              "a",
+              "b"
+            ],
+            "baseline_final_observations": [
+              "C",
+              "C"
+            ],
+            "candidate_final_observation": "A",
+            "candidate_vs_baseline_js_bits": [
+              1.0,
+              1.0
+            ],
+            "cost_within_budget": true,
+            "executable": true,
+            "experiment_id": "Q-D0A1F7F5241F5FFB",
+            "identifiable_against_all_baselines": true,
+            "initial_state": "x1",
+            "joint_final_states": [
+              "x0",
+              "x2",
+              "x2"
+            ],
+            "mean_predictive_divergence_bits": 1.0,
+            "protocol_cost": 4.0
+          },
+          {
+            "actions": [
+              "a",
+              "a",
+              "b"
+            ],
+            "baseline_final_observations": [
+              "A",
+              "C"
+            ],
+            "candidate_final_observation": "B",
+            "candidate_vs_baseline_js_bits": [
+              1.0,
+              1.0
+            ],
+            "cost_within_budget": true,
+            "executable": true,
+            "experiment_id": "Q-EEA33C9D3EF3A044",
+            "identifiable_against_all_baselines": true,
+            "initial_state": "x1",
+            "joint_final_states": [
+              "x1",
+              "x0",
+              "x2"
+            ],
+            "mean_predictive_divergence_bits": 1.0,
+            "protocol_cost": 4.0
+          }
+        ],
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "selected_experiment": {
+          "actions": [
+            "b",
+            "a"
+          ],
+          "baseline_final_observations": [
+            "C",
+            "C"
+          ],
+          "candidate_final_observation": "B",
+          "candidate_vs_baseline_js_bits": [
+            1.0,
+            1.0
+          ],
+          "cost_within_budget": true,
+          "executable": true,
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "identifiable_against_all_baselines": true,
+          "initial_state": "x1",
+          "joint_final_states": [
+            "x1",
+            "x2",
+            "x2"
+          ],
+          "mean_predictive_divergence_bits": 1.0,
+          "protocol_cost": 3.0
+        },
+        "selection_objective": "MAX_DIVERGENCE_THEN_MIN_COST_THEN_CONTENT_ADDRESS",
+        "status": "DISCRIMINATING_EXPERIMENT_SELECTED",
+        "theory_promotion_allowed": false
+      },
+      "status": "DISCRIMINATING_EXPERIMENT_SELECTED"
+    },
+    "tamper_control": {
+      "attestation_bridge": {
+        "digest": "76b51c936495067e45577c9cc21e0d3fd90e69c80ecd38dd69e355b3c2cfd326",
+        "owner_id": "DISCRIMINATING-EXPERIMENT-ATTESTATION-BRIDGE/1.0.0",
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "status": "ATTESTATION_BRIDGE_BLOCKED_NO_SELECTED_EXPERIMENT"
+      },
+      "claim_boundary": {
+        "internet_used_prefreeze": false,
+        "world_novelty_established": false,
+        "world_theory_confirmed": false,
+        "world_theory_falsified": false
+      },
+      "digest": "ace80bec417cfda2a0ebb78a291dec9423657766187dd89d13ad0dd41e06d834",
+      "frontier": {
+        "digest": "6619a2ba40254d17d445fc985c37bec1b6f1b2d1157e992fab4e840768674b26",
+        "owner_id": "DISCRIMINATING-EXPERIMENT-FRONTIER/1.0.0",
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "status": "EXPERIMENT_FRONTIER_BLOCKED_UNQUALIFIED_EXECUTABLE"
+      },
+      "owner_id": "PHI-AUTOMATIC-DISCRIMINATING-EXPERIMENT/1.0.0",
+      "schema": "phi-automatic-discriminating-experiment/v1",
+      "selection": {
+        "digest": "1c454ca6e0de2d2d48f2f59de343a68cddfcff1b49d6f9f271a549796a8bc2cc",
+        "owner_id": "DISCRIMINATING-EXPERIMENT-SELECTION/1.0.0",
+        "schema": "phi-automatic-discriminating-experiment/v1",
+        "selected_experiment": null,
+        "status": "DISCRIMINATING_EXPERIMENT_BLOCKED_NO_FROZEN_FRONTIER"
+      },
+      "status": "DISCRIMINATING_EXPERIMENT_BLOCKED_NO_FROZEN_FRONTIER"
+    }
+  },
+  "digest": "ef57a067c48f1576cddc021092aade295ce2a2e6d9d050994b06f428c8d44601",
+  "passed": 34,
+  "release": "10.6.0",
+  "schema": "phi-discriminating-experiment-qualification/v1",
+  "status": "PASS_PHI_DISCRIMINATING_EXPERIMENT_QUALIFICATION",
+  "total": 34
+}

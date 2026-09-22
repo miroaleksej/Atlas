@@ -1,0 +1,2068 @@
+{
+  "checks": [
+    {
+      "check": "kernel_owner",
+      "status": "PASS"
+    },
+    {
+      "check": "hierarchical_observational_cycle_supported",
+      "status": "PASS"
+    },
+    {
+      "check": "observational_experiment_selected_prefreeze",
+      "status": "PASS"
+    },
+    {
+      "check": "observational_measurement_bound_to_freeze",
+      "status": "PASS"
+    },
+    {
+      "check": "observational_hidden_explanation_identified",
+      "status": "PASS"
+    },
+    {
+      "check": "observational_postfreeze_not_reused_for_selection",
+      "status": "PASS"
+    },
+    {
+      "check": "hidden_truth_not_solver_api",
+      "status": "PASS"
+    },
+    {
+      "check": "internet_prefreeze_forbidden",
+      "status": "PASS"
+    },
+    {
+      "check": "all_current_axes_scanned",
+      "status": "PASS"
+    },
+    {
+      "check": "no_prefreeze_truth_access",
+      "status": "PASS"
+    },
+    {
+      "check": "epochs_32",
+      "status": "PASS"
+    },
+    {
+      "check": "heartbeat_ge_128",
+      "status": "PASS"
+    },
+    {
+      "check": "persistent_epoch_count",
+      "status": "PASS"
+    },
+    {
+      "check": "completed_epoch_count",
+      "status": "PASS"
+    },
+    {
+      "check": "normal_epochs_identified",
+      "status": "PASS"
+    },
+    {
+      "check": "outside_controls_expand",
+      "status": "PASS"
+    },
+    {
+      "check": "wrong_theories_demoted",
+      "status": "PASS"
+    },
+    {
+      "check": "identified_theory_memory_nonempty",
+      "status": "PASS"
+    },
+    {
+      "check": "representation_expansion_count_exact",
+      "status": "PASS"
+    },
+    {
+      "check": "transition_history_bounded",
+      "status": "PASS"
+    },
+    {
+      "check": "measurement_history_bounded",
+      "status": "PASS"
+    },
+    {
+      "check": "attestation_not_relabelled_world",
+      "status": "PASS"
+    },
+    {
+      "check": "outside_observation_never_nearest_guess",
+      "status": "PASS"
+    },
+    {
+      "check": "measurement_postfreeze_bound",
+      "status": "PASS"
+    },
+    {
+      "check": "synthetic_not_world_discovery",
+      "status": "PASS"
+    },
+    {
+      "check": "next_roadmap_external_validation",
+      "status": "PASS"
+    }
+  ],
+  "claim_boundary": {
+    "hidden_truth_revealed_to_solver_prefreeze": false,
+    "internet_used_prefreeze": false,
+    "synthetic_qualification_is_world_discovery": false
+  },
+  "demonstration": {
+    "final_state": {
+      "completed_epoch_count": 32,
+      "epoch_count": 32,
+      "heartbeat_count": 182,
+      "identified_theories": [
+        "E-2DDAC72F0F05CF21",
+        "E-E6E209A2077DEBE3",
+        "E-2DDAC72F0F05CF21",
+        "E-E6E209A2077DEBE3",
+        "E-2EE671BB751AC164",
+        "E-2DDAC72F0F05CF21",
+        "E-2EE671BB751AC164",
+        "E-2EE671BB751AC164",
+        "E-2EE671BB751AC164",
+        "E-2DDAC72F0F05CF21",
+        "E-E6E209A2077DEBE3",
+        "E-2EE671BB751AC164",
+        "E-E6E209A2077DEBE3",
+        "E-E6E209A2077DEBE3",
+        "E-2DDAC72F0F05CF21",
+        "E-E6E209A2077DEBE3",
+        "E-2EE671BB751AC164",
+        "E-2DDAC72F0F05CF21",
+        "E-E6E209A2077DEBE3",
+        "E-E6E209A2077DEBE3",
+        "E-E6E209A2077DEBE3",
+        "E-E6E209A2077DEBE3",
+        "E-E6E209A2077DEBE3",
+        "E-E6E209A2077DEBE3",
+        "E-2DDAC72F0F05CF21",
+        "E-2DDAC72F0F05CF21",
+        "E-E6E209A2077DEBE3",
+        "E-E6E209A2077DEBE3"
+      ],
+      "measurement_receipts": [
+        {
+          "data_digest": "f7a1e43bd952a6b5a3961694ca26694a95b628d9f5eb7ba48ed221ce85878973",
+          "digest": "b903110849bbb9dd2bc466e63b5ec72c8bc1e7c10b06683cef7b4fbb31d31cf4",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "62fc72ed635d83793768377e1e967ccd18be3dc0f6ae10586f150860e1f45191",
+          "measurement_id": "M-F7A1E43BD952A6B5",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "557a5f73e4480bae34e5cb69e3b58f03f55d3644b508010e6041ebbffe944888",
+          "digest": "290d39063acb5f590c9558cb29525ca5efcef49411a71668ebfa9d8933acf9fd",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "179050a5574da753e94c6349777b72a31011b11245f0368c3684bc3b5f664ddd",
+          "measurement_id": "M-557A5F73E4480BAE",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "f8907707bc27771487554fe4294c747f183365fec08f6d65bf8bce76bb47ab3d",
+          "digest": "d0e681c90d1b3611d3a6d1615069098e247a5b3ce19d1d389cbc08aa599783be",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "f415f833c3e595668716e932f401eb01d1c7d6670095d98233c6ec15b8036a2c",
+          "measurement_id": "M-F8907707BC277714",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "c6b646a38ae22df56b2948a7004d4716d1ed4435efdc52273e50074b483d5454",
+          "digest": "f7b747ab95626b69815d16818fafbac1ae413bb59c4ea506c7f738cda61a199f",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "e1bbd64746a5f45eb27f9fef55c6de9e93d76a66d67be6d81cb719637990d6f7",
+          "measurement_id": "M-C6B646A38AE22DF5",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "d861277d888d3ae293c86a151a38d1e4c7f41ab476dfc365c6a6c88765a5b50f",
+          "digest": "3d8dc5db8947bd3d6291ffab850695cc276a3151aeafe3fdcc861e252504b943",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "472882c5f597b1fef037e39ee76993713a6aaace9fe437e6e6cec1458bc4e62e",
+          "measurement_id": "M-D861277D888D3AE2",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "fed6697b29738620debce20027ba04423cf745aa17800bf2a7c50801c7444730",
+          "digest": "b41037cad8fd249b80a8dce42d1771cfa3438df3644b0e8884b8b539bf0fe1e9",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "0d49acc457e64f4eeb369daddfcf042922feb7b335a822f2e36261cc0bc5d9a2",
+          "measurement_id": "M-FED6697B29738620",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "82683b399fa6f6f7c92550455dc41299bb57c722401fa2caa1aa5beef69698e8",
+          "digest": "9935c09cc8783547ae45acebdca8fc4c7acffe7c03bd9fdf5b25d54a1458c420",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "35edf00449663fd596c73204a15fc68bdaa3e9571a1176a6c4ff6de559f50714",
+          "measurement_id": "M-82683B399FA6F6F7",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "f8195dbba31ddb73972ef37a02b4b2ed2986b4249662ba954868b6d3e40d3b8d",
+          "digest": "6026e4650d4df87f96d89409abe578d211941f69142c79ef2a5fc731fd074017",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "21e9d3f479ebd46b2a4c377b63dc4bebf553e2975e6db49f4f2348da5ce2d3a4",
+          "measurement_id": "M-F8195DBBA31DDB73",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "da3ec790b788e66fea17c9f40e636fd7e3f7a0e810692321cac0211d08a11fb6",
+          "digest": "9bbe3273d6a3de11450d2e884fc5a8ad746f97f78fbd8a51d76f998828ccbb77",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "8ef683975f060cad6229e5e03da02a86586394a95626d81a996f0244aafc63b0",
+          "measurement_id": "M-DA3EC790B788E66F",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "65b3d44aeda0018aea24ab880bc1bd5e7cd2373e5f2ac4373060592d6b582403",
+          "digest": "471604b8feeaf407039b769bcd05d8812833bf204f94724ab1ec2f56c3383fb6",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "8fdf8929fb21e3df1436dc97287f048f2d789299ad27dc748192ed94120e7dd7",
+          "measurement_id": "M-65B3D44AEDA0018A",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "0093c9cae9d879eb3f5e9ef376ce7d3c21e36f50a37344b7909021797009cc9c",
+          "digest": "cf101a6aeac19eb372a89cc30709f844d6c82a728042b2651dcb6d4b920b7116",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "661417868e3f980264a8ee7fcb17334bd3e7ac23410eb80209fa3baa67ff851f",
+          "measurement_id": "M-0093C9CAE9D879EB",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "bace4e94c14561049c3bada057d55edd2816926b902091a64d28d23c198570fb",
+          "digest": "ff65eed9882b66ad4d451cf51910e1d433508a1fe39f62206b84a4c56558d352",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "99c809b3fbbc7163bfa5984e5d8988d4012f28ba61ee3bf31b919fc9bf41b568",
+          "measurement_id": "M-BACE4E94C1456104",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "1678865af09aa9fdfda29fea69d1a5ddaaafa52ec07918a35fdf85c906c54744",
+          "digest": "7f764bae408ffad134150adec1acdbe3f4bb79fb0035eb2f877175e51435f8ca",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "76c314351394ebc41c698e7573ec2f752c03acf3e2017781b5bcbd73090ea007",
+          "measurement_id": "M-1678865AF09AA9FD",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "OUTSIDE-FROZEN-OBSERVATION",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "a812fcd015b2ec3bd5857ecd9ace5f47a77c65811565b9e2a740bda56a4988d4",
+          "digest": "740d7d0b54a93aeffebc9c78bcb0cc2e36842a61c7f3eec255eb75aa05eb78ec",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "7dcc73946179bb537f20334352734eaf68abdb8c1ef27c215fea91be262476ad",
+          "measurement_id": "M-A812FCD015B2EC3B",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "e47ebccedc7a4f10c9a4b1895d5d49122a764b474891094aa0158111ceb2c009",
+          "digest": "8712b5a98cba81ecf2a9bb2011d5d943a6384c425e2c245a6f0669be44263b62",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "ef37fd73c4b3618ba74e9a0371705c2c0e56d668af9c79802ebeccfa65768ebd",
+          "measurement_id": "M-E47EBCCEDC7A4F10",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "c8adacbae7f9f85bf519d67aea1fc6ac2bbaa6bf9761a49a6aab85cbf69bcef6",
+          "digest": "7e4189327b4962d172d7318266169f22f92bd09e660fc861ea3a579ad8cec0d9",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "ca9e7bb7fbd19b6746c33e724752070a2d58fc8e4ac57713ca94c553cf4d6876",
+          "measurement_id": "M-C8ADACBAE7F9F85B",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "53f7faa86e0c483f694f72a9bdd7ac28096facf3475d3e2d0aa13e6a40533239",
+          "digest": "670324053b4e63a42e0a1ba429452e8cda4485b0a517158f98e70dec9b30e344",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "60da046129f4903e139af93508c5e8d2cce00e661620c7e0ecd863c717aab5f0",
+          "measurement_id": "M-53F7FAA86E0C483F",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "463363ab4d0a43dde2f4c425d870dc4761a3c1d30c95bf462f00d2b79897791e",
+          "digest": "f3b99a3d52d5e39ddbb7118d808feebfa2f5276ba99b729b3dbc7ab5c5d86c47",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "9c241bddf37f934db86d54781bfd7e016d00c3e14c8e294f680111849f21d6b0",
+          "measurement_id": "M-463363AB4D0A43DD",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "692b0e30a6955317c661de51f4004a679dc83031f685917db56e7c2818b5c28b",
+          "digest": "0bc37d749c8e9ba06de538fae3131dd5520c0c8ba4aaf6164cdd5df071149192",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "70c8957612b53023d1f4df16bf4c71e6b8a4bd8eb9679d1c93148b35901ca136",
+          "measurement_id": "M-692B0E30A6955317",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "d30da95f5b944976d2da845ff101cad4ea6cdb14609fd85c2040d338f4c0a061",
+          "digest": "28a17300af904837912079762d7eaee7c1a9cde8f94fd61f415191ce6bb95651",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "b1a59c83d9d401deb6ac72c3a81eb65e3ea648b9312c822023a4313ce56e6f0f",
+          "measurement_id": "M-D30DA95F5B944976",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "db315b1f4fb83cc9ed88f00ccebdcc757bf11ac4f50bb126139c1dd0979a5e51",
+          "digest": "e7f6cce65d2ef0bab090fc5e6c68e65105c6d992ad151876e431f3e0854124b4",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "0ed20289c689ef9085bc79690ef6d2cf5785f22324e2c43940af573d88546077",
+          "measurement_id": "M-DB315B1F4FB83CC9",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "aedc0abe8e86c8340864b3d4ca4f09d49d6cc335cc6fbe743cbe70552a9455ef",
+          "digest": "0835324f289ad4859f3b234c1417e1d4a8e4a792f5049ae4d423cd984ed89468",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "a2ae66a14673b0e7d455555d3b760e08b9f7b2ff3e65cd83abcfed60f94d65a1",
+          "measurement_id": "M-AEDC0ABE8E86C834",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "3d689396589175c6f4b4efeb685f103619cf22e1a312666d820099b15dd65947",
+          "digest": "4a421230e331e25ac82c7f12525cff9c0946f5646ee5844e2508828a29fb3581",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "e2d37f5277bae3bc1f4c18245879f8a4610c3051e921e30d57a9e837eee56ea4",
+          "measurement_id": "M-3D689396589175C6",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "f1e7c9ab7ade7ae4f71f66d1eda7c58b1ebea8af890db0005cb4c04dda2f9e43",
+          "digest": "8da1e22f3826c115018cb05f5d0e89848989cf25a6dd926eee2070284a590f4b",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "38b21cbe1b12756c2b6f33f0685625194d8086e29fa3669d6ec1a666e23bc033",
+          "measurement_id": "M-F1E7C9AB7ADE7AE4",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "ed8238be069dc711dc81793f70d672e6a57c5898ade3e62972900556c56e5436",
+          "digest": "d2f8e965c008b441ea4028471eaac20e274167aa7c2afb9d9cbf4e9eaefd42b5",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "baf7f070e3f2c257021db664c234df8f22edd3d724d8b04727503bc4147fb46d",
+          "measurement_id": "M-ED8238BE069DC711",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "OUTSIDE-FROZEN-OBSERVATION",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "5055ba987d6845685ab995dff2fc25ed8c5dec969c6ebd3c45ad7923ef289c0b",
+          "digest": "e03fdd39db6b9a610d6e7584752d3967681de203697b4fa5ff4349a483df5666",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "de3a8e685a1d709b9f1c349a6564a42d58344cf92c7ee21e49729e7c08a5df7a",
+          "measurement_id": "M-5055BA987D684568",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "44501b2309d04eb02d9d3a81eb6a8408101bb556cbfd00ea17706e97abf4cb08",
+          "digest": "78515667d924412eec2988e2b553f840e156b0a976a82b284f99fd73357c4861",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "df868e57643747a40d1372615d66f5cc9fa5cd25b6880ae906358860baca9f45",
+          "measurement_id": "M-44501B2309D04EB0",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "2df40b84a07a1440fc1df1230993e8f1591f97601561aca7643d10315889c07c",
+          "digest": "935f697b705bd78c5aec915e482b5e1d0ede91d2abc28b8b6158c5bed1570ad4",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "0b20deef51a2dbab8cd946ab0ea55f26c6030405c5c0547a7dda81ce190993a9",
+          "measurement_id": "M-2DF40B84A07A1440",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "c9edb64e40676f9e8337c5b309721026b964e46b9b589da82d9991c4389ef4da",
+          "digest": "303d691782ce3999b503294c48d92a13d91588694b5b9dab8624d7741c9d3a6e",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "6c4461a340ace21b88e74ff0633db062eb9e3f726333c16632af7f5c39c33045",
+          "measurement_id": "M-C9EDB64E40676F9E",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "9676c12cef6f6e241e271662d8de2cfe0dff04427eebf297b18f47f0c7e212ac",
+          "digest": "bf385dd4689e1bdd8ce7e8f4fa0565b0f060f473ea211dd2d32918237cb52093",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "13cdf2065f91664859ada8ae087ab180825ff581118199a8ed86f0cd893bd2dd",
+          "measurement_id": "M-9676C12CEF6F6E24",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "0be4d10d4118c91838bd324475dce19950e1957443a60afcec25fcfa5921597b",
+          "digest": "a6b6386dce6390cb88212888ff21651aa1b2d218d4eb49eec00cceb49a51b678",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "e62f8a77680c30c55404193fccaac80c04eaa7ccee78ac1158fa499e96254af4",
+          "measurement_id": "M-0BE4D10D4118C918",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "018b8931f2467f02de3a0ec0844fe8c388258e42b6967672d12076155e522f14",
+          "digest": "61b6b09beb09ebeaf84390a8d0205a3b8b1d5ec7f5808d42d22b3f7f98ff9435",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "dd7b5fa6456fdc9510f0cf2f227376d284969c6ad1c24fdadf743519afe19f86",
+          "measurement_id": "M-018B8931F2467F02",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "2f77565dd5a6c00427e7aa5e32a635ffce429d1b7674572cb4de5e9e219e02a1",
+          "digest": "f076458b39d8d72fdb592309312c0abe0badd1e2a290e0a8a61f18b3b13701b6",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "62640c5fbb9f5a915b4586eebb748f11f38a038a997ee494221b973a437eec93",
+          "measurement_id": "M-2F77565DD5A6C004",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "f0ab19f592854ad59c4d6c603947da24eb35574222e752df61ccdee6aab0412b",
+          "digest": "91325e483d1b533812cf1f4c13dc05ca9fdcfd311bef80f0af1eb14d956fe63e",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "74185c732175eaa6be7eed6974bc5b87b94061d52c5c72da21ed29dbe7002847",
+          "measurement_id": "M-F0AB19F592854AD5",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "8f298e265d28fdb3bee6ec99d20c8cbf76d3fd8ad771abcdb2f88efd1e55fadc",
+          "digest": "1e9a37e74748b8f4a1f7a99ec7a91981c4486525d40e5e76428f7f439acfe61d",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "3ac1587cd96e46e7fd0f43be29632a8e2c92e9eafb31c0514954262893f07f4d",
+          "measurement_id": "M-8F298E265D28FDB3",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "6495d22996bef208d29486ee1ae54b85edcbb1e9f97b62861226e11200a00d5a",
+          "digest": "0c052c992f502a983546ffe877d1dabcf03a7fe530331f790177a5ebc8825fd5",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "1304e96b03f55a8f915975b2c7b367f798ab4e22df148ab190e6ecb33e0d1547",
+          "measurement_id": "M-6495D22996BEF208",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "5b0eb8d5e98f5edf0c6d80515272d2cab97baa5d77a438790cd08d65e25c4cd8",
+          "digest": "e3bf9506f38ee8d8c9475e97fe11e25fe3470722e588d0f8ea35b8dfc0196841",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "7f19b5deeb508e01471314fae0b1bd940ac5c39d4b66979d59bb3ede4fe8dcb6",
+          "measurement_id": "M-5B0EB8D5E98F5EDF",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "bfc1066bcb38e1913fc3211588ef7c920f3bc879927a29eeb979a23e0e0ffc26",
+          "digest": "54396ef535b80bb699de4e7fe4ffa9235ccadd67b48b832a7587620f9b5ec8f1",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "2fb28d810612b2a9d8b6c52b50893de6b6ea1bc98038ddd1939ba2746836ba1e",
+          "measurement_id": "M-BFC1066BCB38E191",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "ad99cc99625b1405b7570042067b8730ab71505dbccef798d4ba00e2fecad182",
+          "digest": "46bf8c2fbf4513b82a202d67fdb643525d70654cda67b0f708cc9f2bd3eb4c05",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "7e0e4df3e56a64407dcb37c2db087c3601e8abe94757113e88f81974a0d8b680",
+          "measurement_id": "M-AD99CC99625B1405",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "OUTSIDE-FROZEN-OBSERVATION",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "3a07766ce6ea422457b3c8946253aaffe22b7c76e3e108af3f9d7cef75d6b375",
+          "digest": "86bd5e9ea16ad6b8f1f3519bf6e90c52e4b8e8c9dc8b636ac0a72422f86c9866",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "5996b050b8f5c0b49bf2fb2c4fb26de4d9e198ffbfce8f13e9c88d57ba6ad809",
+          "measurement_id": "M-3A07766CE6EA4224",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "29f37933495df370c9b3795092cfe26d981e3f5dbed1575ed75edfbb5aa0c671",
+          "digest": "9dfda669899d87277d1728465ce62cf7b60c63a7c6652faddfe83747f97cd9d5",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "72238fb4915add7503d80a2170a6b7f1a0fa670d0fd9011b6e9ddbff5f32563a",
+          "measurement_id": "M-29F37933495DF370",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "5f5a3630afed12fb3f6f7667efca7c5c978d8aa5484ad7b02065819d5875aa17",
+          "digest": "6ab63b9488a614a71a24825956943b5dcf0563e6d52351c1f644c6c3ae910188",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "308b07cb8dd287430dac8501f50e452f39d7de859a121b7c0476bcddb1807546",
+          "measurement_id": "M-5F5A3630AFED12FB",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "f8e7ab7f2fb718e982873eadba2ee34a6b52ceceb31c560547a030a7a5173be9",
+          "digest": "fb27d9196ad79af8c63a0f7b8211ec5e3fe1d9ae9b1296e2f584f0284cd201b4",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "4d12f08a553664dfcf3bf8b30c32353222fc6c5c2b04d4a7efc1f132b0661549",
+          "measurement_id": "M-F8E7AB7F2FB718E9",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "6a6064926ee76fbf2ba16cc3b8bc6cab23066d1a0523c38691edd4f529e9087e",
+          "digest": "014793effe7dfca09daaae5b661ea640efe9d76b34d01e2f3dfe624e69ec8c33",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "2db8380bc9ef22da99d3334b6920ab01db0f61895505149069ddaf742603275d",
+          "measurement_id": "M-6A6064926EE76FBF",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "545be194818f6dc1a9f621505c865faa537fc331eb19eebf96d017f794065ae3",
+          "digest": "9c80ee744e5436e3c58e109aa38564ecd04ca18c50b55fa4d08e50c287048966",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "d9386ca25bfacad1abf9263e53b92a5cbc30c544b04b685d385d6357cd263089",
+          "measurement_id": "M-545BE194818F6DC1",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "9d10e821f543c73cc8e8a08f10299d25bf20300670f27c0e7d4fc7c20a5c4ba7",
+          "digest": "19bcc22497df2aca9f2d3947234c93704dc60653d2cb014e9fca2bf6c2b83dff",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "11f762966170152d9358235687159886c53cb59108540a111e9e0aaf6b693627",
+          "measurement_id": "M-9D10E821F543C73C",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "a15cff8fa92153c6af64c659055641d6f4c2be1e0ef771ffcbe32969161ca1be",
+          "digest": "d797f5b2ae3d19f135444109ad816e4842f8637cea99b0e0f92b7f08792be3d2",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "1166a8f83ca74e26bc9c70114954afb88bde82f746df53d24e075c75ebe82eee",
+          "measurement_id": "M-A15CFF8FA92153C6",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "1a1b22c46760f2faef1b459ce9810835f497bf1676ce945bbcc680ebedf669bd",
+          "digest": "b9e1848de37d57c0b7967043a89de7c2f5752d44764387e4eba95512326ccfe5",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "a4d294a732408f9f3e05d76437794ee184cc3fe109858d702643496bdf6301c4",
+          "measurement_id": "M-1A1B22C46760F2FA",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "8ee404540df7c68ed3024a2279ea667e012045931d1fdd6558cce1e4c19a4115",
+          "digest": "9b93a9558528be62e31874a0b945c810c1ec2a4e4bdad1270ea08de27413c3b8",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "2f818acbc43933aa5885342956254cab7ea492c0b7f5b16635e4453cabe2004e",
+          "measurement_id": "M-8EE404540DF7C68E",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "B",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "3798826e11f15f3a068181ff4618ec63ab0b88d5b5294d5e275f8db086a92790",
+          "digest": "367fd6115c61bd4043a556da0a62cef7619c61953667203a5c2bac8448068bbb",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "55bfa00f986e31d5c4b501afa0adc0e8cd32d08785e8886000c26ea651f6f31d",
+          "measurement_id": "M-3798826E11F15F3A",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "1e47a369a06742f4baf367df517bd83bd48d8388303340e71b3df69e2d097f9b",
+          "digest": "a18a5476ec8390af5bf9e05e4b5c9346ce43168529f2bf1a1527709847869ccd",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "41d9410ac4622a31de5ed95ebacd4cf757607030246d9150302e8d61b6302ff1",
+          "measurement_id": "M-1E47A369A06742F4",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "52add1176286e933cb601c9acadbc7d7f87024af5d4327f51adc5e0ab85da26b",
+          "digest": "8ca64e362277f2f5c87aea3287fb6bf7519047bb2e18ea9730fc338b4163489b",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "297e8eec9a862e3512683c10057529498822f4595e1ba870ddb41eb465946a99",
+          "measurement_id": "M-52ADD1176286E933",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "C",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "b05609367e35667af53365be0aa557a114fe2c016577e72f580070189b8c6948",
+          "digest": "4b2109006c2d0ca61a6e650fc9abf6099b968ddd13bc9c0edcc441519b4ee728",
+          "experiment_id": "Q-2FDAA1BA5669163D",
+          "frontier_freeze_digest": "608fb96ad1cfb7aaf3f1e9fe3b9cbf0349ba1cb220d239f55f4b8483c613a99c",
+          "measurement_id": "M-B05609367E35667A",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "A",
+          "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+          "uncertainty": 0.0
+        },
+        {
+          "data_digest": "80d58864870fdca6165ae84e5b27027203b007f229209da562308a07b1c81491",
+          "digest": "8ee2ecf622897c0c0322de7aed8b96cfebc2b751695d06f9bd3ef5b45262cd40",
+          "experiment_id": "Q-00815EDA62CB5DD0",
+          "frontier_freeze_digest": "6f799c9691fcc9d79a6e02adcd70cca35c517ea88d81b4cfb233536250a90f03",
+          "measurement_id": "M-80D58864870FDCA6",
+          "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+          "observation": "OUTSIDE-FROZEN-OBSERVATION",
+          "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+          "uncertainty": 0.0
+        }
+      ],
+      "owner_id": "LONG-HORIZON-SCIENTIFIC-SESSION-LEDGER/1.0.0",
+      "release": "10.7.0",
+      "representation_expansion_count": 4,
+      "schema": "phi-long-horizon-session-state/v1",
+      "state_digest": "b14d2d3f80df34b3bfb30ae3d88d5859ac270be7db7e752bb5d495a8a7b5da53",
+      "theory_demotions": {
+        "E-2DDAC72F0F05CF21": 24,
+        "E-2EE671BB751AC164": 26,
+        "E-E6E209A2077DEBE3": 18
+      },
+      "transitions": [
+        {
+          "environment_id": "BLIND-EPOCH-0",
+          "epoch_freeze_digest": "621d74d591b46da98faf192a2bfb398acb827e6677aba30f5a1e0b8cab0ca3b2",
+          "heartbeat": 1,
+          "measurement_digest": "b903110849bbb9dd2bc466e63b5ec72c8bc1e7c10b06683cef7b4fbb31d31cf4",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-0",
+          "epoch_freeze_digest": "87e28b4704ac5296602f12316d8e8c297abc5891547b22c6a78a5a1d6e32ae35",
+          "heartbeat": 2,
+          "measurement_digest": "290d39063acb5f590c9558cb29525ca5efcef49411a71668ebfa9d8933acf9fd",
+          "revision_digest": "1e7bb8954eb561032124d3989f9cac440231fb3abde874cc199d600af12b1a51",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 3,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 4,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 5,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 1,
+          "heartbeat": 6,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-1",
+          "epoch_freeze_digest": "08489ce6bda558bcbb5332cd4943b348189e14d2cde427826628780a26077dbf",
+          "heartbeat": 7,
+          "measurement_digest": "d0e681c90d1b3611d3a6d1615069098e247a5b3ce19d1d389cbc08aa599783be",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-1",
+          "epoch_freeze_digest": "16c7a0695c8d28db84fe899d84c7634818390865df0823daaeea63ad449f6f91",
+          "heartbeat": 8,
+          "measurement_digest": "f7b747ab95626b69815d16818fafbac1ae413bb59c4ea506c7f738cda61a199f",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 9,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 10,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 11,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 2,
+          "heartbeat": 12,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-2",
+          "epoch_freeze_digest": "0045d15091ea9f0397419ffb31e0fb581b6b9406afec09e8b580ab252bbf0b4f",
+          "heartbeat": 13,
+          "measurement_digest": "3d8dc5db8947bd3d6291ffab850695cc276a3151aeafe3fdcc861e252504b943",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-2",
+          "epoch_freeze_digest": "f3d30a352649c481d20bfa216df0594aab22dbe538f9bb6b0bcacb02380cc02c",
+          "heartbeat": 14,
+          "measurement_digest": "b41037cad8fd249b80a8dce42d1771cfa3438df3644b0e8884b8b539bf0fe1e9",
+          "revision_digest": "1e7bb8954eb561032124d3989f9cac440231fb3abde874cc199d600af12b1a51",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 15,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 16,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 17,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 3,
+          "heartbeat": 18,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-3",
+          "epoch_freeze_digest": "959446cdbd2dbef37fb68ee9eb3bd47214cd7e35044f4499063481fa189e9e55",
+          "heartbeat": 19,
+          "measurement_digest": "9935c09cc8783547ae45acebdca8fc4c7acffe7c03bd9fdf5b25d54a1458c420",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-3",
+          "epoch_freeze_digest": "13e5c14a2e1b67b2bcfd84059e5ffacf1c944e19ce672cbf6e72bf2a38b27f89",
+          "heartbeat": 20,
+          "measurement_digest": "6026e4650d4df87f96d89409abe578d211941f69142c79ef2a5fc731fd074017",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 21,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 22,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 23,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 4,
+          "heartbeat": 24,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-4",
+          "epoch_freeze_digest": "52bf29c1effbfbbf4ecea6adbf7adcf65ab8404b9b9dae697efe7328a468d790",
+          "heartbeat": 25,
+          "measurement_digest": "9bbe3273d6a3de11450d2e884fc5a8ad746f97f78fbd8a51d76f998828ccbb77",
+          "revision_digest": "40c07abb65932980814080dcbf4c1a61c25f47ec8bb5776b5ce7827e25c7d450",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 26,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 27,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 28,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 5,
+          "heartbeat": 29,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-5",
+          "epoch_freeze_digest": "2e6091a97fa5898dec5df50e0ed8c10d632caa27124f87e4d7132a907dadf312",
+          "heartbeat": 30,
+          "measurement_digest": "471604b8feeaf407039b769bcd05d8812833bf204f94724ab1ec2f56c3383fb6",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-5",
+          "epoch_freeze_digest": "17422ed5d13230516057d26cb697ceda4f2499de0c6a5bccd87d374892baa2e0",
+          "heartbeat": 31,
+          "measurement_digest": "cf101a6aeac19eb372a89cc30709f844d6c82a728042b2651dcb6d4b920b7116",
+          "revision_digest": "1e7bb8954eb561032124d3989f9cac440231fb3abde874cc199d600af12b1a51",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 32,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 33,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 34,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 6,
+          "heartbeat": 35,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-6",
+          "epoch_freeze_digest": "917a33cf7d6f431e771e437708ff482176a0f402b57027565998c02d0fda0e97",
+          "heartbeat": 36,
+          "measurement_digest": "ff65eed9882b66ad4d451cf51910e1d433508a1fe39f62206b84a4c56558d352",
+          "revision_digest": "40c07abb65932980814080dcbf4c1a61c25f47ec8bb5776b5ce7827e25c7d450",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 37,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 38,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 39,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 7,
+          "heartbeat": 40,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-7",
+          "epoch_freeze_digest": "a0dde6a316e100ac9ca6a623580ccd0fcbf8c888ee7b226a28176a303f0c9753",
+          "heartbeat": 41,
+          "measurement_digest": "7f764bae408ffad134150adec1acdbe3f4bb79fb0035eb2f877175e51435f8ca",
+          "revision_digest": "9887b90fb203cfd91c973efef4af1b63364e3155d2e6dcdd4d5a9241aa7a1b8b",
+          "revision_status": "REPRESENTATION_EXPANSION_REQUIRED"
+        },
+        {
+          "heartbeat": 42,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 43,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 44,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 8,
+          "heartbeat": 45,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-8",
+          "epoch_freeze_digest": "5491efbd1262203f0414793a03b8b748b8f6b57477cec2389ad2be499acaa5c5",
+          "heartbeat": 46,
+          "measurement_digest": "740d7d0b54a93aeffebc9c78bcb0cc2e36842a61c7f3eec255eb75aa05eb78ec",
+          "revision_digest": "40c07abb65932980814080dcbf4c1a61c25f47ec8bb5776b5ce7827e25c7d450",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 47,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 48,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 49,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 9,
+          "heartbeat": 50,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-9",
+          "epoch_freeze_digest": "27d40cba148e6349d77978ea6f5a2de8a964c24386ed6511d879b77cc17e02d0",
+          "heartbeat": 51,
+          "measurement_digest": "8712b5a98cba81ecf2a9bb2011d5d943a6384c425e2c245a6f0669be44263b62",
+          "revision_digest": "40c07abb65932980814080dcbf4c1a61c25f47ec8bb5776b5ce7827e25c7d450",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 52,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 53,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 54,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 10,
+          "heartbeat": 55,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-10",
+          "epoch_freeze_digest": "c3437a103b5fd4be850967fd5da987fac1868e247e79c0fd9ce1450d4e5651b9",
+          "heartbeat": 56,
+          "measurement_digest": "7e4189327b4962d172d7318266169f22f92bd09e660fc861ea3a579ad8cec0d9",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-10",
+          "epoch_freeze_digest": "45f44b1460958e9da87bd07f1165b852863c53baa6e94ff940f381599e27f800",
+          "heartbeat": 57,
+          "measurement_digest": "670324053b4e63a42e0a1ba429452e8cda4485b0a517158f98e70dec9b30e344",
+          "revision_digest": "1e7bb8954eb561032124d3989f9cac440231fb3abde874cc199d600af12b1a51",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 58,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 59,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 60,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 11,
+          "heartbeat": 61,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-11",
+          "epoch_freeze_digest": "26f32f0ef0e736c094d99bb832fd9d588f9fb6adc69262349f22b149a7451867",
+          "heartbeat": 62,
+          "measurement_digest": "f3b99a3d52d5e39ddbb7118d808feebfa2f5276ba99b729b3dbc7ab5c5d86c47",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-11",
+          "epoch_freeze_digest": "59a67004e2cb6c78af484cf8f0e48e6ca9f59cb205a85a475c4c0f72545f9cf8",
+          "heartbeat": 63,
+          "measurement_digest": "0bc37d749c8e9ba06de538fae3131dd5520c0c8ba4aaf6164cdd5df071149192",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 64,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 65,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 66,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 12,
+          "heartbeat": 67,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-12",
+          "epoch_freeze_digest": "5a7cbd013482883495e4a8fd667308de459d376cb47cbabcb9a5590ae7235017",
+          "heartbeat": 68,
+          "measurement_digest": "28a17300af904837912079762d7eaee7c1a9cde8f94fd61f415191ce6bb95651",
+          "revision_digest": "40c07abb65932980814080dcbf4c1a61c25f47ec8bb5776b5ce7827e25c7d450",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 69,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 70,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 71,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 13,
+          "heartbeat": 72,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-13",
+          "epoch_freeze_digest": "34cdf34bf5743bd39e3f9393aa8fda48e59c4acd4d1ace529f391bc5673dfe93",
+          "heartbeat": 73,
+          "measurement_digest": "e7f6cce65d2ef0bab090fc5e6c68e65105c6d992ad151876e431f3e0854124b4",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-13",
+          "epoch_freeze_digest": "81197b723491fd60e2dd8bc809260dcfe95ac693936f227f21625dac4a769f35",
+          "heartbeat": 74,
+          "measurement_digest": "0835324f289ad4859f3b234c1417e1d4a8e4a792f5049ae4d423cd984ed89468",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 75,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 76,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 77,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 14,
+          "heartbeat": 78,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-14",
+          "epoch_freeze_digest": "1c1b6bc3f362488d696e0c3b6f078e13c389862e43fbeb5a5bc4b36b3c1902fb",
+          "heartbeat": 79,
+          "measurement_digest": "4a421230e331e25ac82c7f12525cff9c0946f5646ee5844e2508828a29fb3581",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-14",
+          "epoch_freeze_digest": "0854b88d212a037df05b01423e81044bd849e20774fad9b2194bdea5fa695038",
+          "heartbeat": 80,
+          "measurement_digest": "8da1e22f3826c115018cb05f5d0e89848989cf25a6dd926eee2070284a590f4b",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 81,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 82,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 83,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 15,
+          "heartbeat": 84,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-15",
+          "epoch_freeze_digest": "e8b6faea77490759451218b96595550537306122539c7021a0cefa228fe2fb29",
+          "heartbeat": 85,
+          "measurement_digest": "d2f8e965c008b441ea4028471eaac20e274167aa7c2afb9d9cbf4e9eaefd42b5",
+          "revision_digest": "9887b90fb203cfd91c973efef4af1b63364e3155d2e6dcdd4d5a9241aa7a1b8b",
+          "revision_status": "REPRESENTATION_EXPANSION_REQUIRED"
+        },
+        {
+          "heartbeat": 86,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 87,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 88,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 16,
+          "heartbeat": 89,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-16",
+          "epoch_freeze_digest": "a7b647193dec12f276178ac28d9c4b26f32cc7f22c3e8ec99c17b969200f38b9",
+          "heartbeat": 90,
+          "measurement_digest": "e03fdd39db6b9a610d6e7584752d3967681de203697b4fa5ff4349a483df5666",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-16",
+          "epoch_freeze_digest": "07352c6d7e2d06105c4c790c3a5f30b8ccc2906564ed99af91593ac86a3704bf",
+          "heartbeat": 91,
+          "measurement_digest": "78515667d924412eec2988e2b553f840e156b0a976a82b284f99fd73357c4861",
+          "revision_digest": "1e7bb8954eb561032124d3989f9cac440231fb3abde874cc199d600af12b1a51",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 92,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 93,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 94,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 17,
+          "heartbeat": 95,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-17",
+          "epoch_freeze_digest": "1be6595755782a25656854b2b78e7c5731cb64a2009418acbdbd4c614ba9fa4b",
+          "heartbeat": 96,
+          "measurement_digest": "935f697b705bd78c5aec915e482b5e1d0ede91d2abc28b8b6158c5bed1570ad4",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-17",
+          "epoch_freeze_digest": "329307f5d4a982120df4e0d66672583a05de0dbf9fc47c8588280b91bedf4435",
+          "heartbeat": 97,
+          "measurement_digest": "303d691782ce3999b503294c48d92a13d91588694b5b9dab8624d7741c9d3a6e",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 98,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 99,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 100,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 18,
+          "heartbeat": 101,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-18",
+          "epoch_freeze_digest": "2c61f57254e7d02fb198592be3020d47f93e8be44049b08ea215fc01027c27c4",
+          "heartbeat": 102,
+          "measurement_digest": "bf385dd4689e1bdd8ce7e8f4fa0565b0f060f473ea211dd2d32918237cb52093",
+          "revision_digest": "40c07abb65932980814080dcbf4c1a61c25f47ec8bb5776b5ce7827e25c7d450",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 103,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 104,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 105,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 19,
+          "heartbeat": 106,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-19",
+          "epoch_freeze_digest": "63fa98eefa4466c9a7b0cc7777c977208ed63834934e423f28bfb01d5566ec11",
+          "heartbeat": 107,
+          "measurement_digest": "a6b6386dce6390cb88212888ff21651aa1b2d218d4eb49eec00cceb49a51b678",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-19",
+          "epoch_freeze_digest": "cc72a29988f347e2f007046cdc532598afb73dad49bb9b0201bf26bd9a771703",
+          "heartbeat": 108,
+          "measurement_digest": "61b6b09beb09ebeaf84390a8d0205a3b8b1d5ec7f5808d42d22b3f7f98ff9435",
+          "revision_digest": "1e7bb8954eb561032124d3989f9cac440231fb3abde874cc199d600af12b1a51",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 109,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 110,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 111,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 20,
+          "heartbeat": 112,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-20",
+          "epoch_freeze_digest": "8c437fef69e1b08ae0370638d13193bff832399741292833b102064267f8267e",
+          "heartbeat": 113,
+          "measurement_digest": "f076458b39d8d72fdb592309312c0abe0badd1e2a290e0a8a61f18b3b13701b6",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-20",
+          "epoch_freeze_digest": "337053214e1871192957a37dd64873d924ae2388107632ecd3b17d55ad31200c",
+          "heartbeat": 114,
+          "measurement_digest": "91325e483d1b533812cf1f4c13dc05ca9fdcfd311bef80f0af1eb14d956fe63e",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 115,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 116,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 117,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 21,
+          "heartbeat": 118,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-21",
+          "epoch_freeze_digest": "9b326d02a549de17e2af0789d45473d427b1c8a51b0c1e9f86406b87b149dbc4",
+          "heartbeat": 119,
+          "measurement_digest": "1e9a37e74748b8f4a1f7a99ec7a91981c4486525d40e5e76428f7f439acfe61d",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-21",
+          "epoch_freeze_digest": "259227b7f1f37cc37e37146e5db305796d15a0262a3f30b5167042c39b114cdb",
+          "heartbeat": 120,
+          "measurement_digest": "0c052c992f502a983546ffe877d1dabcf03a7fe530331f790177a5ebc8825fd5",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 121,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 122,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 123,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 22,
+          "heartbeat": 124,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-22",
+          "epoch_freeze_digest": "9f935b410b7b4146426ecac7e13a84783c5bbd31944a76ab4130d3bef372af98",
+          "heartbeat": 125,
+          "measurement_digest": "e3bf9506f38ee8d8c9475e97fe11e25fe3470722e588d0f8ea35b8dfc0196841",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-22",
+          "epoch_freeze_digest": "5c4a6d359b66856d71961e4d272d7ab01deff207ce06f226445acee67da73aca",
+          "heartbeat": 126,
+          "measurement_digest": "54396ef535b80bb699de4e7fe4ffa9235ccadd67b48b832a7587620f9b5ec8f1",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 127,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 128,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 129,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 23,
+          "heartbeat": 130,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-23",
+          "epoch_freeze_digest": "3d80ee3054eeddd70c930680ef5f15977e16ae066dc10fefe81f6f76e9a62c06",
+          "heartbeat": 131,
+          "measurement_digest": "46bf8c2fbf4513b82a202d67fdb643525d70654cda67b0f708cc9f2bd3eb4c05",
+          "revision_digest": "9887b90fb203cfd91c973efef4af1b63364e3155d2e6dcdd4d5a9241aa7a1b8b",
+          "revision_status": "REPRESENTATION_EXPANSION_REQUIRED"
+        },
+        {
+          "heartbeat": 132,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 133,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 134,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 24,
+          "heartbeat": 135,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-24",
+          "epoch_freeze_digest": "7007485fb376aaa406a9a42bb5a24a9c53e11a8ddfc30b484a762efef0bda7fe",
+          "heartbeat": 136,
+          "measurement_digest": "86bd5e9ea16ad6b8f1f3519bf6e90c52e4b8e8c9dc8b636ac0a72422f86c9866",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-24",
+          "epoch_freeze_digest": "499f88175830f3db47336f733ff644e07a74f3a9dec002e92b1ccf81c7236464",
+          "heartbeat": 137,
+          "measurement_digest": "9dfda669899d87277d1728465ce62cf7b60c63a7c6652faddfe83747f97cd9d5",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 138,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 139,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 140,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 25,
+          "heartbeat": 141,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-25",
+          "epoch_freeze_digest": "264d068298d901b8797357a8019edc50911dd2b190677cb4e5d682ebe1ddb402",
+          "heartbeat": 142,
+          "measurement_digest": "6ab63b9488a614a71a24825956943b5dcf0563e6d52351c1f644c6c3ae910188",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-25",
+          "epoch_freeze_digest": "b1d0c403a6bbd40c57f72992f303db5d1fea7d6cec0c17088c2c9f994918a597",
+          "heartbeat": 143,
+          "measurement_digest": "fb27d9196ad79af8c63a0f7b8211ec5e3fe1d9ae9b1296e2f584f0284cd201b4",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 144,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 145,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 146,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 26,
+          "heartbeat": 147,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-26",
+          "epoch_freeze_digest": "4f61f198a64a7ed42c0e14f1f4c2d337c6e88d8f779ab331eb1205d1bb07fc9b",
+          "heartbeat": 148,
+          "measurement_digest": "014793effe7dfca09daaae5b661ea640efe9d76b34d01e2f3dfe624e69ec8c33",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-26",
+          "epoch_freeze_digest": "c69f4070b0f1a65d801cae3c093686874704c51c0bea76a9ebc06782a31bb915",
+          "heartbeat": 149,
+          "measurement_digest": "9c80ee744e5436e3c58e109aa38564ecd04ca18c50b55fa4d08e50c287048966",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 150,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 151,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 152,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 27,
+          "heartbeat": 153,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-27",
+          "epoch_freeze_digest": "0cd1bbe580c575eedc5fceee0819607ce5e6fc98fb169af99f682252cdad0225",
+          "heartbeat": 154,
+          "measurement_digest": "19bcc22497df2aca9f2d3947234c93704dc60653d2cb014e9fca2bf6c2b83dff",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-27",
+          "epoch_freeze_digest": "866fecb130e152eb9f6ac856b987827883731a371258125da6f70a3fed56a9c9",
+          "heartbeat": 155,
+          "measurement_digest": "d797f5b2ae3d19f135444109ad816e4842f8637cea99b0e0f92b7f08792be3d2",
+          "revision_digest": "1e7bb8954eb561032124d3989f9cac440231fb3abde874cc199d600af12b1a51",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 156,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 157,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 158,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 28,
+          "heartbeat": 159,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-28",
+          "epoch_freeze_digest": "d69322df73f177d510e0e47ba7ac1ddebcde86377269e029fc55c66621e740d6",
+          "heartbeat": 160,
+          "measurement_digest": "b9e1848de37d57c0b7967043a89de7c2f5752d44764387e4eba95512326ccfe5",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-28",
+          "epoch_freeze_digest": "33f1c3014149b1a04273c8af2be82f5a2ad4525bae3829417ed20312a3d4b3fd",
+          "heartbeat": 161,
+          "measurement_digest": "9b93a9558528be62e31874a0b945c810c1ec2a4e4bdad1270ea08de27413c3b8",
+          "revision_digest": "1e7bb8954eb561032124d3989f9cac440231fb3abde874cc199d600af12b1a51",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 162,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 163,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 164,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 29,
+          "heartbeat": 165,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-29",
+          "epoch_freeze_digest": "02c5011f4ddbfa12774095a37f3c74fd40c86407c6b127f30c3d30215771b2df",
+          "heartbeat": 166,
+          "measurement_digest": "367fd6115c61bd4043a556da0a62cef7619c61953667203a5c2bac8448068bbb",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-29",
+          "epoch_freeze_digest": "b2be5bd4d305dff642e9c08af634be9ef7fcc2c8908826b5f5bcb3bc867dbf7c",
+          "heartbeat": 167,
+          "measurement_digest": "a18a5476ec8390af5bf9e05e4b5c9346ce43168529f2bf1a1527709847869ccd",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 168,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 169,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 170,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 30,
+          "heartbeat": 171,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-30",
+          "epoch_freeze_digest": "288a8aa9ad281cad4e8713f30ea1ee47d0484088b1d06de7104e57fd92ec2e8c",
+          "heartbeat": 172,
+          "measurement_digest": "8ca64e362277f2f5c87aea3287fb6bf7519047bb2e18ea9730fc338b4163489b",
+          "revision_digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+          "revision_status": "THEORY_SET_REDUCED_POSTFREEZE"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-30",
+          "epoch_freeze_digest": "7776ac7dabb0ef9d1ae9a2e9ee119cb290623f7e309c7cc50886ae8494945840",
+          "heartbeat": 173,
+          "measurement_digest": "4b2109006c2d0ca61a6e650fc9abf6099b968ddd13bc9c0edcc441519b4ee728",
+          "revision_digest": "65873c9f806a20fc9e6b75fcb10a357fc864bf667b22e7dbce8a22f072a6a52b",
+          "revision_status": "THEORY_IDENTIFIED_POSTFREEZE"
+        },
+        {
+          "heartbeat": 174,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 175,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 176,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 31,
+          "heartbeat": 177,
+          "status": "EPOCH_COMPLETED"
+        },
+        {
+          "environment_id": "BLIND-EPOCH-31",
+          "epoch_freeze_digest": "5a5cbdf88b1f1311829865dca4b9ac891615266b79788331d15d2ce35ce1d597",
+          "heartbeat": 178,
+          "measurement_digest": "8ee2ecf622897c0c0322de7aed8b96cfebc2b751695d06f9bd3ef5b45262cd40",
+          "revision_digest": "9887b90fb203cfd91c973efef4af1b63364e3155d2e6dcdd4d5a9241aa7a1b8b",
+          "revision_status": "REPRESENTATION_EXPANSION_REQUIRED"
+        },
+        {
+          "heartbeat": 179,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 180,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "heartbeat": 181,
+          "status": "RESIDENT_HEARTBEAT"
+        },
+        {
+          "epoch": 32,
+          "heartbeat": 182,
+          "status": "EPOCH_COMPLETED"
+        }
+      ]
+    },
+    "first_epoch": {
+      "epoch": 0,
+      "hidden_index_revealed_post_epoch": 1,
+      "outside_frozen_control": false,
+      "rounds": [
+        {
+          "freeze_digest": "621d74d591b46da98faf192a2bfb398acb827e6677aba30f5a1e0b8cab0ca3b2",
+          "measurement": {
+            "data_digest": "f7a1e43bd952a6b5a3961694ca26694a95b628d9f5eb7ba48ed221ce85878973",
+            "digest": "b903110849bbb9dd2bc466e63b5ec72c8bc1e7c10b06683cef7b4fbb31d31cf4",
+            "experiment_id": "Q-00815EDA62CB5DD0",
+            "frontier_freeze_digest": "62fc72ed635d83793768377e1e967ccd18be3dc0f6ae10586f150860e1f45191",
+            "measurement_id": "M-F7A1E43BD952A6B5",
+            "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+            "observation": "C",
+            "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+            "uncertainty": 0.0
+          },
+          "round_freeze_digest": "62fc72ed635d83793768377e1e967ccd18be3dc0f6ae10586f150860e1f45191",
+          "update": {
+            "attestation": {
+              "claim_boundary": {
+                "attestation_is_scientific_promotion": false,
+                "conflict_presence_is_resolution": false,
+                "internet_used_for_prefreeze_candidate_selection": false,
+                "qualification_fixture_is_world_attestation": false
+              },
+              "claims": [],
+              "conflicts": [],
+              "digest": "80fe176a473e4fa965c374b3fda2586535e4acf26586ef2760a7791428b5a883",
+              "distinct_measurement_environment_count": 0,
+              "distinct_measurement_owner_count": 0,
+              "distinct_verified_source_count": 0,
+              "engine_or_qualification_receipt_count": 0,
+              "measurements": [
+                {
+                  "checks": {
+                    "DATA_DIGEST": true,
+                    "ENVIRONMENT_ID": true,
+                    "MEASUREMENT_ID": true,
+                    "MEASUREMENT_OWNER": true,
+                    "OBSERVABLE_ID": true,
+                    "PROTOCOL_DIGEST": true,
+                    "UNCERTAINTY_DECLARED": true,
+                    "VALUE_OR_VALUE_DIGEST": false
+                  },
+                  "data_digest": "f7a1e43bd952a6b5a3961694ca26694a95b628d9f5eb7ba48ed221ce85878973",
+                  "environment_id": "BLIND-EPOCH-0",
+                  "measurement_id": "M-F7A1E43BD952A6B5",
+                  "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+                  "observable_id": "LONG_HORIZON_FINAL_OBSERVATION",
+                  "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+                  "structurally_valid": false,
+                  "uncertainty": 0.0
+                }
+              ],
+              "owner_id": "WORLD-ATTESTATION/1.0.0",
+              "qualification_mode": true,
+              "qualification_ready": false,
+              "rejected_receipt_count": 0,
+              "schema": "phi-world-attestation-snapshot/v1",
+              "status": "WORLD_ATTESTATION_BLOCKED",
+              "verification_receipts": [],
+              "world_ready": false,
+              "world_receipt_count": 0
+            },
+            "claim_boundary": {
+              "attestation_world_ready": false,
+              "qualification_measurement_promotes_world_theory": false
+            },
+            "digest": "9514cce456ac957b338477cf8d17823dc34e91dbaf5483a48d851646bb0ab5a1",
+            "owner_id": "PHI-LONG-HORIZON-BLIND-SCIENTIFIC-CYCLE/1.0.0",
+            "revision": {
+              "claim_boundary": {
+                "nearest_theory_guessing_allowed": false,
+                "single_synthetic_measurement_is_world_confirmation": false,
+                "theory_world_novelty_established": false
+              },
+              "demoted_theory_ids": [
+                "E-2EE671BB751AC164"
+              ],
+              "digest": "2fce958b8d0ee38d263b846760b6bd6574f47858167ca251b4238932a67ffe96",
+              "experiment_id": "Q-00815EDA62CB5DD0",
+              "observation": "C",
+              "owner_id": "POSTFREEZE-THEORY-REVISION/1.0.0",
+              "representation_expansion_required": false,
+              "schema": "phi-long-horizon-blind-scientific-cycle/v1",
+              "status": "THEORY_SET_REDUCED_POSTFREEZE",
+              "surviving_theory_ids": [
+                "E-2DDAC72F0F05CF21",
+                "E-E6E209A2077DEBE3"
+              ]
+            },
+            "schema": "phi-long-horizon-blind-scientific-cycle/v1",
+            "state_commit": {
+              "completed_epoch_count": 0,
+              "digest": "a2933decf8147265af122493b2a4ef70a4da572e93153b61e2dcab8aee571a15",
+              "epoch_count": 0,
+              "heartbeat_count": 1,
+              "owner_id": "LONG-HORIZON-SCIENTIFIC-SESSION-LEDGER/1.0.0",
+              "state_digest": "5870420b4e2dc0d2e4550e80c8ebb73579ab81fa54f03ea5d6f87f779c87a414",
+              "status": "LONG_HORIZON_SESSION_COMMITTED"
+            },
+            "status": "THEORY_SET_REDUCED_POSTFREEZE"
+          }
+        },
+        {
+          "freeze_digest": "87e28b4704ac5296602f12316d8e8c297abc5891547b22c6a78a5a1d6e32ae35",
+          "measurement": {
+            "data_digest": "557a5f73e4480bae34e5cb69e3b58f03f55d3644b508010e6041ebbffe944888",
+            "digest": "290d39063acb5f590c9558cb29525ca5efcef49411a71668ebfa9d8933acf9fd",
+            "experiment_id": "Q-2FDAA1BA5669163D",
+            "frontier_freeze_digest": "179050a5574da753e94c6349777b72a31011b11245f0368c3684bc3b5f664ddd",
+            "measurement_id": "M-557A5F73E4480BAE",
+            "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+            "observation": "B",
+            "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+            "uncertainty": 0.0
+          },
+          "round_freeze_digest": "179050a5574da753e94c6349777b72a31011b11245f0368c3684bc3b5f664ddd",
+          "update": {
+            "attestation": {
+              "claim_boundary": {
+                "attestation_is_scientific_promotion": false,
+                "conflict_presence_is_resolution": false,
+                "internet_used_for_prefreeze_candidate_selection": false,
+                "qualification_fixture_is_world_attestation": false
+              },
+              "claims": [],
+              "conflicts": [],
+              "digest": "3523e525c00f56abd0ec057d4d1ec965d2cc00470d34d97dd425881f01687eed",
+              "distinct_measurement_environment_count": 0,
+              "distinct_measurement_owner_count": 0,
+              "distinct_verified_source_count": 0,
+              "engine_or_qualification_receipt_count": 0,
+              "measurements": [
+                {
+                  "checks": {
+                    "DATA_DIGEST": true,
+                    "ENVIRONMENT_ID": true,
+                    "MEASUREMENT_ID": true,
+                    "MEASUREMENT_OWNER": true,
+                    "OBSERVABLE_ID": true,
+                    "PROTOCOL_DIGEST": true,
+                    "UNCERTAINTY_DECLARED": true,
+                    "VALUE_OR_VALUE_DIGEST": false
+                  },
+                  "data_digest": "557a5f73e4480bae34e5cb69e3b58f03f55d3644b508010e6041ebbffe944888",
+                  "environment_id": "BLIND-EPOCH-0",
+                  "measurement_id": "M-557A5F73E4480BAE",
+                  "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+                  "observable_id": "LONG_HORIZON_FINAL_OBSERVATION",
+                  "protocol_digest": "bff0c35400e24d52cc8037d06102eb137f140b62be20dd196bfb74d29f2b2dcf",
+                  "structurally_valid": false,
+                  "uncertainty": 0.0
+                }
+              ],
+              "owner_id": "WORLD-ATTESTATION/1.0.0",
+              "qualification_mode": true,
+              "qualification_ready": false,
+              "rejected_receipt_count": 0,
+              "schema": "phi-world-attestation-snapshot/v1",
+              "status": "WORLD_ATTESTATION_BLOCKED",
+              "verification_receipts": [],
+              "world_ready": false,
+              "world_receipt_count": 0
+            },
+            "claim_boundary": {
+              "attestation_world_ready": false,
+              "qualification_measurement_promotes_world_theory": false
+            },
+            "digest": "a07f34f35ebed2a9383238fb606de413bcc14d4aaa64f384d7f12e1f75ed129d",
+            "owner_id": "PHI-LONG-HORIZON-BLIND-SCIENTIFIC-CYCLE/1.0.0",
+            "revision": {
+              "claim_boundary": {
+                "nearest_theory_guessing_allowed": false,
+                "single_synthetic_measurement_is_world_confirmation": false,
+                "theory_world_novelty_established": false
+              },
+              "demoted_theory_ids": [
+                "E-E6E209A2077DEBE3"
+              ],
+              "digest": "1e7bb8954eb561032124d3989f9cac440231fb3abde874cc199d600af12b1a51",
+              "experiment_id": "Q-2FDAA1BA5669163D",
+              "observation": "B",
+              "owner_id": "POSTFREEZE-THEORY-REVISION/1.0.0",
+              "representation_expansion_required": false,
+              "schema": "phi-long-horizon-blind-scientific-cycle/v1",
+              "status": "THEORY_IDENTIFIED_POSTFREEZE",
+              "surviving_theory_ids": [
+                "E-2DDAC72F0F05CF21"
+              ]
+            },
+            "schema": "phi-long-horizon-blind-scientific-cycle/v1",
+            "state_commit": {
+              "completed_epoch_count": 0,
+              "digest": "63f5ec728d5fc5740fb3a395a199fda2732e0fbd98f1953eece778e0b0cfcf4a",
+              "epoch_count": 0,
+              "heartbeat_count": 2,
+              "owner_id": "LONG-HORIZON-SCIENTIFIC-SESSION-LEDGER/1.0.0",
+              "state_digest": "c56cef0e8f2eee2b7ca1b386923a656cc7cbf18a018697cef44dbc4846e8e945",
+              "status": "LONG_HORIZON_SESSION_COMMITTED"
+            },
+            "status": "THEORY_IDENTIFIED_POSTFREEZE"
+          }
+        }
+      ]
+    },
+    "outside_control_epoch": {
+      "epoch": 7,
+      "hidden_index_revealed_post_epoch": 1,
+      "outside_frozen_control": true,
+      "rounds": [
+        {
+          "freeze_digest": "a0dde6a316e100ac9ca6a623580ccd0fcbf8c888ee7b226a28176a303f0c9753",
+          "measurement": {
+            "data_digest": "1678865af09aa9fdfda29fea69d1a5ddaaafa52ec07918a35fdf85c906c54744",
+            "digest": "7f764bae408ffad134150adec1acdbe3f4bb79fb0035eb2f877175e51435f8ca",
+            "experiment_id": "Q-00815EDA62CB5DD0",
+            "frontier_freeze_digest": "76c314351394ebc41c698e7573ec2f752c03acf3e2017781b5bcbd73090ea007",
+            "measurement_id": "M-1678865AF09AA9FD",
+            "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+            "observation": "OUTSIDE-FROZEN-OBSERVATION",
+            "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+            "uncertainty": 0.0
+          },
+          "round_freeze_digest": "76c314351394ebc41c698e7573ec2f752c03acf3e2017781b5bcbd73090ea007",
+          "update": {
+            "attestation": {
+              "claim_boundary": {
+                "attestation_is_scientific_promotion": false,
+                "conflict_presence_is_resolution": false,
+                "internet_used_for_prefreeze_candidate_selection": false,
+                "qualification_fixture_is_world_attestation": false
+              },
+              "claims": [],
+              "conflicts": [],
+              "digest": "1be681cbef9258559e3a5dda77312d705a1e3296880feb56588cc25ff910453b",
+              "distinct_measurement_environment_count": 0,
+              "distinct_measurement_owner_count": 0,
+              "distinct_verified_source_count": 0,
+              "engine_or_qualification_receipt_count": 0,
+              "measurements": [
+                {
+                  "checks": {
+                    "DATA_DIGEST": true,
+                    "ENVIRONMENT_ID": true,
+                    "MEASUREMENT_ID": true,
+                    "MEASUREMENT_OWNER": true,
+                    "OBSERVABLE_ID": true,
+                    "PROTOCOL_DIGEST": true,
+                    "UNCERTAINTY_DECLARED": true,
+                    "VALUE_OR_VALUE_DIGEST": false
+                  },
+                  "data_digest": "1678865af09aa9fdfda29fea69d1a5ddaaafa52ec07918a35fdf85c906c54744",
+                  "environment_id": "BLIND-EPOCH-7",
+                  "measurement_id": "M-1678865AF09AA9FD",
+                  "measurement_owner": "QUALIFICATION-HIDDEN-WORLD-EVALUATOR",
+                  "observable_id": "LONG_HORIZON_FINAL_OBSERVATION",
+                  "protocol_digest": "fca7f22d97698cd612f35df117d0fa9ab76112012cf1bcf946f4b9fc3dac7283",
+                  "structurally_valid": false,
+                  "uncertainty": 0.0
+                }
+              ],
+              "owner_id": "WORLD-ATTESTATION/1.0.0",
+              "qualification_mode": true,
+              "qualification_ready": false,
+              "rejected_receipt_count": 0,
+              "schema": "phi-world-attestation-snapshot/v1",
+              "status": "WORLD_ATTESTATION_BLOCKED",
+              "verification_receipts": [],
+              "world_ready": false,
+              "world_receipt_count": 0
+            },
+            "claim_boundary": {
+              "attestation_world_ready": false,
+              "qualification_measurement_promotes_world_theory": false
+            },
+            "digest": "7783795f73a0cbce18f81b3e99e721d2991587e4dc0f5470660233fa0b737607",
+            "owner_id": "PHI-LONG-HORIZON-BLIND-SCIENTIFIC-CYCLE/1.0.0",
+            "revision": {
+              "claim_boundary": {
+                "nearest_theory_guessing_allowed": false,
+                "single_synthetic_measurement_is_world_confirmation": false,
+                "theory_world_novelty_established": false
+              },
+              "demoted_theory_ids": [
+                "E-2EE671BB751AC164",
+                "E-2DDAC72F0F05CF21",
+                "E-E6E209A2077DEBE3"
+              ],
+              "digest": "9887b90fb203cfd91c973efef4af1b63364e3155d2e6dcdd4d5a9241aa7a1b8b",
+              "experiment_id": "Q-00815EDA62CB5DD0",
+              "observation": "OUTSIDE-FROZEN-OBSERVATION",
+              "owner_id": "POSTFREEZE-THEORY-REVISION/1.0.0",
+              "representation_expansion_required": true,
+              "schema": "phi-long-horizon-blind-scientific-cycle/v1",
+              "status": "REPRESENTATION_EXPANSION_REQUIRED",
+              "surviving_theory_ids": []
+            },
+            "schema": "phi-long-horizon-blind-scientific-cycle/v1",
+            "state_commit": {
+              "completed_epoch_count": 7,
+              "digest": "82ca0f80a450478f2fe88351b50e2ebd11bff826730dc3da7a335af98f8de566",
+              "epoch_count": 7,
+              "heartbeat_count": 41,
+              "owner_id": "LONG-HORIZON-SCIENTIFIC-SESSION-LEDGER/1.0.0",
+              "state_digest": "d8e9a10eef40288ae3fdce724e7ba41fb7198ea78ccae4b05e3c1db4acf8630e",
+              "status": "LONG_HORIZON_SESSION_COMMITTED"
+            },
+            "status": "REPRESENTATION_EXPANSION_REQUIRED"
+          }
+        }
+      ]
+    }
+  },
+  "digest": "cc2504dbf8941a20eb406474238abc86191d841788cc400ff320d97a96646d49",
+  "passed": 26,
+  "release": "10.7.0",
+  "schema": "phi-long-horizon-blind-cycle-qualification/v1",
+  "status": "PASS_PHI_LONG_HORIZON_BLIND_CYCLE_QUALIFICATION",
+  "summary": {
+    "epochs": 32,
+    "heartbeat_count": 182,
+    "identified_epochs": 28,
+    "representation_expansions": 4,
+    "state_digest": "b14d2d3f80df34b3bfb30ae3d88d5859ac270be7db7e752bb5d495a8a7b5da53",
+    "theory_demotions": {
+      "E-2DDAC72F0F05CF21": 24,
+      "E-2EE671BB751AC164": 26,
+      "E-E6E209A2077DEBE3": 18
+    },
+    "total_rounds": 54
+  },
+  "total": 26
+}

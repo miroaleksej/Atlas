@@ -4,7 +4,7 @@
     "architecture_restored": true,
     "consciousness_claimed": false,
     "historical_capability_snapshot_used": false,
-    "live_capability_count": 313,
+    "live_capability_count": 316,
     "mutable_state_bundled_in_release": false,
     "mutable_state_external_to_seal": true,
     "open_architecture_obligations": [],
@@ -140,7 +140,7 @@
     "python_api": "advance_adaptive_research",
     "repeated_group_stability": true
   },
-  "digest": "be84dc10e9f5604967995acdec41353fa128bc7d3420315f0c36af2193e7de0f",
+  "digest": "47862736774b37166185002d55091f77cfc187eeede7a3dc5ca83c5cef1083ed",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -215,6 +215,15 @@
     "mean_residual_db_4_8_hz": 1.7612432509816798,
     "new_physical_mechanism_established": false,
     "status": "PASS_LOW_FREQUENCY_GUST_ANOMALY_PUBLIC_EVIDENCE_ANALYSIS"
+  },
+  "observational_theory_continuation": {
+    "freeze_api": "freeze_phi_observational_theory_round",
+    "incomplete_prediction_portfolios_blocked": true,
+    "new_physical_law_established": false,
+    "novelty_benchmark_is_synthetic": true,
+    "outside_prediction_support_requires_expansion": true,
+    "revision_api": "revise_phi_observational_theory",
+    "theory_and_experiment_digests_verified": true
   },
   "operator_language_invention": {
     "authority": "PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0",
@@ -301,7 +310,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "4d798c4994691df3ee365692b19a8a0f6ad3db429b2614966321454e874c9773",
+  "qualification_digest": "f29d3e7792bc5d1eb2655288d9f7f95002036d32a640a733303b4a2a1eab1b5d",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,

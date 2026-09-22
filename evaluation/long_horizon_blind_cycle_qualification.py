@@ -6,7 +6,7 @@ from typing import Any, Mapping
 
 from source.lawspace.long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
 from source.lawspace.mathematical_invention import MathematicalInventionKernel
-from source.lawspace.theory_compiler import TheoryCompilerKernel
+from source.lawspace.theory_compiler import TheoryCompilerKernel, HierarchicalObservationalTheoryOwner
 from source.lawspace.schema import digest_payload
 from source.lawspace.domains import canonical_axis_count
 
@@ -86,8 +86,27 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
         kernel.mark_epoch_complete()
         epoch_summaries.append({"epoch":epoch,"hidden_index_revealed_post_epoch":hidden_index,"outside_frozen_control":outside,"rounds":round_receipts})
       state=kernel.ledger.load()
+      obs_theory=HierarchicalObservationalTheoryOwner().compile(
+        theory_id="LONG-HORIZON-OBSERVATIONAL-CONTROL",
+        universal_layer={"law":"known"},host_layer={"alpha":"latent"},regime_layer={"f_R":"open"},feasible_domain_layer={"Omega":"interval"},
+        competing_explanations=[{"id":"OH1"},{"id":"OH2"},{"id":"OH3"}],
+        predictions=[{"prediction":"distinguish","falsification":"wrong outcome","defense":"freeze before evidence","heldout_refit_allowed":False}],
+        evidence_digest=digest_payload({"observational_control":True}),
+        experimental_models=[
+          {"experiment_id":"OE-WEAK","observable":"weak","cost":1.0,"feasible":True,"predictions":{"OH1":{"kind":"categorical","value":"A"},"OH2":{"kind":"categorical","value":"A"},"OH3":{"kind":"categorical","value":"C"}}},
+          {"experiment_id":"OE-STRONG","observable":"strong","cost":1.5,"feasible":True,"predictions":{"OH1":{"kind":"categorical","value":"A"},"OH2":{"kind":"categorical","value":"B"},"OH3":{"kind":"categorical","value":"C"}}},
+        ],
+      )
+      obs_freeze=kernel.freeze_observational_round(theory=obs_theory,cost_budget=2.0)
+      obs_measurement={"experiment_id":"OE-STRONG","freeze_digest":obs_freeze.get("freeze_digest"),"value":"B","measurement_id":"OBS-HIDDEN-B"}
+      obs_revision=kernel.absorb_observational_measurement(frozen_experiment=obs_freeze,measurement=obs_measurement)
       checks={
         "kernel_owner":kernel.contract()["owner_id"]=="PHI-LONG-HORIZON-BLIND-SCIENTIFIC-CYCLE/1.0.0",
+        "hierarchical_observational_cycle_supported":kernel.contract()["hierarchical_observational_cycle"]["supported"] is True,
+        "observational_experiment_selected_prefreeze":obs_freeze.get("selected_experiment",{}).get("experiment_id")=="OE-STRONG" and obs_freeze.get("frozen",{}).get("measurement_inspected_before_selection") is False,
+        "observational_measurement_bound_to_freeze":obs_revision.get("experiment_id")=="OE-STRONG",
+        "observational_hidden_explanation_identified":obs_revision.get("status")=="HIERARCHICAL_EXPLANATION_IDENTIFIED_POSTFREEZE" and obs_revision.get("leading_explanation_id")=="OH2",
+        "observational_postfreeze_not_reused_for_selection":obs_revision.get("claim_boundary",{}).get("postfreeze_evidence_reused_for_experiment_selection") is False,
         "hidden_truth_not_solver_api":kernel.contract()["blindness"]["hidden_truth_parameter_in_solver_api"] is False,
         "internet_prefreeze_forbidden":kernel.contract()["blindness"]["internet_prefreeze"]=="FORBIDDEN",
         "all_current_axes_scanned":freeze_all_axes,
