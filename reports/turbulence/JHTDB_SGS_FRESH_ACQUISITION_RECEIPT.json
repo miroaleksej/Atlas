@@ -1,0 +1,1068 @@
+{
+  "schema": "atlas-jhtdb-sgs-fresh-acquisition/v1",
+  "status": "FRESH_RAW_NATURAL_SAMPLES_ACQUIRED_MEASUREMENT_ADAPTER_PENDING",
+  "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+  "child_forms_freeze_digest": "6f3943151c8853f02bf0223ff1e54f7a9e3a27a8040b941be273bfcd74f9a6f6",
+  "measurement_adapter_owner_required": "BLIND-DNS-TURBULENCE-CLOSURE-EXPERIMENT/1.0.0",
+  "sample_ids": [
+    "JHTDB-8192-S0-R1",
+    "JHTDB-8192-S0-R2",
+    "JHTDB-8192-S0-R3"
+  ],
+  "samples": [
+    {
+      "sample_id": "JHTDB-8192-S0-R1",
+      "dataset": "isotropic8192",
+      "snapshot_index_frozen": 0,
+      "jhtdb_timepoint_api": 1,
+      "time_index_mapping": "JHTDB_DOCUMENTED_SNAPSHOT_INDEX_ZERO_BASED_TO_GIVERNYLOCAL_TIMEPOINT_ONE_BASED",
+      "start_xyz_1based": [
+        8018,
+        3516,
+        6440
+      ],
+      "cube_edge": 32,
+      "filter_ratios_frozen": [
+        2,
+        4,
+        8
+      ],
+      "npz_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1.npz",
+      "npz_sha256": "cc12015124753e215db1a47aacf4a61b9d2bcb8182adde7b6341bb8afbfcd515",
+      "npz_size": 349544,
+      "array_shape_xyz": [
+        32,
+        32,
+        32
+      ],
+      "dx": 0.0007669903939428206,
+      "slabs": [
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R1",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              8018,
+              8049
+            ],
+            [
+              3516,
+              3547
+            ],
+            [
+              6440,
+              6443
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 0,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0000_d04.npy",
+          "array_sha256": "4ce4912f85525111536b262f1f7d870f725b45496e57bccb10963d832120ba19",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "f60d4856c0ad9b9242dcf4c581fe1807e47e1ca3cab87e86424f2dfbf1361e7d"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R1",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              8018,
+              8049
+            ],
+            [
+              3516,
+              3547
+            ],
+            [
+              6444,
+              6447
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 4,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0004_d04.npy",
+          "array_sha256": "620466581038aa91ab0f519205e7a184ba5a826b53339801f7e9b6e1901071c3",
+          "network_attempt_count_for_this_slab": 2,
+          "digest": "5032ec91a2d458f93dc8eb4518608defb2221136f16a0aeb3980283f3d0587ad"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R1",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              8018,
+              8049
+            ],
+            [
+              3516,
+              3547
+            ],
+            [
+              6448,
+              6451
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 8,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0008_d04.npy",
+          "array_sha256": "26b62b1a351fd5ee188fa2bb47a277f196ef7178466b6bd260d7e46503d28ae8",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "e2f01ee2b198e93056adf5a240d7bbc705e659531efa47a912f19d1a2141a725"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R1",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              8018,
+              8049
+            ],
+            [
+              3516,
+              3547
+            ],
+            [
+              6452,
+              6455
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 12,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0012_d04.npy",
+          "array_sha256": "2f929c798b2f894c3e9ee32873de0dfd1b9a88aa0e1f8ffad756e5687cff41cb",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "28bcc9d75c63946b36212703398cc7bb2b8241ae714797cc46fbb6ebbfa0878e"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R1",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              8018,
+              8049
+            ],
+            [
+              3516,
+              3547
+            ],
+            [
+              6456,
+              6459
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 16,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0016_d04.npy",
+          "array_sha256": "f4ee0b5cfdfbddfb08976f69d483ffbf608b28300716443e3c426f02c3ec6f1b",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "bb4eeb4b8127cd3e6518727441cb3b2033003999d3ace0989e98e3cbcacd70d4"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R1",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              8018,
+              8049
+            ],
+            [
+              3516,
+              3547
+            ],
+            [
+              6460,
+              6463
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 20,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0020_d04.npy",
+          "array_sha256": "e4ddad61b2d8986bdfe43b7344f020ca9c33a0a930a18ac055c972e184578b9f",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "295229ab29937fa32130f94084544ff9cc9a63ca7f2742c62c063559187850cc"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R1",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              8018,
+              8049
+            ],
+            [
+              3516,
+              3547
+            ],
+            [
+              6464,
+              6467
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 24,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0024_d04.npy",
+          "array_sha256": "c0aebcf7363c852e811adeb1e49ccf72ee672f84873a99e6e08bee657aee9c95",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "4db5c020a0a62819b0de36ca5593ac3dfc7591ccff34b6c3f18de40da2306143"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R1",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              8018,
+              8049
+            ],
+            [
+              3516,
+              3547
+            ],
+            [
+              6468,
+              6471
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 28,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0028_d04.npy",
+          "array_sha256": "98dd136d82d9e1af4b0c9e1dbf77d60ce335940dee97a8faaa107e05daf36dea",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "c14d6a8468dfd2e084157df59c9f79fb0ca617ab76a9f8a0d672cc19b5116c2c"
+        }
+      ],
+      "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+      "digest": "2a9ec9282f18f9890b651d777c6af392437b5d88890b0bb82c575d589448545e"
+    },
+    {
+      "sample_id": "JHTDB-8192-S0-R2",
+      "dataset": "isotropic8192",
+      "snapshot_index_frozen": 0,
+      "jhtdb_timepoint_api": 1,
+      "time_index_mapping": "JHTDB_DOCUMENTED_SNAPSHOT_INDEX_ZERO_BASED_TO_GIVERNYLOCAL_TIMEPOINT_ONE_BASED",
+      "start_xyz_1based": [
+        106,
+        7294,
+        3420
+      ],
+      "cube_edge": 32,
+      "filter_ratios_frozen": [
+        2,
+        4,
+        8
+      ],
+      "npz_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2.npz",
+      "npz_sha256": "35526a5a882e3800d6a8508fef38d96d974d8362fe62c2c35ca2e9bc152873fa",
+      "npz_size": 336922,
+      "array_shape_xyz": [
+        32,
+        32,
+        32
+      ],
+      "dx": 0.0007669903939428206,
+      "slabs": [
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R2",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              106,
+              137
+            ],
+            [
+              7294,
+              7325
+            ],
+            [
+              3420,
+              3423
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 0,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0000_d04.npy",
+          "array_sha256": "50c8ec13eea5cb29862125b0eee8bf40078ef930b48a2035b0c9cd015c7e8eb4",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "2e903c4024e0ae9e900decfda27db61aa4c86866ed256b449a55fec9e984b970"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R2",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              106,
+              137
+            ],
+            [
+              7294,
+              7325
+            ],
+            [
+              3424,
+              3427
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 4,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0004_d04.npy",
+          "array_sha256": "9ea258f05b5891fee4833d3fa665446ff23c51e32b8b14f5d3c35b2214773ca1",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "93f7f5714efbb7c28a2593bf5acde4b36ed423858464e1b27e2c28bd4d6b466d"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R2",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              106,
+              137
+            ],
+            [
+              7294,
+              7325
+            ],
+            [
+              3428,
+              3431
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 8,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0008_d04.npy",
+          "array_sha256": "68f9501312810e7fb55c7c3fd128343a31277a6e5da447c6192c62478e7dc441",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "95ad5b3e681142427e4e95dfb89cdc2950bb52f8a7fbc4f08232daf780595f64"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R2",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              106,
+              137
+            ],
+            [
+              7294,
+              7325
+            ],
+            [
+              3432,
+              3435
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 12,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0012_d04.npy",
+          "array_sha256": "ddba60bc4fc262e27b033a96bafa158e0da477a89c356c043f1bcaede940a1fb",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "1437866d918378b535e19e7980db40637a987ab46148473ea595f556bdc4dd47"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R2",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              106,
+              137
+            ],
+            [
+              7294,
+              7325
+            ],
+            [
+              3436,
+              3439
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 16,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0016_d04.npy",
+          "array_sha256": "290cd4ac4daa961ee72b9c3464a135ac12cc9b707ba9f50d0b1b36bcf6d45bed",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "8e702ac1859add33fa0d9f40b2ef18c767c9c71064f9dddb408c991b51af356a"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R2",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              106,
+              137
+            ],
+            [
+              7294,
+              7325
+            ],
+            [
+              3440,
+              3443
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 20,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0020_d04.npy",
+          "array_sha256": "672703f3b9a2738143ec0b3ef0fb7d4f6d856a4bf92b45547979f7257cd4ebc0",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "59f7e7da15c286c067b23bbf55df43cd2806ab1e72a20f50e06259c8a3c615c9"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R2",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              106,
+              137
+            ],
+            [
+              7294,
+              7325
+            ],
+            [
+              3444,
+              3447
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 24,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0024_d04.npy",
+          "array_sha256": "91d5ccdead6cf9be487443f250f44c803a27c574026c598bf6a5d20cfc4b8781",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "cbf28ca58d76b4b124ce6070fadae03db39a92d3bc3b7c1800921a3957012a42"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R2",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              106,
+              137
+            ],
+            [
+              7294,
+              7325
+            ],
+            [
+              3448,
+              3451
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 28,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0028_d04.npy",
+          "array_sha256": "451ce51b8ef6191b0d94f95d86a6256d4c1eb2905d6ebf2d46148c42d8033dd0",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "1f139b30fc24de440cb6dd31ed2692b191a1f61cece13d9b3d8c93400d88fe98"
+        }
+      ],
+      "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+      "digest": "ebc27b59b510f31eeb73517eab39715a12fb1ea3524cea39882efe83957c993b"
+    },
+    {
+      "sample_id": "JHTDB-8192-S0-R3",
+      "dataset": "isotropic8192",
+      "snapshot_index_frozen": 0,
+      "jhtdb_timepoint_api": 1,
+      "time_index_mapping": "JHTDB_DOCUMENTED_SNAPSHOT_INDEX_ZERO_BASED_TO_GIVERNYLOCAL_TIMEPOINT_ONE_BASED",
+      "start_xyz_1based": [
+        2440,
+        1074,
+        4913
+      ],
+      "cube_edge": 32,
+      "filter_ratios_frozen": [
+        2,
+        4,
+        8
+      ],
+      "npz_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3.npz",
+      "npz_sha256": "8de091c478696f22f16d752e5423f69c09f179f4dda886bac226a23f9fc07dd6",
+      "npz_size": 345072,
+      "array_shape_xyz": [
+        32,
+        32,
+        32
+      ],
+      "dx": 0.0007669903939428206,
+      "slabs": [
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R3",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              2440,
+              2471
+            ],
+            [
+              1074,
+              1105
+            ],
+            [
+              4913,
+              4916
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 0,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0000_d04.npy",
+          "array_sha256": "d03c82fa092eccffefb6fe0e89d7ce9293bdbcd0bad92b68000ff0979e4a007d",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "506f7a439136dd9f2cdcdf49335fae072c22ce99872e7f5b513896ae611a8ef5"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R3",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              2440,
+              2471
+            ],
+            [
+              1074,
+              1105
+            ],
+            [
+              4917,
+              4920
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 4,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0004_d04.npy",
+          "array_sha256": "570ee7ccbe0a01b54df9983f871cc3e05ea91303818ac3e97dd2c56c0e552922",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "e953e4162f863913aa2d1cf0d00b8ddc2824c67b60fc5b5f46d26a5aff42abb2"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R3",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              2440,
+              2471
+            ],
+            [
+              1074,
+              1105
+            ],
+            [
+              4921,
+              4924
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 8,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0008_d04.npy",
+          "array_sha256": "efeed08c81709385aeeac593923571d3774b2eb2a9d2f0bfa72513638c051488",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "5bcda0b5432e41b049c5dd9166c5ae43ae20c754adc3a60241fc33adefce6815"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R3",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              2440,
+              2471
+            ],
+            [
+              1074,
+              1105
+            ],
+            [
+              4925,
+              4928
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 12,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0012_d04.npy",
+          "array_sha256": "f6bde101b7653d2244e5ddf79792a845d88569996732de9dfe728b6fa29a8572",
+          "network_attempt_count_for_this_slab": 2,
+          "digest": "47cc261e25f3ea665307f53c5b2c9768f774fc23c0b1660869bd6bd0ef297850"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R3",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              2440,
+              2471
+            ],
+            [
+              1074,
+              1105
+            ],
+            [
+              4929,
+              4932
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 16,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0016_d04.npy",
+          "array_sha256": "d4b936594b3dbdfd9434ea348a199d0fd9474e4c049462341c96ae3658cdb8d4",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "c552f872144c8b3c2a2bee01c428a0c6511555d1ea316c3f924f0f8a6140f28d"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R3",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              2440,
+              2471
+            ],
+            [
+              1074,
+              1105
+            ],
+            [
+              4933,
+              4936
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 20,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0020_d04.npy",
+          "array_sha256": "437d5a3d8f6014a38a66dab2695ebcd4d6c81788f788357fcb40caad3012117d",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "2205fea8d8107057b5e90ecf628238b6c6e2b951b5f38ecad8c1bb66479b4fed"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R3",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              2440,
+              2471
+            ],
+            [
+              1074,
+              1105
+            ],
+            [
+              4937,
+              4940
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 24,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0024_d04.npy",
+          "array_sha256": "1b531761158958fda3b05d2031e05ccd0b27dd2a216eb1823de3981e16f49da1",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "03ca87d642f5e8b72a307e6290b222502b16c8a67282e7fe525c03ae85a1099b"
+        },
+        {
+          "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+          "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+          "sample_id": "JHTDB-8192-S0-R3",
+          "dataset": "isotropic8192",
+          "snapshot_index_frozen": 0,
+          "jhtdb_timepoint_api": 1,
+          "ranges_1based": [
+            [
+              2440,
+              2471
+            ],
+            [
+              1074,
+              1105
+            ],
+            [
+              4941,
+              4944
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "z_offset": 28,
+          "depth": 4,
+          "shape_zyxc": [
+            4,
+            32,
+            32,
+            3
+          ],
+          "points": 4096,
+          "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0028_d04.npy",
+          "array_sha256": "ebc4ce6a7bc6e13501c81fab9fcd07c0892f314be4f3e1d0738cd9bb993cfd37",
+          "network_attempt_count_for_this_slab": 1,
+          "digest": "e2da359e986b52bb736fe07bccbd2498b766a434a2a120c8dc41766b29eb0a38"
+        }
+      ],
+      "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+      "digest": "adb7be926e3ec08d3dde4c9a3aef77e64a484fab4958d8eb0962bc07243bae0f"
+    }
+  ],
+  "raw_fields": [
+    "u",
+    "v",
+    "w"
+  ],
+  "fresh_data_acquired": true,
+  "fresh_targets_computed": false,
+  "fresh_targets_used_for_term_selection": false,
+  "scientific_law_established": false,
+  "next_action": "RUN_EXISTING_BLIND_DNS_MEASUREMENT_ADAPTER_BOUND_TO_PROTOCOL_DIGEST",
+  "transport_resilience": {
+    "resume_enabled": true,
+    "max_retries_per_slab": 8,
+    "retry_base_seconds": 2.0,
+    "success_pause_seconds": 1.0,
+    "checkpoint_schema": "atlas-jhtdb-sgs-slab-checkpoint/v1"
+  },
+  "claim_boundary": {
+    "this_runner_is_not_the_scientific_reasoning_owner": true,
+    "this_runner_does_not_reimplement_the_frozen_dns_target_adapter": true,
+    "this_runner_does_not_fit_or_select_terms_on_fresh_data": true,
+    "frozen_snapshot_index_is_not_mutated": true,
+    "givernylocal_timepoint_is_api_boundary_mapping_only": true
+  },
+  "digest": "5f33961e44bf6df9679898c41b5309a9f921ff4c9757ef856879ae3540286c4d"
+}

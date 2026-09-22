@@ -96,6 +96,22 @@ def run(root=None, *, allow_blocked=False):
   'local_unsealed_dns_reports_used':False,
   'new_physical_law_established':False,
  }
+ caps['hypothesis_family_lineage']={
+  'owner':'ADAPTIVE-RESEARCH-KERNEL',
+  'form_failure_is_family_failure':False,
+  'parent_digest_and_family_identity_checked':True,
+  'child_structural_identity_required':True,
+  'coefficient_refit_clears_retired_form':False,
+  'family_state_is_scientific_promotion':False,
+  'supported_gap_entry':'ATTESTED_HYPOTHESIS_FORM_FAILURE',
+ }
+ caps['observational_archive_protocol']={
+  'owner':'ADAPTIVE-RESEARCH-KERNEL',
+  'source_classes':['FORWARD_ORACLE','OBSERVATIONAL_ARCHIVE'],
+  'arbitrary_intervention_from_archive_allowed':False,
+  'raw_acquisition_is_discriminating_experiment_result':False,
+  'jhtdb_transport_runner':'evaluation.run_fresh_jhtdb_sgs_observational_experiment',
+ }
  caps['release_control']={
   'current_state_qualification_status':q.get('status'),
   'current_state_qualification_passed':qualification_passed,

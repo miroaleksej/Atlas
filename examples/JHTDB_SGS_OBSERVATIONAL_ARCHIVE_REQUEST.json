@@ -1,0 +1,101 @@
+{
+  "freeze_basis_digest": "66adb9d2e3e70499e5926f4fe25d98e614a6aa3d1214b63463c510ca4dc69397",
+  "observational_archive_request": {
+    "archive_id": "JHTDB:isotropic8192:snapshot0",
+    "measurement_adapter_owner": "BLIND-DNS-TURBULENCE-CLOSURE-EXPERIMENT/1.0.0",
+    "natural_samples_only": true,
+    "observable_contract": {
+      "components": [
+        "x",
+        "y",
+        "z"
+      ],
+      "derived_observable": "unresolved_convective_acceleration via existing DNS coarse-graining adapter",
+      "existing_dns_target_definition_reused": true,
+      "fresh_values_must_be_absent_prefreeze": true,
+      "raw_fields": [
+        "u",
+        "v",
+        "w"
+      ]
+    },
+    "outcomes_inspected_prefreeze": false,
+    "sample_contracts": [
+      {
+        "cube_edge": 32,
+        "dataset": "isotropic8192",
+        "filter_ratios": [
+          2,
+          4,
+          8
+        ],
+        "role": "FRESH_SEALED_OBSERVATION",
+        "sample_id": "JHTDB-8192-S0-R1",
+        "snapshot": 0,
+        "start_xyz_1based": [
+          8018,
+          3516,
+          6440
+        ]
+      },
+      {
+        "cube_edge": 32,
+        "dataset": "isotropic8192",
+        "filter_ratios": [
+          2,
+          4,
+          8
+        ],
+        "role": "FRESH_SEALED_OBSERVATION",
+        "sample_id": "JHTDB-8192-S0-R2",
+        "snapshot": 0,
+        "start_xyz_1based": [
+          106,
+          7294,
+          3420
+        ]
+      },
+      {
+        "cube_edge": 32,
+        "dataset": "isotropic8192",
+        "filter_ratios": [
+          2,
+          4,
+          8
+        ],
+        "role": "FRESH_SEALED_OBSERVATION",
+        "sample_id": "JHTDB-8192-S0-R3",
+        "snapshot": 0,
+        "start_xyz_1based": [
+          2440,
+          1074,
+          4913
+        ]
+      }
+    ],
+    "selection_rule": "SHA256(FAMILY_FREEZE|ARCHIVE|SNAPSHOT|REGION|AXIS) MOD ADMISSIBLE_START_RANGE + 1",
+    "selection_seed": "66adb9d2e3e70499e5926f4fe25d98e614a6aa3d1214b63463c510ca4dc69397",
+    "source_manifest_digest": "063487284d999e93491ec9e5bb8d14105b767235e887d379dea3f91292de6a46",
+    "transforms": [
+      {
+        "filter_ratio": 2,
+        "kind": "SPECTRAL_LOW_PASS"
+      },
+      {
+        "filter_ratio": 4,
+        "kind": "SPECTRAL_LOW_PASS"
+      },
+      {
+        "filter_ratio": 8,
+        "kind": "SPECTRAL_LOW_PASS"
+      }
+    ]
+  },
+  "schema": "atlas-observational-archive-request/v1",
+  "source_capability": {
+    "class": "OBSERVATIONAL_ARCHIVE",
+    "source_id": "JHTDB:isotropic8192:snapshot0",
+    "supports_arbitrary_state_intervention": false,
+    "supports_natural_sample_retrieval": true
+  }
+}

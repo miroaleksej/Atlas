@@ -1,0 +1,39 @@
+{
+  "schema": "atlas-jhtdb-sgs-slab-checkpoint/v1",
+  "protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+  "sample_id": "JHTDB-8192-S0-R2",
+  "dataset": "isotropic8192",
+  "snapshot_index_frozen": 0,
+  "jhtdb_timepoint_api": 1,
+  "ranges_1based": [
+    [
+      106,
+      137
+    ],
+    [
+      7294,
+      7325
+    ],
+    [
+      3420,
+      3423
+    ],
+    [
+      1,
+      1
+    ]
+  ],
+  "z_offset": 0,
+  "depth": 4,
+  "shape_zyxc": [
+    4,
+    32,
+    32,
+    3
+  ],
+  "points": 4096,
+  "array_path": "examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0000_d04.npy",
+  "array_sha256": "50c8ec13eea5cb29862125b0eee8bf40078ef930b48a2035b0c9cd015c7e8eb4",
+  "network_attempt_count_for_this_slab": 1,
+  "digest": "2e903c4024e0ae9e900decfda27db61aa4c86866ed256b449a55fec9e984b970"
+}

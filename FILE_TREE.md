@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 339
+Controlled files: 409
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -104,6 +104,8 @@ Controlled files: 339
 - `evaluation/exoplanet_nasa2026_blind_experiment.py`
 - `evaluation/fetch_jhtdb_real_snapshots.py`
 - `evaluation/first_atlas_native_experiment.py`
+- `evaluation/freeze_jhtdb_sgs_child_forms.py`
+- `evaluation/freeze_observational_archive_protocol.py`
 - `evaluation/full_replay_qualification.py`
 - `evaluation/function_language_birth_qualification.py`
 - `evaluation/generation_transition_qualification.py`
@@ -136,6 +138,7 @@ Controlled files: 339
 - `evaluation/research_triage_qualification.py`
 - `evaluation/resource_theory_qualification.py`
 - `evaluation/rotating_cubic_euler_qualification.py`
+- `evaluation/run_fresh_jhtdb_sgs_observational_experiment.py`
 - `evaluation/run_real_jhtdb_dns_closure.py`
 - `evaluation/science_atlas_core_qualification.py`
 - `evaluation/scientific_data_ingestion_qualification.py`
@@ -150,9 +153,65 @@ Controlled files: 339
 - `evaluation/theory_compiler_qualification.py`
 - `evaluation/turbulence_dns_closure_experiment.py`
 - `evaluation/unified_release_qualification.py`
+- `examples/JHTDB_ISOTROPIC8192_PUBLIC_METADATA_FREEZE.json`
 - `examples/JHTDB_REAL_DNS_DOWNLOAD_PLAN.json`
+- `examples/JHTDB_SGS_OBSERVATIONAL_ARCHIVE_REQUEST.json`
 - `examples/data/exoplanets_g_dimension_nasa2018.csv`
 - `examples/exoplanets_dimensional_birth_of_G.ipynb`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1.npz`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/SAMPLE_ACQUISITION_RECEIPT.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0000_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0000_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0004_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0004_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0008_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0008_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0012_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0012_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0016_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0016_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0020_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0020_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0024_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0024_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0028_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R1/slab_z0028_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2.npz`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/SAMPLE_ACQUISITION_RECEIPT.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0000_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0000_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0004_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0004_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0008_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0008_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0012_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0012_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0016_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0016_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0020_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0020_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0024_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0024_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0028_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R2/slab_z0028_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3.npz`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/SAMPLE_ACQUISITION_RECEIPT.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0000_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0000_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0004_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0004_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0008_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0008_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0012_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0012_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0016_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0016_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0020_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0020_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0024_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0024_d04.npy`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0028_d04.json`
+- `examples/jhtdb_sgs_fresh_8192/JHTDB-8192-S0-R3/slab_z0028_d04.npy`
 - `examples/navier_stokes_blind_experiment.ipynb`
 - `examples/next_generation_ai_architecture_search.ipynb`
 - `examples/turbulence_dns_closure_experiment.ipynb`
@@ -246,6 +305,12 @@ Controlled files: 339
 - `reports/runtime/full_replay_batches/batch_003.json`
 - `reports/runtime/full_replay_batches/batch_004.json`
 - `reports/runtime/full_replay_batches/batch_005.json`
+- `reports/turbulence/ATLAS_RANDOM20_REAUDIT_DISCOVERY_RECEIPT.json`
+- `reports/turbulence/ATLAS_RANDOM20_SGS_CHILD_FORMS_FREEZE.json`
+- `reports/turbulence/ATLAS_RANDOM20_SGS_HYPOTHESIS_FAMILY_FREEZE.json`
+- `reports/turbulence/JHTDB_SGS_FRESH_ACQUISITION_RECEIPT.json`
+- `reports/turbulence/JHTDB_SGS_OBSERVATIONAL_PROTOCOL_FROZEN.json`
+- `reports/turbulence/V3_INTEGRATION_RU.md`
 - `source/__init__.py`
 - `source/lawspace/__init__.py`
 - `source/lawspace/adaptive_axis.py`
@@ -330,6 +395,10 @@ Controlled files: 339
 - `tests/test_fetch_jhtdb_real_snapshots.py`
 - `tests/test_function_language_birth.py`
 - `tests/test_hierarchical_confirmation_boundary.py`
+- `tests/test_hypothesis_family_lineage.py`
+- `tests/test_jhtdb_freeze_integrity.py`
+- `tests/test_jhtdb_fresh_observational_v5.py`
+- `tests/test_jhtdb_fresh_observational_v5_2.py`
 - `tests/test_observational_round_integrity.py`
 - `tests/test_permutation_eprocess_current.py`
 - `tests/test_query_driven_research_current.py`
@@ -337,6 +406,7 @@ Controlled files: 339
 - `tests/test_science_atlas_core.py`
 - `tests/test_scientific_axis_space_current.py`
 - `tests/test_scientific_exploitation_current.py`
+- `tests/test_source_capability_observational_archive.py`
 - `tests/test_tensor_axisymmetric_current.py`
 - `tests/test_turbulence_dns_closure_experiment.py`
 - `tests/test_unified_current.py`

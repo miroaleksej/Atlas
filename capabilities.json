@@ -140,7 +140,7 @@
     "python_api": "advance_adaptive_research",
     "repeated_group_stability": true
   },
-  "digest": "2dffbf23dab7f72fb5b5fafa6b805904b102963fcb821ee891df716b27b538b9",
+  "digest": "e25307cef6f01f7dfbc33b139c3bba1ec39c0c40c155d8f8b6ce62bda379721f",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -210,11 +210,30 @@
     "one_passport_per_input_row": true,
     "owner": "HierarchicalObservationalTheoryOwner"
   },
+  "hypothesis_family_lineage": {
+    "child_structural_identity_required": true,
+    "coefficient_refit_clears_retired_form": false,
+    "family_state_is_scientific_promotion": false,
+    "form_failure_is_family_failure": false,
+    "owner": "ADAPTIVE-RESEARCH-KERNEL",
+    "parent_digest_and_family_identity_checked": true,
+    "supported_gap_entry": "ATTESTED_HYPOTHESIS_FORM_FAILURE"
+  },
   "low_frequency_gust_anomaly": {
     "conditional_effective_input_ratio_4_8_hz": 0.8165672757732683,
     "mean_residual_db_4_8_hz": 1.7612432509816798,
     "new_physical_mechanism_established": false,
     "status": "PASS_LOW_FREQUENCY_GUST_ANOMALY_PUBLIC_EVIDENCE_ANALYSIS"
+  },
+  "observational_archive_protocol": {
+    "arbitrary_intervention_from_archive_allowed": false,
+    "jhtdb_transport_runner": "evaluation.run_fresh_jhtdb_sgs_observational_experiment",
+    "owner": "ADAPTIVE-RESEARCH-KERNEL",
+    "raw_acquisition_is_discriminating_experiment_result": false,
+    "source_classes": [
+      "FORWARD_ORACLE",
+      "OBSERVATIONAL_ARCHIVE"
+    ]
   },
   "observational_theory_continuation": {
     "freeze_api": "freeze_phi_observational_theory_round",
@@ -310,7 +329,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "f29d3e7792bc5d1eb2655288d9f7f95002036d32a640a733303b4a2a1eab1b5d",
+  "qualification_digest": "73e42b8dabee353fa213a34e18e0438de589d464a13f37a40bbeaa79288c160a",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,

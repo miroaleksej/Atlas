@@ -1,0 +1,29 @@
+{
+  "dataset": "isotropic8192",
+  "dataset_kind": "OBSERVATIONAL_ARCHIVE_OF_DNS_SNAPSHOTS",
+  "digest": "063487284d999e93491ec9e5bb8d14105b767235e887d379dea3f91292de6a46",
+  "domain": [
+    "0",
+    "2*pi"
+  ],
+  "fresh_target_values_included": false,
+  "grid": [
+    8192,
+    8192,
+    8192
+  ],
+  "provider": "Johns Hopkins Turbulence Database (JHTDB)",
+  "provider_metadata_urls": [
+    "https://turbulence.pha.jhu.edu/Isotropic8192.aspx",
+    "https://turbulence.pha.jhu.edu/docs/README-isotropic8192.pdf"
+  ],
+  "raw_fields": [
+    "velocity_u",
+    "velocity_v",
+    "velocity_w"
+  ],
+  "schema": "atlas-public-archive-metadata-freeze/v1",
+  "selected_snapshot": 0,
+  "selected_snapshot_re_lambda_class": "approximately 1200-1300 per provider metadata",
+  "snapshot_count": 6
+}

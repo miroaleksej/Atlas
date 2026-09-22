@@ -1,0 +1,171 @@
+{
+  "claim_boundary": {
+    "fresh_8192_target_values_accessed_for_this_freeze": false,
+    "literature_used_post_candidate_for_interpretation": true,
+    "new_law_established": false,
+    "parent_two_term_form_resurrected": false,
+    "this_is_a_prospective_discriminating_contract_not_a_result": true,
+    "world_novelty_established": false
+  },
+  "competing_hypotheses": [
+    {
+      "claim": "The same local support can transfer after scale-dependent normalization/coefficients.",
+      "class": "child_family_form",
+      "existing_evidence_note": "Post-hoc sealed refit of the same two terms was poor, so this child is retained only as an adversarial weak competitor.",
+      "id": "H-SCALE-SCALAR-SAME-TERMS",
+      "status": "WEAKENED_BY_EXPOSED_DIAGNOSTIC_NOT_CLOSED"
+    },
+    {
+      "claim": "A rotationally covariant first-gradient tensor closure with explicit filter scale is the stable local representation.",
+      "class": "child_family_form",
+      "id": "H-ROT-COV-GRADIENT-TENSOR",
+      "status": "ACTIVE_CANDIDATE"
+    },
+    {
+      "claim": "A scale-aware rotationally covariant local closure requires higher derivative operators beyond first-gradient tensor terms.",
+      "class": "child_family_form",
+      "id": "H-SCALE-HIGHER-DERIV-TENSOR",
+      "status": "ACTIVE_CANDIDATE"
+    },
+    {
+      "claim": "No instantaneous local closure in this representation transfers; prior structure is regime-local/artifactual.",
+      "class": "adversarial_null",
+      "id": "H-NO-LOCAL-TRANSFER",
+      "status": "ACTIVE_CANDIDATE"
+    },
+    {
+      "claim": "Transferable closure requires nonlocal or history variables rather than only instantaneous local operators.",
+      "class": "outside_family_competitor",
+      "id": "H-NONLOCAL-HISTORY",
+      "status": "ACTIVE_CANDIDATE"
+    }
+  ],
+  "created_date": "2026-09-22",
+  "experimental_models": [
+    {
+      "cost": 2.0,
+      "d_bar": 1.0,
+      "d_min": 1.0,
+      "data_contract": {
+        "coordinate_permutations": "not used for primary selection",
+        "filter_ratios": [
+          2,
+          4,
+          8
+        ],
+        "snapshot": "0",
+        "source": "JHTDB isotropic8192",
+        "target_values_inspected_prefreeze": false
+      },
+      "experiment_id": "E-FRESH-FILTER-SCALE-SWEEP",
+      "feasible": true,
+      "observable": "fresh_unseen_dns_multiscale_closure_outcome",
+      "predictions": {
+        "H-NO-LOCAL-TRANSFER": "NO_STABLE_LOCAL_COLLAPSE",
+        "H-NONLOCAL-HISTORY": "LOCAL_MODELS_PLATEAU_WITH_SYSTEMATIC_RESIDUAL",
+        "H-ROT-COV-GRADIENT-TENSOR": "FIRST_GRADIENT_TENSOR_SCALE_COLLAPSE",
+        "H-SCALE-HIGHER-DERIV-TENSOR": "HIGHER_DERIVATIVE_STABLE_GAIN_REQUIRED",
+        "H-SCALE-SCALAR-SAME-TERMS": "SAME_TERMS_SCALE_COLLAPSE"
+      },
+      "utility": 0.625
+    },
+    {
+      "cost": 1.0,
+      "d_bar": 0.9,
+      "d_min": 0.0,
+      "data_contract": {
+        "source": "fresh DNS snapshot",
+        "target_values_inspected_prefreeze": false,
+        "transform": "cyclic coordinate/component permutation"
+      },
+      "experiment_id": "E-FRESH-ROTATION-EQUIVARIANCE",
+      "feasible": true,
+      "observable": "fresh_unseen_dns_rotation_equivariance",
+      "predictions": {
+        "H-NO-LOCAL-TRANSFER": "NO_STABLE_STRUCTURE",
+        "H-NONLOCAL-HISTORY": "COVARIANT_BUT_LOCAL_ERROR_PERSISTS",
+        "H-ROT-COV-GRADIENT-TENSOR": "COVARIANT_LOCAL_STRUCTURE",
+        "H-SCALE-HIGHER-DERIV-TENSOR": "COVARIANT_LOCAL_STRUCTURE",
+        "H-SCALE-SCALAR-SAME-TERMS": "AXIS_LOCKED_SUPPORT_BREAKS_EQUIVARIANCE"
+      },
+      "utility": 0.225
+    },
+    {
+      "cost": 3.0,
+      "d_bar": 1.0,
+      "d_min": 1.0,
+      "data_contract": {
+        "match": "Delta/eta as closely as available",
+        "source": "unseen isotropic DNS regimes",
+        "target_values_inspected_prefreeze": false
+      },
+      "experiment_id": "E-FRESH-REYNOLDS-MATCHED-TRANSFER",
+      "feasible": true,
+      "observable": "fresh_cross_reynolds_matched_scale_transfer",
+      "predictions": {
+        "H-NO-LOCAL-TRANSFER": "NO_TRANSFER",
+        "H-NONLOCAL-HISTORY": "LOCAL_TRANSFER_REMAINS_INADEQUATE",
+        "H-ROT-COV-GRADIENT-TENSOR": "TENSOR_TRANSFER_AT_MATCHED_SCALE",
+        "H-SCALE-HIGHER-DERIV-TENSOR": "HIGHER_DERIVATIVE_TRANSFER_AT_MATCHED_SCALE",
+        "H-SCALE-SCALAR-SAME-TERMS": "SAME_TERMS_TRANSFER_AT_MATCHED_SCALE"
+      },
+      "utility": 0.4166666666666667
+    }
+  ],
+  "freeze_before_measurement": true,
+  "freeze_digest": "66adb9d2e3e70499e5926f4fe25d98e614a6aa3d1214b63463c510ca4dc69397",
+  "fresh_measurement_status": "NOT_ACQUIRED",
+  "hypothesis_family_lineage": {
+    "automatic_law_promotion_allowed": false,
+    "child_form_must_have_distinct_digest": true,
+    "coefficient_refit_alone_clears_failed_form": false,
+    "current_form_digest": "2c6d7959c58c7a3dbd9eaf07a6c5ebe8d87ba8963ac260fde061d616464eca1c",
+    "current_form_id": "RANDOM20-X-SHELL1-TWO-TERM",
+    "current_form_state": "RETIRED_FAILED_FORM",
+    "digest": "ee7414cc8fb73c6ec789f8587d4e76ed1853c57d290ab4173296d27a9abaabf5",
+    "evidence_digest": "735e846803bbac51084803f8af57603d94744b6005b4ffc3fc9101d73ac67d59",
+    "failure_scope": "FORM_OR_REPRESENTATION",
+    "family": {
+      "family_id": "HF-JHTDB-SGS-LOCAL-GRADIENT-20260922",
+      "open_representation_questions": [
+        "filter-scale normalization by Delta and/or dimensionless scale ratio",
+        "higher spatial derivative terms born from residual evidence",
+        "nonlocal or history dependence if all instantaneous local closures plateau",
+        "rotationally covariant tensor completion"
+      ],
+      "preserved_invariants": [
+        "candidate structure is built from resolved filtered fields and typed local operators",
+        "new child forms must be frozen before fresh target evidence",
+        "target field is excluded from predictor language",
+        "target has acceleration dimension"
+      ],
+      "statement": "Unresolved convective acceleration may admit a scale-aware local closure whose stable form is built from filtered resolved velocity operators and must respect rotational covariance; the exact RANDOM20 two-term scalar parameterization is not assumed."
+    },
+    "family_id": "HF-JHTDB-SGS-LOCAL-GRADIENT-20260922",
+    "family_state": "ACTIVE_REPRESENTATION_EXPANSION",
+    "family_statement": "Unresolved convective acceleration may admit a scale-aware local closure whose stable form is built from filtered resolved velocity operators and must respect rotational covariance; the exact RANDOM20 two-term scalar parameterization is not assumed.",
+    "family_survival_is_scientific_truth": false,
+    "fresh_postfreeze_evidence_required": true,
+    "generation": 1,
+    "next_action": "SYNTHESIZE_DISTINCT_CHILD_FORM_AND_FREEZE_BEFORE_FRESH_EVIDENCE",
+    "parent_lineage_digest": "",
+    "retired_form_digests": [
+      "2c6d7959c58c7a3dbd9eaf07a6c5ebe8d87ba8963ac260fde061d616464eca1c"
+    ],
+    "same_failed_form_resurrection_allowed": false,
+    "schema": "phi-hypothesis-family-lineage/v1",
+    "transition_status": "REPRESENTATION_GAP_OR_TRANSFER_FAILURE"
+  },
+  "retired_parent_form": {
+    "digest": "2c6d7959c58c7a3dbd9eaf07a6c5ebe8d87ba8963ac260fde061d616464eca1c",
+    "formula": "q0 ~= -0.055617198651480883 + 0.071098531813349714*(u_bar*d_y(v_bar)) - 0.032363923799617812*(u_bar*d_z(v_bar))",
+    "id": "RANDOM20-X-SHELL1-TWO-TERM",
+    "state": "FALSIFIED_FIXED_UNIVERSAL_FORM"
+  },
+  "schema": "atlas-hypothesis-family-prospective-freeze/v1",
+  "selected_experiment_id": "E-FRESH-FILTER-SCALE-SWEEP",
+  "selected_experiment_utility": 0.625,
+  "selection_rule": "U=(D_min+0.25*D_bar)/cost; deterministic categorical D=1 for differing frozen outcome, 0 otherwise",
+  "source_reaudit_receipt": "ATLAS_RANDOM20_REAUDIT_DISCOVERY_RECEIPT.json",
+  "source_reaudit_receipt_sha256": "735e846803bbac51084803f8af57603d94744b6005b4ffc3fc9101d73ac67d59"
+}

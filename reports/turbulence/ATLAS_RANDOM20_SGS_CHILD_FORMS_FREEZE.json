@@ -1,0 +1,157 @@
+{
+  "schema": "atlas-jhtdb-sgs-child-forms-freeze/v1",
+  "status": "CHILD_FORMS_FROZEN_BEFORE_FRESH_OBSERVATIONAL_EVIDENCE",
+  "family_id": "HF-JHTDB-SGS-LOCAL-GRADIENT-20260922",
+  "family_freeze_digest": "66adb9d2e3e70499e5926f4fe25d98e614a6aa3d1214b63463c510ca4dc69397",
+  "observational_protocol_digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+  "development_report_digest": "92b7e563101aa64ef2eef623a2582bd52a6f20c38bf4061d9702b7fd5f93788b",
+  "development_report_status": "EXPERIMENT_COMPLETED_WITHOUT_TRANSFER_LAW_PROMOTION",
+  "forms": [
+    {
+      "component": "x",
+      "source_status": "REPRESENTATION_GAP_OPERATOR_PROBE_PROTOCOL_FROZEN_AWAITING_ATTESTED_RESPONSES",
+      "selected_axes": [
+        {
+          "axis_id": "pf_f4e052cd65a447f7",
+          "signature": {
+            "kind": "POINTWISE_MONOMIAL_X_LOCAL_TRANSLATION_MOMENT_RESPONSE",
+            "response_field": "g0",
+            "coordinate": "r1",
+            "moment_rank": 1,
+            "carrier_factors": [
+              {
+                "field": "g1",
+                "power": -1
+              },
+              {
+                "field": "g2",
+                "power": 2
+              }
+            ],
+            "carrier_factor_count": 3,
+            "dimension": [
+              1.0,
+              0.0,
+              -2.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "postfreeze_generic_decode": "g1^-1*g2^2*D[r1]^1(g0)"
+        }
+      ],
+      "parameters": [
+        -0.03164796257133937,
+        -0.025180581540093543
+      ],
+      "discovery_holdout_nrmse": 0.6858250554136931,
+      "sealed_nrmse": 1.0825817942685632,
+      "causal_status": "CAUSALLY_NOT_ESTABLISHED",
+      "scientific_law_established": false,
+      "source_receipt_digest": "3c00ccca2a0c0d51b1c5a885714d239c6811170a5c153c177b91ce2e1eded488",
+      "digest": "7a29c73474fda8d1bfc87120d9dadb754894273189462a90036144ce12af5ce0"
+    },
+    {
+      "component": "y",
+      "source_status": "REPRESENTATION_GAP_OPERATOR_PROBE_PROTOCOL_FROZEN_AWAITING_ATTESTED_RESPONSES",
+      "selected_axes": [
+        {
+          "axis_id": "pf_8730497e8ad9d0d4",
+          "signature": {
+            "kind": "POINTWISE_MONOMIAL_X_LOCAL_TRANSLATION_MOMENT_RESPONSE",
+            "response_field": "g1",
+            "coordinate": "r2",
+            "moment_rank": 2,
+            "carrier_factors": [
+              {
+                "field": "g2",
+                "power": 1
+              },
+              {
+                "field": "g3",
+                "power": 1
+              }
+            ],
+            "carrier_factor_count": 2,
+            "dimension": [
+              1.0,
+              0.0,
+              -2.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "postfreeze_generic_decode": "g2^1*g3^1*D[r2]^2(g1)"
+        }
+      ],
+      "parameters": [
+        -0.1758064235179098,
+        -0.08696280038919578
+      ],
+      "discovery_holdout_nrmse": 0.46267385175029685,
+      "sealed_nrmse": 1.9762192095228135,
+      "causal_status": "CAUSALLY_NOT_ESTABLISHED",
+      "scientific_law_established": false,
+      "source_receipt_digest": "023d8c03bca05852e3378b19fbb294fe4f0613d756600643d76eb2c104b086c5",
+      "digest": "688c953ec6aa306e25671e972b49a85050ae4a835ffaa9715448b8b05c79e6b3"
+    },
+    {
+      "component": "z",
+      "source_status": "REPRESENTATION_GAP_OPERATOR_PROBE_PROTOCOL_FROZEN_AWAITING_ATTESTED_RESPONSES",
+      "selected_axes": [
+        {
+          "axis_id": "pf_3fec0395ccf579d6",
+          "signature": {
+            "kind": "POINTWISE_MONOMIAL_X_LOCAL_TRANSLATION_MOMENT_RESPONSE",
+            "response_field": "g2",
+            "coordinate": "r2",
+            "moment_rank": 3,
+            "carrier_factors": [
+              {
+                "field": "g2",
+                "power": 1
+              },
+              {
+                "field": "g3",
+                "power": 2
+              }
+            ],
+            "carrier_factor_count": 3,
+            "dimension": [
+              1.0,
+              0.0,
+              -2.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "postfreeze_generic_decode": "g2^1*g3^2*D[r2]^3(g2)"
+        }
+      ],
+      "parameters": [
+        -0.07327677702623515,
+        0.08626782988822371
+      ],
+      "discovery_holdout_nrmse": 0.8280885190237766,
+      "sealed_nrmse": 1.102544382230201,
+      "causal_status": "CAUSALLY_NOT_ESTABLISHED",
+      "scientific_law_established": false,
+      "source_receipt_digest": "2938a18f45a417d2d80bbfa217d3769941521f356490bc1d6dfbe8485448edaa",
+      "digest": "7ea13988cced14c5f9a800ea73042ae6ae023a51239b5b0d94aba3e68344cf33"
+    }
+  ],
+  "fresh_data_accessed_for_this_freeze": false,
+  "fresh_outcomes_inspected_for_this_freeze": false,
+  "coefficient_refit_on_fresh_data_allowed": false,
+  "term_selection_on_fresh_data_allowed": false,
+  "scientific_law_established": false,
+  "world_novelty_established": false,
+  "next_action": "ACQUIRE_FROZEN_NATURAL_SAMPLES_WITH_ATTESTED_MEASUREMENT_ADAPTER",
+  "digest": "6f3943151c8853f02bf0223ff1e54f7a9e3a27a8040b941be273bfcd74f9a6f6"
+}

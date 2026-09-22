@@ -1718,6 +1718,21 @@ class AdaptiveResearchKernelOwner:
                 "fixed_competitor_count_as_truth_gate": False,
                 "competitor_diversity_target": 5,
                 "competitor_diversity_target_is_search_pressure_not_blocking_rule": True,
+                "hypothesis_form_failure_implies_family_failure": False,
+                "hypothesis_family_lineage_digest_bound": True,
+                "falsified_form_resurrection_allowed": False,
+                "family_continuation_requires_attested_form_or_representation_gap": True,
+                "fresh_postfreeze_evidence_required_after_family_expansion": True,
+                "source_capability_contract_required_for_new_gap_protocols": True,
+                "forward_oracle_and_observational_archive_are_distinct": True,
+                "observational_archives_use_natural_sample_freeze_not_arbitrary_state_probes": True,
+            },
+            "source_capability_policy": {
+                "classes": ("FORWARD_ORACLE", "OBSERVATIONAL_ARCHIVE"),
+                "legacy_unspecified_gap_source": "FORWARD_ORACLE_WITH_LEGACY_ASSUMPTION",
+                "observational_archive_requires_prefrozen_natural_samples": True,
+                "observational_archive_may_invent_response_values": False,
+                "observational_archive_may_be_treated_as_forward_oracle": False,
             },
             "epistemic_policy": {
                 "strange_hypotheses_allowed": True,
@@ -1726,6 +1741,9 @@ class AdaptiveResearchKernelOwner:
                 "assistant_may_propose_research_question": True,
                 "only_claim_firewall_can_stamp_atlas_native": True,
                 "atlas_native_does_not_equal_scientific_law": True,
+                "failed_parameterization_may_be_retired_without_erasing_hypothesis_family": True,
+                "family_survival_is_not_truth_promotion": True,
+                "family_invariant_falsification_closes_family": True,
             },
             "existing_owner_reuse": {
                 "constraint_atlas": "CONSTRAINT-ATLAS",
@@ -1736,6 +1754,281 @@ class AdaptiveResearchKernelOwner:
             },
         }
         return {**payload, "digest": digest_payload(payload)}
+
+    @staticmethod
+    def _hypothesis_form_structure_digest(candidate: Mapping[str, Any]) -> str | None:
+        """Identity of a typed monomial representation, excluding fitted values.
+
+        This is not a general algebraic-equivalence or causal-validity oracle.
+        Unknown representation schemas must obtain an explicit structural contract.
+        """
+        if not candidate or "basis" not in candidate or not candidate.get("coefficient_dimensions"):
+            return None
+        return digest_payload({
+            "schema": "phi-hypothesis-form-structure/v1",
+            "expression": candidate.get("expression"),
+            "basis": candidate["basis"],
+            "coefficient_dimensions": candidate["coefficient_dimensions"],
+        })
+
+    @staticmethod
+    def _hypothesis_family_lineage(
+        request: Mapping[str, Any], *, evidence_digest: str, transition_status: str,
+        current_form_id: str | None = None, current_form_digest: str | None = None,
+        current_form_structure_digest: str | None = None,
+    ) -> Mapping[str, Any] | None:
+        """Preserve a hypothesis family without resurrecting a failed concrete form.
+
+        This transition is domain-neutral and never promotes scientific truth. A
+        digest-bound form/representation/transfer failure may retire the current
+        form while keeping the broader family active for representation expansion.
+        A failure explicitly scoped to a family invariant closes the family.
+        """
+        family = dict(request.get("hypothesis_family", {})) if isinstance(request.get("hypothesis_family"), Mapping) else {}
+        previous = dict(request.get("hypothesis_family_lineage", {})) if isinstance(request.get("hypothesis_family_lineage"), Mapping) else {}
+        if not previous and isinstance(request.get("previous_state"), Mapping):
+            inherited = request.get("previous_state", {}).get("hypothesis_family_lineage")
+            if isinstance(inherited, Mapping):
+                previous = dict(inherited)
+        if not family and previous:
+            family = dict(previous.get("family", {})) if isinstance(previous.get("family"), Mapping) else {}
+        if not family and not previous:
+            return None
+        family_id = str(family.get("family_id") or previous.get("family_id") or "").strip()
+        statement = str(family.get("statement") or previous.get("family_statement") or "").strip()
+        if not family_id or not statement:
+            raise ValueError("hypothesis_family requires family_id and statement")
+        if previous:
+            expected = digest_payload({k: v for k, v in previous.items() if k != "digest"})
+            if str(previous.get("digest")) != expected:
+                raise ValueError("hypothesis_family_lineage digest mismatch")
+            if previous.get("schema") != "phi-hypothesis-family-lineage/v1":
+                raise ValueError("unsupported hypothesis_family_lineage schema")
+            if previous.get("family_id") and str(previous.get("family_id")) != family_id:
+                raise ValueError("hypothesis_family lineage cannot change family_id")
+            prior_family = previous.get("family", {})
+            if (statement != previous.get("family_statement")
+                    or sorted(set(family.get("preserved_invariants", ()))) != sorted(set(prior_family.get("preserved_invariants", ())))):
+                raise ValueError("hypothesis_family lineage cannot change statement or invariants")
+        if not str(evidence_digest).strip():
+            raise ValueError("hypothesis_family lineage requires evidence digest")
+        status = str(transition_status).upper()
+        gap_evidence = dict(request.get("gap_evidence", {})) if isinstance(request.get("gap_evidence"), Mapping) else {}
+        failure_scope = str(gap_evidence.get("failure_scope") or family.get("failure_scope") or "").upper()
+        # A status substring cannot adjudicate the scientific scope of failure.
+        failure_scope = failure_scope or "UNRESOLVED"
+        if failure_scope not in {"UNRESOLVED", "FORM_ONLY", "FORM_OR_REPRESENTATION", "REPRESENTATION", "TRANSFER", "FAMILY_INVARIANT"}:
+            raise ValueError("unsupported hypothesis failure scope")
+        retired = [str(x) for x in previous.get("retired_form_digests", ()) if str(x)]
+        retired_structures = list(previous.get("retired_form_structure_digests", ()))
+        structure_digest = str(current_form_structure_digest or family.get("current_form_structure_digest") or previous.get("current_form_structure_digest") or "").strip()
+        form_id = str(current_form_id or family.get("current_form_id") or previous.get("current_form_id") or "").strip()
+        form_digest = str(current_form_digest or family.get("current_form_digest") or previous.get("current_form_digest") or "").strip()
+        previous_family_closed = str(previous.get("family_state", "")).upper() == "FALSIFIED_FAMILY"
+        positive_child_transition = status in {
+            "HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW",
+            "EXECUTABLE_REPRESENTATION_CANDIDATE_SYNTHESIZED_NOT_LAW",
+            "SELF_CONSISTENT_EXECUTABLE_REPRESENTATION_CANDIDATE_SYNTHESIZED_NOT_LAW",
+        }
+        if previous_family_closed:
+            family_state = "FALSIFIED_FAMILY"
+            form_state = "REJECTED_CHILD_OF_FALSIFIED_FAMILY"
+            next_action = "ARCHIVE_FAMILY_AND_SEARCH_ALTERNATIVES"
+        elif failure_scope == "FAMILY_INVARIANT":
+            family_state = "FALSIFIED_FAMILY"
+            form_state = "FALSIFIED_FORM"
+            next_action = "ARCHIVE_FAMILY_AND_SEARCH_ALTERNATIVES"
+            if form_digest and form_digest not in retired:
+                retired.append(form_digest)
+        elif positive_child_transition:
+            if not current_form_id or not current_form_digest or not current_form_structure_digest:
+                raise ValueError("child requires explicit form id, digest and structural digest")
+            if form_digest in retired or structure_digest in retired_structures:
+                raise ValueError("retired form or coefficient-only refit cannot be resurrected")
+            if retired and not retired_structures:
+                raise ValueError("retired parent structural identity required before child continuation")
+            # A newly synthesized/testable child is a new form.  Historical gap
+            # evidence may remain attached for provenance, but it must not keep
+            # the child stuck in the parent's failure transition.
+            family_state = "ACTIVE_TESTABLE_FAMILY"
+            form_state = "TESTABLE_NOT_LAW"
+            next_action = "ACQUIRE_FRESH_POSTFREEZE_FALSIFICATION_EVIDENCE"
+        elif failure_scope in {"FORM_ONLY", "FORM_OR_REPRESENTATION", "REPRESENTATION", "TRANSFER"}:
+            family_state = "ACTIVE_REPRESENTATION_EXPANSION"
+            form_state = "RETIRED_FAILED_FORM"
+            next_action = "SYNTHESIZE_DISTINCT_CHILD_FORM_AND_FREEZE_BEFORE_FRESH_EVIDENCE"
+            if form_digest and form_digest not in retired:
+                retired.append(form_digest)
+            if structure_digest and structure_digest not in retired_structures:
+                retired_structures.append(structure_digest)
+        else:
+            family_state = "CANDIDATE_PENDING_FAILURE_SCOPE_ADJUDICATION"
+            form_state = "UNRESOLVED_FORM"
+            next_action = "ADJUDICATE_FORM_VS_FAMILY_FAILURE_SCOPE"
+        core = {
+            "schema": "phi-hypothesis-family-lineage/v1",
+            "family_id": family_id,
+            "family_statement": statement,
+            "family": {
+                "family_id": family_id,
+                "statement": statement,
+                "preserved_invariants": sorted({str(x) for x in family.get("preserved_invariants", ()) if str(x)}),
+                "open_representation_questions": sorted({str(x) for x in family.get("open_representation_questions", ()) if str(x)}),
+            },
+            "generation": int(previous.get("generation", 0)) + 1,
+            "parent_lineage_digest": str(previous.get("digest", "")),
+            "evidence_digest": str(evidence_digest),
+            "transition_status": str(transition_status),
+            "failure_scope": failure_scope,
+            "family_state": family_state,
+            "current_form_id": form_id or None,
+            "current_form_digest": form_digest or None,
+            "current_form_structure_digest": structure_digest or None,
+            "current_form_state": form_state,
+            "retired_form_digests": sorted(set(retired)),
+            "retired_form_structure_digests": sorted(set(retired_structures)),
+            "evidence_binding_is_world_attestation": False,
+            "same_failed_form_resurrection_allowed": False,
+            "coefficient_refit_alone_clears_failed_form": False,
+            "child_form_must_have_distinct_digest": True,
+            "family_survival_is_scientific_truth": False,
+            "automatic_law_promotion_allowed": False,
+            "fresh_postfreeze_evidence_required": True,
+            "next_action": next_action,
+        }
+        return {**core, "digest": digest_payload(core)}
+
+    @staticmethod
+    def _source_capability_contract(request: Mapping[str, Any]) -> Mapping[str, Any]:
+        """Classify how a scientific source can answer experiments.
+
+        A FORWARD_ORACLE may accept Atlas-designed intervention states and return
+        responses.  An OBSERVATIONAL_ARCHIVE cannot be queried with arbitrary
+        states; it can only supply naturally occurring samples selected and
+        frozen before outcomes are inspected.  The legacy default preserves old
+        callers but is explicitly marked as an assumption, not inferred truth.
+        """
+        raw = dict(request.get("source_capability", {})) if isinstance(request.get("source_capability"), Mapping) else {}
+        declared = str(raw.get("class") or raw.get("mode") or "").strip().upper()
+        explicit = bool(declared)
+        if not declared:
+            declared = "FORWARD_ORACLE"
+        if declared not in {"FORWARD_ORACLE", "OBSERVATIONAL_ARCHIVE"}:
+            raise ValueError("source_capability.class must be FORWARD_ORACLE or OBSERVATIONAL_ARCHIVE")
+        source_id = str(raw.get("source_id") or raw.get("archive_id") or raw.get("provider") or "").strip() or None
+        supports_intervention = raw.get("supports_arbitrary_state_intervention")
+        supports_natural = raw.get("supports_natural_sample_retrieval")
+        if any(v is not None and not isinstance(v, bool) for v in (supports_intervention, supports_natural)):
+            raise ValueError("source capability flags must be booleans")
+        if declared == "OBSERVATIONAL_ARCHIVE":
+            if supports_intervention is True:
+                raise ValueError("OBSERVATIONAL_ARCHIVE cannot declare arbitrary-state intervention support")
+            if supports_natural is False:
+                raise ValueError("OBSERVATIONAL_ARCHIVE must support natural-sample retrieval")
+            supports_intervention = False
+            supports_natural = True if supports_natural is None else bool(supports_natural)
+        else:
+            supports_intervention = True if supports_intervention is None else bool(supports_intervention)
+            supports_natural = bool(supports_natural) if supports_natural is not None else False
+        core = {
+            "schema": "phi-scientific-source-capability/v1",
+            "class": declared,
+            "source_id": source_id,
+            "explicitly_declared": explicit,
+            "legacy_assumption_used": not explicit,
+            "supports_arbitrary_state_intervention": bool(supports_intervention),
+            "supports_natural_sample_retrieval": bool(supports_natural),
+            "arbitrary_state_probe_protocol_allowed": declared == "FORWARD_ORACLE" and bool(supports_intervention),
+            "natural_sample_freeze_required": declared == "OBSERVATIONAL_ARCHIVE",
+        }
+        return {**core, "digest": digest_payload(core)}
+
+    @staticmethod
+    def _freeze_observational_archive_protocol(
+        request: Mapping[str, Any], *, source_capability: Mapping[str, Any], freeze_basis_digest: str,
+    ) -> Mapping[str, Any]:
+        """Freeze natural observational samples before any fresh outcomes exist."""
+        if str(source_capability.get("class", "")).upper() != "OBSERVATIONAL_ARCHIVE":
+            raise ValueError("observational protocol requires OBSERVATIONAL_ARCHIVE source capability")
+        if source_capability.get("digest") != digest_payload({k: v for k, v in source_capability.items() if k != "digest"}):
+            raise ValueError("source capability digest mismatch")
+        if not str(freeze_basis_digest).strip():
+            raise ValueError("freeze basis digest required")
+        raw = dict(request.get("observational_archive_request", {})) if isinstance(request.get("observational_archive_request"), Mapping) else {}
+        archive_id = str(raw.get("archive_id") or source_capability.get("source_id") or "").strip()
+        manifest_digest = str(raw.get("source_manifest_digest") or raw.get("manifest_digest") or "").strip()
+        measurement_adapter_owner = str(raw.get("measurement_adapter_owner") or "").strip()
+        sample_contracts = tuple(dict(x) for x in raw.get("sample_contracts", ()) if isinstance(x, Mapping))
+        if len(sample_contracts) != len(raw.get("sample_contracts", ())):
+            raise ValueError("sample contracts must all be mappings")
+        if source_capability.get("source_id") and archive_id != source_capability["source_id"]:
+            raise ValueError("archive identity differs from source capability")
+        if not archive_id:
+            raise ValueError("observational_archive_request requires archive_id")
+        if not manifest_digest:
+            raise ValueError("observational_archive_request requires source_manifest_digest")
+        if not measurement_adapter_owner:
+            raise ValueError("observational_archive_request requires measurement_adapter_owner")
+        if not sample_contracts:
+            raise ValueError("observational_archive_request requires non-empty sample_contracts")
+        if bool(raw.get("outcomes_inspected_prefreeze", False)):
+            raise ValueError("observational outcomes must not be inspected before protocol freeze")
+        if raw.get("natural_samples_only", True) is not True:
+            raise ValueError("observational protocol must use natural_samples_only=true")
+
+        forbidden = {
+            "target", "target_value", "target_values", "response", "responses",
+            "operator_response", "operator_responses", "outcome", "outcomes",
+            "label", "labels", "measurement_value", "measurement_values",
+        }
+        def _reject_outcome_payload(value: Any, path: str = "sample_contracts") -> None:
+            if isinstance(value, Mapping):
+                for key, child in value.items():
+                    k = str(key).strip().lower()
+                    if k in forbidden:
+                        raise ValueError(f"prefreeze observational sample contract contains outcome-bearing field {path}.{key}")
+                    _reject_outcome_payload(child, f"{path}.{key}")
+            elif isinstance(value, (list, tuple)):
+                for i, child in enumerate(value):
+                    _reject_outcome_payload(child, f"{path}[{i}]")
+        _reject_outcome_payload(sample_contracts)
+
+        sample_ids = [str(x.get("sample_id", "")).strip() for x in sample_contracts]
+        if any(not x for x in sample_ids):
+            raise ValueError("every observational sample contract requires sample_id")
+        if len(set(sample_ids)) != len(sample_ids):
+            raise ValueError("observational sample_id values must be unique")
+        core = {
+            "schema": "phi-observational-archive-probe-design/v1",
+            "owner_id": ADAPTIVE_RESEARCH_KERNEL_OWNER,
+            "component": "OBSERVATIONAL-ARCHIVE-PROBE-DESIGN/1.0.0-COMPONENT",
+            "status": "OBSERVATIONAL_ARCHIVE_PROTOCOL_FROZEN_AWAITING_FRESH_MEASUREMENTS",
+            "freeze_basis_digest": str(freeze_basis_digest),
+            "source_capability_digest": str(source_capability.get("digest", "")),
+            "archive_id": archive_id,
+            "source_manifest_digest": manifest_digest,
+            "measurement_adapter_owner": measurement_adapter_owner,
+            "selection_rule": str(raw.get("selection_rule") or "CALLER_PRECOMMITTED_NATURAL_SAMPLE_IDS"),
+            "selection_seed": raw.get("selection_seed"),
+            "sample_contracts": list(sample_contracts),
+            "sample_ids": sample_ids,
+            "transforms": list(raw.get("transforms", ())),
+            "observable_contract": dict(raw.get("observable_contract", {})) if isinstance(raw.get("observable_contract"), Mapping) else {},
+            "outcomes_inspected_prefreeze": False,
+            "fresh_measurement_status": "NOT_ACQUIRED",
+            "required_attestation": {
+                "sample_ids_must_match_freeze": True,
+                "measurement_adapter_owner_must_match_freeze": True,
+                "protocol_digest_binding_required": True,
+            },
+            "claim_boundary": {
+                "natural_samples_only": True,
+                "atlas_generated_arbitrary_world_states": False,
+                "fresh_outcomes_available_at_freeze": False,
+                "scientific_law_established": False,
+            },
+        }
+        return {**core, "digest": digest_payload(core)}
 
     @staticmethod
     def _normalize_request(request: Mapping[str, Any]) -> dict[str, Any]:
@@ -1783,6 +2076,8 @@ class AdaptiveResearchKernelOwner:
                 dict(x) for x in req.get("axis_birth_external_stability_evidence", ()) if isinstance(x, Mapping)
             ),
             "operator_probe_rows": tuple(dict(x) for x in req.get("operator_probe_rows", ())),
+            "source_capability": dict(req.get("source_capability", {})) if isinstance(req.get("source_capability"), Mapping) else {},
+            "observational_archive_request": dict(req.get("observational_archive_request", {})) if isinstance(req.get("observational_archive_request"), Mapping) else {},
             "operator_probe_design_request": dict(req.get("operator_probe_design_request", {})) if isinstance(req.get("operator_probe_design_request"), Mapping) else {},
             "operator_fit_tolerance_nrmse": max(0.0, float(req.get("operator_fit_tolerance_nrmse", 1e-5))),
             "operator_max_terms_per_output": req.get("operator_max_terms_per_output"),
@@ -2328,7 +2623,15 @@ class AdaptiveResearchKernelOwner:
             gap_evidence_digest = digest_payload(gap_evidence)
         if not gap_evidence_digest:
             raise ValueError("gap_evidence or gap_evidence_digest is required; the assistant may not invent a gap receipt")
+        if gap_evidence and gap_evidence_digest != digest_payload(gap_evidence):
+            raise ValueError("gap evidence digest mismatch")
+        family_lineage = self._hypothesis_family_lineage(
+            req, evidence_digest=gap_evidence_digest, transition_status=gap_kind,
+        )
         strict_blind = bool(req.get("blind_no_named_law_catalog", False))
+        source_capability = self._source_capability_contract(req)
+        source_class = str(source_capability.get("class", "FORWARD_ORACLE")).upper()
+        observational_archive_request = dict(req.get("observational_archive_request", {})) if isinstance(req.get("observational_archive_request"), Mapping) else {}
         probe_rows = tuple(dict(x) for x in req.get("operator_probe_rows", ()))
         probe_digest = digest_payload(probe_rows)
         operator_probe_evidence = dict(req.get("operator_probe_evidence", {})) if isinstance(req.get("operator_probe_evidence"), Mapping) else {}
@@ -2363,7 +2666,10 @@ class AdaptiveResearchKernelOwner:
             "question": question,
             "gap_kind": gap_kind,
             "gap_evidence_digest": gap_evidence_digest,
+            "hypothesis_family_lineage_digest": family_lineage.get("digest") if isinstance(family_lineage, Mapping) else None,
             "blind_no_named_law_catalog": strict_blind,
+            "source_capability_digest": source_capability.get("digest"),
+            "observational_archive_request_digest": digest_payload(observational_archive_request),
             "operator_probe_digest": probe_digest,
             "operator_probe_evidence_digest": operator_probe_evidence_digest,
             "operator_probe_design_request_digest": digest_payload(operator_probe_design_request),
@@ -2411,6 +2717,7 @@ class AdaptiveResearchKernelOwner:
         executable_synthesis: Mapping[str, Any]
         executable_compilation: Mapping[str, Any] | None = None
         executable_execution: Mapping[str, Any] | None = None
+        observational_probe_design: Mapping[str, Any] | None = None
         operator_probe_design: Mapping[str, Any] | None = None
         operator_probe_design_history: list[Mapping[str, Any]] = []
         operator_response_owner_receipt: Mapping[str, Any] | None = None
@@ -2442,88 +2749,103 @@ class AdaptiveResearchKernelOwner:
                 operator_probe_evidence_valid = True
                 operator_probe_evidence_reason = "ATTESTATION_BOUND_TO_PROBES"
 
-        if not probe_rows:
-            design_components = int(operator_probe_design_request.get("components", gap_evidence.get("state_components", 1) or 1))
-            design_grid = operator_probe_design_request.get("grid")
-            design_shell = int(operator_probe_design_request.get("design_shell", 1))
-            operator_probe_design = self.theory_compiler.probe_design.design(
-                freeze_digest=str(invention.get("digest", input_digest)),
-                components=design_components,
-                grid=design_grid,
-                design_shell=design_shell,
+        if source_class == "OBSERVATIONAL_ARCHIVE":
+            if probe_rows or operator_probe_evidence or operator_response_owner_request:
+                raise ValueError("OBSERVATIONAL_ARCHIVE cannot accept arbitrary operator-probe response evidence")
+            observational_probe_design = self._freeze_observational_archive_protocol(
+                req, source_capability=source_capability, freeze_basis_digest=str(invention.get("digest", input_digest)),
             )
-            operator_probe_design_history.append(operator_probe_design)
-
-            response_owner = str(operator_response_owner_request.get("owner", "")).strip().upper()
-            if response_owner in {"ATOMIC_REFERENCE_WORLD_INTERACTION", "ATOMIC-REFERENCE-WORLD-INTERACTION/1.0.0"}:
-                operator_response_owner_receipt = self.theory_compiler.atomic_world_interaction.execute_frozen_protocol(
-                    protocol=operator_probe_design,
-                    allow_reference_simulation=bool(operator_response_owner_request.get("allow_reference_simulation", False)),
-                    environment=dict(operator_response_owner_request.get("environment", {})) if isinstance(operator_response_owner_request.get("environment"), Mapping) else {},
+            executable_synthesis = {
+                "status": "EXECUTABLE_SYNTHESIS_BLOCKED_AWAITING_FRESH_OBSERVATIONAL_MEASUREMENTS",
+                "reason": "OBSERVATIONAL_ARCHIVE_REQUIRES_NATURAL_SAMPLE_ACQUISITION",
+                "qualified_for_compilation": False,
+                "observational_protocol_digest": observational_probe_design.get("digest"),
+                "next_experiment": "ACQUIRE_FROZEN_NATURAL_SAMPLES_WITH_ATTESTED_MEASUREMENT_ADAPTER",
+            }
+            executable_synthesis = {**executable_synthesis, "digest": digest_payload(executable_synthesis)}
+        else:
+            if not probe_rows:
+                design_components = int(operator_probe_design_request.get("components", gap_evidence.get("state_components", 1) or 1))
+                design_grid = operator_probe_design_request.get("grid")
+                design_shell = int(operator_probe_design_request.get("design_shell", 1))
+                operator_probe_design = self.theory_compiler.probe_design.design(
+                    freeze_digest=str(invention.get("digest", input_digest)),
+                    components=design_components,
+                    grid=design_grid,
+                    design_shell=design_shell,
                 )
-                if operator_response_owner_receipt.get("status") == "TYPED_CARRIER_REDESIGN_REQUIRED":
-                    required = dict(operator_response_owner_receipt.get("required_carrier", {}))
-                    operator_probe_design = self.theory_compiler.probe_design.design(
-                        freeze_digest=str(invention.get("digest", input_digest)),
-                        components=int(required.get("components", design_components)),
-                        grid=required.get("grid", design_grid),
-                        design_shell=design_shell,
-                    )
-                    operator_probe_design_history.append(operator_probe_design)
+                operator_probe_design_history.append(operator_probe_design)
+
+                response_owner = str(operator_response_owner_request.get("owner", "")).strip().upper()
+                if response_owner in {"ATOMIC_REFERENCE_WORLD_INTERACTION", "ATOMIC-REFERENCE-WORLD-INTERACTION/1.0.0"}:
                     operator_response_owner_receipt = self.theory_compiler.atomic_world_interaction.execute_frozen_protocol(
                         protocol=operator_probe_design,
                         allow_reference_simulation=bool(operator_response_owner_request.get("allow_reference_simulation", False)),
                         environment=dict(operator_response_owner_request.get("environment", {})) if isinstance(operator_response_owner_request.get("environment"), Mapping) else {},
                     )
-                if operator_response_owner_receipt.get("status") == "ATTESTED_OPERATOR_RESPONSES_ACQUIRED_FROM_REFERENCE_SIMULATION":
-                    probe_rows = tuple(dict(x) for x in operator_response_owner_receipt.get("probe_rows", ()))
-                    operator_probe_evidence = dict(operator_response_owner_receipt.get("attestation", {}))
-                    operator_probe_evidence_digest = str(operator_probe_evidence.get("digest", "")) or digest_payload(operator_probe_evidence)
-                    _validate_bound_probe_evidence()
-
-        if probe_rows:
-            _validate_bound_probe_evidence()
-            if not operator_probe_evidence_valid:
-                executable_synthesis = {
-                    **self.theory_compiler.synthesis._fail(operator_probe_evidence_reason, probe_digest=probe_digest),
-                    "next_experiment": "PROVIDE_DIGEST_BOUND_OPERATOR_PROBE_ATTESTATION",
-                }
-            else:
-                executable_synthesis = self.theory_compiler.synthesis.synthesize(
-                    probe_rows=probe_rows,
-                    freeze_digest=str(invention.get("digest", input_digest)),
-                    fit_tolerance_nrmse=operator_fit_tolerance_nrmse,
-                    max_terms_per_output=operator_max_terms_per_output,
-                )
-                if executable_synthesis.get("qualified_for_compilation") is True:
-                    executable_compilation = self.theory_compiler.compiler.compile(
-                        theory_artifact=executable_synthesis,
-                        theory_freeze_digest=str(invention.get("digest", input_digest)),
-                    )
-                    if executable_compilation.get("status") == "THEORY_EXECUTABLE_COMPILED":
-                        executable_execution = self.theory_compiler.runtime.execute(
-                            compiled=executable_compilation,
-                            runtime_request={"eigenpair_count": operator_eigenpair_count},
+                    if operator_response_owner_receipt.get("status") == "TYPED_CARRIER_REDESIGN_REQUIRED":
+                        required = dict(operator_response_owner_receipt.get("required_carrier", {}))
+                        operator_probe_design = self.theory_compiler.probe_design.design(
+                            freeze_digest=str(invention.get("digest", input_digest)),
+                            components=int(required.get("components", design_components)),
+                            grid=required.get("grid", design_grid),
+                            design_shell=design_shell,
                         )
-        else:
-            if operator_probe_design is None:
-                operator_probe_design = self.theory_compiler.probe_design.design(
-                    freeze_digest=str(invention.get("digest", input_digest)),
-                    components=int(operator_probe_design_request.get("components", gap_evidence.get("state_components", 1) or 1)),
-                    grid=operator_probe_design_request.get("grid"),
-                    design_shell=int(operator_probe_design_request.get("design_shell", 1)),
-                )
-                operator_probe_design_history.append(operator_probe_design)
-            reason = "NO_ATTESTED_OPERATOR_RESPONSE_VALUES_AVAILABLE"
-            if isinstance(operator_response_owner_receipt, Mapping):
-                if operator_response_owner_receipt.get("status") == "REFERENCE_SIMULATION_NOT_AUTHORIZED":
-                    reason = "REFERENCE_SIMULATION_NOT_AUTHORIZED"
-                elif operator_response_owner_receipt.get("status") == "TYPED_CARRIER_REDESIGN_REQUIRED":
-                    reason = "TYPED_CARRIER_REDESIGN_REMAINS_UNRESOLVED"
-            executable_synthesis = {
-                **self.theory_compiler.synthesis._fail(reason, probe_digest=str(operator_probe_design.get("probe_blueprint_digest", ""))),
-                "next_experiment": "EXECUTE_FROZEN_OPERATOR_PROBE_PROTOCOL_WITH_ATTESTED_WORLD_OR_TYPED_OWNER",
-            }
+                        operator_probe_design_history.append(operator_probe_design)
+                        operator_response_owner_receipt = self.theory_compiler.atomic_world_interaction.execute_frozen_protocol(
+                            protocol=operator_probe_design,
+                            allow_reference_simulation=bool(operator_response_owner_request.get("allow_reference_simulation", False)),
+                            environment=dict(operator_response_owner_request.get("environment", {})) if isinstance(operator_response_owner_request.get("environment"), Mapping) else {},
+                        )
+                    if operator_response_owner_receipt.get("status") == "ATTESTED_OPERATOR_RESPONSES_ACQUIRED_FROM_REFERENCE_SIMULATION":
+                        probe_rows = tuple(dict(x) for x in operator_response_owner_receipt.get("probe_rows", ()))
+                        operator_probe_evidence = dict(operator_response_owner_receipt.get("attestation", {}))
+                        operator_probe_evidence_digest = str(operator_probe_evidence.get("digest", "")) or digest_payload(operator_probe_evidence)
+                        _validate_bound_probe_evidence()
+
+            if probe_rows:
+                _validate_bound_probe_evidence()
+                if not operator_probe_evidence_valid:
+                    executable_synthesis = {
+                        **self.theory_compiler.synthesis._fail(operator_probe_evidence_reason, probe_digest=probe_digest),
+                        "next_experiment": "PROVIDE_DIGEST_BOUND_OPERATOR_PROBE_ATTESTATION",
+                    }
+                else:
+                    executable_synthesis = self.theory_compiler.synthesis.synthesize(
+                        probe_rows=probe_rows,
+                        freeze_digest=str(invention.get("digest", input_digest)),
+                        fit_tolerance_nrmse=operator_fit_tolerance_nrmse,
+                        max_terms_per_output=operator_max_terms_per_output,
+                    )
+                    if executable_synthesis.get("qualified_for_compilation") is True:
+                        executable_compilation = self.theory_compiler.compiler.compile(
+                            theory_artifact=executable_synthesis,
+                            theory_freeze_digest=str(invention.get("digest", input_digest)),
+                        )
+                        if executable_compilation.get("status") == "THEORY_EXECUTABLE_COMPILED":
+                            executable_execution = self.theory_compiler.runtime.execute(
+                                compiled=executable_compilation,
+                                runtime_request={"eigenpair_count": operator_eigenpair_count},
+                            )
+            else:
+                if operator_probe_design is None:
+                    operator_probe_design = self.theory_compiler.probe_design.design(
+                        freeze_digest=str(invention.get("digest", input_digest)),
+                        components=int(operator_probe_design_request.get("components", gap_evidence.get("state_components", 1) or 1)),
+                        grid=operator_probe_design_request.get("grid"),
+                        design_shell=int(operator_probe_design_request.get("design_shell", 1)),
+                    )
+                    operator_probe_design_history.append(operator_probe_design)
+                reason = "NO_ATTESTED_OPERATOR_RESPONSE_VALUES_AVAILABLE"
+                if isinstance(operator_response_owner_receipt, Mapping):
+                    if operator_response_owner_receipt.get("status") == "REFERENCE_SIMULATION_NOT_AUTHORIZED":
+                        reason = "REFERENCE_SIMULATION_NOT_AUTHORIZED"
+                    elif operator_response_owner_receipt.get("status") == "TYPED_CARRIER_REDESIGN_REQUIRED":
+                        reason = "TYPED_CARRIER_REDESIGN_REMAINS_UNRESOLVED"
+                executable_synthesis = {
+                    **self.theory_compiler.synthesis._fail(reason, probe_digest=str(operator_probe_design.get("probe_blueprint_digest", ""))),
+                    "next_experiment": "EXECUTE_FROZEN_OPERATOR_PROBE_PROTOCOL_WITH_ATTESTED_WORLD_OR_TYPED_OWNER",
+                }
 
         # Optional next shell: Atlas births a variable-particle protocol only after
         # the one-particle executable candidate exists.  A separate world owner
@@ -2641,7 +2963,11 @@ class AdaptiveResearchKernelOwner:
                 next_rank = many_body_coordinate_synthesis.get("next_interaction_rank_shell")
                 current_rank = int(next_rank) if next_rank is not None else current_rank + 1
 
-        if isinstance(many_body_coordinate_synthesis, Mapping) and many_body_coordinate_synthesis.get("qualified") is True:
+        if isinstance(observational_probe_design, Mapping) and observational_probe_design.get("status") == "OBSERVATIONAL_ARCHIVE_PROTOCOL_FROZEN_AWAITING_FRESH_MEASUREMENTS":
+            status = "REPRESENTATION_GAP_OBSERVATIONAL_PROTOCOL_FROZEN_AWAITING_FRESH_MEASUREMENTS"
+            lifecycle = "CANDIDATE"
+            next_action = "ACQUIRE_FROZEN_NATURAL_SAMPLES_WITH_ATTESTED_MEASUREMENT_ADAPTER"
+        elif isinstance(many_body_coordinate_synthesis, Mapping) and many_body_coordinate_synthesis.get("qualified") is True:
             if many_body_world_request.get("precommitted_interaction_rank") is not None:
                 status = "PRECOMMITTED_MANY_BODY_OPERATOR_COORDINATE_VALIDATED_NOT_LAW"
                 next_action = "ACCUMULATE_MORE_BLIND_ATOMS_OR_EMPIRICAL_FALSIFICATION_EVIDENCE"
@@ -2671,6 +2997,10 @@ class AdaptiveResearchKernelOwner:
             "lifecycle_state": lifecycle,
             "next_action": next_action,
             "gap_kind": gap_kind,
+            "source_capability_class": source_class,
+            "source_capability_digest": source_capability.get("digest"),
+            "observational_protocol_digest": observational_probe_design.get("digest") if isinstance(observational_probe_design, Mapping) else None,
+            "hypothesis_family_lineage": family_lineage,
             "executable_representation_status": executable_synthesis.get("status"),
             "executable_candidate_id": executable_synthesis.get("candidate_id"),
             "executable_id": executable_compilation.get("executable_id") if isinstance(executable_compilation, Mapping) else None,
@@ -2696,6 +3026,10 @@ class AdaptiveResearchKernelOwner:
             "input_digest": input_digest,
             "gap_evidence_digest": gap_evidence_digest,
             "gap_evidence": gap_evidence,
+            "hypothesis_family_lineage": family_lineage,
+            "source_capability": source_capability,
+            "observational_archive_request_digest": digest_payload(observational_archive_request),
+            "observational_probe_design": observational_probe_design,
             "operator_probe_evidence_digest": operator_probe_evidence_digest,
             "operator_probe_evidence": operator_probe_evidence,
             "operator_probe_evidence_valid": operator_probe_evidence_valid,
@@ -2735,6 +3069,10 @@ class AdaptiveResearchKernelOwner:
                 "missing_operator_probe_values_filled_by_assistant": False,
                 "atlas_generated_probe_inputs": bool(isinstance(operator_probe_design, Mapping) and operator_probe_design.get("claim_boundary", {}).get("atlas_generated_probe_inputs") is True),
                 "atlas_generated_operator_responses": False,
+                "source_capability_class": source_class,
+                "observational_archive_treated_as_forward_oracle": False if source_class == "OBSERVATIONAL_ARCHIVE" else None,
+                "observational_natural_samples_frozen_before_measurement": bool(isinstance(observational_probe_design, Mapping) and observational_probe_design.get("outcomes_inspected_prefreeze") is False),
+                "observational_fresh_outcomes_available_at_freeze": False if isinstance(observational_probe_design, Mapping) else None,
                 "operator_responses_generated_by_independent_typed_owner": bool(isinstance(operator_response_owner_receipt, Mapping) and operator_response_owner_receipt.get("claim_boundary", {}).get("responses_generated_by_independent_typed_owner") is True),
                 "reference_simulation_used": bool(isinstance(operator_response_owner_receipt, Mapping) and operator_response_owner_receipt.get("claim_boundary", {}).get("empirical_world_measurement") is False and operator_response_owner_receipt.get("status") == "ATTESTED_OPERATOR_RESPONSES_ACQUIRED_FROM_REFERENCE_SIMULATION"),
                 "empirical_world_measurement_used": False,
@@ -2967,6 +3305,9 @@ class AdaptiveResearchKernelOwner:
         prior_digest = str(prior.get("receipt_digest", ""))
         if not prior_digest or "GAP" not in prior_status.upper():
             raise ValueError("scale-invariant representation birth requires a digest-bound attested prior representation gap")
+        family_lineage = self._hypothesis_family_lineage(
+            request, evidence_digest=prior_digest, transition_status=prior_status,
+        )
 
         discovery_studies = tuple(x for x in studies if str(x.get("role", "DISCOVERY")).upper() == "DISCOVERY")
         chart = self.invention.scale_invariant.invent(
@@ -2996,8 +3337,21 @@ class AdaptiveResearchKernelOwner:
         stage.pop("attested_prior_representation_gap", None)
         inner = self._advance_residual_language(stage)
         result = dict(inner.get("result", {}))
+        child_best = dict(result.get("best_hypothesis") or {})
+        child_lineage_request = dict(request)
+        if isinstance(family_lineage, Mapping):
+            child_lineage_request["hypothesis_family_lineage"] = family_lineage
+        child_lineage = self._hypothesis_family_lineage(
+            child_lineage_request,
+            evidence_digest=str(inner.get("digest", prior_digest)),
+            transition_status=str(result.get("status", "")),
+            current_form_id=str(child_best.get("candidate_id", "")) or None,
+            current_form_digest=str(child_best.get("digest", "")) or None,
+            current_form_structure_digest=self._hypothesis_form_structure_digest(child_best),
+        )
         result_core = {
             **result,
+            "hypothesis_family_lineage": child_lineage,
             "representation_chart_status": chart.get("status"),
             "representation_chart_digest": chart.get("digest"),
             "prior_representation_gap_receipt_digest": prior_digest,
@@ -3025,6 +3379,7 @@ class AdaptiveResearchKernelOwner:
             "code_digest": self._code_digest(),
             "result_digest": result_digest,
             "attested_prior_representation_gap": prior,
+            "hypothesis_family_lineage": child_lineage,
             "scale_invariant_representation_birth": chart,
             "scale_chart_application_receipts": application_receipts,
             "normalized_inner_receipt_digest": inner.get("digest"),
@@ -3144,7 +3499,7 @@ class AdaptiveResearchKernelOwner:
             return self._advance_residual_language(request)
         if bool(request.get("primitive_field_discovery", False)) or entry_mode in {"PRIMITIVE_FIELD_DISCOVERY", "PRIMITIVE_FIELD_LANGUAGE_DISCOVERY"}:
             return self._advance_primitive_field(request)
-        if bool(request.get("representation_gap", False)) or entry_mode == "ATTESTED_REPRESENTATION_GAP":
+        if bool(request.get("representation_gap", False)) or entry_mode in {"ATTESTED_REPRESENTATION_GAP", "ATTESTED_HYPOTHESIS_FORM_FAILURE"}:
             return self._advance_representation_gap(request)
         req=self._normalize_request(request)
         if req["domain_id"] not in DOMAIN_REGISTRIES:
@@ -3656,7 +4011,24 @@ class AdaptiveResearchKernelOwner:
         executable_compilation = None
         executable_execution = None
         operator_probe_design = None
-        if (not fit_ok) and req["operator_probe_rows"]:
+        observational_probe_design = None
+        source_capability = self._source_capability_contract(req)
+        source_class = str(source_capability.get("class", "FORWARD_ORACLE")).upper()
+        if (not fit_ok) and source_class == "OBSERVATIONAL_ARCHIVE":
+            if req["operator_probe_rows"]:
+                raise ValueError("OBSERVATIONAL_ARCHIVE primitive-field cycle cannot accept arbitrary operator-probe response rows")
+            observational_probe_design = self._freeze_observational_archive_protocol(
+                req, source_capability=source_capability, freeze_basis_digest=str(invention.get("digest", input_digest)),
+            )
+            executable_synthesis = {
+                "status": "EXECUTABLE_SYNTHESIS_BLOCKED_AWAITING_FRESH_OBSERVATIONAL_MEASUREMENTS",
+                "reason": "OBSERVATIONAL_ARCHIVE_REQUIRES_NATURAL_SAMPLE_ACQUISITION",
+                "qualified_for_compilation": False,
+                "observational_protocol_digest": observational_probe_design.get("digest"),
+                "next_experiment": "ACQUIRE_FROZEN_NATURAL_SAMPLES_WITH_ATTESTED_MEASUREMENT_ADAPTER",
+            }
+            executable_synthesis = {**executable_synthesis, "digest": digest_payload(executable_synthesis)}
+        elif (not fit_ok) and req["operator_probe_rows"]:
             executable_synthesis = self.theory_compiler.synthesis.synthesize(
                 probe_rows=req["operator_probe_rows"],
                 freeze_digest=str(invention.get("digest", input_digest)),
@@ -3712,6 +4084,10 @@ class AdaptiveResearchKernelOwner:
             lifecycle="SURVIVOR"
             next_action="ACQUIRE_INDEPENDENT_FALSIFICATION_OR_PROMOTION_EVIDENCE"
             status="HYPOTHESIS_SURVIVES_CURRENT_HELDOUT_EVIDENCE_NOT_LAW"
+        elif isinstance(observational_probe_design, Mapping) and observational_probe_design.get("status") == "OBSERVATIONAL_ARCHIVE_PROTOCOL_FROZEN_AWAITING_FRESH_MEASUREMENTS":
+            lifecycle="CANDIDATE"
+            next_action="ACQUIRE_FROZEN_NATURAL_SAMPLES_WITH_ATTESTED_MEASUREMENT_ADAPTER"
+            status="REPRESENTATION_GAP_OBSERVATIONAL_PROTOCOL_FROZEN_AWAITING_FRESH_MEASUREMENTS"
         elif executable_execution and executable_execution.get("status") == "EXECUTION_PASS":
             lifecycle="TESTABLE"
             next_action="FALSIFY_SYNTHESIZED_EXECUTABLE_REPRESENTATION_ON_INDEPENDENT_WORLD_EVIDENCE"
@@ -3785,6 +4161,9 @@ class AdaptiveResearchKernelOwner:
             "research_local_axis_candidates":[str(r.get("context_dimension")) for r in candidate_axes],
             "research_local_derived_axis_births":[dict(r) for r in derived_axis_births],
             "research_local_derived_axis_count":len(derived_axis_births),
+            "source_capability_class": source_class,
+            "source_capability_digest": source_capability.get("digest"),
+            "observational_protocol_digest": observational_probe_design.get("digest") if isinstance(observational_probe_design, Mapping) else None,
             "executable_representation_status": executable_synthesis.get("status"),
             "executable_candidate_id": executable_synthesis.get("candidate_id"),
             "executable_id": executable_compilation.get("executable_id") if isinstance(executable_compilation, Mapping) else None,
@@ -3838,6 +4217,8 @@ class AdaptiveResearchKernelOwner:
             },
             "axis_birth_search":axis_birth_search,
             "mathematical_invention":invention,
+            "source_capability": source_capability,
+            "observational_probe_design": observational_probe_design,
             "operator_probe_design": operator_probe_design,
             "executable_representation_synthesis": executable_synthesis,
             "executable_representation_compilation": executable_compilation,

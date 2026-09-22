@@ -1400,6 +1400,13 @@ A requirement for `NuclearExperimentSelector`, `ChemistryRevisionAlgorithm`, `As
 
 The repository-level qualification MUST route at least two distinct real-science domains through this common ingress contract without reusing prior evidence as post-freeze measurement.
 
+## Hypothesis-family lineage and source capability
+
+Failure of a concrete representation MUST NOT automatically falsify its family. A declared family-invariant falsification closes the family; no positive child status overrides that closure. Within a supplied lineage, family ID, statement and preserved invariants are immutable, previous records require valid complete digests, and a retired form cannot be revived by a different coefficient fit. Child continuation requires an explicit structural identity; unsupported or missing structural identity fails closed. These rules govern research state, not scientific promotion or independent authenticity of submitted evidence.
+
+Observational archives MUST NOT be treated as arbitrary-state forward simulators. Their natural samples and transformations are frozen before response acquisition, and source identities and protocol digests are bound. Merely declaring an outcome to be unseen does not independently attest chronology. Existing/raw observations are not a completed discriminating-experiment result. Domain metadata does not select a separate lineage algorithm; domain adapters remain responsible for measurement semantics.
+
+
 ## P3: Frozen representational-novelty benchmark contract
 
 Benchmark task definitions, discovery/sealed split semantics, baseline classes and metrics are bound by a content digest before execution. Sealed rows MUST NOT participate in representation selection. Required checks are:

@@ -1,0 +1,73 @@
+{
+  "broader_existing_atlas_signal": {
+    "interpretation": "x/y contain non-null transferable structure, while z does not; absolute adequacy still fails.",
+    "x": {
+      "null_sealed_nrmse": 10.045350256636247,
+      "sealed_nrmse": 4.055395202413368
+    },
+    "y": {
+      "null_sealed_nrmse": 8.342819612692976,
+      "sealed_nrmse": 2.754032610678362
+    },
+    "z": {
+      "null_sealed_nrmse": 4.168434505884667,
+      "sealed_nrmse": 6.427480587861015
+    }
+  },
+  "candidate_exact_form": {
+    "constant_holdout_nrmse": 0.7922884278968124,
+    "fit_gate_nrmse": 0.25,
+    "fit_gate_passed": false,
+    "formula": "q0 ~= -0.055617198651480883 + 0.071098531813349714*(u_bar*d_y(v_bar)) - 0.032363923799617812*(u_bar*d_z(v_bar))",
+    "internal_holdout_nrmse": 0.7737483360758315,
+    "relative_holdout_improvement_vs_constant": 0.023400684861947258,
+    "restricted_20_axis_rerun_reproduced_exactly": true,
+    "target": "q0 = unresolved_convective_acceleration_x"
+  },
+  "multiple_testing_control": {
+    "candidate_count_shell1": 211,
+    "global_target_permutation_p_approx": 0.0999000999000999,
+    "interpretation": "Exact two-term candidate is not statistically exceptional after best-of-211 model selection.",
+    "permutations": 1000,
+    "within_study_target_permutation_p_approx": 0.12687312687312688
+  },
+  "scale_regime_diagnostic": {
+    "Delta_over_eta_ratio": 1.9294773519163757,
+    "discovery_Delta_over_eta": 4.2759046352213,
+    "discovery_Kolmogorov_eta": 0.00287,
+    "discovery_Re_lambda": "~433",
+    "discovery_filter_width": 0.012271846303085133,
+    "filter_width_ratio_discovery_to_sealed": 4.0,
+    "sealed_Delta_over_eta": 2.216094752796362,
+    "sealed_Kolmogorov_eta": 0.0013844,
+    "sealed_Re_lambda": 610.57,
+    "sealed_filter_width": 0.0030679615757712836
+  },
+  "schema": "atlas-random20-discovery-reaudit/v2",
+  "scientific_state": {
+    "broader_hypothesis": "ACTIVE_CANDIDATE",
+    "broader_hypothesis_text": "A scale-aware, rotationally covariant/tensor local SGS-force relation built from filtered velocity gradients and filter scale may underlie the observed partial structure.",
+    "exact_two_term_expression": "FALSIFIED_AS_UNIVERSAL_FIXED_COEFFICIENT_LAW",
+    "literature_review_timing": "POST-HOC_AFTER_ATLAS_CANDIDATE",
+    "next_required_test": "Freeze scale/tensor competing hypotheses before reading a third unseen regime; then test on fresh data while separately varying filter scale and Reynolds regime.",
+    "novelty_status": "UNESTABLISHED"
+  },
+  "sealed_structure_diagnostic_posthoc": {
+    "coefficient_sign_stability": false,
+    "discovery_all_rows_refit_coefficients": [
+      -0.03051429,
+      0.07009089,
+      -0.03256393
+    ],
+    "interpretation": "A scalar regime-dependent coefficient rescaling of the same two terms is insufficient.",
+    "same_two_terms_refit_on_sealed": true,
+    "sealed_refit_coefficients": [
+      -0.33756612,
+      -0.01402397,
+      0.00348241
+    ],
+    "sealed_refit_nrmse": 0.9981991869305046,
+    "sealed_refit_prediction_target_correlation": 0.05998652524759068
+  },
+  "supersedes": "ATLAS_RANDOM20_JHTDB_RECEIPT.json"
+}

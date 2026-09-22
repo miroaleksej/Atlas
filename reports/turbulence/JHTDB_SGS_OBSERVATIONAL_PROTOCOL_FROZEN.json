@@ -1,0 +1,137 @@
+{
+  "claim_boundary": {
+    "cli_contains_scientific_reasoning_algorithm": false,
+    "fresh_measurements_acquired": false,
+    "scientific_law_established": false
+  },
+  "protocol": {
+    "archive_id": "JHTDB:isotropic8192:snapshot0",
+    "claim_boundary": {
+      "atlas_generated_arbitrary_world_states": false,
+      "fresh_outcomes_available_at_freeze": false,
+      "natural_samples_only": true,
+      "scientific_law_established": false
+    },
+    "component": "OBSERVATIONAL-ARCHIVE-PROBE-DESIGN/1.0.0-COMPONENT",
+    "digest": "c41038ac515826c3d6acf722488e788b13ad337e5beb40f9d903d7a401fda4bf",
+    "freeze_basis_digest": "66adb9d2e3e70499e5926f4fe25d98e614a6aa3d1214b63463c510ca4dc69397",
+    "fresh_measurement_status": "NOT_ACQUIRED",
+    "measurement_adapter_owner": "BLIND-DNS-TURBULENCE-CLOSURE-EXPERIMENT/1.0.0",
+    "observable_contract": {
+      "components": [
+        "x",
+        "y",
+        "z"
+      ],
+      "derived_observable": "unresolved_convective_acceleration via existing DNS coarse-graining adapter",
+      "existing_dns_target_definition_reused": true,
+      "fresh_values_must_be_absent_prefreeze": true,
+      "raw_fields": [
+        "u",
+        "v",
+        "w"
+      ]
+    },
+    "outcomes_inspected_prefreeze": false,
+    "owner_id": "ADAPTIVE-RESEARCH-KERNEL/15.4.0",
+    "required_attestation": {
+      "measurement_adapter_owner_must_match_freeze": true,
+      "protocol_digest_binding_required": true,
+      "sample_ids_must_match_freeze": true
+    },
+    "sample_contracts": [
+      {
+        "cube_edge": 32,
+        "dataset": "isotropic8192",
+        "filter_ratios": [
+          2,
+          4,
+          8
+        ],
+        "role": "FRESH_SEALED_OBSERVATION",
+        "sample_id": "JHTDB-8192-S0-R1",
+        "snapshot": 0,
+        "start_xyz_1based": [
+          8018,
+          3516,
+          6440
+        ]
+      },
+      {
+        "cube_edge": 32,
+        "dataset": "isotropic8192",
+        "filter_ratios": [
+          2,
+          4,
+          8
+        ],
+        "role": "FRESH_SEALED_OBSERVATION",
+        "sample_id": "JHTDB-8192-S0-R2",
+        "snapshot": 0,
+        "start_xyz_1based": [
+          106,
+          7294,
+          3420
+        ]
+      },
+      {
+        "cube_edge": 32,
+        "dataset": "isotropic8192",
+        "filter_ratios": [
+          2,
+          4,
+          8
+        ],
+        "role": "FRESH_SEALED_OBSERVATION",
+        "sample_id": "JHTDB-8192-S0-R3",
+        "snapshot": 0,
+        "start_xyz_1based": [
+          2440,
+          1074,
+          4913
+        ]
+      }
+    ],
+    "sample_ids": [
+      "JHTDB-8192-S0-R1",
+      "JHTDB-8192-S0-R2",
+      "JHTDB-8192-S0-R3"
+    ],
+    "schema": "phi-observational-archive-probe-design/v1",
+    "selection_rule": "SHA256(FAMILY_FREEZE|ARCHIVE|SNAPSHOT|REGION|AXIS) MOD ADMISSIBLE_START_RANGE + 1",
+    "selection_seed": "66adb9d2e3e70499e5926f4fe25d98e614a6aa3d1214b63463c510ca4dc69397",
+    "source_capability_digest": "44f2eee135a272149f518d563c408f3e0288e36c21d1732f4c6e7bbcb33f8308",
+    "source_manifest_digest": "063487284d999e93491ec9e5bb8d14105b767235e887d379dea3f91292de6a46",
+    "status": "OBSERVATIONAL_ARCHIVE_PROTOCOL_FROZEN_AWAITING_FRESH_MEASUREMENTS",
+    "transforms": [
+      {
+        "filter_ratio": 2,
+        "kind": "SPECTRAL_LOW_PASS"
+      },
+      {
+        "filter_ratio": 4,
+        "kind": "SPECTRAL_LOW_PASS"
+      },
+      {
+        "filter_ratio": 8,
+        "kind": "SPECTRAL_LOW_PASS"
+      }
+    ]
+  },
+  "request_path": "examples/JHTDB_SGS_OBSERVATIONAL_ARCHIVE_REQUEST.json",
+  "request_sha256": "722cf2b5993a4f01ed06fb54172507faa463d667d7b7782762d5358407fe0198",
+  "schema": "atlas-observational-archive-freeze-cli/v1",
+  "source_capability": {
+    "arbitrary_state_probe_protocol_allowed": false,
+    "class": "OBSERVATIONAL_ARCHIVE",
+    "digest": "44f2eee135a272149f518d563c408f3e0288e36c21d1732f4c6e7bbcb33f8308",
+    "explicitly_declared": true,
+    "legacy_assumption_used": false,
+    "natural_sample_freeze_required": true,
+    "schema": "phi-scientific-source-capability/v1",
+    "source_id": "JHTDB:isotropic8192:snapshot0",
+    "supports_arbitrary_state_intervention": false,
+    "supports_natural_sample_retrieval": true
+  },
+  "status": "OBSERVATIONAL_ARCHIVE_PROTOCOL_FROZEN_AWAITING_FRESH_MEASUREMENTS"
+}
