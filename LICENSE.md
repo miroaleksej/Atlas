@@ -1,6 +1,6 @@
    Atlas / Φ-Compiler / ScienceAtlas
 
-   Copyright 2026 Миронов А.
+   Copyright © 2026 Alexey Mironov
    Location: Moscow, Russian Federation
    Contact: miro-aleksej@yandex.ru
    SPDX-License-Identifier: Apache-2.0
