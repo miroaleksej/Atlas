@@ -180,7 +180,7 @@ def run(root=None, *, allow_blocked=False):
  }
  caps['operator_language_invention']={
   'component':'OPERATOR-LANGUAGE-BIRTH/1.0.0-COMPONENT',
-  'authority':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0',
+  'authority':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0',
   'seed_meta_primitives':['LOCAL_TRANSLATION','LINEAR_SUPERPOSITION','POINTWISE_MULTIPLY','POINTWISE_RECIPROCAL','DIMENSION_TYPING'],
   'named_differential_operator_catalog_used':False,
   'fixed_derivative_order_catalog_used':False,
@@ -191,7 +191,7 @@ def run(root=None, *, allow_blocked=False):
  }
  caps['formal_mathematical_verification']={
   'owner':'FORMAL-MATHEMATICAL-VERIFICATION/1.0.0',
-  'authority':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0',
+  'authority':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0',
   'dependency_graph_decomposition':True,
   'exact_symbolic_identity_verification':True,
   'finite_exhaustive_boolean_verification':True,
@@ -211,8 +211,10 @@ def run(root=None, *, allow_blocked=False):
   'state_section':'universal_proof_mechanisms',
   'domain_specific_hardcode_required':False,
   'mechanism_reuse_transfers_theorem_truth':False,
-  'canonical_mechanism_count':20,
+  'canonical_mechanism_count':23,
   'semantic_proof_obligation_compiler':'SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT',
+  'semantic_binding_invention':'SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT',
+  'generated_binding_objects_require_validation':True,
   'typed_binding_gaps_birth_research_axes':True,
   'typed_formal_schema_is_proof':False,
   'scope':'ANY_DOMAIN_WITH_FORMALIZABLE_CLAIMS',
@@ -265,7 +267,7 @@ def run(root=None, *, allow_blocked=False):
   'u5_status':query.get('world_data_binding_audit_2026_09_08',{}).get('u5_status'),
   'function_language_birth_enabled':True,
   'function_language_birth_component':'FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT',
-  'mathematical_invention_kernel_owner':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0',
+  'mathematical_invention_kernel_owner':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0',
   'generated_function_families':['RATIONAL','EXPONENTIAL','LOGARITHMIC','PERIODIC','PIECEWISE','KERNEL','LATENT'],
   'language_birth_triggered_by_oof_residual':True,
   'language_birth_requires_operation_signal_above_multiplicity_aware_gate':True,
@@ -523,7 +525,7 @@ def run(root=None, *, allow_blocked=False):
   'u5_status':query.get('world_data_binding_audit_2026_09_08',{}).get('u5_status'),
   'source_stitching_used_to_create_fit':query.get('world_data_binding_audit_2026_09_08',{}).get('source_stitching_used_to_create_fit'),
   'function_language_birth_component':'FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT',
-  'mathematical_invention_kernel_owner':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0',
+  'mathematical_invention_kernel_owner':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0',
   'function_language_birth_qualification_status':query.get('function_language_birth_qualification',{}).get('status'),
   'function_language_birth_qualification_digest':query.get('function_language_birth_qualification',{}).get('digest'),
   'function_language_birth_qualification_metrics':query.get('function_language_birth_qualification',{}).get('metrics'),

@@ -653,3 +653,8 @@ born obligation
 
 `formal specification != proof`; `missing binding != falsification`;
 `executable task != successful discharge`.
+
+
+## Semantic binding invention claim boundary
+
+`SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` may be described as constructing concrete research-local candidate contents for typed mathematical binding gaps. It is not permissible to claim that a generated function space is the correct function space, that a generated energy is coercive, that an invariant candidate is invariant, that a witness family contains a valid witness, or that a generated blow-up criterion is true until the corresponding validation/proof obligations have actually been discharged. Statement-grounded operator/domain/signature evidence is not a proof of the surrounding theorem.

@@ -7,7 +7,7 @@ from source.lawspace.schema import digest_payload
 from source.lawspace.mathematical_invention import MathematicalInventionKernel
 from source.lawspace.domains import canonical_axis_count
 
-SCHEMA="phi-mathematical-invention-qualification/v1"; RELEASE="15.10.2"
+SCHEMA="phi-mathematical-invention-qualification/v1"; RELEASE="15.10.3"
 
 
 def _history_rows():
@@ -136,6 +136,13 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     semantic_portfolio=kernel.proof_discharge.compile_tasks(candidates=semantic_candidates,maximum_tasks=16)
     semantic_discharge=kernel.proof_discharge.discharge(candidates=semantic_candidates,execution_budget=16)
     semantic_blocked=next(t for t in semantic_portfolio["tasks"] if t["obligation_id"]=="SEM-O3")
+    semantic_binding_synthesis=semantic_blocked["binding_synthesis"]
+    binding_validation_candidate={
+      "candidate_id":"SEM-BVAL-C1","representation_family_id":"SEM-BVAL-R1",
+      "representation_signature":{"operation_sequence":["validate_binding"],"research_local_axis_ids":["RAX-BVAL"]},
+      "proof_obligations":[dict(x) for x in semantic_binding_synthesis["binding_validation_obligations"]],
+    }
+    binding_validation_discharge=kernel.proof_discharge.discharge(candidates=[binding_validation_candidate],execution_budget=64)
     autonomous_semantic_discharge=kernel.proof_discharge.discharge(candidates=autonomous_birth["candidates"][:2],execution_budget=16)
     typed_operator_claim="Let a>0 and n=3. Fields y(x,t) satisfy ∂_t y = a Δy and div y=0. Determine whether there exists a global smooth bounded solution on R^3."
     typed_operator_compilation=kernel.semantic_obligation_compiler.compile(
@@ -143,12 +150,18 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       candidate={"candidate_id":"SEM-OP-C","representation_family_id":"SEM-OP-R","semantic_context":{"frozen_problem_statement":typed_operator_claim}},
     )
     checks={
-      "kernel_owner_contract":kernel.contract()["owner_id"]=="PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0",
+      "kernel_owner_contract":kernel.contract()["owner_id"]=="PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0",
+      "semantic_binding_invention_is_kernel_component":kernel.contract()["components"].get("semantic_binding_invention")==kernel.semantic_binding_invention.component_id and kernel.semantic_binding_invention.contract().get("authority")==kernel.contract()["owner_id"],
       "semantic_obligation_compiler_is_kernel_component":kernel.contract()["components"].get("semantic_proof_obligation_compiler")==kernel.semantic_obligation_compiler.component_id and kernel.semantic_obligation_compiler.contract().get("authority")==kernel.contract()["owner_id"],
       "proof_discharge_is_kernel_component":kernel.contract()["components"].get("proof_obligation_discharge")==kernel.proof_discharge.component_id and kernel.proof_discharge.contract().get("authority")==kernel.contract()["owner_id"],
       "semantic_exact_identity_autocompiles_and_executes":any(r.get("obligation_id")=="SEM-O1" and r.get("method")=="EXACT_SYMBOLIC_IDENTITY" and r.get("discharged") is True for r in semantic_discharge["results"]),
       "semantic_finite_universal_autocompiles_and_executes":any(r.get("obligation_id")=="SEM-O2" and r.get("method")=="FINITE_EXHAUSTIVE_BOOLEAN" and r.get("discharged") is True for r in semantic_discharge["results"]),
-      "semantic_high_level_claim_stays_typed_unresolved":semantic_blocked["status"]=="BLOCKED_TYPED_BINDINGS_REQUIRED" and semantic_blocked["semantic_compilation"]["status"]=="TYPED_FORMAL_SCHEMA_COMPILED_REQUIRES_BINDINGS" and len(semantic_blocked["semantic_compilation"]["missing_bindings"])>=3,
+      "semantic_high_level_claim_stays_typed_unresolved":semantic_blocked["status"]=="BLOCKED_BINDING_HYPOTHESES_REQUIRE_VALIDATION" and semantic_blocked["semantic_compilation"]["status"]=="TYPED_FORMAL_SCHEMA_COMPILED_REQUIRES_BINDINGS" and len(semantic_blocked["semantic_compilation"]["missing_bindings"])>=3,
+      "binding_invention_builds_concrete_research_objects":len(semantic_binding_synthesis["generated_binding_objects"])>=3 and all(x.get("status")=="PROPOSED_RESEARCH_LOCAL_BINDING" for x in semantic_binding_synthesis["generated_binding_objects"]),
+      "binding_invention_generates_validation_obligations":len(semantic_binding_synthesis["binding_validation_obligations"])>=6 and semantic_binding_synthesis["claim_boundary"]["generated_binding_is_discharged"] is False,
+      "binding_provenance_and_welltypedness_execute":any(r.get("method")=="BINDING_OBJECT_PROVENANCE_ALIGNMENT" and r.get("discharged") is True for r in binding_validation_discharge["results"]) and any(r.get("method")=="BINDING_OBJECT_WELL_TYPEDNESS" and r.get("discharged") is True for r in binding_validation_discharge["results"]),
+      "binding_discrimination_remains_unresolved_without_evidence":any(r.get("kind")=="BINDING_DISCRIMINATION_OR_CLOSURE_GAIN" for r in binding_validation_discharge["unresolved_obligation_seeds"]),
+      "binding_invention_does_not_select_fixed_domain_catalog":kernel.semantic_binding_invention.contract()["fixed_domain_method_catalog"] is False,
       "semantic_formal_graph_is_frozen_even_when_unresolved":semantic_blocked["semantic_formal_graph"]["status"]=="PROOF_DEPENDENCY_GRAPH_FROZEN" and semantic_blocked["semantic_formal_graph"]["claim_boundary"]["theorem_verified"] is False,
       "typed_missing_bindings_feed_residual_seeds":any(r.get("obligation_id")=="SEM-O3" and len(r.get("missing_bindings",()))>=3 for r in semantic_discharge["unresolved_obligation_seeds"]),
       "born_obligations_are_semantically_compiled_without_external_solution":autonomous_semantic_discharge["semantic_compilation"]["typed_unresolved_count"]>0 and any(r.get("semantic_compilation_digest") for r in autonomous_semantic_discharge["unresolved_obligation_seeds"]),
@@ -219,7 +232,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       "schema":SCHEMA,"release":RELEASE,"owner_id":"PHI-MATHEMATICAL-INVENTION-QUALIFICATION/1.0.0",
       "status":"PASS_PHI_MATHEMATICAL_INVENTION_QUALIFICATION" if passed==len(checks) else "BLOCKED_PHI_MATHEMATICAL_INVENTION_QUALIFICATION",
       "passed":passed,"total":len(checks),"checks":[{"check":k,"status":"PASS" if v else "FAIL"} for k,v in checks.items()],
-      "demonstration":{"autonomous_candidate_birth":{"initial":autonomous_birth,"continued":autonomous_birth_next},"unknown_unknown":unknown,"primitive":primitive,"morphism":morph,"controlled_limit":limit,"formal_verification":{"graph":proof_graph,"verified":proof_verified,"handoff":handoff,"counterexample":cex,"external_attestation":external_attestation},"semantic_obligation_compilation":{"portfolio":semantic_portfolio,"execution":semantic_discharge,"autonomous_execution":autonomous_semantic_discharge,"typed_operator_compilation":typed_operator_compilation},"proof_obligation_discharge":{"portfolio":discharge_portfolio,"execution":discharge},"negative_controls":{"weak_unknown":weak,"incomplete_primitive":incomplete,"morphism":morph_bad,"limit":no_limit,"proof":proof_blocked}},
+      "demonstration":{"autonomous_candidate_birth":{"initial":autonomous_birth,"continued":autonomous_birth_next},"unknown_unknown":unknown,"primitive":primitive,"morphism":morph,"controlled_limit":limit,"formal_verification":{"graph":proof_graph,"verified":proof_verified,"handoff":handoff,"counterexample":cex,"external_attestation":external_attestation},"semantic_obligation_compilation":{"portfolio":semantic_portfolio,"execution":semantic_discharge,"autonomous_execution":autonomous_semantic_discharge,"typed_operator_compilation":typed_operator_compilation,"binding_synthesis":semantic_binding_synthesis,"binding_validation_discharge":binding_validation_discharge},"proof_obligation_discharge":{"portfolio":discharge_portfolio,"execution":discharge},"negative_controls":{"weak_unknown":weak,"incomplete_primitive":incomplete,"morphism":morph_bad,"limit":no_limit,"proof":proof_blocked}},
       "claim_boundary":{"synthetic_qualification_is_new_mathematics":False,"world_novelty_established":False,"internet_used_prefreeze":False,"known_method_catalog_used_as_answer":False,"canonical_axis_count":canonical_axis_count()},
     }
     payload["digest"]=digest_payload(payload); return payload

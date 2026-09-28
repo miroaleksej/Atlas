@@ -1697,6 +1697,8 @@ class UniversalProofMechanismMemoryOwner:
                 "open_ended_search_continuation_is_digest_bound": True,
                 "authoritative_frontier_may_not_be_truncated_by_display_or_compute_budget": True,
                 "multi_slice_campaign_must_carry_exact_frozen_continuation": True,
+                "typed_binding_gaps_may_generate_research_local_binding_objects": True,
+                "generated_binding_objects_require_independent_validation": True,
             },
         }
         return {**payload, "digest": digest_payload(payload)}
@@ -1723,6 +1725,9 @@ class UniversalProofMechanismMemoryOwner:
             ("PM-SEMANTIC-OBLIGATION-COMPILATION", "SEMANTIC_PROOF_OBLIGATION_COMPILATION", "Compile a born proof obligation from its frozen mathematical claim into explicit quantifiers, symbols, relations, predicates, operator structure and a digest-bound formal-obligation artifact before attempting discharge."),
             ("PM-TYPED-BINDING-GAP", "TYPED_FORMAL_BINDING_GAP", "When a substantive lemma cannot yet execute, preserve the exact missing function-space, operator, domain, norm, witness or equivalence bindings and feed those gaps into later research-local axis/representation birth."),
             ("PM-EXECUTABILITY-SEPARATION", "SEMANTIC_EXECUTABILITY_SEPARATION", "A typed formal schema or formal-kernel handoff object is not a proof; only an executed verifier/kernel receipt may discharge the corresponding mathematical obligation."),
+            ("PM-BINDING-INVENTION", "SEMANTIC_BINDING_OBJECT_INVENTION", "Turn typed semantic binding gaps into concrete research-local mathematical objects such as generated seminorm/energy families, invariant candidates, witness/obstruction families, comparison functionals and breakdown criteria; these remain hypotheses until validated."),
+            ("PM-BINDING-VALIDATION", "BINDING_OBJECT_VALIDATION_GATE", "Require provenance alignment, well-typedness and discrimination/closure evidence before a generated binding object can resolve its typed gap."),
+            ("PM-STATEMENT-GROUNDED-BINDING", "FROZEN_STATEMENT_BINDING_GROUNDING", "Permit operator, function-signature or domain bindings to be grounded only when their content is explicitly recoverable from the frozen typed statement; grounding is not theorem proof."),
         ]
         out = []
         for mechanism_id, mechanism_type, description in rows:

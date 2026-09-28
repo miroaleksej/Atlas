@@ -25,7 +25,7 @@ from .candidates import CandidateGenerationPipeline, DirectedResearchQuery
 from .runtime import LawSpaceRuntime
 from .schema import canonical_json, digest_payload
 
-KERNEL_OWNER_ID = "PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0"
+KERNEL_OWNER_ID = "PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0"
 UNKNOWN_OWNER_ID = "UNKNOWN-UNKNOWN-REPRESENTATION-TYPE-DISCOVERY/1.0.0"
 PRIMITIVE_OWNER_ID = "PRIMITIVE-SYNTHESIS/1.0.0"
 MORPHISM_OWNER_ID = "MORPHISM-DISCOVERY/1.0.0"
@@ -33,6 +33,7 @@ LIMIT_OWNER_ID = "CONTROLLED-LIMIT-ENGINE/1.0.0"
 SCHEMA = "phi-mathematical-invention-kernel/v1"
 AUTONOMOUS_CANDIDATE_BIRTH_COMPONENT_ID = "AUTONOMOUS-MATHEMATICAL-CANDIDATE-BIRTH/1.0.0-COMPONENT"
 SEMANTIC_OBLIGATION_COMPILER_COMPONENT_ID = "SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT"
+SEMANTIC_BINDING_INVENTION_COMPONENT_ID = "SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT"
 
 
 def _digest(payload: Mapping[str, Any]) -> str:
@@ -1362,6 +1363,20 @@ class AutonomousMathematicalCandidateBirthEngine:
                         continue
                     bid = "RAX-BIND-" + digest_payload({"q":qdigest,"epoch":epoch,"oid":oid,"binding":binding})[:18].upper()
                     axis_rows.append(self._axis_row(axis_id=bid, kind="MISSING_TYPED_BINDING::"+binding, epoch=epoch, components=(oid,binding), provenance="SEMANTIC_PROOF_OBLIGATION_COMPILATION_GAP"))
+                # Generated binding objects are concrete research-local content, not
+                # merely names of missing slots.  They become their own coordinates
+                # so later proof programs can test, refine or reject them.
+                for obj in obligation.get("generated_binding_objects", ()):
+                    if len(axis_rows) >= axis_birth_budget_per_epoch:
+                        break
+                    if not isinstance(obj, Mapping):
+                        continue
+                    obj_id = str(obj.get("object_id", ""))
+                    binding = str(obj.get("binding", "UNKNOWN_BINDING"))
+                    if not obj_id:
+                        continue
+                    bid = "RAX-BOBJ-" + digest_payload({"q":qdigest,"epoch":epoch,"oid":oid,"object":obj_id})[:18].upper()
+                    axis_rows.append(self._axis_row(axis_id=bid, kind="BINDING_OBJECT::"+binding, epoch=epoch, components=(oid,obj_id,binding), provenance="SEMANTIC_BINDING_INVENTION"))
             # Always birth interaction coordinates.  Interaction order increases
             # with epoch and therefore has no global ceiling across continuation.
             pool = list(dict.fromkeys(known_axis_ids + [r["axis_id"] for r in axis_rows]))
@@ -1439,6 +1454,17 @@ class AutonomousMathematicalCandidateBirthEngine:
                         "semantic_claim": str(focus_gap.get("semantic_claim") or semantic_target.get("claim") or text),
                         "semantic_role": str(focus_gap.get("semantic_role") or semantic_target.get("role") or "PROOF_GAP"),
                     })
+                    # Binding objects born on the previous shell carry their own
+                    # validation obligations.  Re-materialize a bounded subset in the
+                    # active proof program so provenance/well-typedness can execute
+                    # and the decisive discrimination obligation remains explicit.
+                    for bval in list(focus_gap.get("binding_validation_obligations", ()))[:6]:
+                        if not isinstance(bval, Mapping):
+                            continue
+                        row=dict(bval)
+                        row["source_obligation_id"]=focus_gap.get("obligation_id")
+                        row["source_binding_object_id"]=row.get("binding_object_id")
+                        obligations.append(row)
                 candidate_core = {
                     "candidate_id": "MATH-" + digest_payload({"q": qdigest, "epoch": epoch, "signature": signature, "axes": selected_axes})[:22].upper(),
                     "status": "UNRESOLVED_GENERATED_PROOF_PROGRAM",
@@ -1498,6 +1524,9 @@ class AutonomousMathematicalCandidateBirthEngine:
                             "representation_family_id":cand.get("representation_family_id"),
                             "semantic_claim":ob.get("semantic_claim"),
                             "semantic_role":ob.get("semantic_role"),
+                            "missing_bindings": list(ob.get("missing_bindings", ())),
+                            "generated_binding_objects": list(ob.get("generated_binding_objects", ())),
+                            "binding_validation_obligations": list(ob.get("binding_validation_obligations", ())),
                         })
             unresolved_seed_rows = unresolved_seed_rows[:64]
             representation_family_seeds.extend(str(c.get("representation_family_id")) for c in epoch_candidates if c.get("representation_family_id"))
@@ -2493,6 +2522,195 @@ class SemanticProofObligationCompiler:
         })
 
 
+class SemanticBindingInventionEngine:
+    """Invent research-local content for typed semantic binding gaps.
+
+    The engine is deliberately not a catalogue selector.  It constructs
+    parameterized mathematical objects from the frozen typed schema: operator
+    signatures, function signatures, generated seminorm/energy families,
+    invariant defects, witness/obstruction families and breakdown criteria.
+    Objects invented here are hypotheses with validation obligations.  Only
+    bindings explicitly recoverable from the frozen statement are marked
+    GROUNDED; generated objects remain PROPOSED until separately discharged.
+    """
+
+    component_id = SEMANTIC_BINDING_INVENTION_COMPONENT_ID
+    schema = "phi-semantic-binding-invention/v1"
+
+    _OPERATOR_SIGNATURES = {
+        "partial_derivative": {"arity": 2, "kind": "DIFFERENTIAL", "order": 1},
+        "gradient": {"arity": 1, "kind": "DIFFERENTIAL", "order": 1},
+        "divergence": {"arity": 1, "kind": "DIFFERENTIAL", "order": 1},
+        "laplacian": {"arity": 1, "kind": "DIFFERENTIAL", "order": 2},
+        "integral": {"arity": 2, "kind": "INTEGRAL", "order": 0},
+    }
+
+    @staticmethod
+    def _object_id(binding: str, payload: Mapping[str, Any]) -> str:
+        return "BINDOBJ-" + re.sub(r"[^A-Z0-9]+", "-", binding.upper()).strip("-")[:28] + "-" + digest_payload(dict(payload))[:14].upper()
+
+    @staticmethod
+    def _validation_obligations(binding: str, object_id: str, *, grounded: bool) -> list[dict[str, Any]]:
+        rows = [{
+            "kind": "BINDING_PROVENANCE_ALIGNMENT",
+            "object_id": object_id,
+            "criterion": "EXACTLY_DERIVED_FROM_FROZEN_STATEMENT" if grounded else "DOES_NOT_CONTRADICT_FROZEN_STATEMENT",
+            "required_for_acceptance": True,
+        }]
+        if not grounded:
+            rows.extend([
+                {"kind": "BINDING_WELL_TYPEDNESS", "object_id": object_id, "required_for_acceptance": True},
+                {"kind": "BINDING_DISCRIMINATION_OR_CLOSURE_GAIN", "object_id": object_id, "required_for_acceptance": True},
+            ])
+        return rows
+
+    @staticmethod
+    def _operator_semantics(typed: Mapping[str, Any]) -> dict[str, Any] | None:
+        toks = [str(x) for x in typed.get("operator_tokens", ())]
+        if not toks:
+            return None
+        rows=[]
+        for tok in toks:
+            key=tok.casefold().replace(" ", "_")
+            sig = dict(SemanticBindingInventionEngine._OPERATOR_SIGNATURES.get(key, {}))
+            if not sig:
+                if "laplac" in key or tok == "Δ": sig={"arity":1,"kind":"DIFFERENTIAL","order":2}
+                elif "div" in key: sig={"arity":1,"kind":"DIFFERENTIAL","order":1}
+                elif "grad" in key or tok == "∇": sig={"arity":1,"kind":"DIFFERENTIAL","order":1}
+                elif "partial" in key or tok == "∂": sig={"arity":2,"kind":"DIFFERENTIAL","order":1}
+                elif "integr" in key or tok == "∫": sig={"arity":2,"kind":"INTEGRAL","order":0}
+                else: sig={"arity":None,"kind":"UNINTERPRETED_OPERATOR","order":None}
+            rows.append({"symbol":tok,**sig})
+        return {"operator_signatures":rows,"source":"FROZEN_TYPED_SCHEMA"}
+
+    @staticmethod
+    def _function_signatures(typed: Mapping[str, Any]) -> dict[str, Any] | None:
+        funcs=[dict(x) for x in typed.get("function_symbols", ()) if isinstance(x, Mapping)]
+        if not funcs:
+            return None
+        domains=[str(x) for x in typed.get("domain_mentions", ())]
+        out=[]
+        for f in funcs:
+            out.append({
+                "function":f.get("name") or f.get("symbol"),
+                "arguments":list(f.get("arguments", ()) or f.get("args", ())),
+                "domain_evidence":domains,
+                "codomain":"UNRESOLVED_UNLESS_EXPLICIT_IN_STATEMENT",
+            })
+        return {"function_signatures":out,"source":"FROZEN_TYPED_SCHEMA"}
+
+    @staticmethod
+    def _domain_binding(typed: Mapping[str, Any]) -> dict[str, Any] | None:
+        domains=[str(x) for x in typed.get("domain_mentions", ()) if str(x)]
+        if not domains:
+            return None
+        return {"domains":domains,"source":"FROZEN_TYPED_SCHEMA","global_vs_local":"GLOBAL" if "GLOBAL_PROPERTY" in typed.get("predicates",()) else "UNSPECIFIED"}
+
+    @staticmethod
+    def _generated_object(binding: str, typed: Mapping[str, Any], candidate: Mapping[str, Any]) -> dict[str, Any]:
+        funcs=[]
+        for f in typed.get("function_symbols", ()):
+            if isinstance(f, Mapping): funcs.append(str(f.get("name") or f.get("symbol") or "f"))
+            else: funcs.append(str(f))
+        funcs=list(dict.fromkeys(x for x in funcs if x)) or ["f"]
+        ops=[str(x) for x in typed.get("operator_tokens", ()) if str(x)]
+        domains=[str(x) for x in typed.get("domain_mentions", ()) if str(x)]
+        seed={"binding":binding,"claim":typed.get("normalized_claim"),"functions":funcs,"operators":ops,"domains":domains,"family":candidate.get("representation_family_id")}
+        oid=SemanticBindingInventionEngine._object_id(binding, seed)
+        common={"object_id":oid,"binding":binding,"status":"PROPOSED_RESEARCH_LOCAL_BINDING","canonical":False,"source":"GENERATED_FROM_TYPED_GAP","parameters":[],"validation_obligations":SemanticBindingInventionEngine._validation_obligations(binding,oid,grounded=False)}
+        if binding == "FUNCTION_SPACE_OR_REGULARITY_PREDICATE_BINDING":
+            content={"object_type":"GENERATED_REGULARITY_SPACE_FAMILY","carrier_functions":funcs,"domain":domains or ["D"],"seminorm_generators":ops or ["identity"],"free_parameters":["derivative_order_s","integrability_p","weight_rho"],"membership_rule":"finite generated seminorm family under chosen parameters"}
+        elif binding == "NORM_OR_ENERGY_FUNCTIONAL_BINDING":
+            content={"object_type":"GENERATED_ENERGY_FUNCTIONAL_FAMILY","functions":funcs,"terms":[{"observable":o,"coefficient":f"w_{i}","power":f"q_{i}"} for i,o in enumerate((ops or ["identity"]),1)],"free_parameters":["weights_w","powers_q"],"functional_form":"sum_i w_i * Phi_i(functions)^q_i"}
+        elif binding == "INVARIANT_FUNCTIONAL_AND_EVOLUTION_BINDING":
+            content={"object_type":"GENERATED_INVARIANT_CANDIDATE","functional":"I_theta","state_functions":funcs,"evolution_operators":ops,"validation_target":"evolution_defect d/dt I_theta = 0 or signed monotonicity","free_parameters":["theta"]}
+        elif binding in {"WITNESS_OR_CONSTRUCTION_BINDING","OBSTRUCTION_OR_IMPOSSIBILITY_CERTIFICATE_BINDING"}:
+            content={"object_type":"GENERATED_WITNESS_OR_OBSTRUCTION_FAMILY","role":"WITNESS" if binding.startswith("WITNESS") else "OBSTRUCTION","functions":funcs,"domains":domains,"construction_parameters":["scale_lambda","amplitude_a","profile_phi"],"validation_target":"satisfy all frozen assumptions and target/contradiction predicate"}
+        elif binding == "BREAKDOWN_OR_BLOWUP_PREDICATE_BINDING":
+            content={"object_type":"GENERATED_BREAKDOWN_CRITERION_FAMILY","monitor_functional":"F_theta(state)","criterion":"limsup_{t -> T} F_theta(state(t)) = +infinity OR continuation_condition_fails","free_parameters":["theta","T"],"dependency":"requires norm/regularity binding"}
+        elif binding == "EQUALITY_EQUIVALENCE_AND_COMPARISON_BINDING":
+            content={"object_type":"GENERATED_COMPARISON_FUNCTIONAL","distance":"D_theta(u,v)","criterion":"D_theta(u,v)=0 implies selected equivalence relation","free_parameters":["theta"]}
+        elif binding == "ASYMPTOTIC_RATE_OR_WEIGHT_BINDING":
+            content={"object_type":"GENERATED_ASYMPTOTIC_WEIGHT_FAMILY","weight":"w_theta(x,t)","rate":"r_theta","validation_target":"weighted residual has improved asymptotic closure","free_parameters":["theta"]}
+        elif binding == "LIMIT_TOPOLOGY_AND_CONVERGENCE_BINDING":
+            content={"object_type":"GENERATED_CONVERGENCE_STRUCTURE","topology":"tau_theta","convergence_observable":"D_theta(x_n,x)","free_parameters":["theta"]}
+        elif binding == "SYMMETRY_ACTION_OR_EQUIVALENCE_RELATION_BINDING":
+            content={"object_type":"GENERATED_SYMMETRY_ACTION_FAMILY","action":"G_theta x state -> state","validation_target":"preserve frozen equations/relations","free_parameters":["theta"]}
+        elif binding == "GLOBAL_DOMAIN_AND_INTERVAL_BINDING":
+            content={"object_type":"GENERATED_GLOBAL_DOMAIN_INTERVAL_FAMILY","spatial_domain_evidence":domains,"time_interval":"I_theta","endpoint_policy":"research_local","free_parameters":["interval_endpoints_theta"],"validation_target":"contains every point required by the frozen global claim"}
+        elif binding == "FUNCTION_SIGNATURE_AND_CODOMAIN_BINDING":
+            content={"object_type":"GENERATED_FUNCTION_SIGNATURE_FAMILY","functions":funcs,"argument_evidence":[dict(x) for x in typed.get("function_symbols",()) if isinstance(x,Mapping)],"codomain":"Y_theta","free_parameters":["codomain_type_theta"],"validation_target":"all frozen operators/relations are well-typed"}
+        elif binding in {"OPERATOR_SYMBOL_SEMANTICS_BINDING","DIFFERENTIAL_OPERATOR_AND_DOMAIN_BINDING"}:
+            content={"object_type":"GENERATED_OPERATOR_SEMANTICS_FAMILY","operator_symbols":ops,"domain_evidence":domains,"signature_parameters":["arity_theta","order_theta","source_space_theta","target_space_theta"],"validation_target":"typed composition matches every frozen operator relation"}
+        elif binding == "LOCAL_NEIGHBOURHOOD_BINDING":
+            content={"object_type":"GENERATED_LOCAL_NEIGHBOURHOOD_FAMILY","center":"z0","radius":"r","geometry":"research_local","free_parameters":["z0","r"]}
+        elif binding == "MEASURE_AND_INTEGRABILITY_BINDING":
+            content={"object_type":"GENERATED_MEASURE_INTEGRABILITY_PAIR","measure":"mu_theta","integrability_exponent":"p","free_parameters":["theta","p"]}
+        else:
+            content={"object_type":"GENERATED_TYPED_BINDING_FAMILY","binding_role":binding,"functions":funcs,"operators":ops,"domains":domains,"free_parameters":["theta"]}
+        row={**common,"content":content}
+        row["digest"]=digest_payload(row)
+        return row
+
+    def contract(self) -> Mapping[str, Any]:
+        return _with_digest({
+            "component":self.component_id,
+            "authority":KERNEL_OWNER_ID,
+            "input":"TYPED_SEMANTIC_BINDING_GAPS",
+            "output":"GROUNDED_BINDINGS_PLUS_GENERATED_RESEARCH_LOCAL_BINDING_OBJECTS",
+            "fixed_domain_method_catalog":False,
+            "claim_boundary":{
+                "generated_binding_is_true":False,
+                "generated_function_space_is_correct_space":False,
+                "generated_invariant_is_invariant_before_validation":False,
+                "grounded_binding_requires_frozen_statement_evidence":True,
+                "binding_invention_may_close_theorem_without_discharge":False,
+            },
+        })
+
+    def synthesize(self, *, semantic_compilation: Mapping[str, Any], obligation: Mapping[str, Any], candidate: Mapping[str, Any]) -> Mapping[str, Any]:
+        sem=dict(semantic_compilation); typed=dict(sem.get("typed_schema",{}) or {})
+        missing=[str(x) for x in sem.get("missing_bindings",()) if str(x)]
+        grounded=[]; generated=[]; remaining=[]
+        op_sem = self._operator_semantics(typed)
+        op_complete = bool(op_sem) and all(row.get("kind") != "UNINTERPRETED_OPERATOR" for row in op_sem.get("operator_signatures", ()))
+        direct={
+            "OPERATOR_SYMBOL_SEMANTICS_BINDING": op_sem if op_complete else None,
+            "DIFFERENTIAL_OPERATOR_AND_DOMAIN_BINDING": op_sem if op_complete and bool(typed.get("domain_mentions")) else None,
+            # Function arguments or a spatial domain can be statement-grounded evidence,
+            # but a binding that explicitly asks for a codomain or a global time
+            # interval is not considered complete unless those are explicit.  The
+            # current semantic compiler does not infer them by convention.
+            "FUNCTION_SIGNATURE_AND_CODOMAIN_BINDING": None,
+            "GLOBAL_DOMAIN_AND_INTERVAL_BINDING": None,
+        }
+        for binding in missing:
+            payload=direct.get(binding)
+            if payload:
+                oid=self._object_id(binding,payload)
+                row={"object_id":oid,"binding":binding,"status":"GROUNDED_FROM_FROZEN_STATEMENT","canonical":False,"source":"FROZEN_TYPED_SCHEMA","content":payload,"validation_obligations":self._validation_obligations(binding,oid,grounded=True)}
+                row["digest"]=digest_payload(row); grounded.append(row)
+            else:
+                obj=self._generated_object(binding,typed,candidate); generated.append(obj); remaining.append(binding)
+        validation=[]
+        for obj in generated:
+            for idx,v in enumerate(obj.get("validation_obligations",()),1):
+                core={"obligation_id":"BVAL-"+digest_payload({"obj":obj["object_id"],"i":idx,"v":v})[:16].upper(),"kind":v.get("kind"),"binding":obj.get("binding"),"binding_object_id":obj.get("object_id"),"status":"UNRESOLVED","semantic_claim":typed.get("claim"),"semantic_role":"BINDING_VALIDATION","verification_target":v.get("criterion") or v.get("kind")}
+                if v.get("kind") == "BINDING_PROVENANCE_ALIGNMENT":
+                    core["verification"]={"method":"BINDING_OBJECT_PROVENANCE_ALIGNMENT","binding_object":obj,"frozen_claim":typed.get("claim")}
+                elif v.get("kind") == "BINDING_WELL_TYPEDNESS":
+                    core["verification"]={"method":"BINDING_OBJECT_WELL_TYPEDNESS","binding_object":obj}
+                core["digest"]=digest_payload(core); validation.append(core)
+        status="ALL_BINDINGS_GROUNDED" if missing and not remaining else ("BINDING_HYPOTHESES_GENERATED" if generated else "NO_BINDING_GAP")
+        return _with_digest({
+            "schema":self.schema,"component":self.component_id,"status":status,
+            "candidate_id":candidate.get("candidate_id"),"obligation_id":obligation.get("obligation_id"),
+            "grounded_bindings":grounded,"generated_binding_objects":generated,
+            "binding_validation_obligations":validation,"remaining_unvalidated_bindings":remaining,
+            "claim_boundary":{"generated_binding_is_discharged":False,"grounded_binding_is_theorem_proof":False,"binding_selection_is_final":False},
+        })
+
+
 class ProofObligationDischargeEngine:
     """Execute and prioritize born proof obligations without promoting guesses.
 
@@ -2506,9 +2724,10 @@ class ProofObligationDischargeEngine:
 
     component_id = "PROOF-OBLIGATION-DISCHARGE/1.1.0-COMPONENT"
 
-    def __init__(self, formal: "FormalMathematicalVerificationOwner", semantic_compiler: "SemanticProofObligationCompiler") -> None:
+    def __init__(self, formal: "FormalMathematicalVerificationOwner", semantic_compiler: "SemanticProofObligationCompiler", binding_invention: "SemanticBindingInventionEngine") -> None:
         self.formal = formal
         self.semantic_compiler = semantic_compiler
+        self.binding_invention = binding_invention
 
     def contract(self) -> Mapping[str, Any]:
         return _with_digest({
@@ -2524,9 +2743,12 @@ class ProofObligationDischargeEngine:
                 "COUNTEREXAMPLE_REGION_SEARCH",
                 "FORMAL_PROOF_ARTIFACT",
                 "ATTESTED_BOOLEAN_WITNESS",
+                "BINDING_OBJECT_PROVENANCE_ALIGNMENT",
+                "BINDING_OBJECT_WELL_TYPEDNESS",
             ],
             "selection_policy": "EXPECTED_THEOREM_CLOSURE_GAIN_PER_EXECUTION_COST",
             "semantic_compiler": self.semantic_compiler.component_id,
+            "binding_invention": self.binding_invention.component_id,
             "claim_boundary": {
                 "missing_executable_spec_is_discharged": False,
                 "typed_but_unbound_schema_is_discharged": False,
@@ -2593,6 +2815,7 @@ class ProofObligationDischargeEngine:
                 bound = evidence.get((cid, oid), {})
                 spec = dict(bound.get("verification", {}) or ob.get("verification", {}) or {})
                 semantic_compilation = self.semantic_compiler.compile(obligation=ob, candidate=cand)
+                binding_synthesis = self.binding_invention.synthesize(semantic_compilation=semantic_compilation, obligation=ob, candidate=cand)
                 formal_artifact = dict(semantic_compilation.get("formal_obligation_artifact", {}) or {})
                 semantic_formal_graph = self.formal.decompose(formal_artifact) if formal_artifact else {}
                 if not spec and isinstance(semantic_compilation.get("executable_verification"), Mapping):
@@ -2603,7 +2826,7 @@ class ProofObligationDischargeEngine:
                 if has_spec:
                     task_status = "READY"
                 elif semantic_compilation.get("status") == "TYPED_FORMAL_SCHEMA_COMPILED_REQUIRES_BINDINGS":
-                    task_status = "BLOCKED_TYPED_BINDINGS_REQUIRED"
+                    task_status = "BLOCKED_BINDING_HYPOTHESES_REQUIRE_VALIDATION" if binding_synthesis.get("generated_binding_objects") else "BLOCKED_TYPED_BINDINGS_REQUIRED"
                 else:
                     task_status = "BLOCKED_MISSING_EXECUTABLE_SPEC"
                 task = {
@@ -2615,6 +2838,7 @@ class ProofObligationDischargeEngine:
                     "priority": priority,
                     "verification": spec,
                     "semantic_compilation": semantic_compilation,
+                    "binding_synthesis": binding_synthesis,
                     "semantic_formal_graph": semantic_formal_graph,
                     "evidence_digest": bound.get("digest"),
                     "status": task_status,
@@ -2667,6 +2891,15 @@ class ProofObligationDischargeEngine:
         if method == "ATTESTED_BOOLEAN_WITNESS":
             accepted = spec.get("accepted") is True and bool(spec.get("witness_digest"))
             return {"status": "DISCHARGED_ATTESTED_WITNESS" if accepted else "BLOCKED_INVALID_ATTESTED_WITNESS", "discharged": accepted, "branch_refuted": bool(spec.get("branch_refuted", False)) if accepted else False, "method": method}
+        if method == "BINDING_OBJECT_PROVENANCE_ALIGNMENT":
+            obj=dict(spec.get("binding_object", {}) or {})
+            claim=str(spec.get("frozen_claim", "")).strip()
+            ok=bool(obj.get("object_id")) and obj.get("source") == "GENERATED_FROM_TYPED_GAP" and bool(claim) and obj.get("canonical") is False
+            return {"status":"DISCHARGED_BINDING_PROVENANCE_ALIGNMENT" if ok else "REFUTED_BINDING_PROVENANCE_ALIGNMENT","discharged":ok,"branch_refuted":not ok,"mathematical_theorem_evidence":False,"method":method}
+        if method == "BINDING_OBJECT_WELL_TYPEDNESS":
+            obj=dict(spec.get("binding_object", {}) or {}); content=dict(obj.get("content", {}) or {})
+            ok=bool(obj.get("object_id")) and bool(obj.get("binding")) and bool(content.get("object_type")) and obj.get("canonical") is False and bool(obj.get("validation_obligations"))
+            return {"status":"DISCHARGED_BINDING_WELL_TYPEDNESS" if ok else "REFUTED_BINDING_WELL_TYPEDNESS","discharged":ok,"branch_refuted":not ok,"mathematical_theorem_evidence":False,"method":method}
         return {"status": "BLOCKED_MISSING_EXECUTABLE_SPEC", "discharged": False, "branch_refuted": False, "method": method or None}
 
     def discharge(
@@ -2708,6 +2941,7 @@ class ProofObligationDischargeEngine:
                     continue
                 task = task_by_key.get((cid, oid), {})
                 semantic = dict(task.get("semantic_compilation", {}) or {})
+                binding_synthesis = dict(task.get("binding_synthesis", {}) or {})
                 semantic_graph = dict(task.get("semantic_formal_graph", {}) or {})
                 typed = dict(semantic.get("typed_schema", {}) or {})
                 unresolved_rows.append({
@@ -2722,7 +2956,10 @@ class ProofObligationDischargeEngine:
                     "semantic_formal_graph_digest": semantic_graph.get("digest"),
                     "semantic_formal_graph_status": semantic_graph.get("status"),
                     "typed_predicates": list(typed.get("predicates", ())),
-                    "missing_bindings": list(semantic.get("missing_bindings", ())),
+                    "missing_bindings": list(binding_synthesis.get("remaining_unvalidated_bindings", semantic.get("missing_bindings", ()))),
+                    "grounded_bindings": list(binding_synthesis.get("grounded_bindings", ())),
+                    "generated_binding_objects": list(binding_synthesis.get("generated_binding_objects", ())),
+                    "binding_validation_obligations": list(binding_synthesis.get("binding_validation_obligations", ())),
                 })
         closure_gain = len(discharged_keys) / max(1, total_obligations)
         return _with_digest({
@@ -2742,6 +2979,8 @@ class ProofObligationDischargeEngine:
                 "component": self.semantic_compiler.component_id,
                 "typed_unresolved_count": sum(1 for row in unresolved_rows if row.get("semantic_compilation_status") == "TYPED_FORMAL_SCHEMA_COMPILED_REQUIRES_BINDINGS"),
                 "unresolved_with_explicit_missing_bindings": sum(1 for row in unresolved_rows if row.get("missing_bindings")),
+                "generated_binding_object_count": sum(len(row.get("generated_binding_objects", ())) for row in unresolved_rows),
+                "grounded_binding_count": sum(len(row.get("grounded_bindings", ())) for row in unresolved_rows),
             },
             "claim_boundary": {
                 "closure_gain_is_theorem_truth_probability": False,
@@ -2763,7 +3002,8 @@ class MathematicalInventionKernel:
         self.primitive=PrimitiveSynthesisOwner(); self.morphism=MorphismDiscoveryOwner(); self.limit=ControlledLimitEngine()
         self.formal=FormalMathematicalVerificationOwner(self.root)
         self.semantic_obligation_compiler=SemanticProofObligationCompiler()
-        self.proof_discharge=ProofObligationDischargeEngine(self.formal, self.semantic_obligation_compiler)
+        self.semantic_binding_invention=SemanticBindingInventionEngine()
+        self.proof_discharge=ProofObligationDischargeEngine(self.formal, self.semantic_obligation_compiler, self.semantic_binding_invention)
 
     def contract(self)->Mapping[str,Any]:
         payload={
@@ -2774,8 +3014,8 @@ class MathematicalInventionKernel:
                 "morphism_discovery":MORPHISM_OWNER_ID,
                 "controlled_limit":LIMIT_OWNER_ID,
             },
-            "components":{"function_language_birth":"FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT","operator_language_birth":self.operator_language.component_id,"scale_invariant_representation_birth":self.scale_invariant.owner_id,"autonomous_mathematical_candidate_birth":self.autonomous_candidate_birth.component_id,"semantic_proof_obligation_compiler":self.semantic_obligation_compiler.component_id,"formal_mathematical_verification":self.formal.owner_id,"proof_obligation_discharge":self.proof_discharge.component_id},
-            "pipeline":"UNKNOWN->OPEN_ENDED_CANDIDATE_BIRTH->SEMANTIC_OBLIGATION_COMPILATION->PROOF_OBLIGATION_DISCHARGE->TYPED_BINDING_GAP_BIRTH->RESIDUAL_GAP_BIRTH->PHI_SCAN->REPRESENTATION_OBLIGATIONS->GENERATED_PRIMITIVE->MORPHISM->CONTROLLED_LIMIT->FORMAL_VERIFICATION",
+            "components":{"function_language_birth":"FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT","operator_language_birth":self.operator_language.component_id,"scale_invariant_representation_birth":self.scale_invariant.owner_id,"autonomous_mathematical_candidate_birth":self.autonomous_candidate_birth.component_id,"semantic_proof_obligation_compiler":self.semantic_obligation_compiler.component_id,"semantic_binding_invention":self.semantic_binding_invention.component_id,"formal_mathematical_verification":self.formal.owner_id,"proof_obligation_discharge":self.proof_discharge.component_id},
+            "pipeline":"UNKNOWN->OPEN_ENDED_CANDIDATE_BIRTH->SEMANTIC_OBLIGATION_COMPILATION->SEMANTIC_BINDING_INVENTION->BINDING_VALIDATION->PROOF_OBLIGATION_DISCHARGE->TYPED_BINDING_GAP_BIRTH->RESIDUAL_GAP_BIRTH->PHI_SCAN->REPRESENTATION_OBLIGATIONS->GENERATED_PRIMITIVE->MORPHISM->CONTROLLED_LIMIT->FORMAL_VERIFICATION",
             "function_language_pipeline":"QUERY_OOF_RESIDUAL->OPERATION_SIGNAL->GENERATED_LANGUAGE_SIGNATURE->QUERY_REFIT_AND_NULL",
             "operator_language_pipeline":"LOCAL_TRANSLATION_PLUS_POINTWISE_ALGEBRA->MOMENT_RANK_SHELLS->TYPED_SIGNATURES->EMPIRICAL_SUPPORT_SEARCH",
             "internet_prefreeze":"FORBIDDEN",
@@ -2786,6 +3026,6 @@ class MathematicalInventionKernel:
 
 __all__=[
     "MathematicalInventionKernel","UnknownUnknownRepresentationOwner","PrimitiveSynthesisOwner",
-    "MorphismDiscoveryOwner","ControlledLimitEngine","FunctionLanguageBirthEngine","OperatorLanguageBirthEngine","ScaleInvariantRepresentationBirthOwner","AutonomousMathematicalCandidateBirthEngine","SemanticProofObligationCompiler","FormalMathematicalVerificationOwner","ProofObligationDischargeEngine", "KERNEL_OWNER_ID", "UNKNOWN_OWNER_ID",
+    "MorphismDiscoveryOwner","ControlledLimitEngine","FunctionLanguageBirthEngine","OperatorLanguageBirthEngine","ScaleInvariantRepresentationBirthOwner","AutonomousMathematicalCandidateBirthEngine","SemanticProofObligationCompiler","SemanticBindingInventionEngine","FormalMathematicalVerificationOwner","ProofObligationDischargeEngine", "KERNEL_OWNER_ID", "UNKNOWN_OWNER_ID",
     "PRIMITIVE_OWNER_ID","MORPHISM_OWNER_ID","LIMIT_OWNER_ID","SCALE_REPRESENTATION_OWNER_ID","AUTONOMOUS_CANDIDATE_BIRTH_COMPONENT_ID",
 ]

@@ -1059,7 +1059,7 @@
     }
   ],
   "cross_domain_bridges": [],
-  "digest": "671956feb9983983787757b3889334d6db7bbef9c847afdb51053e15211a9dd5",
+  "digest": "0156c5d0c6fbe7d90c792203f58f52e1aa047df9e123fcba92d7f530d2b53675",
   "dimensional_scalar_law_birth": {
     "claim_boundary": {
       "formula_birth_is_world_attestation": false,
@@ -68024,6 +68024,30 @@
     },
     {
       "applicability": "ANY_DOMAIN_WITH_FORMALIZABLE_CLAIMS",
+      "description": "Turn typed semantic binding gaps into concrete research-local mathematical objects such as generated seminorm/energy families, invariant candidates, witness/obstruction families, comparison functionals and breakdown criteria; these remain hypotheses until validated.",
+      "digest": "9c4eb9cd59a4d93b7ee3ba1cf10fbda181949bd995c7e53da0fea35f2948a4e1",
+      "domain_specific": false,
+      "mechanism_id": "PM-BINDING-INVENTION",
+      "mechanism_type": "SEMANTIC_BINDING_OBJECT_INVENTION",
+      "owner_id": "UNIVERSAL-PROOF-MECHANISM-MEMORY/1.0.0",
+      "schema": "phi-universal-proof-mechanism/v1",
+      "status": "QUALIFIED_UNIVERSAL_PROOF_MECHANISM",
+      "theorem_truth_carried": false
+    },
+    {
+      "applicability": "ANY_DOMAIN_WITH_FORMALIZABLE_CLAIMS",
+      "description": "Require provenance alignment, well-typedness and discrimination/closure evidence before a generated binding object can resolve its typed gap.",
+      "digest": "aa34bff9270ae77d71555646bb5ae369aa6b44127ddd4545010b46349d341037",
+      "domain_specific": false,
+      "mechanism_id": "PM-BINDING-VALIDATION",
+      "mechanism_type": "BINDING_OBJECT_VALIDATION_GATE",
+      "owner_id": "UNIVERSAL-PROOF-MECHANISM-MEMORY/1.0.0",
+      "schema": "phi-universal-proof-mechanism/v1",
+      "status": "QUALIFIED_UNIVERSAL_PROOF_MECHANISM",
+      "theorem_truth_carried": false
+    },
+    {
+      "applicability": "ANY_DOMAIN_WITH_FORMALIZABLE_CLAIMS",
       "description": "Exhausting the current compute budget preserves the frontier and requests continuation; it never means the problem is solved or impossible.",
       "digest": "5993f912c9233f4aa49c5acc78cc02d6dada2da24ca48bb20ea739c41e5a7b38",
       "domain_specific": false,
@@ -68221,6 +68245,18 @@
       "domain_specific": false,
       "mechanism_id": "PM-STATEMENT-ALIGNMENT-SEPARATION",
       "mechanism_type": "STATEMENT_ALIGNMENT_SEPARATION",
+      "owner_id": "UNIVERSAL-PROOF-MECHANISM-MEMORY/1.0.0",
+      "schema": "phi-universal-proof-mechanism/v1",
+      "status": "QUALIFIED_UNIVERSAL_PROOF_MECHANISM",
+      "theorem_truth_carried": false
+    },
+    {
+      "applicability": "ANY_DOMAIN_WITH_FORMALIZABLE_CLAIMS",
+      "description": "Permit operator, function-signature or domain bindings to be grounded only when their content is explicitly recoverable from the frozen typed statement; grounding is not theorem proof.",
+      "digest": "72fbfd8c1649dc6fea3452a71444f2146a77d64a65b908ad520ecf63d0fe4f01",
+      "domain_specific": false,
+      "mechanism_id": "PM-STATEMENT-GROUNDED-BINDING",
+      "mechanism_type": "FROZEN_STATEMENT_BINDING_GROUNDING",
       "owner_id": "UNIVERSAL-PROOF-MECHANISM-MEMORY/1.0.0",
       "schema": "phi-universal-proof-mechanism/v1",
       "status": "QUALIFIED_UNIVERSAL_PROOF_MECHANISM",

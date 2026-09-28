@@ -79,18 +79,18 @@
     },
     {
       "path": "ACCEPTANCE_REPORT.md",
-      "sha256": "971741a963eb911efea8c0c0b6aeaddb335a32fc6230ef546fc8fbcf7ceab117",
-      "size": 87061
+      "sha256": "0dd2f4c3513968c9e1b5b7b2f65c42dfb622da379436533c97f4f2edbc098e75",
+      "size": 90294
     },
     {
       "path": "ATLAS_MCP_GATEWAY_RU.md",
-      "sha256": "b9678f99905b367a42f25af131594d72006793fb21d15b9b9d4a0437fe2a6efe",
-      "size": 19393
+      "sha256": "44dab9ac37d02eb700602aa08d4437b893b7500bdfd8936a6c498c3084bedfa5",
+      "size": 19723
     },
     {
       "path": "CLAIM_BOUNDARY.md",
-      "sha256": "9b9fb906196e87208d7ed17a7fef9254724ee4bf8c5039d0c0bcbd30ac7e80b4",
-      "size": 65379
+      "sha256": "684db9f1d8398a21b242554f99b1843eafe13fb89cdd0d5bdb4e0dff98874142",
+      "size": 66033
     },
     {
       "path": "LICENSE.md",
@@ -99,13 +99,13 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "01663f770f520d5d0c8aeb7f4a7e2b37bbe574198292a0321a32b3625b8d8a22",
-      "size": 367166
+      "sha256": "7549fa831a4e49b225b6b0aaa6dc19dd8ac286ba651160162ba043b71747d8af",
+      "size": 369670
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
-      "sha256": "5b182385b5c8e7de2614a6d37f12e08334ff19cbe76f8d9762552d601a69e604",
-      "size": 117892
+      "sha256": "b32c4127e91ad53d46735bcfeccc7e49f6a2e9d66f318b12006b72cfbc7fe9ce",
+      "size": 120396
     },
     {
       "path": "Makefile",
@@ -119,8 +119,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "4a163c07b57e70a94ea5a894ab7eb38b659df450c5525f2a2a5fcaa28584c3f8",
-      "size": 148115
+      "sha256": "5088690d3ede3c77bb632e74d253c53ad42fa578cffd1d8193535da29aaaaf09",
+      "size": 150619
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -129,13 +129,13 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "1f6c65e8bf6beccb07eab44b95c8f933c36d96071d74584463421ffdee9f7604",
-      "size": 207976
+      "sha256": "11d7b8ec436d10c350140ab5f3f7474e23d90a33c4027462d4342026b1139d74",
+      "size": 210480
     },
     {
       "path": "capabilities.json",
-      "sha256": "b728935538494b91dfcfc836a6c2c907224be4b7302054f4202e8cf5b8f73651",
-      "size": 22735
+      "sha256": "14a2c8302189bb96e83679bd9eb2b48533977fa8923309238f755f1428df9b63",
+      "size": 22873
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -254,8 +254,8 @@
     },
     {
       "path": "data/knowledge/knowledge_evolution_state.json",
-      "sha256": "6413a6a62ba66d2cdc6f2b455a65cdafc41418f284cdfee2c600a11d64832526",
-      "size": 2190504
+      "sha256": "a58d92a672d7315d35478e351ea9dd463b8f686ee4d80520dfd26308418b35ee",
+      "size": 2192684
     },
     {
       "path": "data/manifests/aeronautics_primary_law_corpus_v6_15.json",
@@ -519,8 +519,8 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "6e7178e67a82bb0fda4e666d1c1a31c1196ae6bb6d2bbf0ba6fe1e8dd10e5318",
-      "size": 48462
+      "sha256": "379d163e55f3a5ae74ade6334c0cf828bb27249e16904b2c1b52174d55763657",
+      "size": 48594
     },
     {
       "path": "evaluation/closed_loop_research_experiment.py",
@@ -629,8 +629,8 @@
     },
     {
       "path": "evaluation/mathematical_invention_qualification.py",
-      "sha256": "d44aec4033ee77e4f7041e042ed888080043ad074c9ba999d87cd0db7e6355e1",
-      "size": 24702
+      "sha256": "f65d470812367110b6528a2495355568bf3842de58c87b6fa08a7d1a2c720d68",
+      "size": 26782
     },
     {
       "path": "evaluation/navier_stokes_blind_experiment.py",
@@ -1659,8 +1659,8 @@
     },
     {
       "path": "source/lawspace/api.py",
-      "sha256": "ac1b6eb56d86b4da2e76543ce3c693e4095c6a19660a429ae7a0a537b420a7f0",
-      "size": 131892
+      "sha256": "8249b4722501a502dbe3463c72ef058e55f02a540a2e8859c616d76346328d6d",
+      "size": 132446
     },
     {
       "path": "source/lawspace/atomic_dirac_evaluator.py",
@@ -1784,8 +1784,8 @@
     },
     {
       "path": "source/lawspace/knowledge_evolution.py",
-      "sha256": "bf50b52c2a0f2e612c7d5f13c741285223a3ebc89ddba92e3fbc2459076c3117",
-      "size": 119132
+      "sha256": "969caa6485a3cd161f775318d9654d4cd63d409f11fa4ce50d7c4b00433a7209",
+      "size": 120138
     },
     {
       "path": "source/lawspace/law_discovery.py",
@@ -1799,8 +1799,8 @@
     },
     {
       "path": "source/lawspace/mathematical_invention.py",
-      "sha256": "96dead0390cc72f4c574a4b8a26e4c89e742af9e9f842d5f55bae0c6b725d032",
-      "size": 154873
+      "sha256": "ddf35a5e6578cc493994d74264ca2085feecdb1b6b0ab4fdad3b7ca0d5d27882",
+      "size": 174078
     },
     {
       "path": "source/lawspace/measurement_adapters.py",
@@ -2149,9 +2149,9 @@
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "1e924614148213b6b70f0871b669346e4d82a7b8b7bfcd36744807b15f4256f3",
+  "current_state_qualification_digest": "117252b1a669efdd3ae3e7ff336513470221c707397c2be07ee7bfc61f7ae2d6",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "7790fc93e11eff3e2e32dec7bbc2da1a11fd9559df5eb42b6b286455ec5f5438",
+  "digest": "efc7631475f63e734ba2ebbd0cd07aab543682efda64ce26e1d28fefaeaa3123",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -2254,7 +2254,7 @@
       "KERNEL",
       "LATENT"
     ],
-    "mathematical_invention_kernel_owner": "PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0",
+    "mathematical_invention_kernel_owner": "PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0",
     "multi_pi_control_digest": "dd8aa65fe70e659ad496608b33872ee8a9ce90912a556a8fca1d6cda712d4667",
     "multi_pi_control_nullity": 4,
     "multi_pi_familywise_permutation_p": 0.05,

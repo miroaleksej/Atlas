@@ -390,4 +390,7 @@ MCP safety annotations не изменились.  `campaign_slice_budget` ув�
 
 ## Semantic proof-obligation compiler: MCP boundary
 
-`SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT` является внутренним read-only механизмом `PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0`. Он не добавляет пятый MCP tool и не переносит scientific control во внешний LLM. Существующие `atlas_research` / `atlas_research_and_learn` по-прежнему входят через authoritative `LawSpaceAPI.run_autonomous_research`; semantic compilation вызывается уже внутри Atlas. Внутренний API `compile_phi_semantic_proof_obligation` предназначен для диагностики/qualification и не присваивает theorem status. Публичная MCP-поверхность остаётся ровно из четырёх tools.
+`SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT` является внутренним read-only механизмом `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. Он не добавляет пятый MCP tool и не переносит scientific control во внешний LLM. Существующие `atlas_research` / `atlas_research_and_learn` по-прежнему входят через authoritative `LawSpaceAPI.run_autonomous_research`; semantic compilation вызывается уже внутри Atlas. Внутренний API `compile_phi_semantic_proof_obligation` предназначен для диагностики/qualification и не присваивает theorem status. Публичная MCP-поверхность остаётся ровно из четырёх tools.
+
+
+`SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` remains internal to `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. Diagnostic read-only API `synthesize_phi_semantic_bindings(obligation=..., candidate=...)` exposes the binding-invention receipt without promoting any object to theorem status and without adding a fifth public MCP tool.

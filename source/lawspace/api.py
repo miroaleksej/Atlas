@@ -26,7 +26,7 @@ class LawSpaceAPI:
     READ_TOOLS = READ_TOOLS + ("freeze_experiment_execution",)
     MUTATION_TOOLS = MUTATION_TOOLS + ("execute_frozen_experiment",)
     READ_TOOLS = READ_TOOLS + (
-        "get_phi_formal_mathematical_verification_contract", "compile_phi_semantic_proof_obligation", "decompose_phi_proof", "verify_phi_proof",
+        "get_phi_formal_mathematical_verification_contract", "compile_phi_semantic_proof_obligation", "synthesize_phi_semantic_bindings", "decompose_phi_proof", "verify_phi_proof",
         "search_phi_counterexample_regions", "prepare_phi_formal_kernel_handoff", "run_phi_lean_kernel", "verify_phi_external_formal_attestation",
         "get_phi_universal_proof_mechanisms",
     )
@@ -1635,6 +1635,12 @@ class LawSpaceAPI:
     def compile_phi_semantic_proof_obligation(self, *, obligation: Mapping[str, Any], candidate: Mapping[str, Any]) -> Mapping[str, Any]:
         from .mathematical_invention import MathematicalInventionKernel
         return MathematicalInventionKernel(self.runtime.root).semantic_obligation_compiler.compile(obligation=obligation, candidate=candidate)
+
+    def synthesize_phi_semantic_bindings(self, *, obligation: Mapping[str, Any], candidate: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        kernel = MathematicalInventionKernel(self.runtime.root)
+        compilation = kernel.semantic_obligation_compiler.compile(obligation=obligation, candidate=candidate)
+        return kernel.semantic_binding_invention.synthesize(semantic_compilation=compilation, obligation=obligation, candidate=candidate)
 
     def decompose_phi_proof(self, proof_artifact: Mapping[str, Any]) -> Mapping[str, Any]:
         from .mathematical_invention import MathematicalInventionKernel
