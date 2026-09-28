@@ -4,6 +4,7 @@
 
 <img width="1055" height="1491" alt="Atlas" src="https://github.com/user-attachments/assets/2e9ca69a-22b7-4fc0-b5ca-806c05670a2e" />
 
+Creator and principal author: Alexey Mironov
 
 · ![Python](https://img.shields.io/badge/python-3.11-blue)
 · ![Лицензия](https://img.shields.io/badge/license-Apache--2.0-green)
