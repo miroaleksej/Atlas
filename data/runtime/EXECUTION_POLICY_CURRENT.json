@@ -1,13 +1,32 @@
 {
+  "automatic_discriminating_experiment_design": true,
+  "automatic_research_triage": true,
+  "automatic_scientific_law_promotion": false,
+  "automatic_u5_attempts": true,
+  "canonical_law_transaction": true,
+  "canonical_law_transaction_requires_current_gate_replay": true,
   "capture_mode": "TEMPFILE",
   "cleanup_runtime_caches_after_replay": true,
-  "digest": "1bac12cdbe0054c085adda1496e21c350629ad98e71aa437201d3bb376aa5dfe",
+  "digest": "6215bc9b2d40ec3eb6aae08d78cd18a66f915eb3c59a852fe3a6a45d74e12646",
+  "discriminating_experiment_may_auto_promote": false,
+  "engineering_acceptance_is_scientific_law": false,
+  "engineering_model_acceptance": true,
+  "engineering_model_ledger": true,
+  "human_confirmation_is_scientific_evidence": false,
+  "human_gated_promotion": true,
   "max_nodes_per_surface": 1,
   "max_parallel_surfaces": 1,
   "policy_id": "TRANSACTIONAL_SMALL_BATCH_FRESH_PROCESS_TEMPFILE",
   "python_dont_write_bytecode": true,
+  "research_acceleration_patch_id": "ATLAS-RESEARCH-RUNTIME-FINAL-004",
+  "sandbox_profiles_allowed": [
+    "STRICT",
+    "RESEARCH",
+    "WIDE"
+  ],
   "schema": "phi-runtime-execution-policy/v3",
   "scientific_search_ceiling": null,
   "source": "CURRENT_15_18_0_RUNTIME_ISOLATION",
-  "surface_timeout_seconds": 900
+  "surface_timeout_seconds": 900,
+  "u5_attempt_writes_canonical_registry": false
 }

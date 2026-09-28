@@ -658,3 +658,67 @@ born obligation
 ## Semantic binding invention claim boundary
 
 `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` may be described as constructing concrete research-local candidate contents for typed mathematical binding gaps. It is not permissible to claim that a generated function space is the correct function space, that a generated energy is coercive, that an invariant candidate is invariant, that a witness family contains a valid witness, or that a generated blow-up criterion is true until the corresponding validation/proof obligations have actually been discharged. Statement-grounded operator/domain/signature evidence is not a proof of the surrounding theorem.
+
+## Research acceleration and canonical promotion boundary (FINAL-004)
+
+Atlas deliberately separates **search**, **verification**, **engineering use**,
+**human authorization**, and **canonical scientific-law registration**.
+
+The following statuses are explicitly **not** `ESTABLISHED_LAW`:
+
+- sandbox ranking / `promising for further evidence`;
+- `U5_PASS` from the verification-attempt scheduler;
+- discriminating-experiment selection or a queued `MEASUREMENT_REQUEST`;
+- `ENGINEERING_MODEL_ACCEPTED_FOR_REGIME`;
+- human confirmation / canonical-mutation authorization by itself.
+
+`U5AttemptScheduler` is verification-only. It may return
+`U5_PASS`, `U5_FAIL`, `U5_DATA_PENDING`, or `U5_BLOCKED`, but it never writes a
+canonical axis or scientific-law registry. Missing WORLD attestation after an
+otherwise evidence-ready verification is `U5_DATA_PENDING`, not falsification.
+
+The discriminating-experiment autopilot may freeze competing theories, select an
+identifiable experiment and emit a measurement request. Selection is not a
+world observation and never enables theory promotion automatically. Its live
+measurement-request queue is mutable runtime state outside the sealed release
+tree.
+
+Engineering-model acceptance is scoped to an explicit domain/regime/validity
+range and uncertainty declaration. Its append-only live ledger is separate from
+the scientific-law registry and remains outside the sealed release tree.
+
+Human confirmation is an **authorization to perform a canonical mutation**,
+not scientific evidence and not proof of novelty. A canonical scientific-law
+transaction is permitted only after all of the following are rebound and
+recomputed:
+
+1. current `ScientificPromotionCore` evaluation still returns a qualified
+   `LAW_CANDIDATE` / promotion-allowed receipt;
+2. the human authorization is digest-bound to that current qualification and
+   scientific-verification evidence digest;
+3. the proposed `LawPassport` is structurally valid under `LawCatalog` and is
+   provenance-bound to the same candidate, promotion receipt, verification
+   digest and human authorization;
+4. the canonical owner id does not conflict with an existing passport.
+
+The transaction owner is persistence-only. It does not replace
+`ScientificPromotionCore`, does not create scientific evidence and does not
+establish world novelty. A successful registration changes controlled release
+state and therefore requires release-controls regeneration and resealing.
+
+Correct boundary:
+
+```text
+wide search / sandbox
+  -> U5 verification attempts
+  -> discriminating experiment / measurement request
+  -> world evidence / attestation
+  -> ScientificPromotionCore current-gate replay
+  -> human canonical-mutation authorization
+  -> LawCatalog structural validation
+  -> atomic canonical-law transaction
+  -> release reseal
+```
+
+`search != evidence`; `verification != promotion`; `engineering acceptance != law`;
+`human authorization != scientific evidence`; `canonical persistence != novelty`.

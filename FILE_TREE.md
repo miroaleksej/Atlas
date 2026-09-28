@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 417
+Controlled files: 436
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -134,8 +134,10 @@ Controlled files: 417
 - `evaluation/prospective_external_validation_qualification.py`
 - `evaluation/read_only_audit.py`
 - `evaluation/reflexive_architecture_qualification.py`
+- `evaluation/refresh_query_research_qualification_binding.py`
 - `evaluation/release_files.py`
 - `evaluation/representation_birth_novelty_benchmark.py`
+- `evaluation/research_acceleration_qualification.py`
 - `evaluation/research_proof_qualification.py`
 - `evaluation/research_triage_qualification.py`
 - `evaluation/resource_theory_qualification.py`
@@ -154,6 +156,7 @@ Controlled files: 417
 - `evaluation/t2k_likelihood_qualification.py`
 - `evaluation/theory_compiler_qualification.py`
 - `evaluation/turbulence_dns_closure_experiment.py`
+- `evaluation/u5_attempt_batch.py`
 - `evaluation/unified_release_qualification.py`
 - `evaluation/universal_experiment_qualification.py`
 - `examples/JHTDB_ISOTROPIC8192_PUBLIC_METADATA_FREEZE.json`
@@ -328,6 +331,7 @@ Controlled files: 417
 - `source/lawspace/axis_modeling.py`
 - `source/lawspace/black_hole.py`
 - `source/lawspace/candidates.py`
+- `source/lawspace/canonical_law_transaction.py`
 - `source/lawspace/catalog.py`
 - `source/lawspace/closed_loop_research.py`
 - `source/lawspace/cognitive_core.py`
@@ -337,10 +341,13 @@ Controlled files: 417
 - `source/lawspace/developmental_open_endedness.py`
 - `source/lawspace/dimensional_law_birth.py`
 - `source/lawspace/discriminating_experiment.py`
+- `source/lawspace/discriminating_experiment_autopilot.py`
 - `source/lawspace/domain_plugins.py`
 - `source/lawspace/domains.py`
 - `source/lawspace/eda_chip_design.py`
 - `source/lawspace/einstein_dynamics.py`
+- `source/lawspace/engineering_model_acceptance.py`
+- `source/lawspace/execution_policy.py`
 - `source/lawspace/experiment_execution.py`
 - `source/lawspace/experiment_portfolio.py`
 - `source/lawspace/formal_contracts.py`
@@ -363,11 +370,13 @@ Controlled files: 417
 - `source/lawspace/pharmaceutical.py`
 - `source/lawspace/pharmaceutical_problem_atlas.py`
 - `source/lawspace/pi_genesis_bridge.py`
+- `source/lawspace/promotion_confirmation.py`
 - `source/lawspace/prospective_external_validation.py`
 - `source/lawspace/quantum_vacuum.py`
 - `source/lawspace/query_research.py`
 - `source/lawspace/reflexive_architecture.py`
 - `source/lawspace/research_cycle.py`
+- `source/lawspace/research_progression_gates.py`
 - `source/lawspace/research_triage.py`
 - `source/lawspace/resident_cognitive.py`
 - `source/lawspace/resource_theory.py`
@@ -385,17 +394,23 @@ Controlled files: 417
 - `source/lawspace/t2k_published_likelihood.py`
 - `source/lawspace/tensor_geometry.py`
 - `source/lawspace/theory_compiler.py`
+- `source/lawspace/u5_attempt_scheduler.py`
 - `source/multidomain_qg_bridge.py`
 - `source/phi_compiler_owner.py`
 - `source/qpdtr_bridge.py`
 - `static/index.html`
+- `tests/test_abs_power_parameterized_birth.py`
 - `tests/test_adaptive_axis_discovery.py`
+- `tests/test_canonical_law_transaction.py`
 - `tests/test_closed_loop_research.py`
 - `tests/test_curvature_memory_current.py`
 - `tests/test_direct_target_residual_discovery.py`
+- `tests/test_discriminating_experiment_autopilot.py`
 - `tests/test_domain_plugin_architecture.py`
 - `tests/test_eda_chip_design.py`
 - `tests/test_electronic_state_space_current.py`
+- `tests/test_engineering_model_acceptance.py`
+- `tests/test_engineering_model_ledger.py`
 - `tests/test_epoch_genesis_autonomous.py`
 - `tests/test_exoplanet_dimensional_closure_example.py`
 - `tests/test_exoplanet_observations_2026.py`
@@ -408,14 +423,18 @@ Controlled files: 417
 - `tests/test_jhtdb_fresh_observational_v5_2.py`
 - `tests/test_observational_round_integrity.py`
 - `tests/test_permutation_eprocess_current.py`
+- `tests/test_promotion_confirmation.py`
 - `tests/test_query_driven_research_current.py`
+- `tests/test_research_acceleration_policy.py`
 - `tests/test_research_triage.py`
+- `tests/test_sandbox_profiles.py`
 - `tests/test_science_atlas_core.py`
 - `tests/test_scientific_axis_space_current.py`
 - `tests/test_scientific_exploitation_current.py`
 - `tests/test_source_capability_observational_archive.py`
 - `tests/test_tensor_axisymmetric_current.py`
 - `tests/test_turbulence_dns_closure_experiment.py`
+- `tests/test_u5_attempt_scheduler.py`
 - `tests/test_unified_current.py`
 - `tests/test_universal_experiment_execution.py`
 - `tests/test_universal_scientific_portfolio.py`

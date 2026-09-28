@@ -4,7 +4,7 @@
     "architecture_restored": true,
     "consciousness_claimed": false,
     "historical_capability_snapshot_used": false,
-    "live_capability_count": 329,
+    "live_capability_count": 349,
     "mutable_state_bundled_in_release": false,
     "mutable_state_external_to_seal": true,
     "open_architecture_obligations": [],
@@ -140,7 +140,7 @@
     "python_api": "advance_adaptive_research",
     "repeated_group_stability": true
   },
-  "digest": "4a1cd2c1cc72b99a7541ea91df6190cfe8a0031f5bdd476df864f4d86b156732",
+  "digest": "5b78ffe5806a206676753430101b9299a79f22895cd087116be59b4146d5d8a3",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -355,7 +355,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "117252b1a669efdd3ae3e7ff336513470221c707397c2be07ee7bfc61f7ae2d6",
+  "qualification_digest": "1942ae438eb730e592fc2aeed7b9c3f725c8c07c863497a49293a4738083b04c",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,
@@ -374,12 +374,12 @@
     "function_language_birth_changes_pi_coordinates": false,
     "function_language_birth_component": "FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT",
     "function_language_birth_enabled": true,
-    "function_language_qualification_digest": "ab29b1b886a4e1da4a3489c2c60f267856d700f3bec959bc791f3c686ed74a81",
+    "function_language_qualification_digest": "3fedb177be25c18d76b54bf5afbdb1f67832bf5e4585346281520b4577eeded9",
     "function_language_qualification_metrics": {
       "kernel_born_language_nrmse": 0.32309477987480417,
       "kernel_improvement_fraction": 0.596408402930271,
       "kernel_polynomial_nrmse": 0.8005488276282985,
-      "noise_effective_signal_gate": 0.2067586901624507,
+      "noise_effective_signal_gate": 0.20941764866936927,
       "noise_max_operation_signal": 0.1487225325513934,
       "periodic_born_language_nrmse": 0.13185498087522118,
       "periodic_improvement_fraction": 0.8635655001510183,
@@ -408,7 +408,7 @@
     "p1_scalar_lane": true,
     "p_gt_1_function_form_lane": true,
     "polynomial_surface_is_query_grammar_not_primary_space": true,
-    "report_digest": "3d318c014bdd8487add1853bb81b39cf2db9721f828fa8afeec20fef69d0273c",
+    "report_digest": "16c35fa506b4af5cb7258a06752d6be6cd7c89f64f3beb45473f8ac2eebcf369",
     "selected_cv_score_is_unbiased_post_selection_estimate": false,
     "source_stitching_used_to_create_fit": false,
     "u5_status": "UNKNOWN",

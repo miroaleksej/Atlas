@@ -31,6 +31,25 @@ class LawSpaceAPI:
         "get_phi_universal_proof_mechanisms",
     )
     MUTATION_TOOLS = MUTATION_TOOLS + ("commit_phi_universal_proof_mechanism",)
+    # ATLAS_RESEARCH_RUNTIME_FINAL_PATCH_004
+    READ_TOOLS = READ_TOOLS + (
+        "get_research_acceleration_policy", "rank_exploration_sandbox_profiled",
+        "run_u5_attempt_one", "run_u5_attempt_batch", "qualify_promotion_candidate",
+        "qualify_dynamic_axis_promotion", "accept_engineering_model_for_regime",
+        "run_research_acceleration_qualification",
+        "get_discriminating_experiment_autopilot_contract",
+        "design_discriminating_experiment_autopilot",
+        "get_discriminating_measurement_request_queue",
+        "get_engineering_model_ledger_state",
+        "get_canonical_law_transaction_contract",
+        "qualify_scientific_law_transaction",
+    )
+    MUTATION_TOOLS = MUTATION_TOOLS + (
+        "confirm_promotion_authorization", "confirm_dynamic_axis_promotion_authorization",
+        "queue_discriminating_experiment_measurement_request",
+        "record_engineering_model_acceptance", "revoke_engineering_model_acceptance",
+        "commit_scientific_law_promotion",
+    )
     FORBIDDEN_AI_ASSIGNMENTS = ("ATLAS_NATIVE", "ESTABLISHED_LAW", "CONFIRMED_CONSTANT", "EXPERIMENT_PASS")
     ALLOWED_AI_STATES = ("PENDING_PROPOSAL", "PENDING_BRIDGE", "PENDING_NORMALIZATION", "PENDING_CELL_ASSIGNMENT")
 
@@ -946,6 +965,179 @@ class LawSpaceAPI:
         ResearchTriageSandbox.write_council_state(path, state)
         return {**rec, "applied": True, "state_path": str(path), "strict_promotion_weights_changed": False}
 
+    def get_research_acceleration_policy(self) -> Mapping[str, Any]:
+        from .execution_policy import load_execution_policy, validate_execution_policy
+        policy = dict(load_execution_policy(self.runtime.root))
+        validation = dict(validate_execution_policy(policy))
+        return {"policy": policy, "validation": validation}
+
+    def rank_exploration_sandbox_profiled(
+        self, *, hypotheses: Sequence[Mapping[str, Any]], profile: str = "RESEARCH",
+        weights: Mapping[str, float] | None = None,
+    ) -> Mapping[str, Any]:
+        from .execution_policy import load_execution_policy, require_action
+        from .research_triage import ResearchTriageSandbox
+        policy = load_execution_policy(self.runtime.root)
+        require_action(policy, "RESEARCH_TRIAGE")
+        name = str(profile).upper().strip()
+        if name not in {str(x).upper() for x in policy.get("sandbox_profiles_allowed", ())}:
+            raise PermissionError(f"sandbox profile forbidden by execution policy: {profile}")
+        state = ResearchTriageSandbox.load_council_state(self.runtime.external_state_path("hypothesis_council"))
+        effective = weights if weights is not None else state.get("sandbox_weights")
+        return ResearchTriageSandbox.rank_hypotheses_profiled(hypotheses, profile=name, weights=effective)
+
+    def run_u5_attempt_one(self, candidate: Mapping[str, Any], **cfg_kwargs) -> Mapping[str, Any]:
+        from .u5_attempt_scheduler import U5AttemptConfig, U5AttemptScheduler
+        cfg = U5AttemptConfig(**cfg_kwargs) if cfg_kwargs else U5AttemptConfig()
+        return U5AttemptScheduler(self.runtime.root).attempt_one(candidate, config=cfg)
+
+    def run_u5_attempt_batch(
+        self, candidates: Sequence[Mapping[str, Any]], *, max_attempts: int = 50,
+        require_ood: bool = True, require_replication: bool = True,
+        require_falsification_protocol: bool = True,
+    ) -> Mapping[str, Any]:
+        from .u5_attempt_scheduler import U5AttemptConfig, U5AttemptScheduler
+        cfg = U5AttemptConfig(
+            max_attempts=max_attempts, require_ood=require_ood,
+            require_replication=require_replication,
+            require_falsification_protocol=require_falsification_protocol,
+        )
+        return U5AttemptScheduler(self.runtime.root).run_batch(candidates, config=cfg)
+
+    def qualify_promotion_candidate(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .promotion_confirmation import HumanGatedPromotionAuthorizationOwner
+        trusted = tuple(self.runtime.catalog.passports) + ("SCIENTIFIC-PROMOTION-QUALIFICATION",)
+        return HumanGatedPromotionAuthorizationOwner(
+            self.runtime.root, trusted_evidence_owners=trusted
+        ).qualify(request)
+
+    def confirm_promotion_authorization(
+        self, request: Mapping[str, Any], *, qualification_digest: str,
+        human_attestation: Mapping[str, Any],
+    ) -> Mapping[str, Any]:
+        from .promotion_confirmation import HumanGatedPromotionAuthorizationOwner
+        trusted = tuple(self.runtime.catalog.passports) + ("SCIENTIFIC-PROMOTION-QUALIFICATION",)
+        return HumanGatedPromotionAuthorizationOwner(
+            self.runtime.root, trusted_evidence_owners=trusted
+        ).confirm(request, qualification_digest=qualification_digest, human_attestation=human_attestation)
+
+    def qualify_dynamic_axis_promotion(
+        self, proposal: Mapping[str, Any], validation: Mapping[str, Any],
+    ) -> Mapping[str, Any]:
+        from .research_cycle import DynamicAxisPromotionOwner, DynamicAxisProposal
+        return DynamicAxisPromotionOwner(self.runtime.root).evaluate_and_promote(
+            DynamicAxisProposal(**dict(proposal)), dict(validation), mutate=False
+        )
+
+    def confirm_dynamic_axis_promotion_authorization(
+        self, proposal: Mapping[str, Any], validation: Mapping[str, Any], *,
+        human_attestation: Mapping[str, Any],
+    ) -> Mapping[str, Any]:
+        from .execution_policy import load_execution_policy, require_action
+        from .promotion_confirmation import issue_canonical_mutation_authorization
+        require_action(load_execution_policy(self.runtime.root), "HUMAN_GATED_PROMOTION")
+        dry = dict(self.qualify_dynamic_axis_promotion(proposal, validation))
+        if dry.get("qualified") is not True:
+            return {
+                "status": "BLOCKED_DYNAMIC_AXIS_NOT_QUALIFIED",
+                "authorized": False,
+                "qualification": dry,
+                "mutation_performed": False,
+            }
+        evidence_digest = str(dict(dry.get("scientific_verification") or {}).get("verification_digest", ""))
+        return issue_canonical_mutation_authorization(
+            scope="DYNAMIC_AXIS_CANONICALIZATION",
+            qualification_digest=str(dry.get("digest", "")),
+            evidence_digest=evidence_digest,
+            human_attestation=human_attestation,
+        )
+
+    def accept_engineering_model_for_regime(
+        self, *, candidate: Mapping[str, Any], regime_spec: Mapping[str, Any],
+        evidence: Mapping[str, Any],
+    ) -> Mapping[str, Any]:
+        from .engineering_model_acceptance import EngineeringModelAcceptanceOwner
+        return EngineeringModelAcceptanceOwner(self.runtime.root).accept(candidate, regime_spec, evidence)
+
+    def get_discriminating_experiment_autopilot_contract(self) -> Mapping[str, Any]:
+        from .discriminating_experiment_autopilot import DiscriminatingExperimentAutopilotOwner
+        return DiscriminatingExperimentAutopilotOwner(self.runtime.root).contract()
+
+    def design_discriminating_experiment_autopilot(
+        self, *, question: str, candidate_theory: Mapping[str, Any],
+        baseline_theories: Sequence[Mapping[str, Any]], cost_budget: float,
+    ) -> Mapping[str, Any]:
+        from .discriminating_experiment_autopilot import DiscriminatingExperimentAutopilotOwner
+        return DiscriminatingExperimentAutopilotOwner(self.runtime.root).design(
+            question=question, candidate_theory=candidate_theory,
+            baseline_theories=baseline_theories, cost_budget=cost_budget,
+        )
+
+    def queue_discriminating_experiment_measurement_request(
+        self, design_receipt: Mapping[str, Any],
+    ) -> Mapping[str, Any]:
+        from .discriminating_experiment_autopilot import DiscriminatingExperimentAutopilotOwner
+        return DiscriminatingExperimentAutopilotOwner(self.runtime.root).queue(design_receipt)
+
+    def get_discriminating_measurement_request_queue(self) -> Mapping[str, Any]:
+        from .discriminating_experiment_autopilot import DiscriminatingExperimentAutopilotOwner
+        return DiscriminatingExperimentAutopilotOwner(self.runtime.root).queue_state()
+
+    def record_engineering_model_acceptance(self, acceptance_receipt: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .engineering_model_acceptance import EngineeringModelLedgerOwner
+        return EngineeringModelLedgerOwner(self.runtime.root).record_acceptance(acceptance_receipt)
+
+    def revoke_engineering_model_acceptance(
+        self, *, acceptance_digest: str, reason: str, actor_id: str,
+    ) -> Mapping[str, Any]:
+        from .engineering_model_acceptance import EngineeringModelLedgerOwner
+        return EngineeringModelLedgerOwner(self.runtime.root).revoke(
+            acceptance_digest=acceptance_digest, reason=reason, actor_id=actor_id
+        )
+
+    def get_engineering_model_ledger_state(self) -> Mapping[str, Any]:
+        from .engineering_model_acceptance import EngineeringModelLedgerOwner
+        return EngineeringModelLedgerOwner(self.runtime.root).state()
+
+    def get_canonical_law_transaction_contract(self) -> Mapping[str, Any]:
+        from .canonical_law_transaction import CanonicalLawRegistryTransactionOwner
+        trusted = tuple(self.runtime.catalog.passports) + ("SCIENTIFIC-PROMOTION-QUALIFICATION",)
+        return CanonicalLawRegistryTransactionOwner(
+            self.runtime.root, trusted_evidence_owners=trusted
+        ).contract()
+
+    def qualify_scientific_law_transaction(
+        self, *, promotion_request: Mapping[str, Any], authorization: Mapping[str, Any],
+        passport: Mapping[str, Any],
+    ) -> Mapping[str, Any]:
+        from .canonical_law_transaction import CanonicalLawRegistryTransactionOwner
+        trusted = tuple(self.runtime.catalog.passports) + ("SCIENTIFIC-PROMOTION-QUALIFICATION",)
+        return CanonicalLawRegistryTransactionOwner(
+            self.runtime.root, trusted_evidence_owners=trusted
+        ).qualify(
+            promotion_request=promotion_request, authorization=authorization, passport=passport
+        )
+
+    def commit_scientific_law_promotion(
+        self, *, promotion_request: Mapping[str, Any], authorization: Mapping[str, Any],
+        passport: Mapping[str, Any],
+    ) -> Mapping[str, Any]:
+        from .canonical_law_transaction import CanonicalLawRegistryTransactionOwner
+        trusted = tuple(self.runtime.catalog.passports) + ("SCIENTIFIC-PROMOTION-QUALIFICATION",)
+        result = CanonicalLawRegistryTransactionOwner(
+            self.runtime.root, trusted_evidence_owners=trusted
+        ).commit(
+            promotion_request=promotion_request, authorization=authorization, passport=passport
+        )
+        if result.get("registered") is True and result.get("mutation_performed") is True:
+            from .runtime import LawSpaceRuntime
+            self.runtime = LawSpaceRuntime(self.runtime.root)
+        return result
+
+    def run_research_acceleration_qualification(self) -> Mapping[str, Any]:
+        from evaluation.research_acceleration_qualification import run_release_qualification
+        return run_release_qualification()
+
     def get_scientific_promotion_contract(self) -> Mapping[str, Any]:
         from .scientific_promotion import ScientificPromotionCore
         return ScientificPromotionCore().contract()
@@ -1162,11 +1354,36 @@ class LawSpaceAPI:
         from .einstein_dynamics import EinsteinDynamicsOwner
         return EinsteinDynamicsOwner().qualification()
 
-    def promote_dynamic_axis(self, proposal: Mapping[str, Any], validation: Mapping[str, Any], *, mutate: bool = True) -> Mapping[str, Any]:
+    def promote_dynamic_axis(
+        self, proposal: Mapping[str, Any], validation: Mapping[str, Any], *,
+        mutate: bool = True, authorization: Mapping[str, Any] | None = None,
+    ) -> Mapping[str, Any]:
+        from .promotion_confirmation import validate_canonical_mutation_authorization
         from .research_cycle import DynamicAxisPromotionOwner, DynamicAxisProposal
-        return DynamicAxisPromotionOwner(self.runtime.root).evaluate_and_promote(
-            DynamicAxisProposal(**dict(proposal)), dict(validation), mutate=bool(mutate)
+        owner = DynamicAxisPromotionOwner(self.runtime.root)
+        parsed = DynamicAxisProposal(**dict(proposal))
+        dry = dict(owner.evaluate_and_promote(parsed, dict(validation), mutate=False))
+        if not bool(mutate) or dry.get("qualified") is not True:
+            return dry
+        evidence_digest = str(dict(dry.get("scientific_verification") or {}).get("verification_digest", ""))
+        ok = validate_canonical_mutation_authorization(
+            authorization, scope="DYNAMIC_AXIS_CANONICALIZATION",
+            qualification_digest=str(dry.get("digest", "")),
+            evidence_digest=evidence_digest,
         )
+        if not ok:
+            blocked = dict(dry)
+            blocked["status"] = "BLOCKED_MISSING_HUMAN_MUTATION_AUTHORIZATION"
+            blocked["mutation_requested"] = True
+            blocked["persistence"] = {"status": "NOT_MUTATED"}
+            blocked["claim_boundary"] = {
+                **dict(dry.get("claim_boundary") or {}),
+                "canonical_axis_registered": False,
+                "human_authorization_required": True,
+            }
+            blocked["digest"] = digest_payload({k: v for k, v in blocked.items() if k != "digest"})
+            return blocked
+        return owner.evaluate_and_promote(parsed, dict(validation), mutate=True)
 
     def run_axis_modeling_with_dynamic_expansion(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         from .axis_modeling import AxisModelingOwner
@@ -1196,8 +1413,10 @@ class LawSpaceAPI:
         validation.setdefault("complexity_penalized_delta_log_likelihood", float(best.get("axis_score", 0.0)))
         validation.setdefault("derivation", str(best.get("generated_coordinate", "")))
         proposal = DynamicAxisProposal(**dict(admission["proposal"]))
-        receipt = DynamicAxisPromotionOwner(self.runtime.root).evaluate_and_promote(
-            proposal, validation, mutate=bool(promotion_cfg.get("mutate", True))
+        receipt = self.promote_dynamic_axis(
+            admission["proposal"], validation,
+            mutate=bool(promotion_cfg.get("mutate", True)),
+            authorization=promotion_cfg.get("authorization"),
         )
         return {
             "modeling": modeling,

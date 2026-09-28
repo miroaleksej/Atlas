@@ -8,10 +8,12 @@
     "pass": true
   },
   "claim_boundary": {
+    "abs_power_parameterized_birth_is_world_law": false,
     "dynamic_language_birth_is_inside_familywise_null": true,
     "function_language_birth_exhausts_all_function_spaces": false,
     "function_language_birth_is_new_world_mathematics": false,
     "multi_pi_synthetic_control_is_new_law": false,
+    "operation_signal_without_materialization_gain_is_retained": false,
     "partial_world_sources_establish_u5": false,
     "query_mode_replaces_discovery_frontier": false,
     "query_receipt_bound_to_current_candidate_ledger": true,
@@ -142,7 +144,7 @@
     ],
     "status": "EXACT_KERNELS_REPRODUCED"
   },
-  "digest": "3d318c014bdd8487add1853bb81b39cf2db9721f828fa8afeec20fef69d0273c",
+  "digest": "16c35fa506b4af5cb7258a06752d6be6cd7c89f64f3beb45473f8ac2eebcf369",
   "dimensional_scalar_law_census_summary": {
     "no_dimensionful_quantity_projection_count": 2070,
     "p0_count": 96,
@@ -173,12 +175,12 @@
       "synthetic_controls_are_world_laws": false,
       "universal_optimizer_superiority_established": false
     },
-    "digest": "ab29b1b886a4e1da4a3489c2c60f267856d700f3bec959bc791f3c686ed74a81",
+    "digest": "3fedb177be25c18d76b54bf5afbdb1f67832bf5e4585346281520b4577eeded9",
     "metrics": {
       "kernel_born_language_nrmse": 0.32309477987480417,
       "kernel_improvement_fraction": 0.596408402930271,
       "kernel_polynomial_nrmse": 0.8005488276282985,
-      "noise_effective_signal_gate": 0.2067586901624507,
+      "noise_effective_signal_gate": 0.20941764866936927,
       "noise_max_operation_signal": 0.1487225325513934,
       "periodic_born_language_nrmse": 0.13185498087522118,
       "periodic_improvement_fraction": 0.8635655001510183,

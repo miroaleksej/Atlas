@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 417,
+  "controlled_file_count": 436,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -89,8 +89,8 @@
     },
     {
       "path": "CLAIM_BOUNDARY.md",
-      "sha256": "684db9f1d8398a21b242554f99b1843eafe13fb89cdd0d5bdb4e0dff98874142",
-      "size": 66033
+      "sha256": "a4166b8a139c2d23e9cd06220f689e3cdd9135953932bb10ecb027084e24ec59",
+      "size": 69019
     },
     {
       "path": "LICENSE.md",
@@ -134,8 +134,8 @@
     },
     {
       "path": "capabilities.json",
-      "sha256": "14a2c8302189bb96e83679bd9eb2b48533977fa8923309238f755f1428df9b63",
-      "size": 22873
+      "sha256": "e23f4b0b7826b3e71101e5e77441e97771c77df6c8f4eead4fa329ff5af11e94",
+      "size": 22874
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -229,8 +229,8 @@
     },
     {
       "path": "data/frontiers/ATLAS_QUERY_RESEARCH_CURRENT.json",
-      "sha256": "19b7d0e7bdf5584e71e21b5b718c2e98a614fcd8769458c7189858a02d27977d",
-      "size": 71652
+      "sha256": "a43bc5ab0710353897eac0b8f415c035f65bf202d33fcaf6cd9f4cd3879c7cb5",
+      "size": 71782
     },
     {
       "path": "data/frontiers/ATLAS_SCALAR_LAW_BIRTH_CURRENT.json",
@@ -404,8 +404,8 @@
     },
     {
       "path": "data/runtime/EXECUTION_POLICY_CURRENT.json",
-      "sha256": "4c4d61d8132be9ca6bff0ed4ed40f861e1069bbf7a1b6867d50c1e84f4a4c4a5",
-      "size": 492
+      "sha256": "bb2d20c94f3ddbb825ecddba47ba465e4096ad6cb1ff7c16098a992f095f226c",
+      "size": 1236
     },
     {
       "path": "data/source_snapshots/README.md",
@@ -723,6 +723,11 @@
       "size": 7082
     },
     {
+      "path": "evaluation/refresh_query_research_qualification_binding.py",
+      "sha256": "1487bd3f68ce926a81b7f85a5ac8a01c99f5d9972572e7a6188b96a93f2e1d29",
+      "size": 2759
+    },
+    {
       "path": "evaluation/release_files.py",
       "sha256": "3bb3e8c75bda7e40917d3ad3cbc704bcf492883892d65707c408a88135e79c70",
       "size": 1318
@@ -731,6 +736,11 @@
       "path": "evaluation/representation_birth_novelty_benchmark.py",
       "sha256": "98ecedbd2b0177c32c06b24fcdbc4e510109ae3845d7eb1469520cb0db9f398a",
       "size": 10102
+    },
+    {
+      "path": "evaluation/research_acceleration_qualification.py",
+      "sha256": "ba4e434b73c2f86e9a1ff5a28a2fb60e091477f4c51e4e923d67fccc9dda5e88",
+      "size": 8276
     },
     {
       "path": "evaluation/research_proof_qualification.py",
@@ -821,6 +831,11 @@
       "path": "evaluation/turbulence_dns_closure_experiment.py",
       "sha256": "2a016d1a28be6aa51038261534ec5ee1af3eafebf0732ab998888024d981cf24",
       "size": 43966
+    },
+    {
+      "path": "evaluation/u5_attempt_batch.py",
+      "sha256": "aa0ebe40cb94ff028c44a674b95646306ef62d7f106e8af36d1b60930d9c940d",
+      "size": 891
     },
     {
       "path": "evaluation/unified_release_qualification.py",
@@ -1659,8 +1674,8 @@
     },
     {
       "path": "source/lawspace/api.py",
-      "sha256": "8249b4722501a502dbe3463c72ef058e55f02a540a2e8859c616d76346328d6d",
-      "size": 132446
+      "sha256": "abd720c2bb7501bdc72c03c4c7a57cd77698e00845b5bee1fc2797055c880921",
+      "size": 144482
     },
     {
       "path": "source/lawspace/atomic_dirac_evaluator.py",
@@ -1691,6 +1706,11 @@
       "path": "source/lawspace/candidates.py",
       "sha256": "ba1efb54cedc648a5aa9a43451ccf2ba0854657a273fbba06d6a8ec4f270e932",
       "size": 390882
+    },
+    {
+      "path": "source/lawspace/canonical_law_transaction.py",
+      "sha256": "62d8cf1bb29f478a3e7099f833b6be26a3fb11d3a08510afa26744556a27eea0",
+      "size": 14694
     },
     {
       "path": "source/lawspace/catalog.py",
@@ -1738,6 +1758,11 @@
       "size": 18328
     },
     {
+      "path": "source/lawspace/discriminating_experiment_autopilot.py",
+      "sha256": "a9b65350c01b328326df9faadd582cd7b816fadd0c1f15324dbe778f777186d3",
+      "size": 8644
+    },
+    {
       "path": "source/lawspace/domain_plugins.py",
       "sha256": "1f50f115a0568d9782850b021f2d6aa5f8b5546bd63752ff61ef6744b335afdb",
       "size": 3358
@@ -1756,6 +1781,16 @@
       "path": "source/lawspace/einstein_dynamics.py",
       "sha256": "9df408322efbf4f2f42433b0a71e340059f8e00f607f8a9bc6c0793503ab916b",
       "size": 174587
+    },
+    {
+      "path": "source/lawspace/engineering_model_acceptance.py",
+      "sha256": "98a0798550d6e5b1de8a86fc65ae50e4091f7c199b1eff1cf85ce327f7e23e95",
+      "size": 12356
+    },
+    {
+      "path": "source/lawspace/execution_policy.py",
+      "sha256": "ca8ecb29df5a55ee0ad72c3eb3df200ed0133726760c3ca0047e0314c8d0845f",
+      "size": 4068
     },
     {
       "path": "source/lawspace/experiment_execution.py",
@@ -1799,8 +1834,8 @@
     },
     {
       "path": "source/lawspace/mathematical_invention.py",
-      "sha256": "ddf35a5e6578cc493994d74264ca2085feecdb1b6b0ab4fdad3b7ca0d5d27882",
-      "size": 174078
+      "sha256": "d32a5cb258065719838280cb6fd8cb7bcf5dde89f58d218a6f53deb84ce8457b",
+      "size": 179226
     },
     {
       "path": "source/lawspace/measurement_adapters.py",
@@ -1868,6 +1903,11 @@
       "size": 6684
     },
     {
+      "path": "source/lawspace/promotion_confirmation.py",
+      "sha256": "2d4451a65dc31ba29732798c236900090bb6a3c6b6bd57a4fe21e2c6744238c3",
+      "size": 11807
+    },
+    {
       "path": "source/lawspace/prospective_external_validation.py",
       "sha256": "cb24dcf9ab286a1c746a5700c4a47adb73d0c8e01b6e3dbcb47d49e546a5afd2",
       "size": 10299
@@ -1879,8 +1919,8 @@
     },
     {
       "path": "source/lawspace/query_research.py",
-      "sha256": "1f2c3ecfadccc70901bfd0aafacf0154ec66341339ecdaddcb42de3979043939",
-      "size": 43282
+      "sha256": "9a49c8ba30eb7ac28026e14bf1abf90edccd24aa08db974468c0500da44c6ddf",
+      "size": 54623
     },
     {
       "path": "source/lawspace/reflexive_architecture.py",
@@ -1893,9 +1933,14 @@
       "size": 388687
     },
     {
+      "path": "source/lawspace/research_progression_gates.py",
+      "sha256": "6fc87e89dc37ae50d1f2dc303ec8f30164ac268098bd5f19bfd4bde300752958",
+      "size": 5231
+    },
+    {
       "path": "source/lawspace/research_triage.py",
-      "sha256": "20867ae94de5b06c2474cfec75bd40a264f236b4b8f9f26bb8de31bf595469e2",
-      "size": 20163
+      "sha256": "ec6e4e6aaad6115b7ff9146e147a851997ad434305fe713fafff411bdb711606",
+      "size": 21856
     },
     {
       "path": "source/lawspace/resident_cognitive.py",
@@ -1978,6 +2023,11 @@
       "size": 137425
     },
     {
+      "path": "source/lawspace/u5_attempt_scheduler.py",
+      "sha256": "126e38a7a4c73abc9b91b9f4fb2d48d72a6ef0da25691da0879b9a32522eb9fd",
+      "size": 12283
+    },
+    {
       "path": "source/multidomain_qg_bridge.py",
       "sha256": "b9a3022239a63b2fd38675b64a4214bad70d4996ef959c199caa61379d73dd34",
       "size": 9216
@@ -1998,9 +2048,19 @@
       "size": 8260
     },
     {
+      "path": "tests/test_abs_power_parameterized_birth.py",
+      "sha256": "13306b2a2b99566e7724fb4096ad70f1bf52ecf1551c5793bcc8f186e88d224f",
+      "size": 2105
+    },
+    {
       "path": "tests/test_adaptive_axis_discovery.py",
       "sha256": "be8b76d991f519b2090ae3d8b244661a2d31dc4e0dc2003b354a17d7429bfdad",
       "size": 21931
+    },
+    {
+      "path": "tests/test_canonical_law_transaction.py",
+      "sha256": "3e8fef15d0336d988b4179f6cd6f75d3aa5d88c0aef57ec0f559b07892194c2f",
+      "size": 4544
     },
     {
       "path": "tests/test_closed_loop_research.py",
@@ -2018,6 +2078,11 @@
       "size": 3019
     },
     {
+      "path": "tests/test_discriminating_experiment_autopilot.py",
+      "sha256": "870c8417bfac78777561f8a08c349464a30a5ae70ae1ada9bc9444edef66fb45",
+      "size": 1969
+    },
+    {
       "path": "tests/test_domain_plugin_architecture.py",
       "sha256": "85f90471e392a3b3245427fef5eb6e54c3db9dbabf4de481cf2521e1eb2bd121",
       "size": 2745
@@ -2031,6 +2096,16 @@
       "path": "tests/test_electronic_state_space_current.py",
       "sha256": "e913452d6093de178210e08cdfadb42c16217608ef166c1cc4b3ec3d7b66135e",
       "size": 4145
+    },
+    {
+      "path": "tests/test_engineering_model_acceptance.py",
+      "sha256": "6b642c51fdba2dace4a3ff4c007a7eb59e82f21e3ea7c396a7da618177ad7bf1",
+      "size": 1113
+    },
+    {
+      "path": "tests/test_engineering_model_ledger.py",
+      "sha256": "e0d1c29cb1e8f78de09295625fa48f8605d731d0ec0c2d556e7e60439f4a7988",
+      "size": 1168
     },
     {
       "path": "tests/test_epoch_genesis_autonomous.py",
@@ -2093,14 +2168,29 @@
       "size": 2181
     },
     {
+      "path": "tests/test_promotion_confirmation.py",
+      "sha256": "a803e19cacd2459815fefbf21ea38bb08131a3f713072ef45167b7767845b246",
+      "size": 3139
+    },
+    {
       "path": "tests/test_query_driven_research_current.py",
       "sha256": "58f20965ee354f70223f7c76da2039097736f600981959cb364a15723b513f2d",
       "size": 5485
     },
     {
+      "path": "tests/test_research_acceleration_policy.py",
+      "sha256": "d144c9a3b9da039eecdcb59681d1a036034091d0e2b08f30588d56cfb238bb9b",
+      "size": 1991
+    },
+    {
       "path": "tests/test_research_triage.py",
       "sha256": "1a51092c7472fbe2bb019c22af49d62cd8cc20e144f6705ca6fe442f027fc73e",
       "size": 2017
+    },
+    {
+      "path": "tests/test_sandbox_profiles.py",
+      "sha256": "61674be3184e0174d2c927981db3216c774aefbbbe2f94e71c57b939ace62b41",
+      "size": 1103
     },
     {
       "path": "tests/test_science_atlas_core.py",
@@ -2133,6 +2223,11 @@
       "size": 7204
     },
     {
+      "path": "tests/test_u5_attempt_scheduler.py",
+      "sha256": "d67fd5b79f1a2faf8a61bcc54c9a9a67c3bf10b2f22d9f5f56f0925f01ac7eb3",
+      "size": 2649
+    },
+    {
       "path": "tests/test_unified_current.py",
       "sha256": "0bd677902dffc9907f0f16e9cc724329c3186a65ccd16b32377334e59dc4e714",
       "size": 60705
@@ -2149,9 +2244,9 @@
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "117252b1a669efdd3ae3e7ff336513470221c707397c2be07ee7bfc61f7ae2d6",
+  "current_state_qualification_digest": "1942ae438eb730e592fc2aeed7b9c3f725c8c07c863497a49293a4738083b04c",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "efc7631475f63e734ba2ebbd0cd07aab543682efda64ce26e1d28fefaeaa3123",
+  "digest": "262283dd3a4ef78fd1b3ad52216e0a683d3570f7d9b38aed2369ec70f62d07f8",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -2233,12 +2328,12 @@
     "cross_domain_exact_kernel_status": "EXACT_KERNELS_REPRODUCED",
     "dynamic_language_birth_replayed_under_permutation": true,
     "function_language_birth_component": "FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT",
-    "function_language_birth_qualification_digest": "ab29b1b886a4e1da4a3489c2c60f267856d700f3bec959bc791f3c686ed74a81",
+    "function_language_birth_qualification_digest": "3fedb177be25c18d76b54bf5afbdb1f67832bf5e4585346281520b4577eeded9",
     "function_language_birth_qualification_metrics": {
       "kernel_born_language_nrmse": 0.32309477987480417,
       "kernel_improvement_fraction": 0.596408402930271,
       "kernel_polynomial_nrmse": 0.8005488276282985,
-      "noise_effective_signal_gate": 0.2067586901624507,
+      "noise_effective_signal_gate": 0.20941764866936927,
       "noise_max_operation_signal": 0.1487225325513934,
       "periodic_born_language_nrmse": 0.13185498087522118,
       "periodic_improvement_fraction": 0.8635655001510183,
@@ -2260,7 +2355,7 @@
     "multi_pi_familywise_permutation_p": 0.05,
     "multi_pi_structural_hypotheses_examined": 45,
     "owner": "QUERY-DRIVEN-RESEARCH/1.2.0",
-    "report_digest": "3d318c014bdd8487add1853bb81b39cf2db9721f828fa8afeec20fef69d0273c",
+    "report_digest": "16c35fa506b4af5cb7258a06752d6be6cd7c89f64f3beb45473f8ac2eebcf369",
     "source_stitching_used_to_create_fit": false,
     "status": "PASS_QUERY_DRIVEN_RESEARCH_P1_MULTI_PI_FUNCTION_LANGUAGE_CONTROL_WORLD_DATA_GAP",
     "u5_status": "UNKNOWN",

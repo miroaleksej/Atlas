@@ -29,6 +29,12 @@ DEFAULT_DPI_WEIGHTS = {
     "fwer_penalty": 0.15,
 }
 
+SANDBOX_PROFILES = {
+    "STRICT": {"dpi_threshold": 0.70, "min_competitors": 5},
+    "RESEARCH": {"dpi_threshold": 0.40, "min_competitors": 3},
+    "WIDE": {"dpi_threshold": 0.25, "min_competitors": 2},
+}
+
 QUALITY_TIERS = {
     "STRICT": {
         "rho_star": 0.05,
@@ -278,6 +284,38 @@ class ResearchTriageSandbox:
             "strict_u_gates_modified": False,
         }
         return {**payload, "digest": _digest(payload)}
+
+    @classmethod
+    def rank_hypotheses_profiled(
+        cls, hypotheses: Sequence[Mapping[str, Any]], *, profile: str = "RESEARCH",
+        weights: Mapping[str, float] | None = None,
+    ) -> Mapping[str, Any]:
+        name = str(profile).upper().strip()
+        if name not in SANDBOX_PROFILES:
+            raise ValueError(f"unknown sandbox profile: {profile}")
+        cfg = dict(SANDBOX_PROFILES[name])
+        out = dict(cls.rank_hypotheses(
+            hypotheses, weights=weights, dpi_threshold=float(cfg["dpi_threshold"])
+        ))
+        competition_sufficient = len(hypotheses) >= int(cfg["min_competitors"])
+        promising_ids = [
+            str(row.get("candidate_id", ""))
+            for row in out.get("ranked", ())
+            if competition_sufficient and row.get("promising_reject") is True
+        ]
+        out.update({
+            "sandbox_profile": name,
+            "sandbox_min_competitors": int(cfg["min_competitors"]),
+            "sandbox_competition_sufficient": competition_sufficient,
+            "profile_promising_for_further_evidence_candidate_ids": promising_ids,
+            "profile_promising_for_further_evidence_count": len(promising_ids),
+            "sandbox_only": True,
+            "affects_scientific_promotion": False,
+            "strict_u_gates_modified": False,
+            "strict_promotion_weights_changed": False,
+        })
+        out["digest"] = _digest({k: v for k, v in out.items() if k != "digest"})
+        return out
 
     @staticmethod
     def propose_what_if_experiments(

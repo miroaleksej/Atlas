@@ -176,6 +176,7 @@ class FunctionLanguageBirthEngine:
         "RATIONAL": ("add", "multiply", "reciprocal"),
         "EXPONENTIAL": ("add", "multiply", "exp"),
         "LOGARITHMIC": ("add", "multiply", "signed_log1p"),
+        "ABS_POWER": ("add", "multiply", "absolute_value", "real_power", "continuous_exponent_search", "rational_exponent_snap"),
         "PERIODIC": ("add", "multiply", "sin", "cos"),
         "PIECEWISE": ("add", "multiply", "hinge", "threshold"),
         "KERNEL": ("distance", "radial_response", "linear_superposition"),
@@ -191,7 +192,19 @@ class FunctionLanguageBirthEngine:
             "trigger": "PERSISTENT_CROSS_VALIDATED_RESIDUAL",
             "fixed_global_language_catalog_is_primary_space": False,
             "known_family_name_is_world_novelty_claim": False,
+            "operation_signal_is_sufficient_for_active_language": False,
+            "query_materialization_cv_gate_required": True,
             "candidate_operations": {k: list(v) for k, v in self._FAMILY_OPERATIONS.items()},
+            "parameterized_operation_birth": {
+                "ABS_POWER": {
+                    "operator": "Abs(x)^p",
+                    "continuous_exponent_search": True,
+                    "rational_exponent_snap": True,
+                    "default_exponent_interval": [0.125, 4.0],
+                    "default_rational_denominator_limit": 12,
+                    "target_specific_exponent_catalog_used": False,
+                }
+            },
         }
 
     @staticmethod
@@ -226,6 +239,7 @@ class FunctionLanguageBirthEngine:
         scores: dict[str,float]={}
         coord_scores: dict[str,list[float]]={}
         preference_override: dict[str,list[int]]={}
+        family_metadata: dict[str,dict[str,Any]]={}
         for family in self._FAMILY_OPERATIONS:
             per=[]
             for j in range(z.shape[1]):
@@ -239,6 +253,47 @@ class FunctionLanguageBirthEngine:
                 elif family=="LOGARITHMIC":
                     feats=(np.sign(q)*np.log1p(np.abs(q)), np.log1p(q*q))
                     score=max((self._corr(r,f) for f in feats),default=0.0)
+                elif family=="ABS_POWER":
+                    # The diagnostic is intentionally generic.  It scans a
+                    # continuous-looking exponent shell and multiplicative
+                    # carriers, but does not fit the final target law here.
+                    # The exponent is re-searched from scratch inside every
+                    # Query CV fold before any candidate can be ranked.
+                    exponent_grid=np.linspace(0.125,4.0,33)
+                    best_score=0.0; best_p=1.0; best_carrier=None
+                    aq=np.abs(q)
+                    # Residualize each proposed operation against a local
+                    # polynomial carrier span.  The birth signal therefore
+                    # measures genuinely *new* operation content rather than
+                    # the part already expressible by the current grammar.
+                    projection_bases=[]
+                    carriers=[None]+[k for k in range(z.shape[1]) if k!=j]
+                    for carrier in carriers:
+                        cols=[np.ones(len(q),float)]
+                        for d in range(1,5): cols.append(q**d)
+                        if carrier is not None:
+                            c=z[:,int(carrier)]
+                            for d in range(1,5): cols.append(c**d)
+                            cols.extend((q*c,(q*q)*c,q*(c*c),(q*q)*(c*c)))
+                        M=np.column_stack(cols)
+                        Q,_=np.linalg.qr(M,mode="reduced")
+                        projection_bases.append((carrier,Q))
+                    for p_ in exponent_grid:
+                        base=np.power(aq,float(p_))
+                        for carrier,Q in projection_bases:
+                            feat=base if carrier is None else base*z[:,int(carrier)]
+                            novel=feat-Q@(Q.T@feat)
+                            sc=self._corr(r,novel)
+                            if sc>best_score:
+                                best_score=float(sc); best_p=float(p_); best_carrier=carrier
+                    score=float(best_score)
+                    meta=family_metadata.setdefault(family,{"coordinate_rows":[]})
+                    meta["coordinate_rows"].append({
+                        "powered_coordinate":int(j),
+                        "carrier_coordinate":None if best_carrier is None else int(best_carrier),
+                        "seed_exponent":float(best_p),
+                        "signal":float(best_score),
+                    })
                 elif family=="PERIODIC":
                     feats=tuple(v for w in (1.0,2.0,3.0) for v in (np.sin(w*q),np.cos(w*q)))
                     score=max((self._corr(r,f) for f in feats),default=0.0)
@@ -256,7 +311,25 @@ class FunctionLanguageBirthEngine:
                     feats=(q*q, q*q*q)
                     score=max((self._corr(r,f) for f in feats),default=0.0)
                 per.append(float(score))
-            if family=="LATENT" and z.shape[1]>=2:
+            if family=="ABS_POWER":
+                rows=list(family_metadata.get(family,{}).get("coordinate_rows",[]))
+                best=max(rows,key=lambda row:(float(row.get("signal",0.0)),-int(row.get("powered_coordinate",0)))) if rows else None
+                scores[family]=float(max(per,default=0.0))
+                if best is not None:
+                    powered=int(best["powered_coordinate"]); carrier=best.get("carrier_coordinate")
+                    rest=[j for j in range(z.shape[1]) if j not in {powered,carrier}]
+                    pref=[powered]
+                    if carrier is not None and int(carrier)!=powered:
+                        pref.append(int(carrier))
+                    preference_override[family]=pref+rest
+                    family_metadata[family].update({
+                        "seed_exponent":float(best["seed_exponent"]),
+                        "powered_coordinate":powered,
+                        "carrier_coordinate":carrier,
+                        "continuous_exponent_search_required":True,
+                        "rational_snap_allowed":True,
+                    })
+            elif family=="LATENT" and z.shape[1]>=2:
                 pair=max((self._corr(r,z[:,a]*z[:,b]) for a in range(z.shape[1]) for b in range(a+1,z.shape[1])),default=0.0)
                 scores[family]=float(max(max(per,default=0.0),pair))
             elif family=="KERNEL" and z.shape[1]>=2:
@@ -288,7 +361,7 @@ class FunctionLanguageBirthEngine:
         # This is a conservative structural screen, not a formal p-value; the
         # formal familywise calibration remains Query mode's replayed permutation
         # null after languages are actually fitted.
-        feature_tests=max(8,7*max(1,z.shape[1])*6)
+        feature_tests=max(8,len(self._FAMILY_OPERATIONS)*max(1,z.shape[1])*6)
         multiplicity_gate=math.sqrt(2.0*math.log(float(feature_tests)+1.0)/float(len(r)))
         effective_signal_gate=max(float(minimum_signal),float(multiplicity_gate))
         selected=[k for k in ordered if scores[k]>=effective_signal_gate]
@@ -315,6 +388,20 @@ class FunctionLanguageBirthEngine:
                 "coordinate_preference":coordinate_order,
                 "generated_from_residual":True,
             }
+            if fam=="ABS_POWER":
+                meta=dict(family_metadata.get(fam,{}))
+                meta.pop("coordinate_rows",None)
+                signature["parameterized_operation"]={
+                    "operator":"Abs(x)^p",
+                    "seed_exponent":float(meta.get("seed_exponent",1.0)),
+                    "powered_coordinate":meta.get("powered_coordinate"),
+                    "carrier_coordinate":meta.get("carrier_coordinate"),
+                    "continuous_interval":[0.125,4.0],
+                    "continuous_search":True,
+                    "rational_snap":True,
+                    "rational_denominator_limit":12,
+                    "exponent_is_frozen_answer":False,
+                }
             signature["digest"]=digest_payload(signature)
             generated.append(signature)
         payload={
@@ -332,8 +419,6 @@ class FunctionLanguageBirthEngine:
             },
         }
         return _with_digest(payload)
-
-
 class OperatorLanguageBirthEngine:
     """Generate a local operator language from weaker translation/algebra primitives.
 

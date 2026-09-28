@@ -229,8 +229,155 @@ def _linear_language_design_predict(z: np.ndarray, state: Mapping[str,Any]) -> n
     return np.column_stack(cols)
 
 
+
+def _abs_power_scale_fit(x: np.ndarray) -> tuple[np.ndarray,np.ndarray]:
+    """Scale-only normalization for |x|^p languages.
+
+    Centering is intentionally forbidden here because an additive shift changes
+    the mathematical operation Abs(x)^p.  Multiplicative scale is safe: its
+    effect is absorbed by fitted linear coefficients while the exponent p and
+    carrier structure remain invariant.
+    """
+    x=np.asarray(x,float)
+    scale=np.sqrt(np.mean(x*x,axis=0))
+    if np.any(~np.isfinite(scale)) or np.any(scale<=1e-14):
+        raise ValueError("degenerate abs-power coordinate scale")
+    return x/scale,scale
+
+
+def _abs_power_design(q: np.ndarray, *, exponent: float, powered_coordinate: int,
+                      carrier_degree: int = 3) -> tuple[np.ndarray,list[dict[str,Any]]]:
+    q=np.asarray(q,float); n,p=q.shape
+    j=int(powered_coordinate)
+    if not (0<=j<p): raise ValueError("powered_coordinate outside coordinate matrix")
+    exponent=float(exponent)
+    if not math.isfinite(exponent) or exponent<=0.0:
+        raise ValueError("ABS_POWER requires finite positive exponent")
+    cols=[np.ones(n,float)]; terms=[{"kind":"INTERCEPT"}]
+    degree=max(1,int(carrier_degree))
+    # Generic polynomial carrier language.  These terms allow Abs(x)^p to be
+    # composed with an already available low-order algebra without hard-coding
+    # a domain equation such as a specific oscillator or kinetics law.
+    for k in range(p):
+        for d in range(1,degree+1):
+            cols.append(q[:,k]**d)
+            terms.append({"kind":"MONOMIAL","coordinate":int(k),"power":int(d)})
+    powered=np.power(np.abs(q[:,j]),exponent)
+    cols.append(powered); terms.append({"kind":"ABS_POWER","powered_coordinate":j,"exponent":exponent})
+    for k in range(p):
+        cols.append(q[:,k]*powered)
+        terms.append({"kind":"CARRIER_TIMES_ABS_POWER","carrier_coordinate":int(k),"powered_coordinate":j,"carrier_power":1,"exponent":exponent})
+    return np.column_stack(cols),terms
+
+
+def _abs_power_rational_candidates(p_min: float, p_max: float, max_denominator: int) -> tuple[Fraction,...]:
+    vals=set()
+    for den in range(1,max(1,int(max_denominator))+1):
+        lo=max(1,int(math.ceil(float(p_min)*den)))
+        hi=int(math.floor(float(p_max)*den))
+        for num in range(lo,hi+1): vals.add(Fraction(num,den))
+    return tuple(sorted(vals,key=lambda f:(float(f),f.denominator,abs(f.numerator))))
+
+
+def _fit_abs_power_language_model(x: np.ndarray, y: np.ndarray, variant: Mapping[str,Any]) -> Mapping[str,Any] | None:
+    x=np.asarray(x,float); y=np.asarray(y,float)
+    try: q,raw_scale=_abs_power_scale_fit(x)
+    except ValueError: return None
+    p_min=float(variant.get("p_min",0.125)); p_max=float(variant.get("p_max",4.0))
+    if not (0.0<p_min<p_max): return None
+    ridge=float(variant.get("ridge",1e-8)); degree=int(variant.get("carrier_degree",3))
+    coarse=max(9,int(variant.get("coarse_points",33))); rounds=max(0,int(variant.get("refine_rounds",4)))
+    denom_limit=max(1,int(variant.get("rational_denominator_limit",12)))
+    snap_tolerance=max(1.0,float(variant.get("rational_snap_tolerance",1.01)))
+    seed=variant.get("seed_exponent")
+    seed=float(seed) if seed is not None and math.isfinite(float(seed)) else None
+    preferred=variant.get("preferred_powered_coordinate")
+    powered_order=list(range(q.shape[1]))
+    if preferred is not None and 0<=int(preferred)<q.shape[1]:
+        powered_order=[int(preferred)]+[j for j in powered_order if j!=int(preferred)]
+
+    y_scale=max(float(np.std(y)),1e-14)
+    def evaluate(j: int, exponent: float):
+        try: X,terms=_abs_power_design(q,exponent=float(exponent),powered_coordinate=j,carrier_degree=degree)
+        except Exception: return None
+        if len(y)<=X.shape[1]+2: return None
+        beta,rank=_ridge_solve(X,y,ridge)
+        pred=X@beta
+        if np.any(~np.isfinite(pred)): return None
+        obj=float(np.sqrt(np.mean((pred-y)**2))/y_scale)
+        return {"objective":obj,"exponent":float(exponent),"powered_coordinate":int(j),"coefficients":beta,"rank":rank,"terms":terms,"design":X}
+
+    best=None
+    for j in powered_order:
+        grid=list(np.linspace(p_min,p_max,coarse))
+        if seed is not None and p_min<=seed<=p_max: grid.append(seed)
+        local_best=None
+        for p_ in sorted(set(float(v) for v in grid)):
+            row=evaluate(j,p_)
+            if row is not None and (local_best is None or (row["objective"],row["exponent"])<(local_best["objective"],local_best["exponent"])):
+                local_best=row
+        if local_best is None: continue
+        step=(p_max-p_min)/max(1,coarse-1)
+        for _ in range(rounds):
+            center=float(local_best["exponent"]); step/=5.0
+            lo=max(p_min,center-5.0*step); hi=min(p_max,center+5.0*step)
+            for p_ in np.linspace(lo,hi,21):
+                row=evaluate(j,float(p_))
+                if row is not None and (row["objective"],row["exponent"])<(local_best["objective"],local_best["exponent"]):
+                    local_best=row
+        if best is None or (local_best["objective"],powered_order.index(j),local_best["exponent"])<(best["objective"],powered_order.index(best["powered_coordinate"]),best["exponent"]):
+            best=local_best
+    if best is None: return None
+
+    continuous_exponent=float(best["exponent"]); continuous_objective=float(best["objective"])
+    rational_rows=[]
+    for frac in _abs_power_rational_candidates(p_min,p_max,denom_limit):
+        # Only inspect rationals near the continuously optimized exponent; this
+        # is a simplicity projection, not a second global target fit.
+        if abs(float(frac)-continuous_exponent)>max(0.25,2.5*(p_max-p_min)/max(1,coarse-1)):
+            continue
+        row=evaluate(int(best["powered_coordinate"]),float(frac))
+        if row is not None: rational_rows.append((row,frac))
+    rational_rows.sort(key=lambda item:(item[0]["objective"],item[1].denominator,abs(item[1].numerator),float(item[1])))
+    chosen=best; source="CONTINUOUS_SEARCH"; rational=None
+    admiss=[item for item in rational_rows if item[0]["objective"]<=continuous_objective*snap_tolerance+1e-12]
+    if admiss:
+        # Among effectively indistinguishable fits, prefer the simplest rational
+        # rather than the numerically closest decimal approximation.
+        admiss.sort(key=lambda item:(item[1].denominator,abs(item[1].numerator),item[0]["objective"],float(item[1])))
+        chosen,rational=admiss[0]; source="RATIONAL_SNAP"
+
+    state={
+        "family":"ABS_POWER","variant":dict(variant),"raw_scale":[float(v) for v in raw_scale],
+        "powered_coordinate":int(chosen["powered_coordinate"]),"exponent":float(chosen["exponent"]),
+        "continuous_exponent":continuous_exponent,"continuous_objective":continuous_objective,
+        "exponent_source":source,"rational_exponent":None if rational is None else {"numerator":int(rational.numerator),"denominator":int(rational.denominator)},
+        "coefficients":[float(v) for v in chosen["coefficients"]],"terms":chosen["terms"],
+        "parameter_search":{
+            "continuous":True,"interval":[p_min,p_max],"coarse_points":coarse,"refine_rounds":rounds,
+            "rational_snap":True,"rational_denominator_limit":denom_limit,"rational_snap_tolerance":snap_tolerance,
+            "target_specific_exponent_catalog_used":False,
+        },
+    }
+    return {"model_state":state,"rank":int(chosen["rank"]),"term_count":int(chosen["design"].shape[1])}
+
+
+def _predict_abs_power_language_model(x: np.ndarray, state: Mapping[str,Any]) -> np.ndarray | None:
+    x=np.asarray(x,float); raw_scale=np.asarray(state.get("raw_scale",[]),float)
+    if x.ndim!=2 or len(raw_scale)!=x.shape[1] or np.any(raw_scale<=1e-14): return None
+    q=x/raw_scale
+    try:
+        X,_=_abs_power_design(q,exponent=float(state["exponent"]),powered_coordinate=int(state["powered_coordinate"]),carrier_degree=int(dict(state.get("variant",{})).get("carrier_degree",3)))
+    except Exception: return None
+    beta=np.asarray(state.get("coefficients",[]),float)
+    if X.shape[1]!=len(beta): return None
+    return X@beta
+
+
 def _fit_language_model(x: np.ndarray, y: np.ndarray, family: str, variant: Mapping[str,Any]) -> Mapping[str,Any] | None:
     x=np.asarray(x,float); y=np.asarray(y,float)
+    if family=="ABS_POWER":
+        return _fit_abs_power_language_model(x,y,variant)
     try: z,mu,scale=_standardize_fit(x)
     except ValueError: return None
     ridge=float(variant.get("ridge",1e-6))
@@ -258,8 +405,10 @@ def _fit_language_model(x: np.ndarray, y: np.ndarray, family: str, variant: Mapp
 
 
 def _predict_language_model(x: np.ndarray, state: Mapping[str,Any]) -> np.ndarray | None:
-    x=np.asarray(x,float); mu=np.asarray(state["mean"],float); scale=np.asarray(state["scale"],float); z=(x-mu)/scale
-    family=str(state["family"])
+    x=np.asarray(x,float); family=str(state["family"])
+    if family=="ABS_POWER":
+        return _predict_abs_power_language_model(x,state)
+    mu=np.asarray(state["mean"],float); scale=np.asarray(state["scale"],float); z=(x-mu)/scale
     if family=="RATIONAL":
         exps=state.get("numerator_exponents",[]); P=_poly_design(z,exps); pc=np.asarray(state["numerator_coefficients"],float); qc=np.asarray(state["denominator_coefficients"],float)
         denom=1.0+z@qc
@@ -304,10 +453,16 @@ def predict_function_hypothesis(hypothesis: Mapping[str,Any], pi_matrix: Sequenc
     return np.asarray(pred,float)
 
 
-def _language_variants(family: str, coord_count: int) -> tuple[Mapping[str,Any],...]:
+def _language_variants(family: str, coord_count: int, language: Mapping[str,Any] | None = None) -> tuple[Mapping[str,Any],...]:
+    language=dict(language or {})
     if family=="RATIONAL": return ({"numerator_degree":1,"ridge":1e-6},{"numerator_degree":2,"ridge":1e-5})
     if family=="EXPONENTIAL": return ({"scale":0.5,"ridge":1e-5},{"scale":1.0,"ridge":1e-5},{"scale":2.0,"ridge":1e-4})
     if family=="LOGARITHMIC": return ({"scale":0.5,"ridge":1e-6},{"scale":1.0,"ridge":1e-6},{"scale":2.0,"ridge":1e-5})
+    if family=="ABS_POWER":
+        parameterized=dict(language.get("parameterized_operation",{}))
+        powered=parameterized.get("powered_coordinate")
+        seed=parameterized.get("seed_exponent")
+        return ({"p_min":0.125,"p_max":4.0,"coarse_points":33,"refine_rounds":4,"rational_denominator_limit":12,"rational_snap_tolerance":1.01,"carrier_degree":3,"ridge":1e-8,"seed_exponent":seed,"preferred_powered_coordinate":powered},)
     if family=="PERIODIC": return ({"max_frequency":1,"ridge":1e-5},{"max_frequency":2,"ridge":1e-5},{"max_frequency":3,"ridge":1e-4})
     if family=="PIECEWISE": return ({"quantiles":[0.5],"ridge":1e-5},{"quantiles":[0.33,0.67],"ridge":1e-5},{"quantiles":[0.25,0.5,0.75],"ridge":1e-4})
     if family=="KERNEL": return ({"gamma":0.35,"max_centers":12,"ridge":1e-4},{"gamma":0.8,"max_centers":18,"ridge":1e-4},{"gamma":1.6,"max_centers":24,"ridge":1e-3})
@@ -327,7 +482,16 @@ def _born_specs(receipt: Mapping[str,Any], p: int, remaining_budget: int) -> tup
         for c in coordsets:
             if c not in seen: seen.append(c)
         for coords in seen:
-            for variant in _language_variants(family,len(coords)):
+            local_lang=dict(lang)
+            if family=="ABS_POWER":
+                param=dict(local_lang.get("parameterized_operation",{}))
+                global_powered=param.get("powered_coordinate")
+                if global_powered in coords:
+                    param["powered_coordinate"]=list(coords).index(int(global_powered))
+                else:
+                    param["powered_coordinate"]=None
+                local_lang["parameterized_operation"]=param
+            for variant in _language_variants(family,len(coords),local_lang):
                 out.append((family,tuple(coords),dict(variant),str(lang.get("language_id",""))))
                 if len(out)>=int(remaining_budget): return tuple(out)
     return tuple(out)
@@ -456,7 +620,8 @@ class QueryDrivenResearchOwner:
                               group_ids: Sequence[str] | None = None,
                               permutation_count: int = 0, permutation_seed: int = 0,
                               function_language_birth: bool = True,
-                              language_birth_nrmse: float = 0.08) -> Mapping[str,Any]:
+                              language_birth_nrmse: float = 0.08,
+                              language_materialization_min_relative_gain: float = 0.01) -> Mapping[str,Any]:
         """Search F(Pi_1,...,Pi_p) on one exact Buckingham manifold (p>1).
 
         The dimensional kernel is frozen before fitting.  Query mode first
@@ -551,6 +716,10 @@ class QueryDrivenResearchOwner:
                     birth={**birth,"digest":digest_payload(birth)}
                 remaining=max(0,total_budget-len(poly_specs))
                 born_specs=_born_specs(birth,p,remaining)
+            materialized=[]
+            rejected_materializations=[]
+            baseline_cv=float(best_poly["cross_validated_nrmse"]) if best_poly is not None else math.inf
+            minimum_gain=max(0.0,min(1.0,float(language_materialization_min_relative_gain)))
             for family,coords,variant,language_id in born_specs:
                 row=_fit_born_language_cv(pi_matrix,target,coords,family,variant,foldset)
                 if row is None: continue
@@ -560,7 +729,29 @@ class QueryDrivenResearchOwner:
                             "nullity":int(p),"language_origin":"RESIDUAL_DRIVEN_MATHEMATICAL_INVENTION",
                             "language_id":language_id})
                 row["signature"]=digest_payload({"basis":basis_rows,"coords":list(coords),"family":family,"variant":variant,"target":target_name,"language_id":language_id})
-                fitted.append(row)
+                cv=float(row["cross_validated_nrmse"])
+                relative_gain=(baseline_cv-cv)/max(abs(baseline_cv),1e-12)
+                row["materialization_relative_cv_gain"]=float(relative_gain)
+                row["materialization_gate_required_gain"]=float(minimum_gain)
+                row["materialization_gate_pass"]=bool(relative_gain>=minimum_gain)
+                if row["materialization_gate_pass"]:
+                    fitted.append(row); materialized.append(language_id)
+                else:
+                    rejected_materializations.append({"language_id":language_id,"family":family,"cross_validated_nrmse":cv,"relative_cv_gain":float(relative_gain),"reason":"BORN_OPERATION_DID_NOT_IMPROVE_CROSS_VALIDATED_OBJECTIVE"})
+            if isinstance(birth,dict):
+                birth=dict(birth)
+                birth["materialization_gate"]={
+                    "minimum_relative_cv_gain":float(minimum_gain),
+                    "materialized_language_ids":materialized,
+                    "rejected_materializations":rejected_materializations,
+                    "signal_only_birth_is_retained_without_cv_improvement":False,
+                }
+                if born_specs and not materialized and birth.get("status")=="FUNCTION_LANGUAGE_BIRTH_WARRANTED":
+                    birth["status"]="OPERATION_SIGNAL_PRESENT_BUT_MATERIALIZATION_REJECTED"
+                    if isinstance(birth.get("claim_boundary"),dict):
+                        birth["claim_boundary"]=dict(birth["claim_boundary"])
+                        birth["claim_boundary"]["function_language_established"]=False
+                birth["digest"]=digest_payload({k:v for k,v in birth.items() if k!="digest"})
             fitted.sort(key=lambda r:(r["cross_validated_nrmse"],r["term_count"],str(r.get("function_family")),r["coordinate_indices"],r["signature"]))
             return fitted,birth,len(poly_specs),len(born_specs)
 
