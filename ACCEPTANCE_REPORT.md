@@ -805,3 +805,306 @@ The pre-existing candidate census, U4/U5 state, Query function-language birth, E
 Итог: AI-патч проходит архитектурные, orchestration и regression gates на точном pinned numerical stack. Причинный статус остаётся fail-closed при research-local representation activation.
 
 Release controls пересобираются из финальных байтов перед seal/read-only audit; PASS этих аудитов является обязательным условием завершения интеграции.
+
+## 2026-09-27 — Controlled Atlas self-study delta
+
+Reproduced defects:
+
+- reflexive cycle non-liveness (>180 s before localization);
+- developmental feature obligations polluted by lexical/API fragments (`advance`, `anomaly`, `art`, `by`, ...);
+- meta/UNKNOWN research questions prematurely grounded into physical domains.
+
+Implemented in-place changes only in existing owners. Post-change observations:
+
+- fresh reflexive cycle completed in ~22.6 s;
+- transaction: `COMMIT_REFLEXIVE_ARCHITECTURE_TRANSITION`;
+- state-derived requirement: `collective_coordination`;
+- selected physical domains for that architecture requirement: none;
+- generic self-architecture/unknown-representation probes: no forced physical domain;
+- Reynolds+Knudsen+microchannel gas probe: aeronautics/aerostation grounding preserved.
+
+Regression gates:
+
+- `PASS_COLLECTIVE_COORDINATION_QUALIFICATION` — 19/19;
+- `PASS_DEVELOPMENTAL_OPEN_ENDEDNESS_QUALIFICATION` — 30/30;
+- `PASS_REFLEXIVE_ARCHITECTURE_QUALIFICATION` — 41/41;
+- autonomous research orchestration — 51/51;
+- `PASS_UNIVERSAL_EXECUTION_QUALIFICATION`.
+
+Claim boundary: this receipt qualifies a controlled internal self-study patch only. It does not claim AGI, unbounded open-endedness, external scientific superiority, arbitrary self-rewriting, or a globally optimal architecture.
+
+
+
+## Persistent multi-world modernization — 2026-09-27
+
+- authoritative frontier preserved: 4106 candidates;
+- compute budget separated from epistemic status;
+- fair active portfolio rotation verified: 12 active, 28 unique candidates across 3 epochs in chemistry projection;
+- trusted digest-bound world receipts change epistemic state; invalid receipt rejected;
+- falsified candidate remains preserved in ledger;
+- long-horizon candidate-world receipts auto-ingested by scientific research cycle;
+- representation-expansion world receipt enters existing Mathematical Invention gap path;
+- Python syntax: 212/212 PASS;
+- autonomous research orchestration: 51/51 PASS (run during this modernization before final documentation-only changes);
+- long-horizon blind cycle: PASS;
+- universal execution qualification: PASS;
+- developmental open-endedness: 30/30 PASS;
+- collective coordination: 19/19 PASS;
+- reflexive architecture: 41/41 PASS.
+
+Claim boundary: these checks establish internal integration/regression behavior only; they do not establish scientific truth, AGI, or superiority over external scientific systems.
+
+
+## Blind persistent research campaign — 2026-09-27
+
+Campaign goal: test whether the existing persistent multi-world architecture can carry the authoritative 4106-candidate frontier through repeated fair scheduling, world binding, residual-driven space expansion and independent discrimination without deleting candidates or inventing evidence.
+
+Frozen campaign parameters:
+
+- authoritative frontier: `data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl`;
+- active portfolio budget: 64 candidates/epoch;
+- broad open-ended query with no forced domain;
+- scheduler policy unchanged during the campaign;
+- mutable portfolio state externalized through `PHI_STATE_DIR`;
+- public world data were consumed only through existing data/owner contracts;
+- no literature or internet used as a pre-freeze candidate selector.
+
+Observed results:
+
+- epochs executed: 96;
+- frontier candidates preserved: 4106/4106;
+- candidates receiving compute budget at least once: 4106/4106 (100% coverage);
+- candidates deleted by scheduling: 0;
+- materialized typed hypotheses already present: 447;
+- structural lowerability audit: 300/447 structurally addressable (14 single-forward-owner complete, 286 composable multi-owner complete but requiring an explicit composition contract);
+- declared scientific dataset contracts: 5; only `DAYA-BAY-OFFICIAL-ANALYSIS` currently materializes a complete `ExperimentDataIR`; four other declared neutrino datasets fail closed on incomplete artifact groups;
+- materialized hypotheses with exact Daya Bay source-family overlap: 78;
+- exact candidate-world data bindings qualified: 6;
+- binding failures caused by candidate axis-context coverage gaps: 72;
+- a new qualified candidate (`SUBSPACE-333C894753B4D59CF2D7`) executed the frozen Daya Bay response projection successfully, but remained `CANDIDATE_DISCRIMINATION_PENDING` because no candidate-specific quantitative prediction had been frozen before reveal;
+- trusted candidate-world discrimination receipts admitted to the persistent frontier during this blind campaign: 0;
+- frontier-triggered axis/representation births from trusted residual world evidence: 0;
+- independently supported new-law candidates: 0.
+
+A pre-existing frozen manual lowering for `SUBSPACE-0F7BCAA86B7AFED82840` was repeated. The domain discrimination receipt digest reproduced exactly and again returned `FAIL_MANUAL_CANDIDATE_PREDICTION_COLLAPSE_DIAGNOSTIC`; no post-hoc retuning was performed. The outer wrapper digest changed because the binding owner version advanced from 1.2.0 to 1.3.0, not because the scientific result changed.
+
+Control-only missing-representation worlds remain capable of residual-driven axis birth: 6/6 blind control runs ended with `MISSING_REPRESENTATION_SOLVED_AFTER_AXIS_BIRTH` and `AXIS_BIRTH_OOD_VALIDATED`. These are qualification controls and are explicitly not counted as independent frontier-world evidence.
+
+Campaign conclusion: persistent search/fair coverage is now demonstrated for the full current frontier, and the axis-birth mechanism is live. The blocking gap for a self-sufficient scientific loop is narrower and explicit: automatic, provenance-preserving lowering from a typed/materialized candidate hypothesis to a quantitative prediction contract that can be frozen before held-out/world reveal. Until that gap is closed, Atlas must not claim that the 4106-candidate frontier has been scientifically exercised across independent worlds.
+
+Claim boundary: this campaign does not establish AGI, autonomous scientific superiority, a new scientific law, independent world attestation, or external benchmark superiority. It establishes full persistent frontier scheduling coverage and identifies the exact fail-closed execution barrier between typed hypotheses and quantitative world discrimination.
+
+## Prediction Lowering / Composition modernization — 2026-09-27
+
+Предыдущий blind campaign локализовал разрыв `typed hypothesis -> quantitative prediction`. Он закрыт настолько, насколько это допускает frozen evidence, без нового solver и без post-hoc formula invention.
+
+Реализовано в существующем `source/lawspace/scientific_exploitation.py`:
+
+- 300/300 structurally addressable U4 candidates получают digest-bound lowering plan;
+- 100 candidates имеют `FROZEN_EXECUTABLE_PI_OPERATOR_WORLD_BINDING_PENDING`;
+- 143 candidates получают `FUNCTION_LANGUAGE_BIRTH` route в существующий `MathematicalInventionKernel`;
+- 57 candidates получают `UNKNOWN_UNKNOWN_REPRESENTATION_OR_OPERATOR_BIRTH` route;
+- все 200 nonnumeric plans имеют explicit existing-invention route; без residual evidence они fail closed;
+- lowering plans projected read-only в `ScientificResearchCycleOwner` active attention portfolio;
+- `CandidateWorldBindingOwner.assess()` допускает reuse уже загруженного frozen runtime; scientific criteria не изменены.
+
+Blind Pi causality qualification:
+
+- 100/100 PASS;
+- 12 unique Pi signatures;
+- max mean relative absolute error < 1.96e-16;
+- heldout-target leakage = 0.
+
+Repeat full-frontier campaign:
+
+- active budget = 64;
+- epochs to complete coverage = 95;
+- frontier coverage = 4106/4106;
+- candidates deleted by scheduling = 0;
+- lowering plans receiving attention = 300/300;
+- numeric Pi plans receiving attention = 100/100;
+- composition/invention plans receiving attention = 200/200.
+
+Real-world admissibility remains fail closed. Of five declared neutrino dataset contracts, only Daya Bay currently materializes complete ExperimentDataIR. Daya Bay quantity vocabulary fully covers 0/100 frozen numeric Pi operators. Six exact Daya-Bay candidate bindings remain available, but all six belong to the `PREDICTION_OPERATOR_BIRTH_REQUIRED` group and therefore require independent residual/operator-probe evidence before Mathematical Invention may advance them.
+
+Observed scientific outcomes of the repeat campaign:
+
+- new trusted candidate-world discrimination receipts: 0;
+- real frontier residual-triggered axis/representation births: 0;
+- independently supported new-law candidates: 0.
+
+This is not a lowering failure. The generic lowering/composition layer now exists; the remaining gate is trusted world coverage for the frozen operators or independent residual/operator-probe evidence for invention-routed candidates. Synthetic lowering controls are explicitly not counted as world evidence.
+
+
+### Final regression after Prediction Lowering / Composition
+
+После завершения lowering/composition modernization повторно проверены старые owners и общие контуры. Результаты: autonomous research orchestration — **51/51 PASS**; long-horizon universal portfolio — **22/22 PASS**; universal experiment execution — **PASS_UNIVERSAL_EXECUTION_QUALIFICATION**; collective coordination — **19/19 PASS**; developmental open-endedness — **30/30 PASS**; reflexive architecture — **41/41 PASS**. Python source syntax — **212/212 PASS**.
+
+Lowering-specific causality audit: **300/300** plan digests valid; **100/100** dimensional-Pi controls PASS; maximum mean relative absolute error `< 1.96e-16`; held-out target leakage **0/100**; **200/200** evidence-gated invention plans fail closed without the required residual/operator-probe evidence. Repeat campaign external state reached epoch **95**, with **4106/4106** frontier candidates and **300/300** lowering plans selected at least once.
+
+Scientific boundary remains unchanged: these controls establish execution correctness, not new scientific truth. Trusted new candidate-world discrimination receipts = **0**, real frontier residual-triggered axis/representation births = **0**, independently supported new-law candidates = **0**.
+
+## Open-ended autonomous mathematical candidate birth — acceptance (pre-semantic-residual refinement)
+
+### Исправленный P0
+
+До modernization `MATHEMATICAL_INVENTION` присутствовал в candidate-birth
+registry, но pure VOID path делал его `eligible=false`.  Это воспроизводило
+`CANDIDATE_BIRTH_CAPABILITY_GAP` на blind Navier–Stokes задаче даже после
+классификации всего registered axis space.
+
+Текущий resolver предпочитает доказательно grounded specialized owner, но при
+его отсутствии разрешает domain-neutral `MATHEMATICAL_INVENTION` bootstrap.
+
+### Проверка generic controls
+
+После модернизации:
+
+- Mathematical Invention qualification: **50/50 PASS**;
+- Knowledge Evolution qualification: **38/38 PASS**;
+- Autonomous Research / candidate-birth / gamma qualification: **56/56 PASS**;
+- universal common proof/research mechanism memory: **17 mechanisms**;
+- MCP bridge campaign smoke: gateway **1.4.0**, explicit VOID `[]` preserved,
+  read-only continuation advanced `epoch 0 -> 3 -> 6` without creating a fifth
+  external tool.
+
+### Проверка отсутствия canonical-space ceiling
+
+Frozen blind question: 3D incompressible Navier–Stokes existence/breakdown
+alternative, without literature and without the OpenAI proposed solution.
+
+Execution:
+
+- synchronous campaign slices: **10**;
+- search epochs per slice: **3**;
+- total complexity epochs: **30**;
+- generated proof-program candidates: **240 unique**;
+- research-local axis births: **721 unique**;
+- canonical registered axes: **655**;
+- observed operation alphabet: **76**;
+- every slice research-cycle status: **RESEARCH_CYCLE_CONTRACT_PASS**;
+- final continuation: `next_epoch=30`, no fixed epoch/axis/depth ceiling;
+- terminal result: **false**;
+- terminal reason: `COMPUTE_SLICE_BUDGET_EXHAUSTED_CONTINUATION_PRESERVED`;
+- EIG: `BLOCKED_PREDICTIVE_LIKELIHOODS_REQUIRED` rather than fabricated
+  likelihoods.
+
+The inequality
+
+\[
+721 > 655
+\]
+
+is the direct acceptance control for the specific implementation question
+“does the current search remain inside the registered canonical axis set?”.  It
+does not.
+
+### Remaining P0/P1 after this acceptance
+
+The previous *first-candidate / fixed-space* barrier is closed.  The next major
+barrier is executable obligation closure.  The generated proof-programs still
+contain unresolved assumption/invariant/counterexample/goal obligations.  Atlas
+must progressively lower those obligations into existing generic executors and
+feed their receipts/residuals back into axis/operation/representation birth.
+
+Therefore the blind Navier–Stokes scientific result remains **UNRESOLVED**.  No
+independent Atlas theorem is claimed by this acceptance report.
+
+### Final full-system regression (historical pre-refinement)
+
+The complete `tests/` suite was collected as 221 tests and executed with Python
+bytecode and pytest cache disabled. Final result:
+
+```text
+221 passed in 195.27s
+```
+
+The earlier regression caused by adding a fifth public `LawSpaceAPI` method was
+not accepted. The implementation was corrected so open-ended campaign execution
+is dispatched internally through the already-frozen `run_autonomous_research`
+API. The public API regression then passed, and the complete suite subsequently
+passed 221/221.
+
+
+## Semantic proof-gap birth refinement — current qualification
+
+The open-ended mathematical bootstrap was strengthened without adding a new
+solver or Navier-specific owner.  Initial research-local axes now include
+proof-relevant structural roles extracted from the frozen statement with explicit
+`FROZEN_PROBLEM_STRUCTURE` provenance.  On continuation, unresolved proof
+obligations are preserved as residuals and may birth `PROOF_GAP::*` axes and
+generated operations with source-obligation provenance.
+
+Current blind Navier–Stokes pre-reveal campaign:
+
+- 10 synchronous slices;
+- 30 mathematical complexity epochs;
+- 240 unique generated proof-program candidates;
+- **750 unique research-local axes**;
+- 655 canonical registered axes;
+- 133 operations observed across the expanding operation alphabet;
+- 40 unresolved proof-obligation residuals retained in the final continuation;
+- `next_epoch = 30`;
+- terminal = `false`;
+- final status = `AUTONOMOUS_RESEARCH_CAMPAIGN_CONTINUATION_FROZEN`.
+
+The inequality `750 > 655` remains only an implementation control proving that
+the canonical registry is not the search ceiling.  It is not evidence that the
+Navier–Stokes theorem is proved.
+
+Post-refinement focused qualifications:
+
+- Mathematical Invention: **53/53 PASS**;
+- Knowledge Evolution: **38/38 PASS**;
+- Autonomous Research / orchestration: **56/56 PASS**;
+- Adaptive Axis Research: **25/25 PASS**;
+- Long-Horizon Blind Cycle: **30/30 PASS**;
+- Collective Coordination: **19/19 PASS**;
+- Developmental Open-Endedness: **30/30 PASS**;
+- Reflexive Architecture: **41/41 PASS**;
+- Research Proof: **10/10 PASS**;
+- ScienceAtlas Core: **10/10 PASS**;
+- Universal Experiment Execution: **PASS**;
+- Python source syntax: **212/212 PASS**.
+
+A complete repository `pytest` rerun was started after this refinement but did
+not finish within the 260-second sandbox limit; 44 progress tests had completed
+without a reported failure when the process was terminated by the runtime limit.
+Therefore the historical **221/221** receipt above remains historical and is not
+reused as a post-refinement full-suite PASS.
+
+Scientific boundary: autonomous mathematical search is now open-ended and
+gap-driven, but no implementation can guarantee that every global question is
+decidable or that continued search will eventually find a proof.  Atlas must
+continue until it obtains a verified proof/counterexample/rigorous terminal
+certificate or computation is explicitly stopped; compute exhaustion alone is
+never a scientific conclusion.
+
+
+## Proof-obligation discharge and theorem-closure loop (current)
+
+The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
+
+The authoritative loop is now
+
+`UNKNOWN → candidate/representation birth → proof obligations → executable task compilation → discharge/refutation → unresolved residuals → new axes/representations → next shell`.
+
+`PROOF-OBLIGATION-DISCHARGE/1.1.0-COMPONENT` is a component of the existing Mathematical Invention Kernel, not a parallel solver. It supports structural consistency checks, exact symbolic identities, finite exhaustive checks, finite counterexample-region searches, formal proof artifacts and digest-bound witnessed evidence. A missing executable specification remains `UNRESOLVED`; it is never counted as a proof. A counterexample rejects only the scoped branch unless a global implication has itself been established.
+
+Tasks are ordered by expected theorem-closure gain per execution cost. This ordering is scheduling only: it is not a probability of truth and cannot change epistemic status. Unresolved obligations are written back into the existing continuation receipt and causally drive the next research-local axis/operation birth.
+
+Qualification after integration: Mathematical Invention 60/60 PASS; Autonomous Research 56/56 PASS; Knowledge Evolution 38/38 PASS; Adaptive Axis Research 25/25 PASS; Long-Horizon 30/30 PASS; Reflexive 41/41 PASS; Developmental Open-Endedness 30/30 PASS; Research Proof 10/10 PASS; ScienceAtlas Core 10/10 PASS; Python source compile 212/212 PASS. The full repository pytest run produced 52 progress points but exceeded the 260 s runtime budget, so no full-suite PASS is claimed.
+
+A fresh blind Navier–Stokes control with no external solution revealed ran two new slices. Each slice executed 12 proof-obligation tasks and discharged 12 structurally executable obligations, while substantive PDE obligations remained unresolved. The campaign therefore continued rather than claiming the Millennium problem solved. This is the intended fail-closed boundary: the discharge machinery works, but actual theorem closure still requires born proof programs to compile substantive mathematical lemmas into executable symbolic/formal/attested checks.
+
+
+## Semantic obligation compilation acceptance
+
+Current acceptance adds `SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT` under `PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0`. Mathematical Invention qualification is `70/70 PASS`; Knowledge Evolution `38/38 PASS`; Autonomous Research `56/56 PASS`; Adaptive Axis `25/25 PASS`; Research Proof `10/10 PASS`; ScienceAtlas Core `10/10 PASS`; Long-Horizon `30/30 PASS`; Collective Coordination `19/19 PASS`; Developmental Open-Endedness `30/30 PASS`; Reflexive Architecture `41/41 PASS`; Universal Execution PASS. Blind Navier–Stokes semantic compilation remains non-terminal and does not claim theorem resolution.
+
+
+### Final semantic-obligation compiler qualification
+
+After the semantic compiler, typed-binding gap birth and formal-artifact wiring were frozen, the current tree was requalified end-to-end. Current results: Mathematical Invention **70/70 PASS**; Knowledge Evolution **38/38 PASS**; Autonomous Research **56/56 PASS**; Adaptive Axis Research **25/25 PASS**; Research Proof **10/10 PASS**; ScienceAtlas Core **10/10 PASS**; Long-Horizon Blind Cycle **30/30 PASS**; Collective Coordination **19/19 PASS**; Developmental Open-Endedness **30/30 PASS**; Reflexive Architecture **41/41 PASS**; Universal Experiment **PASS**; Python source compilation **212/212 PASS**. The complete repository suite also finished: **221/221 pytest PASS in 195.91 s**.
+
+The blind Navier–Stokes semantic run remains deliberately non-terminal: 32 generated proof-program candidates, 116 research-local axes, 64 typed unresolved substantive obligations and 23 later-shell axes born directly from semantic binding gaps. This qualification proves the compilation/search mechanism, not the Millennium theorem.

@@ -24,15 +24,15 @@ BLIND_CASES: tuple[dict[str, Any], ...] = (
 )
 
 BIRTH_CASES: tuple[dict[str, Any], ...] = (
-    {"case_id":"B-MATH","question":"Find a new mathematical algebraic primitive without a named representation","expected_domains":("mathematics",),"expected_status":"CANDIDATE_BIRTH_CAPABILITY_GAP","expected_route":None},
+    {"case_id":"B-MATH","question":"Find a new mathematical algebraic primitive without a named representation","expected_domains":("mathematics",),"expected_status":"FRESH_CANDIDATE_SET_FROZEN","expected_route":"MATHEMATICAL_INVENTION"},
     {"case_id":"B-PARTICLE","question":"Найди новую скалярную частицу в калибровочном пространстве без готовой модели","expected_domains":("physics",),"expected_status":"FRESH_CANDIDATE_SET_FROZEN","expected_route":"PARTICLESPACE_BLIND_DISCOVERY"},
     {"case_id":"B-NEUTRINO","question":"Найди новый операторный кандидат для осцилляций нейтрино без готовой модели","expected_domains":("physics",),"expected_status":"FRESH_CANDIDATE_SET_FROZEN","expected_route":"NEUTRINO_BLIND_DISCOVERY"},
     {"case_id":"B-CHEMISTRY","question":"Найди новую связанную структуру транспорта, реакции и поля в химической системе","expected_domains":("chemistry",),"expected_status":"FRESH_CANDIDATE_SET_FROZEN","expected_route":"DEEP_OWNER_HYPERGRAPH_BIRTH","execution":{"deep_target_axis_order":16}},
-    {"case_id":"B-MATERIALS","question":"Исследуй новый механизм структуры материала и фазового перехода без готовой модели","expected_domains":("materials_science",),"expected_status":"CANDIDATE_BIRTH_CAPABILITY_GAP","expected_route":None},
-    {"case_id":"B-BIOLOGY","question":"Исследуй новый механизм регуляторной сети и гомеостаза клетки без готовой модели","expected_domains":("biology",),"expected_status":"CANDIDATE_BIRTH_CAPABILITY_GAP","expected_route":None},
-    {"case_id":"B-EARTH","question":"Исследуй новую закономерность климатической динамики земной системы без готовой модели","expected_domains":("earth_systems",),"expected_status":"CANDIDATE_BIRTH_CAPABILITY_GAP","expected_route":None},
-    {"case_id":"B-CONTROL","question":"Найди новый кандидат для причинной наблюдаемости и устойчивости распределенной системы управления","expected_domains":("systems_control",),"expected_status":"CANDIDATE_BIRTH_CAPABILITY_GAP","expected_route":None},
-    {"case_id":"B-QUANTUM","question":"Найди новую структуру декогеренции и устойчивости квантового вычисления","expected_domains":("quantum_information_and_computational_methods",),"expected_status":"CANDIDATE_BIRTH_CAPABILITY_GAP","expected_route":None},
+    {"case_id":"B-MATERIALS","question":"Исследуй новый механизм структуры материала и фазового перехода без готовой модели","expected_domains":("materials_science",),"expected_status":"FRESH_CANDIDATE_SET_FROZEN","expected_route":"MATHEMATICAL_INVENTION"},
+    {"case_id":"B-BIOLOGY","question":"Исследуй новый механизм регуляторной сети и гомеостаза клетки без готовой модели","expected_domains":("biology",),"expected_status":"FRESH_CANDIDATE_SET_FROZEN","expected_route":"MATHEMATICAL_INVENTION"},
+    {"case_id":"B-EARTH","question":"Исследуй новую закономерность климатической динамики земной системы без готовой модели","expected_domains":("earth_systems",),"expected_status":"FRESH_CANDIDATE_SET_FROZEN","expected_route":"MATHEMATICAL_INVENTION"},
+    {"case_id":"B-CONTROL","question":"Найди новый кандидат для причинной наблюдаемости и устойчивости распределенной системы управления","expected_domains":("systems_control",),"expected_status":"FRESH_CANDIDATE_SET_FROZEN","expected_route":"MATHEMATICAL_INVENTION"},
+    {"case_id":"B-QUANTUM","question":"Найди новую структуру декогеренции и устойчивости квантового вычисления","expected_domains":("quantum_information_and_computational_methods",),"expected_status":"FRESH_CANDIDATE_SET_FROZEN","expected_route":"MATHEMATICAL_INVENTION"},
 )
 
 
@@ -73,14 +73,29 @@ def run_release_qualification(root: str | Path | None = None) -> dict[str, Any]:
         result=api.run_autonomous_research({"question":spec["question"],"commit_resident_state":False})
         domains=tuple(result.get("semantic_typed_ir",{}).get("required_domains",()))
         status=str(result.get("status","")); fail_closed=status.startswith("AUTONOMOUS_RESEARCH_GAP_") or status=="AUTONOMOUS_RESEARCH_BLOCKED_FAIL_CLOSED"
+        open_math=status=="AUTONOMOUS_RESEARCH_OPEN_ENDED_MATHEMATICAL_FRONTIER_ACTIVE" and result.get("research_cycle",{}).get("candidate_birth",{}).get("status")=="FRESH_CANDIDATE_SET_FROZEN" and int(result.get("open_ended_mathematical_search",{}).get("candidate_count",0) or 0)>=5
         no_invention=result.get("claim_boundary",{}).get("missing_likelihoods_invented") is False and result.get("claim_boundary",{}).get("missing_evidence_invented") is False and result.get("claim_boundary",{}).get("sealed_release_mutated_by_resident_state") is False
         active_domains=sorted({str(row.get("axis_id","")).split(".",1)[0] for row in result.get("open_world",{}).get("freeze",{}).get("action_frontier",()) if row.get("axis_id")})
         expected=tuple(spec["expected_domains"])
-        checks[f"{case_id}_autonomous_fail_closed"] = domains==expected and fail_closed and no_invention and set(active_domains).issubset(set(expected))
-        autonomous_rows.append({"case_id":case_id,"required_domains":list(domains),"active_action_domain_set":active_domains,"status":status,"candidate_birth_status":result.get("research_cycle",{}).get("candidate_birth",{}).get("status"),"representation_status":result.get("representation_invention",{}).get("status"),"primitive_status":result.get("primitive_synthesis",{}).get("status"),"next_required_external_input":result.get("next_required_external_input"),"fail_closed":fail_closed,"missing_evidence_or_likelihood_invented":not no_invention})
+        checks[f"{case_id}_autonomous_fail_closed"] = domains==expected and (fail_closed or open_math) and no_invention and set(active_domains).issubset(set(expected))
+        autonomous_rows.append({"case_id":case_id,"required_domains":list(domains),"active_action_domain_set":active_domains,"status":status,"candidate_birth_status":result.get("research_cycle",{}).get("candidate_birth",{}).get("status"),"representation_status":result.get("representation_invention",{}).get("status"),"primitive_status":result.get("primitive_synthesis",{}).get("status"),"next_required_external_input":result.get("next_required_external_input"),"fail_closed":fail_closed,"open_ended_mathematical_frontier_active":open_math,"missing_evidence_or_likelihood_invented":not no_invention})
 
     checks["semantic_owner_v2"] = SEMANTIC_QUESTION_OWNER == "SEMANTIC-TYPED-QUESTION/2.0.0"
-    checks["research_owner_15_2"] = RESEARCH_CYCLE_OWNER == "SCIENTIFIC-RESEARCH-CYCLE/15.2.8"
+    checks["research_owner_15_3"] = RESEARCH_CYCLE_OWNER == "SCIENTIFIC-RESEARCH-CYCLE/15.3.0"
+
+    campaign = api.run_autonomous_research({
+        "question":"Prove or refute an unknown frozen global mathematical statement without selecting a named method.",
+        "required_domains":[],"target_axis_ids":[],"required_observables":[],
+        "commit_resident_state":False,"campaign_slice_budget":2,
+        "candidate_birth_execution":{"mathematical_search_epochs":2,"mathematical_axis_budget_per_epoch":8,"mathematical_candidate_budget_per_epoch":5},
+        "active_portfolio_budget":10,
+    })
+    campaign_rows=list(campaign.get("slice_receipts",()))
+    checks["CAMPAIGN_read_only_digest_continuation_advances"] = len(campaign_rows)==2 and campaign_rows[0].get("search_epoch_start")==0 and campaign_rows[1].get("search_epoch_start")==2 and campaign_rows[1].get("next_epoch")==4
+    checks["CAMPAIGN_new_candidates_and_axes_continue"] = all(int(row.get("new_candidate_count",0))>0 and int(row.get("new_axis_count",0))>0 for row in campaign_rows)
+    checks["CAMPAIGN_budget_is_not_epistemic_stop"] = campaign.get("terminal") is False and campaign.get("terminal_reason")=="COMPUTE_SLICE_BUDGET_EXHAUSTED_CONTINUATION_PRESERVED" and campaign.get("claim_boundary",{}).get("compute_slice_budget_is_epistemic_termination") is False
+    checks["CAMPAIGN_registered_space_not_ceiling"] = campaign.get("claim_boundary",{}).get("registered_axis_space_is_ceiling") is False and campaign.get("claim_boundary",{}).get("registered_representation_space_is_ceiling") is False
+    checks["CAMPAIGN_does_not_claim_eventual_solution"] = campaign.get("claim_boundary",{}).get("campaign_guarantees_eventual_solution") is False
     semantic_check_names=list(checks)
 
     baseline_ids={str(row.get("candidate_id")) for row in runtime.candidates}

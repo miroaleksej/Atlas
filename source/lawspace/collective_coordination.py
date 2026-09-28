@@ -278,12 +278,25 @@ def _oracle(world: Mapping[str, Any]) -> tuple[float, tuple[str, ...]]:
     return best_value, best_ids
 
 
-def evaluate_architecture(arch: CoordinationArchitecture, worlds: Sequence[Mapping[str, Any]]) -> Mapping[str, Any]:
+def evaluate_architecture(
+    arch: CoordinationArchitecture,
+    worlds: Sequence[Mapping[str, Any]],
+    *,
+    oracle_values: Sequence[float] | None = None,
+) -> Mapping[str, Any]:
+    """Evaluate one coordination architecture against fixed worlds.
+
+    Oracle utility is a property of a world, not of the candidate architecture.
+    Callers evaluating a population may therefore precompute it once and pass
+    ``oracle_values`` without changing any selection or acceptance criterion.
+    """
+    if oracle_values is not None and len(oracle_values) != len(worlds):
+        raise ValueError("oracle_values length must match worlds")
     ratios: list[float] = []
     invalid_count = 0
     by_regime: dict[str, list[float]] = {}
-    for world in worlds:
-        oracle_value, _ = _oracle(world)
+    for i, world in enumerate(worlds):
+        oracle_value = float(oracle_values[i]) if oracle_values is not None else _oracle(world)[0]
         plan, invalid = _choose_plan(world, arch)
         invalid_count += int(invalid)
         value = 0.0 if invalid else _actual_utility(plan, world)
@@ -315,7 +328,12 @@ class CollectiveCoordinationArchitectureSearchOwner:
         search_worlds = [_world(i, holdout=False) for i in range(search_world_count)]
         holdout_worlds = [_world(i, holdout=True) for i in range(holdout_world_count)]
         candidates = enumerate_architectures()
-        search_rows = [evaluate_architecture(a, search_worlds) for a in candidates]
+        # The oracle is candidate-independent.  Compute it once per frozen world
+        # instead of once per architecture; this preserves byte-for-byte scoring
+        # semantics while removing the dominant reflexive-loop recomputation.
+        search_oracles = [_oracle(world)[0] for world in search_worlds]
+        holdout_oracles = [_oracle(world)[0] for world in holdout_worlds]
+        search_rows = [evaluate_architecture(a, search_worlds, oracle_values=search_oracles) for a in candidates]
         # Invalid plans are fail-closed before utility ranking.  Remaining score
         # orders mean, lower quartile and minimum robustness, then simpler ID.
         ranked = sorted(
@@ -332,13 +350,13 @@ class CollectiveCoordinationArchitectureSearchOwner:
         selected_search = ranked[0]
         arch_map = {a.candidate_id: a for a in candidates}
         selected_arch = arch_map[str(selected_search["candidate_id"])]
-        holdout = evaluate_architecture(selected_arch, holdout_worlds)
+        holdout = evaluate_architecture(selected_arch, holdout_worlds, oracle_values=holdout_oracles)
 
         # Best holdout baseline among architectures that omit at least one active
         # mechanism from the selected candidate.  It is diagnostic only and never
         # participates in selection.
         selected = selected_arch.as_dict()
-        holdout_rows = [evaluate_architecture(a, holdout_worlds) for a in candidates]
+        holdout_rows = [evaluate_architecture(a, holdout_worlds, oracle_values=holdout_oracles) for a in candidates]
         competitors = [r for r in holdout_rows if r["candidate_id"] != selected_arch.candidate_id and r["invalid_plan_count"] == 0]
         competitors.sort(key=lambda r: (float(r["mean_oracle_ratio"]), float(r["q25_oracle_ratio"]), float(r["minimum_oracle_ratio"])), reverse=True)
         best_competitor = competitors[0] if competitors else None

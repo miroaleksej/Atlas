@@ -39,9 +39,13 @@ SHADOW_DEVELOPMENTAL_METRICS = (
 )
 
 _FEATURE_STOPWORDS = {
-    "phi", "qualified", "current", "owner", "and", "with", "from", "into",
+    "phi", "atlas", "qualified", "current", "owner", "and", "with", "from", "into",
     "the", "for", "via", "only", "plus", "no", "of", "to", "v1", "v2",
     "v3", "v4", "v5", "v6", "v7", "v8", "v9", "pass", "ready",
+    # API morphology is not an architecture obligation.  These are generic
+    # route/document nouns, not domain answers.
+    "contract", "qualification", "assessment", "status", "result", "count",
+    "state", "postfreeze", "post", "route",
 }
 
 
@@ -75,11 +79,18 @@ class DevelopmentalCapabilitySearchOwner:
                 continue
             if not str(status).startswith(("QUALIFIED", "EXECUTABLE")):
                 continue
-            feature_tokens = sorted(_tokens(name) - _FEATURE_STOPWORDS)
+            ordered = re.findall(r"[a-z0-9]+", name.lower().replace("_", " "))
+            action_token = ordered[0] if ordered else ""
+            # The leading API verb describes how a capability is accessed, not
+            # what architectural feature the capability provides.
+            feature_tokens = sorted({
+                token for token in ordered[1:]
+                if token not in _FEATURE_STOPWORDS and len(token) >= 3 and not token.isdigit()
+            })
             if not feature_tokens:
                 continue
             rows.append({
-                "mechanism_id": name, "status": status,
+                "mechanism_id": name, "status": status, "action_token": action_token,
                 "feature_tokens": feature_tokens, "evidence_grade": 2,
             })
         return rows
@@ -89,19 +100,51 @@ class DevelopmentalCapabilitySearchOwner:
         # Candidate birth is blind to the six later developmental shadow metrics.
         # Obligations are content-derived from repeated capability-ID features.
         counts: dict[str, int] = {}
+        action_families: dict[str, set[str]] = {}
+        neighbourhoods: dict[str, dict[str, int]] = {}
+        # Domain identifiers are discovered from the live registry.  They may be
+        # valid scientific coordinates, but repeated domain names must not turn
+        # into developmental architecture obligations merely through API volume.
+        from .domains import DOMAIN_REGISTRIES
+        domain_tokens = set()
+        for domain_id in DOMAIN_REGISTRIES:
+            domain_tokens.update(_tokens(str(domain_id)))
         for row in rows:
-            for token in set(str(x) for x in row.get("feature_tokens", ())):
+            action = str(row.get("action_token", ""))
+            features = set(str(x) for x in row.get("feature_tokens", ()))
+            for token in features:
                 counts[token] = counts.get(token, 0) + 1
+                action_families.setdefault(token, set()).add(action)
+                local = neighbourhoods.setdefault(token, {})
+                for neighbour in features - {token}:
+                    local[neighbour] = local.get(neighbour, 0) + 1
         upper = max(3, len(rows) // 3)
-        eligible = [
-            (count, token) for token, count in counts.items()
-            if 2 <= count <= upper and token not in _FEATURE_STOPWORDS
-        ]
-        eligible.sort(key=lambda item: (item[0], item[1]))
+        eligible = []
+        for token, count in counts.items():
+            dominant_neighbour_fraction = (
+                max(neighbourhoods.get(token, {}).values(), default=0) / count
+            )
+            if not (
+                2 <= count <= upper
+                and len(action_families.get(token, ())) >= 2
+                and token not in _FEATURE_STOPWORDS
+                and token not in domain_tokens
+                and dominant_neighbour_fraction <= 0.65
+            ):
+                continue
+            eligible.append((
+                len(action_families.get(token, ())), count,
+                dominant_neighbour_fraction, token,
+            ))
+        # Prefer features independently expressed through several executable
+        # action families, then broad repeated support.  This removes accidental
+        # rare lexical fragments ("art", "by", ...), without naming the desired
+        # developmental answer in advance.
+        eligible.sort(key=lambda item: (-item[0], -item[1], item[2], item[3]))
         if not eligible:
             return []
         target_count = max(3, min(7, int(round(len(rows) ** 0.5))))
-        return [token for _, token in eligible[:target_count]]
+        return [token for _, _, _, token in eligible[:target_count]]
 
     @staticmethod
     def _exact_minimum_redundant_cover(

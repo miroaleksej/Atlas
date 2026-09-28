@@ -1,11 +1,12 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 415
+Controlled files: 417
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
 - `.gitignore`
 - `ACCEPTANCE_REPORT.md`
+- `ATLAS_MCP_GATEWAY_RU.md`
 - `CLAIM_BOUNDARY.md`
 - `LICENSE.md`
 - `MATHEMATICAL_BOOK.md`
@@ -276,6 +277,7 @@ Controlled files: 415
 - `hardware/PHYSICAL_STAND.json`
 - `hardware/PHYSICAL_STAND.md`
 - `hardware/phi_rlc_hidden_rc.cir`
+- `interfaces/atlas_mcp_gateway.py`
 - `interfaces/instrument_adapters.py`
 - `interfaces/joint_qualification.py`
 - `interfaces/phi_compiler_cli.py`

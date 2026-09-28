@@ -204,6 +204,24 @@ PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0
 
 Known representation name не является обязательным входом.
 
+### 9.1 Formal Mathematical Verification
+
+`FORMAL-MATHEMATICAL-VERIFICATION/1.0.0` SHALL remain a component of the existing Mathematical Invention authority and SHALL NOT become a domain-specific solver. For every frozen proof artifact it SHALL:
+
+1. construct a dependency DAG over declared assumptions, lemmas and conclusion; missing dependencies, duplicate ids and cycles SHALL block verification;
+2. preserve assumptions as assumptions rather than silently relabeling them as internally proved facts;
+3. require an executed verifier for every lemma in the conclusion dependency closure, otherwise emit an explicit proof obligation;
+4. accept a counterexample witness only when it satisfies the declared assumptions and violates the scoped claim;
+5. never convert failure to find a witness in a finite non-exhaustive search into proof of an unbounded claim;
+6. bind any external formal-kernel execution to the exact frozen handoff and exact source digest;
+7. fail closed when the requested formal kernel is unavailable;
+8. preserve reusable proof mechanisms in the common knowledge memory without transferring theorem truth across domains;
+9. treat a third-party proof-kernel replay as external evidence only, never as local kernel execution;
+10. accept external formal evidence only when immutable source identity, pinned toolchain, theorem outcomes, actual/permitted axiom surfaces and digest-bound replay evidence are explicit;
+11. keep formal-kernel acceptance distinct from independent statement-alignment evidence.
+
+The canonical common memory owner is `UNIVERSAL-PROOF-MECHANISM-MEMORY/1.0.0`. Its records SHALL have `domain_specific=false` and `theorem_truth_carried=false`.
+
 ## 10. Executable representation synthesis
 
 При representation gap Atlas может перейти от symbolic obligations к исполнимому candidate только через typed operator-response evidence.
@@ -1420,3 +1438,97 @@ Benchmark task definitions, discovery/sealed split semantics, baseline classes a
 - successful theory→experiment→evidence→revision on a hidden synthetic outcome.
 
 Passing this benchmark establishes only that the implemented Atlas mechanism works on the frozen synthetic controls. It does not establish external scientific novelty, superiority over named external systems, or scientific priority.
+
+## Open-ended autonomous mathematical candidate-birth contract
+
+The following rules are normative for any problem that reaches UNKNOWN without
+a sufficiently grounded specialized candidate-birth owner.
+
+1. `MATHEMATICAL_INVENTION` MUST be eligible as the domain-neutral first-candidate
+   bootstrap.  Lack of domain overlap MUST NOT by itself produce
+   `CANDIDATE_BIRTH_CAPABILITY_GAP`.
+2. A specialized owner MAY be preferred when the frozen semantic/evidence
+   contract genuinely grounds it.  The generic mathematical bootstrap MUST NOT
+   be replaced by a hand-authored per-theorem route.
+3. Registered canonical axes and registered representation catalogs MUST be
+   treated as context, not as the upper bound of the scientific search space.
+4. Research-local axes MAY be born in adaptive cardinality, including
+   higher-order interactions.  Such birth MUST NOT silently mutate the canonical
+   registry.
+5. Unresolved obligations MUST remain first-class residuals in the continuation.
+   They MAY create new `PROOF_GAP::*` research-local axes, generated operations
+   and representation signatures on later epochs.  Their provenance MUST bind
+   the source obligation; opaque random branch creation is not a substitute for
+   gap-driven birth.  The system MUST NOT restrict future proof programs to a
+   fixed list of named mathematical methods.
+6. A finite execution slice MAY impose resource budgets.  Those budgets MUST NOT
+   become scientific ceilings and MUST NOT change UNKNOWN into TRUE/FALSE.
+7. The authoritative continuation MUST preserve the complete research-local axis
+   and generated-operation frontier.  A display limit or active scheduling budget
+   MUST NOT silently discard older coordinates from future search.
+8. Every continuation MUST bind the frozen problem digest and validate its own
+   content digest before reuse.
+9. Successive synchronous or persistent campaign slices MUST consume the exact
+   continuation of the preceding slice.  Restarting epoch zero while reporting a
+   continuing campaign is forbidden.
+10. Generated proof programs MUST remain unresolved until their obligations have
+    executed verification evidence.  Candidate generation is never theorem
+    promotion.
+11. A campaign slice-budget exhaustion MUST return a continuation status such as
+    `AUTONOMOUS_RESEARCH_CAMPAIGN_CONTINUATION_FROZEN`; it MUST NOT report a
+    completed scientific solution.
+12. Open-ended search MUST NOT be documented as a guarantee that every arbitrary
+    problem will eventually be solved.
+13. Formal proof, verified counterexample/obstruction, or another explicitly
+    rigorous terminal certificate MUST remain separate from compute scheduling.
+14. External ChatGPT/OpenAI solutions MUST NOT enter the blind Atlas discovery
+    state.  The internal candidate/frontier freeze precedes external reveal.
+15. General mechanisms learned after verification MAY enter common mechanism
+    memory; theorem truth, domain assumptions and external answers MUST NOT be
+    transferred as universal truth.
+
+The authoritative mathematical research state can be written
+
+\[
+S_e=(Q,A_e,O_e,R_e,H_e,G_e,L_e)
+\]
+
+and a valid continuation must satisfy
+
+\[
+A_{e+1}\supseteq A_e,\qquad O_{e+1}\supseteq O_e
+\]
+
+for the retained authoritative frontier, except where a separately verified
+falsification/lifecycle transition marks an object inactive without deleting its
+provenance.  Compute scheduling may choose a strict subset for the current
+execution lane, but that scheduling subset is not the epistemic state.
+
+
+## Proof-obligation discharge and theorem-closure loop (current)
+
+The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
+
+The authoritative loop is now
+
+`UNKNOWN → candidate/representation birth → proof obligations → executable task compilation → discharge/refutation → unresolved residuals → new axes/representations → next shell`.
+
+`PROOF-OBLIGATION-DISCHARGE/1.1.0-COMPONENT` is a component of the existing Mathematical Invention Kernel, not a parallel solver. It supports structural consistency checks, exact symbolic identities, finite exhaustive checks, finite counterexample-region searches, formal proof artifacts and digest-bound witnessed evidence. A missing executable specification remains `UNRESOLVED`; it is never counted as a proof. A counterexample rejects only the scoped branch unless a global implication has itself been established.
+
+Tasks are ordered by expected theorem-closure gain per execution cost. This ordering is scheduling only: it is not a probability of truth and cannot change epistemic status. Unresolved obligations are written back into the existing continuation receipt and causally drive the next research-local axis/operation birth.
+
+Qualification after integration: Mathematical Invention 60/60 PASS; Autonomous Research 56/56 PASS; Knowledge Evolution 38/38 PASS; Adaptive Axis Research 25/25 PASS; Long-Horizon 30/30 PASS; Reflexive 41/41 PASS; Developmental Open-Endedness 30/30 PASS; Research Proof 10/10 PASS; ScienceAtlas Core 10/10 PASS; Python source compile 212/212 PASS. The full repository pytest run produced 52 progress points but exceeded the 260 s runtime budget, so no full-suite PASS is claimed.
+
+A fresh blind Navier–Stokes control with no external solution revealed ran two new slices. Each slice executed 12 proof-obligation tasks and discharged 12 structurally executable obligations, while substantive PDE obligations remained unresolved. The campaign therefore continued rather than claiming the Millennium problem solved. This is the intended fail-closed boundary: the discharge machinery works, but actual theorem closure still requires born proof programs to compile substantive mathematical lemmas into executable symbolic/formal/attested checks.
+
+
+## Current semantic obligation contract
+
+`PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0` SHALL route every born substantive proof obligation through `SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT` before discharge. The compiler SHALL preserve the frozen source claim, emit a typed schema, emit an executable verifier only when semantics are sufficient, otherwise enumerate missing bindings, and freeze a dependency artifact. Typed-but-unbound obligations SHALL remain unresolved. Missing bindings MAY create research-local axes/operations but SHALL NOT become canonical axes without the ordinary lifecycle gates. A frozen dependency graph or formal handoff SHALL NOT be treated as theorem proof.
+
+
+### Final semantic-obligation compiler qualification
+
+After the semantic compiler, typed-binding gap birth and formal-artifact wiring were frozen, the current tree was requalified end-to-end. Current results: Mathematical Invention **70/70 PASS**; Knowledge Evolution **38/38 PASS**; Autonomous Research **56/56 PASS**; Adaptive Axis Research **25/25 PASS**; Research Proof **10/10 PASS**; ScienceAtlas Core **10/10 PASS**; Long-Horizon Blind Cycle **30/30 PASS**; Collective Coordination **19/19 PASS**; Developmental Open-Endedness **30/30 PASS**; Reflexive Architecture **41/41 PASS**; Universal Experiment **PASS**; Python source compilation **212/212 PASS**. The complete repository suite also finished: **221/221 pytest PASS in 195.91 s**.
+
+The blind Navier–Stokes semantic run remains deliberately non-terminal: 32 generated proof-program candidates, 116 research-local axes, 64 typed unresolved substantive obligations and 23 later-shell axes born directly from semantic binding gaps. This qualification proves the compilation/search mechanism, not the Millennium theorem.

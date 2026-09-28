@@ -1,7 +1,6 @@
 # Atlas — Autonomous Scientific Research System
 
 **Created and developed by Alexey Mironov**
-
 Independent research project · 2026
 
 Atlas is an independently created research system for autonomous scientific, mathematical, and engineering research.
@@ -20,16 +19,11 @@ External AI models, including OpenAI models where integrated, are treated as com
 
 <img width="1055" height="1491" alt="Atlas" src="https://github.com/user-attachments/assets/2e9ca69a-22b7-4fc0-b5ca-806c05670a2e" />
 
-Creator and principal author: Alexey Mironov
-
 · ![Python](https://img.shields.io/badge/python-3.11-blue)
-· ![Лицензия](https://img.shields.io/badge/license-PolyForm_Noncommercial_1.0.0-orange)
+· ![Лицензия](https://img.shields.io/badge/license-PolyForm--Noncommercial--1.0.0-green)
 · ![Звёзды](https://img.shields.io/github/stars/miroaleksej/Atlas)
 
-> Представьте систему, которой не нужно заранее знать закон природы, чтобы начать исследование. Вы загружаете наблюдения — данные эксперимента, параметры частицы, свойства вещества, динамику плазмы, движение жидкости или сигналы из космоса — а Atlas начинает строить собственные модели возможного мира: рождает оси и представления, формирует конкурирующие гипотезы, ищет зависимости и уравнения, проверяет ограничения и выбирает эксперименты, способные отличить одну картину реальности от другой. Внутри работает ИИ, но он не должен просто угадывать ответ: он исследует многомерное пространство решений и сохраняет неопределённость там, где доказательств ещё недостаточно. Это универсальное исследовательское ядро — один принцип поиска для совершенно разных масштабов: от элементарных частиц и атомов до сложных физических систем и структуры Вселенной. Не система, в которую заранее записали все законы, а система, которая получает наблюдаемый мир и пытается самостоятельно понять, **какими законами этот мир может быть устроен**.
-
-Самая сильная перспектива Atlas — открывать не то, что трудно вычислить после постановки задачи, а то, что трудно даже догадаться поставить как задачу.
-Если эта часть заработает на реальных blind-экспериментах так же, как уже работает на наших qualification worlds, тогда наиболее серьёзными направлениями будут новые материалы/молекулы, turbulence closure, новые физические scaling laws и обнаружение скрытых параметров в экспериментальных данных.
+> Представьте систему, которой не нужно заранее знать закон природы, чтобы начать исследование. Вы загружаете наблюдения — данные эксперимента, параметры частицы, свойства вещества, динамику плазмы, движение жидкости или сигналы из космоса — а Atlas начинает строить собственные модели возможного мира: рождает оси и представления, формирует конкурирующие гипотезы, ищет зависимости и уравнения, проверяет ограничения и выбирает эксперименты, способные отличить одну картину реальности от другой. Внутри работает ИИ, но он не должен просто угадывать ответ: он исследует многомерное пространство решений и сохраняет неопределённость там, где доказательств ещё недостаточно.
 
 ## Адаптивное углубление исследования
 
@@ -63,7 +57,7 @@ Atlas различает неудачу конкретной формулы и �
 
 ## Универсальный слой выполнения экспериментов
 
-Механизмы, выявленные маршрутами JHTDB V4–V6, собраны в один общий исполняемый слой. Он не выбирает научный алгоритм по имени источника и не создаёт нового владельца научной истины. Существующие владельцы Atlas теперь выполняют единый маршрут:
+Механизмы JHTDB сведены в общий исполняемый слой, который не выбирает научный алгоритм по имени источника и не создаёт второго владельца научной истины. Существующие owners Atlas выполняют единый маршрут:
 
 ```text
 SOURCE_CAPABILITY
@@ -78,11 +72,9 @@ SOURCE_CAPABILITY
 → THEORY_REVISION
 ```
 
-Контракт заранее связывает класс источника, выборки, формы, метрику, пороги и SHA-256 реализаций source/measurement adapters. Получение данных поддерживает внешнее checkpoint-состояние, проверку байтов при возобновлении и ограниченный retry только для явно классифицированной временной ошибки; повторяемое вмешательство дополнительно требует замороженного idempotency key. JSON-контракт не импортирует код и не разрешает сеть, устройство или shell: конкретные адаптеры явно подключает host.
+Контракт заранее связывает класс источника, выборки, формы, метрику, пороги и SHA-256 реализаций source/measurement adapters. Получение данных поддерживает внешнее checkpoint-состояние, повторную проверку байтов при resume и ограниченный retry только для явно классифицированной временной ошибки. Повторяемое вмешательство требует замороженного `idempotency_key`. JSON-контракт не импортирует код и не выдаёт сетевые, shell- или аппаратные полномочия: конкретные adapters подключает host.
 
-Общий evaluator выполняет только замороженные линейные формы над именованными признаками и не имеет интерфейса переобучения на свежем holdout. Для другой науки меняются контракт и предметный адаптер, но не последовательность freeze/acquire/verify/evaluate/revise. Текущая квалификация выполняет один и тот же core для управляемого forward-oracle и табличного observational archive; это проверка переносимости механизма, а не решение всех наук.
-
-JHTDB остаётся предметным адаптером и regression case. Предоставленный V6 не установлен буквально: его эвристический выбор функции и FFT-подмена замороженного finite-stencil представления нарушали бы binding. Существующие 27 комбинаций JHTDB сейчас получают `EXECUTION_BLOCKED_PREFLIGHT`: в child-freeze отсутствует `grid_points`, а coarse grids для filter ratios 4 и 8 меньше требуемых девяти точек. Поэтому свежие SGS-targets этим маршрутом не вычисляются и научный результат не заявляется. Проверка: `make universal-experiment`; подробности — в [техническом руководстве](TECHNICAL_GUIDE_RU.md#универсальный-слой-выполнения-экспериментов) и [машиночитаемой квалификации](reports/p3/UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json).
+Общий evaluator исполняет только frozen prediction forms и не имеет интерфейса refit на свежем holdout. JHTDB остаётся domain adapter/regression case. Несовместимый legacy numerical chart блокируется на preflight до получения target evidence. `make universal-experiment` квалифицирует механизм исполнения, но не устанавливает новый научный закон.
 
 ## Level 3: рождение языка операторов
 
@@ -350,28 +342,6 @@ Atlas намеренно разделяет следующие утвержде�
 
 ## Архитектура
 
-Conceptual integration boundary; OpenAI integration is optional and does not imply an existing collaboration:
-
-```text
-                     ATLAS
-
-        ┌──────────────────────────────┐
-        │ Universal Research Kernel    │
-        │ Memory / Provenance / State  │
-        │ Hypotheses / Experiments     │
-        │ Verification / Learning      │
-        └──────────────┬───────────────┘
-                       │
-                Model Gateway
-                       │
-            ┌──────────┴──────────┐
-            │                     │
-       OpenAI API          Other external
-       (optional)          computational tools
-```
-
-> **Atlas is the research system. External models are resources used by the research system.**
-
 <img width="1672" height="941" alt="e79a63b0-a7aa-4e40-9a96-c8ec70d7561d" src="https://github.com/user-attachments/assets/29eef62d-9f23-4728-a758-e2ae325be1c5" />
 
 ### Каталог и владение
@@ -394,6 +364,24 @@ Conceptual integration boundary; OpenAI integration is optional and does not imp
 
 Atlas может перейти от типизированной записи к алгебраическим кандидатам, скалярным π-координатам, грамматикам операторов, предметным уравнениям, численным промежуточным представлениям, скомпилированным артефактам теории и планам различающих экспериментов. Успешное выполнение диагностики представления само по себе не даёт ей полномочий на продвижение.
 
+### Формальная математическая верификация и общая память механизмов
+
+`FORMAL-MATHEMATICAL-VERIFICATION/1.0.0` встроен в существующий `PHI-MATHEMATICAL-INVENTION-KERNEL/1.1.0`; это не отдельный Navier–Stokes-модуль и не параллельный исследовательский алгоритм. Контур принимает замороженный proof-artifact, строит dependency DAG из assumptions/lemmas/conclusion, вычисляет closure финального утверждения и оставляет любую непроверенную лемму явным `PROOF_OBLIGATION_UNRESOLVED`.
+
+Встроенные исполняемые проверки сейчас включают exact symbolic identity через SymPy и полное перебирание явно конечного домена. Отдельный counterexample-region search сохраняет конкретный witness при обнаружении; отсутствие witness на конечной не исчерпывающей области **не** считается доказательством. Для более сильных доказательств строится digest-bound handoff в Lean, Coq или Isabelle. В текущей поставке локальный executor реализован для Lean, если `lean` или `lake` реально установлены; отсутствие proof-kernel завершается `FORMAL_KERNEL_UNAVAILABLE`, а не PASS. Источники Lean с `sorry`, `admit` и интерактивными hole-токенами блокируются до запуска.
+
+Общие механизмы сохраняются в `KnowledgeEvolutionKernel` в секции `universal_proof_mechanisms`. Эта память доменно-нейтральна: один и тот же механизм dependency decomposition, lemma gate, counterexample search или formal-kernel handoff может применяться к математике, физике, химии, биологии и будущим областям. При этом переносится **метод проверки**, а не истинность чужой теоремы или её предпосылок.
+
+Контур также различает локальное исполнение proof-kernel и независимый внешний replay. `verify_external_formal_attestation` принимает внешний результат только как provenance-bound evidence: необходимы pinned repository/commit, pinned toolchain, перечень theorem outcomes, фактическая axiom surface и digest-bound replay evidence. Даже полностью принятая аттестация возвращает `verified=false` и `locally_kernel_verified=false`. Отдельно сохраняется правило, что kernel acceptance не заменяет независимую проверку соответствия формального statement исходной математической формулировке.
+
+Публичные API-поверхности: `get_phi_formal_mathematical_verification_contract`, `decompose_phi_proof`, `verify_phi_proof`, `search_phi_counterexample_regions`, `prepare_phi_formal_kernel_handoff`, `run_phi_lean_kernel`, `verify_phi_external_formal_attestation`, `get_phi_universal_proof_mechanisms`. Добавление нового квалифицированного общего механизма выполняется отдельной mutation-операцией `commit_phi_universal_proof_mechanism`.
+
+### Текущий независимый formal-audit Navier–Stokes
+
+`reports/NAVIER_STOKES_FORMAL_AUDIT_CURRENT.json` фиксирует отдельными слоями: exact source identity, внешний kernel-replay, попытку локального Lean execution и orchestration Atlas. Для OpenAI `NavierStokesAndEuler` закреплён commit `f9e8bc5b38b6e212696e8a30e3e91517af887bbd` и toolchain `leanprover/lean4:v4.34.0-rc2`. Exact `ComparatorSolution.lean`, полученный по immutable commit, имеет SHA-256 `52950d5d...` с LF; после CRLF-нормализации SHA-256 становится `a13d3534...`, совпадая с опубликованным Windows replay receipt.
+
+Atlas принял внешний replay только как `EXTERNAL_FORMAL_ATTESTATION_ACCEPTED`: указанные C/D theorem declarations используют фактическую axiom surface `{propext, Classical.choice, Quot.sound}`, а replay содержит digest-bound kernel evidence. В текущем sandbox `lean`/`lake` отсутствуют и DNS наружу недоступен, поэтому запуск exact source закономерно завершён `FORMAL_KERNEL_UNAVAILABLE`. Итоговый Atlas-status: `AUTONOMOUS_RESEARCH_EXTERNAL_FORMAL_ATTESTATION_ACCEPTED_LOCAL_REPLAY_PENDING`. Это **не** локальная перепроверка всего доказательства и не решение вопроса о премии Clay.
+
 ### Резидентное исследовательское состояние
 
 Запечатанное дерево неизменяемо. Долгоживущее когнитивное состояние, состояние обхода и обучения находится во внешнем корне. По умолчанию:
@@ -412,27 +400,9 @@ Atlas was conceived, architected, and developed as an independent research proje
 
 Copyright © 2026 Alexey Mironov
 
-The pre-existing Atlas project includes, among other components:
+The pre-existing Atlas project includes the Atlas system architecture; Universal Research Kernel; research-state and provenance architecture; adaptive axis and representation discovery; hypothesis lifecycle; experiment-design and evidence-evaluation mechanisms; mathematical and formal-verification architecture; persistent research memory and world-model mechanisms; mathematical models and research methodology; source code, documentation, historical releases and research records.
 
-- the Atlas system architecture;
-- Universal Research Kernel;
-- research-state and provenance architecture;
-- adaptive axis and representation discovery mechanisms;
-- hypothesis-generation and hypothesis-lifecycle mechanisms;
-- experiment-design and evidence-evaluation mechanisms;
-- mathematical and formal-verification architecture;
-- persistent research memory and world-model mechanisms;
-- mathematical models and research methodology;
-- source code and documentation;
-- historical Atlas releases, research records, and associated development history.
-
-These components constitute the pre-existing Atlas work and remain attributable to their respective copyright owner(s).
-
-External technologies used by Atlas — including AI models, APIs, formal systems, libraries, datasets, simulators, and computational tools — remain the intellectual property of their respective owners.
-
-Integration of an external AI model or API does **not** transfer authorship or ownership of Atlas to that provider.
-
-Likewise, output generated by an external model is not automatically accepted by Atlas as validated scientific knowledge. Results must pass the applicable Atlas provenance, evidence, experiment, falsification, verification, or formal-proof gates.
+External AI models, APIs, formal systems, libraries, datasets, simulators and computational tools remain the intellectual property of their respective owners. Integration of an external AI model or API does **not** transfer authorship or ownership of Atlas to that provider. Model output is not automatically accepted as scientific knowledge; it must pass the applicable Atlas provenance, evidence, experiment, falsification, verification or formal-proof gates.
 
 ### OpenAI collaboration boundary
 
@@ -440,74 +410,17 @@ A possible collaboration with OpenAI is envisioned as:
 
 **Atlas → controlled Model Gateway → OpenAI API**
 
-Under this architecture:
+Atlas retains persistent research state, memory, provenance and scientific decision logic. OpenAI models may provide reasoning, candidate generation, analysis, structured outputs and tool interaction; Atlas determines how those outputs are tested, rejected, retained or promoted. OpenAI retains all rights to its own models, APIs and technologies. Any genuinely joint future IP should be governed by a separate written agreement established before that work begins.
 
-- Atlas retains control of persistent research state, memory, provenance and scientific decision logic;
-- OpenAI models may provide reasoning, candidate generation, analysis, structured outputs and tool interaction;
-- Atlas determines how model outputs are tested, rejected, retained or promoted;
-- OpenAI retains all rights to its models, APIs and technologies;
-- the pre-existing Atlas architecture and intellectual property remain independent Atlas work;
-- any intellectual property genuinely created jointly in a future collaboration should be governed by a separate written agreement established before such joint work begins.
-
-No statement in this repository implies endorsement, sponsorship, partnership, or affiliation with OpenAI unless such a relationship is separately confirmed in writing by OpenAI.
+No statement in this repository implies endorsement, sponsorship, partnership or affiliation with OpenAI unless separately confirmed in writing by OpenAI.
 
 ## Licensing
 
-Atlas uses a **source-available dual-licensing model**.
+Atlas uses a **source-available dual-licensing model**. Beginning with the repository state tagged `license-polyform-nc-1.0.0`, original Atlas code and documentation owned by **Alexey Mironov** are available under the **PolyForm Noncommercial License 1.0.0**, except where a component carries its own notice.
 
-### Public research and noncommercial use
+Commercial use, production deployment, or other use outside the public license requires a **separate written license or agreement with Alexey Mironov**. Historical Atlas versions previously released under Apache License 2.0 remain under the terms that accompanied those versions; the transition is prospective and does not revoke earlier Apache rights.
 
-Beginning with the repository state tagged:
-
-`license-polyform-nc-1.0.0`
-
-the original Atlas code and documentation owned by **Alexey Mironov** are available under the **PolyForm Noncommercial License 1.0.0**, except where a component carries its own license notice.
-
-This permits uses covered by the PolyForm Noncommercial License, including qualifying noncommercial research, experimentation, study, modification, and distribution.
-
-### Commercial and separately negotiated use
-
-Commercial use, production deployment, or any other use outside the permissions of the public license requires a **separate written license or agreement with Alexey Mironov**.
-
-This may include:
-
-- commercial licensing;
-- corporate evaluation outside the public-license permissions;
-- sponsored research;
-- research partnerships;
-- technology collaborations;
-- production integration;
-- separately negotiated access or development agreements.
-
-A commercial or collaboration agreement does **not** transfer ownership of the pre-existing Atlas project unless such a transfer is expressly agreed in writing.
-
-### Historical Apache 2.0 versions
-
-Atlas versions previously released under the **Apache License 2.0** remain under Apache 2.0.
-
-The change to PolyForm Noncommercial is prospective only. It does not revoke or alter rights previously granted for historical Apache-licensed versions.
-
-Git history and release history provide the provenance boundary between historical Apache-licensed Atlas versions and subsequent PolyForm-licensed versions.
-
-### Intellectual-property boundary
-
-Atlas was independently conceived, architected, and developed by **Alexey Mironov**.
-
-The Atlas architecture, source code, mathematical framework, research methodology, documentation, provenance mechanisms, research state, historical development, and other original Atlas work remain attributable to their applicable copyright owner.
-
-External AI models, APIs, libraries, formal systems, datasets, simulators, and other third-party technologies remain the intellectual property of their respective owners.
-
-Use of an external model or API by Atlas does not transfer authorship or ownership of Atlas to that provider.
-
-Any intellectual property genuinely created jointly as part of a future collaboration should be governed by a separate written agreement established before that joint work begins.
-
-### OpenAI and other potential collaborators
-
-Atlas is not currently represented by this repository as sponsored by, endorsed by, affiliated with, or owned by OpenAI or any other external AI provider unless such a relationship is separately confirmed in writing.
-
-External models may be connected to Atlas through controlled interfaces as computational or reasoning resources while Atlas retains its independent research architecture, state, provenance, and verification mechanisms.
-
-For commercial licensing or research collaboration, contact the copyright holder.
+External components retain their own licenses. Use of an external model or API does not transfer authorship or ownership of Atlas. For commercial licensing or research collaboration, contact the copyright holder.
 
 ## Математическая основа
 
@@ -1149,6 +1062,8 @@ Atlas/
 - Поисковая политика открыта, но каждый реальный запуск конечен и ограничен ресурсами.
 - Карантин примеров известных законов не доказывает новизну.
 - Предметный охват широк, но неполон и зависит от качества паспортов и доказательств.
+- Dependency graph, counterexample search и внутренние exact-checks не заменяют полноценный proof kernel для произвольной современной математики; непроверяемые леммы остаются obligations.
+- Отсутствие установленного Lean/Coq/Isabelle runtime является инфраструктурным gap и никогда не преобразуется в PASS.
 
 ## Устранение неполадок
 
@@ -1209,7 +1124,7 @@ RELEASE_MANIFEST.json и контролируемый реестр SHA-256.
 
 В приложении к рукописи названы воспроизводящие артефакты `frozen_rule.py`, `inv.py`, `invent.py`, `ctrl.py`, `exp1.py`–`exp4.py` и `kepler/`. Они относятся к пакету рукописи и не считаются частью этого репозитория, пока не будут явно импортированы и включены в печать.
 
-Текущая лицензия Atlas и граница с историческими Apache 2.0 версиями описаны в [LICENSE.md](LICENSE.md) и разделе [Licensing](#licensing).
+Актуальные условия лицензирования приведены в [LICENSE.md](LICENSE.md).
 
 ## Blind Level 4: поиск неизвестного члена по устойчивому residual
 
@@ -1281,3 +1196,191 @@ python -m evaluation.closed_loop_research_experiment --output /tmp/atlas-closed-
 ### DNS representation continuation: scale-invariant chart
 
 После подтверждённого cross-regime representation gap Atlas теперь может открыть отдельный `PRIMITIVE_FIELD_SCALE_INVARIANT_DISCOVERY` цикл. `SCALE-INVARIANT-REPRESENTATION-BIRTH/1.0.0` получает только discovery primitive predictors + dimension types, рождает масштабные carriers, решает dimensional balance target relation, freeze-ит numerical chart и затем передаёт нормализованные primitive studies существующему residual-language owner. Reynolds number, named dimensionless groups и closure catalog в representation owner не передаются. Повторное использование уже раскрытого sealed набора автоматически остаётся development evidence; свежий holdout обязателен для новой transfer promotion.
+
+
+## OpenAI / MCP integration layer
+
+Чистый дистрибутив `0.15.29.0+openai.mcp2` добавляет тонкий `interfaces/atlas_mcp_gateway.py`. Gateway не переносит scientific algorithms в ChatGPT и не создаёт параллельного solver: основной вызов идёт непосредственно в существующий `LawSpaceAPI.run_autonomous_research()` → `ScientificResearchCycleOwner`.
+
+Сторонний MCP SDK в архив не включён. Для подключения:
+
+```bash
+python -m pip install -e .
+python -m pip install -e ".[mcp]"
+python interfaces/atlas_mcp_gateway.py --transport streamable-http --host 127.0.0.1 --port 8000
+```
+
+Read-only маршрут `atlas_research` запускает Atlas без commit Resident state; отдельный `atlas_research_and_learn` разрешает существующему Resident сохранить опыт только во внешнем state tree. Gateway v1.3.0 также запрещает Python bytecode внутри clean tree, публикует явные MCP safety annotations и по умолчанию отказывается от незащищённого non-loopback HTTP bind. Подробная архитектура, setup ChatGPT Developer Mode и границы безопасности приведены в `ATLAS_MCP_GATEWAY_RU.md`; provenance исходной интеграционной ветки сохранён в manifest установочного patch-пакета.
+
+## Self-study patch (2026-09-27)
+
+Atlas was run against its own architecture using the existing reflexive, developmental and semantic owners. No new self-improvement subsystem was introduced. Three state-derived defects were reproduced and corrected in place:
+
+1. **Reflexive-loop liveness** — collective coordination recomputed the same candidate-independent oracle for every architecture/world pair. Oracle values are now frozen once per world and reused. Selection criteria and architecture scores are unchanged.
+2. **Developmental lexical obligations** — rare API/domain fragments could become obligations merely because they occurred twice. Obligations are now derived from repeated capability features after removing API morphology, live domain identifiers and highly concentrated lexical neighbourhoods; ranking prefers features supported across multiple executable action families.
+3. **Meta/UNKNOWN semantic grounding** — generic concepts such as `representation`, `effect`, `architecture`, `memory`, `resource`, `transition` and `coordination` can rank an already grounded domain but cannot establish a physical domain by themselves. The primary domain now requires a specific identifier, specific axis anchor or rare owner-only concept.
+
+Observed qualification after the patch:
+
+- collective coordination: **19/19 PASS**;
+- developmental open-endedness: **30/30 PASS**;
+- reflexive architecture: **41/41 PASS**;
+- autonomous research orchestration: **51/51 PASS**;
+- universal experiment execution: **PASS_UNIVERSAL_EXECUTION_QUALIFICATION**.
+
+A full reflexive cycle that previously exceeded 180 s in this environment now completed in approximately 22.6 s and reached `COMMIT_REFLEXIVE_ARCHITECTURE_TRANSITION`. This is an internal architecture qualification, not evidence of AGI, global optimality or autonomous arbitrary source rewriting.
+
+
+
+## Persistent multi-world research loop
+
+Текущий clean distribution связывает существующий authoritative frontier, `ScientificResearchCycleOwner`, `LongHorizonBlindScientificCycleKernel` и внешний Resident state в persistent research loop. Полный frontier не сокращается до active portfolio: вычислительный бюджет и эпистемический статус разделены. World receipts от доверенных owners обновляют статус кандидата, но falsified/unscheduled кандидат не удаляется. Representation-expansion receipts возвращают цикл в существующий Mathematical Invention / axis-birth path. Подробная математическая модель находится в `MATHEMATICAL_BOOK.md`.
+
+
+## Blind full-frontier campaign (2026-09-27)
+
+The current persistent scheduler was exercised for 96 epochs with an active budget of 64 and covered all 4106 authoritative frontier candidates at least once without deleting any candidate. The campaign also showed the present hard boundary: 447 typed hypotheses exist and 300 are structurally lowerable, but generic automatic lowering from a typed candidate to a pre-frozen quantitative prediction is not yet available. Exact Daya Bay binding qualified 6 candidates; without a frozen candidate-specific prediction these measurements remain discrimination-pending and are not counted as scientific support. See `MATHEMATICAL_BOOK.md` and `ACCEPTANCE_REPORT.md` for the complete campaign model and claim boundary.
+
+## Prediction Lowering / Composition — текущий статус
+
+Предыдущий campaign-gap `typed/materialized hypothesis -> pre-frozen quantitative prediction` теперь частично закрыт внутри существующего Scientific Exploitation owner. Все 300 structurally addressable U4 candidates получают provenance-bound lowering plan: 100 имеют исполнимый dimensional-Pi operator, 143 направляются в residual-driven Function Language Birth, 57 — в Unknown-Unknown Representation/Operator Birth. Никакая из двух invention-ветвей не имеет права создавать operator без требуемого evidence.
+
+Повторный blind campaign покрыл 4106/4106 frontier candidates за 95 epochs (budget 64), не удалив ни одного; все 300 lowering plans получили compute attention. 100/100 Pi-lowering machinery controls прошли без heldout-target leakage. Реальное scientific promotion не объявлено: доступный Daya Bay world полностью покрывает 0/100 Pi factor sets, а шесть exact-bound Daya Bay candidates относятся к evidence-gated operator-birth ветви. Полная математическая модель и claim boundary находятся в `MATHEMATICAL_BOOK.md` и `ACCEPTANCE_REPORT.md`.
+
+## Open-Ended Autonomous Mathematical Research — current architecture
+
+Atlas now has an explicit domain-neutral bootstrap for the case in which a frozen
+problem reaches `UNKNOWN` before any suitable domain owner can create the first
+candidate.  This is implemented **inside the existing**
+`PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0` and
+`SCIENTIFIC-RESEARCH-CYCLE/15.3.0`; no Navier–Stokes solver and no parallel
+mathematical subsystem were added.
+
+The authoritative blind path is now:
+
+```text
+FROZEN QUESTION
+ -> VOID / domain-neutral ingress
+ -> semantic research-local axis birth from frozen statement structure
+ -> higher-order interaction-axis birth
+ -> unresolved proof obligation -> residual axis birth
+ -> generated operation/representation birth from residual gaps
+ -> proof-program representation birth
+ -> competing candidate freeze
+ -> proof obligations / counterexample / evidence gates
+ -> next complexity shell
+ -> digest-bound continuation
+ -> repeat
+```
+
+The registered 655 canonical axes are context, **not** the mathematical search
+space.  The following are current invariants:
+
+- `AXIS_BIRTH_CARDINALITY = ADAPTIVE`;
+- multi-axis and higher-order interaction birth are allowed;
+- registered axis/representation catalogs are not ceilings;
+- no fixed epoch, axis-count, interaction-order, representation-depth or
+  candidate-count ceiling exists in the authoritative continuation;
+- display/active-compute budgets may schedule work but may not truncate the
+  authoritative research-local frontier;
+- unresolved proof obligations may birth new research-local axes and generated
+  operations;
+- compute-slice exhaustion produces a continuation receipt, never `FALSE`,
+  `SOLVED`, or `IMPOSSIBLE`;
+- a generated proof program is not a theorem; theorem status still requires an
+  executed proof/counterexample/evidence gate.
+
+`ScientificResearchCycleOwner.run_open_ended_campaign()` runs successive finite
+compute slices in one synchronous campaign.  Every slice consumes the exact
+frozen continuation of the preceding slice.  Persistent campaigns may also
+resume from the external `PHI_STATE_DIR` research portfolio.  A read-only
+campaign carries the continuation in-memory, so no mutable sealed-tree state is
+required.
+
+The ChatGPT/MCP surface remains four tools.  Gateway v1.4.0 adds an optional
+`campaign_slice_budget` to the existing `atlas_research*` tools and preserves an
+explicit empty `required_domains=[]`, allowing a caller to request a genuine
+VOID-first blind campaign instead of accidentally falling back to semantic
+physical-domain routing.
+
+### Blind Navier–Stokes stress test after the modernization
+
+A clean pre-reveal campaign was run from the mathematical problem statement only;
+no OpenAI solution, literature, or external proposed proof was supplied.  Ten
+synchronous slices, three mathematical search epochs per slice, produced:
+
+- 30 successive complexity epochs;
+- 240 distinct generated proof-program candidates;
+- **750 distinct research-local axis births**, exceeding the 655 canonical-axis
+  registry and therefore directly demonstrating that the registry is not the
+  search ceiling;
+- 133 operations observed in the expanding operation alphabet;
+- `RESEARCH_CYCLE_CONTRACT_PASS` in every slice;
+- `next_epoch = 30` with a valid digest-bound continuation after the final
+  compute slice;
+- no invented predictive likelihoods (`BLOCKED_PREDICTIVE_LIKELIHOODS_REQUIRED`);
+- no claim that Navier–Stokes was independently solved.
+
+The resulting status is
+`AUTONOMOUS_RESEARCH_CAMPAIGN_CONTINUATION_FROZEN`, not a theorem result.  The
+remaining substantive barrier is no longer “can Atlas leave the registered
+space?”; it is converting the born proof-program obligations into executable
+mathematical lemma/counterexample/evidence work and ultimately discharging them
+through the existing formal-verification contour.
+
+The formal model, termination semantics, common-memory rules and exact claim
+boundary are specified in `MATHEMATICAL_BOOK.md`, `MATHEMATICAL_CONTRACT.md`,
+`TECHNICAL_GUIDE_RU.md`, `CLAIM_BOUNDARY.md`, and `ACCEPTANCE_REPORT.md`.
+
+### Final regression for open-ended mathematical modernization
+
+Before the semantic residual-birth refinement, the tree had passed the full repository
+suite at **221/221**.  After the current refinement, the focused core/orchestration
+qualifications are rerun and recorded below; the full suite is rerun separately and
+its result must not be inferred from the earlier 221/221 receipt.  Current focused
+post-refinement qualifications: Mathematical Invention 53/53, Knowledge Evolution
+38/38, Autonomous Research 56/56, Adaptive Axis 25/25, Long-Horizon 30/30,
+Collective 19/19, Developmental 30/30, Reflexive 41/41, Research Proof 10/10,
+ScienceAtlas Core 10/10 and Universal Execution PASS.  The frozen public
+`LawSpaceAPI` surface is unchanged: `campaign_slice_budget` is dispatched through
+the existing `run_autonomous_research` entrypoint, and the MCP surface remains
+exactly four tools.
+
+
+## Proof-obligation discharge and theorem-closure loop (current)
+
+The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
+
+The authoritative loop is now
+
+`UNKNOWN → candidate/representation birth → proof obligations → executable task compilation → discharge/refutation → unresolved residuals → new axes/representations → next shell`.
+
+`PROOF-OBLIGATION-DISCHARGE/1.1.0-COMPONENT` is a component of the existing Mathematical Invention Kernel, not a parallel solver. It supports structural consistency checks, exact symbolic identities, finite exhaustive checks, finite counterexample-region searches, formal proof artifacts and digest-bound witnessed evidence. A missing executable specification remains `UNRESOLVED`; it is never counted as a proof. A counterexample rejects only the scoped branch unless a global implication has itself been established.
+
+Tasks are ordered by expected theorem-closure gain per execution cost. This ordering is scheduling only: it is not a probability of truth and cannot change epistemic status. Unresolved obligations are written back into the existing continuation receipt and causally drive the next research-local axis/operation birth.
+
+Qualification after integration: Mathematical Invention 60/60 PASS; Autonomous Research 56/56 PASS; Knowledge Evolution 38/38 PASS; Adaptive Axis Research 25/25 PASS; Long-Horizon 30/30 PASS; Reflexive 41/41 PASS; Developmental Open-Endedness 30/30 PASS; Research Proof 10/10 PASS; ScienceAtlas Core 10/10 PASS; Python source compile 212/212 PASS. The full repository pytest run produced 52 progress points but exceeded the 260 s runtime budget, so no full-suite PASS is claimed.
+
+A fresh blind Navier–Stokes control with no external solution revealed ran two new slices. Each slice executed 12 proof-obligation tasks and discharged 12 structurally executable obligations, while substantive PDE obligations remained unresolved. The campaign therefore continued rather than claiming the Millennium problem solved. This is the intended fail-closed boundary: the discharge machinery works, but actual theorem closure still requires born proof programs to compile substantive mathematical lemmas into executable symbolic/formal/attested checks.
+
+
+## Semantic proof-obligation compilation (current)
+
+Текущий Mathematical Invention Kernel — `PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0`. В существующий цикл встроен `SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT`; отдельного математического solver не создано. Born proof obligation теперь до discharge проходит преобразование
+
+`frozen claim → typed quantifiers/symbols/relations/predicates/operators/domains → executable verification spec OR explicit missing bindings → formal dependency artifact`.
+
+Автоматический lowering разрешён только когда семантика действительно достаточна: точные алгебраические равенства переходят в `EXACT_SYMBOLIC_IDENTITY`, конечные явно перечисленные универсальные области — в `FINITE_EXHAUSTIVE_BOOLEAN`, а конечные проверки на контрпример — в `COUNTEREXAMPLE_REGION_SEARCH`. Содержательные утверждения о существовании, глобальности, гладкости, ограниченности, сингулярности, пределах, дифференциальных или интегральных операторах не угадываются. Они компилируются в typed formal schema и сохраняют конкретные `missing_bindings` (function space, operator semantics, domain/interval, norm/energy functional, witness/obstruction и т.д.). Эти gaps становятся causal seeds следующего research-local axis/representation birth.
+
+Каждая скомпилированная содержательная obligation получает digest-bound `formal_obligation_artifact`; его dependency graph может быть заморожен немедленно, но это не доказательство. Только реально исполненный symbolic/finite/formal-kernel verifier может закрыть математическую obligation.
+
+Blind Navier–Stokes control после этой модернизации использовал только frozen problem statement. Из него автоматически извлечены `nu>0`, `n=3`, операторное уравнение `∂_t u + (u·∇)u = nu Δu - ∇p + f`, constraint `div u=0`, partial/nabla/Laplacian/divergence structure, функции `u(x,t), p(x,t)` и domain mentions `R^3` / periodic torus. За два blind slices наблюдалось 32 generated proof-program candidates и 116 research-local axes; 64 содержательные obligations остались typed-unresolved, а 23 новых оси во втором shell были рождены именно из semantic binding gaps. `terminal=false`: задача тысячелетия не объявлена решённой.
+
+Qualification текущего Mathematical Invention Kernel: `70/70 PASS`. Общая `UNIVERSAL-PROOF-MECHANISM-MEMORY/1.0.0` содержит 20 универсальных механизмов, включая semantic obligation compilation, typed binding gap и executability separation.
+
+
+### Final semantic-obligation compiler qualification
+
+After the semantic compiler, typed-binding gap birth and formal-artifact wiring were frozen, the current tree was requalified end-to-end. Current results: Mathematical Invention **70/70 PASS**; Knowledge Evolution **38/38 PASS**; Autonomous Research **56/56 PASS**; Adaptive Axis Research **25/25 PASS**; Research Proof **10/10 PASS**; ScienceAtlas Core **10/10 PASS**; Long-Horizon Blind Cycle **30/30 PASS**; Collective Coordination **19/19 PASS**; Developmental Open-Endedness **30/30 PASS**; Reflexive Architecture **41/41 PASS**; Universal Experiment **PASS**; Python source compilation **212/212 PASS**. The complete repository suite also finished: **221/221 pytest PASS in 195.91 s**.
+
+The blind Navier–Stokes semantic run remains deliberately non-terminal: 32 generated proof-program candidates, 116 research-local axes, 64 typed unresolved substantive obligations and 23 later-shell axes born directly from semantic binding gaps. This qualification proves the compilation/search mechanism, not the Millennium theorem.

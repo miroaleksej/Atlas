@@ -75,6 +75,7 @@ def _empty_state() -> dict[str, Any]:
         "candidate_prediction_lowerings": [],
         "candidate_prediction_discriminations": [],
         "hypothesis_materializations": [],
+        "universal_proof_mechanisms": [],
     }
     payload["digest"] = digest_payload({k: v for k, v in payload.items() if k != "digest"})
     return payload
@@ -1108,7 +1109,7 @@ class CandidateWorldBindingOwner:
 
     def assess(
         self, *, root: str | Path, candidate: Mapping[str, Any], hypothesis: Mapping[str, Any],
-        experiment_data_ir: Mapping[str, Any],
+        experiment_data_ir: Mapping[str, Any], runtime: Any | None = None,
     ) -> Mapping[str, Any]:
         from .runtime import LawSpaceRuntime
 
@@ -1128,7 +1129,7 @@ class CandidateWorldBindingOwner:
         dataset_observables = [dict(x) for x in ir.get("observable_catalog", ()) if isinstance(x, Mapping) and x.get("available") is True]
         dataset_quantity_ids = {str(x.get("quantity_id")) for x in dataset_observables if str(x.get("quantity_id", ""))}
 
-        runtime = LawSpaceRuntime(root)
+        runtime = runtime if runtime is not None else LawSpaceRuntime(root)
         owner_rows: dict[str, Mapping[str, Any]] = {}
         for owner_id in source_owner_ids:
             passport = runtime.catalog.passports.get(owner_id)
@@ -1660,6 +1661,130 @@ class CandidateWorldBindingOwner:
         return _atomic_write_state(persist_path, state)
 
 
+class UniversalProofMechanismMemoryOwner:
+    """Common, domain-neutral memory for reusable proof/verification mechanisms.
+
+    This memory stores *methods*, not theorem truth.  A mechanism learned in one
+    domain may be reused elsewhere only as a candidate verification procedure;
+    every new theorem still has to satisfy its own proof/evidence gates.
+    """
+
+    owner_id = "UNIVERSAL-PROOF-MECHANISM-MEMORY/1.0.0"
+    section = "universal_proof_mechanisms"
+
+    def contract(self) -> Mapping[str, Any]:
+        payload = {
+            "schema": "phi-universal-proof-mechanism-memory/v1",
+            "owner_id": self.owner_id,
+            "state_section": self.section,
+            "scope": "ANY_DOMAIN_WITH_FORMALIZABLE_CLAIMS",
+            "stores": "REUSABLE_VERIFICATION_MECHANISMS_NOT_THEOREM_TRUTH",
+            "rules": {
+                "domain_specific_hardcode_required": False,
+                "mechanism_reuse_implies_theorem_truth": False,
+                "proof_receipt_required_for_theorem_status": True,
+                "external_kernel_attestation_is_never_local_kernel_verification": True,
+                "axiom_surface_must_be_audited_for_external_formal_evidence": True,
+                "statement_alignment_is_separate_from_kernel_acceptance": True,
+                "counterexample_witness_is_preserved": True,
+                "unresolved_obligation_is_preserved": True,
+                "registered_axis_space_is_not_search_ceiling": True,
+                "budget_exhaustion_is_not_epistemic_termination": True,
+                "unresolved_obligations_may_birth_research_local_axes_and_operations": True,
+                "born_obligations_must_compile_to_typed_formal_schema_before_discharge": True,
+                "missing_semantic_bindings_may_birth_research_local_axes": True,
+                "typed_formal_schema_is_not_theorem_proof": True,
+                "open_ended_search_continuation_is_digest_bound": True,
+                "authoritative_frontier_may_not_be_truncated_by_display_or_compute_budget": True,
+                "multi_slice_campaign_must_carry_exact_frozen_continuation": True,
+            },
+        }
+        return {**payload, "digest": digest_payload(payload)}
+
+    def canonical_seed(self) -> list[Mapping[str, Any]]:
+        rows = [
+            ("PM-DEPENDENCY-DAG", "DEPENDENCY_GRAPH_DECOMPOSITION", "Decompose a frozen claim into assumptions, lemmas, dependencies and a conclusion; cycles and missing dependencies block verification."),
+            ("PM-ASSUMPTION-CLOSURE", "ASSUMPTION_AND_DEPENDENCY_CLOSURE", "Trace exactly which declared assumptions and lemmas support the final conclusion."),
+            ("PM-LEMMA-GATE", "LEMMA_VERIFICATION_GATE", "Every lemma in the theorem dependency closure requires an executed verifier or remains an explicit proof obligation."),
+            ("PM-COUNTEREXAMPLE", "COUNTEREXAMPLE_REGION_SEARCH", "Search admissible finite regions for witnesses that violate a claim; a valid witness refutes that scoped universal claim."),
+            ("PM-NO-WITNESS-BOUNDARY", "FINITE_SEARCH_CLAIM_BOUNDARY", "Failure to find a counterexample in a finite non-exhaustive region is never promoted to proof of an unbounded claim."),
+            ("PM-FORMAL-HANDOFF", "FORMAL_KERNEL_HANDOFF", "Freeze theorem identity, dependency graph and source digest before execution by Lean or another proof kernel."),
+            ("PM-PROOF-RECEIPT", "DIGEST_BOUND_PROOF_RECEIPT", "Bind proof-kernel execution, exact source, theorem handoff and result into a content-addressed receipt."),
+            ("PM-EXTERNAL-KERNEL-ATTESTATION", "EXTERNAL_FORMAL_KERNEL_ATTESTATION", "Accept provenance-bound third-party kernel replay only as external evidence; never promote it to a local kernel execution."),
+            ("PM-AXIOM-SURFACE-AUDIT", "FORMAL_AXIOM_SURFACE_AUDIT", "Compare actual theorem axioms against an explicitly permitted set and preserve every unexpected dependency as a blocking issue."),
+            ("PM-STATEMENT-ALIGNMENT-SEPARATION", "STATEMENT_ALIGNMENT_SEPARATION", "Keep formal-kernel acceptance separate from independent evidence that the encoded theorem matches the intended mathematical statement."),
+            ("PM-REUSE-WITHOUT-TRUTH-TRANSFER", "MECHANISM_REUSE_WITHOUT_TRUTH_TRANSFER", "A proof mechanism may transfer across domains; theorem truth and assumptions do not transfer with it."),
+            ("PM-OPEN-ENDED-DOVETAIL", "OPEN_ENDED_DOVETAIL_SEARCH", "Search successive finite complexity shells with a digest-bound continuation; no finite shell is the global search space."),
+            ("PM-GAP-DRIVEN-AXIS-BIRTH", "GAP_DRIVEN_RESEARCH_LOCAL_AXIS_BIRTH", "Turn unresolved proof or evidence gaps into research-local coordinates and higher-order interactions without silently canonicalizing them."),
+            ("PM-OBLIGATION-OPERATION-BIRTH", "PROOF_OBLIGATION_TO_OPERATION_BIRTH", "Permit unresolved obligations to create new generated operations and representation signatures instead of selecting only from a fixed method catalogue."),
+            ("PM-BUDGET-NOT-EPISTEMIC-STOP", "COMPUTE_BUDGET_SEPARATION", "Exhausting the current compute budget preserves the frontier and requests continuation; it never means the problem is solved or impossible."),
+            ("PM-FRONTIER-NO-TRUNCATION", "AUTHORITATIVE_FRONTIER_RETENTION", "Display limits and active compute budgets may shape a view or schedule, but the authoritative research-local axis and operation continuation must not silently forget older coordinates."),
+            ("PM-CAMPAIGN-CONTINUATION", "MULTI_SLICE_DIGEST_BOUND_CONTINUATION", "Repeated autonomous research slices must consume the exact frozen continuation from the preceding slice; a slice boundary is scheduling, not epistemic reset."),
+            ("PM-SEMANTIC-OBLIGATION-COMPILATION", "SEMANTIC_PROOF_OBLIGATION_COMPILATION", "Compile a born proof obligation from its frozen mathematical claim into explicit quantifiers, symbols, relations, predicates, operator structure and a digest-bound formal-obligation artifact before attempting discharge."),
+            ("PM-TYPED-BINDING-GAP", "TYPED_FORMAL_BINDING_GAP", "When a substantive lemma cannot yet execute, preserve the exact missing function-space, operator, domain, norm, witness or equivalence bindings and feed those gaps into later research-local axis/representation birth."),
+            ("PM-EXECUTABILITY-SEPARATION", "SEMANTIC_EXECUTABILITY_SEPARATION", "A typed formal schema or formal-kernel handoff object is not a proof; only an executed verifier/kernel receipt may discharge the corresponding mathematical obligation."),
+        ]
+        out = []
+        for mechanism_id, mechanism_type, description in rows:
+            row = {
+                "schema": "phi-universal-proof-mechanism/v1",
+                "owner_id": self.owner_id,
+                "mechanism_id": mechanism_id,
+                "mechanism_type": mechanism_type,
+                "description": description,
+                "applicability": "ANY_DOMAIN_WITH_FORMALIZABLE_CLAIMS",
+                "domain_specific": False,
+                "theorem_truth_carried": False,
+                "status": "QUALIFIED_UNIVERSAL_PROOF_MECHANISM",
+            }
+            row["digest"] = digest_payload(row)
+            out.append(row)
+        return out
+
+    @staticmethod
+    def _valid_row(row: Mapping[str, Any]) -> bool:
+        doc = dict(row)
+        embedded = str(doc.pop("digest", ""))
+        return (
+            bool(embedded) and embedded == digest_payload(doc)
+            and doc.get("status") == "QUALIFIED_UNIVERSAL_PROOF_MECHANISM"
+            and doc.get("domain_specific") is False
+            and doc.get("theorem_truth_carried") is False
+        )
+
+    def seed_canonical(self, *, state_path: str | Path) -> Mapping[str, Any]:
+        state = _load_state(state_path)
+        existing = {str(row.get("mechanism_id", "")): dict(row) for row in state.get(self.section, ()) if isinstance(row, Mapping)}
+        for row in self.canonical_seed():
+            if not self._valid_row(row):
+                raise ValueError("invalid canonical proof mechanism")
+            existing[str(row["mechanism_id"])] = dict(row)
+        state[self.section] = [existing[key] for key in sorted(existing)]
+        return _atomic_write_state(state_path, state)
+
+    def commit(self, receipt: Mapping[str, Any], *, state_path: str | Path) -> Mapping[str, Any]:
+        row = dict(receipt)
+        if not self._valid_row(row):
+            raise ValueError("proof mechanism receipt is not qualified or digest-bound")
+        state = _load_state(state_path)
+        rows = {str(old.get("mechanism_id", "")): dict(old) for old in state.get(self.section, ()) if isinstance(old, Mapping)}
+        rows[str(row["mechanism_id"])] = row
+        state[self.section] = [rows[key] for key in sorted(rows)]
+        return _atomic_write_state(state_path, state)
+
+    def view(self, *, state_path: str | Path) -> Mapping[str, Any]:
+        state = _load_state(state_path)
+        rows = [dict(row) for row in state.get(self.section, ()) if isinstance(row, Mapping)]
+        payload = {
+            "schema": "phi-universal-proof-mechanism-memory-view/v1",
+            "owner_id": self.owner_id,
+            "mechanism_count": len(rows),
+            "mechanisms": rows,
+            "claim_boundary": {"mechanism_memory_is_theorem_truth": False},
+        }
+        return {**payload, "digest": digest_payload(payload)}
+
+
 class KnowledgeEvolutionKernel:
     owner_id = KERNEL_OWNER_ID
 
@@ -1672,6 +1797,7 @@ class KnowledgeEvolutionKernel:
         self.bridge = CrossDomainBridgeOwner()
         self.owner_axis_binding = OwnerAxisBindingOwner()
         self.candidate_world_binding = CandidateWorldBindingOwner()
+        self.proof_mechanism_memory = UniversalProofMechanismMemoryOwner()
 
     def contract(self) -> Mapping[str, Any]:
         payload = {
@@ -1684,6 +1810,7 @@ class KnowledgeEvolutionKernel:
                 "cross_domain_bridge": self.bridge.contract(),
                 "owner_axis_binding": self.owner_axis_binding.contract(),
                 "candidate_world_binding": self.candidate_world_binding.contract(),
+                "universal_proof_mechanism_memory": self.proof_mechanism_memory.contract(),
             },
             "dependency_chain": [
                 "SCIENTIFIC-VERIFICATION-CORE/8.0.0",
@@ -1694,6 +1821,7 @@ class KnowledgeEvolutionKernel:
                 CROSS_DOMAIN_BRIDGE_OWNER_ID,
                 OWNER_AXIS_BINDING_OWNER_ID,
                 CANDIDATE_WORLD_BINDING_OWNER_ID,
+                self.proof_mechanism_memory.owner_id,
             ],
             "claim_boundary": {
                 "internet_is_prefreeze_solution_selector": False,
@@ -1703,6 +1831,7 @@ class KnowledgeEvolutionKernel:
                 "owner_axis_binding_is_new_law_evidence": False,
                 "candidate_world_binding_is_u5_or_new_law_evidence": False,
                 "executable_measurement_response_without_candidate_prediction_is_u5": False,
+                "proof_mechanism_reuse_transfers_theorem_truth": False,
             },
         }
         return {**payload, "digest": digest_payload(payload)}
@@ -1830,6 +1959,16 @@ class KnowledgeEvolutionKernel:
         state["hypothesis_materializations"]=sorted(rows,key=lambda r:str(r.get("candidate_id","")))
         return _atomic_write_state(self.state_path,state)
 
+    def seed_universal_proof_mechanisms(self) -> Mapping[str, Any]:
+        """Persist the canonical domain-neutral proof mechanisms in common knowledge memory."""
+        return self.proof_mechanism_memory.seed_canonical(state_path=self.state_path)
+
+    def get_universal_proof_mechanisms(self) -> Mapping[str, Any]:
+        return self.proof_mechanism_memory.view(state_path=self.state_path)
+
+    def commit_universal_proof_mechanism(self, receipt: Mapping[str, Any]) -> Mapping[str, Any]:
+        return self.proof_mechanism_memory.commit(receipt, state_path=self.state_path)
+
     def state(self) -> Mapping[str, Any]:
         return _load_state(self.state_path)
 
@@ -1838,5 +1977,5 @@ __all__ = [
     "KERNEL_OWNER_ID", "WORLD_ATTESTATION_OWNER_ID", "AXIS_LIFECYCLE_OWNER_ID",
     "DOMAIN_ONTOGENESIS_OWNER_ID", "CROSS_DOMAIN_BRIDGE_OWNER_ID", "OWNER_AXIS_BINDING_OWNER_ID", "CANDIDATE_WORLD_BINDING_OWNER_ID",
     "WorldAttestationOwner", "AxisLifecycleOwner", "DomainOntogenesisOwner",
-    "CrossDomainBridgeOwner", "OwnerAxisBindingOwner", "CandidateWorldBindingOwner", "KnowledgeEvolutionKernel",
+    "CrossDomainBridgeOwner", "OwnerAxisBindingOwner", "CandidateWorldBindingOwner", "UniversalProofMechanismMemoryOwner", "KnowledgeEvolutionKernel",
 ]

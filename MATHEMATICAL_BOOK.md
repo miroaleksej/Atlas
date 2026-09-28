@@ -467,6 +467,198 @@ Lose
 
 Новый объект может восстанавливать старый в контролируемом пределе только если state/update/observable errors одновременно демонстрируют устойчивый limit-law.
 
+## 19.1 Universal Formal Mathematical Verification
+
+Формальное утверждение представляется замороженным объектом
+
+```math
+\mathcal P=(T,A,L,E,c),
+```
+
+где `T` — theorem identity и statement, `A={a_i}` — явно объявленные assumptions, `L={\ell_j}` — леммы, `E\subseteq(A\cup L)^2` — зависимости, `c\in L` — conclusion.
+
+Atlas строит ориентированный граф
+
+```math
+G_{\mathcal P}=(V,E),\qquad V=A\cup L.
+```
+
+Перед любой проверкой обязательны:
+
+```math
+\operatorname{unique}(V)=1,
+\qquad
+\operatorname{deps}(v)\subseteq V,
+\qquad
+G_{\mathcal P}\ \text{is DAG},
+\qquad
+c\in L.
+```
+
+Если хотя бы один gate нарушен, статус равен `PROOF_GRAPH_BLOCKED`. Сам факт существования DAG **не является доказательством**.
+
+Для conclusion вычисляется транзитивное замыкание зависимостей
+
+```math
+C(c)=\{v\in V:\ v\leadsto c\}\cup\{c\}.
+```
+
+Каждая лемма `\ell\in C(c)` получает статус
+
+```math
+\sigma(\ell)\in\{
+VERIFIED,\ REFUTED,\ UNRESOLVED
+\}.
+```
+
+Текущий внутренний verifier исполняет два класса строгих проверок:
+
+1. exact symbolic identity
+
+```math
+\operatorname{simplify}(f-g)=0;
+```
+
+2. exhaustive finite-domain Boolean verification, когда пользователь явно утверждает, что перечисленные точки являются **полным** доменом.
+
+Итоговое внутреннее доказательство допускается только относительно явно объявленных assumptions:
+
+```math
+\operatorname{Verified}(\mathcal P)
+\iff
+\forall \ell\in C(c)\cap L:\ \sigma(\ell)=VERIFIED.
+```
+
+Assumptions при этом не переименовываются в доказанные внутри артефакта.
+
+## 19.2 Counterexample-region search
+
+Для универсального утверждения `Q(x)` на admissible region `R` Atlas может искать
+
+```math
+x^*\in R:\quad A(x^*)\land \neg Q(x^*).
+```
+
+Найденный witness является локально достаточным для опровержения утверждения в объявленной области и при объявленных assumptions. Обратное неверно:
+
+```math
+\nexists x^*\text{ в конечной исследованной области}
+\not\Rightarrow
+\forall x\ Q(x).
+```
+
+Только если область действительно конечна, полностью перечислена и exhaustive-search завершён, отсутствие witness может закрыть именно это конечное утверждение.
+
+## 19.3 Formal proof-kernel handoff
+
+Для произвольной современной математики Atlas не симулирует proof kernel. Он замораживает handoff
+
+```math
+H_{handoff}=H(
+H(\mathcal P),
+H(G_{\mathcal P}),
+K,
+S
+),
+```
+
+где `K` — target kernel (`LEAN`, `COQ`, `ISABELLE`), `S` — точный formal source. Результат proof kernel действителен только если связан с теми же handoff/source digests.
+
+Для Lean локальный executor, когда binary реально доступен, выполняет exact source и сохраняет `returncode`, digest stdout/stderr и source digest. Proof-hole tokens (`sorry`, `admit` и интерактивные hole-команды) блокируются до запуска. Отсутствие runtime даёт `FORMAL_KERNEL_UNAVAILABLE`, а не условный PASS.
+
+## 19.4 Общая память proof-механизмов
+
+`KnowledgeEvolutionKernel` содержит доменно-нейтральное множество
+
+```math
+\mathcal M_{proof}=\{m_1,\ldots,m_n\},
+```
+
+где каждый `m_i` — reusable verification mechanism, а не theorem result. В текущем snapshot сохраняются одиннадцать базовых механизмов: dependency-DAG decomposition, assumption closure, lemma gate, counterexample search, finite-search claim boundary, formal-kernel handoff, digest-bound proof receipt, external-kernel attestation, axiom-surface audit, statement-alignment separation и reuse-without-truth-transfer.
+
+Главный инвариант переноса:
+
+```math
+m_i:D_1\to D_2\ \text{allowed},
+\qquad
+Truth(T_{D_1})\to Truth(T_{D_2})\ \text{forbidden without a new proof receipt}.
+```
+
+Поэтому физика, химия, биология, математика и будущая область используют один механизм проверки, но не наследуют истинность утверждений друг друга.
+
+### 19.5 Qualification этого контура
+
+Для текущего дистрибутивного состояния выполнены независимые от Navier–Stokes controls:
+
+```text
+Mathematical Invention qualification   43 / 43 PASS
+Knowledge Evolution qualification      38 / 38 PASS
+Autonomous Research orchestration      51 / 51 PASS
+Targeted formal/API control              PASS
+Common proof mechanisms                 11 persisted
+```
+
+Exact symbolic control проходит со статусом `FORMAL_DERIVATION_VERIFIED_RELATIVE_TO_DECLARED_ASSUMPTIONS`; заведомо ложное identity оставляет proof obligation; конечный counterexample search возвращает конкретный witness. В build-runtime отсутствуют `lean`/`lake`, поэтому реальный Lean execution квалифицирован как `FORMAL_KERNEL_UNAVAILABLE`, а не как PASS. Полный общий `pytest` был запущен, не показал ни одного FAIL до внешнего лимита 240 s, но не завершился; этот запуск **не** считается full-suite PASS.
+
+### 19.6 Независимый Navier–Stokes formal-audit, 2026-09-28
+
+Этот аудит используется как внешний stress-test **общего** контура, а не как Navier–Stokes-specific правило. Входом служат immutable source identity, формальные theorem ids, pinned Lean toolchain и независимый replay receipt. Atlas применяет один и тот же оператор аттестации к любому формализуемому доказательству.
+
+Для source commit
+
+\[
+c=	exttt{f9e8bc5b38b6e212696e8a30e3e91517af887bbd}
+\]
+
+exact `NavierStokes/ComparatorSolution.lean` имеет
+
+\[
+H_{LF}=	exttt{52950d5d618a8d34c9bfbdb16641c81c276e97b6d7fd2a76c08577353f0b0227}.
+\]
+
+После только line-ending transform `LF -> CRLF`:
+
+\[
+H_{CRLF}=	exttt{a13d3534019132e5e70c62a87406c0c565aa9420b317abd793e36a997b828c7b},
+\]
+
+что совпадает с Windows source digest внешнего replay. Следовательно, это расхождение не является содержательным proof-source drift.
+
+Для двух формальных результатов C/D внешний receipt сообщает axiom surface
+
+\[
+A_{actual}=\{	exttt{propext},	exttt{Classical.choice},	exttt{Quot.sound}\},
+\]
+
+совпадающую с разрешённым множеством. Atlas поэтому выдаёт
+
+```text
+EXTERNAL_FORMAL_ATTESTATION_ACCEPTED
+external_attestation_accepted = true
+locally_kernel_verified = false
+verified = false
+```
+
+Последние два `false` принципиальны. В текущем sandbox не найдено `lean` или `lake`, а сетевое получение pinned runtime из локального процесса заблокировано; exact-source handoff завершается `FORMAL_KERNEL_UNAVAILABLE`. То есть внешний kernel-replay прошёл provenance/axiom audit, но **не был переименован в собственный kernel replay Atlas**.
+
+Математически это разделяет три отношения:
+
+\[
+K(E,S,T)=1
+ot\Rightarrow L_{Atlas}(E,S,T)=1,
+\]
+
+где `K` — принятый внешний kernel evidence, а `L_Atlas` — локально исполненный kernel receipt, и
+
+\[
+K(E,S,T)=1
+ot\Rightarrow Align(T,M)=1,
+\]
+
+где `Align` — независимое соответствие formal statement `T` исходному математическому statement `M`. Поэтому accepted Lean theorem, paper-to-Lean alignment и научно-математическая оценка доказательства остаются отдельными gates.
+
+Полный машинный receipt: `reports/NAVIER_STOKES_FORMAL_AUDIT_CURRENT.json`.
+
 ---
 
 # VIII. Competing hypotheses
@@ -804,6 +996,13 @@ UNKNOWN != FALSE
 FAILED PROMOTION != FALSIFIED
 RESIDUAL MAY EXPAND REPRESENTATION
 PROMOTION REQUIRES EVIDENCE
+PROOF DAG != PROOF
+UNVERIFIED LEMMA = PROOF OBLIGATION
+FINITE NO-COUNTEREXAMPLE != UNBOUNDED PROOF
+EXTERNAL KERNEL ATTESTATION != LOCAL KERNEL EXECUTION
+KERNEL ACCEPTANCE != STATEMENT ALIGNMENT
+AXIOM SURFACE MUST BE EXPLICITLY AUDITED
+PROOF MECHANISM MAY TRANSFER; THEOREM TRUTH MAY NOT
 ```
 
 ---
@@ -7018,3 +7217,1029 @@ existing/pre-freeze evidence != new post-freeze measurement
 - `FIXED_QUADRATIC_ORACLE` — верхняя граница, которой заранее подарена правильная quadratic grammar и которая поэтому не является discovery baseline.
 
 Atlas обязан родить `z*w`, затем одновременно `z*w` и `u*v`, перенести их на sealed rows без refit и не родить ни одной оси на нулевом контроле. Benchmark не устанавливает мировой научный приоритет и не заменяет сравнение с внешними системами; он фиксирует минимальный внутренний критерий заявляемого механизма representational ontogenesis.
+
+
+## MCP как внешняя транспортная граница Atlas
+
+MCP integration не вводит нового математического решателя. Пусть внутреннее состояние Atlas есть
+
+\[
+\mathcal{A}=(\mathcal{R},\mathcal{X},\mathcal{H},\mathcal{E},\mathcal{W}),
+\]
+
+где \(\mathcal{R}\) — representations, \(\mathcal{X}\) — система научных осей, \(\mathcal{H}\) — множество конкурирующих hypotheses, \(\mathcal{E}\) — frozen/observational experiment contracts, \(\mathcal{W}\) — world/resident state.
+
+MCP gateway реализует только отображение транспортного запроса
+
+\[
+T_{\mathrm{MCP}}: Q_{\mathrm{ext}}\longrightarrow Q_{\mathrm{Atlas}}
+\]
+
+и отображение результата
+
+\[
+P_{\mathrm{MCP}}: \rho_{\mathrm{Atlas}}\longrightarrow \rho_{\mathrm{ext}}.
+\]
+
+Научная эволюция остаётся
+
+\[
+\mathcal{A}_{t+1}
+=
+\Phi_{\mathrm{Atlas}}(\mathcal{A}_t,Q_{\mathrm{Atlas}},D_t),
+\]
+
+а не
+
+\[
+\mathcal{A}_{t+1}
+=
+\Phi_{\mathrm{MCP}}(\cdot).
+\]
+
+Следовательно, gateway должен удовлетворять инвариантам:
+
+\[
+\boxed{\Phi_{\mathrm{MCP}}\notin \text{Scientific Solvers}}
+\]
+
+\[
+\boxed{T_{\mathrm{MCP}}\text{ не назначает owner}}
+\]
+
+\[
+\boxed{P_{\mathrm{MCP}}\text{ не меняет scientific status}}
+\]
+
+\[
+\boxed{\text{external LLM}\not\Rightarrow \text{ATLAS\_NATIVE promotion}}
+\]
+
+Read-only MCP research использует
+
+\[
+C_{\mathrm{resident}}=0,
+\]
+
+то есть вычисляет полный research receipt, но не commit-ит Resident state. Явный tool `atlas_research_and_learn` использует
+
+\[
+C_{\mathrm{resident}}=1,
+\]
+
+при этом существующий инвариант ядра требует
+
+\[
+\mathrm{Path}(\mathcal{W}_{mutable})\cap
+\mathrm{Tree}(\mathcal{A}_{sealed})=\varnothing.
+\]
+
+Для ограничения контекстной стоимости модель получает projection полного receipt:
+
+\[
+\rho_{\mathrm{summary}}
+=
+\Pi_{\mathrm{MCP}}(\rho_{\mathrm{full}}),
+\]
+
+где \(\Pi_{\mathrm{MCP}}\) сохраняет status, digest, typed IR, competitive-set summary, experiment selection, representation-invention status, next-required input и claim boundary. Полный \(\rho_{\mathrm{full}}\) остаётся доступен по явному `detail_level=full`; projection не используется для внутренних решений Atlas.
+
+Таким образом новая интеграция меняет доступность системы для внешнего агента, но не математическую модель научного поиска и не ownership научных решений.
+
+
+### MCP qualification invariant (gateway v1.2.0)
+
+Интеграционный слой дополнительно фиксирует файловый инвариант чистого дистрибутива. Для read-only research:
+
+\[
+C_{\mathrm{resident}}=0\quad\Longrightarrow\quad\Delta\,\mathrm{Tree}(\mathcal A_{sealed})=\varnothing.
+\]
+
+Для явного обучения:
+
+\[
+C_{\mathrm{resident}}=1\quad\Longrightarrow\quad\Delta\,\mathrm{Tree}(\mathcal A_{sealed})=\varnothing,\qquad\Delta\mathcal W_{external}\;\text{допускается}.
+\]
+
+Это проверено файловым снимком до/после обоих маршрутов. Python bytecode зависимостей запрещён на gateway boundary; при import-based qualification применяется interpreter flag `-B`, чтобы кэш самого gateway-модуля также не нарушал первый инвариант. MCP safety annotations являются метаданными транспорта и не входят в \(\Phi_{\mathrm{Atlas}}\): они описывают read/write/open-world свойства вызовов, но не участвуют в scientific promotion, axis birth или выборе гипотез.
+
+# Self-study: reflexive liveness and semantic grounding
+
+## 1. Candidate-independent oracle reuse
+
+Let \(A\) be the finite coordination-architecture tranche and \(W\) the frozen world set. For an architecture \(a\in A\) and world \(w\in W\), Atlas evaluates
+
+\[
+ho(a,w)=rac{U(P(a,w),w)}{U^*(w)},\]
+
+where \(P(a,w)\) is the plan produced by architecture \(a\) and \(U^*(w)\) is the exact feasible oracle utility. The key invariant is
+
+\[U^*(w)\;	ext{is independent of}\;a.\]
+
+The previous implementation evaluated \(U^*(w)\) inside every architecture evaluation. Its dominant cost was therefore
+
+\[O(|A||W|(C_{oracle}+C_{candidate})).\]
+
+The self-study patch freezes the oracle vector once:
+
+\[\mathbf O_W=(U^*(w_1),\ldots,U^*(w_{|W|})),\]
+
+and reuses it for every candidate. The cost becomes
+
+\[O(|W|C_{oracle}+|A||W|C_{candidate}).\]
+
+No score, feasibility gate, tie-break or selection criterion changes. This is computational memoization of a frozen deterministic quantity, not a scientific shortcut.
+
+## 2. Developmental feature obligations
+
+For capability identifier \(c\), write
+
+\[c=(v,t_1,\ldots,t_k),\]
+
+where \(v\) is the leading executable action token. The developmental owner now excludes \(v\) from architectural feature birth and derives obligations from the remaining feature multiset. For token \(t\):
+
+- \(n(t)\) is its capability support count;
+- \(a(t)\) is the number of distinct executable action families that express it;
+- \(q(t)=\max_u n(t,u)/n(t)\) is the dominant lexical-neighbour concentration.
+
+A token is eligible only when it has repeated support, at least two action families, is not a live domain identifier and satisfies
+
+\[q(t)\le 0.65.\]
+
+Eligible features are ranked lexicographically by
+
+\[(-a(t),-n(t),q(t),t).\]
+
+This removes accidental rare fragments without predeclaring the desired developmental answer.
+
+## 3. Fail-closed primary domain grounding
+
+Let \(S_d(Q)\) be the existing semantic score of domain \(d\) for question \(Q\). A primary domain is now admitted only if
+
+\[S_d(Q)\ge 8\]
+
+and at least one specific grounding source exists:
+
+\[I_d\lor A_d\lor O_d,\]
+
+where \(I_d\) is a domain-identifier match, \(A_d\) a non-generic axis match, and \(O_d\) a rare owner-only concept. Generic cross-domain/meta concepts may still contribute ranking weight after grounding but cannot create the grounding event.
+
+Therefore a meta-question may validly return
+
+\[required\_domains=\varnothing\]
+
+while retaining matched architecture capabilities. This is preferred to forcing UNKNOWN into the nearest physical domain.
+
+## 4. Qualification boundary
+
+The patch preserves the existing claim boundary. A committed reflexive candidate means only that the internal frozen gates passed. It does **not** establish AGI, unlimited self-improvement, global architecture optimality, world novelty, or permission for arbitrary source-code rewriting.
+
+
+
+# Persistent Multi-World Research Loop — 2026-09-27
+
+## 1. Цель модернизации
+
+Atlas не должен отождествлять вычислительный бюджет текущей эпохи с эпистемическим статусом кандидата. Полный исследовательский frontier сохраняется, а конечный вычислительный портфель лишь выбирает, какие кандидаты получают ресурсы в данной эпохе.
+
+Пусть полный сохранённый frontier
+
+\[
+\mathcal C=\{C_1,\ldots,C_N\}.
+\]
+
+Для эпохи \(t\) выбирается конечный active portfolio
+
+\[
+A_t\subseteq\mathcal C,\qquad |A_t|\le B_t,
+\]
+
+где \(B_t\) — вычислительный бюджет эпохи, но
+
+\[
+C_i\notin A_t \;\not\Rightarrow\; C_i\text{ false or deleted}.
+\]
+
+Кандидат остаётся в persistent epistemic ledger и может снова получить бюджет в последующих эпохах.
+
+## 2. Fair portfolio
+
+Портфель объединяет две полосы:
+
+1. exploitation — часть наиболее релевантных кандидатов текущего вопроса;
+2. coverage/world-deficit — кандидаты с минимальным числом предыдущих назначений и минимальным числом проверенных миров.
+
+Для coverage используется лексикографический порядок
+
+\[
+\bigl(n_{select}(C_i),\,n_{world}(C_i),\,t_{last}(C_i),\,rank(C_i),\,id(C_i)\bigr).
+\]
+
+Это не является истинностным score. Он определяет только порядок выдачи вычислительного бюджета.
+
+## 3. Разделение attention portfolio и executable competitive set
+
+Авторитетный frontier содержит не только уже исполнимые формулы, но и многомерные подпространства, representation gaps и ещё не материализованные hypothesis families. Поэтому Atlas теперь различает:
+
+\[
+\mathcal A_t=\text{research-attention portfolio}
+\]
+
+и
+
+\[
+\mathcal E_t=\text{executable competitive set}.
+\]
+
+В \(\mathcal A_t\) могут находиться несколько кандидатов одной mechanism family, если они относятся к разным подпространствам или мирам. В \(\mathcal E_t\) по-прежнему действует mechanism-family independence, потому что одинаковый механизм не должен искусственно считаться независимым конкурентом.
+
+## 4. Multi-world evidence ledger
+
+Для кандидата сохраняется множество world receipts
+
+\[
+W(C_i)=\{w_{i1},w_{i2},\ldots\}.
+\]
+
+Receipt может переводить кандидат между состояниями, например:
+
+- `CANDIDATE_ACTIVE_NEEDS_WORLD_EVIDENCE`;
+- `CANDIDATE_SUPPORTED_NEEDS_CROSS_WORLD_STABILITY`;
+- `FORM_FALSIFIED_CANDIDATE_PRESERVED`;
+- `CANDIDATE_REQUIRES_SPACE_EXPANSION`.
+
+Даже falsification формы не удаляет исследовательский объект:
+
+\[
+FORM\_FALSIFIED\neq CANDIDATE\_DELETED.
+\]
+
+Это сохраняет возможность проверить regime-local форму, новую representation или расширенное пространство осей.
+
+## 5. Provenance world receipts
+
+World evidence допускается к изменению эпистемического состояния только если receipt:
+
+1. указывает существующий candidate id;
+2. имеет world id;
+3. выпущен доверенным существующим owner;
+4. проходит digest verification.
+
+Непроверенный внешний status не становится научным evidence.
+
+## 6. Замыкание Long Horizon → Frontier
+
+`LongHorizonBlindScientificCycleKernel` теперь сохраняет candidate-world bindings для frozen theories. После post-freeze measurement surviving theory получает `CONSISTENT_WITH_PREDICTION`, demoted theory — `FORM_FALSIFIED`, а observation вне frozen prediction set — `REPRESENTATION_EXPANSION_REQUIRED`.
+
+Следующий `ScientificResearchCycleOwner` автоматически читает эти уже существующие receipts из внешнего long-horizon state и обновляет persistent portfolio.
+
+Контур становится:
+
+\[
+FRONTIER_t
+\rightarrow FAIR\ PORTFOLIO_t
+\rightarrow WORLDS_t
+\rightarrow EVIDENCE_t
+\rightarrow REVISION_t
+\rightarrow AXIS/REPRESENTATION\ GAP_t
+\rightarrow FRONTIER_{t+1}.
+\]
+
+## 7. Representation expansion
+
+Если world evidence устанавливает `CANDIDATE_REQUIRES_SPACE_EXPANSION`, autonomous research включает этот факт в gap condition уже существующего `MathematicalInventionKernel`. При наличии независимого residual/transition evidence система может породить новую representation; при отсутствии evidence она обязана fail-closed потребовать его, а не выдумывать ось.
+
+## 8. Наблюдаемая qualification
+
+На authoritative frontier сохранено 4106 кандидатов. Для chemistry projection в контрольном запуске было 890 релевантных кандидатов; active budget = 12. За три последовательные эпохи портфель охватил 28 различных кандидатов, то есть coverage lane действительно ротируется.
+
+Контрольный world cycle подтвердил:
+
+\[
+SUPPORTED\rightarrow CROSS\_WORLD\_STABILITY\_REQUIRED
+\]
+
+и затем
+
+\[
+FORM\_FALSIFIED\rightarrow PRESERVED,
+\]
+
+без удаления кандидата из ledger.
+
+Это qualification архитектуры исследовательского цикла, а не доказательство научной истинности конкретных кандидатов и не доказательство превосходства Atlas над внешними системами.
+
+
+# Blind full-frontier campaign: empirical state of the persistent research loop
+
+The persistent-loop architecture was exercised without changing its scheduler during the run. Let \(F\) be the authoritative candidate frontier, \(|F|=4106\), and let \(A_t\subset F\) be the active compute portfolio in epoch \(t\), with \(|A_t|\le 64\).
+
+The campaign ran 96 epochs and measured the coverage functional
+
+\[
+C(T)=\frac{|\bigcup_{t=1}^{T}A_t|}{|F|}.
+\]
+
+At \(T=96\),
+
+\[
+C(96)=\frac{4106}{4106}=1.
+\]
+
+Thus every current candidate received compute attention at least once while all candidates remained addressable in the persistent epistemic ledger. This demonstrates scheduler coverage, not scientific validation.
+
+## Candidate-to-world funnel
+
+The observed funnel was:
+
+\[
+4106\;\text{persistent candidates}
+\rightarrow 447\;\text{typed/materialized hypotheses}
+\rightarrow 300\;\text{structurally lowerable candidates}
+\rightarrow 78\;\text{exact Daya-Bay source-family overlaps}
+\rightarrow 6\;\text{qualified data bindings}
+\rightarrow 0\;\text{new automatically frozen candidate-specific quantitative predictions}.
+\]
+
+The structural lowerability decomposition is
+
+\[
+300=14+286,
+\]
+
+where 14 candidates have a complete single forward-owner route and 286 are addressable only by composing multiple existing forward owners. Structural addressability is not itself a prediction; an explicit typed composition/lowering contract is still required.
+
+## The missing operator
+
+The campaign shows that the current bottleneck is not candidate generation or fair frontier exploration. The missing general transformation is
+
+\[
+L:\;(C_i,H_i,B_i)\mapsto P_i,
+\]
+
+where \(C_i\) is a frozen candidate, \(H_i\) its typed hypothesis, \(B_i\) an exact candidate-world binding, and \(P_i\) a quantitative prediction contract frozen before held-out/world reveal.
+
+For admissibility, \(L\) must satisfy all of the following:
+
+1. it uses only registered owner semantics and frozen axis/quantity mappings;
+2. it does not inspect held-out target values before prediction freeze;
+3. it carries an explicit composition contract for multi-owner lowerings;
+4. its output quantity and uncertainty/nuisance owners are declared;
+5. retry/multiplicity accounting is explicit;
+6. failure to construct \(P_i\) returns a gap rather than a post-hoc fit.
+
+Only after \(P_i\) exists can world evidence legitimately produce
+
+\[
+(C_i,P_i,W_j)\rightarrow E_{ij}
+\]
+
+and therefore a scientifically meaningful residual
+
+\[
+r_{ij}=O(W_j)-P_i(W_j),
+\]
+
+which can trigger representation or axis birth.
+
+## Control distinction
+
+The blind missing-representation control demonstrates that residual-driven birth itself remains functional: 6/6 frozen control worlds produced an OOD-validated generated axis and solved the hidden-representation decision. These controls do not count as independent evidence for frontier candidates.
+
+Therefore the current empirical state is:
+
+\[
+\text{Frontier search}=\text{LIVE},\quad
+\text{fair coverage}=\text{DEMONSTRATED},\quad
+\text{axis birth}=\text{LIVE IN BLIND CONTROLS},
+\]
+
+but
+
+\[
+\text{generic typed-hypothesis}\rightarrow\text{quantitative world prediction}
+\]
+
+remains the principal open execution gate.
+
+# Prediction Lowering / Composition: замыкание U4 → pre-freeze prediction
+
+## 1. Причина модернизации
+
+Blind full-frontier campaign установил точный разрыв между материализованной гипотезой и количественным world-test:
+
+\[
+(C_i,H_i,B_i)\not\mapsto P_i.
+\]
+
+Вместо нового solver модернизирован существующий `SCIENTIFIC-EXPLOITATION-ORCHESTRATOR`. Компонент `PREDICTION-LOWERING-COMPOSITION/1.0.0-COMPONENT` подчинён этому owner и использует существующие source-owner passports, `MathematicalInventionKernel` и `TheoryCompilerKernel`. Он не имеет самостоятельной научной authority.
+
+## 2. Полный U4 lowering census
+
+Для текущих 447 U4/materialized hypotheses структурно адресуемое множество остаётся
+
+\[
+|L_{addr}|=300=14+286,
+\]
+
+где 14 имеют complete single-forward-owner route, а 286 требуют typed multi-owner composition.
+
+После модернизации каждый из 300 получает digest-bound lowering plan:
+
+\[
+L_{addr}=L_{\Pi}\cup L_{inv},
+\]
+
+\[
+|L_{\Pi}|=100,\qquad |L_{inv}|=200.
+\]
+
+Для 100 кандидатов уже существующий dimensional-law birth содержит frozen scalar Pi relation с целочисленными степенями:
+
+\[
+\Pi(q)=\prod_{j=1}^{m} q_j^{a_j}=C,
+\qquad a_j\in\mathbb Z\setminus\{0\}.
+\]
+
+Эта relation задаёт оператор до раскрытия heldout target. Константа не известна заранее и оценивается только на discovery worlds:
+
+\[
+\widehat C=\operatorname{median}_{w\in W_{disc}}\Pi(q(w)).
+\]
+
+Если target quantity \(q_t\) выбрана до reveal, heldout prediction вычисляется из
+
+\[
+q_t^{a_t}=\frac{\widehat C}{\prod_{j\ne t}q_j^{a_j}},
+\]
+
+то есть
+
+\[
+\widehat q_t=
+\left(\frac{\widehat C}{\prod_{j\ne t}q_j^{a_j}}\right)^{1/a_t},
+\]
+
+с явными guards для сингулярных reciprocal/negative-power и невещественных even-power случаев.
+
+Критический causal invariant:
+
+\[
+q_t^{heldout}\notin Freeze(\widehat C),
+\qquad
+q_t^{heldout}\notin Predict(\widehat q_t).
+\]
+
+Observed heldout target допускается только после prediction freeze для вычисления residual:
+
+\[
+r(w)=q_t^{obs}(w)-\widehat q_t(w).
+\]
+
+## 3. 200 relational/composition candidates
+
+Оставшиеся 200 не получают выдуманную формулу. Для них frozen plan содержит source-owner passport/formula digests и explicit invention route.
+
+Разбиение текущего состояния:
+
+\[
+200=143+57.
+\]
+
+143 кандидата с `FUNCTION_FORM_REQUIRED_P_GT_1` направляются в существующий residual-driven `FunctionLanguageBirthEngine`. Допустимый trigger:
+
+\[
+(X_{frozen},\ r_{OOF},\ \mathrm{NRMSE}_{CV})
+\rightarrow
+\text{generated operation signatures}.
+\]
+
+Без frozen coordinates и out-of-fold residual system возвращает
+`FUNCTION_LANGUAGE_BIRTH_FAIL_CLOSED_EVIDENCE_REQUIRED`.
+
+57 кандидатов направляются в существующий `UnknownUnknownRepresentationOwner` / operator-birth path. Representation change разрешён только когда существует residual и независимая линия evidence:
+
+\[
+Residual\ \land\
+(\#Modes\ge2\ \lor\ \#IndependentEnvironments\ge2).
+\]
+
+Без этого system возвращает
+`REPRESENTATION_OPERATOR_BIRTH_FAIL_CLOSED_EVIDENCE_REQUIRED`.
+
+Следовательно,
+
+\[
+\text{missing operator}\ne\text{false candidate},
+\]
+
+а означает `evidence required for invention`.
+
+## 4. Blind causality qualification lowering-механизма
+
+Для всех 100 frozen Pi operators проведён одинаковый blind machinery control. Discovery worlds содержали target только на discovery phase; heldout prediction получал только covariates, target reveal выполнялся после freeze.
+
+Результат:
+
+- 100/100 `PASS_BLIND_PI_LOWERING_CAUSALITY_CONTROL`;
+- unique Pi signatures: 12;
+- maximum mean relative absolute error: < 1.96e-16;
+- heldout-target leakage: 0/100.
+
+Это qualification математического механизма, а не scientific evidence для frontier candidates.
+
+## 5. Повторный blind full-frontier campaign после lowering
+
+Scheduler policy не менялась во время повторного прогона. Active budget оставался 64. Mutable state был вынесен за sealed tree через `PHI_STATE_DIR`.
+
+Получено:
+
+\[
+C(95)=\frac{4106}{4106}=1.
+\]
+
+За 95 epochs:
+
+- 4106/4106 authoritative candidates получили compute budget;
+- deleted by scheduling: 0;
+- 300/300 frozen lowering plans получили attention;
+- все 100 numeric Pi plans получили attention;
+- все 200 composition/invention plans получили attention.
+
+То есть теперь campaign реально проходит цепь
+
+\[
+FRONTIER\rightarrow ATTENTION\rightarrow LOWERING\ PLAN
+\]
+
+для всего structurally addressable U4 множества.
+
+## 6. Real-world boundary после lowering
+
+Из пяти declared neutrino dataset contracts только `DAYA-BAY-OFFICIAL-ANALYSIS` сейчас даёт complete `ExperimentDataIR`. Его quantity vocabulary:
+
+\[
+\{QTY\!\!-BASELINE,QTY\!\!-COUNT,QTY\!\!-DIMENSIONLESS,QTY\!\!-ENERGY,
+QTY\!\!-MASS\!\!-SQUARED,QTY\!\!-MIXING\!\!-AMPLITUDE,QTY\!\!-TIME\}.
+\]
+
+Ни один из 100 numeric Pi plans не имеет полного factor set, являющегося подмножеством этого vocabulary:
+
+\[
+|L_{\Pi}^{DayaBay}|=0.
+\]
+
+Одновременно exact CandidateWorldBinding квалифицирует 6 Daya-Bay candidates, но все шесть находятся в группе `PREDICTION_OPERATOR_BIRTH_REQUIRED`, а не в numeric-Pi группе. Поэтому их legitimate next step — residual/operator-probe evidence → existing Mathematical Invention; post-hoc formula construction запрещена.
+
+Следовательно повторный campaign честно сохраняет:
+
+\[
+N_{new\ trusted\ discrimination}=0,
+\]
+
+\[
+N_{frontier\ real\ residual\ axis\ births}=0,
+\]
+
+\[
+N_{new\ independently\ supported\ laws}=0.
+\]
+
+Это уже другой bottleneck, чем до модернизации. Общий lowering layer существует. Текущий внешний разрыв:
+
+\[
+\boxed{
+\text{frozen lowering plan}
+\rightarrow
+\text{trusted quantity-level world matching that plan}
+}
+\]
+
+для numeric Pi candidates, либо
+
+\[
+\boxed{
+\text{pending composition plan}
+\rightarrow
+\text{independent residual/operator-probe evidence}
+\rightarrow
+\text{Mathematical Invention}
+}
+\]
+
+для остальных 200.
+
+Ни synthetic controls, ни data binding, ни invention-route receipt сами по себе не являются U5/world attestation и не доказывают новый закон.
+
+# Open-ended autonomous mathematical search: complete current model
+
+## 1. Why the previous blind cycle stopped
+
+The old candidate-birth resolver contained a structural contradiction: the
+route `MATHEMATICAL_INVENTION` existed, but a pure VOID problem was not allowed
+to select it as the first-candidate route.  Consequently a problem could visit
+all registered axes and still terminate at
+`CANDIDATE_BIRTH_CAPABILITY_GAP` before Mathematical Invention had an object to
+work on.
+
+The current kernel removes that dependency on domain overlap.  A specialized
+owner is preferred when the frozen problem genuinely grounds one; otherwise the
+same research owner enters a domain-neutral mathematical bootstrap.  This is a
+fallback in *capability selection*, not a theorem guess.
+
+## 2. State of an open-ended mathematical campaign
+
+Let the research state after complexity epoch \(e\) be
+
+\[
+S_e=(Q,A_e,O_e,R_e,H_e,G_e,L_e),
+\]
+
+where
+
+- \(Q\) is the immutable problem statement/digest;
+- \(A_e\) is the research-local axis set born so far;
+- \(O_e\) is the available generated operation alphabet;
+- \(R_e\) is the set of representation signatures explored so far;
+- \(H_e\) is the set of proof-program/hypothesis candidates;
+- \(G_e\) is the unresolved obligation/gap set;
+- \(L_e\) is the content-addressed provenance/continuation ledger.
+
+The canonical scientific registry \(A_{canon}\) remains available as context,
+but
+
+\[
+A_e \not\subseteq A_{canon}
+\]
+
+is explicitly permitted.  In particular, the system does **not** impose
+
+\[
+A_e \subseteq A_{canon},\qquad |A_e|\le 655.
+\]
+
+Research-local coordinates are noncanonical until the independent axis lifecycle
+and evidence gates qualify them.
+
+## 3. Axis birth
+
+At epoch \(e\), Atlas applies a birth operator
+
+\[
+B_A(Q,S_e,G_e)\rightarrow \Delta A_e,
+\]
+
+and updates
+
+\[
+A_{e+1}=A_e\cup\Delta A_e.
+\]
+
+The cardinality of \(\Delta A_e\) is compute-budgeted per finite execution slice,
+not fixed by the scientific ontology:
+
+\[
+\texttt{AXIS\_BIRTH\_CARDINALITY}=\texttt{ADAPTIVE}.
+\]
+
+Interaction coordinates are also born.  If an epoch explores interaction order
+\(k_e\), later epochs may use larger orders:
+
+\[
+k_{e+1}>k_e
+\]
+
+when the continuation reaches the corresponding complexity shell.  There is no
+configured global \(k_{max}\).
+
+The current implementation derives initial research coordinates from the frozen
+statement with explicit semantic provenance: quantified-goal roles, global/local
+structure, regularity/boundedness/limit roles and lexical atoms are research-local
+seeds rather than a fixed ontology.  On continuation, every unresolved proof
+obligation is also a residual: it may birth a `PROOF_GAP::*` research-local axis.
+Higher-order interaction coordinates are then created from the already born
+frontier.  Their provenance is `RESEARCH_LOCAL`; no step silently
+inserts them into the canonical axis registry.
+
+## 4. Operation and representation birth
+
+A fixed catalog of named mathematical methods is not the primary search space.
+Atlas starts with small meta-primitives necessary to express research programs,
+then permits unresolved gaps to generate additional operations.  Generated
+operation identifiers retain the obligation kind in their provenance-bearing name,
+so the expansion is caused by a recorded gap rather than an opaque random branch:
+
+\[
+B_O(G_e,A_e,R_e)\rightarrow\Delta O_e,
+\]
+
+\[
+O_{e+1}=O_e\cup\Delta O_e.
+\]
+
+Representation programs are finite compositions at a given epoch,
+
+\[
+r=(o_1\circ o_2\circ\cdots\circ o_d;\, a_{i_1},\ldots,a_{i_m}),
+\]
+
+but the composition depth is not globally fixed.  A finite slice evaluates only
+a finite shell; later continuation advances to deeper shells.  Thus
+
+\[
+\forall d_0\;\exists e:\ d_e>d_0
+\]
+
+is an admissible campaign trajectory, subject to actually scheduling those
+epochs.
+
+This is an **open-ended representation language**, not a statement that every
+mathematical representation is guaranteed to be discovered.
+
+## 5. Candidate birth and obligations
+
+Each born proof-program candidate \(h\in H_e\) carries explicit unresolved
+obligations rather than theorem status.  The generic obligation classes include:
+
+\[
+G(h)=\{g_{assumption},g_{invariant},g_{counterexample},g_{goal}\}.
+\]
+
+A candidate remains
+
+\[
+\texttt{UNRESOLVED\_GENERATED\_PROOF\_PROGRAM}
+\]
+
+until its actual mathematical dependencies are discharged or the branch is
+refuted.  A generated program therefore satisfies
+
+\[
+\text{candidate birth}\neq\text{proof}.
+\]
+
+A verified obstruction/counterexample may close a scoped branch.  A verified
+formal derivation may establish the frozen formal statement relative to its
+explicit assumptions.  Missing execution evidence remains a gap.
+
+## 6. Dovetail campaign semantics
+
+An individual execution is necessarily finite.  Let \(b_e\) denote its compute
+allocation.  Scientific truth is deliberately independent of whether the current
+allocation is exhausted:
+
+\[
+b_e=0 \not\Rightarrow Q\text{ false},
+\]
+
+\[
+b_e=0 \not\Rightarrow Q\text{ solved},
+\]
+
+\[
+b_e=0 \Rightarrow \text{freeze continuation and schedule a later shell}.
+\]
+
+The continuation is content-addressed:
+
+\[
+C_e=H(Q,A_e,O_e,e+1,\operatorname{digest}(F_e)),
+\]
+
+where \(F_e\) is the current frontier receipt.  The next slice accepts only a
+continuation whose problem digest and own digest validate.
+
+The current authoritative continuation no longer truncates the retained
+research-local axes to 512 or generated operations to 64.  Those old retention
+caps would have made the active future search depend on a sliding window.  View
+and scheduling budgets may still be finite, but the authoritative continuation
+retains the complete born frontier.
+
+## 7. Synchronous campaign owner
+
+`ScientificResearchCycleOwner.run_open_ended_campaign()` is not a new solver.  It
+repeatedly invokes the same authoritative `run_autonomous()` owner:
+
+\[
+S^{(0)}\xrightarrow{slice\ 0}S^{(1)}
+\xrightarrow{slice\ 1}S^{(2)}\rightarrow\cdots.
+\]
+
+For a read-only campaign the continuation is carried in memory.  For a learning
+campaign the same continuation can also be committed to the external persistent
+research portfolio.  In both cases a slice boundary is a scheduling event, not
+an epistemic reset.
+
+## 8. Epistemic termination
+
+The campaign contract deliberately separates *execution termination* from
+*epistemic termination*.
+
+A finite API call may end because its slice budget is exhausted:
+
+\[
+\texttt{COMPUTE\_SLICE\_BUDGET\_EXHAUSTED\_CONTINUATION\_PRESERVED}.
+\]
+
+That is not a scientific answer.  A mathematically meaningful terminal state
+requires an executed gate such as:
+
+1. a verified proof of the frozen statement (relative to declared assumptions);
+2. a verified counterexample/obstruction that refutes the scoped statement;
+3. where expressible, a separate rigorous proof that the requested decision is
+   undecidable or otherwise impossible in the declared formal setting;
+4. an explicit human stop, which ends computation but does not create truth.
+
+No implementation can honestly guarantee a solution to every arbitrary
+mathematical question.  The current invariant is therefore
+
+\[
+\boxed{\text{OPEN-ENDED SEARCH}\neq\text{EVENTUAL-SOLUTION GUARANTEE}}.
+\]
+
+The achievement is removal of an *artificial Atlas ceiling*, not removal of the
+mathematical limits of computability, proof systems, or available evidence.
+
+## 9. Interaction with Formal Mathematical Verification
+
+The open-ended search and the formal-verification contour have distinct roles:
+
+\[
+\text{birth}\rightarrow\text{candidate}\rightarrow\text{obligations}
+\rightarrow\text{formalizable artifact}\rightarrow\text{kernel gate}.
+\]
+
+`FORMAL-MATHEMATICAL-VERIFICATION/1.0.0` remains fail-closed.  A dependency DAG,
+a finite counterexample search, or an externally replayed proof does not silently
+become an Atlas-local proof.  Exact symbolic checks, exhaustive finite checks,
+formal-kernel execution and external provenance/axiom audits retain their
+previous semantics.
+
+The next substantive mathematical-development barrier is now the middle arrow:
+turning abstract generated obligations into increasingly executable lemma,
+operator, invariant, counterexample and experiment tasks.  Existing Operator
+Language Birth, Function Language Birth, Unknown-Unknown Representation Birth,
+Discriminating Experiment and formal proof gates are the available executors;
+future work must connect them by evidence, not by Navier-specific routing.
+
+## 10. General common memory
+
+`UNIVERSAL-PROOF-MECHANISM-MEMORY/1.0.0` now contains 20 canonical reusable
+mechanisms.  In addition to proof-DAG, lemma, counterexample, kernel, axiom and
+statement-alignment mechanisms, the common memory contains:
+
+- `PM-OPEN-ENDED-DOVETAIL`;
+- `PM-GAP-DRIVEN-AXIS-BIRTH`;
+- `PM-OBLIGATION-OPERATION-BIRTH`;
+- `PM-BUDGET-NOT-EPISTEMIC-STOP`;
+- `PM-FRONTIER-NO-TRUNCATION`;
+- `PM-CAMPAIGN-CONTINUATION`;
+- `PM-SEMANTIC-OBLIGATION-COMPILATION`;
+- `PM-TYPED-BINDING-GAP`;
+- `PM-EXECUTABILITY-SEPARATION`.
+
+These entries store research/verification **mechanisms**, not theorem truth.  A
+mechanism discovered in mathematics can therefore be proposed in physics,
+chemistry, biology or a future domain, but every new claim must pass its own
+evidence/proof gates.
+
+## 11. Blind Navier–Stokes open-ended stress test
+
+The post-modernization test used only the frozen mathematical statement.  No
+OpenAI solution, literature record, external proof, hidden theorem structure or
+Navier-specific candidate route was present pre-freeze.
+
+Ten synchronous campaign slices were executed.  Each slice allocated three
+mathematical complexity epochs.  The observed totals were:
+
+\[
+N_{epochs}=30,
+\]
+
+\[
+N_{candidates}=240,
+\]
+
+\[
+N_{research-local\ axis\ births}=750,
+\]
+
+while the canonical registry remains
+
+\[
+N_{canonical\ axes}=655.
+\]
+
+Thus
+
+\[
+750>655
+\]
+
+is a direct implementation-level control that the registered axis set is not the
+search ceiling.  The operation alphabet observed across the campaign reached 133
+entries, and every slice advanced the continuation to a new epoch range.
+
+Every slice retained:
+
+```text
+RESEARCH_CYCLE_CONTRACT_PASS
+BLOCKED_PREDICTIVE_LIKELIHOODS_REQUIRED
+AUTONOMOUS_RESEARCH_OPEN_ENDED_MATHEMATICAL_FRONTIER_ACTIVE
+```
+
+The final campaign receipt is:
+
+```text
+AUTONOMOUS_RESEARCH_CAMPAIGN_CONTINUATION_FROZEN
+next_epoch = 30
+terminal = false
+```
+
+The final continuation additionally carries 40 unresolved proof-obligation residuals;
+in later epochs these residuals are used as causal inputs for new axis and operation
+birth.  This test therefore establishes both open-ended continuation and
+gap-driven mathematical-space growth.  It does **not** establish an independent solution of the Navier–Stokes Millennium
+Problem.  The generated proof obligations remain unresolved and therefore the
+correct epistemic state is continued research.
+
+
+## Proof-obligation discharge and theorem-closure loop (current)
+
+The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
+
+The authoritative loop is now
+
+`UNKNOWN → candidate/representation birth → proof obligations → executable task compilation → discharge/refutation → unresolved residuals → new axes/representations → next shell`.
+
+`PROOF-OBLIGATION-DISCHARGE/1.1.0-COMPONENT` is a component of the existing Mathematical Invention Kernel, not a parallel solver. It supports structural consistency checks, exact symbolic identities, finite exhaustive checks, finite counterexample-region searches, formal proof artifacts and digest-bound witnessed evidence. A missing executable specification remains `UNRESOLVED`; it is never counted as a proof. A counterexample rejects only the scoped branch unless a global implication has itself been established.
+
+Tasks are ordered by expected theorem-closure gain per execution cost. This ordering is scheduling only: it is not a probability of truth and cannot change epistemic status. Unresolved obligations are written back into the existing continuation receipt and causally drive the next research-local axis/operation birth.
+
+Qualification after integration: Mathematical Invention 60/60 PASS; Autonomous Research 56/56 PASS; Knowledge Evolution 38/38 PASS; Adaptive Axis Research 25/25 PASS; Long-Horizon 30/30 PASS; Reflexive 41/41 PASS; Developmental Open-Endedness 30/30 PASS; Research Proof 10/10 PASS; ScienceAtlas Core 10/10 PASS; Python source compile 212/212 PASS. The full repository pytest run produced 52 progress points but exceeded the 260 s runtime budget, so no full-suite PASS is claimed.
+
+A fresh blind Navier–Stokes control with no external solution revealed ran two new slices. Each slice executed 12 proof-obligation tasks and discharged 12 structurally executable obligations, while substantive PDE obligations remained unresolved. The campaign therefore continued rather than claiming the Millennium problem solved. This is the intended fail-closed boundary: the discharge machinery works, but actual theorem closure still requires born proof programs to compile substantive mathematical lemmas into executable symbolic/formal/attested checks.
+
+
+# Математическая модель semantic proof-obligation compiler
+
+Пусть born obligation задаётся как `O=(q,c,r)`, где `q` — frozen математическое утверждение, `c` — proof-program candidate, `r` — роль obligation. Semantic compiler реализует отображение
+
+`C_sem : O → (T, V, B, G)`,
+
+где `T` — typed schema утверждения, `V` — исполнимая verification specification (возможно пустая), `B` — множество недостающих semantic bindings, `G` — frozen formal dependency artifact.
+
+Typed schema содержит:
+
+- кванторы `Q={∀,∃,...}` только когда они присутствуют в frozen text;
+- символы и явные relations `R`;
+- predicates существования/не-существования, uniqueness, global/local property, regularity/smoothness, boundedness/growth, singularity/breakdown, limit/asymptotic, invariance/conservation, symmetry/equivalence;
+- operator structure (partial derivative, nabla, Laplacian, divergence, gradient, integral, norm, limit и composition/action markers);
+- function signatures, которые буквально присутствуют в statement;
+- finite domains и domain mentions;
+- explicit relation fragments с provenance `FROZEN_PROBLEM_STATEMENT`.
+
+Автоматическая исполнимость задаётся консервативно. Если frozen claim представляет точное символическое тождество `L=R`, то
+
+`V = EXACT_SYMBOLIC_IDENTITY(L,R)`.
+
+Если имеется универсальный claim над полностью перечисленной конечной областью `D`, то
+
+`V = FINITE_EXHAUSTIVE_BOOLEAN(D, claim)`.
+
+Если область конечна, но universal exhaustion не заявлен, может быть скомпилирован только scoped counterexample search. Во всех остальных случаях `V=∅`, а недостающие семантики записываются в `B`. Следовательно действует invariant
+
+`V=∅  ⇒  O остаётся UNRESOLVED`,
+
+а не `FALSE` и не `DISCHARGED`.
+
+Для каждой содержательной obligation строится
+
+`G=(A,L,E,c*)`,
+
+где `A` — явно извлечённые assumptions/relations исходной постановки, `L` — conclusion lemma, `E` — dependency edges, `c*` — conclusion id. Проверка ацикличности и полноты dependency graph является структурной квалификацией formal specification, но
+
+`VALID(G) ≠ PROVED(q)`.
+
+Если `B≠∅`, элементы `b∈B` становятся causal research gaps. Следующий open-ended shell рождает research-local coordinates
+
+`a_b = BirthAxis(q, O, b)`,
+
+с provenance `SEMANTIC_PROOF_OBLIGATION_COMPILATION_GAP`. Поэтому развитие пространства теперь причинно связано не только с generic proof failure, но и с конкретной отсутствующей математической семантикой: function-space, operator, norm, domain, witness, equivalence, topology/convergence и другими bindings.
+
+## Blind Navier–Stokes qualification
+
+До reveal внешнего решения компилятор получил только официально сформулированную в Atlas задачу. Из frozen text были извлечены scalar constraints `nu>0`, `n=3`, evolution operator equation, incompressibility relation `div u=0`, function signatures `u(x,t), p(x,t)`, differential operators и domain alternatives. Никакое решение OpenAI, литература или Navier-specific candidate route не использовались.
+
+Два последовательных blind slices дали 32 generated candidates и 116 наблюдаемых research-local axes. В последнем slice semantic compiler оставил 64 содержательные obligations typed-unresolved и перечислил недостающие bindings; 23 оси были рождены непосредственно с provenance semantic binding gap. Это закрывает прежний архитектурный барьер «born lemma остаётся свободным текстом». Новый frontier уже следующий: доказательно построить или опровергнуть сами missing functional-analytic bindings/lemmas.
+
+Claim boundary остаётся строгой:
+
+`typed schema ≠ theorem`, `formal dependency graph ≠ theorem`, `formal handoff ≠ kernel acceptance`, `no counterexample found ≠ proof`, `budget exhausted ≠ epistemic termination`.
+
+
+### Final semantic-obligation compiler qualification
+
+After the semantic compiler, typed-binding gap birth and formal-artifact wiring were frozen, the current tree was requalified end-to-end. Current results: Mathematical Invention **70/70 PASS**; Knowledge Evolution **38/38 PASS**; Autonomous Research **56/56 PASS**; Adaptive Axis Research **25/25 PASS**; Research Proof **10/10 PASS**; ScienceAtlas Core **10/10 PASS**; Long-Horizon Blind Cycle **30/30 PASS**; Collective Coordination **19/19 PASS**; Developmental Open-Endedness **30/30 PASS**; Reflexive Architecture **41/41 PASS**; Universal Experiment **PASS**; Python source compilation **212/212 PASS**. The complete repository suite also finished: **221/221 pytest PASS in 195.91 s**.
+
+The blind Navier–Stokes semantic run remains deliberately non-terminal: 32 generated proof-program candidates, 116 research-local axes, 64 typed unresolved substantive obligations and 23 later-shell axes born directly from semantic binding gaps. This qualification proves the compilation/search mechanism, not the Millennium theorem.

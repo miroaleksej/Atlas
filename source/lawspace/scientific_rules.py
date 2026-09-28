@@ -90,6 +90,15 @@ class CommonScientificRulesCore:
                 "whole_pipeline_permutation_null_required_before_law_candidate": True,
                 "source_derived_candidate_is_retained_but_not_promoted_as_independent_new_law": True,
                 "missing_qualification_evidence_is_pending_not_false": True,
+                "proof_dependency_graph_is_not_itself_proof": True,
+                "every_theorem_dependency_lemma_requires_executed_verification_or_remains_obligation": True,
+                "counterexample_witness_under_declared_assumptions_refutes_scoped_universal_claim": True,
+                "no_counterexample_in_finite_nonexhaustive_search_is_not_proof": True,
+                "formal_kernel_result_must_bind_frozen_source_and_theorem_handoff": True,
+                "external_formal_kernel_attestation_is_evidence_not_local_kernel_verification": True,
+                "external_formal_evidence_requires_pinned_source_toolchain_axiom_surface_and_replay_receipt": True,
+                "formal_statement_alignment_is_distinct_from_kernel_acceptance": True,
+                "proof_mechanism_may_transfer_across_domains_but_theorem_truth_may_not": True,
             },
             "new_domain_onboarding": {
                 "required": [

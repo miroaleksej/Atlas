@@ -22,3 +22,4 @@ phi-compiler = "interfaces.phi_compiler_cli:main"
 
 [project.optional-dependencies]
 exoplanet = ["pandas>=2.2"]
+mcp = ["mcp>=2,<3"]

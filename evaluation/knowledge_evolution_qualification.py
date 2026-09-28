@@ -194,10 +194,11 @@ def run_release_qualification(root: str | Path | None = None) -> dict[str, Any]:
             merge, merged_domain_id="qualification_bio_earth_superdomain", manifest_dir=manifest_dir, state_path=state_path,
         )
         sandbox_manifests_final = load_domain_plugin_manifests(manifest_dir)
+        proof_memory_tx = kernel.proof_mechanism_memory.seed_canonical(state_path=state_path)
         state = json.loads(state_path.read_text(encoding="utf-8"))
 
     checks = {
-        "kernel_contract_has_six_authoritative_owners": set(kernel.contract()["owners"]) == {"world_attestation", "axis_lifecycle", "domain_ontogenesis", "cross_domain_bridge", "owner_axis_binding", "candidate_world_binding"},
+        "kernel_contract_has_seven_authoritative_owners": set(kernel.contract()["owners"]) == {"world_attestation", "axis_lifecycle", "domain_ontogenesis", "cross_domain_bridge", "owner_axis_binding", "candidate_world_binding", "universal_proof_mechanism_memory"},
         "internal_phi_scan_visits_all_canonical_axes": scan.get("all_registered_axes_visited") is True and scan.get("registered_axis_count") == axis_before,
         "internal_phi_scan_has_no_fixed_visit_budget": scan.get("fixed_owner_visit_budget") is None and scan.get("fixed_candidate_axis_order_ceiling") is None,
         "internal_phi_scan_does_not_use_external_or_published_vocabulary_prefreeze": all(scan.get("knowledge_firewall", {}).get(k) is False for k in ("passport_names_used_for_source_scoring", "passport_formulas_used_for_source_scoring", "passport_provenance_used_for_source_scoring", "published_model_vocabulary_used_for_source_scoring")) and scan.get("knowledge_firewall", {}).get("postfreeze_information_feedback_allowed") is False,
@@ -226,10 +227,12 @@ def run_release_qualification(root: str | Path | None = None) -> dict[str, Any]:
         "domain_merge_requires_bridge_and_is_nondestructive": merge.get("status") == "NONDESTRUCTIVE_SUPERDOMAIN_MERGE_WARRANTED" and merge_tx.get("source_domains_deleted") is False,
         "split_and_merge_manifests_reload": all(x in sandbox_manifests_final for x in [*split_tx.get("child_domain_ids", ()), "qualification_bio_earth_superdomain"]),
         "qualification_transactions_never_touch_release_domain_registry": "qualification_emergent_science" not in DOMAIN_REGISTRIES and "qualification_bio_earth_superdomain" not in DOMAIN_REGISTRIES,
-        "knowledge_state_contains_complete_evolution_sections": all(k in state for k in ("world_attestations", "axis_lifecycle", "research_axis_proposals", "domain_transactions", "cross_domain_bridges", "owner_axis_bindings", "candidate_world_bindings", "candidate_response_projections", "candidate_measurement_executions", "candidate_prediction_lowerings", "candidate_prediction_discriminations", "hypothesis_materializations")),
+        "knowledge_state_contains_complete_evolution_sections": all(k in state for k in ("world_attestations", "axis_lifecycle", "research_axis_proposals", "domain_transactions", "cross_domain_bridges", "owner_axis_bindings", "candidate_world_bindings", "candidate_response_projections", "candidate_measurement_executions", "candidate_prediction_lowerings", "candidate_prediction_discriminations", "hypothesis_materializations", "universal_proof_mechanisms")),
         "candidate_binding_contract_requires_prefrozen_response_before_execution": kernel.contract().get("owners", {}).get("candidate_world_binding", {}).get("rules", {}).get("response_projection_must_be_frozen_before_execution") is True,
         "executed_response_without_candidate_prediction_cannot_pass_u5": kernel.contract().get("claim_boundary", {}).get("executable_measurement_response_without_candidate_prediction_is_u5") is False,
         "manual_lowering_requires_prefreeze_and_forbids_heldout_refit": kernel.contract().get("owners", {}).get("candidate_world_binding", {}).get("rules", {}).get("manual_prediction_lowering_must_be_digest_frozen_before_heldout_reveal") is True and kernel.contract().get("owners", {}).get("candidate_world_binding", {}).get("rules", {}).get("heldout_refit_for_manual_prediction_example_allowed") is False,
+        "universal_proof_mechanism_memory_seeded": len(state.get("universal_proof_mechanisms", ())) >= 15 and all(row.get("domain_specific") is False for row in state.get("universal_proof_mechanisms", ())),
+        "proof_mechanism_memory_does_not_transfer_theorem_truth": kernel.contract().get("claim_boundary", {}).get("proof_mechanism_reuse_transfers_theorem_truth") is False and all(row.get("theorem_truth_carried") is False for row in state.get("universal_proof_mechanisms", ())),
         "knowledge_state_digest_valid": state.get("digest") == digest_payload({k:v for k,v in state.items() if k != "digest"}),
         "internet_is_not_prefreeze_selector": kernel.contract().get("claim_boundary", {}).get("internet_is_prefreeze_solution_selector") is False,
         "qualification_fixture_never_claimed_as_world": kernel.contract().get("claim_boundary", {}).get("qualification_fixture_is_world_attestation") is False,
@@ -247,6 +250,7 @@ def run_release_qualification(root: str | Path | None = None) -> dict[str, Any]:
             "bridge_graph": bridge_graph, "bridge_coverage": bridge_coverage,
             "domain_split": split, "domain_split_transaction": split_tx,
             "domain_merge": merge, "domain_merge_transaction": merge_tx,
+            "universal_proof_mechanism_memory": {"count": len(state.get("universal_proof_mechanisms", ())), "state_digest": proof_memory_tx.get("digest")},
         },
         "claim_boundary": {
             "qualification_fixture_is_world_attestation": False,

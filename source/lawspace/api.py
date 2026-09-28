@@ -25,6 +25,12 @@ class LawSpaceAPI:
     MUTATION_TOOLS = MUTATION_TOOLS + ("run_closed_loop_research",)
     READ_TOOLS = READ_TOOLS + ("freeze_experiment_execution",)
     MUTATION_TOOLS = MUTATION_TOOLS + ("execute_frozen_experiment",)
+    READ_TOOLS = READ_TOOLS + (
+        "get_phi_formal_mathematical_verification_contract", "compile_phi_semantic_proof_obligation", "decompose_phi_proof", "verify_phi_proof",
+        "search_phi_counterexample_regions", "prepare_phi_formal_kernel_handoff", "run_phi_lean_kernel", "verify_phi_external_formal_attestation",
+        "get_phi_universal_proof_mechanisms",
+    )
+    MUTATION_TOOLS = MUTATION_TOOLS + ("commit_phi_universal_proof_mechanism",)
     FORBIDDEN_AI_ASSIGNMENTS = ("ATLAS_NATIVE", "ESTABLISHED_LAW", "CONFIRMED_CONSTANT", "EXPERIMENT_PASS")
     ALLOWED_AI_STATES = ("PENDING_PROPOSAL", "PENDING_BRIDGE", "PENDING_NORMALIZATION", "PENDING_CELL_ASSIGNMENT")
 
@@ -1622,6 +1628,46 @@ class LawSpaceAPI:
         from evaluation.mathematical_invention_qualification import run_release_qualification
         return run_release_qualification(self.runtime.root)
 
+    def get_phi_formal_mathematical_verification_contract(self) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        return MathematicalInventionKernel(self.runtime.root).formal.contract()
+
+    def compile_phi_semantic_proof_obligation(self, *, obligation: Mapping[str, Any], candidate: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        return MathematicalInventionKernel(self.runtime.root).semantic_obligation_compiler.compile(obligation=obligation, candidate=candidate)
+
+    def decompose_phi_proof(self, proof_artifact: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        return MathematicalInventionKernel(self.runtime.root).formal.decompose(proof_artifact)
+
+    def verify_phi_proof(self, proof_artifact: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        return MathematicalInventionKernel(self.runtime.root).formal.verify(proof_artifact)
+
+    def search_phi_counterexample_regions(self, search_spec: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        return MathematicalInventionKernel(self.runtime.root).formal.search_counterexample_regions(search_spec)
+
+    def prepare_phi_formal_kernel_handoff(self, proof_artifact: Mapping[str, Any], *, target_kernel: str = "LEAN") -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        return MathematicalInventionKernel(self.runtime.root).formal.prepare_formal_kernel_handoff(proof_artifact, target_kernel=target_kernel)
+
+    def run_phi_lean_kernel(self, *, handoff: Mapping[str, Any], source_path: str, project_dir: str | None = None, timeout_seconds: int = 120) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        return MathematicalInventionKernel(self.runtime.root).formal.run_lean_kernel(handoff=handoff, source_path=source_path, project_dir=project_dir, timeout_seconds=timeout_seconds)
+
+    def verify_phi_external_formal_attestation(self, attestation: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        return MathematicalInventionKernel(self.runtime.root).formal.verify_external_formal_attestation(attestation)
+
+    def get_phi_universal_proof_mechanisms(self) -> Mapping[str, Any]:
+        from .knowledge_evolution import KnowledgeEvolutionKernel
+        return KnowledgeEvolutionKernel(self.runtime.root).get_universal_proof_mechanisms()
+
+    def commit_phi_universal_proof_mechanism(self, receipt: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .knowledge_evolution import KnowledgeEvolutionKernel
+        return KnowledgeEvolutionKernel(self.runtime.root).commit_universal_proof_mechanism(receipt)
+
     def get_phi_theory_compiler_contract(self) -> Mapping[str, Any]:
         from .theory_compiler import TheoryCompilerKernel
         return TheoryCompilerKernel(self.runtime.root).contract()
@@ -1691,11 +1737,11 @@ class LawSpaceAPI:
 
     def get_phi_long_horizon_scientific_cycle_contract(self) -> Mapping[str, Any]:
         from .long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
-        return LongHorizonBlindScientificCycleKernel(self.runtime.root).contract()
+        return LongHorizonBlindScientificCycleKernel(self.runtime.root, state_path=self.runtime.external_state_path("phi_long_horizon_session")).contract()
 
     def freeze_phi_long_horizon_round(self, *, question: str, active_theories: Sequence[Mapping[str, Any]], cost_budget: float) -> Mapping[str, Any]:
         from .long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
-        return LongHorizonBlindScientificCycleKernel(self.runtime.root).freeze_round(question=question, active_theories=active_theories, cost_budget=cost_budget)
+        return LongHorizonBlindScientificCycleKernel(self.runtime.root, state_path=self.runtime.external_state_path("phi_long_horizon_session")).freeze_round(question=question, active_theories=active_theories, cost_budget=cost_budget)
 
     def run_phi_long_horizon_scientific_cycle_qualification(self) -> Mapping[str, Any]:
         from evaluation.long_horizon_blind_cycle_qualification import run_release_qualification
@@ -1703,7 +1749,7 @@ class LawSpaceAPI:
 
     def freeze_phi_observational_theory_round(self, *, theory: Mapping[str, Any], cost_budget: float) -> Mapping[str, Any]:
         from .long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
-        return LongHorizonBlindScientificCycleKernel(self.runtime.root).freeze_observational_round(theory=theory, cost_budget=cost_budget)
+        return LongHorizonBlindScientificCycleKernel(self.runtime.root, state_path=self.runtime.external_state_path("phi_long_horizon_session")).freeze_observational_round(theory=theory, cost_budget=cost_budget)
 
     def freeze_experiment_execution(self, contract, *, source_adapter, measurement_adapter):
         from .long_horizon_scientific_cycle import HierarchicalObservationalExperimentOwner
@@ -1712,12 +1758,12 @@ class LawSpaceAPI:
 
     def execute_frozen_experiment(self, frozen, *, source_adapter, measurement_adapter, state_dir):
         from .long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
-        return LongHorizonBlindScientificCycleKernel(self.runtime.root).execute_frozen_experiment(
+        return LongHorizonBlindScientificCycleKernel(self.runtime.root, state_path=self.runtime.external_state_path("phi_long_horizon_session")).execute_frozen_experiment(
             frozen, source_adapter=source_adapter, measurement_adapter=measurement_adapter, state_dir=state_dir)
 
     def revise_phi_observational_theory(self, *, frozen_experiment: Mapping[str, Any], measurement: Mapping[str, Any]) -> Mapping[str, Any]:
         from .long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
-        return LongHorizonBlindScientificCycleKernel(self.runtime.root).absorb_observational_measurement(frozen_experiment=frozen_experiment, measurement=measurement)
+        return LongHorizonBlindScientificCycleKernel(self.runtime.root, state_path=self.runtime.external_state_path("phi_long_horizon_session")).absorb_observational_measurement(frozen_experiment=frozen_experiment, measurement=measurement)
 
     def run_phi_representation_novelty_benchmark(self) -> Mapping[str, Any]:
         from evaluation.representation_birth_novelty_benchmark import run_benchmark
@@ -1856,7 +1902,10 @@ class LawSpaceAPI:
 
     def run_autonomous_research(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
         from .research_cycle import ScientificResearchCycleOwner
-        return ScientificResearchCycleOwner(self.runtime).run_autonomous(request)
+        owner = ScientificResearchCycleOwner(self.runtime)
+        if int(dict(request).get("campaign_slice_budget", 1) or 1) > 1:
+            return owner.run_open_ended_campaign(request)
+        return owner.run_autonomous(request)
 
     def close_deep_candidate_gamma(self, candidate: Mapping[str, Any]) -> Mapping[str, Any]:
         from .research_cycle import ScientificResearchCycleOwner

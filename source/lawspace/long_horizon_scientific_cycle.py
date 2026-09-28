@@ -55,6 +55,7 @@ class LongHorizonSessionLedgerOwner:
             "theory_demotions": {},
             "identified_theories": [],
             "measurement_receipts": [],
+            "candidate_world_receipts": [],
             "transitions": [],
         }
         state["state_digest"] = _state_digest(state)
@@ -72,6 +73,7 @@ class LongHorizonSessionLedgerOwner:
         payload = dict(state)
         payload["transitions"] = list(payload.get("transitions", ())) [-self.max_transition_receipts:]
         payload["measurement_receipts"] = list(payload.get("measurement_receipts", ())) [-self.max_transition_receipts:]
+        payload["candidate_world_receipts"] = list(payload.get("candidate_world_receipts", ())) [-self.max_transition_receipts:]
         payload["state_digest"] = _state_digest(payload)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         tmp = self.path.with_suffix(self.path.suffix + ".tmp")
@@ -423,11 +425,16 @@ class LongHorizonBlindScientificCycleKernel:
             cost_budget=cost_budget,
         )
         theory_ids = [str(x.get("executable_id", "")) for x in theories]
+        theory_candidate_bindings = [
+            {"theory_id": str(x.get("executable_id", "")), "candidate_id": str(x.get("candidate_id", ""))}
+            for x in theories if str(x.get("candidate_id", "")).strip()
+        ]
         payload = {
             "schema": SCHEMA,
             "owner_id": KERNEL_OWNER_ID,
             "status": "LONG_HORIZON_ROUND_FROZEN" if design.get("status") == "DISCRIMINATING_EXPERIMENT_SELECTED" else str(design.get("status")),
             "active_theory_ids": theory_ids,
+            "theory_candidate_bindings": theory_candidate_bindings,
             "design": design,
             "frontier": design.get("frontier"),
             "selection": design.get("selection"),
@@ -465,6 +472,35 @@ class LongHorizonBlindScientificCycleKernel:
         )
         state = self.ledger.load()
         state["heartbeat_count"] += 1
+        bindings = {
+            str(row.get("theory_id", "")): str(row.get("candidate_id", ""))
+            for row in epoch_freeze.get("theory_candidate_bindings", ())
+            if str(row.get("theory_id", "")) and str(row.get("candidate_id", ""))
+        }
+        candidate_world_receipts = []
+        for theory_id in epoch_freeze.get("active_theory_ids", ()):
+            cid = bindings.get(str(theory_id))
+            if not cid:
+                continue
+            if revision.get("status") == "REPRESENTATION_EXPANSION_REQUIRED":
+                cstatus = "REPRESENTATION_EXPANSION_REQUIRED"
+            elif str(theory_id) in set(str(x) for x in revision.get("surviving_theory_ids", ())):
+                cstatus = "CONSISTENT_WITH_PREDICTION"
+            else:
+                cstatus = "FORM_FALSIFIED"
+            receipt = {
+                "owner": KERNEL_OWNER_ID,
+                "candidate_id": cid,
+                "world_id": str(environment_id),
+                "world_kind": str(measurement.get("world_kind", "LONG_HORIZON_MEASUREMENT")),
+                "status": cstatus,
+                "theory_id": str(theory_id),
+                "measurement_digest": str(measurement.get("digest", "")),
+                "epoch_freeze_digest": str(epoch_freeze.get("digest", "")),
+            }
+            receipt["digest"] = digest_payload(receipt)
+            candidate_world_receipts.append(receipt)
+        state.setdefault("candidate_world_receipts", []).extend(candidate_world_receipts)
         transition = {
             "heartbeat": state["heartbeat_count"],
             "environment_id": str(environment_id),
@@ -491,6 +527,7 @@ class LongHorizonBlindScientificCycleKernel:
             "revision": revision,
             "attestation": attestation,
             "state_commit": commit,
+            "candidate_world_receipts": candidate_world_receipts,
             "claim_boundary": {
                 "qualification_measurement_promotes_world_theory": False,
                 "attestation_world_ready": attestation.get("world_ready") is True,

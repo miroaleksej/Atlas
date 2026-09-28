@@ -1,4 +1,4 @@
-"""Authoritative open-ended research orchestration for Φ-Compiler 15.2.8.
+"""Authoritative open-ended research orchestration for Φ-Compiler 15.3.0.
 
 The module coordinates existing scientific owners around one adaptive research
 loop.  It does not assume that a law is known in advance and it does not treat
@@ -37,8 +37,8 @@ from .schema import AxisValueKind, LawPassport, canonical_json, digest_payload
 from .scientific_verification import ScientificVerificationCore
 
 RESEARCH_CYCLE_SCHEMA = "phi-scientific-research-cycle/v15.0"
-RESEARCH_CYCLE_OWNER = "SCIENTIFIC-RESEARCH-CYCLE/15.2.8"
-RESEARCH_CYCLE_VERSION = "15.2.8"
+RESEARCH_CYCLE_OWNER = "SCIENTIFIC-RESEARCH-CYCLE/15.3.0"
+RESEARCH_CYCLE_VERSION = "15.3.0"
 SEMANTIC_QUESTION_OWNER = "SEMANTIC-TYPED-QUESTION/2.0.0"
 AUTONOMOUS_RESEARCH_SCHEMA = "phi-autonomous-research-orchestration/v2"
 CANDIDATE_BIRTH_SCHEMA = "phi-candidate-birth-capability-resolution/v1"
@@ -451,6 +451,8 @@ class CompetitiveSetOwner:
         directed_region: Mapping[str, Any],
         candidates: Sequence[Mapping[str, Any]],
         minimum: int = MINIMUM_COMPETING_HYPOTHESES,
+        preferred_candidate_ids: Sequence[str] = (),
+        active_budget: int | None = None,
     ) -> Mapping[str, Any]:
         if minimum < MINIMUM_COMPETING_HYPOTHESES:
             raise ValueError(f"minimum competing hypotheses cannot be below {MINIMUM_COMPETING_HYPOTHESES}")
@@ -520,15 +522,49 @@ class CompetitiveSetOwner:
             scored.append((score, candidate, _candidate_mechanism_family_signature(candidate)))
         scored.sort(key=lambda item: item[0], reverse=True)
 
+        # Keep the whole query-relevant epistemic frontier visible even though
+        # only a bounded portfolio is executed in one cycle.  "Not scheduled"
+        # is therefore never equivalent to "discarded".
+        eligible_rows = [
+            {
+                "candidate_id": str(candidate.get("candidate_id", "")),
+                "mechanism_family_signature": signature,
+                "rank": rank,
+                "relevance_score": list(score[:-1]),
+            }
+            for rank, (score, candidate, signature) in enumerate(scored, start=1)
+        ]
+        by_id = {str(candidate.get("candidate_id", "")): (score, candidate, signature) for score, candidate, signature in scored}
+        preferred = [str(x) for x in preferred_candidate_ids if str(x) in by_id]
+        limit = int(active_budget) if active_budget is not None else int(minimum)
+        if limit < minimum:
+            limit = int(minimum)
+
         selected: list[Mapping[str, Any]] = []
         signatures: set[str] = set()
-        for score, candidate, signature in scored:
-            if signature in signatures:
-                continue
+        selected_ids: set[str] = set()
+
+        def admit(candidate: Mapping[str, Any], signature: str) -> bool:
+            candidate_id = str(candidate.get("candidate_id", ""))
+            if not candidate_id or candidate_id in selected_ids or signature in signatures:
+                return False
             selected.append(candidate)
+            selected_ids.add(candidate_id)
             signatures.add(signature)
-            if len(selected) >= minimum:
+            return True
+
+        # Fair-portfolio preferences are consumed first, then the historical
+        # relevance ordering fills any remaining execution slots.
+        for candidate_id in preferred:
+            _score, candidate, signature = by_id[candidate_id]
+            admit(candidate, signature)
+            if len(selected) >= limit:
                 break
+        if len(selected) < limit:
+            for score, candidate, signature in scored:
+                admit(candidate, signature)
+                if len(selected) >= limit:
+                    break
 
         rows = []
         for candidate in selected:
@@ -560,6 +596,10 @@ class CompetitiveSetOwner:
             "minimum_required": minimum,
             "candidate_count": len(rows),
             "candidates": rows,
+            "eligible_candidate_count": len(eligible_rows),
+            "eligible_candidates": eligible_rows,
+            "active_execution_budget": limit,
+            "preferred_candidate_ids_consumed": [row["candidate_id"] for row in rows if row["candidate_id"] in set(preferred)],
             "candidate_freeze_digest": freeze_digest,
             "mechanism_family_signatures": [row["mechanism_family_signature"] for row in rows],
             "content_signatures": [row["content_signature"] for row in rows],
@@ -576,6 +616,273 @@ class CompetitiveSetOwner:
         }
         result["digest"] = digest_payload(result)
         return result
+
+
+class PersistentResearchPortfolioOwner:
+    """Persistent epistemic ledger plus bounded fair compute portfolio.
+
+    The owner never deletes a candidate merely because it is not scheduled in
+    the current cycle.  Epistemic state and compute budget are separate:
+    candidates remain addressable in the ledger while a finite portfolio is
+    rotated by exploitation, least-visited coverage and world-deficit lanes.
+    Mutable state is always external to the sealed release tree.
+    """
+
+    owner_id = "PERSISTENT-RESEARCH-PORTFOLIO/1.0.0"
+    schema = "phi-persistent-research-portfolio/v1"
+
+    def __init__(self, runtime: Any) -> None:
+        self.runtime = runtime
+        self.path = runtime.external_state_path("persistent_research_portfolio")
+
+    @staticmethod
+    def _fresh() -> dict[str, Any]:
+        return {
+            "schema": PersistentResearchPortfolioOwner.schema,
+            "owner": PersistentResearchPortfolioOwner.owner_id,
+            "epoch": 0,
+            "entries": {},
+            "world_receipts": [],
+            "question_cursors": {},
+        }
+
+    def load(self) -> dict[str, Any]:
+        if not self.path.is_file():
+            return self._fresh()
+        raw = json.loads(self.path.read_text(encoding="utf-8"))
+        supplied = str(raw.pop("digest", ""))
+        if raw.get("schema") != self.schema or raw.get("owner") != self.owner_id:
+            raise RuntimeError("persistent research portfolio schema/owner mismatch")
+        expected = digest_payload(raw)
+        if supplied != expected:
+            raise RuntimeError("persistent research portfolio digest mismatch")
+        raw["digest"] = supplied
+        return raw
+
+    def commit(self, state: Mapping[str, Any]) -> Mapping[str, Any]:
+        body = dict(state)
+        body.pop("digest", None)
+        body["schema"] = self.schema
+        body["owner"] = self.owner_id
+        body["digest"] = digest_payload(body)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = self.path.with_suffix(self.path.suffix + ".tmp")
+        tmp.write_text(canonical_json(body) + "\n", encoding="utf-8")
+        tmp.replace(self.path)
+        return {"status": "PERSISTENT_RESEARCH_PORTFOLIO_COMMITTED", "path": str(self.path), "digest": body["digest"]}
+
+    @staticmethod
+    def _world_status(receipt: Mapping[str, Any]) -> str:
+        status = str(receipt.get("status", "")).upper()
+        if "FALS" in status or "EXCLUDED" in status or "REJECT" in status:
+            return "FORM_FALSIFIED_WORLD_EVIDENCE"
+        if "SUPPORT" in status or "PASS" in status or "CONSISTENT" in status:
+            return "SUPPORTED_IN_AT_LEAST_ONE_WORLD"
+        if "REPRESENTATION" in status or "AXIS" in status:
+            return "NEEDS_REPRESENTATION_OR_AXIS_BIRTH"
+        return "WORLD_EVIDENCE_UNRESOLVED"
+
+    def plan(
+        self,
+        *,
+        question: str,
+        eligible_candidates: Sequence[Mapping[str, Any]],
+        preserve_candidates: Sequence[Mapping[str, Any]] = (),
+        ranked_candidate_ids: Sequence[str],
+        active_budget: int,
+        world_receipts: Sequence[Mapping[str, Any]] = (),
+        research_continuation: Mapping[str, Any] | None = None,
+        persist: bool = False,
+    ) -> Mapping[str, Any]:
+        state = self.load()
+        state.pop("digest", None)
+        epoch = int(state.get("epoch", 0)) + 1
+        entries = {str(k): dict(v) for k, v in dict(state.get("entries", {})).items()}
+        receipts = [dict(x) for x in state.get("world_receipts", ())]
+
+        preserved = [dict(x) for x in preserve_candidates if str(x.get("candidate_id", ""))]
+        for row in preserved:
+            cid = str(row["candidate_id"])
+            entry = entries.setdefault(cid, {
+                "candidate_id": cid,
+                "first_seen_epoch": epoch,
+                "selection_count": 0,
+                "world_count": 0,
+                "support_count": 0,
+                "falsification_count": 0,
+                "epistemic_status": "CANDIDATE_ACTIVE_NEEDS_WORLD_EVIDENCE",
+            })
+            entry["last_seen_epoch"] = epoch
+            if row.get("mechanism_family_signature"):
+                entry["mechanism_family_signature"] = str(row.get("mechanism_family_signature"))
+            if row.get("source_epistemic_statuses"):
+                entry["source_epistemic_statuses"] = list(row.get("source_epistemic_statuses", ()))
+            if row.get("next_gate"):
+                entry["next_gate"] = str(row.get("next_gate"))
+            entry["authoritative_frontier_member"] = True
+
+        eligible = [dict(x) for x in eligible_candidates if str(x.get("candidate_id", ""))]
+        eligible_ids = [str(x["candidate_id"]) for x in eligible]
+        eligible_map = {str(x["candidate_id"]): x for x in eligible}
+        for row in eligible:
+            cid = str(row["candidate_id"])
+            entry = entries.setdefault(cid, {
+                "candidate_id": cid,
+                "first_seen_epoch": epoch,
+                "selection_count": 0,
+                "world_count": 0,
+                "support_count": 0,
+                "falsification_count": 0,
+                "epistemic_status": "CANDIDATE_ACTIVE_NEEDS_WORLD_EVIDENCE",
+            })
+            entry["last_seen_epoch"] = epoch
+            entry["mechanism_family_signature"] = str(row.get("mechanism_family_signature", ""))
+            entry["last_relevance_rank"] = int(row.get("rank", 10**9))
+            entry["currently_query_relevant"] = True
+        eligible_set = set(eligible_ids)
+        for cid, entry in entries.items():
+            if cid not in eligible_set:
+                entry["currently_query_relevant"] = False
+                if entry.get("epistemic_status") == "CANDIDATE_ACTIVE_NEEDS_WORLD_EVIDENCE":
+                    entry["epistemic_status"] = "CANDIDATE_PRESERVED_OUTSIDE_CURRENT_QUERY"
+
+        trusted_world_owners = {
+            "PHI-LONG-HORIZON-BLIND-SCIENTIFIC-CYCLE/1.0.0",
+            "CANDIDATE-WORLD-BINDING/1.3.0",
+        }
+        rejected_world_receipts = 0
+        for raw in world_receipts:
+            receipt = dict(raw)
+            cid = str(receipt.get("candidate_id", "")).strip()
+            world_id = str(receipt.get("world_id") or receipt.get("environment_id") or receipt.get("dataset_id") or "").strip()
+            owner = str(receipt.get("owner", "")).strip()
+            supplied_digest = str(receipt.get("digest", "")).strip()
+            digest_basis = {k: v for k, v in receipt.items() if k != "digest"}
+            valid_digest = bool(supplied_digest) and supplied_digest == digest_payload(digest_basis)
+            if not cid or cid not in entries or not world_id or owner not in trusted_world_owners or not valid_digest:
+                rejected_world_receipts += 1
+                continue
+            receipt_digest = supplied_digest
+            if any(str(x.get("digest", "")) == receipt_digest for x in receipts):
+                continue
+            normalized = {
+                "candidate_id": cid,
+                "world_id": world_id,
+                "world_kind": str(receipt.get("world_kind", "UNSPECIFIED")),
+                "status": str(receipt.get("status", "UNRESOLVED")),
+                "digest": receipt_digest,
+            }
+            receipts.append(normalized)
+            entry = entries[cid]
+            entry["world_count"] = int(entry.get("world_count", 0)) + 1
+            wstatus = self._world_status(receipt)
+            if wstatus == "FORM_FALSIFIED_WORLD_EVIDENCE":
+                entry["falsification_count"] = int(entry.get("falsification_count", 0)) + 1
+                entry["epistemic_status"] = "FORM_FALSIFIED_CANDIDATE_PRESERVED"
+            elif wstatus == "SUPPORTED_IN_AT_LEAST_ONE_WORLD":
+                entry["support_count"] = int(entry.get("support_count", 0)) + 1
+                entry["epistemic_status"] = "CANDIDATE_SUPPORTED_NEEDS_CROSS_WORLD_STABILITY"
+            elif wstatus == "NEEDS_REPRESENTATION_OR_AXIS_BIRTH":
+                entry["epistemic_status"] = "CANDIDATE_REQUIRES_SPACE_EXPANSION"
+            else:
+                entry["epistemic_status"] = "CANDIDATE_ACTIVE_NEEDS_WORLD_EVIDENCE"
+
+        budget = max(MINIMUM_COMPETING_HYPOTHESES, int(active_budget))
+        # One exploitation lane preserves the highest-ranked current hypotheses.
+        exploitation_n = max(1, budget // 3)
+        active: list[str] = []
+
+        def take(cid: str) -> bool:
+            if cid not in eligible_map or cid in active:
+                return False
+            active.append(cid)
+            return True
+
+        for cid in ranked_candidate_ids:
+            if len(active) >= exploitation_n:
+                break
+            take(str(cid))
+
+        # Coverage/world-deficit lane: least selected, then least tested in worlds,
+        # then oldest selection epoch.  Every relevant candidate can therefore
+        # regain budget over repeated cycles if its mechanism family remains live.
+        coverage = sorted(
+            eligible_ids,
+            key=lambda cid: (
+                int(entries[cid].get("selection_count", 0)),
+                int(entries[cid].get("world_count", 0)),
+                int(entries[cid].get("last_selected_epoch", 0)),
+                int(entries[cid].get("last_relevance_rank", 10**9)),
+                cid,
+            ),
+        )
+        for cid in coverage:
+            if len(active) >= budget:
+                break
+            take(cid)
+        # Attention scheduling intentionally permits multiple candidates from the
+        # same mechanism family: they may occupy different subspaces/worlds.
+        # Mechanism-family independence remains enforced later by CompetitiveSetOwner.
+        for cid in active:
+            entry = entries[cid]
+            entry["selection_count"] = int(entry.get("selection_count", 0)) + 1
+            entry["last_selected_epoch"] = epoch
+            entry["compute_budget_state"] = "ACTIVE_THIS_EPOCH"
+        for cid in eligible_ids:
+            if cid not in active:
+                entries[cid]["compute_budget_state"] = "PRESERVED_NOT_SCHEDULED_THIS_EPOCH"
+
+        qdigest = digest_payload(question)
+        cursors = dict(state.get("question_cursors", {}))
+        cursors[qdigest] = {
+            "epoch": epoch,
+            "active_candidate_ids": list(active),
+            "eligible_candidate_count": len(eligible_ids),
+            "research_continuation": dict(research_continuation) if isinstance(research_continuation, Mapping) else dict(cursors.get(qdigest, {})).get("research_continuation"),
+        }
+        state.update({
+            "epoch": epoch,
+            "entries": entries,
+            "world_receipts": receipts[-4096:],
+            "question_cursors": cursors,
+        })
+        state["digest"] = digest_payload({k: v for k, v in state.items() if k != "digest"})
+        commit = self.commit(state) if persist else {"status": "NOT_PERSISTED_READ_ONLY", "path": str(self.path)}
+        payload = {
+            "schema": self.schema,
+            "owner": self.owner_id,
+            "status": "PERSISTENT_RESEARCH_PORTFOLIO_PLANNED",
+            "epoch": epoch,
+            "eligible_candidate_count": len(eligible_ids),
+            "preserved_candidate_count": len(entries),
+            "active_candidate_ids": active,
+            "active_candidate_count": len(active),
+            "active_budget_requested": budget,
+            "world_receipt_count": len(receipts),
+            "rejected_untrusted_or_invalid_world_receipt_count": rejected_world_receipts,
+            "trusted_world_receipt_owners": sorted(trusted_world_owners),
+            "epistemic_status_counts": {},
+            "compute_budget_is_epistemic_status": False,
+            "unscheduled_candidate_is_discarded": False,
+            "falsified_form_is_deleted": False,
+            "state_commit": commit,
+        }
+        counts: dict[str, int] = {}
+        for entry in entries.values():
+            status = str(entry.get("epistemic_status", "UNRESOLVED"))
+            counts[status] = counts.get(status, 0) + 1
+        payload["epistemic_status_counts"] = dict(sorted(counts.items()))
+        payload["active_candidate_next_requirements"] = [
+            {
+                "candidate_id": cid,
+                "epistemic_status": str(entries[cid].get("epistemic_status", "UNRESOLVED")),
+                "next_gate": str(entries[cid].get("next_gate", "WORLD_BINDING_OR_DISCRIMINATING_EVIDENCE")),
+                "world_count": int(entries[cid].get("world_count", 0)),
+            }
+            for cid in active
+        ]
+        payload["digest"] = digest_payload(payload)
+        return payload
 
 
 class PredictionFalsificationOwner:
@@ -991,6 +1298,11 @@ _SEMANTIC_GENERIC_CONCEPTS = {
     "state", "model", "information", "interaction", "communication", "measurement",
     "experiment", "uncertainty", "stability", "local", "multiple", "loss", "preserve",
     "control", "mass", "spectrum", "dynamics", "noise",
+    # Cross-domain/meta-scientific concepts cannot by themselves establish a
+    # physical domain.  They remain useful for ranking after a domain-specific
+    # anchor exists.
+    "representation", "effect", "scientific", "architecture", "capability",
+    "memory", "resource", "open", "developmental", "transition", "coordination",
 }
 _SEMANTIC_META_CONCEPTS = {"research", "find", "explain"}
 
@@ -1177,7 +1489,15 @@ class SemanticTypedQuestionOwner:
         axis_rows.sort(key=lambda row: (-float(row["score"]), str(row["qualified_axis_id"])))
         selected_domains: list[str] = []
         max_domain = float(domain_rows[0]["score"]) if domain_rows else 0.0
-        if domain_rows and max_domain >= 8.0:
+        primary_specific = bool(
+            domain_rows
+            and (
+                domain_rows[0]["identifier_matches"]
+                or domain_rows[0]["specific_axis_matches"]
+                or domain_rows[0]["owner_only_matches"]
+            )
+        )
+        if domain_rows and max_domain >= 8.0 and primary_specific:
             selected_domains.append(str(domain_rows[0]["domain_id"]))
             for row in domain_rows[1:]:
                 score = float(row["score"])
@@ -1255,6 +1575,7 @@ class SemanticTypedQuestionOwner:
                 "secondary_requires_identifier_or_two_specific_axes": True,
                 "owner_text_can_ground_only_concepts_absent_from_registry_identifiers": True,
                 "generic_concept_volume_cannot_create_domain_answer": True,
+                "primary_domain_requires_specific_anchor": True,
             },
             "claim_boundary": {
                 "typed_intent_is_scientific_answer": False,
@@ -1665,8 +1986,10 @@ class AdaptiveResearchKernelOwner:
         self.hypothesis_synthesis = AdaptiveHypothesisSynthesisOwner()
         self.firewall = ProvenanceClaimFirewallOwner()
         from .mathematical_invention import MathematicalInventionKernel
+        from .knowledge_evolution import KnowledgeEvolutionKernel
         from .theory_compiler import TheoryCompilerKernel
         self.invention = MathematicalInventionKernel(runtime.root)
+        self.knowledge_evolution = KnowledgeEvolutionKernel(runtime.root)
         self.theory_compiler = TheoryCompilerKernel(runtime.root)
 
     def _code_digest(self) -> str:
@@ -1690,7 +2013,7 @@ class AdaptiveResearchKernelOwner:
                 "HYPOTHESIS_SYNTHESIS", "TYPED_CLOSURE", "PREDICTION", "RESIDUAL",
                 "FALSIFICATION", "DISCRIMINATING_EXPERIMENT", "AXIS_OR_LANGUAGE_EVOLUTION",
                 "EXECUTABLE_REPRESENTATION_SYNTHESIS", "SANDBOX_EXECUTION",
-                "CLAIM_FIREWALL", "NEXT_RESEARCH_CYCLE",
+                "FORMAL_MATHEMATICAL_VERIFICATION", "CLAIM_FIREWALL", "NEXT_RESEARCH_CYCLE",
             ),
             "space_policy": {
                 "canonical_axis_count_is_ceiling": False,
@@ -1749,6 +2072,8 @@ class AdaptiveResearchKernelOwner:
                 "constraint_atlas": "CONSTRAINT-ATLAS",
                 "adaptive_axis": self.axis_discovery.owner_id,
                 "mathematical_invention": self.invention.contract().get("owner_id"),
+                "formal_mathematical_verification": self.invention.formal.owner_id,
+                "universal_proof_mechanism_memory": self.knowledge_evolution.proof_mechanism_memory.owner_id,
                 "theory_compiler": self.theory_compiler.contract().get("owner_id"),
                 "claim_firewall": self.firewall.owner_id,
             },
@@ -4445,6 +4770,7 @@ class ScientificResearchCycleOwner:
         self.adaptive = AdaptiveResearchKernelOwner(runtime)
         self.axis_admission = DynamicAxisAdmissionOwner()
         self.competitive = CompetitiveSetOwner()
+        self.portfolio = PersistentResearchPortfolioOwner(runtime)
         self.prediction_falsification = PredictionFalsificationOwner()
         self.eig = DomainNeutralInformationGainOwner()
         self.novelty = PostDerivationNoveltyOwner()
@@ -4458,16 +4784,18 @@ class ScientificResearchCycleOwner:
             "pipeline": [
                 "HumanQuestion", "SemanticTypedIR", "UnknownBoundary", "OwnerAxisSpace", "CandidateBirthCapabilityResolution", "CompetingHypotheses>=5",
                 "Predictions", "Falsification", "EIG", "Experiment", "Evidence",
-                "Novelty", "Ledger", "NextFrontier",
+                "Novelty", "Ledger", "PersistentPortfolio", "NextFrontier",
             ],
             "adaptive_research_kernel": self.adaptive.contract(),
             "legacy_competitor_diversity_target": MINIMUM_COMPETING_HYPOTHESES,
             "fixed_competitor_count_is_truth_gate": False,
+            "persistent_candidate_policy": "NO_CANDIDATE_DELETED_BY_SCHEDULING; EPISTEMIC_STATUS_SEPARATE_FROM_COMPUTE_BUDGET",
+            "multi_world_policy": "WORLD_RECEIPTS_ACCUMULATE_PER_CANDIDATE; WORLD_DEFICIT PARTICIPATES_IN FAIR PORTFOLIO",
             "dynamic_axis_policy": "PROVISIONAL_ADMISSION_WITHOUT_IMPLICIT_CANONICAL_REGISTRY_MUTATION",
             "information_gain_policy": "EXACT_FROM_EXPLICIT_PREDICTIVE_LIKELIHOODS_OR_FAIL_CLOSED",
             "novelty_policy": "POST_DERIVATION_CORPUS_RELATIVE_ONLY_WORLD_NOVELTY_NEVER_INFERRED",
             "candidate_generation_owner_preserved": "CandidateGenerationPipeline/6.1.0",
-            "fresh_candidate_birth_policy": "RESOLVE_EXISTING_BIRTH_CAPABILITY_OR_RETURN_EXPLICIT_GAP_NEVER_FALL_BACK_TO_MATERIALIZED_2771",
+            "fresh_candidate_birth_policy": "SPECIALIZED_OWNER_WHEN_GROUNDED_ELSE_OPEN_ENDED_MATHEMATICAL_BOOTSTRAP_NEVER_FALL_BACK_TO_MATERIALIZED_2771",
             "domain_candidate_seam": "VALIDATED_NONCANONICAL_DOMAIN_OWNER_RECORDS_NO_GENERIC_REGISTRY_MUTATION",
             "competitive_relevance_policy": "HARD_SEED_OWNER_DOMAIN_OR_EXPLICIT_REQUIRED_DOMAIN_GATE_BEFORE_MECHANISM_INDEPENDENCE",
             "parallel_formula_generator_created": False,
@@ -4479,8 +4807,60 @@ class ScientificResearchCycleOwner:
             "system_status_until_blind_ab_passes": "RESEARCH_SYSTEM_UNDER_QUALIFICATION",
             "human_to_phi_orchestration": "AUTHORITATIVE_IN_THIS_OWNER",
             "semantic_typed_question_owner": SEMANTIC_QUESTION_OWNER,
-            "autonomous_blocked_stage_policy": "HAND_OFF_TO_EXISTING_RESIDENT_WORLD_MODEL_AND_MATHEMATICAL_INVENTION_OWNERS_OR_RETURN_EXPLICIT_GAP",
+            "autonomous_blocked_stage_policy": "CONTINUE_OPEN_ENDED_MATHEMATICAL_FRONTIER_WITH_ADAPTIVE_AXIS_REPRESENTATION_AND_PROOF_PROGRAM_BIRTH_OR_RETURN_EXPLICIT_EVIDENCE_GAP",
         }
+
+    def _authoritative_frontier_records(self) -> list[dict[str, Any]]:
+        """Read the existing append-only Atlas frontier without creating a second registry."""
+        path = self.runtime.root / "data" / "frontiers" / "ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl"
+        if not path.is_file():
+            return []
+        rows: list[dict[str, Any]] = []
+        with path.open("r", encoding="utf-8") as handle:
+            for rank, line in enumerate(handle, start=1):
+                if not line.strip():
+                    continue
+                raw = json.loads(line)
+                cid = str(raw.get("candidate_id", "")).strip()
+                if not cid:
+                    continue
+                payload = dict(raw.get("payload", {}))
+                families = tuple(str(x) for x in payload.get("candidate_mechanism_families", ()) if str(x))
+                promotion = dict(raw.get("promotion_path", {}))
+                rows.append({
+                    "candidate_id": cid,
+                    "rank": rank,
+                    "domain_ids": list(raw.get("domain_ids", ())),
+                    "axis_ids": list(payload.get("axis_ids", ())),
+                    "mechanism_family_signature": digest_payload(families or (str(raw.get("candidate_class", "UNSPECIFIED")),)),
+                    "candidate_mechanism_families": list(families),
+                    "source_epistemic_statuses": list(raw.get("epistemic_statuses", ())),
+                    "next_gate": str(promotion.get("next_gate", "")),
+                    "record_digest": str(raw.get("record_digest", "")),
+                    "world_result_observed": bool(payload.get("world_result_observed", False)),
+                })
+        return rows
+
+    @staticmethod
+    def _frontier_query_projection(
+        rows: Sequence[Mapping[str, Any]], *, required_domains: Sequence[str], target_axis_ids: Sequence[str]
+    ) -> list[dict[str, Any]]:
+        domains = {str(x) for x in required_domains if str(x)}
+        axes = {str(x) for x in target_axis_ids if str(x)}
+        projected: list[dict[str, Any]] = []
+        for raw in rows:
+            row = dict(raw)
+            row_domains = {str(x) for x in row.get("domain_ids", ())}
+            row_axes = {str(x) for x in row.get("axis_ids", ())}
+            if axes:
+                relevant = bool(axes & row_axes)
+            elif domains:
+                relevant = bool(domains & row_domains)
+            else:
+                relevant = True
+            if relevant:
+                projected.append(row)
+        return projected
 
     def adaptive_contract(self) -> Mapping[str, Any]:
         return self.adaptive.contract()
@@ -4626,16 +5006,18 @@ class ScientificResearchCycleOwner:
                 eligible = bool(trigger_hits)
                 lexical = sorted(set(lexical) | set(trigger_hits))
             elif route == "DEEP_OWNER_HYPERGRAPH_BIRTH":
-                # This is the domain-neutral owner-hypergraph fallback.  Its
-                # eligibility is grounded by the typed required-domain overlap,
-                # not by incidental wording such as the literal token "physics".
-                # Specialized routes above still require their own semantic
-                # triggers and therefore outrank this fallback when appropriate.
+                # This is the owner-hypergraph route for already grounded domain
+                # content.  It is never the only way to cross UNKNOWN.
                 eligible = bool(domain_overlap) and bool(query_concepts)
+            elif route == "MATHEMATICAL_INVENTION":
+                # Universal fail-closed bootstrap.  It is allowed to create only
+                # research-local proof/program candidates and new research axes;
+                # theorem truth still requires downstream obligations/evidence.
+                # This removes the old circular requirement that a problem must
+                # already overlap a known domain owner before Atlas can invent its
+                # first mathematical candidate.
+                eligible = bool(str(question).strip())
             else:
-                # Mathematical invention is not an unconditional formula source;
-                # it becomes actionable only with qualifying evidence, handled
-                # later by the existing autonomous gap path.
                 eligible = False
             score = 10 * len(lexical) + 3 * len(domain_overlap)
             scored.append({
@@ -4648,7 +5030,12 @@ class ScientificResearchCycleOwner:
                 "contract_digest": str(desc["contract"].get("digest", digest_payload(desc["contract"]))),
             })
         scored.sort(key=lambda row: (-int(row["score"]), str(row["route"])))
-        selected = next((row for row in scored if row["eligible"]), None)
+        # A grounded specialized owner takes precedence.  Mathematical invention
+        # is the universal fallback, not a competitor that can steal a strongly
+        # typed route because of incidental lexical overlap.
+        selected = next((row for row in scored if row["eligible"] and row["route"] != "MATHEMATICAL_INVENTION"), None)
+        if selected is None:
+            selected = next((row for row in scored if row["eligible"] and row["route"] == "MATHEMATICAL_INVENTION"), None)
 
         baseline_ids = {str(row.get("candidate_id")) for row in self.runtime.candidates}
         baseline_digests = {str(row.get("digest")) for row in self.runtime.candidates if row.get("digest")}
@@ -4798,6 +5185,68 @@ class ScientificResearchCycleOwner:
                             route=route, native_payload=native, domains=required_domains or ("physics",),
                             statement="NeutrinoOperatorIdentity:" + nd,
                         )
+                        if row["fresh_to_materialized_2771"]:
+                            generic_rows.append(row)
+                elif route == "MATHEMATICAL_INVENTION":
+                    continuation = execution.get("mathematical_search_continuation")
+                    if not isinstance(continuation, Mapping):
+                        # Resume from the existing external persistent portfolio
+                        # when available.  Mutable continuation never enters the
+                        # sealed release tree.
+                        try:
+                            state = self.portfolio.load()
+                            qcursor = dict(state.get("question_cursors", {})).get(digest_payload(question), {})
+                            continuation = qcursor.get("research_continuation")
+                        except Exception:
+                            continuation = None
+                    native_receipt = invention.autonomous_candidate_birth.search(
+                        question=question,
+                        continuation=continuation if isinstance(continuation, Mapping) else None,
+                        registered_axis_ids=tuple(active_axis_ids),
+                        required_domains=required_domains,
+                        epoch_budget=int(execution.get("mathematical_search_epochs", 3) or 3),
+                        axis_birth_budget_per_epoch=int(execution.get("mathematical_axis_budget_per_epoch", 24) or 24),
+                        candidate_budget_per_epoch=int(execution.get("mathematical_candidate_budget_per_epoch", 8) or 8),
+                    )
+                    candidate_domains = tuple(required_domains) or ("mathematics",)
+                    for native in native_receipt.get("candidates", ()):
+                        cid = str(native.get("candidate_id", ""))
+                        if not cid:
+                            continue
+                        nd = str(native.get("digest") or digest_payload(native))
+                        family_id = str(native.get("representation_family_id", "GENERATED"))
+                        rep = dict(native.get("representation_signature", {}))
+                        row = {
+                            "candidate_id": cid,
+                            "candidate_origin_owner": str(invention.contract().get("owner_id")),
+                            "generator": {"generator_id": invention.autonomous_candidate_birth.component_id + "::" + family_id},
+                            "source_owner_ids": [],
+                            "source_domains": [str(x) for x in candidate_domains if str(x) in DOMAIN_REGISTRIES],
+                            "target_domains": [str(x) for x in candidate_domains if str(x) in DOMAIN_REGISTRIES],
+                            "classification": {
+                                "categories": ["fresh_birth", "mathematical_invention", "open_ended_proof_program", family_id.casefold()],
+                                "native_status": str(native.get("status", "UNRESOLVED_GENERATED_PROOF_PROGRAM")),
+                            },
+                            "formula": {"source": str(native.get("statement", "")), "digest": digest_payload(str(native.get("statement", "")))},
+                            "transformation": {
+                                "transformation_id": "OPEN_ENDED_MATH_PROGRAM::" + family_id,
+                                "axis_ids": list(rep.get("research_local_axis_ids", ())),
+                            },
+                            "required_measurements": [],
+                            "falsification_criterion": str(native.get("falsification_criterion", "")),
+                            "controlled_limits": list(native.get("controlled_limits", ())),
+                            "gate_status": "FORMALLY_ADMISSIBLE",
+                            "native_candidate_digest": nd,
+                            "native_payload": dict(native),
+                            "coordinate_delta": {
+                                "research_local_axis_ids": list(rep.get("research_local_axis_ids", ())),
+                                "representation_family_id": family_id,
+                                "composition_depth": rep.get("composition_depth"),
+                            },
+                            "fresh_to_materialized_2771": cid not in baseline_ids and nd not in baseline_digests,
+                            "world_novelty_status": "NOT_ESTABLISHED_POSTFREEZE_ONLY",
+                        }
+                        row["digest"] = digest_payload({k: v for k, v in row.items() if k != "digest"})
                         if row["fresh_to_materialized_2771"]:
                             generic_rows.append(row)
                 elif route == "CONSTRAINT_ATLAS_UNKNOWN_FRONTIER":
@@ -5276,6 +5725,9 @@ class ScientificResearchCycleOwner:
         fresh_candidate_birth: bool = False,
         semantic_ir: Mapping[str, Any] | None = None,
         candidate_birth_execution: Mapping[str, Any] | None = None,
+        persistent_portfolio: bool = False,
+        active_portfolio_budget: int | None = None,
+        world_receipts: Sequence[Mapping[str, Any]] = (),
     ) -> Mapping[str, Any]:
         query = DirectedResearchQuery(
             question=question,
@@ -5322,11 +5774,68 @@ class ScientificResearchCycleOwner:
             }
             candidate_birth["digest"] = digest_payload(candidate_birth)
             candidate_pool = list(self.runtime.candidates) + validated_domain_candidates
+        preliminary_competitive = self.competitive.build(
+            question=question,
+            directed_region=directed_region,
+            candidates=candidate_pool,
+            minimum=minimum_competing_hypotheses,
+        )
+        authoritative_frontier = self._authoritative_frontier_records()
+        frontier_projection = self._frontier_query_projection(
+            authoritative_frontier, required_domains=required_domains, target_axis_ids=target_axis_ids
+        )
+        executable_eligible = list(preliminary_competitive.get("eligible_candidates", ()))
+        attention_eligible = frontier_projection if frontier_projection else executable_eligible
+        ranked_ids = [str(row.get("candidate_id")) for row in attention_eligible]
+        portfolio_budget = int(active_portfolio_budget) if active_portfolio_budget is not None else int(minimum_competing_hypotheses)
+        # Reuse the existing long-horizon ledger as a world-evidence source.
+        # No world outcome is invented here; only already persisted receipts are ingested.
+        auto_world_receipts: list[Mapping[str, Any]] = []
+        try:
+            from .long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
+            lh = LongHorizonBlindScientificCycleKernel(
+                self.runtime.root, state_path=self.runtime.external_state_path("phi_long_horizon_session")
+            )
+            auto_world_receipts = [dict(x) for x in lh.ledger.load().get("candidate_world_receipts", ())]
+        except Exception:
+            auto_world_receipts = []
+        merged_world_receipts = list(auto_world_receipts) + [dict(x) for x in world_receipts]
+        portfolio = self.portfolio.plan(
+            question=question,
+            eligible_candidates=attention_eligible,
+            preserve_candidates=authoritative_frontier,
+            ranked_candidate_ids=ranked_ids,
+            active_budget=portfolio_budget,
+            world_receipts=merged_world_receipts,
+            research_continuation=(candidate_birth.get("native_birth_receipt") or {}).get("continuation") if isinstance(candidate_birth.get("native_birth_receipt"), Mapping) else None,
+            persist=bool(persistent_portfolio),
+        )
+        portfolio = dict(portfolio)
+        portfolio["authoritative_frontier_count"] = len(authoritative_frontier)
+        portfolio["query_relevant_frontier_count"] = len(frontier_projection)
+        portfolio["executable_competitive_eligible_count"] = len(executable_eligible)
+        portfolio["long_horizon_world_receipts_ingested"] = len(auto_world_receipts)
+        portfolio["explicit_world_receipts_ingested"] = len(world_receipts)
+        portfolio["active_attention_candidate_ids"] = list(portfolio.get("active_candidate_ids", ()))
+        portfolio["active_executable_candidate_ids"] = [
+            cid for cid in portfolio.get("active_candidate_ids", ())
+            if cid in {str(row.get("candidate_id")) for row in executable_eligible}
+        ]
+        portfolio["digest"] = digest_payload({k: v for k, v in portfolio.items() if k != "digest"})
+        # Project the already-frozen scientific-exploitation lowering plans onto
+        # this epoch's attention portfolio.  This seam is read-only: it neither
+        # invents a formula nor changes epistemic state.
+        from .scientific_exploitation import load_prediction_lowering_attention
+        prediction_lowering_attention = load_prediction_lowering_attention(
+            self.runtime.root, portfolio.get("active_attention_candidate_ids", ())
+        )
         competitive_set = self.competitive.build(
             question=question,
             directed_region=directed_region,
             candidates=candidate_pool,
             minimum=minimum_competing_hypotheses,
+            preferred_candidate_ids=portfolio.get("active_executable_candidate_ids", ()),
+            active_budget=portfolio_budget,
         )
         candidate_lookup = {str(row.get("candidate_id")): row for row in candidate_pool}
         predictions = self.prediction_falsification.derive(competitive_set, candidate_lookup) if competitive_set.get("candidates") else {
@@ -5379,6 +5888,8 @@ class ScientificResearchCycleOwner:
             "evidence_digest": evidence.get("digest"),
             "novelty_digests": [row.get("digest") for row in novelty_rows],
             "next_frontier_digest": next_frontier.get("digest"),
+            "persistent_portfolio_digest": portfolio.get("digest"),
+            "prediction_lowering_attention_digest": prediction_lowering_attention.get("digest"),
             "canonical_registry_mutated": False,
             "candidate_set_changed_after_prior_art": False,
             "domain_candidate_ids": [str(row.get("candidate_id")) for row in validated_domain_candidates],
@@ -5416,6 +5927,8 @@ class ScientificResearchCycleOwner:
             "evidence": evidence,
             "post_derivation_novelty": novelty_rows,
             "ledger": ledger_payload,
+            "persistent_portfolio": portfolio,
+            "prediction_lowering_attention": prediction_lowering_attention,
             "next_frontier": next_frontier,
             "scientific_promotion": scientific_promotion,
             "claim_boundary": {
@@ -5430,6 +5943,9 @@ class ScientificResearchCycleOwner:
                 "experiment_execution_claimed_without_observation": False,
                 "scientific_promotion_outside_core": False,
                 "system_status": "RESEARCH_SYSTEM_UNDER_QUALIFICATION",
+                "candidate_removed_only_because_unscheduled": False,
+                "world_receipt_promotes_candidate_without_existing_gates": False,
+                "lowering_attention_projection_is_world_evidence": False,
             },
         }
         required_stage_ok = {
@@ -5463,10 +5979,20 @@ class ScientificResearchCycleOwner:
         if not question:
             raise ValueError("question is required")
         typed = self.interpret_question(question)
-        required_domains = tuple(req.get("required_domains") or typed.get("required_domains", ()))
-        target_axis_ids = tuple(req.get("target_axis_ids") or typed.get("target_axis_ids", ()))
-        required_observables = tuple(req.get("required_observables") or typed.get("required_observables", ()))
+        required_domains = tuple(req.get("required_domains", ())) if "required_domains" in req else tuple(typed.get("required_domains", ()))
+        target_axis_ids = tuple(req.get("target_axis_ids", ())) if "target_axis_ids" in req else tuple(typed.get("target_axis_ids", ()))
+        required_observables = tuple(req.get("required_observables", ())) if "required_observables" in req else tuple(typed.get("required_observables", ()))
         include_connected = bool(req.get("include_all_connected_owners", False))
+        # Explicit caller overrides, including an intentionally empty VOID domain
+        # set, must propagate into candidate-birth capability resolution.  The old
+        # path passed the pre-override semantic IR and could silently reintroduce
+        # domain bias after the caller had requested VOID.
+        typed = dict(typed)
+        typed["required_domains"] = list(required_domains)
+        typed["target_axis_ids"] = list(target_axis_ids)
+        typed["required_observables"] = list(required_observables)
+        typed["explicit_runtime_override"] = any(k in req for k in ("required_domains", "target_axis_ids", "required_observables"))
+        typed["digest"] = digest_payload({k: v for k, v in typed.items() if k != "digest"})
 
         axis_proposals = tuple(
             row if isinstance(row, DynamicAxisProposal) else DynamicAxisProposal(**dict(row))
@@ -5498,6 +6024,9 @@ class ScientificResearchCycleOwner:
             fresh_candidate_birth=bool(req.get("require_fresh_candidates", True)),
             semantic_ir=typed,
             candidate_birth_execution=req.get("candidate_birth_execution"),
+            persistent_portfolio=bool(req.get("commit_resident_state", True)),
+            active_portfolio_budget=int(req.get("active_portfolio_budget", max(12, int(req.get("minimum_competing_hypotheses", MINIMUM_COMPETING_HYPOTHESES))))),
+            world_receipts=tuple(req.get("world_receipts", ())),
         )
 
         # The Resident owns open-world action state/model learning. It receives the
@@ -5530,16 +6059,139 @@ class ScientificResearchCycleOwner:
             learned_action["digest"] = digest_payload(learned_action)
 
         # Mathematical invention is entered only from an actual gap/failure receipt.
-        # No transition evidence is synthesized here.
-        from .mathematical_invention import MathematicalInventionKernel
-        invention = MathematicalInventionKernel(self.runtime.root)
+        # No transition evidence is synthesized here.  Reuse the kernel instance
+        # already owned by this orchestrator; do not create a parallel solver.
+        invention = self.adaptive.invention
+        proof_memory_view = self.adaptive.knowledge_evolution.get_universal_proof_mechanisms()
+        proof_memory_summary = {
+            "owner_id": proof_memory_view.get("owner_id"),
+            "mechanism_count": int(proof_memory_view.get("mechanism_count", 0) or 0),
+            "mechanism_ids": [str(row.get("mechanism_id")) for row in proof_memory_view.get("mechanisms", ()) if isinstance(row, Mapping)],
+            "memory_digest": proof_memory_view.get("digest"),
+            "claim_boundary": {"mechanism_memory_is_theorem_truth": False},
+        }
+        proof_memory_summary["digest"] = digest_payload(proof_memory_summary)
+
+        candidate_birth_native = cycle.get("candidate_birth", {}).get("native_birth_receipt")
+        mathematical_search = (
+            dict(candidate_birth_native)
+            if isinstance(candidate_birth_native, Mapping)
+            and candidate_birth_native.get("status") == "OPEN_ENDED_MATHEMATICAL_FRONTIER_FROZEN"
+            else {
+                "schema": AUTONOMOUS_RESEARCH_SCHEMA,
+                "component": invention.autonomous_candidate_birth.component_id,
+                "status": "OPEN_ENDED_MATHEMATICAL_FRONTIER_NOT_ACTIVE",
+                "candidate_count": 0,
+                "research_local_axis_birth_count": 0,
+                "claim_boundary": {"search_budget_exhaustion_is_solution": False},
+            }
+        )
+        if "digest" not in mathematical_search:
+            mathematical_search["digest"] = digest_payload(mathematical_search)
+
+        # Execute born proof obligations before reflexively expanding the frontier.
+        # The discharge engine is domain-neutral and fail-closed: only executable
+        # checks or digest-bound evidence can close an obligation.  Remaining
+        # obligations become the causal seeds of the next search shell.
+        if mathematical_search.get("status") == "OPEN_ENDED_MATHEMATICAL_FRONTIER_FROZEN":
+            discharge = invention.proof_discharge.discharge(
+                candidates=tuple(dict(x) for x in mathematical_search.get("candidates", ()) if isinstance(x, Mapping)),
+                evidence_rows=tuple(dict(x) for x in req.get("proof_obligation_evidence_rows", ()) if isinstance(x, Mapping)),
+                execution_budget=int(req.get("proof_obligation_execution_budget", 32) or 32),
+            )
+            mathematical_search = dict(mathematical_search)
+            mathematical_search["proof_obligation_discharge"] = discharge
+            continuation = dict(mathematical_search.get("continuation", {}) or {})
+            if continuation:
+                continuation["unresolved_obligation_seeds"] = list(discharge.get("unresolved_obligation_seeds", ()))
+                continuation["discharge_receipt_digest"] = discharge.get("digest")
+                continuation["last_closure_gain"] = float(discharge.get("closure_gain", 0.0) or 0.0)
+                continuation["digest"] = digest_payload({k: v for k, v in continuation.items() if k != "digest"})
+                mathematical_search["continuation"] = continuation
+            mathematical_search["digest"] = digest_payload({k: v for k, v in mathematical_search.items() if k != "digest"})
+        else:
+            discharge = {
+                "schema": AUTONOMOUS_RESEARCH_SCHEMA,
+                "component": invention.proof_discharge.component_id,
+                "status": "PROOF_OBLIGATION_DISCHARGE_NOT_ACTIVE",
+                "discharged_obligation_count": 0,
+                "closure_gain": 0.0,
+            }
+            discharge["digest"] = digest_payload(discharge)
+        mathematical_frontier_active = mathematical_search.get("status") == "OPEN_ENDED_MATHEMATICAL_FRONTIER_FROZEN" and int(mathematical_search.get("candidate_count", 0) or 0) > 0
+
+        proof_artifact_raw = req.get("proof_artifact")
+        if isinstance(proof_artifact_raw, Mapping):
+            proof_artifact = dict(proof_artifact_raw)
+            formal_verification = invention.formal.verify(proof_artifact)
+            formal_handoff = invention.formal.prepare_formal_kernel_handoff(
+                proof_artifact, target_kernel=str(req.get("formal_kernel_target", "LEAN"))
+            )
+            counterexample_receipts = [
+                invention.formal.search_counterexample_regions(dict(spec))
+                for spec in req.get("counterexample_search_specs", ())
+                if isinstance(spec, Mapping)
+            ]
+        else:
+            formal_verification = {
+                "schema": AUTONOMOUS_RESEARCH_SCHEMA,
+                "owner_id": invention.formal.owner_id,
+                "status": "FORMAL_MATHEMATICAL_VERIFICATION_NOT_REQUESTED",
+                "verified": False,
+                "claim_boundary": {"theorem_verified": False},
+            }
+            formal_verification["digest"] = digest_payload(formal_verification)
+            formal_handoff = {
+                "schema": AUTONOMOUS_RESEARCH_SCHEMA,
+                "owner_id": invention.formal.owner_id,
+                "status": "FORMAL_KERNEL_HANDOFF_NOT_REQUESTED",
+                "claim_boundary": {"handoff_is_kernel_verification": False},
+            }
+            formal_handoff["digest"] = digest_payload(formal_handoff)
+            counterexample_receipts = []
+
+        formal_kernel_attestation_raw = req.get("formal_kernel_attestation")
+        if isinstance(formal_kernel_attestation_raw, Mapping):
+            external_formal_attestation = invention.formal.verify_external_formal_attestation(formal_kernel_attestation_raw)
+        else:
+            external_formal_attestation = {
+                "schema": AUTONOMOUS_RESEARCH_SCHEMA,
+                "owner_id": invention.formal.owner_id,
+                "status": "EXTERNAL_FORMAL_ATTESTATION_NOT_REQUESTED",
+                "external_attestation_accepted": False,
+                "verified": False,
+                "locally_kernel_verified": False,
+                "claim_boundary": {"external_attestation_is_local_kernel_verification": False},
+            }
+            external_formal_attestation["digest"] = digest_payload(external_formal_attestation)
+
         evidence_rows = tuple(dict(row) for row in req.get("representation_evidence_rows", ()))
+        portfolio_space_gap = int(
+            cycle.get("persistent_portfolio", {}).get("epistemic_status_counts", {}).get("CANDIDATE_REQUIRES_SPACE_EXPANSION", 0)
+        ) > 0
         cycle_gap = (
             cycle.get("competitive_set", {}).get("status") != "COMPETITIVE_SET_FROZEN"
             or cycle.get("information_gain", {}).get("status") != "EIG_RANKED"
             or bool(typed.get("capability_gap_detected"))
+            or portfolio_space_gap
         )
-        if cycle_gap:
+        if mathematical_frontier_active:
+            representation = {
+                "schema": AUTONOMOUS_RESEARCH_SCHEMA,
+                "owner_id": invention.autonomous_candidate_birth.component_id,
+                "status": "OPEN_ENDED_MATHEMATICAL_REPRESENTATION_FRONTIER_ACTIVE",
+                "research_local_axis_birth_count": int(mathematical_search.get("research_local_axis_birth_count", 0) or 0),
+                "research_local_axis_ids": [str(row.get("axis_id")) for row in mathematical_search.get("research_local_axis_births", ()) if isinstance(row, Mapping) and row.get("axis_id")],
+                "candidate_count": int(mathematical_search.get("candidate_count", 0) or 0),
+                "continuation": dict(mathematical_search.get("continuation", {})),
+                "claim_boundary": {
+                    "new_representation_type_established": False,
+                    "generated_frontier_is_theorem": False,
+                    "registered_space_is_ceiling": False,
+                },
+            }
+            representation["digest"] = digest_payload(representation)
+        elif cycle_gap:
             representation = invention.unknown_unknown.discover(question=question, evidence_rows=evidence_rows)
         else:
             representation = {
@@ -5578,6 +6230,13 @@ class ScientificResearchCycleOwner:
             for row in cycle.get("owner_axis_space", {}).get("axis_rows", ())
             if row.get("disposition") in {"OWNER_BOUND_ACTIVE", "QUERY_DIRECT_OPEN_COORDINATE"}
         ][:64]
+        if mathematical_frontier_active:
+            born_axis_ids = [
+                str(row.get("axis_id"))
+                for row in mathematical_search.get("research_local_axis_births", ())
+                if isinstance(row, Mapping) and row.get("axis_id")
+            ]
+            research_axis_ids = list(dict.fromkeys(research_axis_ids + born_axis_ids))
         environment_id = str(req.get("environment_id") or ("autonomous-research-" + digest_payload(question)[:12]))
         heartbeat = resident.heartbeat({
             "environment_id": environment_id,
@@ -5585,14 +6244,38 @@ class ScientificResearchCycleOwner:
             "cognitive_episode": {
                 "representation_route": "MATHEMATICAL_INVENTION" if cycle_gap else "EXISTING_REPRESENTATION",
                 "research_region": {"research_local_axis_ids": research_axis_ids},
+                "portfolio_space_gap": portfolio_space_gap,
                 "research_cycle_digest": cycle.get("digest"),
                 "typed_question_digest": typed.get("digest"),
+                "formal_verification_digest": formal_verification.get("digest"),
+                "formal_verification_status": formal_verification.get("status"),
+                "external_formal_attestation_digest": external_formal_attestation.get("digest"),
+                "external_formal_attestation_status": external_formal_attestation.get("status"),
             },
             "axis_ids": research_axis_ids,
             "grounding": dict(req.get("grounding", {})),
         }, commit=bool(req.get("commit_resident_state", True)))
 
-        if cycle.get("information_gain", {}).get("status") == "EIG_RANKED" and cycle.get("experiment", {}).get("selected_experiment_id"):
+        counterexample_found = next((row for row in counterexample_receipts if row.get("counterexample_found") is True), None)
+        if counterexample_found is not None:
+            status = "AUTONOMOUS_RESEARCH_COUNTEREXAMPLE_FOUND"
+            next_required = "REVISE_OR_REJECT_SCOPED_CLAIM_USING_COUNTEREXAMPLE_WITNESS"
+        elif isinstance(proof_artifact_raw, Mapping) and formal_verification.get("verified") is True:
+            status = "AUTONOMOUS_RESEARCH_FORMAL_DERIVATION_VERIFIED_RELATIVE_TO_ASSUMPTIONS"
+            next_required = "OPTIONALLY_EXPORT_FROZEN_PROOF_TO_INDEPENDENT_FORMAL_KERNEL"
+        elif isinstance(proof_artifact_raw, Mapping) and formal_verification.get("status") == "FORMAL_VERIFICATION_BLOCKED_GRAPH":
+            status = "AUTONOMOUS_RESEARCH_FORMAL_PROOF_GRAPH_BLOCKED"
+            next_required = "REPAIR_MISSING_DUPLICATE_OR_CYCLIC_PROOF_DEPENDENCIES"
+        elif isinstance(proof_artifact_raw, Mapping):
+            status = "AUTONOMOUS_RESEARCH_FORMAL_PROOF_OBLIGATIONS_REMAIN"
+            next_required = "DISCHARGE_OR_FORMALIZE_REMAINING_LEMMAS"
+        elif external_formal_attestation.get("external_attestation_accepted") is True:
+            status = "AUTONOMOUS_RESEARCH_EXTERNAL_FORMAL_ATTESTATION_ACCEPTED_LOCAL_REPLAY_PENDING"
+            next_required = "RUN_PINNED_LOCAL_FORMAL_KERNEL_OR_RETAIN_AS_EXTERNAL_EVIDENCE"
+        elif mathematical_frontier_active:
+            status = "AUTONOMOUS_RESEARCH_OPEN_ENDED_MATHEMATICAL_FRONTIER_ACTIVE"
+            next_required = "CONTINUE_FROM_FROZEN_MATHEMATICAL_SEARCH_CURSOR_AND_DISCHARGE_OR_REFUTE_PROOF_OBLIGATIONS"
+        elif cycle.get("information_gain", {}).get("status") == "EIG_RANKED" and cycle.get("experiment", {}).get("selected_experiment_id"):
             status = "AUTONOMOUS_RESEARCH_EXPERIMENT_SELECTED"
             next_required = "EXECUTE_OR_INGEST_SELECTED_EXPERIMENT"
         elif learned_action.get("selected_action") is not None:
@@ -5617,10 +6300,18 @@ class ScientificResearchCycleOwner:
             "question": question,
             "semantic_typed_ir": typed,
             "research_cycle": cycle,
+            "persistent_portfolio": cycle.get("persistent_portfolio", {}),
             "open_world": open_world,
             "learned_world_action": learned_action,
             "representation_invention": representation,
             "primitive_synthesis": primitive,
+            "formal_mathematical_verification": formal_verification,
+            "formal_kernel_handoff": formal_handoff,
+            "external_formal_kernel_attestation": external_formal_attestation,
+            "counterexample_search_receipts": counterexample_receipts,
+            "universal_proof_mechanism_memory": proof_memory_summary,
+            "open_ended_mathematical_search": mathematical_search,
+            "proof_obligation_discharge": discharge,
             "resident_heartbeat": heartbeat,
             "next_required_external_input": next_required,
             "status": status,
@@ -5633,6 +6324,121 @@ class ScientificResearchCycleOwner:
                 "sealed_release_mutated_by_resident_state": False,
                 "parallel_scientific_solver_created": False,
                 "hand_authored_collective_coordination_answer_used": False,
+                "candidate_discarded_by_active_budget": False,
+                "single_best_candidate_is_global_search_termination": False,
+                "dependency_graph_is_proof": False,
+                "external_formal_attestation_is_local_kernel_verification": False,
+                "external_formal_attestation_establishes_theorem_truth_by_atlas": False,
+                "finite_no_counterexample_is_unbounded_proof": False,
+                "proof_mechanism_reuse_transfers_theorem_truth": False,
+                "search_budget_exhaustion_is_epistemic_solution": False,
+                "open_ended_search_guarantees_eventual_solution": False,
+                "research_local_axis_birth_is_canonical_axis_admission": False,
+                "blocked_proof_obligation_is_discharged": False,
+                "proof_obligation_priority_is_truth_probability": False,
+            },
+        }
+        payload["digest"] = digest_payload(payload)
+        return payload
+
+    def run_open_ended_campaign(self, request: Mapping[str, Any]) -> Mapping[str, Any]:
+        """Execute multiple autonomous research slices with persistent continuation.
+
+        This is orchestration inside the existing research owner, not a second solver.
+        Each slice has finite compute, while the campaign state has no fixed research-
+        space ceiling.  Reaching the caller's slice budget is a scheduling event only:
+        it never changes UNKNOWN into false, true, solved, or impossible.
+        """
+        req = dict(request)
+        question = str(req.get("question", "")).strip()
+        if not question:
+            raise ValueError("question is required")
+        slice_budget = max(1, int(req.pop("campaign_slice_budget", req.pop("max_campaign_slices", 4)) or 4))
+        # A campaign needs an external mutable cursor so later slices can resume.
+        # Read-only one-shot research remains available through run_autonomous.
+        req["commit_resident_state"] = bool(req.get("commit_resident_state", True))
+
+        terminal_statuses = {
+            "AUTONOMOUS_RESEARCH_COUNTEREXAMPLE_FOUND",
+            "AUTONOMOUS_RESEARCH_FORMAL_DERIVATION_VERIFIED_RELATIVE_TO_ASSUMPTIONS",
+        }
+        slices: list[dict[str, Any]] = []
+        last: Mapping[str, Any] | None = None
+        terminal = False
+        terminal_reason = "COMPUTE_SLICE_BUDGET_EXHAUSTED_CONTINUATION_PRESERVED"
+        seen_candidate_ids: set[str] = set()
+        seen_axis_ids: set[str] = set()
+        seen_operation_ids: set[str] = set()
+
+        for slice_index in range(slice_budget):
+            receipt = self.run_autonomous(req)
+            last = receipt
+            search = receipt.get("open_ended_mathematical_search", {}) if isinstance(receipt, Mapping) else {}
+            candidate_ids = [str(row.get("candidate_id")) for row in search.get("candidates", ()) if isinstance(row, Mapping) and row.get("candidate_id")]
+            axis_ids = [str(row.get("axis_id")) for row in search.get("research_local_axis_births", ()) if isinstance(row, Mapping) and row.get("axis_id")]
+            operation_ids = [str(x) for x in search.get("operation_alphabet", ()) if str(x)]
+            prior_candidates = len(seen_candidate_ids); prior_axes = len(seen_axis_ids); prior_ops = len(seen_operation_ids)
+            seen_candidate_ids.update(candidate_ids); seen_axis_ids.update(axis_ids); seen_operation_ids.update(operation_ids)
+            row = {
+                "slice": slice_index,
+                "status": receipt.get("status"),
+                "research_cycle_status": receipt.get("research_cycle", {}).get("status"),
+                "information_gain_status": receipt.get("research_cycle", {}).get("information_gain", {}).get("status"),
+                "search_epoch_start": search.get("search_epoch_start"),
+                "search_epoch_count": search.get("search_epoch_count"),
+                "next_epoch": search.get("continuation", {}).get("next_epoch"),
+                "candidate_count_this_slice": len(candidate_ids),
+                "new_candidate_count": len(seen_candidate_ids) - prior_candidates,
+                "axis_birth_count_this_slice": len(axis_ids),
+                "new_axis_count": len(seen_axis_ids) - prior_axes,
+                "new_operation_count": len(seen_operation_ids) - prior_ops,
+                "continuation_digest": search.get("continuation", {}).get("digest"),
+                "proof_obligation_executed_task_count": int(receipt.get("proof_obligation_discharge", {}).get("executed_task_count", 0) or 0),
+                "proof_obligation_discharged_count": int(receipt.get("proof_obligation_discharge", {}).get("discharged_obligation_count", 0) or 0),
+                "proof_obligation_closure_gain": float(receipt.get("proof_obligation_discharge", {}).get("closure_gain", 0.0) or 0.0),
+                "proof_obligation_unresolved_count": len(receipt.get("proof_obligation_discharge", {}).get("unresolved_obligation_seeds", ())),
+                "receipt_digest": receipt.get("digest"),
+            }
+            row["digest"] = digest_payload(row)
+            slices.append(row)
+            # Carry the exact frozen continuation inside this synchronous campaign
+            # even when the caller requested a read-only/non-persistent run.
+            next_continuation = search.get("continuation") if isinstance(search, Mapping) else None
+            if isinstance(next_continuation, Mapping) and next_continuation:
+                execution = dict(req.get("candidate_birth_execution") or {})
+                execution["mathematical_search_continuation"] = dict(next_continuation)
+                req["candidate_birth_execution"] = execution
+            if str(receipt.get("status")) in terminal_statuses:
+                terminal = True
+                terminal_reason = str(receipt.get("status"))
+                break
+
+        continuation = {}
+        if isinstance(last, Mapping):
+            continuation = dict(last.get("open_ended_mathematical_search", {}).get("continuation", {}))
+        payload = {
+            "schema": "phi-open-ended-autonomous-research-campaign/v1",
+            "owner": self.owner_id,
+            "question": question,
+            "status": "AUTONOMOUS_RESEARCH_CAMPAIGN_TERMINAL_VERIFIED_RESULT" if terminal else "AUTONOMOUS_RESEARCH_CAMPAIGN_CONTINUATION_FROZEN",
+            "slice_budget": slice_budget,
+            "slices_executed": len(slices),
+            "slice_receipts": slices,
+            "unique_candidate_count_observed": len(seen_candidate_ids),
+            "unique_research_local_axis_count_observed": len(seen_axis_ids),
+            "operation_alphabet_count_observed": len(seen_operation_ids),
+            "terminal": terminal,
+            "terminal_reason": terminal_reason,
+            "continuation": continuation,
+            "last_research_receipt": dict(last) if isinstance(last, Mapping) else None,
+            "claim_boundary": {
+                "compute_slice_budget_is_epistemic_termination": False,
+                "campaign_guarantees_eventual_solution": False,
+                "unresolved_problem_is_declared_false": False,
+                "registered_axis_space_is_ceiling": False,
+                "registered_representation_space_is_ceiling": False,
+                "candidate_generation_is_proof": False,
+                "only_verified_proof_or_counterexample_is_terminal_scientific_evidence_here": True,
             },
         }
         payload["digest"] = digest_payload(payload)

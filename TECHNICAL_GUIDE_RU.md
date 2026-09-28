@@ -54,41 +54,14 @@ NASA-портфель проверяется по сохранённой реа�
 
 Сохранённые результаты и отличия от исходного архива: [UNIVERSAL_PORTFOLIO_RESULT_RU.md](reports/p3/UNIVERSAL_PORTFOLIO_RESULT_RU.md).
 
+
 ## Универсальный слой выполнения экспериментов
 
-`LawSpaceAPI.freeze_experiment_execution(...)` и `LawSpaceAPI.execute_frozen_experiment(...)` предоставляют общий исполняемый маршрут между P3-теорией и предметным источником. Это не второй научный движок. Freeze делегирован `HierarchicalObservationalExperimentOwner`, получение evidence — существующему `TypedWorldActionAdapterOwner`, вычисление замороженных прогнозов и adjudication — `HierarchicalObservationalTheoryRevisionOwner`, а orchestration остаётся в `LongHorizonBlindScientificCycleKernel`.
+`LawSpaceAPI.freeze_experiment_execution(...)` и `LawSpaceAPI.execute_frozen_experiment(...)` образуют общий маршрут между frozen theory и предметным источником. Это не второй scientific engine: freeze остаётся у `HierarchicalObservationalExperimentOwner`, acquisition — у существующего typed-world action owner, evaluation/adjudication — у `HierarchicalObservationalTheoryRevisionOwner`, orchestration — у `LongHorizonBlindScientificCycleKernel`.
 
-Минимальная структура контракта:
+Контракт фиксирует `source` capability, source/measurement adapter bindings, samples, cases, frozen forms, metric, transport budget и optional theory revision mapping. `adapter_binding` включает стабильный adapter id, configuration и SHA-256 файлов реализации. Host передаёт уже созданные adapter objects; JSON не импортирует код. Для `INTERVENTION` с retry обязателен frozen `idempotency_key`. Только `TransientAcquisitionError` разрешает повтор; schema/digest/SHA/scientific-compatibility ошибки fail closed.
 
-```python
-contract = {
-    "schema": "phi-frozen-experiment-execution/v1",
-    "experiment_id": "E1",
-    "evidence_mode": "PROSPECTIVE_REQUEST",  # либо RETROSPECTIVE_REPLAY / CONTROLLED_QUALIFICATION
-    "source": {"class": "OBSERVATIONAL_ARCHIVE", "source_id": "archive-id"},
-    "source_adapter": adapter_binding(source_adapter),
-    "measurement_adapter": adapter_binding(measurement_adapter),
-    "samples": [{
-        "sample_id": "S1",
-        "request_kind": "NATURAL_SAMPLE",
-        "request": {"domain_specific": "selection"},
-        "expected_sha256": "...",
-    }],
-    "cases": [{"case_id": "C1", "sample_id": "S1", "...": "domain contract"}],
-    "forms": [{
-        "form_id": "F1", "case_id": "C1", "kind": "LINEAR_FEATURES",
-        "feature_ids": ["x"], "coefficients": [0.0, 1.0],
-    }],
-    "metric": {"name": "NRMSE_STD", "threshold": 0.1, "minimum_std": 1e-12},
-    "transport": {"max_retries": 2, "backoff_seconds": 1, "max_bytes_per_sample": 1000000},
-}
-```
-
-`adapter_binding` фиксирует стабильный `adapter_id`, конфигурацию и SHA-256 файлов реализации. JSON не содержит пути импорта или исполняемых выражений. Host передаёт уже созданные adapter objects; они считаются доверенной границей интеграции и сами должны ограничивать сеть, оборудование и полномочия. Для `INTERVENTION` с ненулевым retry обязателен `idempotency_key`. Только `TransientAcquisitionError` повторяется; ошибки схемы, digest, SHA-256 и научной совместимости не повторяются.
-
-Состояние выполнения обязательно находится вне запечатанного дерева Atlas. До первого вызова источника runtime атомарно сохраняет frozen protocol. Каждый sample получает raw checkpoint и связанную квитанцию. При resume повторно проверяются protocol digest, sample digest, adapter binding, размер и SHA-256. Повреждённые, несвязанные или оставшиеся без квитанции bytes не загружаются заново молча.
-
-Measurement adapter получает только bytes и замороженные case-контракты — формы и коэффициенты ему не передаются. Общий evaluator поддерживает текущий ограниченный язык `LINEAR_FEATURES`, вычисляет `NRMSE_STD` и не выполняет fit/refit. Если задан `theory_revision`, outcome `ALL_FORMS_PASS` или `SOME_FORMS_FAIL` преобразуется только через заранее зафиксированную категориальную карту и передаётся существующему P3 revision owner. Без такой карты результатом остаётся `THEORY_REVISION_CONTRACT_REQUIRED`.
+Execution state хранится вне sealed tree. Frozen protocol записывается до первого вызова источника. Каждый sample получает raw checkpoint и receipt; resume повторно проверяет protocol digest, sample digest, adapter binding, размер и SHA-256. Measurement adapter получает bytes и frozen case contracts, но не coefficients или competing hypotheses. Общий evaluator не выполняет fit/refit на свежем holdout.
 
 Проверка:
 
@@ -96,13 +69,7 @@ Measurement adapter получает только bytes и замороженн�
 make universal-experiment
 ```
 
-Квалификация использует два разных источника — управляемый forward oracle и локальный observational archive — без изменения core. Она проверяет digest binding, checkpoint replay, retry/idempotency, запрет состояния внутри release tree, ожидаемый SHA-256, обнаружение повреждения и отсутствие автоматического научного продвижения.
-
-JHTDB подключён через `evaluation.jhtdb_execution_adapter.DNSFrozenMeasurement`. Он явно вызывает существующий SGS coarse-graining adapter и тот же finite-stencil `PrimitiveFieldOperatorCoordinateBirthOwner`, который породил операторный язык. Автоматический поиск «подходящей» функции и спектральная замена производных из V6 не используются. Текущий legacy child-freeze не содержит `grid_points`; кроме того, куб `32³` после ratios 4 и 8 имеет `8³` и `4³` точек при минимуме 9 для frozen stencil. Поэтому все 27 cases блокируются на preflight до acquisition/target evaluation. Для настоящего продолжения нужен новый prospective контракт с заранее зафиксированным совместимым размером cutout/chart, а не post-hoc исправление после просмотра outcomes.
-
-PASS квалифицирует только универсальность механизма исполнения. Он не аутентифицирует исторический порядок freeze/acquisition, не превращает локальный архив в свежую репликацию и не устанавливает новый закон.
-
-Запечатанный машиночитаемый результат: [UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json](reports/p3/UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json).
+JHTDB подключён как domain adapter/regression case. Legacy child freeze с неполным numerical chart должен блокироваться на preflight до target evaluation; это корректный gap, а не повод изобретать недостающие grid parameters post hoc. PASS этого слоя квалифицирует универсальность исполнения, но не устанавливает новый закон и не аутентифицирует исторический порядок acquisition.
 
 ## Родословная семейства гипотез
 
@@ -1317,6 +1284,13 @@ make full
 - DPI-ранжирование и 3D-карта исследовательской песочницы без полномочий продвижения;
 - планирование «что если?» по пробелам диапазонов и внешний журнал совета гипотез;
 - центральная проверка доказательных пакетов и внешних источников;
+- `FORMAL-MATHEMATICAL-VERIFICATION/1.0.0`: dependency-DAG, closure assumptions/lemmas, lemma gates и явные proof obligations;
+- точная внутренняя проверка символических тождеств и конечных исчерпывающих утверждений только в заявленной области;
+- поиск counterexample regions с сохранением witness и запретом превращать отсутствие witness в доказательство неограниченного утверждения;
+- frozen handoff в Lean/Coq/Isabelle; локальный Lean executor считается подтверждением только при реальном успешном запуске на SHA-256-связанном source;
+- `verify_phi_external_formal_attestation`: provenance/axiom audit независимого replay без повышения до локального `FORMAL_KERNEL_VERIFIED`; требуется immutable source commit, pinned toolchain, theorem outcomes, axiom surface и digest-bound replay evidence;
+- отдельный gate statement alignment: успешная проверка proof kernel не доказывает сама по себе, что формальное утверждение эквивалентно исходной математической формулировке;
+- общая `UNIVERSAL-PROOF-MECHANISM-MEMORY/1.0.0`: переносит способы проверки между науками, но никогда не переносит истинность теорем; сейчас canonical memory содержит 11 механизмов;
 - U0–U10 и численный конвейер продвижения;
 - OOD, независимая репликация, идентифицируемость и перестановочные нулевые проверки;
 - EIG, портфель экспериментов и различающий эксперимент;
@@ -1346,6 +1320,8 @@ make full
 - рефлексивная архитектура, контролируемое самовосстановление и developmental open-endedness.
 
 Эти поверхности имеют разные полномочия. Наличие исполняемого метода не означает установленный научный результат; проверяйте контракт и поле `status` каждого ответа.
+
+Текущий внешний qualification case — `reports/NAVIER_STOKES_FORMAL_AUDIT_CURRENT.json`. Он подтверждает работу нового separation gate: внешний OpenAI/third-party replay принят как `EXTERNAL_FORMAL_ATTESTATION_ACCEPTED`, а попытка текущего sandbox исполнить exact `ComparatorSolution.lean` завершена `FORMAL_KERNEL_UNAVAILABLE`, потому что `lean`/`lake` в runtime отсутствуют. Это ожидаемый fail-closed результат, не regression formal verifier.
 
 ## Универсальность и потенциальные применения
 
@@ -2180,3 +2156,158 @@ python -m evaluation.run_real_jhtdb_dns_closure
 Алгоритм не содержит turbulence-specific формул. Для каждого класса размерности owner ищет discovery-stable constant predictor carrier; если его нет — строит joint-RMS scale same-dimension fields; для отсутствующей coordinate dimension возможен coordinate-span fallback. Затем integer dimensional solver ищет минимальный набор степеней scale carriers, воспроизводящий target dimension. Numerical values переводятся в frozen canonical chart, но physical dimension typing сохраняется для Operator Language Birth.
 
 Важный falsification rule: если representation был изменён после просмотра старого sealed результата, тот же sealed dataset больше не является свежим holdout. Harness помечает overlap по SHA-256 и запрещает scientific transfer promotion до нового unseen sealed evidence.
+
+## Самоисследование Atlas: текущая реализация
+
+Самоисследование выполняется существующими `ReflexiveSelfHostedPhiArchitectureKernel`, `DevelopmentalOpenEndednessKernel` и `SemanticTypedQuestionOwner`. Отдельный self-improvement engine не добавлялся. Исправления локальны: кэширование candidate-independent oracle в `collective_coordination.py`, структурное выделение developmental feature obligations и fail-closed primary-domain grounding в semantic router. Научные критерии collective-coordination selection не изменены.
+
+Контроль после изменения: collective 19/19, developmental 30/30, reflexive 41/41, autonomous research 51/51, universal execution PASS.
+
+
+## Prediction Lowering / Composition
+
+`SCIENTIFIC-EXPLOITATION-ORCHESTRATOR` теперь формирует lowering-plan для каждого из 300 structurally addressable U4 candidates. План не является доказательством кандидата.
+
+Для frozen scalar dimensional-Pi relation используется discovery-only оценка Pi-константы и heldout prediction без доступа к heldout target. Для остальных кандидатов сохраняются digests исходных forward owners и выбирается только доказательно допустимый маршрут в существующий `MathematicalInventionKernel`: Function Language Birth при frozen coordinates + OOF residual либо Unknown-Unknown Representation/Operator Birth при residual + независимом evidence mode/environment. При недостатке evidence система обязана вернуть gap.
+
+`ScientificResearchCycleOwner` только проецирует уже frozen lowering plans на active attention portfolio. Эта проекция read-only и не меняет epistemic state кандидата. World evidence и promotion остаются у существующих evidence/promotion owners.
+
+## Open-ended mathematical campaign: эксплуатационный режим
+
+Текущий authoritative owner: `SCIENTIFIC-RESEARCH-CYCLE/15.3.0`.
+Математический bootstrap: `PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0` /
+`AUTONOMOUS-MATHEMATICAL-CANDIDATE-BIRTH/1.0.0-COMPONENT`.
+
+### Один blind VOID-first цикл
+
+```python
+from source.lawspace.api import LawSpaceAPI
+
+api = LawSpaceAPI(".")
+receipt = api.run_autonomous_research({
+    "question": QUESTION,
+    "required_domains": [],       # явный VOID: пустой список значим
+    "target_axis_ids": [],
+    "required_observables": [],
+    "commit_resident_state": False,
+})
+```
+
+Пустой `required_domains=[]` не эквивалентен отсутствующему параметру.  Он
+означает, что caller сознательно запрещает semantic router автоматически
+назначить известную предметную область до blind discovery.
+
+### Несколько research slices одним вызовом
+
+```python
+campaign = api.run_autonomous_research({
+    "question": QUESTION,
+    "required_domains": [],
+    "target_axis_ids": [],
+    "required_observables": [],
+    "campaign_slice_budget": 10,
+    "candidate_birth_execution": {
+        "mathematical_search_epochs": 3,
+        "mathematical_axis_budget_per_epoch": 24,
+        "mathematical_candidate_budget_per_epoch": 8,
+    },
+    "active_portfolio_budget": 16,
+    "commit_resident_state": False,
+})
+```
+
+Read-only campaign переносит continuation между slices в памяти и не требует
+записи Resident state.  Continuation сохраняет не только `next_epoch` и рожденные
+координаты, но и `unresolved_obligation_seeds`.  На следующем slice эти proof gaps
+являются причинным входом для `PROOF_GAP::*` axis birth и новых generated
+operations/representation signatures; это не domain-specific routing и не выбор
+готового метода.  Для долговременного обучения задайте внешний mutable
+state tree и разрешите commit:
+
+```bash
+export PHI_STATE_DIR=/path/outside/sealed/atlas
+```
+
+```python
+campaign = api.run_autonomous_research({
+    "question": QUESTION,
+    "required_domains": [],
+    "campaign_slice_budget": 8,
+    "commit_resident_state": True,
+})
+```
+
+Следующий отдельный вызов того же вопроса может восстановить digest-bound
+`research_continuation` из `PersistentResearchPortfolioOwner`.
+
+### Как читать статус
+
+`AUTONOMOUS_RESEARCH_OPEN_ENDED_MATHEMATICAL_FRONTIER_ACTIVE` означает, что
+текущий slice родил/продолжил математический frontier, но доказательства ещё нет.
+
+`AUTONOMOUS_RESEARCH_CAMPAIGN_CONTINUATION_FROZEN` означает только окончание
+текущего compute allocation.  Поле `continuation.next_epoch` задаёт следующую
+complexity shell.  Это не FAIL и не PASS теоремы.
+
+`AUTONOMOUS_RESEARCH_COUNTEREXAMPLE_FOUND` требует проверенного witness из
+counterexample owner.  `AUTONOMOUS_RESEARCH_FORMAL_DERIVATION_VERIFIED_RELATIVE_TO_ASSUMPTIONS`
+требует реально прошедший formal-verification gate.  Только такие executed gates
+могут давать содержательный terminal result внутри этого campaign owner.
+
+### Почему нет фиксированного пространства
+
+Canonical axis registry остаётся неизменяемым научным словарём, но continuation
+хранит все родившиеся research-local axes и generated operations.  Старые
+ограничения retention `last 512 axes / last 64 operations` удалены.  Поэтому
+`active_portfolio_budget`, `axis_birth_budget_per_epoch` и `campaign_slice_budget`
+ограничивают только текущую стоимость исполнения.
+
+### Что пока не закрыто
+
+Open-ended candidate birth теперь работает, однако он не равен универсальному
+решателю математических задач.  Главный оставшийся инженерно-научный переход:
+
+```text
+abstract proof obligation
+ -> executable lemma/operator/invariant/counterexample task
+ -> existing generic executor
+ -> receipt
+ -> residual/gap
+ -> next axis/representation/operation birth
+```
+
+Нельзя закрывать этот переход Navier-specific hardcode.  Следующие расширения
+должны связывать уже существующие Operator Language Birth, Function Language
+Birth, Unknown-Unknown Representation, experiment owners и Formal Mathematical
+Verification по типу obligation/evidence, а не по названию науки.
+
+
+## Proof-obligation discharge and theorem-closure loop (current)
+
+The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
+
+The authoritative loop is now
+
+`UNKNOWN → candidate/representation birth → proof obligations → executable task compilation → discharge/refutation → unresolved residuals → new axes/representations → next shell`.
+
+`PROOF-OBLIGATION-DISCHARGE/1.1.0-COMPONENT` is a component of the existing Mathematical Invention Kernel, not a parallel solver. It supports structural consistency checks, exact symbolic identities, finite exhaustive checks, finite counterexample-region searches, formal proof artifacts and digest-bound witnessed evidence. A missing executable specification remains `UNRESOLVED`; it is never counted as a proof. A counterexample rejects only the scoped branch unless a global implication has itself been established.
+
+Tasks are ordered by expected theorem-closure gain per execution cost. This ordering is scheduling only: it is not a probability of truth and cannot change epistemic status. Unresolved obligations are written back into the existing continuation receipt and causally drive the next research-local axis/operation birth.
+
+Qualification after integration: Mathematical Invention 60/60 PASS; Autonomous Research 56/56 PASS; Knowledge Evolution 38/38 PASS; Adaptive Axis Research 25/25 PASS; Long-Horizon 30/30 PASS; Reflexive 41/41 PASS; Developmental Open-Endedness 30/30 PASS; Research Proof 10/10 PASS; ScienceAtlas Core 10/10 PASS; Python source compile 212/212 PASS. The full repository pytest run produced 52 progress points but exceeded the 260 s runtime budget, so no full-suite PASS is claimed.
+
+A fresh blind Navier–Stokes control with no external solution revealed ran two new slices. Each slice executed 12 proof-obligation tasks and discharged 12 structurally executable obligations, while substantive PDE obligations remained unresolved. The campaign therefore continued rather than claiming the Millennium problem solved. This is the intended fail-closed boundary: the discharge machinery works, but actual theorem closure still requires born proof programs to compile substantive mathematical lemmas into executable symbolic/formal/attested checks.
+
+
+## Semantic Proof Obligation Compiler 1.0
+
+Ядро `PHI-MATHEMATICAL-INVENTION-KERNEL/1.4.0` автоматически компилирует born mathematical obligations. Основной маршрут: `semantic_claim → typed_schema → executable_verification | missing_bindings → formal_obligation_artifact → discharge/residual birth`. Внутренний API: `compile_phi_semantic_proof_obligation(obligation=..., candidate=...)`. Это read-only операция; она не присваивает theorem status.
+
+Exact identities и полностью перечисленные конечные universal domains могут lowering-иться автоматически. Functional-analytic / operator claims становятся typed formal schemas с явными binding gaps. Эти gaps затем поступают в existing open-ended candidate birth и рождают новые research-local axes с provenance `SEMANTIC_PROOF_OBLIGATION_COMPILATION_GAP`.
+
+
+### Final semantic-obligation compiler qualification
+
+After the semantic compiler, typed-binding gap birth and formal-artifact wiring were frozen, the current tree was requalified end-to-end. Current results: Mathematical Invention **70/70 PASS**; Knowledge Evolution **38/38 PASS**; Autonomous Research **56/56 PASS**; Adaptive Axis Research **25/25 PASS**; Research Proof **10/10 PASS**; ScienceAtlas Core **10/10 PASS**; Long-Horizon Blind Cycle **30/30 PASS**; Collective Coordination **19/19 PASS**; Developmental Open-Endedness **30/30 PASS**; Reflexive Architecture **41/41 PASS**; Universal Experiment **PASS**; Python source compilation **212/212 PASS**. The complete repository suite also finished: **221/221 pytest PASS in 195.91 s**.
+
+The blind Navier–Stokes semantic run remains deliberately non-terminal: 32 generated proof-program candidates, 116 research-local axes, 64 typed unresolved substantive obligations and 23 later-shell axes born directly from semantic binding gaps. This qualification proves the compilation/search mechanism, not the Millennium theorem.

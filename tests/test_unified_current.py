@@ -282,6 +282,74 @@ def test_representation_gap_entry_is_executable_without_fabricated_observations(
     assert receipt['result']['scientific_law_established'] is False
 
 
+def test_formal_mathematical_verification_and_common_proof_memory_are_universal():
+    api = LawSpaceAPI(ROOT)
+    contract = api.get_phi_formal_mathematical_verification_contract()
+    assert contract["owner_id"] == "FORMAL-MATHEMATICAL-VERIFICATION/1.0.0"
+    assert contract["scope"] == "DOMAIN_NEUTRAL_FORMALIZABLE_CLAIMS"
+    proof = {
+        "theorem_id": "UNIVERSAL-ALGEBRA-CONTROL", "statement": "Polynomial identity",
+        "assumptions": [{"id": "A1", "statement": "x is real"}],
+        "lemmas": [{
+            "id": "L1", "statement": "(x+1)^2=x^2+2x+1", "depends_on": ["A1"],
+            "verification": {"method": "EXACT_SYMBOLIC_IDENTITY", "symbols": ["x"], "lhs": "(x+1)**2", "rhs": "x**2+2*x+1"},
+        }],
+        "conclusion_id": "L1",
+    }
+    verified = api.verify_phi_proof(proof)
+    assert verified["verified"] is True
+    assert verified["status"] == "FORMAL_DERIVATION_VERIFIED_RELATIVE_TO_DECLARED_ASSUMPTIONS"
+    cex = api.search_phi_counterexample_regions({"variables": {"x": [-2,-1,0,1,2]}, "claim": "x**2 < 2"})
+    assert cex["counterexample_found"] is True
+    handoff = api.prepare_phi_formal_kernel_handoff(proof, target_kernel="LEAN")
+    assert handoff["frozen_before_kernel_execution"] is True
+    external = api.verify_phi_external_formal_attestation({
+        "attestation_id": "GENERIC-LEAN-REPLAY-CONTROL",
+        "source_identity": {"repository": "https://example.invalid/formal", "commit": "0123456789abcdef0123456789abcdef01234567"},
+        "toolchain": {"kernel": "LEAN", "version": "4.x-pinned"},
+        "permitted_axioms": ["Classical.choice", "Quot.sound", "propext"],
+        "theorems": [{"theorem_id": "Example.theorem", "accepted": True, "actual_axioms": ["propext", "Classical.choice"]}],
+        "replay_checks": [{
+            "check_id": "FRESH-KERNEL", "checker": "independent-checker", "accepted": True,
+            "source_unchanged": True, "formal_kernel_evidence": True,
+            "evidence_digest": "a" * 64,
+        }],
+        "provenance": {"issuer": "independent-auditor", "source_url": "https://example.invalid/receipt", "receipt_digest": "b" * 64},
+    })
+    assert external["status"] == "EXTERNAL_FORMAL_ATTESTATION_ACCEPTED"
+    assert external["external_attestation_accepted"] is True
+    assert external["verified"] is False and external["locally_kernel_verified"] is False
+    bad_external = api.verify_phi_external_formal_attestation({
+        "attestation_id": "BAD-AXIOM-CONTROL",
+        "source_identity": {"repository": "https://example.invalid/formal", "commit": "0123456789abcdef0123456789abcdef01234567"},
+        "toolchain": {"kernel": "LEAN", "version": "4.x-pinned"},
+        "permitted_axioms": ["propext"],
+        "theorems": [{"theorem_id": "Example.theorem", "accepted": True, "actual_axioms": ["propext", "UNDECLARED_AXIOM"]}],
+        "replay_checks": [{"check_id": "K", "checker": "checker", "accepted": True, "source_unchanged": True, "formal_kernel_evidence": True, "evidence_digest": "c" * 64}],
+        "provenance": {"issuer": "auditor", "source_url": "https://example.invalid/bad", "receipt_digest": "d" * 64},
+    })
+    assert bad_external["status"] == "EXTERNAL_FORMAL_ATTESTATION_REJECTED"
+    assert "Example.theorem" in bad_external["unexpected_axioms"]
+    memory = api.get_phi_universal_proof_mechanisms()
+    assert memory["mechanism_count"] >= 11
+    assert all(row["domain_specific"] is False and row["theorem_truth_carried"] is False for row in memory["mechanisms"])
+    autonomous = api.run_autonomous_research({
+        "question": "verify a domain-neutral formal claim",
+        "proof_artifact": proof,
+        "formal_kernel_target": "LEAN",
+        "commit_resident_state": False,
+    })
+    assert autonomous["status"] == "AUTONOMOUS_RESEARCH_FORMAL_DERIVATION_VERIFIED_RELATIVE_TO_ASSUMPTIONS"
+    assert autonomous["universal_proof_mechanism_memory"]["mechanism_count"] >= 11
+    assert "PM-DEPENDENCY-DAG" in autonomous["universal_proof_mechanism_memory"]["mechanism_ids"]
+    assert autonomous["claim_boundary"]["proof_mechanism_reuse_transfers_theorem_truth"] is False
+    rules = api.get_common_scientific_rules_contract()["generic_rules"]
+    assert rules["proof_dependency_graph_is_not_itself_proof"] is True
+    assert rules["external_formal_kernel_attestation_is_evidence_not_local_kernel_verification"] is True
+    assert rules["formal_statement_alignment_is_distinct_from_kernel_acceptance"] is True
+    assert rules["proof_mechanism_may_transfer_across_domains_but_theorem_truth_may_not"] is True
+
+
 def test_public_api_surface_is_complete_and_regressions_are_quarantined():
     api = LawSpaceAPI(ROOT)
     public = {

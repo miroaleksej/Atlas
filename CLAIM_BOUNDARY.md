@@ -570,3 +570,86 @@ Human-in-the-loop здесь является **аудируемым механ�
 Разрешено утверждать, что bootstrap автоматически получает frozen raw-velocity cutout из JHTDB, связывает их SHA-256 и разделяет `isotropic1024coarse` discovery от `isotropic4096` sealed evidence. Разрешено отдельно сообщать protocol integrity, transfer error и null-control outcome.
 
 Архив не содержит реальные DNS bytes или готовый научный результат. Успешная загрузка данных не является открытием; `PASS_PROTOCOL_INTEGRITY` не устанавливает universal closure. Даже переносимый кандидат не доказывает причинность или новый закон турбулентности. Сетевой сбой, representation gap и transfer failure должны сохраняться явно и не могут заменяться синтетическими данными.
+
+
+## External formal-kernel attestation boundary
+
+A provenance-bound third-party Lean/Coq/Isabelle replay is scientific/formal **evidence**, not an Atlas-local kernel execution. `EXTERNAL_FORMAL_ATTESTATION_ACCEPTED` MUST NOT be reported as `FORMAL_KERNEL_VERIFIED`. The attestation gate requires immutable source identity, pinned toolchain, theorem outcomes, explicit actual/permitted axioms and digest-bound replay evidence. Kernel acceptance and paper/source statement alignment are separate claims. The current Navier–Stokes audit is recorded in `reports/NAVIER_STOKES_FORMAL_AUDIT_CURRENT.json`; local replay is explicitly `FORMAL_KERNEL_UNAVAILABLE` in this sandbox.
+
+## Open-ended global-research boundary
+
+Разрешено утверждать, что текущий Atlas способен начать domain-neutral
+математический candidate birth из UNKNOWN, рождать research-local axes,
+высоко-порядковые interaction axes, generated operations и proof-program
+representations, а затем продолжать поиск через digest-bound complexity epochs
+без использования зарегистрированных 655 canonical axes как потолка.
+
+Разрешено утверждать, что blind control прошёл 30 последовательных epochs и
+родил 721 уникальную research-local ось и 240 candidate programs, при этом exact
+continuation сохранил `next_epoch=30` и не объявил compute budget научным
+результатом.
+
+**Запрещено** из этого выводить, что:
+
+- Atlas гарантированно решит любую будущую математическую или научную задачу;
+- Atlas является единственной в мире системой с такими свойствами без внешнего
+  сравнительного frozen benchmark;
+- бесконечный/open-ended search устраняет undecidability, неполноту формальных
+  систем или физическую недоступность evidence;
+- большое число born axes/candidates само по себе повышает истинность гипотезы;
+- generated proof program является доказательством;
+- Navier–Stokes Millennium Problem независимо решена Atlas текущим blind run;
+- `BLOCKED_PREDICTIVE_LIKELIHOODS_REQUIRED` можно обходить синтетическими
+  likelihoods ради продолжения EIG;
+- истечение `campaign_slice_budget` означает FAIL задачи.
+
+Правильная формулировка текущего достижения:
+
+```text
+Atlas artificial fixed-space barrier removed;
+open-ended candidate/axis/operation/representation continuation operational;
+rigorous problem completion remains evidence/proof gated.
+```
+
+Заявление о превосходстве или уникальности относительно внешних систем требует
+отдельного frozen external benchmark и не может быть создано внутренней
+qualification Atlas.
+
+
+## Semantic proof-obligation compilation boundary
+
+Разрешено утверждать, что `SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT`
+преобразует born mathematical obligation в provenance-bound typed schema,
+выделяет кванторы, предикаты, отношения, функции, operator tokens и explicit
+constraints, а затем либо автоматически lowering-ит строго однозначный случай
+в исполнимую проверку, либо возвращает точный набор `missing_bindings`.
+
+Разрешено также утверждать, что missing typed bindings могут становиться
+research-local axes следующего open-ended shell. Это является причинным
+механизмом расширения пространства поиска, а не доказательством исходной
+теоремы.
+
+**Запрещено** считать, что:
+
+- `TYPED_FORMAL_SCHEMA_COMPILED_REQUIRES_BINDINGS` означает доказанность;
+- структурно построенный dependency artifact является formal proof;
+- извлечённое из постановки PDE/operator equation было открыто Atlas как новый
+  закон; это frozen premise исходной задачи;
+- отсутствие missing bindings само по себе устанавливает истинность — требуется
+  реальный discharge/kernel/evidence gate;
+- автоматическое symbolic/finite lowering разрешено при неоднозначной семантике;
+- текущий blind Navier–Stokes run решил Millennium Problem.
+
+Правильная граница:
+
+```text
+born obligation
+  -> typed semantic/formal specification
+  -> executable verifier when semantics are exact
+  OR typed missing bindings
+  -> new research axes/representations
+  -> independent discharge
+```
+
+`formal specification != proof`; `missing binding != falsification`;
+`executable task != successful discharge`.
