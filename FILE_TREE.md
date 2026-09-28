@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 409
+Controlled files: 415
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -109,6 +109,7 @@ Controlled files: 409
 - `evaluation/full_replay_qualification.py`
 - `evaluation/function_language_birth_qualification.py`
 - `evaluation/generation_transition_qualification.py`
+- `evaluation/jhtdb_execution_adapter.py`
 - `evaluation/katrin_likelihood_qualification.py`
 - `evaluation/knowledge_evolution_qualification.py`
 - `evaluation/lawspace_qualification.py`
@@ -153,6 +154,7 @@ Controlled files: 409
 - `evaluation/theory_compiler_qualification.py`
 - `evaluation/turbulence_dns_closure_experiment.py`
 - `evaluation/unified_release_qualification.py`
+- `evaluation/universal_experiment_qualification.py`
 - `examples/JHTDB_ISOTROPIC8192_PUBLIC_METADATA_FREEZE.json`
 - `examples/JHTDB_REAL_DNS_DOWNLOAD_PLAN.json`
 - `examples/JHTDB_SGS_OBSERVATIONAL_ARCHIVE_REQUEST.json`
@@ -297,6 +299,7 @@ Controlled files: 409
 - `reports/p3/LONG_HORIZON_QUALIFICATION.json`
 - `reports/p3/REPRESENTATION_BIRTH_BENCHMARK.json`
 - `reports/p3/RESULT_RU.md`
+- `reports/p3/UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json`
 - `reports/p3/UNIVERSAL_PORTFOLIO_RESULT_RU.md`
 - `reports/runtime/FULL_REPLAY_PLAN_CURRENT.json`
 - `reports/runtime/full_replay_batches/batch_000.json`
@@ -336,6 +339,7 @@ Controlled files: 409
 - `source/lawspace/domains.py`
 - `source/lawspace/eda_chip_design.py`
 - `source/lawspace/einstein_dynamics.py`
+- `source/lawspace/experiment_execution.py`
 - `source/lawspace/experiment_portfolio.py`
 - `source/lawspace/formal_contracts.py`
 - `source/lawspace/generation_transition.py`
@@ -344,6 +348,7 @@ Controlled files: 409
 - `source/lawspace/law_discovery.py`
 - `source/lawspace/long_horizon_scientific_cycle.py`
 - `source/lawspace/mathematical_invention.py`
+- `source/lawspace/measurement_adapters.py`
 - `source/lawspace/model_selection.py`
 - `source/lawspace/neutrino.py`
 - `source/lawspace/neutrino_external_constraints.py`
@@ -410,4 +415,5 @@ Controlled files: 409
 - `tests/test_tensor_axisymmetric_current.py`
 - `tests/test_turbulence_dns_closure_experiment.py`
 - `tests/test_unified_current.py`
+- `tests/test_universal_experiment_execution.py`
 - `tests/test_universal_scientific_portfolio.py`

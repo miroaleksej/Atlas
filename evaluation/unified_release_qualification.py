@@ -25,6 +25,7 @@ from evaluation.first_atlas_native_experiment import run as run_first_control
 from evaluation.function_language_birth_qualification import run_release_qualification as run_function_language_birth_qualification
 from evaluation.research_triage_qualification import run as run_research_triage_qualification
 from evaluation.collective_coordination_qualification import run_release_qualification as run_collective_coordination_qualification
+from evaluation.universal_experiment_qualification import run as run_universal_experiment_qualification
 from evaluation.release_files import is_local_artifact
 EXT_SRC = ROOT / "extensions" / "ATLAS_AI_RESEARCH_EXTENSION_v0_10_0" / "src"
 if str(EXT_SRC) not in sys.path: sys.path.insert(0, str(EXT_SRC))
@@ -162,6 +163,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     research_triage_qualification=run_research_triage_qualification()
     rtq_checks=research_triage_qualification.get('checks',{})
     collective_coordination_qualification=run_collective_coordination_qualification(root)
+    universal_experiment_qualification=run_universal_experiment_qualification(root)
     triage_contract=api.get_research_triage_contract()
     council_path=runtime.external_state_path('hypothesis_council')
     checks={
@@ -195,6 +197,10 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'human_review_cannot_override_u6_or_u2': rtq_checks.get('MANUAL_OVERRIDE_FAIL_CLOSED') is True and triage_contract.get('sandbox_dimension_exception_can_pass_u2') is False,
       'hypothesis_council_mutable_state_external_to_seal': _outside_release(council_path),
       'research_triage_api_exposed': {'get_research_triage_contract','assess_research_data_quality','rank_exploration_sandbox','build_hypothesis_passport','propose_sandbox_what_if_experiments','get_hypothesis_council_state','recommend_hypothesis_council_weights'} <= set(api.READ_TOOLS) and {'record_hypothesis_council_action','apply_hypothesis_council_weight_recommendation'} <= set(api.MUTATION_TOOLS),
+      'universal_experiment_execution_qualification_current': universal_experiment_qualification.get('status')=='PASS_UNIVERSAL_EXECUTION_QUALIFICATION' and all(universal_experiment_qualification.get('checks',{}).values()),
+      'universal_experiment_execution_api_exposed': 'freeze_experiment_execution' in set(api.READ_TOOLS) and 'execute_frozen_experiment' in set(api.MUTATION_TOOLS),
+      'universal_experiment_execution_does_not_promote_law': universal_experiment_qualification.get('scientific_law_established') is False and universal_experiment_qualification.get('synthetic_forward',{}).get('scientific_promotion_allowed') is False,
+      'jhtdb_legacy_chart_gap_blocks_before_target_evaluation': universal_experiment_qualification.get('jhtdb',{}).get('status')=='EXECUTION_BLOCKED_PREFLIGHT' and universal_experiment_qualification.get('jhtdb',{}).get('evidence_acquired') is False,
       **_genesis_ledger_checks(),
       **_epoch_genesis_checks(),
       'permutation_eprocess_qualification_current': eprocess_report.get('status')=='PASS_PERMUTATION_EPROCESS_15_20_0' and eprocess_digest==digest_payload(eprocess_core),
@@ -290,6 +296,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'eda_chip_design':{'contract_digest':eda_contract.get('digest'),'fail_closed_status':eda_fail_closed.get('status'),'qualification_control_digest':eda_control.get('digest'),'live_world_result_established':False},
       'function_language_birth':{'status':function_language_qualification.get('status'),'digest':function_language_qualification.get('digest'),'metrics':function_language_qualification.get('metrics'),'world_result_established':False},
       'research_triage_sandbox':{'qualification':research_triage_qualification,'contract_digest':triage_contract.get('digest'),'council_state_external':True,'manual_override_can_pass_u_gate':False},
+      'universal_experiment_execution':universal_experiment_qualification,
       'ai_runtime':{'capability_count':live_capabilities.get('capability_count'),'open_architecture_obligations':live_capabilities.get('open_architecture_obligations'),'resolved_architecture_obligations':live_capabilities.get('resolved_architecture_obligations'),'collective_coordination_qualification':{'status':collective_coordination_qualification.get('status'),'digest':collective_coordination_qualification.get('digest'),'selected_architecture':collective_coordination_qualification.get('architecture_search',{}).get('selected_architecture'),'holdout':collective_coordination_qualification.get('architecture_search',{}).get('holdout',{}).get('selected_candidate_result')},'mutable_state_default_external':True,'mutable_state_bundled_in_seal':False},
       'residue':{'derived_directories':residues,'derived_files_present':derived_files_present,'frontier_files':frontier_files,'unexpected_reports':unexpected_reports,'ai_feynman_paths_present':feynman_present},
       'claim_boundary':{'historical_search_or_calculation_receipts_restored':False,'current_frontier_candidates_are_baseline_source_knowledge':False,'current_frontier_candidates_are_established_laws':False,'known_overlap_deletes_candidate':False,'unknown_candidate_is_false':False,'axes_and_static_source_knowledge_are_preserved':True,'cognitive_state_is_external_mutable_runtime_state':True,'resident_learning_is_not_scientific_truth':True,'consciousness_claimed':False,'agi_claimed':False,'finite_dovetail_tranche_exhausts_scientific_space':False,'unvisited_subspace_is_false':False,'legacy_15_13_frontier_deleted':False,'permutation_eprocess_per_target_only':True,'global_online_evalue_controller_implemented':False,'sandbox_dpi_is_promotion':False,'human_review_can_override_u_gate':False,'dynamic_quality_tier_can_weaken_strict_u_gate':False}

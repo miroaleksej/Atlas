@@ -1130,6 +1130,10 @@ class LearnedWorldActionModelOwner:
 
 class TypedWorldActionAdapterOwner:
     owner_id = TYPED_ACTION_ADAPTER_OWNER_ID
+    def acquire_frozen_evidence(self, frozen, *, adapter, state_dir):
+        from .experiment_execution import acquire_evidence
+        return acquire_evidence(frozen, adapter=adapter, state_dir=state_dir, owner_id=self.owner_id)
+
     required_fields=("adapter_id","action_id","preconditions","input","cost","risk","expected_observation","provenance")
     def prepare(self, envelope: Mapping[str,Any]) -> Mapping[str,Any]:
         row=dict(envelope); missing=[k for k in self.required_fields if k not in row]

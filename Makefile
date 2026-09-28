@@ -1,4 +1,4 @@
-.PHONY: collect research-triage targeted first-experiment real-experiment navier-stokes-experiment navier-stokes-primitive-field navier-stokes-operator-language hidden-term-discovery turbulence-dns-closure turbulence-dns-fetch-real turbulence-dns-closure-real turbulence-dns-scale-invariant frontier-scan science-atlas self-repair replay-prepare replay-batches replay-aggregate full qualify release-controls seal-audit audit-read-only clean
+.PHONY: collect research-triage universal-experiment targeted first-experiment real-experiment navier-stokes-experiment navier-stokes-primitive-field navier-stokes-operator-language hidden-term-discovery turbulence-dns-closure turbulence-dns-fetch-real turbulence-dns-closure-real turbulence-dns-scale-invariant frontier-scan science-atlas self-repair replay-prepare replay-batches replay-aggregate full qualify release-controls seal-audit audit-read-only clean
 
 PYENV = PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 
@@ -8,6 +8,10 @@ collect:
 research-triage:
 	$(PYENV) python -m evaluation.research_triage_qualification
 	$(PYENV) pytest -q -p no:cacheprovider tests/test_research_triage.py
+
+universal-experiment:
+	$(PYENV) python -m evaluation.universal_experiment_qualification
+	$(PYENV) pytest -q -p no:cacheprovider tests/test_universal_experiment_execution.py
 
 targeted:
 	$(PYENV) pytest -q -p no:cacheprovider tests/test_science_atlas_core.py tests/test_domain_plugin_architecture.py tests/test_adaptive_axis_discovery.py tests/test_electronic_state_space_current.py

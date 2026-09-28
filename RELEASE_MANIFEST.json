@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 409,
+  "controlled_file_count": 415,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -89,8 +89,8 @@
     },
     {
       "path": "LICENSE.md",
-      "sha256": "11306dece52aca51bcfcb0edda690504286d8e0a97147379eb8699b89abe3628",
-      "size": 11548
+      "sha256": "d819820bee95932f78eb486c69790bc3ffacf533f24a1f6f4c4381584cf0c2ac",
+      "size": 6394
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
@@ -104,8 +104,8 @@
     },
     {
       "path": "Makefile",
-      "sha256": "0da854343595b89676b3999814f785c181978ca7942b44f28b987eeaf35b5cf1",
-      "size": 6672
+      "sha256": "b948cc08defe5aa45d9d945e5b149a0dcfd51319e6a9f479bffd5e695b0e5ff4",
+      "size": 6867
     },
     {
       "path": "PATCH_MANIFEST_SCALE_INVARIANT_DNS_REPRESENTATION.json",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "8c910bcc6e8b235f9ddf9f8723d89535bae6f67c35f768e4f30c78bef08faa00",
-      "size": 119337
+      "sha256": "51504f533c8a26e6dcc20f7642ef15381dedff5280a0aecd6470ce8a700dc997",
+      "size": 130692
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -124,13 +124,13 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "c8c328a98938378d18c2d09f644afe431a2fa527d477f5ddbce4357142a78be2",
-      "size": 191419
+      "sha256": "590e817a2173498fcb545cd5ca29d7d47783cc85f501ee3723deb777531537d4",
+      "size": 197663
     },
     {
       "path": "capabilities.json",
-      "sha256": "ae3b0952fd6bb908fee040ad390581284f95be9ab9508815cd8da76d59b4f6d9",
-      "size": 20513
+      "sha256": "219ba22ca1bc947d0125ddf32148022a30d8888055a8865d139dc61014e877cf",
+      "size": 21274
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -514,8 +514,8 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "beba3c455c5b632f401239ce3dc3dc758a8533755794dc5ec4d94745a9fde23c",
-      "size": 45159
+      "sha256": "30c745954281f34ccce23f8602fa51976141135e8255408953cfe5fa97cc0960",
+      "size": 46340
     },
     {
       "path": "evaluation/closed_loop_research_experiment.py",
@@ -596,6 +596,11 @@
       "path": "evaluation/generation_transition_qualification.py",
       "sha256": "cd9e3c1e1cc23124ff1d8eb524450bb836b30c3fa8fbf463876a785c5013dba1",
       "size": 7939
+    },
+    {
+      "path": "evaluation/jhtdb_execution_adapter.py",
+      "sha256": "25cf46827618fdd683f73daadb5efe086745c202b8a71cd69de4e11759348b9b",
+      "size": 5148
     },
     {
       "path": "evaluation/katrin_likelihood_qualification.py",
@@ -814,8 +819,13 @@
     },
     {
       "path": "evaluation/unified_release_qualification.py",
-      "sha256": "d08cf6f5aa9a35cbb4a272acedf45c35648c71190f57ea3c2148706675018576",
-      "size": 40771
+      "sha256": "08c033545a73acecf06c043c9d2bcdc5de4bc53c910cf0e617f0940b823e2b90",
+      "size": 41925
+    },
+    {
+      "path": "evaluation/universal_experiment_qualification.py",
+      "sha256": "4424b9d317cefc69d4ce02cb6ba8bb5282396a4b5a556a5cb138e5e238738c72",
+      "size": 9439
     },
     {
       "path": "examples/JHTDB_ISOTROPIC8192_PUBLIC_METADATA_FREEZE.json",
@@ -1439,8 +1449,8 @@
     },
     {
       "path": "invariants.json",
-      "sha256": "eddfaeac25f22d9613c0afb85a0abb68c2ea7e295c463456b15062bdfc907718",
-      "size": 8457
+      "sha256": "d99ada407f2e3bd95984e74b66d0af4b9e3ff62aa74b8275648f29236474f7fc",
+      "size": 8894
     },
     {
       "path": "pyproject.toml",
@@ -1536,6 +1546,11 @@
       "path": "reports/p3/RESULT_RU.md",
       "sha256": "a4f8c7c15d8427a6128c2540a80420d697d2f03a6621796eeb46c1bb7e6592e8",
       "size": 3728
+    },
+    {
+      "path": "reports/p3/UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json",
+      "sha256": "ef4f8151f2f10c5ca2c92deaa1d382edb50031c933165bb66d70a9bf3016ef9d",
+      "size": 15760
     },
     {
       "path": "reports/p3/UNIVERSAL_PORTFOLIO_RESULT_RU.md",
@@ -1634,8 +1649,8 @@
     },
     {
       "path": "source/lawspace/api.py",
-      "sha256": "18ebb7a46f0bc5ed3a3413f22d9783b62374c22dde49699669282697ea2c482d",
-      "size": 127055
+      "sha256": "fcc13123296a5da84f92f70ba9f04349614382ca0fa5ea9886857e8c97fb6766",
+      "size": 127954
     },
     {
       "path": "source/lawspace/atomic_dirac_evaluator.py",
@@ -1733,6 +1748,11 @@
       "size": 174587
     },
     {
+      "path": "source/lawspace/experiment_execution.py",
+      "sha256": "150b86db93f7b33110074d9fa871e46f3b63cb598b46d0ca90417543ce3b9d75",
+      "size": 20156
+    },
+    {
       "path": "source/lawspace/experiment_portfolio.py",
       "sha256": "579176c2df32315d5ac9d87eb651b54a4e6ce45126f2fbc4e00e99e0f6f97608",
       "size": 18620
@@ -1764,13 +1784,18 @@
     },
     {
       "path": "source/lawspace/long_horizon_scientific_cycle.py",
-      "sha256": "a2de39f6b2b25b80a03ba2d080e0b8b2cf47b8fe4b8f9903327585e095022871",
-      "size": 25863
+      "sha256": "dcbce70a115e13f8d94ee36ca74ffbc283192d86e856a0253247d2baf33d423a",
+      "size": 27358
     },
     {
       "path": "source/lawspace/mathematical_invention.py",
       "sha256": "f6f98197b908eb432547c58f6fca392fe5bf4863c38e8f0e91273a66a3fc955f",
       "size": 59523
+    },
+    {
+      "path": "source/lawspace/measurement_adapters.py",
+      "sha256": "1345be1d2ce76a7804506762027e237ff87a0daadbcf21becb1922d0cf65d716",
+      "size": 3059
     },
     {
       "path": "source/lawspace/model_selection.py",
@@ -1864,8 +1889,8 @@
     },
     {
       "path": "source/lawspace/resident_cognitive.py",
-      "sha256": "823bb66b0cb3b6737b6ab2207f8bc1621708092514d473a70b2b004619e7af01",
-      "size": 135308
+      "sha256": "b9fb71ddb236b039695bdab358098b720cc71ff218523543eaf0de8db6453c7c",
+      "size": 135540
     },
     {
       "path": "source/lawspace/resource_theory.py",
@@ -2103,15 +2128,20 @@
       "size": 56159
     },
     {
+      "path": "tests/test_universal_experiment_execution.py",
+      "sha256": "831f4cf45d81169e33958128234b0f1bb0d9027760f0bbb91f195b8cf8a21873",
+      "size": 5646
+    },
+    {
       "path": "tests/test_universal_scientific_portfolio.py",
       "sha256": "e762b0d46e20f7b9924e60ff5e1853003b5f11a79a9ae8908b7dd1267b9ff655",
       "size": 6301
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "73e42b8dabee353fa213a34e18e0438de589d464a13f37a40bbeaa79288c160a",
+  "current_state_qualification_digest": "90bd18ca7d0e6fcf3a52be263706a3b20d50377607fc6e90aea92665f711ae54",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "eb942c10cadc4033dc1cda444da1d4b74726f898bc8385833e3c8a911cbd085e",
+  "digest": "426007c0844fbc3a6d8548267cc216978e3d4a1891d4f1414eccbfa6997b6479",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

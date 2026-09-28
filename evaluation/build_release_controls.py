@@ -112,6 +112,22 @@ def run(root=None, *, allow_blocked=False):
   'raw_acquisition_is_discriminating_experiment_result':False,
   'jhtdb_transport_runner':'evaluation.run_fresh_jhtdb_sgs_observational_experiment',
  }
+ caps['universal_experiment_execution']={
+  'schema':'phi-frozen-experiment-execution/v1',
+  'existing_scientific_owners_reused':True,
+  'source_classes':['FORWARD_ORACLE','OBSERVATIONAL_ARCHIVE'],
+  'freeze_api':'freeze_experiment_execution',
+  'execute_api':'execute_frozen_experiment',
+  'host_bound_adapter_digest_required':True,
+  'checkpoint_and_resume':True,
+  'evidence_sha256_verified':True,
+  'frozen_predictions_only':True,
+  'fresh_holdout_refit_allowed':False,
+  'jhtdb_is_domain_adapter_not_scientific_core':True,
+  'qualification_status':q.get('universal_experiment_execution',{}).get('status'),
+  'jhtdb_legacy_execution_status':q.get('universal_experiment_execution',{}).get('jhtdb',{}).get('status'),
+  'new_physical_law_established':False,
+ }
  caps['release_control']={
   'current_state_qualification_status':q.get('status'),
   'current_state_qualification_passed':qualification_passed,
@@ -362,6 +378,12 @@ def run(root=None, *, allow_blocked=False):
   'jhtdb_private_token_is_not_persisted':True,
   'dns_closure_protocol_pass_is_not_turbulence_law':True,
   'dns_closure_representation_gap_is_valid_outcome':True,
+  'universal_experiment_runtime_reuses_existing_scientific_owners':True,
+  'experiment_source_and_measurement_adapters_are_digest_bound_before_acquisition':True,
+  'fresh_holdout_cannot_refit_frozen_prediction_forms':True,
+  'checkpoint_resume_reverifies_evidence_sha256':True,
+  'jhtdb_domain_adapter_is_not_universal_scientific_core':True,
+  'unsupported_frozen_numerical_chart_blocks_before_target_evaluation':True,
  })
  inv['digest']=digest_payload(inv); (root/'invariants.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2,sort_keys=True)+'\n')
  files=controlled(root)

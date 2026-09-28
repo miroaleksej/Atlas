@@ -54,6 +54,56 @@ NASA-портфель проверяется по сохранённой реа�
 
 Сохранённые результаты и отличия от исходного архива: [UNIVERSAL_PORTFOLIO_RESULT_RU.md](reports/p3/UNIVERSAL_PORTFOLIO_RESULT_RU.md).
 
+## Универсальный слой выполнения экспериментов
+
+`LawSpaceAPI.freeze_experiment_execution(...)` и `LawSpaceAPI.execute_frozen_experiment(...)` предоставляют общий исполняемый маршрут между P3-теорией и предметным источником. Это не второй научный движок. Freeze делегирован `HierarchicalObservationalExperimentOwner`, получение evidence — существующему `TypedWorldActionAdapterOwner`, вычисление замороженных прогнозов и adjudication — `HierarchicalObservationalTheoryRevisionOwner`, а orchestration остаётся в `LongHorizonBlindScientificCycleKernel`.
+
+Минимальная структура контракта:
+
+```python
+contract = {
+    "schema": "phi-frozen-experiment-execution/v1",
+    "experiment_id": "E1",
+    "evidence_mode": "PROSPECTIVE_REQUEST",  # либо RETROSPECTIVE_REPLAY / CONTROLLED_QUALIFICATION
+    "source": {"class": "OBSERVATIONAL_ARCHIVE", "source_id": "archive-id"},
+    "source_adapter": adapter_binding(source_adapter),
+    "measurement_adapter": adapter_binding(measurement_adapter),
+    "samples": [{
+        "sample_id": "S1",
+        "request_kind": "NATURAL_SAMPLE",
+        "request": {"domain_specific": "selection"},
+        "expected_sha256": "...",
+    }],
+    "cases": [{"case_id": "C1", "sample_id": "S1", "...": "domain contract"}],
+    "forms": [{
+        "form_id": "F1", "case_id": "C1", "kind": "LINEAR_FEATURES",
+        "feature_ids": ["x"], "coefficients": [0.0, 1.0],
+    }],
+    "metric": {"name": "NRMSE_STD", "threshold": 0.1, "minimum_std": 1e-12},
+    "transport": {"max_retries": 2, "backoff_seconds": 1, "max_bytes_per_sample": 1000000},
+}
+```
+
+`adapter_binding` фиксирует стабильный `adapter_id`, конфигурацию и SHA-256 файлов реализации. JSON не содержит пути импорта или исполняемых выражений. Host передаёт уже созданные adapter objects; они считаются доверенной границей интеграции и сами должны ограничивать сеть, оборудование и полномочия. Для `INTERVENTION` с ненулевым retry обязателен `idempotency_key`. Только `TransientAcquisitionError` повторяется; ошибки схемы, digest, SHA-256 и научной совместимости не повторяются.
+
+Состояние выполнения обязательно находится вне запечатанного дерева Atlas. До первого вызова источника runtime атомарно сохраняет frozen protocol. Каждый sample получает raw checkpoint и связанную квитанцию. При resume повторно проверяются protocol digest, sample digest, adapter binding, размер и SHA-256. Повреждённые, несвязанные или оставшиеся без квитанции bytes не загружаются заново молча.
+
+Measurement adapter получает только bytes и замороженные case-контракты — формы и коэффициенты ему не передаются. Общий evaluator поддерживает текущий ограниченный язык `LINEAR_FEATURES`, вычисляет `NRMSE_STD` и не выполняет fit/refit. Если задан `theory_revision`, outcome `ALL_FORMS_PASS` или `SOME_FORMS_FAIL` преобразуется только через заранее зафиксированную категориальную карту и передаётся существующему P3 revision owner. Без такой карты результатом остаётся `THEORY_REVISION_CONTRACT_REQUIRED`.
+
+Проверка:
+
+```bash
+make universal-experiment
+```
+
+Квалификация использует два разных источника — управляемый forward oracle и локальный observational archive — без изменения core. Она проверяет digest binding, checkpoint replay, retry/idempotency, запрет состояния внутри release tree, ожидаемый SHA-256, обнаружение повреждения и отсутствие автоматического научного продвижения.
+
+JHTDB подключён через `evaluation.jhtdb_execution_adapter.DNSFrozenMeasurement`. Он явно вызывает существующий SGS coarse-graining adapter и тот же finite-stencil `PrimitiveFieldOperatorCoordinateBirthOwner`, который породил операторный язык. Автоматический поиск «подходящей» функции и спектральная замена производных из V6 не используются. Текущий legacy child-freeze не содержит `grid_points`; кроме того, куб `32³` после ratios 4 и 8 имеет `8³` и `4³` точек при минимуме 9 для frozen stencil. Поэтому все 27 cases блокируются на preflight до acquisition/target evaluation. Для настоящего продолжения нужен новый prospective контракт с заранее зафиксированным совместимым размером cutout/chart, а не post-hoc исправление после просмотра outcomes.
+
+PASS квалифицирует только универсальность механизма исполнения. Он не аутентифицирует исторический порядок freeze/acquisition, не превращает локальный архив в свежую репликацию и не устанавливает новый закон.
+
+Запечатанный машиночитаемый результат: [UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json](reports/p3/UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json).
+
 ## Родословная семейства гипотез
 
 В `AdaptiveResearchKernelOwner` семейство задаётся через `hypothesis_family`: стабильные `family_id`, `statement`, `preserved_invariants` и открытые вопросы представления. Предыдущий результат передаётся как `hypothesis_family_lineage` или внутри `previous_state`. Полный предыдущий объект, его дайджест и неизменность смысла семейства проверяются; новый ID не используется для молчаливой подмены старого семейства.

@@ -23,6 +23,8 @@ class LawSpaceAPI:
     )
     MUTATION_TOOLS = ("run_autonomous_research", "commit_phi_candidate_world_binding", "commit_phi_candidate_response_projection", "execute_phi_candidate_measurement", "commit_phi_domain_birth", "commit_phi_axis_lifecycle", "commit_phi_domain_split", "commit_phi_domain_merge", "promote_dynamic_axis", "run_axis_modeling_with_dynamic_expansion", "run_phi_cognitive_cycle", "run_phi_generated_axis_cycle", "run_phi_resident_heartbeat", "record_phi_world_action_experience", "learn_phi_world_action_model", "learn_phi_contextual_world_action_model", "online_update_phi_world_action_model", "bind_phi_typed_world_action_result", "evolve_phi_resident_ontology", "evolve_phi_higher_order_operator", "run_phi_resident_long_horizon", "run_phi_reflexive_architecture_cycle", "run_phi_runtime_self_repair_cycle", "run_phi_developmental_open_endedness_cycle", "advance_atlas_dovetail_traversal", "record_hypothesis_council_action", "apply_hypothesis_council_weight_recommendation")
     MUTATION_TOOLS = MUTATION_TOOLS + ("run_closed_loop_research",)
+    READ_TOOLS = READ_TOOLS + ("freeze_experiment_execution",)
+    MUTATION_TOOLS = MUTATION_TOOLS + ("execute_frozen_experiment",)
     FORBIDDEN_AI_ASSIGNMENTS = ("ATLAS_NATIVE", "ESTABLISHED_LAW", "CONFIRMED_CONSTANT", "EXPERIMENT_PASS")
     ALLOWED_AI_STATES = ("PENDING_PROPOSAL", "PENDING_BRIDGE", "PENDING_NORMALIZATION", "PENDING_CELL_ASSIGNMENT")
 
@@ -1702,6 +1704,16 @@ class LawSpaceAPI:
     def freeze_phi_observational_theory_round(self, *, theory: Mapping[str, Any], cost_budget: float) -> Mapping[str, Any]:
         from .long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
         return LongHorizonBlindScientificCycleKernel(self.runtime.root).freeze_observational_round(theory=theory, cost_budget=cost_budget)
+
+    def freeze_experiment_execution(self, contract, *, source_adapter, measurement_adapter):
+        from .long_horizon_scientific_cycle import HierarchicalObservationalExperimentOwner
+        return HierarchicalObservationalExperimentOwner().freeze_execution_protocol(
+            contract, source_adapter=source_adapter, measurement_adapter=measurement_adapter)
+
+    def execute_frozen_experiment(self, frozen, *, source_adapter, measurement_adapter, state_dir):
+        from .long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel
+        return LongHorizonBlindScientificCycleKernel(self.runtime.root).execute_frozen_experiment(
+            frozen, source_adapter=source_adapter, measurement_adapter=measurement_adapter, state_dir=state_dir)
 
     def revise_phi_observational_theory(self, *, frozen_experiment: Mapping[str, Any], measurement: Mapping[str, Any]) -> Mapping[str, Any]:
         from .long_horizon_scientific_cycle import LongHorizonBlindScientificCycleKernel

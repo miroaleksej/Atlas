@@ -163,6 +163,11 @@ class HierarchicalObservationalExperimentOwner:
     """
     owner_id = "HIERARCHICAL-OBSERVATIONAL-EXPERIMENT/1.0.0"
 
+    def freeze_execution_protocol(self, contract, *, source_adapter, measurement_adapter):
+        from .experiment_execution import freeze_protocol
+        return freeze_protocol(contract, source_adapter=source_adapter,
+                               measurement_adapter=measurement_adapter, owner_id=self.owner_id)
+
     @staticmethod
     def _pair_divergence(a: Mapping[str, Any], b: Mapping[str, Any]) -> float:
         ka, kb = str(a.get("kind", "categorical")), str(b.get("kind", "categorical"))
@@ -270,6 +275,10 @@ class HierarchicalObservationalExperimentOwner:
 class HierarchicalObservationalTheoryRevisionOwner:
     owner_id = "HIERARCHICAL-OBSERVATIONAL-THEORY-REVISION/1.0.0"
 
+    def evaluate_frozen_predictions(self, contract, measurements):
+        from .experiment_execution import evaluate_frozen_predictions
+        return evaluate_frozen_predictions(contract, measurements, owner_id=self.owner_id)
+
     @staticmethod
     def _likelihood(pred: Mapping[str, Any], measurement: Mapping[str, Any]) -> float:
         kind=str(pred.get("kind", "categorical")); obs=measurement.get("value")
@@ -325,6 +334,11 @@ class HierarchicalObservationalTheoryRevisionOwner:
         })
 
 class LongHorizonBlindScientificCycleKernel:
+    def execute_frozen_experiment(self, frozen, *, source_adapter, measurement_adapter, state_dir):
+        from .experiment_execution import execute_protocol
+        return execute_protocol(self, frozen, source_adapter=source_adapter,
+                                measurement_adapter=measurement_adapter, state_dir=state_dir)
+
     def __init__(self, root: str | Path, *, state_path: str | Path | None = None) -> None:
         self.root = Path(root)
         self.experiments = AutomaticDiscriminatingExperimentKernel(self.root)
@@ -358,6 +372,15 @@ class LongHorizonBlindScientificCycleKernel:
                 "pipeline": "COMPILED_HIERARCHICAL_THEORY->FROZEN_EXPERIMENT_PORTFOLIO->POSTFREEZE_EVIDENCE->EXPLANATION_REVISION",
                 "measurement_visible_during_selection": False,
                 "heldout_refit_allowed": False,
+            },
+            "universal_experiment_execution": {
+                "supported": True,
+                "pipeline": "SOURCE_CAPABILITY->FREEZE_EXPERIMENT->FREEZE_SAMPLES->FREEZE_HYPOTHESES_FORMS->ACQUIRE_EVIDENCE->VERIFY_PROVENANCE->MEASUREMENT_ADAPTER->EVALUATE_FROZEN_PREDICTIONS->ADJUDICATE->THEORY_REVISION",
+                "source_classes": ["FORWARD_ORACLE", "OBSERVATIONAL_ARCHIVE"],
+                "host_bound_adapters_only": True,
+                "checkpointed_acquisition": True,
+                "heldout_refit_allowed": False,
+                "domain_specific_experiment_loop_required": False,
             },
             "long_horizon": {
                 "persistent_state": True,
