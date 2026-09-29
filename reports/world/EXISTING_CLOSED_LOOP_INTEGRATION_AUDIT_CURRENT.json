@@ -1,0 +1,252 @@
+{
+  "campaign_digest": "b89e080348f748c62fce9961c120c4c9b82b8ebd033305a0233cfa4f80a9cf3f",
+  "campaign_status": "CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED",
+  "claim_boundary": {
+    "audit_is_world_evidence": false,
+    "inventory_count_is_capability_proof": false,
+    "provider_match_is_attestation": false,
+    "underused_existing_systems_should_be_reused_before_new_owners": true
+  },
+  "digest": "7bce2ad7ea32eb03ba6ea35d0103832659d11ea21f39e78121bf41aabcb3badb",
+  "frontier_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
+  "integration_policy": {
+    "external_data_fetched": false,
+    "knowledge_state_mutated": false,
+    "new_scientific_owner_created": false,
+    "private_key_created_or_stored": false,
+    "reuse_existing_owners_only": true,
+    "scientific_promotion_allowed": false
+  },
+  "primary_bottlenecks_in_order": [
+    "MASS_U4_TO_PREDICTION_LOWERING_NOT_SCALED",
+    "PREDICTION_LOWERING_TO_RESPONSE_PROJECTION_NOT_SCALED",
+    "MEASUREMENT_INTENT_TO_PROVIDER_MATCH_PARTIAL",
+    "UNIVERSAL_EXECUTION_RUNTIME_NOT_BOUND_TO_FRONTIER_CAMPAIGN",
+    "WORLD_TRUST_EMPTY",
+    "U5_REPLAY_HAS_NO_WORLD_EVIDENCE"
+  ],
+  "recommended_glue_path": [
+    "route U4 materialized hypotheses through existing ScientificExploitation lowering",
+    "bind lowered predictions to existing KnowledgeEvolution response projections",
+    "compile projection into existing FrozenExperimentExecution contract",
+    "use existing SourceProviderCapabilityRegistry for provider selection",
+    "send acquired artifact to existing ScientificVerificationCore and WorldAttestationOwner",
+    "replay existing U5AttemptScheduler",
+    "allow representation revision only through existing KnowledgeEvolution owners after attested U5 replay"
+  ],
+  "route": [
+    {
+      "existing_system": "ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+      "observed": {
+        "frontier_candidate_count": 4106
+      },
+      "stage": "FRONTIER",
+      "status": "READY"
+    },
+    {
+      "existing_system": "KnowledgeEvolutionKernel.hypothesis_materializations",
+      "observed": {
+        "hypothesis_materializations": 447
+      },
+      "stage": "U4_MATERIALIZATION",
+      "status": "READY"
+    },
+    {
+      "existing_system": "ScientificExploitation + KnowledgeEvolutionKernel.candidate_prediction_lowerings",
+      "observed": {
+        "candidate_prediction_lowerings": 1,
+        "gap_to_materialized_hypotheses": 446
+      },
+      "stage": "PREDICTION_LOWERING",
+      "status": "UNDERUSED"
+    },
+    {
+      "existing_system": "KnowledgeEvolutionKernel.candidate_response_projections",
+      "observed": {
+        "candidate_response_projections": 1,
+        "gap_to_materialized_hypotheses": 446
+      },
+      "stage": "RESPONSE_PROJECTION",
+      "status": "UNDERUSED"
+    },
+    {
+      "existing_system": "SourceProviderCapabilityRegistry + run_world_closed_loop_campaign",
+      "observed": {
+        "candidate_specs_with_measurement_intents": 102,
+        "frontier_rows_examined": 500,
+        "provider_matched_episode_count": 8
+      },
+      "stage": "PROVIDER_MATCHING",
+      "status": "PARTIAL_READY"
+    },
+    {
+      "existing_system": "experiment_execution.freeze_protocol/acquire_evidence/evaluate_frozen_predictions",
+      "observed": {
+        "runtime_stages": [
+          "SOURCE_CAPABILITY",
+          "FREEZE_EXPERIMENT",
+          "FREEZE_SAMPLES",
+          "FREEZE_HYPOTHESES_FORMS",
+          "ACQUIRE_EVIDENCE",
+          "VERIFY_PROVENANCE",
+          "MEASUREMENT_ADAPTER",
+          "EVALUATE_FROZEN_PREDICTIONS",
+          "ADJUDICATE",
+          "THEORY_REVISION"
+        ]
+      },
+      "stage": "FROZEN_EXECUTION",
+      "status": "AVAILABLE_NOT_BOUND_TO_FRONTIER_CAMPAIGN"
+    },
+    {
+      "existing_system": "WorldAttestationOwner + data/world_trust/attestors.json",
+      "observed": {
+        "active_world_attestor_count": 0,
+        "world_attestations": 0
+      },
+      "stage": "WORLD_ATTESTATION",
+      "status": "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+    },
+    {
+      "existing_system": "U5AttemptScheduler",
+      "observed": {
+        "independently_attested_episode_count": 0
+      },
+      "stage": "U5_REPLAY",
+      "status": "BLOCKED_WORLD_EVIDENCE_REQUIRED"
+    },
+    {
+      "existing_system": "KnowledgeEvolutionKernel + domain/axis lifecycle owners",
+      "observed": {
+        "canonical_axis_count": 655,
+        "digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+        "domain_axis_digest": "569ed74e7e14054855903f5b3108c3311339af25befe288556c22de8a637947f",
+        "knowledge_state_digest": "ff92ca736622311a9459403edf9bdd668e021574fab5ab519c16c2852025dfec",
+        "schema": "phi-representation-world-model-state-digest/v1",
+        "world_attestation_count": 0
+      },
+      "stage": "REPRESENTATION_REVISION",
+      "status": "PROTECTED_NO_CHANGE_WITHOUT_ATTESTED_U5_REPLAY"
+    }
+  ],
+  "schema": "phi-existing-closed-loop-system-integration-audit/v1",
+  "state_counts": {
+    "axis_lifecycle": 0,
+    "candidate_measurement_executions": 1,
+    "candidate_prediction_discriminations": 1,
+    "candidate_prediction_lowerings": 1,
+    "candidate_response_projections": 1,
+    "candidate_world_bindings": 2,
+    "cross_domain_bridges": 0,
+    "domain_transactions": 0,
+    "hypothesis_materializations": 447,
+    "owner_axis_bindings": 3,
+    "research_axis_proposals": 11,
+    "scalar_law_materializations": 683,
+    "universal_proof_mechanisms": 23,
+    "world_attestations": 0
+  },
+  "status": "EXISTING_SYSTEMS_AUDITED_FAIL_CLOSED",
+  "system_inventory": [
+    {
+      "observed_records": {
+        "candidate_prediction_lowerings": 1,
+        "hypothesis_materializations": 447
+      },
+      "owner": "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR/1.5.0",
+      "role": "U4 candidate dossier and prediction-lowering preparation",
+      "status": "PRESENT_UNDERUSED",
+      "system_id": "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR"
+    },
+    {
+      "observed_records": {
+        "candidate_prediction_discriminations": 1,
+        "candidate_response_projections": 1
+      },
+      "owner": "DISCRIMINATING-EXPERIMENT-AUTOPILOT/1.0.0",
+      "role": "freeze frontier and emit measurement requests",
+      "status": "PRESENT_UNDERUSED",
+      "system_id": "DISCRIMINATING-EXPERIMENT-AUTOPILOT"
+    },
+    {
+      "owner": "phi-frozen-experiment-execution/v1",
+      "role": "contract runtime for source capability, acquisition, adapter, frozen evaluation and adjudication",
+      "stages": [
+        "SOURCE_CAPABILITY",
+        "FREEZE_EXPERIMENT",
+        "FREEZE_SAMPLES",
+        "FREEZE_HYPOTHESES_FORMS",
+        "ACQUIRE_EVIDENCE",
+        "VERIFY_PROVENANCE",
+        "MEASUREMENT_ADAPTER",
+        "EVALUATE_FROZEN_PREDICTIONS",
+        "ADJUDICATE",
+        "THEORY_REVISION"
+      ],
+      "status": "PRESENT",
+      "system_id": "FROZEN-EXPERIMENT-EXECUTION"
+    },
+    {
+      "owner": "CLOSED-LOOP-AXIS-RESEARCH/1.0.0",
+      "role": "measurement-driven residual axis modeling with sealed holdout",
+      "status": "PRESENT_NEEDS_ADAPTER_BRIDGE_FROM_FRONTIER_ROUTE",
+      "system_id": "CLOSED-LOOP-AXIS-RESEARCH"
+    },
+    {
+      "owner": "ATLAS-SOURCE-PROVIDER-CAPABILITY-REGISTRY/1.0.0",
+      "provider_count": 4,
+      "role": "map measurement intent to declared external source capabilities",
+      "status": "PRESENT",
+      "system_id": "SOURCE-PROVIDER-CAPABILITY-REGISTRY"
+    },
+    {
+      "owner": "SCIENTIFIC-VERIFICATION-CORE/8.0.0",
+      "role": "source/evidence authenticity and claim-boundary verification",
+      "status": "PRESENT",
+      "system_id": "SCIENTIFIC-VERIFICATION-CORE"
+    },
+    {
+      "observed_records": {
+        "world_attestations": 0
+      },
+      "owner": "WORLD-ATTESTATION/1.0.0",
+      "role": "WORLD-tier evidence snapshot and conflict-preserving attestation",
+      "status": "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR",
+      "system_id": "WORLD-ATTESTATION"
+    },
+    {
+      "owner": "U5-ATTEMPT-SCHEDULER/1.2.0",
+      "role": "replay verification and classify U5 PASS/FAIL/DATA_PENDING/BLOCKED",
+      "status": "PRESENT_BLOCKED_BY_WORLD_EVIDENCE",
+      "system_id": "U5-ATTEMPT-SCHEDULER"
+    },
+    {
+      "owner": "SCIENTIFIC-PROMOTION-CORE/9.2.0",
+      "role": "final U0-U10 promotion authority after upstream evidence",
+      "status": "PRESENT_NOT_REACHED",
+      "system_id": "SCIENTIFIC-PROMOTION-CORE"
+    },
+    {
+      "observed_records": {
+        "axis_lifecycle": 0,
+        "candidate_measurement_executions": 1,
+        "candidate_prediction_discriminations": 1,
+        "candidate_prediction_lowerings": 1,
+        "candidate_response_projections": 1,
+        "candidate_world_bindings": 2,
+        "cross_domain_bridges": 0,
+        "domain_transactions": 0,
+        "hypothesis_materializations": 447,
+        "owner_axis_bindings": 3,
+        "research_axis_proposals": 11,
+        "scalar_law_materializations": 683,
+        "universal_proof_mechanisms": 23,
+        "world_attestations": 0
+      },
+      "owner": "PHI-KNOWLEDGE-EVOLUTION-KERNEL/1.3.0",
+      "role": "durable world binding, response projection, measurement execution and representation memory",
+      "status": "PRESENT",
+      "system_id": "KNOWLEDGE-EVOLUTION-KERNEL"
+    }
+  ]
+}

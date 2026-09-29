@@ -133,6 +133,18 @@ python -m evaluation.world_closed_loop_campaign \
 
 Если в `data/world_trust/attestors.json` нет активного внешнего attestor, корректный результат — `CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED`. В этом состоянии Atlas уже показывает, какие candidates имеют capable provider, но не создаёт independently attested research episodes, не скачивает внешние данные и не меняет representation/world model. После регистрации внешнего public key и получения signed evidence этот же gate должен перейти к настоящим episodes; локальный replay или provider match не засчитываются.
 
+Ревизия склейки уже существующих систем запускается тем же entrypoint:
+
+```bash
+python -m evaluation.world_closed_loop_campaign \
+  --audit-existing-systems \
+  --max-frontier-rows 500 \
+  --max-campaign-items 8 \
+  --out reports/world/EXISTING_CLOSED_LOOP_INTEGRATION_AUDIT_CURRENT.json
+```
+
+Она не создаёт нового scientific owner и не получает внешние данные. Отчёт перечисляет существующие механизмы `ScientificExploitation`, `DiscriminatingExperimentAutopilot`, `FrozenExperimentExecution`, `ClosedLoopResearch`, `SourceProviderCapabilityRegistry`, `ScientificVerificationCore`, `WorldAttestationOwner`, `U5AttemptScheduler`, `ScientificPromotionCore` и `KnowledgeEvolutionKernel`, затем показывает, где маршрут фактически обрывается. В текущем состоянии основные разрывы: массовый U4-frontier ещё не масштабирован в prediction lowering/response projection, universal execution runtime доступен, но не привязан к frontier campaign, WORLD trust пустой, а U5 replay не имеет WORLD evidence.
+
 Публичный trust store находится в `data/world_trust/attestors.json`. Private key должен быть создан и храниться вне Atlas. В репозитории допустимы только public key metadata, key id, role, provider scope, validity и revocation state. Текущий реестр пустой, поэтому `world_attestation_ready=false`: Atlas готов к независимому attestor, но не имитирует WORLD evidence.
 
 Built-in domain consolidation manifests лежат рядом с plugin manifests в `data/domains/`. Для astronomy, mechanics/turbulence, physics/particle/nuclear и materials science они описывают profiles и measurement capabilities, но не заменяют встроенные axis registries и не получают generic scientific rules. Запрещены `scientific_promotion_rules`, `world_trust`, `ESTABLISHED_LAW` и другие полномочия истинности.

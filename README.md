@@ -98,9 +98,12 @@ match_source_provider
 get_world_trust_registry
 plan_world_evidence_campaign
 run_world_closed_loop_campaign
+audit_existing_closed_loop_integration
 ```
 
 `run_world_closed_loop_campaign` читает текущий frontier, строит measurement intents для candidates, сопоставляет их с provider registry и проверяет WORLD trust gate. При пустом trust store результатом будет `CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED`: provider-matched episodes могут быть найдены, но `independently_attested_episode_count=0`, внешние данные не скачиваются, а representation/world model не изменяется. Это намеренная защита от подмены независимой аттестации локальным replay.
+
+`audit_existing_closed_loop_integration` выполняет read-only ревизию уже имеющихся систем Atlas и собирает единую карту маршрута `frontier → U4 materialization → prediction lowering → response projection → provider matching → frozen execution → WORLD attestation → U5 replay → representation revision`. Текущий отчёт показывает не отсутствие механизмов, а их неполную склейку: 447 materialized hypotheses и 683 scalar law materializations уже есть, но только по одному lowering/projection/measurement/discrimination и 0 WORLD attestations. Поэтому главный следующий инженерный шаг — использовать существующие owners до создания новых.
 
 Проверка слоя:
 

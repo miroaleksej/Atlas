@@ -6,6 +6,7 @@ from source.lawspace.api import LawSpaceAPI
 from source.lawspace.domains import DOMAIN_REGISTRIES, load_domain_plugin_manifests
 from source.lawspace.domain_plugins import ScienceDomainPluginRegistry
 from source.lawspace.source_capabilities import (
+    audit_existing_closed_loop_integration,
     load_provider_capability_registry,
     load_world_trust_registry,
     match_source_provider,
@@ -152,3 +153,37 @@ def test_world_closed_loop_campaign_api_exposes_same_gate():
     result = api.run_world_closed_loop_campaign(max_frontier_rows=500, max_campaign_items=8)
     assert result["status"] == "CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED"
     assert result["independently_attested_episode_count"] == 0
+
+
+def test_existing_closed_loop_integration_audit_reuses_underused_systems_fail_closed():
+    result = audit_existing_closed_loop_integration(ROOT, max_frontier_rows=500, max_campaign_items=8)
+    assert result["status"] == "EXISTING_SYSTEMS_AUDITED_FAIL_CLOSED"
+    assert result["integration_policy"]["new_scientific_owner_created"] is False
+    assert result["integration_policy"]["reuse_existing_owners_only"] is True
+    assert result["integration_policy"]["knowledge_state_mutated"] is False
+    assert result["claim_boundary"]["underused_existing_systems_should_be_reused_before_new_owners"] is True
+    systems = {row["system_id"]: row for row in result["system_inventory"]}
+    assert {
+        "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+        "FROZEN-EXPERIMENT-EXECUTION",
+        "CLOSED-LOOP-AXIS-RESEARCH",
+        "WORLD-ATTESTATION",
+        "U5-ATTEMPT-SCHEDULER",
+        "KNOWLEDGE-EVOLUTION-KERNEL",
+    } <= set(systems)
+    assert result["state_counts"]["hypothesis_materializations"] == 447
+    assert result["state_counts"]["world_attestations"] == 0
+    assert "MASS_U4_TO_PREDICTION_LOWERING_NOT_SCALED" in result["primary_bottlenecks_in_order"]
+    assert "WORLD_TRUST_EMPTY" in result["primary_bottlenecks_in_order"]
+    route = {row["stage"]: row for row in result["route"]}
+    assert route["FROZEN_EXECUTION"]["status"] == "AVAILABLE_NOT_BOUND_TO_FRONTIER_CAMPAIGN"
+    assert route["WORLD_ATTESTATION"]["status"] == "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+    assert route["U5_REPLAY"]["status"] == "BLOCKED_WORLD_EVIDENCE_REQUIRED"
+
+
+def test_existing_closed_loop_integration_audit_api_exposed():
+    api = LawSpaceAPI(ROOT)
+    assert "audit_existing_closed_loop_integration" in api.READ_TOOLS
+    result = api.audit_existing_closed_loop_integration(max_frontier_rows=500, max_campaign_items=8)
+    assert result["status"] == "EXISTING_SYSTEMS_AUDITED_FAIL_CLOSED"
+    assert result["integration_policy"]["external_data_fetched"] is False
