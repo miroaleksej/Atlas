@@ -30,9 +30,33 @@ DEFAULT_POLICY = {
 }
 
 
+def _validate_persisted_policy_document(raw: Mapping[str, Any]) -> Mapping[str, Any]:
+    """Fail closed on stale or tampered persisted authorization policy."""
+    doc = dict(raw)
+    if str(doc.get("schema", "")) != POLICY_SCHEMA:
+        raise PermissionError(
+            f"execution policy schema mismatch: expected {POLICY_SCHEMA}, got {doc.get('schema')!r}"
+        )
+    embedded = str(doc.get("digest", "")).strip()
+    core = {k: v for k, v in doc.items() if k != "digest"}
+    expected = digest_payload(core)
+    if not embedded or embedded != expected:
+        raise PermissionError("execution policy digest mismatch")
+    return doc
+
+
 def load_execution_policy(root: str | Path) -> Mapping[str, Any]:
     path = Path(root) / "data/runtime/EXECUTION_POLICY_CURRENT.json"
-    raw = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
+    if not path.is_file():
+        # Tests/ephemeral roots may have no persisted runtime envelope.  The
+        # compiled defaults are deliberately conservative and contain no
+        # automatic scientific-promotion permission.  Once a policy document
+        # exists, however, its schema and digest are mandatory.
+        return dict(DEFAULT_POLICY)
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, Mapping):
+        raise PermissionError("execution policy document must be a mapping")
+    raw = _validate_persisted_policy_document(raw)
     out = dict(DEFAULT_POLICY)
     out.update(raw)
     return out

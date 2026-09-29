@@ -1399,3 +1399,18 @@ The resulting loop is
 Blind Navier–Stokes binding-invention control, using only the frozen problem statement and no external solution, executed four search slices (eight complexity epochs), generated 64 proof-program candidates and 391 research-local axes. 60 axes were born directly from invented binding objects. Across slices 2–4, 48 provenance-binding checks and 48 binding well-typedness checks were executed and discharged structurally; discrimination/closure validity remained unresolved. The run remained non-terminal and did not claim an independent Navier–Stokes proof. This demonstrates binding-content invention and continuation, not correctness of any particular generated function space, norm, invariant or blow-up criterion.
 
 The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+
+### FINAL-004: research acceleration замкнут в основном цикле
+
+Начиная с текущего closure patch, `ScientificResearchCycleOwner` оркестрирует
+существующие FINAL-004 owners как одну цепочку: `research -> U5 -> при
+U5_DATA_PENDING discriminating experiment -> MEASUREMENT_REQUEST -> повторный
+цикл после world evidence -> scientific promotion qualification`. При
+`LAW_CANDIDATE` автономная работа останавливается на
+`AWAITING_HUMAN_CONFIRMATION`; автоматической записи scientific law нет.
+
+Runtime policy мигрирован на `phi-runtime-execution-policy/v5` с обязательной
+проверкой schema+digest для сохранённого policy-файла. Current-state release
+qualification теперь напрямую включает `research_acceleration_qualification`, а
+`capabilities.json` и `RELEASE_MANIFEST.json` публикуют этот статус как
+first-class release capability.

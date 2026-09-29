@@ -25,6 +25,7 @@ from evaluation.first_atlas_native_experiment import run as run_first_control
 from evaluation.function_language_birth_qualification import run_release_qualification as run_function_language_birth_qualification
 from evaluation.research_triage_qualification import run as run_research_triage_qualification
 from evaluation.collective_coordination_qualification import run_release_qualification as run_collective_coordination_qualification
+from evaluation.research_acceleration_qualification import run_release_qualification as run_research_acceleration_qualification
 from evaluation.universal_experiment_qualification import run as run_universal_experiment_qualification
 from evaluation.release_files import is_local_artifact
 EXT_SRC = ROOT / "extensions" / "ATLAS_AI_RESEARCH_EXTENSION_v0_10_0" / "src"
@@ -163,6 +164,8 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     research_triage_qualification=run_research_triage_qualification()
     rtq_checks=research_triage_qualification.get('checks',{})
     collective_coordination_qualification=run_collective_coordination_qualification(root)
+    research_acceleration_qualification=run_research_acceleration_qualification(root)
+    raq_checks=research_acceleration_qualification.get('checks',{})
     universal_experiment_qualification=run_universal_experiment_qualification(root)
     triage_contract=api.get_research_triage_contract()
     council_path=runtime.external_state_path('hypothesis_council')
@@ -191,6 +194,9 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'function_language_birth_noise_negative_control': fl_checks.get('noise_control_does_not_force_language_birth') is True,
       'function_language_birth_dynamic_null_replay': fl_checks.get('dynamic_language_birth_is_inside_permutation_null') is True,
       'research_triage_qualification_current': research_triage_qualification.get('all_pass') is True and research_triage_qualification.get('passed')==research_triage_qualification.get('total')==8,
+      'research_acceleration_qualification_current': research_acceleration_qualification.get('status')=='PASS' and research_acceleration_qualification.get('passed')==research_acceleration_qualification.get('total') and all(raq_checks.values()),
+      'research_acceleration_orchestration_is_inside_scientific_research_cycle': raq_checks.get('scientific_research_cycle_owns_final004_progression') is True and raq_checks.get('autonomous_cycle_stops_before_human_or_canonical_mutation') is True,
+      'research_acceleration_policy_v5_integrity_current': raq_checks.get('persisted_policy_v5_integrity_valid') is True,
       'research_triage_is_not_second_promotion_owner': triage_contract.get('authoritative_scientific_promotion_owner')=='SCIENTIFIC-PROMOTION-CORE' and triage_contract.get('manual_override_can_pass_u_gate') is False,
       'dynamic_confidence_tiers_are_fail_closed': rtq_checks.get('STRICT_TIER') is True and rtq_checks.get('EMPIRICAL_TIER') is True and rtq_checks.get('EXPLORATORY_BY_SMALL_N') is True and rtq_checks.get('EXPLORATORY_BY_NOISE') is True,
       'sandbox_dpi_is_rank_only': rtq_checks.get('DPI_RANKS_NOT_PROMOTES') is True,
@@ -296,6 +302,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'eda_chip_design':{'contract_digest':eda_contract.get('digest'),'fail_closed_status':eda_fail_closed.get('status'),'qualification_control_digest':eda_control.get('digest'),'live_world_result_established':False},
       'function_language_birth':{'status':function_language_qualification.get('status'),'digest':function_language_qualification.get('digest'),'metrics':function_language_qualification.get('metrics'),'world_result_established':False},
       'research_triage_sandbox':{'qualification':research_triage_qualification,'contract_digest':triage_contract.get('digest'),'council_state_external':True,'manual_override_can_pass_u_gate':False},
+      'research_acceleration':{'status':research_acceleration_qualification.get('status'),'digest':research_acceleration_qualification.get('digest'),'passed':research_acceleration_qualification.get('passed'),'total':research_acceleration_qualification.get('total'),'checks':raq_checks,'orchestration_owner':'SCIENTIFIC-RESEARCH-CYCLE/15.3.0','automatic_scientific_law_promotion':False,'human_confirmation_required_before_canonical_mutation':True},
       'universal_experiment_execution':universal_experiment_qualification,
       'ai_runtime':{'capability_count':live_capabilities.get('capability_count'),'open_architecture_obligations':live_capabilities.get('open_architecture_obligations'),'resolved_architecture_obligations':live_capabilities.get('resolved_architecture_obligations'),'collective_coordination_qualification':{'status':collective_coordination_qualification.get('status'),'digest':collective_coordination_qualification.get('digest'),'selected_architecture':collective_coordination_qualification.get('architecture_search',{}).get('selected_architecture'),'holdout':collective_coordination_qualification.get('architecture_search',{}).get('holdout',{}).get('selected_candidate_result')},'mutable_state_default_external':True,'mutable_state_bundled_in_seal':False},
       'residue':{'derived_directories':residues,'derived_files_present':derived_files_present,'frontier_files':frontier_files,'unexpected_reports':unexpected_reports,'ai_feynman_paths_present':feynman_present},

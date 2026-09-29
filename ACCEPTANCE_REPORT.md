@@ -1126,3 +1126,19 @@ The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New
 
 
 Current regression note: all targeted/core qualifications after binding invention passed (Mathematical Invention 76/76; Knowledge Evolution 38/38; Autonomous Research 56/56; Adaptive Axis 25/25; Research Proof 10/10; ScienceAtlas Core 10/10; Long-Horizon 30/30; Collective 19/19; Developmental 30/30; Reflexive 41/41; Universal Execution PASS; Python syntax 212/212). Two monolithic full-repository pytest attempts produced no FAIL output but exceeded wall-clock budgets (360 s after 44 tests in verbose localization; 600 s in a clean-session attempt). Therefore the current release does not claim a fresh monolithic 221/221 PASS; the previous semantic-obligation-compiler release's 221/221 result is historical evidence only.
+
+## FINAL-004 closure acceptance
+
+Closure patch переводит FINAL-004 из набора API-доступных механизмов в единый
+`ScientificResearchCycleOwner` lifecycle без нового solver. Проверяемая граница:
+`U5_DATA_PENDING -> MEASUREMENT_REQUEST -> U5_PASS ->
+AWAITING_HUMAN_CONFIRMATION`; autonomous runtime не выполняет human confirmation
+и canonical transaction.
+
+Release qualification теперь содержит обязательный
+`research_acceleration_qualification`; сохранённый execution policy должен быть
+v5 и digest-valid. Добавлен end-to-end regression, который на controlled
+attestation boundary проверяет measurement request, U5 pass, human authorization,
+canonical registration, повторную загрузку зарегистрированного law через
+`LawSpaceRuntime` и обязательный `release_reseal_required=True`. Controlled test
+attestation не трактуется как реальное world evidence или новый научный закон.

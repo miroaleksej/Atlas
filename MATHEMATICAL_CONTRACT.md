@@ -1547,3 +1547,30 @@ The resulting loop is
 Blind Navier–Stokes binding-invention control, using only the frozen problem statement and no external solution, executed four search slices (eight complexity epochs), generated 64 proof-program candidates and 391 research-local axes. 60 axes were born directly from invented binding objects. Across slices 2–4, 48 provenance-binding checks and 48 binding well-typedness checks were executed and discharged structurally; discrimination/closure validity remained unresolved. The run remained non-terminal and did not claim an independent Navier–Stokes proof. This demonstrates binding-content invention and continuation, not correctness of any particular generated function space, norm, invariant or blow-up criterion.
 
 The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+
+## Research-acceleration closure contract (FINAL-004)
+
+`ScientificResearchCycleOwner` является единственным orchestration owner для
+перехода research -> U5 -> discriminating measurement request -> replay ->
+scientific promotion qualification. FINAL-004 не создаёт второго solver/runtime.
+
+Обязательные инварианты:
+
+1. `U5_PASS` не является `ESTABLISHED_LAW` и не разрешает registry mutation.
+2. `U5_DATA_PENDING` может породить только `MEASUREMENT_REQUEST`; request не
+   является WORLD evidence и не ставится в live queue автоматически.
+3. После WORLD-verified U5 pass текущий `ScientificPromotionCore` обязан быть
+   воспроизведён заново.
+4. `LAW_CANDIDATE` в автономном цикле завершается
+   `AWAITING_HUMAN_CONFIRMATION`.
+5. Human authorization не является scientific evidence и должна быть
+   digest-bound к текущей qualification и evidence digest.
+6. `CanonicalLawRegistryTransactionOwner` остаётся единственным владельцем
+   canonical law persistence; autonomous research не вызывает `confirm()` или
+   `commit()`.
+7. Любая canonical registration требует release reseal.
+8. Persisted `EXECUTION_POLICY_CURRENT.json` принимается только при schema
+   `phi-runtime-execution-policy/v5` и корректном digest; stale/tampered policy
+   блокируется fail-closed.
+9. `PASS_CURRENT_STATE_15_29_0` допустим только если
+   `research_acceleration_qualification == PASS`.

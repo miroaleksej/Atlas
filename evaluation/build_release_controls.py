@@ -149,6 +149,20 @@ def run(root=None, *, allow_blocked=False):
   'hypothesis_council_mutable_state_external_to_seal':True,
   'expert_weight_learning_scope':'SANDBOX_RANKING_ONLY',
  }
+ caps['research_acceleration']={
+  'patch_id':'ATLAS-RESEARCH-RUNTIME-FINAL-004',
+  'orchestration_owner':q.get('research_acceleration',{}).get('orchestration_owner'),
+  'qualification_status':q.get('research_acceleration',{}).get('status'),
+  'qualification_digest':q.get('research_acceleration',{}).get('digest'),
+  'qualification_passed':q.get('research_acceleration',{}).get('passed'),
+  'qualification_total':q.get('research_acceleration',{}).get('total'),
+  'qualification_checks':q.get('research_acceleration',{}).get('checks',{}),
+  'execution_policy_schema':'phi-runtime-execution-policy/v5',
+  'u5_to_measurement_request_in_autonomous_cycle':True,
+  'u5_pass_stops_at_human_confirmation':True,
+  'automatic_scientific_law_promotion':False,
+  'canonical_registry_mutated_by_autonomous_research':False,
+ }
  caps['axis_birth_search_policy']={
   'axis_birth_cardinality':'ADAPTIVE',
   'multi_axis_birth':'ALLOWED',
@@ -433,6 +447,15 @@ def run(root=None, *, allow_blocked=False):
  man['current_state_failed_checks']=[k for k,v in q.get('checks',{}).items() if not v]
  man['release_candidate_sealed']=qualification_passed
  man['collective_coordination']=q.get('ai_runtime',{}).get('collective_coordination_qualification',{})
+ man['research_acceleration']={
+  'patch_id':'ATLAS-RESEARCH-RUNTIME-FINAL-004',
+  'qualification':q.get('research_acceleration',{}),
+  'execution_policy_schema':'phi-runtime-execution-policy/v5',
+  'autonomous_cycle_owner':'SCIENTIFIC-RESEARCH-CYCLE/15.3.0',
+  'automatic_scientific_law_promotion':False,
+  'canonical_registry_mutated_by_autonomous_research':False,
+  'human_confirmation_required_before_canonical_mutation':True,
+ }
  man['research_state_policy'].update({
   'query_p_gt_1_function_form_lane_enabled':True,
   'query_exact_pi_basis_frozen_before_function_fit':True,

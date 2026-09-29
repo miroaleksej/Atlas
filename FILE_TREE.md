@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 436
+Controlled files: 437
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -425,6 +425,7 @@ Controlled files: 436
 - `tests/test_permutation_eprocess_current.py`
 - `tests/test_promotion_confirmation.py`
 - `tests/test_query_driven_research_current.py`
+- `tests/test_research_acceleration_end_to_end.py`
 - `tests/test_research_acceleration_policy.py`
 - `tests/test_research_triage.py`
 - `tests/test_sandbox_profiles.py`

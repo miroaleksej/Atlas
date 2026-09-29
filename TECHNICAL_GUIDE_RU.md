@@ -2326,3 +2326,30 @@ The resulting loop is
 Blind Navier–Stokes binding-invention control, using only the frozen problem statement and no external solution, executed four search slices (eight complexity epochs), generated 64 proof-program candidates and 391 research-local axes. 60 axes were born directly from invented binding objects. Across slices 2–4, 48 provenance-binding checks and 48 binding well-typedness checks were executed and discharged structurally; discrimination/closure validity remained unresolved. The run remained non-terminal and did not claim an independent Navier–Stokes proof. This demonstrates binding-content invention and continuation, not correctness of any particular generated function space, norm, invariant or blow-up criterion.
 
 The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+
+## FINAL-004 — замыкание в ScientificResearchCycleOwner
+
+FINAL-004 не запускается отдельным orchestrator. В `run_autonomous()` после
+основного research cycle вызывается progression существующих owners. Вход в U5
+явный: `u5_candidate` должен содержать собственный
+`scientific_verification_bundle` и необходимые progression fields. Недостающие
+OOD/replication/falsification значения не синтезируются.
+
+При `U5_DATA_PENDING` runtime может вызвать существующий
+`DiscriminatingExperimentAutopilotOwner`, но только при наличии frozen/явно
+переданных competing theories и явного либо уже замороженного experiment cost
+budget. Возвращается `MEASUREMENT_REQUEST_READY`; live queue автоматически не
+мутируется. После повторного входа с world-verified evidence `U5_PASS` приводит
+к replay `ScientificPromotionCore` через human-gated qualification. Если
+promotion разрешён, итог — `AWAITING_HUMAN_CONFIRMATION`.
+
+Canonical registration выполняется только отдельным разрешённым mutation-call к
+`CanonicalLawRegistryTransactionOwner` после digest-bound human authorization.
+Этот owner повторяет current gates и после успешной записи требует release
+reseal.
+
+`EXECUTION_POLICY_CURRENT.json` имеет schema
+`phi-runtime-execution-policy/v5`. При наличии файла неправильная schema или
+несовпадающий digest приводят к fail-closed. Отсутствующий policy в isolated test
+root использует только безопасные compiled defaults без automatic scientific
+promotion.

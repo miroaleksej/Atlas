@@ -8258,3 +8258,58 @@ The resulting loop is
 Blind Navier–Stokes binding-invention control, using only the frozen problem statement and no external solution, executed four search slices (eight complexity epochs), generated 64 proof-program candidates and 391 research-local axes. 60 axes were born directly from invented binding objects. Across slices 2–4, 48 provenance-binding checks and 48 binding well-typedness checks were executed and discharged structurally; discrimination/closure validity remained unresolved. The run remained non-terminal and did not claim an independent Navier–Stokes proof. This demonstrates binding-content invention and continuation, not correctness of any particular generated function space, norm, invariant or blow-up criterion.
 
 The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+
+## FINAL-004 closure: единый research runtime
+
+FINAL-004 теперь является не параллельным набором сервисов, а продолжением
+`ScientificResearchCycleOwner`.  Каноническая цепочка состояний задаётся как
+
+\[
+S_0=\mathrm{SEARCH}\to
+S_1=\mathrm{U5}\to
+S_2=\mathrm{MEASUREMENT\_PENDING}\to
+S_3=\mathrm{WORLD\_VERIFIED}\to
+S_4=\mathrm{LAW\_CANDIDATE}\to
+S_5=\mathrm{HUMAN\_AUTHORIZED}\to
+S_6=\mathrm{CANONICAL}.
+\]
+
+Переходы не симметричны и не являются «оценкой уверенности». Каждый переход
+допустим только при наличии receipt предыдущего владельца. В частности,
+
+\[
+S_1\not\to S_6,\qquad
+S_2\not\to S_4,\qquad
+\mathrm{MEASUREMENT\_REQUEST}\neq\mathrm{WORLD\_EVIDENCE},
+\]
+
+\[
+\mathrm{HUMAN\_AUTHORIZED}\neq\mathrm{SCIENTIFIC\_EVIDENCE},\qquad
+\mathrm{ENGINEERING\_ACCEPTANCE}\neq\mathrm{LAW}.
+\]
+
+Автономный research runtime имеет право пройти только до границы
+`AWAITING_HUMAN_CONFIRMATION`. Он не вызывает human confirmation и не выполняет
+canonical law transaction. После внешнего digest-bound разрешения единственным
+владельцем записи остаётся `CanonicalLawRegistryTransactionOwner`, который ещё
+раз воспроизводит текущие promotion gates перед атомарной записью.
+
+U5 также остаётся fail-closed. Если отсутствуют OOD, replication,
+falsification или scientific-verification inputs, они не выводятся из косвенных
+признаков. `U5_DATA_PENDING` может инициировать проектирование различающего
+эксперимента только из уже замороженных/явно переданных competing theories и
+объявленного либо ранее замороженного experiment cost budget. Сам запрос на
+измерение не считается результатом измерения.
+
+Следовательно, после closure выполняется инвариант
+
+\[
+\boxed{
+\text{automatic research progression}
+\;\land\;
+\neg\text{automatic scientific-law mutation}
+}
+\]
+
+и `PASS_CURRENT_STATE_15_29_0` теперь включает отдельную qualification этого
+инварианта и целостности execution-policy v5.

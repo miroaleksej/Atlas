@@ -1,5 +1,6 @@
-from source.lawspace.execution_policy import validate_execution_policy
+from source.lawspace.execution_policy import POLICY_SCHEMA, load_execution_policy, validate_execution_policy
 from source.lawspace.research_progression_gates import ProgressionGateConfig, evaluate_progression_gates
+from source.lawspace.schema import digest_payload
 
 
 def _policy():
@@ -49,3 +50,33 @@ def test_shared_progression_gate_distinguishes_pending_from_fail():
         "falsification_status": "SURVIVED",
     })
     assert "ood_pass is false" in failed["hard_fail_reasons"]
+
+
+def _write_policy(root, *, schema=POLICY_SCHEMA, tamper=False):
+    import json
+    path = root / "data/runtime/EXECUTION_POLICY_CURRENT.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    doc = {**_policy(), "schema": schema, "policy_id": "TEST"}
+    doc["digest"] = digest_payload(doc)
+    if tamper:
+        doc["automatic_research_triage"] = False
+    path.write_text(json.dumps(doc), encoding="utf-8")
+    return path
+
+
+def test_persisted_policy_rejects_stale_schema(tmp_path):
+    _write_policy(tmp_path, schema="phi-runtime-execution-policy/v3")
+    try:
+        load_execution_policy(tmp_path)
+        assert False, "stale schema must fail closed"
+    except PermissionError:
+        pass
+
+
+def test_persisted_policy_rejects_digest_tampering(tmp_path):
+    _write_policy(tmp_path, tamper=True)
+    try:
+        load_execution_policy(tmp_path)
+        assert False, "tampered policy must fail closed"
+    except PermissionError:
+        pass

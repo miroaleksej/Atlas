@@ -4775,6 +4775,170 @@ class ScientificResearchCycleOwner:
         self.eig = DomainNeutralInformationGainOwner()
         self.novelty = PostDerivationNoveltyOwner()
         self.question_interpreter = SemanticTypedQuestionOwner(runtime)
+        # FINAL-004 owners are lazy: the authoritative research owner owns the
+        # progression, while the specialized owners retain verification/design/
+        # authorization authority.  No second research orchestrator is created.
+        self._final004_u5_scheduler = None
+        self._final004_experiment_autopilot = None
+        self._final004_promotion_authorization = None
+
+    def _final004_u5(self):
+        if self._final004_u5_scheduler is None:
+            from .u5_attempt_scheduler import U5AttemptScheduler
+            self._final004_u5_scheduler = U5AttemptScheduler(self.runtime.root)
+        return self._final004_u5_scheduler
+
+    def _final004_autopilot(self):
+        if self._final004_experiment_autopilot is None:
+            from .discriminating_experiment_autopilot import DiscriminatingExperimentAutopilotOwner
+            self._final004_experiment_autopilot = DiscriminatingExperimentAutopilotOwner(self.runtime.root)
+        return self._final004_experiment_autopilot
+
+    def _final004_human_gate(self):
+        if self._final004_promotion_authorization is None:
+            from .promotion_confirmation import HumanGatedPromotionAuthorizationOwner
+            self._final004_promotion_authorization = HumanGatedPromotionAuthorizationOwner(
+                self.runtime.root,
+                trusted_evidence_owners=tuple(self.runtime.catalog.passports),
+            )
+        return self._final004_promotion_authorization
+
+    @staticmethod
+    def _research_acceleration_not_entered() -> Mapping[str, Any]:
+        payload = {
+            "schema": "phi-research-acceleration-progression/v1",
+            "owner_id": RESEARCH_CYCLE_OWNER,
+            "status": "RESEARCH_ACCELERATION_NOT_ENTERED",
+            "entered": False,
+            "mutation_performed": False,
+            "claim_boundary": {
+                "u5_pass_is_scientific_law": False,
+                "measurement_request_is_world_evidence": False,
+                "human_authorization_is_scientific_evidence": False,
+                "canonical_registry_mutated_by_autonomous_research": False,
+            },
+        }
+        payload["digest"] = digest_payload(payload)
+        return payload
+
+    def _research_acceleration_progression(
+        self,
+        *,
+        question: str,
+        cycle: Mapping[str, Any],
+        request: Mapping[str, Any],
+    ) -> Mapping[str, Any]:
+        """Close FINAL-004 inside the existing research owner without auto-promotion.
+
+        Entry is explicit through ``u5_candidate``.  The candidate must carry its
+        own scientific-verification bundle and progression evidence; this method
+        never infers missing OOD, replication or falsification facts.  U5 data
+        pending may design a measurement request from frozen executable theories,
+        but the request is not queued or treated as world evidence here.  U5 pass
+        may replay the promotion core and stop at human confirmation.  Canonical
+        persistence remains exclusively owned by CanonicalLawRegistryTransactionOwner.
+        """
+        req = dict(request)
+        raw_candidate = req.get("u5_candidate")
+        if not isinstance(raw_candidate, Mapping):
+            return self._research_acceleration_not_entered()
+
+        candidate = dict(raw_candidate)
+        u5_receipt = dict(self._final004_u5().attempt_one(candidate))
+        u5_result = dict(u5_receipt.get("result") or {})
+        outcome = str(u5_result.get("outcome", "U5_BLOCKED"))
+        status = outcome
+        experiment_design: Mapping[str, Any] | None = None
+        promotion_qualification: Mapping[str, Any] | None = None
+        next_required = "FOLLOW_U5_RECEIPT"
+
+        if outcome == "U5_DATA_PENDING":
+            frozen = [
+                dict(row) for row in cycle.get("competitive_set", {}).get("candidates", ())
+                if isinstance(row, Mapping)
+            ]
+            candidate_id = str(candidate.get("candidate_id") or candidate.get("proposal_id") or "")
+            explicit_candidate_theory = req.get("candidate_theory")
+            candidate_theory = (
+                dict(explicit_candidate_theory)
+                if isinstance(explicit_candidate_theory, Mapping)
+                else next((row for row in frozen if str(row.get("candidate_id", "")) == candidate_id), None)
+            )
+            raw_baselines = req.get("baseline_theories")
+            if isinstance(raw_baselines, Sequence) and not isinstance(raw_baselines, (str, bytes)):
+                baselines = [dict(row) for row in raw_baselines if isinstance(row, Mapping)]
+            else:
+                baselines = [row for row in frozen if candidate_theory is not row and str(row.get("candidate_id", "")) != candidate_id]
+
+            budget_raw = req.get("discriminating_experiment_cost_budget")
+            if budget_raw is None:
+                selected_id = cycle.get("information_gain", {}).get("selected_experiment_id")
+                selected_rows = [
+                    row for row in cycle.get("information_gain", {}).get("experiments", ())
+                    if isinstance(row, Mapping) and row.get("experiment_id") == selected_id
+                ]
+                if selected_rows:
+                    budget_raw = selected_rows[0].get("cost")
+
+            if not isinstance(candidate_theory, Mapping) or not baselines:
+                status = "U5_DATA_PENDING_COMPETING_THEORIES_REQUIRED"
+                next_required = "PROVIDE_OR_COMPILE_FROZEN_EXECUTABLE_COMPETING_THEORIES"
+            elif budget_raw is None:
+                status = "U5_DATA_PENDING_EXPERIMENT_BUDGET_REQUIRED"
+                next_required = "DECLARE_OR_REUSE_FROZEN_EXPERIMENT_COST_BUDGET"
+            else:
+                experiment_design = dict(self._final004_autopilot().design(
+                    question=question,
+                    candidate_theory=dict(candidate_theory),
+                    baseline_theories=tuple(baselines),
+                    cost_budget=float(budget_raw),
+                ))
+                status = str(experiment_design.get("status") or "MEASUREMENT_REQUEST_NOT_AVAILABLE")
+                next_required = (
+                    "EXECUTE_MEASUREMENT_AND_REENTER_WITH_WORLD_ATTESTATION"
+                    if status == "MEASUREMENT_REQUEST_READY"
+                    else "FOLLOW_DISCRIMINATING_EXPERIMENT_RECEIPT"
+                )
+        elif outcome == "U5_PASS":
+            promotion_request = req.get("promotion_request")
+            if not isinstance(promotion_request, Mapping):
+                status = "U5_PASS_PROMOTION_REQUEST_REQUIRED"
+                next_required = "PROVIDE_CURRENT_SCIENTIFIC_PROMOTION_REQUEST"
+            else:
+                promotion_qualification = dict(self._final004_human_gate().qualify(dict(promotion_request)))
+                if promotion_qualification.get("status") == "AWAITING_HUMAN_CONFIRMATION":
+                    status = "AWAITING_HUMAN_CONFIRMATION"
+                    next_required = "OBTAIN_DIGEST_BOUND_HUMAN_CANONICAL_MUTATION_AUTHORIZATION"
+                else:
+                    status = "U5_PASS_PROMOTION_BLOCKED_CURRENT_GATES"
+                    next_required = "FOLLOW_CURRENT_SCIENTIFIC_PROMOTION_CORE_RECEIPT"
+        elif outcome == "U5_FAIL":
+            next_required = "REVISE_OR_REJECT_CANDIDATE_FROM_U5_FAILURE"
+        elif outcome == "U5_BLOCKED":
+            next_required = "SATISFY_DECLARED_U5_VERIFICATION_OR_PROGRESSION_INPUTS"
+
+        payload = {
+            "schema": "phi-research-acceleration-progression/v1",
+            "owner_id": self.owner_id,
+            "status": status,
+            "entered": True,
+            "u5_attempt": u5_receipt,
+            "discriminating_experiment": experiment_design,
+            "promotion_qualification": promotion_qualification,
+            "next_required_external_input": next_required,
+            "mutation_performed": False,
+            "claim_boundary": {
+                "u5_pass_is_scientific_law": False,
+                "measurement_request_is_world_evidence": False,
+                "measurement_request_queued_automatically": False,
+                "human_authorization_is_scientific_evidence": False,
+                "human_authorization_performed_automatically": False,
+                "canonical_registry_mutated_by_autonomous_research": False,
+                "canonical_transaction_owner_remains_external": True,
+            },
+        }
+        payload["digest"] = digest_payload(payload)
+        return payload
 
     def contract(self) -> Mapping[str, Any]:
         return {
@@ -4785,6 +4949,8 @@ class ScientificResearchCycleOwner:
                 "HumanQuestion", "SemanticTypedIR", "UnknownBoundary", "OwnerAxisSpace", "CandidateBirthCapabilityResolution", "CompetingHypotheses>=5",
                 "Predictions", "Falsification", "EIG", "Experiment", "Evidence",
                 "Novelty", "Ledger", "PersistentPortfolio", "NextFrontier",
+                "U5Verification", "DiscriminatingMeasurementRequest", "WorldEvidenceReplay",
+                "ScientificPromotionQualification", "AwaitingHumanConfirmation",
             ],
             "adaptive_research_kernel": self.adaptive.contract(),
             "legacy_competitor_diversity_target": MINIMUM_COMPETING_HYPOTHESES,
@@ -4802,7 +4968,11 @@ class ScientificResearchCycleOwner:
             "parallel_scientific_solver_created": False,
             "atlas_native_claim_authority": CLAIM_FIREWALL_OWNER,
             "assistant_can_stamp_atlas_native": False,
-            "scientific_promotion_owner": "SCIENTIFIC-PROMOTION-CORE/9.1.0",
+            "scientific_promotion_owner": "SCIENTIFIC-PROMOTION-CORE/9.2.0",
+            "research_acceleration_orchestration": "FINAL-004_CLOSED_IN_THIS_OWNER",
+            "u5_owner": "U5-ATTEMPT-SCHEDULER",
+            "discriminating_experiment_owner": "DISCRIMINATING-EXPERIMENT-AUTOPILOT",
+            "human_authorization_boundary": "AWAITING_HUMAN_CONFIRMATION_NO_AUTOMATIC_CANONICAL_MUTATION",
             "scientific_inference_without_promotion_receipt": "ENGINE_NOT_RUN_SCIENTIFIC_INFERENCE_BLOCKED",
             "system_status_until_blind_ab_passes": "RESEARCH_SYSTEM_UNDER_QUALIFICATION",
             "human_to_phi_orchestration": "AUTHORITATIVE_IN_THIS_OWNER",
@@ -6028,6 +6198,9 @@ class ScientificResearchCycleOwner:
             active_portfolio_budget=int(req.get("active_portfolio_budget", max(12, int(req.get("minimum_competing_hypotheses", MINIMUM_COMPETING_HYPOTHESES))))),
             world_receipts=tuple(req.get("world_receipts", ())),
         )
+        research_acceleration = self._research_acceleration_progression(
+            question=question, cycle=cycle, request=req
+        )
 
         # The Resident owns open-world action state/model learning. It receives the
         # frozen, typed region but cannot authorize external actuation itself.
@@ -6272,6 +6445,19 @@ class ScientificResearchCycleOwner:
         elif external_formal_attestation.get("external_attestation_accepted") is True:
             status = "AUTONOMOUS_RESEARCH_EXTERNAL_FORMAL_ATTESTATION_ACCEPTED_LOCAL_REPLAY_PENDING"
             next_required = "RUN_PINNED_LOCAL_FORMAL_KERNEL_OR_RETAIN_AS_EXTERNAL_EVIDENCE"
+        elif research_acceleration.get("entered") is True:
+            acceleration_status = str(research_acceleration.get("status", ""))
+            status = {
+                "MEASUREMENT_REQUEST_READY": "AUTONOMOUS_RESEARCH_MEASUREMENT_REQUEST_READY",
+                "AWAITING_HUMAN_CONFIRMATION": "AUTONOMOUS_RESEARCH_AWAITING_HUMAN_CONFIRMATION",
+                "U5_PASS_PROMOTION_REQUEST_REQUIRED": "AUTONOMOUS_RESEARCH_U5_PASS_PROMOTION_REQUEST_REQUIRED",
+                "U5_PASS_PROMOTION_BLOCKED_CURRENT_GATES": "AUTONOMOUS_RESEARCH_U5_PASS_PROMOTION_BLOCKED_CURRENT_GATES",
+                "U5_DATA_PENDING_COMPETING_THEORIES_REQUIRED": "AUTONOMOUS_RESEARCH_U5_DATA_PENDING",
+                "U5_DATA_PENDING_EXPERIMENT_BUDGET_REQUIRED": "AUTONOMOUS_RESEARCH_U5_DATA_PENDING",
+                "U5_FAIL": "AUTONOMOUS_RESEARCH_U5_FAIL",
+                "U5_BLOCKED": "AUTONOMOUS_RESEARCH_U5_BLOCKED",
+            }.get(acceleration_status, "AUTONOMOUS_RESEARCH_U5_DATA_PENDING")
+            next_required = str(research_acceleration.get("next_required_external_input", "FOLLOW_U5_RECEIPT"))
         elif mathematical_frontier_active:
             status = "AUTONOMOUS_RESEARCH_OPEN_ENDED_MATHEMATICAL_FRONTIER_ACTIVE"
             next_required = "CONTINUE_FROM_FROZEN_MATHEMATICAL_SEARCH_CURSOR_AND_DISCHARGE_OR_REFUTE_PROOF_OBLIGATIONS"
@@ -6300,6 +6486,7 @@ class ScientificResearchCycleOwner:
             "question": question,
             "semantic_typed_ir": typed,
             "research_cycle": cycle,
+            "research_acceleration": research_acceleration,
             "persistent_portfolio": cycle.get("persistent_portfolio", {}),
             "open_world": open_world,
             "learned_world_action": learned_action,
@@ -6323,6 +6510,10 @@ class ScientificResearchCycleOwner:
                 "external_source_used_prefreeze": False,
                 "sealed_release_mutated_by_resident_state": False,
                 "parallel_scientific_solver_created": False,
+                "automatic_scientific_law_promotion": False,
+                "measurement_request_is_world_evidence": False,
+                "human_authorization_is_scientific_evidence": False,
+                "canonical_registry_mutated_by_autonomous_research": False,
                 "hand_authored_collective_coordination_answer_used": False,
                 "candidate_discarded_by_active_budget": False,
                 "single_best_candidate_is_global_search_termination": False,

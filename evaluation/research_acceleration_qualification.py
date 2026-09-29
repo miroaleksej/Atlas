@@ -2,13 +2,16 @@
 from __future__ import annotations
 
 import inspect
+from pathlib import Path
 
 from source.lawspace.canonical_law_transaction import CanonicalLawRegistryTransactionOwner
 from source.lawspace.discriminating_experiment_autopilot import DiscriminatingExperimentAutopilotOwner
 from source.lawspace.engineering_model_acceptance import EngineeringModelAcceptanceOwner, EngineeringModelLedgerOwner
-from source.lawspace.execution_policy import validate_execution_policy
+from source.lawspace.execution_policy import POLICY_SCHEMA, load_execution_policy, validate_execution_policy
 from source.lawspace.promotion_confirmation import HumanGatedPromotionAuthorizationOwner
 from source.lawspace.u5_attempt_scheduler import U5AttemptConfig, U5AttemptScheduler
+from source.lawspace.research_cycle import ScientificResearchCycleOwner
+from source.lawspace.schema import digest_payload
 
 
 class _Verifier:
@@ -55,7 +58,8 @@ class _ExperimentKernel:
         }
 
 
-def run_release_qualification():
+def run_release_qualification(root: str | Path | None = None):
+    root = Path(root or ".").resolve()
     policy = {
         "automatic_scientific_law_promotion": False,
         "automatic_research_triage": True,
@@ -74,6 +78,14 @@ def run_release_qualification():
     }
     checks = {}
     checks["policy_valid"] = bool(validate_execution_policy(policy)["valid"])
+    try:
+        persisted_policy = dict(load_execution_policy(root))
+        checks["persisted_policy_v5_integrity_valid"] = (
+            persisted_policy.get("schema") == POLICY_SCHEMA
+            and bool(str(persisted_policy.get("digest", "")).strip())
+        )
+    except (OSError, ValueError, PermissionError):
+        checks["persisted_policy_v5_integrity_valid"] = False
 
     pending_verification = {
         "overall_status": "PASS_ENGINE_OR_MODEL_VERIFICATION_WORLD_CLAIM_BLOCKED",
@@ -113,13 +125,13 @@ def run_release_qualification():
          "uncertainty_declared": True, "evidence_digest": "d" * 64},
     )
     checks["engineering_accept_is_not_law"] = eng["accepted"] is True and eng["claim_boundary"]["scientific_law_established"] is False
-    ledger_contract = EngineeringModelLedgerOwner(".").contract()
+    ledger_contract = EngineeringModelLedgerOwner(root).contract()
     checks["engineering_ledger_is_external_and_not_law"] = (
         ledger_contract["live_state_inside_sealed_release"] is False
         and ledger_contract["scientific_law_established"] is False
     )
 
-    autopilot = DiscriminatingExperimentAutopilotOwner(".", kernel=_ExperimentKernel())
+    autopilot = DiscriminatingExperimentAutopilotOwner(root, kernel=_ExperimentKernel())
     auto_contract = autopilot.contract()
     design = autopilot.design(
         question="Q", candidate_theory={"digest": "c" * 64},
@@ -131,7 +143,7 @@ def run_release_qualification():
         and auto_contract["canonical_registry_mutation_allowed"] is False
     )
 
-    tx_contract = CanonicalLawRegistryTransactionOwner(".", promotion_core=core).contract()
+    tx_contract = CanonicalLawRegistryTransactionOwner(root, promotion_core=core).contract()
     checks["canonical_transaction_is_thin_replay_gated_persistence"] = (
         tx_contract["transaction_role_only"] is True
         and tx_contract["rerun_current_promotion_gates_before_write"] is True
@@ -151,6 +163,22 @@ def run_release_qualification():
         "self.promote_dynamic_axis(" in axis_model_src
         and 'authorization=promotion_cfg.get("authorization")' in axis_model_src
     )
+    progression_src = inspect.getsource(ScientificResearchCycleOwner._research_acceleration_progression)
+    autonomous_src = inspect.getsource(ScientificResearchCycleOwner.run_autonomous)
+    checks["scientific_research_cycle_owns_final004_progression"] = (
+        "_final004_u5().attempt_one" in progression_src
+        and "_final004_autopilot().design" in progression_src
+        and "_final004_human_gate().qualify" in progression_src
+        and ".commit(" not in progression_src
+        and "research_acceleration = self._research_acceleration_progression" in autonomous_src
+    )
+    checks["autonomous_cycle_stops_before_human_or_canonical_mutation"] = (
+        '"human_authorization_performed_automatically": False' in progression_src
+        and '"canonical_registry_mutated_by_autonomous_research": False' in progression_src
+        and ".confirm(" not in progression_src
+        and ".commit(" not in progression_src
+    )
+
     checks["tool_classification_preserves_truth_boundary"] = (
         "run_u5_attempt_batch" in LawSpaceAPI.READ_TOOLS
         and "design_discriminating_experiment_autopilot" in LawSpaceAPI.READ_TOOLS
@@ -163,12 +191,14 @@ def run_release_qualification():
         and "revoke_engineering_model_acceptance" in LawSpaceAPI.MUTATION_TOOLS
         and "commit_scientific_law_promotion" in LawSpaceAPI.MUTATION_TOOLS
     )
-    return {
+    payload = {
         "status": "PASS" if all(checks.values()) else "FAIL",
         "passed": sum(bool(x) for x in checks.values()),
         "total": len(checks),
         "checks": checks,
     }
+    payload["digest"] = digest_payload(payload)
+    return payload
 
 
 if __name__ == "__main__":
