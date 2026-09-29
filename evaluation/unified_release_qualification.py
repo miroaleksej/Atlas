@@ -27,6 +27,7 @@ from evaluation.research_triage_qualification import run as run_research_triage_
 from evaluation.collective_coordination_qualification import run_release_qualification as run_collective_coordination_qualification
 from evaluation.research_acceleration_qualification import run_release_qualification as run_research_acceleration_qualification
 from evaluation.universal_experiment_qualification import run as run_universal_experiment_qualification
+from evaluation.meta_language_ontology_birth_qualification import run_release_qualification as run_meta_language_ontology_birth_qualification
 from evaluation.release_files import is_local_artifact
 EXT_SRC = ROOT / "extensions" / "ATLAS_AI_RESEARCH_EXTENSION_v0_10_0" / "src"
 if str(EXT_SRC) not in sys.path: sys.path.insert(0, str(EXT_SRC))
@@ -167,6 +168,8 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     research_acceleration_qualification=run_research_acceleration_qualification(root)
     raq_checks=research_acceleration_qualification.get('checks',{})
     universal_experiment_qualification=run_universal_experiment_qualification(root)
+    meta_language_ontology_qualification=run_meta_language_ontology_birth_qualification(root)
+    mloq_checks=meta_language_ontology_qualification.get('checks',{})
     triage_contract=api.get_research_triage_contract()
     council_path=runtime.external_state_path('hypothesis_council')
     checks={
@@ -207,6 +210,9 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'universal_experiment_execution_api_exposed': 'freeze_experiment_execution' in set(api.READ_TOOLS) and 'execute_frozen_experiment' in set(api.MUTATION_TOOLS),
       'universal_experiment_execution_does_not_promote_law': universal_experiment_qualification.get('scientific_law_established') is False and universal_experiment_qualification.get('synthetic_forward',{}).get('scientific_promotion_allowed') is False,
       'jhtdb_legacy_chart_gap_blocks_before_target_evaluation': universal_experiment_qualification.get('jhtdb',{}).get('status')=='EXECUTION_BLOCKED_PREFLIGHT' and universal_experiment_qualification.get('jhtdb',{}).get('evidence_acquired') is False,
+      'meta_language_ontology_birth_qualification_current': meta_language_ontology_qualification.get('status')=='PASS_AUTONOMOUS_META_LANGUAGE_ONTOLOGY_BIRTH' and all(mloq_checks.values()),
+      'meta_language_ontology_birth_api_exposed_read_only': 'birth_phi_meta_language_ontology' in set(api.READ_TOOLS) and 'birth_phi_meta_language_ontology' not in set(api.MUTATION_TOOLS),
+      'meta_language_ontology_birth_does_not_promote_canonical': meta_language_ontology_qualification.get('claim_boundary',{}).get('qualification_proves_agi') is False and meta_language_ontology_qualification.get('claim_boundary',{}).get('qualification_proves_unrestricted_free_ontology_birth') is False,
       **_genesis_ledger_checks(),
       **_epoch_genesis_checks(),
       'permutation_eprocess_qualification_current': eprocess_report.get('status')=='PASS_PERMUTATION_EPROCESS_15_20_0' and eprocess_digest==digest_payload(eprocess_core),
@@ -301,6 +307,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'synthetic_control':{'status':control_replay.get('status'),'digest':control_replay.get('digest'),'persisted_as_current_report':False},
       'eda_chip_design':{'contract_digest':eda_contract.get('digest'),'fail_closed_status':eda_fail_closed.get('status'),'qualification_control_digest':eda_control.get('digest'),'live_world_result_established':False},
       'function_language_birth':{'status':function_language_qualification.get('status'),'digest':function_language_qualification.get('digest'),'metrics':function_language_qualification.get('metrics'),'world_result_established':False},
+      'meta_language_ontology_birth':{'status':meta_language_ontology_qualification.get('status'),'digest':meta_language_ontology_qualification.get('digest'),'passed':meta_language_ontology_qualification.get('passed'),'total':meta_language_ontology_qualification.get('total'),'checks':mloq_checks,'world_result_established':False,'canonical_registry_mutated':False},
       'research_triage_sandbox':{'qualification':research_triage_qualification,'contract_digest':triage_contract.get('digest'),'council_state_external':True,'manual_override_can_pass_u_gate':False},
       'research_acceleration':{'status':research_acceleration_qualification.get('status'),'digest':research_acceleration_qualification.get('digest'),'passed':research_acceleration_qualification.get('passed'),'total':research_acceleration_qualification.get('total'),'checks':raq_checks,'orchestration_owner':'SCIENTIFIC-RESEARCH-CYCLE/15.3.0','automatic_scientific_law_promotion':False,'human_confirmation_required_before_canonical_mutation':True},
       'universal_experiment_execution':universal_experiment_qualification,

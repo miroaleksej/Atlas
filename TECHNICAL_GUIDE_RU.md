@@ -2174,7 +2174,7 @@ python -m evaluation.run_real_jhtdb_dns_closure
 ## Open-ended mathematical campaign: эксплуатационный режим
 
 Текущий authoritative owner: `SCIENTIFIC-RESEARCH-CYCLE/15.3.0`.
-Математический bootstrap: `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0` /
+Математический bootstrap: `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0` /
 `AUTONOMOUS-MATHEMATICAL-CANDIDATE-BIRTH/1.0.0-COMPONENT`.
 
 ### Один blind VOID-first цикл
@@ -2283,7 +2283,7 @@ Verification по типу obligation/evidence, а не по названию н
 
 ## Proof-obligation discharge and theorem-closure loop (current)
 
-The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
+The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
 
 The authoritative loop is now
 
@@ -2300,7 +2300,7 @@ A fresh blind Navier–Stokes control with no external solution revealed ran two
 
 ## Semantic Proof Obligation Compiler 1.0
 
-Ядро `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0` автоматически компилирует born mathematical obligations. Основной маршрут: `semantic_claim → typed_schema → executable_verification | missing_bindings → formal_obligation_artifact → discharge/residual birth`. Внутренний API: `compile_phi_semantic_proof_obligation(obligation=..., candidate=...)`. Это read-only операция; она не присваивает theorem status.
+Ядро `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0` автоматически компилирует born mathematical obligations. Основной маршрут: `semantic_claim → typed_schema → executable_verification | missing_bindings → formal_obligation_artifact → discharge/residual birth`. Внутренний API: `compile_phi_semantic_proof_obligation(obligation=..., candidate=...)`. Это read-only операция; она не присваивает theorem status.
 
 Exact identities и полностью перечисленные конечные universal domains могут lowering-иться автоматически. Functional-analytic / operator claims становятся typed formal schemas с явными binding gaps. Эти gaps затем поступают в existing open-ended candidate birth и рождают новые research-local axes с provenance `SEMANTIC_PROOF_OBLIGATION_COMPILATION_GAP`.
 
@@ -2314,7 +2314,7 @@ The blind Navier–Stokes semantic run remains deliberately non-terminal: 32 gen
 
 ## 15.10.3 — Semantic binding invention and validation frontier
 
-The current Mathematical Invention Kernel is `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` is embedded in the existing kernel after semantic-obligation compilation and before proof-discharge continuation. It does not select a named domain method catalogue. For every typed missing binding it constructs a research-local mathematical object from the frozen schema. Qualified object families include generated regularity/seminorm spaces, energy or norm functionals, invariant candidates, witness/obstruction families, comparison functionals, asymptotic weights, convergence structures, operator-signature families and breakdown/blow-up criteria.
+The current Mathematical Invention Kernel is `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` is embedded in the existing kernel after semantic-obligation compilation and before proof-discharge continuation. It does not select a named domain method catalogue. For every typed missing binding it constructs a research-local mathematical object from the frozen schema. Qualified object families include generated regularity/seminorm spaces, energy or norm functionals, invariant candidates, witness/obstruction families, comparison functionals, asymptotic weights, convergence structures, operator-signature families and breakdown/blow-up criteria.
 
 A generated binding object is not accepted as correct merely because it was born. Each generated object carries explicit validation obligations: provenance alignment with the frozen statement, well-typedness, and discrimination/closure evidence. Only bindings exactly recoverable from the frozen typed statement may be marked statement-grounded, and statement grounding is still not theorem proof. Unvalidated binding objects are carried into the digest-bound continuation and birth their own `BINDING_OBJECT::*` research-local axes on later shells.
 
@@ -2324,7 +2324,29 @@ The resulting loop is
 
 Blind Navier–Stokes binding-invention control, using only the frozen problem statement and no external solution, executed four search slices (eight complexity epochs), generated 64 proof-program candidates and 391 research-local axes. 60 axes were born directly from invented binding objects. Across slices 2–4, 48 provenance-binding checks and 48 binding well-typedness checks were executed and discharged structurally; discrimination/closure validity remained unresolved. The run remained non-terminal and did not claim an independent Navier–Stokes proof. This demonstrates binding-content invention and continuation, not correctness of any particular generated function space, norm, invariant or blow-up criterion.
 
-The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+The universal proof-mechanism memory now seeds 29 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+
+## Рождение метаязыка / локальной онтологии
+
+Если `REPRESENTATION_CLASS_INADEQUACY_HYPOTHESIS` подтверждена, а prior representation-language не проходит validation gate, ядро `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0` может вызвать `AUTONOMOUS-META-LANGUAGE-ONTOLOGY-BIRTH/1.0.0-COMPONENT`.
+
+Входной контракт: frozen problem, failure receipt, optional prior-language validation, rows evidence, target field, group field и prior max constructor arity. Выход: портфель `BORN-C-*` constructor-programs из primitives `FIELD`, `VARIABLE_PRODUCT`, `CANONICALIZE`, `GROUP_FOLD`, `OBSERVE`, затем validation receipt с selected constructor и возможным `BORN-O-*` ontology object.
+
+Внутренний read-only API:
+
+```python
+api.birth_phi_meta_language_ontology(
+    failure_receipt=...,
+    prior_language_validation=...,
+    frozen_problem=...,
+    evidence_rows=...,
+    target_field="label",
+    group_field="case",
+    prior_max_constructor_arity=2,
+)
+```
+
+Принятие требует untouched-holdout `goal_closure_gain > 0` и non-renaming gate. Успешный объект остаётся research-local/non-canonical и не меняет реестры законов, осей или канонических представлений.
 
 ## Research acceleration в ScientificResearchCycleOwner
 

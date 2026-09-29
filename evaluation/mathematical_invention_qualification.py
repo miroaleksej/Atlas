@@ -204,12 +204,13 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       evidence_rows=representation_rows,
     )
     checks={
-      "kernel_owner_contract":kernel.contract()["owner_id"]=="PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0",
+      "kernel_owner_contract":kernel.contract()["owner_id"]=="PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0",
       "semantic_binding_invention_is_kernel_component":kernel.contract()["components"].get("semantic_binding_invention")==kernel.semantic_binding_invention.component_id and kernel.semantic_binding_invention.contract().get("authority")==kernel.contract()["owner_id"],
       "semantic_obligation_compiler_is_kernel_component":kernel.contract()["components"].get("semantic_proof_obligation_compiler")==kernel.semantic_obligation_compiler.component_id and kernel.semantic_obligation_compiler.contract().get("authority")==kernel.contract()["owner_id"],
       "proof_discharge_is_kernel_component":kernel.contract()["components"].get("proof_obligation_discharge")==kernel.proof_discharge.component_id and kernel.proof_discharge.contract().get("authority")==kernel.contract()["owner_id"],
       "representation_failure_detector_is_kernel_component":kernel.contract()["components"].get("representation_class_failure_detector")==kernel.representation_failure_detector.component_id and kernel.representation_failure_detector.contract().get("component")==kernel.representation_failure_detector.component_id,
       "representation_language_birth_is_kernel_component":kernel.contract()["components"].get("autonomous_representation_language_birth")==kernel.representation_language_birth.component_id and kernel.representation_language_birth.contract().get("canonicalization_allowed") is False,
+      "meta_language_ontology_birth_is_kernel_component":kernel.contract()["components"].get("autonomous_meta_language_ontology_birth")==kernel.meta_language_ontology_birth.component_id and kernel.meta_language_ontology_birth.contract().get("canonicalization_allowed") is False,
       "representation_class_failure_requires_stalled_history":representation_failure["status"]=="REPRESENTATION_CLASS_INADEQUACY_HYPOTHESIS" and representation_failure_weak["status"]=="REPRESENTATION_CLASS_FAILURE_NOT_ESTABLISHED",
       "representation_language_birth_is_research_local_content_addressed":representation_birth["status"]=="GENERATED_REPRESENTATION_CLASS_PROPOSED" and representation_birth["representation_class"]["representation_class_id"].startswith("BORN-R-") and representation_birth["representation_class"]["canonical"] is False and representation_birth["representation_class"]["research_local"] is True,
       "representation_language_birth_blocks_without_failure":representation_birth_blocked["status"]=="REPRESENTATION_LANGUAGE_BIRTH_BLOCKED_NO_CLASS_FAILURE",

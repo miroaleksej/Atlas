@@ -26,7 +26,9 @@ class LawSpaceAPI:
     READ_TOOLS = READ_TOOLS + ("freeze_experiment_execution",)
     MUTATION_TOOLS = MUTATION_TOOLS + ("execute_frozen_experiment",)
     READ_TOOLS = READ_TOOLS + (
-        "get_phi_formal_mathematical_verification_contract", "compile_phi_semantic_proof_obligation", "synthesize_phi_semantic_bindings", "decompose_phi_proof", "verify_phi_proof",
+        "get_phi_formal_mathematical_verification_contract", "compile_phi_semantic_proof_obligation", "synthesize_phi_semantic_bindings",
+        "diagnose_phi_representation_class_failure", "birth_phi_representation_language", "birth_phi_meta_language_ontology",
+        "decompose_phi_proof", "verify_phi_proof",
         "search_phi_counterexample_regions", "prepare_phi_formal_kernel_handoff", "run_phi_lean_kernel", "verify_phi_external_formal_attestation",
         "get_phi_universal_proof_mechanisms",
     )
@@ -1860,6 +1862,53 @@ class LawSpaceAPI:
         kernel = MathematicalInventionKernel(self.runtime.root)
         compilation = kernel.semantic_obligation_compiler.compile(obligation=obligation, candidate=candidate)
         return kernel.semantic_binding_invention.synthesize(semantic_compilation=compilation, obligation=obligation, candidate=candidate)
+
+    def diagnose_phi_representation_class_failure(self, *, frozen_problem: str, revision_history: Sequence[Mapping[str, Any]], residual_rows: Sequence[Mapping[str, Any]]) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        return MathematicalInventionKernel(self.runtime.root).representation_failure_detector.detect(
+            frozen_problem=frozen_problem,
+            revision_history=revision_history,
+            residual_rows=residual_rows,
+        )
+
+    def birth_phi_representation_language(self, *, failure_receipt: Mapping[str, Any], frozen_problem: str, evidence_rows: Sequence[Mapping[str, Any]], target_field: str, group_field: str | None = None) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        kernel = MathematicalInventionKernel(self.runtime.root)
+        birth = kernel.representation_language_birth.synthesize(
+            failure_receipt=failure_receipt,
+            frozen_problem=frozen_problem,
+            evidence_rows=evidence_rows,
+            target_field=target_field,
+            group_field=group_field,
+        )
+        validation = (
+            kernel.representation_language_birth.validate(birth_receipt=birth, evidence_rows=evidence_rows)
+            if birth.get("status") == "GENERATED_REPRESENTATION_CLASS_PROPOSED"
+            else None
+        )
+        return {"birth": birth, "validation": validation}
+
+    def birth_phi_meta_language_ontology(self, *, failure_receipt: Mapping[str, Any], prior_language_validation: Mapping[str, Any] | None, frozen_problem: str, evidence_rows: Sequence[Mapping[str, Any]], target_field: str, group_field: str | None = None, prior_max_constructor_arity: int = 2) -> Mapping[str, Any]:
+        from .mathematical_invention import MathematicalInventionKernel
+        kernel = MathematicalInventionKernel(self.runtime.root)
+        birth = kernel.meta_language_ontology_birth.synthesize(
+            failure_receipt=failure_receipt,
+            prior_language_validation=prior_language_validation,
+            frozen_problem=frozen_problem,
+            evidence_rows=evidence_rows,
+            target_field=target_field,
+            group_field=group_field,
+        )
+        validation = (
+            kernel.meta_language_ontology_birth.validate(
+                birth_receipt=birth,
+                evidence_rows=evidence_rows,
+                prior_max_constructor_arity=prior_max_constructor_arity,
+            )
+            if birth.get("status") == "META_LANGUAGE_CONSTRUCTOR_PORTFOLIO_BORN"
+            else None
+        )
+        return {"birth": birth, "validation": validation}
 
     def decompose_phi_proof(self, proof_artifact: Mapping[str, Any]) -> Mapping[str, Any]:
         from .mathematical_invention import MathematicalInventionKernel

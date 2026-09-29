@@ -25,7 +25,7 @@ from .candidates import CandidateGenerationPipeline, DirectedResearchQuery
 from .runtime import LawSpaceRuntime
 from .schema import canonical_json, digest_payload
 
-KERNEL_OWNER_ID = "PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0"
+KERNEL_OWNER_ID = "PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0"
 UNKNOWN_OWNER_ID = "UNKNOWN-UNKNOWN-REPRESENTATION-TYPE-DISCOVERY/1.0.0"
 PRIMITIVE_OWNER_ID = "PRIMITIVE-SYNTHESIS/1.0.0"
 MORPHISM_OWNER_ID = "MORPHISM-DISCOVERY/1.0.0"
@@ -36,6 +36,7 @@ SEMANTIC_OBLIGATION_COMPILER_COMPONENT_ID = "SEMANTIC-PROOF-OBLIGATION-COMPILER/
 SEMANTIC_BINDING_INVENTION_COMPONENT_ID = "SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT"
 REPRESENTATION_LANGUAGE_BIRTH_COMPONENT_ID = "AUTONOMOUS-REPRESENTATION-LANGUAGE-BIRTH/1.0.0-COMPONENT"
 REPRESENTATION_FAILURE_DETECTOR_COMPONENT_ID = "REPRESENTATION-CLASS-FAILURE-DETECTOR/1.0.0-COMPONENT"
+META_LANGUAGE_ONTOLOGY_BIRTH_COMPONENT_ID = "AUTONOMOUS-META-LANGUAGE-ONTOLOGY-BIRTH/1.0.0-COMPONENT"
 
 
 def _digest(payload: Mapping[str, Any]) -> str:
@@ -3420,6 +3421,479 @@ class RepresentationLanguageBirthEngine:
         })
 
 
+class MetaLanguageOntologyBirthEngine:
+    """Birth executable representation constructors above the representation DSL.
+
+    The previous representation-language birth layer can define a research-local
+    class from fields such as carrier, relation, operation, equivalence, and
+    observation map.  This engine searches one level higher: it builds executable
+    constructor programs from low-level primitives and treats constructor arity,
+    carrier shape, composition, equivalence, and observation semantics as search
+    outputs.
+
+    This is still bounded program synthesis.  It is not a proof of unrestricted
+    ontology creation, world novelty, theorem truth, or general intelligence.
+    """
+
+    component_id = META_LANGUAGE_ONTOLOGY_BIRTH_COMPONENT_ID
+    schema = "phi-autonomous-meta-language-ontology-birth/v1"
+    _primitive_ops = ("FIELD", "VARIABLE_PRODUCT", "CANONICALIZE", "GROUP_FOLD", "OBSERVE")
+
+    def contract(self) -> Mapping[str, Any]:
+        return _with_digest({
+            "schema": self.schema,
+            "component": self.component_id,
+            "authority": KERNEL_OWNER_ID,
+            "input_gate": "REPRESENTATION_CLASS_INADEQUACY_PLUS_FAILED_OR_STALLED_PRIOR_LANGUAGE",
+            "program_primitives": list(self._primitive_ops),
+            "born_dimensions": [
+                "constructor_arity",
+                "carrier_form",
+                "composition_law",
+                "equivalence_semantics",
+                "observation_semantics",
+            ],
+            "named_representation_catalog_used": False,
+            "final008_definition_language_required": False,
+            "target_constructor_hardcoded": False,
+            "holdout_goal_closure_required": True,
+            "non_renaming_gate_required": True,
+            "canonicalization_allowed": False,
+            "claim_boundary": {
+                "program_synthesis_is_free_general_intelligence": False,
+                "validated_research_local_ontology_is_world_novel": False,
+                "validated_research_local_ontology_is_canonical": False,
+            },
+        })
+
+    @staticmethod
+    def _infer_group_and_fields(
+        rows: Sequence[Mapping[str, Any]],
+        target_field: str,
+        group_field: str | None,
+    ) -> tuple[str | None, tuple[str, ...]]:
+        if not rows:
+            return None, ()
+        fields = [field for field in sorted({str(k) for row in rows for k in row}) if field != target_field]
+        if group_field and all(group_field in row for row in rows):
+            group = group_field
+        else:
+            candidates = []
+            for field in fields:
+                values = [canonical_json(row.get(field)) for row in rows]
+                unique = len(set(values))
+                if 1 < unique < len(values):
+                    candidates.append((len(values) / max(unique, 1), unique, field))
+            group = max(candidates, default=(0, 0, None))[2]
+        if not group:
+            return None, ()
+
+        grouped: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+        for row in rows:
+            grouped[canonical_json(row.get(group))].append(row)
+        scored: list[tuple[int, int, str]] = []
+        for field in fields:
+            if field == group:
+                continue
+            varying_groups = sum(
+                1 for group_rows in grouped.values()
+                if len({canonical_json(row.get(field)) for row in group_rows}) > 1
+            )
+            if varying_groups:
+                joint_unique = len({canonical_json(row.get(field)) for row in rows})
+                scored.append((varying_groups, joint_unique, field))
+        scored.sort(key=lambda item: (-item[0], -item[1], item[2]))
+        return group, tuple(item[2] for item in scored)
+
+    @staticmethod
+    def _raw_joint_signature(
+        rows: Sequence[Mapping[str, Any]],
+        fields: Sequence[str],
+    ) -> tuple[tuple[str, ...], ...]:
+        return tuple(sorted(tuple(canonical_json(row.get(field)) for field in fields) for row in rows))
+
+    @staticmethod
+    def _canonical_joint_signature(
+        rows: Sequence[Mapping[str, Any]],
+        fields: Sequence[str],
+        *,
+        maximum_permutation_product: int = 4096,
+    ) -> tuple[tuple[int, ...], ...] | tuple[str, ...]:
+        value_sets = []
+        permutation_product = 1
+        for field in fields:
+            values = sorted({canonical_json(row.get(field)) for row in rows})
+            value_sets.append(values)
+            permutation_product *= math.factorial(len(values))
+        if permutation_product <= maximum_permutation_product:
+            permutations = [tuple(itertools.permutations(range(len(values)))) for values in value_sets]
+            best = None
+            for choice in itertools.product(*permutations):
+                maps = []
+                for values, permutation in zip(value_sets, choice):
+                    maps.append({value: permutation[index] for index, value in enumerate(values)})
+                encoded = tuple(sorted(
+                    tuple(maps[index][canonical_json(row.get(field))] for index, field in enumerate(fields))
+                    for row in rows
+                ))
+                if best is None or encoded < best:
+                    best = encoded
+            return best or ()
+
+        frequency_maps = []
+        for field in fields:
+            counts: dict[str, int] = defaultdict(int)
+            for row in rows:
+                counts[canonical_json(row.get(field))] += 1
+            ordered = sorted(set(counts.values()))
+            rank = {count: index for index, count in enumerate(ordered)}
+            frequency_maps.append((counts, rank))
+        encoded = tuple(sorted(
+            tuple(
+                frequency_maps[index][1][frequency_maps[index][0][canonical_json(row.get(field))]]
+                for index, field in enumerate(fields)
+            )
+            for row in rows
+        ))
+        return ("APPROX_LABEL_FREE", canonical_json(encoded))
+
+    def _program_signature(self, rows: Sequence[Mapping[str, Any]], program: Mapping[str, Any]) -> Any:
+        fields = tuple(program.get("selected_fields") or ())
+        equivalence = str(program.get("equivalence_semantics") or "IDENTITY")
+        if equivalence == "INDEPENDENT_FIELD_BIJECTION_AND_ROW_PERMUTATION":
+            base = self._canonical_joint_signature(rows, fields)
+        else:
+            base = self._raw_joint_signature(rows, fields)
+        fold = str(program.get("fold_semantics") or "MULTISET")
+        if fold == "SET":
+            return tuple(sorted({canonical_json(item) for item in base}))
+        if fold == "COUNT_HISTOGRAM":
+            counts: dict[str, int] = defaultdict(int)
+            for item in base:
+                counts[canonical_json(item)] += 1
+            return tuple(sorted(counts.items()))
+        return base
+
+    @staticmethod
+    def _signature_counter(signature: Any) -> Mapping[str, int]:
+        counts: dict[str, int] = defaultdict(int)
+        if isinstance(signature, (tuple, list)):
+            for item in signature:
+                counts[canonical_json(item)] += 1
+        else:
+            counts[canonical_json(signature)] += 1
+        return counts
+
+    @classmethod
+    def _predict_from_signature(
+        cls,
+        train_cases: Sequence[Mapping[str, Any]],
+        signature: Any,
+        observation_semantics: str,
+    ) -> str:
+        exact = [case for case in train_cases if case.get("signature") == signature]
+        if exact:
+            pool = exact
+        elif observation_semantics == "NEAREST_SIGNATURE_DISCRIMINATION":
+            wanted = cls._signature_counter(signature)
+            scored = []
+            for case in train_cases:
+                got = cls._signature_counter(case.get("signature"))
+                keys = set(wanted) | set(got)
+                distance = sum(abs(wanted.get(key, 0) - got.get(key, 0)) for key in keys)
+                scored.append((distance, case))
+            best = min((item[0] for item in scored), default=0)
+            pool = [case for distance, case in scored if distance == best]
+        else:
+            pool = list(train_cases)
+        counts: dict[str, int] = defaultdict(int)
+        for case in pool:
+            counts[str(case.get("target"))] += 1
+        return sorted(counts.items(), key=lambda item: (-item[1], item[0]))[0][0]
+
+    def _evaluate_program(
+        self,
+        *,
+        rows: Sequence[Mapping[str, Any]],
+        group: str,
+        target: str,
+        program: Mapping[str, Any],
+        train_group_ids: Sequence[str],
+        holdout_group_ids: Sequence[str],
+    ) -> Mapping[str, Any]:
+        grouped: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+        for row in rows:
+            grouped[canonical_json(row.get(group))].append(row)
+
+        def case(group_id: str) -> Mapping[str, Any] | None:
+            group_rows = grouped.get(group_id, [])
+            targets = {str(row.get(target)) for row in group_rows}
+            if not group_rows or len(targets) != 1:
+                return None
+            return {
+                "group": group_id,
+                "target": next(iter(targets)),
+                "signature": self._program_signature(group_rows, program),
+            }
+
+        train_cases = [item for item in (case(group_id) for group_id in train_group_ids) if item]
+        holdout_cases = [item for item in (case(group_id) for group_id in holdout_group_ids) if item]
+        observation_semantics = str(program.get("observation_semantics") or "EXACT_SIGNATURE_DISCRIMINATION")
+        cv_correct = 0
+        for index, train_case in enumerate(train_cases):
+            rest = train_cases[:index] + train_cases[index + 1:]
+            if rest:
+                cv_correct += (
+                    self._predict_from_signature(rest, train_case["signature"], observation_semantics)
+                    == train_case["target"]
+                )
+        train_cv = cv_correct / len(train_cases) if train_cases else 0.0
+        holdout_correct = 0
+        for holdout_case in holdout_cases:
+            if train_cases:
+                holdout_correct += (
+                    self._predict_from_signature(train_cases, holdout_case["signature"], observation_semantics)
+                    == holdout_case["target"]
+                )
+        holdout_accuracy = holdout_correct / len(holdout_cases) if holdout_cases else train_cv
+        return {
+            "program_id": program.get("constructor_program_id"),
+            "train_cv_accuracy": float(train_cv),
+            "holdout_accuracy": float(holdout_accuracy),
+            "train_case_count": len(train_cases),
+            "holdout_case_count": len(holdout_cases),
+        }
+
+    def synthesize(
+        self,
+        *,
+        failure_receipt: Mapping[str, Any],
+        prior_language_validation: Mapping[str, Any] | None,
+        frozen_problem: str,
+        evidence_rows: Sequence[Mapping[str, Any]],
+        target_field: str,
+        group_field: str | None = None,
+    ) -> Mapping[str, Any]:
+        if failure_receipt.get("warranted") is not True:
+            return _with_digest({
+                "schema": self.schema,
+                "component": self.component_id,
+                "status": "META_LANGUAGE_BIRTH_BLOCKED_NO_CLASS_FAILURE",
+                "constructor_programs": [],
+            })
+        if prior_language_validation and prior_language_validation.get("accepted") is True:
+            return _with_digest({
+                "schema": self.schema,
+                "component": self.component_id,
+                "status": "META_LANGUAGE_BIRTH_NOT_NEEDED_PRIOR_LANGUAGE_SUCCEEDED",
+                "constructor_programs": [],
+            })
+        rows = [dict(row) for row in evidence_rows if isinstance(row, Mapping)]
+        if len(rows) < 6 or not target_field or any(target_field not in row for row in rows):
+            return _with_digest({
+                "schema": self.schema,
+                "component": self.component_id,
+                "status": "META_LANGUAGE_BIRTH_REQUIRES_TYPED_EVIDENCE",
+                "constructor_programs": [],
+            })
+        group, fields = self._infer_group_and_fields(rows, target_field, group_field)
+        if not group or not fields:
+            return _with_digest({
+                "schema": self.schema,
+                "component": self.component_id,
+                "status": "META_LANGUAGE_BIRTH_REQUIRES_VARIABLE_FIELDS",
+                "constructor_programs": [],
+            })
+
+        programs = []
+        for arity in range(1, len(fields) + 1):
+            for selected in itertools.combinations(fields, arity):
+                for equivalence in ("IDENTITY", "INDEPENDENT_FIELD_BIJECTION_AND_ROW_PERMUTATION"):
+                    for fold in ("SET", "MULTISET", "COUNT_HISTOGRAM"):
+                        for observation_semantics in (
+                            "EXACT_SIGNATURE_DISCRIMINATION",
+                            "NEAREST_SIGNATURE_DISCRIMINATION",
+                        ):
+                            ast = {
+                                "op": "OBSERVE",
+                                "semantics": observation_semantics,
+                                "input": {
+                                    "op": "GROUP_FOLD",
+                                    "fold": fold,
+                                    "input": {
+                                        "op": "CANONICALIZE",
+                                        "equivalence": equivalence,
+                                        "input": {
+                                            "op": "VARIABLE_PRODUCT",
+                                            "arguments": [{"op": "FIELD", "field": field} for field in selected],
+                                        },
+                                    },
+                                },
+                            }
+                            carrier = {
+                                "SET": f"GROUPED_SET_OF_PRODUCT_{arity}",
+                                "MULTISET": f"GROUPED_MULTISET_OF_PRODUCT_{arity}",
+                                "COUNT_HISTOGRAM": f"GROUPED_HISTOGRAM_OF_PRODUCT_{arity}",
+                            }[fold]
+                            core = {
+                                "constructor_arity": arity,
+                                "selected_fields": list(selected),
+                                "carrier_form": carrier,
+                                "fold_semantics": fold,
+                                "composition_law": ast,
+                                "equivalence_semantics": equivalence,
+                                "observation_semantics": observation_semantics,
+                                "named_representation_name": None,
+                                "primitive_ops": list(self._primitive_ops),
+                            }
+                            programs.append({
+                                **core,
+                                "constructor_program_id": "BORN-C-" + digest_payload(core)[:20].upper(),
+                            })
+        return _with_digest({
+            "schema": self.schema,
+            "component": self.component_id,
+            "status": "META_LANGUAGE_CONSTRUCTOR_PORTFOLIO_BORN",
+            "frozen_problem_digest": digest_payload({"problem": str(frozen_problem)}),
+            "failure_digest": failure_receipt.get("digest"),
+            "prior_language_validation_digest": (prior_language_validation or {}).get("digest"),
+            "group_field": group,
+            "target_field": target_field,
+            "candidate_input_fields": list(fields),
+            "constructor_program_count": len(programs),
+            "constructor_programs": programs,
+            "claim_boundary": {
+                "constructor_portfolio_is_validated_ontology": False,
+                "named_representation_selected": False,
+                "canonical_registry_mutated": False,
+            },
+        })
+
+    def validate(
+        self,
+        *,
+        birth_receipt: Mapping[str, Any],
+        evidence_rows: Sequence[Mapping[str, Any]],
+        prior_max_constructor_arity: int = 2,
+        minimum_holdout_accuracy: float = 0.75,
+    ) -> Mapping[str, Any]:
+        programs = [dict(item) for item in birth_receipt.get("constructor_programs", ()) if isinstance(item, Mapping)]
+        rows = [dict(row) for row in evidence_rows if isinstance(row, Mapping)]
+        group = str(birth_receipt.get("group_field") or "")
+        target = str(birth_receipt.get("target_field") or "")
+        if not programs or not rows or not group or not target:
+            return _with_digest({
+                "schema": "phi-meta-language-ontology-validation/v1",
+                "component": self.component_id,
+                "status": "META_LANGUAGE_VALIDATION_BLOCKED",
+                "accepted": False,
+            })
+        grouped: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+        for row in rows:
+            grouped[canonical_json(row.get(group))].append(row)
+        group_ids = sorted(
+            group_id for group_id, group_rows in grouped.items()
+            if len({str(row.get(target)) for row in group_rows}) == 1
+        )
+        if len(group_ids) < 6:
+            return _with_digest({
+                "schema": "phi-meta-language-ontology-validation/v1",
+                "component": self.component_id,
+                "status": "META_LANGUAGE_VALIDATION_REQUIRES_SIX_GROUPS",
+                "accepted": False,
+            })
+
+        train_ids, holdout_ids = group_ids[:-2], group_ids[-2:]
+        evaluations = []
+        for program in programs:
+            evaluation = self._evaluate_program(
+                rows=rows,
+                group=group,
+                target=target,
+                program=program,
+                train_group_ids=train_ids,
+                holdout_group_ids=holdout_ids,
+            )
+            evaluations.append({
+                **evaluation,
+                "constructor_arity": int(program.get("constructor_arity", 0)),
+                "equivalence_semantics": program.get("equivalence_semantics"),
+                "fold_semantics": program.get("fold_semantics"),
+                "observation_semantics": program.get("observation_semantics"),
+            })
+        program_by_id = {program["constructor_program_id"]: program for program in programs}
+
+        def select(pool: Sequence[Mapping[str, Any]]) -> Mapping[str, Any] | None:
+            if not pool:
+                return None
+            return sorted(
+                pool,
+                key=lambda item: (
+                    -float(item["train_cv_accuracy"]),
+                    int(item["constructor_arity"]),
+                    0 if item.get("observation_semantics") == "EXACT_SIGNATURE_DISCRIMINATION" else 1,
+                    0 if item.get("fold_semantics") == "SET" else (1 if item.get("fold_semantics") == "MULTISET" else 2),
+                    0 if item.get("equivalence_semantics") == "INDEPENDENT_FIELD_BIJECTION_AND_ROW_PERMUTATION" else 1,
+                    str(item["program_id"]),
+                ),
+            )[0]
+
+        prior_limit = max(1, int(prior_max_constructor_arity))
+        baseline_evaluation = select([item for item in evaluations if int(item["constructor_arity"]) <= prior_limit])
+        selected_evaluation = select(evaluations)
+        if not selected_evaluation or not baseline_evaluation:
+            return _with_digest({
+                "schema": "phi-meta-language-ontology-validation/v1",
+                "component": self.component_id,
+                "status": "META_LANGUAGE_VALIDATION_NO_PROGRAM",
+                "accepted": False,
+            })
+        selected_program = dict(program_by_id[str(selected_evaluation["program_id"])])
+        baseline_program = dict(program_by_id[str(baseline_evaluation["program_id"])])
+        gain = float(selected_evaluation["holdout_accuracy"]) - float(baseline_evaluation["holdout_accuracy"])
+        non_renaming = int(selected_program.get("constructor_arity", 0)) > prior_limit and gain > 0.0
+        accepted = bool(non_renaming and float(selected_evaluation["holdout_accuracy"]) >= float(minimum_holdout_accuracy))
+        ontology_core = {
+            "constructor_program_id": selected_program.get("constructor_program_id"),
+            "constructor_arity": selected_program.get("constructor_arity"),
+            "carrier_form": selected_program.get("carrier_form"),
+            "fold_semantics": selected_program.get("fold_semantics"),
+            "composition_law": selected_program.get("composition_law"),
+            "equivalence_semantics": selected_program.get("equivalence_semantics"),
+            "observation_semantics": selected_program.get("observation_semantics"),
+            "research_local": True,
+            "canonical": False,
+            "origin": "AUTONOMOUS_META_LANGUAGE_ONTOLOGY_BIRTH",
+        }
+        ontology = {
+            **ontology_core,
+            "ontology_object_id": "BORN-O-" + digest_payload(ontology_core)[:20].upper(),
+        }
+        return _with_digest({
+            "schema": "phi-meta-language-ontology-validation/v1",
+            "component": self.component_id,
+            "status": "META_LANGUAGE_ONTOLOGY_BIRTH_VALIDATED_RESEARCH_LOCAL" if accepted else "META_LANGUAGE_ONTOLOGY_BIRTH_NOT_VALIDATED",
+            "train_group_ids": train_ids,
+            "holdout_group_ids": holdout_ids,
+            "prior_language_max_constructor_arity": prior_limit,
+            "baseline_constructor_program": baseline_program,
+            "selected_constructor_program": selected_program,
+            "baseline_holdout_accuracy": float(baseline_evaluation["holdout_accuracy"]),
+            "born_ontology_holdout_accuracy": float(selected_evaluation["holdout_accuracy"]),
+            "goal_closure_gain": gain,
+            "non_renaming_gate": non_renaming,
+            "accepted": accepted,
+            "ontology_object": ontology if accepted else None,
+            "evaluated_program_count": len(evaluations),
+            "claim_boundary": {
+                "validated_ontology_is_general_intelligence": False,
+                "validated_ontology_is_world_novel": False,
+                "validated_ontology_is_canonical": False,
+                "holdout_gain_is_theorem_truth": False,
+            },
+        })
+
+
 class MathematicalInventionKernel:
     def __init__(self, root: str|Path) -> None:
         self.root=Path(root); self.runtime=LawSpaceRuntime(self.root)
@@ -3434,6 +3908,7 @@ class MathematicalInventionKernel:
         self.semantic_binding_invention=SemanticBindingInventionEngine()
         self.representation_failure_detector=RepresentationClassFailureDetector()
         self.representation_language_birth=RepresentationLanguageBirthEngine()
+        self.meta_language_ontology_birth=MetaLanguageOntologyBirthEngine()
         self.proof_discharge=ProofObligationDischargeEngine(self.formal, self.semantic_obligation_compiler, self.semantic_binding_invention)
 
     def contract(self)->Mapping[str,Any]:
@@ -3445,8 +3920,8 @@ class MathematicalInventionKernel:
                 "morphism_discovery":MORPHISM_OWNER_ID,
                 "controlled_limit":LIMIT_OWNER_ID,
             },
-            "components":{"function_language_birth":"FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT","operator_language_birth":self.operator_language.component_id,"scale_invariant_representation_birth":self.scale_invariant.owner_id,"autonomous_mathematical_candidate_birth":self.autonomous_candidate_birth.component_id,"semantic_proof_obligation_compiler":self.semantic_obligation_compiler.component_id,"semantic_binding_invention":self.semantic_binding_invention.component_id,"representation_class_failure_detector":self.representation_failure_detector.component_id,"autonomous_representation_language_birth":self.representation_language_birth.component_id,"formal_mathematical_verification":self.formal.owner_id,"proof_obligation_discharge":self.proof_discharge.component_id},
-            "pipeline":"UNKNOWN->OPEN_ENDED_CANDIDATE_BIRTH->SEMANTIC_OBLIGATION_COMPILATION->SEMANTIC_BINDING_INVENTION->BINDING_VALIDATION->PROOF_OBLIGATION_DISCHARGE->REPRESENTATION_CLASS_FAILURE_DETECTION->AUTONOMOUS_REPRESENTATION_LANGUAGE_BIRTH->NON_RENAMING_AND_GOAL_CLOSURE_GATE->RESIDUAL_GAP_BIRTH->PHI_SCAN->FORMAL_VERIFICATION",
+            "components":{"function_language_birth":"FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT","operator_language_birth":self.operator_language.component_id,"scale_invariant_representation_birth":self.scale_invariant.owner_id,"autonomous_mathematical_candidate_birth":self.autonomous_candidate_birth.component_id,"semantic_proof_obligation_compiler":self.semantic_obligation_compiler.component_id,"semantic_binding_invention":self.semantic_binding_invention.component_id,"representation_class_failure_detector":self.representation_failure_detector.component_id,"autonomous_representation_language_birth":self.representation_language_birth.component_id,"autonomous_meta_language_ontology_birth":self.meta_language_ontology_birth.component_id,"formal_mathematical_verification":self.formal.owner_id,"proof_obligation_discharge":self.proof_discharge.component_id},
+            "pipeline":"UNKNOWN->OPEN_ENDED_CANDIDATE_BIRTH->SEMANTIC_OBLIGATION_COMPILATION->SEMANTIC_BINDING_INVENTION->BINDING_VALIDATION->PROOF_OBLIGATION_DISCHARGE->REPRESENTATION_CLASS_FAILURE_DETECTION->AUTONOMOUS_REPRESENTATION_LANGUAGE_BIRTH->IF_STALLED_META_LANGUAGE_CONSTRUCTOR_BIRTH->ONTOLOGY_HOLDOUT_GATE->RESIDUAL_GAP_BIRTH->PHI_SCAN->FORMAL_VERIFICATION",
             "function_language_pipeline":"QUERY_OOF_RESIDUAL->OPERATION_SIGNAL->GENERATED_LANGUAGE_SIGNATURE->QUERY_REFIT_AND_NULL",
             "operator_language_pipeline":"LOCAL_TRANSLATION_PLUS_POINTWISE_ALGEBRA->MOMENT_RANK_SHELLS->TYPED_SIGNATURES->EMPIRICAL_SUPPORT_SEARCH",
             "internet_prefreeze":"FORBIDDEN",
@@ -3457,6 +3932,6 @@ class MathematicalInventionKernel:
 
 __all__=[
     "MathematicalInventionKernel","UnknownUnknownRepresentationOwner","PrimitiveSynthesisOwner",
-    "MorphismDiscoveryOwner","ControlledLimitEngine","FunctionLanguageBirthEngine","OperatorLanguageBirthEngine","ScaleInvariantRepresentationBirthOwner","AutonomousMathematicalCandidateBirthEngine","SemanticProofObligationCompiler","SemanticBindingInventionEngine","FormalMathematicalVerificationOwner","ProofObligationDischargeEngine","RepresentationClassFailureDetector","RepresentationLanguageBirthEngine", "KERNEL_OWNER_ID", "UNKNOWN_OWNER_ID",
+    "MorphismDiscoveryOwner","ControlledLimitEngine","FunctionLanguageBirthEngine","OperatorLanguageBirthEngine","ScaleInvariantRepresentationBirthOwner","AutonomousMathematicalCandidateBirthEngine","SemanticProofObligationCompiler","SemanticBindingInventionEngine","FormalMathematicalVerificationOwner","ProofObligationDischargeEngine","RepresentationClassFailureDetector","RepresentationLanguageBirthEngine","MetaLanguageOntologyBirthEngine", "KERNEL_OWNER_ID", "UNKNOWN_OWNER_ID",
     "PRIMITIVE_OWNER_ID","MORPHISM_OWNER_ID","LIMIT_OWNER_ID","SCALE_REPRESENTATION_OWNER_ID","AUTONOMOUS_CANDIDATE_BIRTH_COMPONENT_ID","REPRESENTATION_LANGUAGE_BIRTH_COMPONENT_ID","REPRESENTATION_FAILURE_DETECTOR_COMPONENT_ID",
 ]

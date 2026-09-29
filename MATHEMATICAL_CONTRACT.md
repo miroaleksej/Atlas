@@ -1507,7 +1507,7 @@ execution lane, but that scheduling subset is not the epistemic state.
 
 ## Proof-obligation discharge and theorem-closure loop (current)
 
-The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
+The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
 
 The authoritative loop is now
 
@@ -1524,7 +1524,7 @@ A fresh blind Navier–Stokes control with no external solution revealed ran two
 
 ## Current semantic obligation contract
 
-`PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0` SHALL route every born substantive proof obligation through `SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT` before discharge. The compiler SHALL preserve the frozen source claim, emit a typed schema, emit an executable verifier only when semantics are sufficient, otherwise enumerate missing bindings, and freeze a dependency artifact. Typed-but-unbound obligations SHALL remain unresolved. Missing bindings MAY create research-local axes/operations but SHALL NOT become canonical axes without the ordinary lifecycle gates. A frozen dependency graph or formal handoff SHALL NOT be treated as theorem proof.
+`PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0` SHALL route every born substantive proof obligation through `SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT` before discharge. The compiler SHALL preserve the frozen source claim, emit a typed schema, emit an executable verifier only when semantics are sufficient, otherwise enumerate missing bindings, and freeze a dependency artifact. Typed-but-unbound obligations SHALL remain unresolved. Missing bindings MAY create research-local axes/operations but SHALL NOT become canonical axes without the ordinary lifecycle gates. A frozen dependency graph or formal handoff SHALL NOT be treated as theorem proof.
 
 
 ### Final semantic-obligation compiler qualification
@@ -1536,7 +1536,7 @@ The blind Navier–Stokes semantic run remains deliberately non-terminal: 32 gen
 
 ## 15.10.3 — Semantic binding invention and validation frontier
 
-The current Mathematical Invention Kernel is `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` is embedded in the existing kernel after semantic-obligation compilation and before proof-discharge continuation. It does not select a named domain method catalogue. For every typed missing binding it constructs a research-local mathematical object from the frozen schema. Qualified object families include generated regularity/seminorm spaces, energy or norm functionals, invariant candidates, witness/obstruction families, comparison functionals, asymptotic weights, convergence structures, operator-signature families and breakdown/blow-up criteria.
+The current Mathematical Invention Kernel is `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` is embedded in the existing kernel after semantic-obligation compilation and before proof-discharge continuation. It does not select a named domain method catalogue. For every typed missing binding it constructs a research-local mathematical object from the frozen schema. Qualified object families include generated regularity/seminorm spaces, energy or norm functionals, invariant candidates, witness/obstruction families, comparison functionals, asymptotic weights, convergence structures, operator-signature families and breakdown/blow-up criteria.
 
 A generated binding object is not accepted as correct merely because it was born. Each generated object carries explicit validation obligations: provenance alignment with the frozen statement, well-typedness, and discrimination/closure evidence. Only bindings exactly recoverable from the frozen typed statement may be marked statement-grounded, and statement grounding is still not theorem proof. Unvalidated binding objects are carried into the digest-bound continuation and birth their own `BINDING_OBJECT::*` research-local axes on later shells.
 
@@ -1546,7 +1546,7 @@ The resulting loop is
 
 Blind Navier–Stokes binding-invention control, using only the frozen problem statement and no external solution, executed four search slices (eight complexity epochs), generated 64 proof-program candidates and 391 research-local axes. 60 axes were born directly from invented binding objects. Across slices 2–4, 48 provenance-binding checks and 48 binding well-typedness checks were executed and discharged structurally; discrimination/closure validity remained unresolved. The run remained non-terminal and did not claim an independent Navier–Stokes proof. This demonstrates binding-content invention and continuation, not correctness of any particular generated function space, norm, invariant or blow-up criterion.
 
-The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+The universal proof-mechanism memory now seeds 29 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
 
 ## Research-acceleration lifecycle contract
 
@@ -1574,3 +1574,14 @@ scientific promotion qualification. Этот lifecycle не создаёт вт�
    блокируется fail-closed.
 9. `PASS_CURRENT_STATE_15_29_0` допустим только если
    `research_acceleration_qualification == PASS`.
+
+## Autonomous meta-language / ontology birth contract
+
+1. `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0` MAY enter `AUTONOMOUS-META-LANGUAGE-ONTOLOGY-BIRTH/1.0.0-COMPONENT` only after representation-class inadequacy is warranted and the prior representation language has not passed validation.
+2. The component SHALL NOT receive target constructor arity, a named representation family, or a revealed control solution as pre-freeze input.
+3. Constructor programs MAY be synthesized only from the declared primitives `FIELD`, `VARIABLE_PRODUCT`, `CANONICALIZE`, `GROUP_FOLD`, and `OBSERVE`.
+4. Constructor arity, carrier form, composition law, equivalence semantics, and observation semantics SHALL be recorded as outputs of the born program.
+5. Acceptance SHALL require untouched-holdout goal-closure gain over the prior language and a non-renaming gate.
+6. A no-signal control or a constructor that merely re-encodes the prior language SHALL remain rejected.
+7. Every accepted ontology object SHALL remain content-addressed, research-local, and non-canonical; it SHALL NOT mutate the canonical axis, representation, or scientific-law registry automatically.
+8. Qualification SHALL NOT be described as proof of AGI, unrestricted ontology birth, world novelty, theorem truth, or scientific law promotion.

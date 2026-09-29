@@ -6447,6 +6447,25 @@ class ScientificResearchCycleOwner:
             "claim_boundary": {"validated_research_local_class_is_canonical": False},
         }
         representation_language_validation["digest"] = digest_payload(representation_language_validation)
+        meta_language_ontology_birth = {
+            "schema": AUTONOMOUS_RESEARCH_SCHEMA,
+            "component": invention.meta_language_ontology_birth.component_id,
+            "status": "AUTONOMOUS_META_LANGUAGE_ONTOLOGY_BIRTH_NOT_ENTERED",
+            "constructor_programs": [],
+            "claim_boundary": {
+                "canonical_registry_mutated": False,
+                "scientific_law_established": False,
+            },
+        }
+        meta_language_ontology_birth["digest"] = digest_payload(meta_language_ontology_birth)
+        meta_language_ontology_validation = {
+            "schema": "phi-meta-language-ontology-validation/v1",
+            "component": invention.meta_language_ontology_birth.component_id,
+            "status": "META_LANGUAGE_ONTOLOGY_VALIDATION_NOT_ENTERED",
+            "accepted": False,
+            "claim_boundary": {"validated_ontology_is_canonical": False},
+        }
+        meta_language_ontology_validation["digest"] = digest_payload(meta_language_ontology_validation)
         representation_revision_history = tuple(
             dict(row) for row in req.get("representation_revision_history", ())
             if isinstance(row, Mapping)
@@ -6471,6 +6490,21 @@ class ScientificResearchCycleOwner:
                     birth_receipt=representation_language_birth,
                     evidence_rows=evidence_rows,
                 )
+            if representation_language_validation.get("accepted") is not True:
+                meta_language_ontology_birth = invention.meta_language_ontology_birth.synthesize(
+                    failure_receipt=representation_class_failure,
+                    prior_language_validation=representation_language_validation,
+                    frozen_problem=frozen_problem,
+                    evidence_rows=evidence_rows,
+                    target_field=representation_target_field,
+                    group_field=str(req.get("representation_group_field", "") or "") or None,
+                )
+                if meta_language_ontology_birth.get("status") == "META_LANGUAGE_CONSTRUCTOR_PORTFOLIO_BORN":
+                    meta_language_ontology_validation = invention.meta_language_ontology_birth.validate(
+                        birth_receipt=meta_language_ontology_birth,
+                        evidence_rows=evidence_rows,
+                        prior_max_constructor_arity=int(req.get("prior_max_constructor_arity", 2)),
+                    )
 
         transition_rows = tuple(dict(row) for row in req.get("transition_rows", ()))
         if representation.get("status") == "PROPOSE_GENERATED_REPRESENTATION_SIGNATURE" and transition_rows:
@@ -6512,6 +6546,11 @@ class ScientificResearchCycleOwner:
             representation_class_id = representation_language_birth.get("representation_class", {}).get("representation_class_id")
             if representation_class_id:
                 research_local_representation_class_ids.append(str(representation_class_id))
+        research_local_ontology_object_ids = []
+        if meta_language_ontology_validation.get("accepted") is True:
+            ontology_object_id = (meta_language_ontology_validation.get("ontology_object") or {}).get("ontology_object_id")
+            if ontology_object_id:
+                research_local_ontology_object_ids.append(str(ontology_object_id))
         environment_id = str(req.get("environment_id") or ("autonomous-research-" + digest_payload(question)[:12]))
         heartbeat = resident.heartbeat({
             "environment_id": environment_id,
@@ -6521,6 +6560,7 @@ class ScientificResearchCycleOwner:
                 "research_region": {
                     "research_local_axis_ids": research_axis_ids,
                     "research_local_representation_class_ids": research_local_representation_class_ids,
+                    "research_local_ontology_object_ids": research_local_ontology_object_ids,
                 },
                 "portfolio_space_gap": portfolio_space_gap,
                 "research_cycle_digest": cycle.get("digest"),
@@ -6566,6 +6606,9 @@ class ScientificResearchCycleOwner:
         elif mathematical_frontier_active:
             status = "AUTONOMOUS_RESEARCH_OPEN_ENDED_MATHEMATICAL_FRONTIER_ACTIVE"
             next_required = "CONTINUE_FROM_FROZEN_MATHEMATICAL_SEARCH_CURSOR_AND_DISCHARGE_OR_REFUTE_PROOF_OBLIGATIONS"
+        elif meta_language_ontology_validation.get("accepted") is True:
+            status = "AUTONOMOUS_RESEARCH_META_LANGUAGE_ONTOLOGY_BORN_RESEARCH_LOCAL"
+            next_required = "USE_RESEARCH_LOCAL_ONTOLOGY_OBJECT_IN_NEXT_FROZEN_VALIDATION_ROUND"
         elif representation_language_validation.get("accepted") is True:
             status = "AUTONOMOUS_RESEARCH_REPRESENTATION_LANGUAGE_BORN_RESEARCH_LOCAL"
             next_required = "USE_RESEARCH_LOCAL_REPRESENTATION_CLASS_IN_NEXT_FROZEN_VALIDATION_ROUND"
@@ -6602,6 +6645,8 @@ class ScientificResearchCycleOwner:
             "representation_class_failure": representation_class_failure,
             "representation_language_birth": representation_language_birth,
             "representation_language_validation": representation_language_validation,
+            "meta_language_ontology_birth": meta_language_ontology_birth,
+            "meta_language_ontology_validation": meta_language_ontology_validation,
             "primitive_synthesis": primitive,
             "formal_mathematical_verification": formal_verification,
             "formal_kernel_handoff": formal_handoff,
@@ -6637,6 +6682,7 @@ class ScientificResearchCycleOwner:
                 "open_ended_search_guarantees_eventual_solution": False,
                 "research_local_axis_birth_is_canonical_axis_admission": False,
                 "research_local_representation_class_is_canonical": False,
+                "research_local_meta_language_ontology_is_canonical": False,
                 "blocked_proof_obligation_is_discharged": False,
                 "proof_obligation_priority_is_truth_probability": False,
             },

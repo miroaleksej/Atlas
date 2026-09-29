@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 424
+Controlled files: 426
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -115,6 +115,7 @@ Controlled files: 424
 - `evaluation/lawspace_qualification.py`
 - `evaluation/long_horizon_blind_cycle_qualification.py`
 - `evaluation/mathematical_invention_qualification.py`
+- `evaluation/meta_language_ontology_birth_qualification.py`
 - `evaluation/navier_stokes_blind_experiment.py`
 - `evaluation/neutrino_external_constraints_qualification.py`
 - `evaluation/neutrino_global_qualification.py`
@@ -407,6 +408,7 @@ Controlled files: 424
 - `tests/test_hypothesis_family_lineage.py`
 - `tests/test_jhtdb_freeze_integrity.py`
 - `tests/test_jhtdb_observational_adapter.py`
+- `tests/test_meta_language_ontology_birth.py`
 - `tests/test_observational_round_integrity.py`
 - `tests/test_permutation_eprocess_current.py`
 - `tests/test_promotion_confirmation.py`

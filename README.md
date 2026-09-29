@@ -80,9 +80,17 @@ SOURCE_CAPABILITY
 
 Когда несколько зафиксированных попыток уточнить оси, binding-объекты или операторы оставляют устойчивый остаток и не дают заметного закрытия цели, Atlas может сформировать гипотезу `REPRESENTATION_CLASS_INADEQUACY_HYPOTHESIS`. Это не доказательство невозможности старого представления, а контролируемый сигнал: текущий язык мог быть недостаточным для структуры данных.
 
-После такого сигнала `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0` строит research-local representation class из минимального языка: carrier, relations, operations, equivalence, observation map, candidate invariants и composition rules. Идентификатор класса content-addressed и имеет вид `BORN-R-*`; класс не выбирается из каталога известных графов, топологий или тензоров и не попадает в canonical registry.
+После такого сигнала `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0` строит research-local representation class из минимального языка: carrier, relations, operations, equivalence, observation map, candidate invariants и composition rules. Идентификатор класса content-addressed и имеет вид `BORN-R-*`; класс не выбирается из каталога известных графов, топологий или тензоров и не попадает в canonical registry.
 
 Рождение принимается только после проверки, что это не простое переименование: born representation должен улучшить frozen holdout goal closure относительно axis-only ablation. Даже принятый класс остаётся локальным исследовательским инструментом: `RESEARCH_LOCAL_REPRESENTATION_CLASS != CANONICAL_AXIS != SCIENTIFIC_LAW`.
+
+## Автономное рождение метаязыка и локальной онтологии
+
+Если уже рождённый язык представлений тоже не закрывает устойчивый остаток, Atlas может подняться на следующий уровень: синтезировать исполнимые constructor-programs из низкоуровневых primitives `FIELD`, `VARIABLE_PRODUCT`, `CANONICALIZE`, `GROUP_FOLD`, `OBSERVE`. В этом режиме заранее не задаётся ни arity конструктора, ни carrier form, ни composition law, ни equivalence/observation semantics; они становятся результатом поиска.
+
+Кандидаты `BORN-C-*` выбираются только на training groups. Принятый объект `BORN-O-*` появляется только если untouched holdout показывает положительный `goal_closure_gain` относительно prior representation language и проходит non-renaming gate. Объект остаётся research-local и non-canonical: `RESEARCH_LOCAL_ONTOLOGY != CANONICAL_REGISTRY != SCIENTIFIC_LAW`.
+
+Квалификация проверяет три сценария: трёхпольный frozen control требует born arity `3`, отдельный четырёхпольный control требует arity `4`, а no-signal контроль отклоняется. Это подтверждает механизм рождения constructor beyond previous DSL, но не доказывает AGI, мировую новизну или свободное создание произвольной онтологии: базовые program primitives остаются заданными архитектурой.
 
 ## Level 3: рождение языка операторов
 
@@ -128,6 +136,7 @@ Atlas отвечает на более узкий и строгий вопрос
 - [Архитектура](#архитектура)
 - [Универсальный слой выполнения экспериментов](#универсальный-слой-выполнения-экспериментов)
 - [Автономное рождение языка представлений](#автономное-рождение-языка-представлений)
+- [Автономное рождение метаязыка и локальной онтологии](#автономное-рождение-метаязыка-и-локальной-онтологии)
 - [Authorship, Intellectual Property and Collaboration Boundary](#authorship-intellectual-property-and-collaboration-boundary)
 - [Licensing](#licensing)
 - [Математическая основа](#математическая-основа)
@@ -1268,7 +1277,7 @@ The current persistent scheduler was exercised for 96 epochs with an active budg
 Atlas now has an explicit domain-neutral bootstrap for the case in which a frozen
 problem reaches `UNKNOWN` before any suitable domain owner can create the first
 candidate.  This is implemented **inside the existing**
-`PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0` and
+`PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0` and
 `SCIENTIFIC-RESEARCH-CYCLE/15.3.0`; no Navier–Stokes solver and no parallel
 mathematical subsystem were added.
 
@@ -1365,7 +1374,7 @@ exactly four tools.
 
 ## Proof-obligation discharge and theorem-closure loop (current)
 
-The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
+The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
 
 The authoritative loop is now
 
@@ -1382,7 +1391,7 @@ A fresh blind Navier–Stokes control with no external solution revealed ran two
 
 ## Semantic proof-obligation compilation (current)
 
-Текущий Mathematical Invention Kernel — `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. В существующий цикл встроен `SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT`; отдельного математического solver не создано. Born proof obligation теперь до discharge проходит преобразование
+Текущий Mathematical Invention Kernel — `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. В существующий цикл встроен `SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT`; отдельного математического solver не создано. Born proof obligation теперь до discharge проходит преобразование
 
 `frozen claim → typed quantifiers/symbols/relations/predicates/operators/domains → executable verification spec OR explicit missing bindings → formal dependency artifact`.
 
@@ -1404,7 +1413,7 @@ The blind Navier–Stokes semantic run remains deliberately non-terminal: 32 gen
 
 ## 15.10.3 — Semantic binding invention and validation frontier
 
-The current Mathematical Invention Kernel is `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` is embedded in the existing kernel after semantic-obligation compilation and before proof-discharge continuation. It does not select a named domain method catalogue. For every typed missing binding it constructs a research-local mathematical object from the frozen schema. Qualified object families include generated regularity/seminorm spaces, energy or norm functionals, invariant candidates, witness/obstruction families, comparison functionals, asymptotic weights, convergence structures, operator-signature families and breakdown/blow-up criteria.
+The current Mathematical Invention Kernel is `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` is embedded in the existing kernel after semantic-obligation compilation and before proof-discharge continuation. It does not select a named domain method catalogue. For every typed missing binding it constructs a research-local mathematical object from the frozen schema. Qualified object families include generated regularity/seminorm spaces, energy or norm functionals, invariant candidates, witness/obstruction families, comparison functionals, asymptotic weights, convergence structures, operator-signature families and breakdown/blow-up criteria.
 
 A generated binding object is not accepted as correct merely because it was born. Each generated object carries explicit validation obligations: provenance alignment with the frozen statement, well-typedness, and discrimination/closure evidence. Only bindings exactly recoverable from the frozen typed statement may be marked statement-grounded, and statement grounding is still not theorem proof. Unvalidated binding objects are carried into the digest-bound continuation and birth their own `BINDING_OBJECT::*` research-local axes on later shells.
 
@@ -1414,7 +1423,7 @@ The resulting loop is
 
 Blind Navier–Stokes binding-invention control, using only the frozen problem statement and no external solution, executed four search slices (eight complexity epochs), generated 64 proof-program candidates and 391 research-local axes. 60 axes were born directly from invented binding objects. Across slices 2–4, 48 provenance-binding checks and 48 binding well-typedness checks were executed and discharged structurally; discrimination/closure validity remained unresolved. The run remained non-terminal and did not claim an independent Navier–Stokes proof. This demonstrates binding-content invention and continuation, not correctness of any particular generated function space, norm, invariant or blow-up criterion.
 
-The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+The universal proof-mechanism memory now seeds 29 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
 
 ### Research acceleration в основном цикле
 

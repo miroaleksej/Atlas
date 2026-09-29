@@ -194,7 +194,7 @@ def run(root=None, *, allow_blocked=False):
  }
  caps['operator_language_invention']={
   'component':'OPERATOR-LANGUAGE-BIRTH/1.0.0-COMPONENT',
-  'authority':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0',
+  'authority':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0',
   'seed_meta_primitives':['LOCAL_TRANSLATION','LINEAR_SUPERPOSITION','POINTWISE_MULTIPLY','POINTWISE_RECIPROCAL','DIMENSION_TYPING'],
   'named_differential_operator_catalog_used':False,
   'fixed_derivative_order_catalog_used':False,
@@ -205,7 +205,7 @@ def run(root=None, *, allow_blocked=False):
  }
  caps['formal_mathematical_verification']={
   'owner':'FORMAL-MATHEMATICAL-VERIFICATION/1.0.0',
-  'authority':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0',
+  'authority':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0',
   'dependency_graph_decomposition':True,
   'exact_symbolic_identity_verification':True,
   'finite_exhaustive_boolean_verification':True,
@@ -225,13 +225,31 @@ def run(root=None, *, allow_blocked=False):
   'state_section':'universal_proof_mechanisms',
   'domain_specific_hardcode_required':False,
   'mechanism_reuse_transfers_theorem_truth':False,
-  'canonical_mechanism_count':23,
+  'canonical_mechanism_count':29,
   'semantic_proof_obligation_compiler':'SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT',
   'semantic_binding_invention':'SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT',
   'generated_binding_objects_require_validation':True,
   'typed_binding_gaps_birth_research_axes':True,
   'typed_formal_schema_is_proof':False,
   'scope':'ANY_DOMAIN_WITH_FORMALIZABLE_CLAIMS',
+ }
+ caps['autonomous_meta_language_ontology_birth']={
+  'component':'AUTONOMOUS-META-LANGUAGE-ONTOLOGY-BIRTH/1.0.0-COMPONENT',
+  'authority':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0',
+  'prerequisite':'REPRESENTATION_CLASS_INADEQUACY_PLUS_STALLED_PRIOR_LANGUAGE',
+  'named_representation_catalog_used':False,
+  'final008_definition_language_required':False,
+  'constructor_program_primitives':['FIELD','VARIABLE_PRODUCT','CANONICALIZE','GROUP_FOLD','OBSERVE'],
+  'constructor_arity_is_born':True,
+  'carrier_form_is_born':True,
+  'composition_law_is_born':True,
+  'equivalence_semantics_is_born':True,
+  'observation_semantics_is_born':True,
+  'untouched_holdout_goal_closure_required':True,
+  'non_renaming_gate_required':True,
+  'canonical_registry_mutation_allowed':False,
+  'qualification_proves_unrestricted_free_ontology_birth':False,
+  'qualification_proves_agi':False,
  }
  caps['persistent_residual_hidden_term_discovery']={
   'level':4,
@@ -281,7 +299,7 @@ def run(root=None, *, allow_blocked=False):
   'u5_status':query.get('world_data_binding_audit_2026_09_08',{}).get('u5_status'),
   'function_language_birth_enabled':True,
   'function_language_birth_component':'FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT',
-  'mathematical_invention_kernel_owner':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0',
+  'mathematical_invention_kernel_owner':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0',
   'generated_function_families':['RATIONAL','EXPONENTIAL','LOGARITHMIC','PERIODIC','PIECEWISE','KERNEL','LATENT'],
   'language_birth_triggered_by_oof_residual':True,
   'language_birth_requires_operation_signal_above_multiplicity_aware_gate':True,
@@ -548,7 +566,7 @@ def run(root=None, *, allow_blocked=False):
   'u5_status':query.get('world_data_binding_audit_2026_09_08',{}).get('u5_status'),
   'source_stitching_used_to_create_fit':query.get('world_data_binding_audit_2026_09_08',{}).get('source_stitching_used_to_create_fit'),
   'function_language_birth_component':'FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT',
-  'mathematical_invention_kernel_owner':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0',
+  'mathematical_invention_kernel_owner':'PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0',
   'function_language_birth_qualification_status':query.get('function_language_birth_qualification',{}).get('status'),
   'function_language_birth_qualification_digest':query.get('function_language_birth_qualification',{}).get('digest'),
   'function_language_birth_qualification_metrics':query.get('function_language_birth_qualification',{}).get('metrics'),

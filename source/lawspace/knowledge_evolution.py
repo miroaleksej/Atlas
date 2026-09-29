@@ -1699,6 +1699,9 @@ class UniversalProofMechanismMemoryOwner:
                 "multi_slice_campaign_must_carry_exact_frozen_continuation": True,
                 "typed_binding_gaps_may_generate_research_local_binding_objects": True,
                 "generated_binding_objects_require_independent_validation": True,
+                "meta_language_constructor_birth_requires_prior_language_stall": True,
+                "born_constructor_programs_require_untouched_holdout_gain": True,
+                "validated_meta_language_ontology_remains_research_local": True,
             },
         }
         return {**payload, "digest": digest_payload(payload)}
@@ -1731,6 +1734,9 @@ class UniversalProofMechanismMemoryOwner:
             ("PM-REPRESENTATION-CLASS-FAILURE", "REPRESENTATION_CLASS_INADEQUACY_DETECTION", "Escalate beyond axis, binding or operator refinement only after persistent residuals and multiple revisions fail to reduce the frozen goal gap materially."),
             ("PM-REPRESENTATION-LANGUAGE-BIRTH", "RESEARCH_LOCAL_REPRESENTATION_LANGUAGE_BIRTH", "Construct carrier, relations, operations, equivalence, observation map, invariants and composition rules as a content-addressed local representation class rather than selecting a named class from a catalogue."),
             ("PM-NON-RENAMING-GOAL-CLOSURE", "NON_RENAMING_HOLDOUT_GOAL_CLOSURE_GATE", "Accept a born representation class only when it is not merely a relabelling and improves frozen holdout goal closure over an axis-only ablation."),
+            ("PM-META-CONSTRUCTOR-BIRTH", "AUTONOMOUS_META_LANGUAGE_CONSTRUCTOR_PROGRAM_BIRTH", "When a validated representation language stalls, synthesize executable research-local constructor programs from field/product/canonicalize/fold/observe primitives so constructor arity and composition are outputs rather than named templates."),
+            ("PM-ONTOLOGY-HOLDOUT-GATE", "META_LANGUAGE_ONTOLOGY_HOLDOUT_VALIDATION", "Accept a born ontology object only when constructor selection is made without untouched groups and the selected constructor improves frozen holdout goal closure over the prior language."),
+            ("PM-ONTOLOGY-NONCANONICAL", "RESEARCH_LOCAL_ONTOLOGY_WITHOUT_TRUTH_TRANSFER", "A validated constructor or ontology remains research-local and non-canonical; holdout gain does not establish world novelty, theorem truth, or general intelligence."),
         ]
         out = []
         for mechanism_id, mechanism_type, description in rows:

@@ -17,6 +17,23 @@ axis-only ablation. Accepted classes remain research-local; no canonical
 registry mutation, scientific law promotion, AGI claim or world novelty claim is
 made by this mechanism.
 
+## Autonomous meta-language / ontology birth acceptance
+
+The Mathematical Invention kernel now includes
+`AUTONOMOUS-META-LANGUAGE-ONTOLOGY-BIRTH/1.0.0-COMPONENT` under
+`PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. The component is entered only after
+representation-class inadequacy is warranted and the prior representation
+language has not passed its gate. It synthesizes `BORN-C-*` constructor programs
+from the bounded primitives `FIELD`, `VARIABLE_PRODUCT`, `CANONICALIZE`,
+`GROUP_FOLD`, and `OBSERVE`; constructor arity and composition are outputs, not
+preloaded answers.
+
+Qualification requires untouched holdout gain over the prior language and a
+non-renaming gate. Accepted `BORN-O-*` ontology objects remain research-local and
+non-canonical. The mechanism does not prove unrestricted ontology birth, AGI,
+world novelty, theorem truth, scientific law status, or canonical registry
+mutation.
+
 ## Primitive-field adaptive-axis acceptance
 
 The integrated primitive-field control passes `34/34` checks with status
@@ -1105,7 +1122,7 @@ never a scientific conclusion.
 
 ## Proof-obligation discharge and theorem-closure loop (current)
 
-The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
+The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
 
 The authoritative loop is now
 
@@ -1122,7 +1139,7 @@ A fresh blind Navier–Stokes control with no external solution revealed ran two
 
 ## Semantic obligation compilation acceptance
 
-Current acceptance adds `SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT` under `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. Mathematical Invention qualification is `76/76 PASS`; Knowledge Evolution `38/38 PASS`; Autonomous Research `56/56 PASS`; Adaptive Axis `25/25 PASS`; Research Proof `10/10 PASS`; ScienceAtlas Core `10/10 PASS`; Long-Horizon `30/30 PASS`; Collective Coordination `19/19 PASS`; Developmental Open-Endedness `30/30 PASS`; Reflexive Architecture `41/41 PASS`; Universal Execution PASS. Blind Navier–Stokes semantic compilation remains non-terminal and does not claim theorem resolution.
+Current acceptance adds `SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT` under `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. Mathematical Invention qualification is `76/76 PASS`; Knowledge Evolution `38/38 PASS`; Autonomous Research `56/56 PASS`; Adaptive Axis `25/25 PASS`; Research Proof `10/10 PASS`; ScienceAtlas Core `10/10 PASS`; Long-Horizon `30/30 PASS`; Collective Coordination `19/19 PASS`; Developmental Open-Endedness `30/30 PASS`; Reflexive Architecture `41/41 PASS`; Universal Execution PASS. Blind Navier–Stokes semantic compilation remains non-terminal and does not claim theorem resolution.
 
 
 ### Final semantic-obligation compiler qualification
@@ -1134,7 +1151,7 @@ The blind Navier–Stokes semantic run remains deliberately non-terminal: 32 gen
 
 ## 15.10.3 — Semantic binding invention and validation frontier
 
-The current Mathematical Invention Kernel is `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` is embedded in the existing kernel after semantic-obligation compilation and before proof-discharge continuation. It does not select a named domain method catalogue. For every typed missing binding it constructs a research-local mathematical object from the frozen schema. Qualified object families include generated regularity/seminorm spaces, energy or norm functionals, invariant candidates, witness/obstruction families, comparison functionals, asymptotic weights, convergence structures, operator-signature families and breakdown/blow-up criteria.
+The current Mathematical Invention Kernel is `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` is embedded in the existing kernel after semantic-obligation compilation and before proof-discharge continuation. It does not select a named domain method catalogue. For every typed missing binding it constructs a research-local mathematical object from the frozen schema. Qualified object families include generated regularity/seminorm spaces, energy or norm functionals, invariant candidates, witness/obstruction families, comparison functionals, asymptotic weights, convergence structures, operator-signature families and breakdown/blow-up criteria.
 
 A generated binding object is not accepted as correct merely because it was born. Each generated object carries explicit validation obligations: provenance alignment with the frozen statement, well-typedness, and discrimination/closure evidence. Only bindings exactly recoverable from the frozen typed statement may be marked statement-grounded, and statement grounding is still not theorem proof. Unvalidated binding objects are carried into the digest-bound continuation and birth their own `BINDING_OBJECT::*` research-local axes on later shells.
 
@@ -1144,7 +1161,7 @@ The resulting loop is
 
 Blind Navier–Stokes binding-invention control, using only the frozen problem statement and no external solution, executed four search slices (eight complexity epochs), generated 64 proof-program candidates and 391 research-local axes. 60 axes were born directly from invented binding objects. Across slices 2–4, 48 provenance-binding checks and 48 binding well-typedness checks were executed and discharged structurally; discrimination/closure validity remained unresolved. The run remained non-terminal and did not claim an independent Navier–Stokes proof. This demonstrates binding-content invention and continuation, not correctness of any particular generated function space, norm, invariant or blow-up criterion.
 
-The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+The universal proof-mechanism memory now seeds 29 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
 
 
 Current regression note: after runtime convergence and cleanup the monolithic

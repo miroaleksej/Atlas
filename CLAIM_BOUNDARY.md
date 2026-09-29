@@ -722,3 +722,9 @@ wide search / sandbox
 
 `search != evidence`; `verification != promotion`; `engineering acceptance != law`;
 `human authorization != scientific evidence`; `canonical persistence != novelty`.
+
+## Граница утверждений для рождения метаязыка / онтологии
+
+Разрешено утверждать: после подтверждённого stall предыдущего representation-language Atlas может синтезировать исполнимый constructor-program из ограниченных primitives `FIELD`, `VARIABLE_PRODUCT`, `CANONICALIZE`, `GROUP_FOLD`, `OBSERVE`; arity, carrier, composition, equivalence и observation semantics фиксируются как результат поиска, а не как заранее выбранная named representation.
+
+Нельзя утверждать: что это доказывает AGI, свободное создание произвольной онтологии, мировую математическую новизну, theorem truth, причинность или новый научный закон. Принятый объект `BORN-O-*` остаётся research-local/non-canonical и может использоваться только как локальный инструмент следующего frozen validation round.

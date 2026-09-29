@@ -8205,7 +8205,7 @@ correct epistemic state is continued research.
 
 ## Proof-obligation discharge and theorem-closure loop (current)
 
-The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
+The Mathematical Invention Kernel is now `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. Open-ended candidate birth is no longer followed immediately by another expansion shell. The same kernel first compiles born proof obligations into a prioritized executable portfolio and attempts to discharge them.
 
 The authoritative loop is now
 
@@ -8286,7 +8286,7 @@ The blind Navier–Stokes semantic run remains deliberately non-terminal: 32 gen
 
 ## 15.10.3 — Semantic binding invention and validation frontier
 
-The current Mathematical Invention Kernel is `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0`. `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` is embedded in the existing kernel after semantic-obligation compilation and before proof-discharge continuation. It does not select a named domain method catalogue. For every typed missing binding it constructs a research-local mathematical object from the frozen schema. Qualified object families include generated regularity/seminorm spaces, energy or norm functionals, invariant candidates, witness/obstruction families, comparison functionals, asymptotic weights, convergence structures, operator-signature families and breakdown/blow-up criteria.
+The current Mathematical Invention Kernel is `PHI-MATHEMATICAL-INVENTION-KERNEL/1.6.0`. `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` is embedded in the existing kernel after semantic-obligation compilation and before proof-discharge continuation. It does not select a named domain method catalogue. For every typed missing binding it constructs a research-local mathematical object from the frozen schema. Qualified object families include generated regularity/seminorm spaces, energy or norm functionals, invariant candidates, witness/obstruction families, comparison functionals, asymptotic weights, convergence structures, operator-signature families and breakdown/blow-up criteria.
 
 A generated binding object is not accepted as correct merely because it was born. Each generated object carries explicit validation obligations: provenance alignment with the frozen statement, well-typedness, and discrimination/closure evidence. Only bindings exactly recoverable from the frozen typed statement may be marked statement-grounded, and statement grounding is still not theorem proof. Unvalidated binding objects are carried into the digest-bound continuation and birth their own `BINDING_OBJECT::*` research-local axes on later shells.
 
@@ -8296,7 +8296,39 @@ The resulting loop is
 
 Blind Navier–Stokes binding-invention control, using only the frozen problem statement and no external solution, executed four search slices (eight complexity epochs), generated 64 proof-program candidates and 391 research-local axes. 60 axes were born directly from invented binding objects. Across slices 2–4, 48 provenance-binding checks and 48 binding well-typedness checks were executed and discharged structurally; discrimination/closure validity remained unresolved. The run remained non-terminal and did not claim an independent Navier–Stokes proof. This demonstrates binding-content invention and continuation, not correctness of any particular generated function space, norm, invariant or blow-up criterion.
 
-The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+The universal proof-mechanism memory now seeds 29 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
+
+## 15.10.4 — Meta-language constructor birth
+
+A representation language can itself become the limiting object. After the
+representation-class failure detector warrants a persistent stall and the prior
+representation-language validation does not pass, Atlas may search executable
+constructor programs
+
+\[
+P=\operatorname{OBSERVE}\circ\operatorname{GROUP\_FOLD}\circ
+\operatorname{CANONICALIZE}\circ
+\operatorname{VARIABLE\_PRODUCT}(F_{i_1},\ldots,F_{i_k}).
+\]
+
+Here \(k\), the selected fields, carrier form, composition AST, equivalence
+semantics and observation semantics are outputs of the search. The low-level
+program primitives remain architecturally supplied; therefore this is bounded
+constructor synthesis, not unrestricted invention of arbitrary computation.
+
+Let \(A_0\) be untouched-holdout performance of the best constructor expressible
+within the prior maximum arity and \(A_1\) the performance of the selected born
+constructor. Acceptance requires
+
+\[
+\Delta C_{\mathrm{goal}}=A_1-A_0>0
+\]
+
+and a non-renaming gate showing that the selected constructor uses structure not
+available to the prior language. A validated ontology object receives a
+content-addressed `BORN-O-*` identifier and remains research-local/non-canonical.
+Holdout gain is operational evidence on the frozen task; it is not theorem truth,
+world novelty, AGI, causality, or scientific-law promotion.
 
 ## Единый research-acceleration lifecycle
 
