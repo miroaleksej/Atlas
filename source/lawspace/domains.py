@@ -65,7 +65,8 @@ def load_domain_plugin_manifests(path: str | Path | None = None) -> Dict[str, Ma
             raise ValueError(f"{domain_id}: plugin must delegate generic rules to COMMON-SCIENTIFIC-RULES/1.0.0")
         forbidden_generic_keys = {
             "generic_rules", "scientific_verification_rules", "scientific_promotion_rules",
-            "novelty_rules", "eig_rules", "evidence_rules",
+            "promotion_rules", "novelty_rules", "eig_rules", "evidence_rules",
+            "established_law", "world_trust", "world_attestation_rules",
         }
         shadowed = sorted(forbidden_generic_keys & set(doc))
         if shadowed:
@@ -86,6 +87,9 @@ def load_domain_plugin_manifests(path: str | Path | None = None) -> Dict[str, Ma
         class_name = str(owner.get("class", "")).strip()
         if bool(module_name) != bool(class_name):
             raise ValueError(f"{domain_id}: owner.module and owner.class must be declared together")
+        builtin_consolidation = doc.get("builtin_domain_consolidation", False)
+        if builtin_consolidation is not False and builtin_consolidation is not True:
+            raise ValueError(f"{domain_id}: builtin_domain_consolidation must be boolean")
         manifests[domain_id] = doc
     return manifests
 
@@ -258,6 +262,10 @@ def build_domain_registries() -> Dict[str, DomainAxisRegistry]:
         ),
     }
     for domain_id, manifest in sorted(load_domain_plugin_manifests().items()):
+        if domain_id in registries and manifest.get("builtin_domain_consolidation") is True:
+            # FINAL-008 domain consolidation manifest: validate and expose domain
+            # contracts without replacing the built-in sparse axis registry.
+            continue
         if domain_id in registries:
             raise ValueError(f"domain plugin conflicts with built-in registry {domain_id!r}")
         registries[domain_id] = _registry_from_plugin_manifest(manifest)

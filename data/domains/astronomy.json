@@ -1,0 +1,56 @@
+{
+  "schema": "phi-domain-plugin-manifest/v1",
+  "domain_id": "astronomy",
+  "domain_role": "natural_science",
+  "builtin_domain_consolidation": true,
+  "description_ru": "Консолидация наблюдательной астрономии для общего цикла Question → Hypothesis → Experiment → Evidence → Revision.",
+  "axis_schema_version": "2.8.0",
+  "common_rules_owner": "COMMON-SCIENTIFIC-RULES/1.0.0",
+  "axes": [
+    {
+      "axis_id": "celestial_coordinate_system",
+      "description_ru": "Система небесных координат наблюдения или каталога",
+      "value_kind": "TEXT",
+      "allowed_values": [],
+      "required_for": [],
+      "forbidden_for": [],
+      "provenance": "FINAL-008_DOMAIN_CONSOLIDATION"
+    },
+    {
+      "axis_id": "observational_selection",
+      "description_ru": "Явно зафиксированная функция отбора наблюдательного архива",
+      "value_kind": "TEXT",
+      "allowed_values": [],
+      "required_for": [],
+      "forbidden_for": [],
+      "provenance": "FINAL-008_DOMAIN_CONSOLIDATION"
+    }
+  ],
+  "entity_profiles": [
+    {
+      "profile_id": "catalog_source",
+      "allowed_axes": ["celestial_coordinate_system", "observational_selection"],
+      "required_axes": ["celestial_coordinate_system"],
+      "forbidden_axes": []
+    }
+  ],
+  "constraints": [],
+  "measurement_capabilities": [
+    {
+      "provider_id": "ESA_GAIA_ARCHIVE_TAP_PLUS_DR3",
+      "observable_types": ["stellar_parallax", "proper_motion", "astrometric_solution"],
+      "source_class": "OBSERVATIONAL_ARCHIVE"
+    },
+    {
+      "provider_id": "MAST_STSCI_TAP",
+      "observable_types": ["time_series_photometry", "spectral_observation", "image_cutout"],
+      "source_class": "OBSERVATIONAL_ARCHIVE"
+    },
+    {
+      "provider_id": "NASA_EXOPLANET_ARCHIVE_PS",
+      "observable_types": ["exoplanet_orbital_period", "stellar_mass"],
+      "source_class": "OBSERVATIONAL_ARCHIVE"
+    }
+  ],
+  "owner": {}
+}

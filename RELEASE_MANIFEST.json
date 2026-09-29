@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 426,
+  "controlled_file_count": 434,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "c8802082471b35f1db77a3829f548c614142c1216b7e7ae10037ba1ca409a836",
-      "size": 156268
+      "sha256": "500c9ee4252a535b64d6895ac6b10e9a1f2cbd85116477b1404a173ae526d3d6",
+      "size": 159186
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -124,12 +124,12 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "28d50b5d98da3801fe6ca14f71836f8e043c46f9ce123536ec3c27448150216b",
-      "size": 213764
+      "sha256": "fb0162b40f44841e3db9b8bc18c45132cf854b049cd0e75f6b44fb37687f74ee",
+      "size": 217031
     },
     {
       "path": "capabilities.json",
-      "sha256": "cb776c3f8876c580dd2d3e844ccd2fe7b16399b38f13570ea8a27b532b087b36",
+      "sha256": "7d5452905524018d6132c2611f133f8a3240284aa6946c7736c6c8f8fbd0c5c5",
       "size": 25310
     },
     {
@@ -154,8 +154,13 @@
     },
     {
       "path": "data/domains/README.md",
-      "sha256": "eb6a8b60d6bbb465a7e103e7fff04d51361018f3ef13ee483cce1b70dd94ae38",
-      "size": 1285
+      "sha256": "98f3b2ea206f50961fbd2893c112861ec73e60989aa9e5891ddf33316de45d71",
+      "size": 1926
+    },
+    {
+      "path": "data/domains/astronomy.json",
+      "sha256": "35faafba5eb06ffa57d0ccb6c4e2e4482820e933043b308dcd1added597f0b74",
+      "size": 2048
     },
     {
       "path": "data/domains/domain_manifest.template.json.txt",
@@ -163,9 +168,24 @@
       "size": 666
     },
     {
+      "path": "data/domains/materials_science.json",
+      "sha256": "bb5d598517462febe9fff05f869f77c75e13f995f4df0ef7c548fa5f176c0b9f",
+      "size": 1433
+    },
+    {
+      "path": "data/domains/mechanics.json",
+      "sha256": "f5348befab8b98e8aa8ed844e10514dd3db3b8b5c94cd8d9f39cd9a4162fd26b",
+      "size": 1606
+    },
+    {
       "path": "data/domains/pharmaceutical.json",
       "sha256": "68a47484422e30a77c47e24ab1282aa8738a42773a86eb25817d69f5b11db4aa",
       "size": 21311
+    },
+    {
+      "path": "data/domains/physics.json",
+      "sha256": "ce5fb3018e3697f058c9d3d1b60fc3521b40880103fb24f4eb9fdaf55843dacd",
+      "size": 1582
     },
     {
       "path": "data/external/SCIENTIFIC_DATA_CONTRACTS.json",
@@ -403,6 +423,11 @@
       "size": 1253
     },
     {
+      "path": "data/source_providers/providers.json",
+      "sha256": "bd907f0ddf2ff32ce17df2c0d83954c1a41a88a188660c26511f15d0da8c21ce",
+      "size": 5216
+    },
+    {
       "path": "data/source_snapshots/README.md",
       "sha256": "363bec1b9ca31cd5a8b8679cfcf9e96631f55cfe1382df7231e13e99127668a0",
       "size": 223
@@ -471,6 +496,11 @@
       "path": "data/trust/scientific_verifier_public_keys.json",
       "sha256": "aea3d2fe7a13a4a8c388244f3cf8088b3d6bb22241898a722ef763f3743424fc",
       "size": 691
+    },
+    {
+      "path": "data/world_trust/attestors.json",
+      "sha256": "e79974bb5593fc35b84280d969b5f4fe190fd5a13ea14d8018d340ad0ed67480",
+      "size": 714
     },
     {
       "path": "docs/ARCHITECTURE_DECISION_JOURNAL.md",
@@ -1609,8 +1639,8 @@
     },
     {
       "path": "source/lawspace/api.py",
-      "sha256": "f3dd11f5c124ecbf535e15cfe00ae652783a2aaa647623096e745c45bd3c6782",
-      "size": 147285
+      "sha256": "2a5cf4655a6f97e313584353c1e103b1fec6a4d9ada26cd582aafdd23718c37e",
+      "size": 148400
     },
     {
       "path": "source/lawspace/atomic_dirac_evaluator.py",
@@ -1699,13 +1729,13 @@
     },
     {
       "path": "source/lawspace/domain_plugins.py",
-      "sha256": "1f50f115a0568d9782850b021f2d6aa5f8b5546bd63752ff61ef6744b335afdb",
-      "size": 3358
+      "sha256": "7153491688562fc1ed4a336ba1074bff1d55aba090748fd113e2e3dca756f548",
+      "size": 3560
     },
     {
       "path": "source/lawspace/domains.py",
-      "sha256": "902e753a3382f2d62b789f7b7873e818dbb16b155056d1ef631172b80f097585",
-      "size": 33521
+      "sha256": "5ddef83e8267455302f409235cea5d88823ff89158bb21b4f59be813bc40c64c",
+      "size": 34141
     },
     {
       "path": "source/lawspace/eda_chip_design.py",
@@ -1931,6 +1961,11 @@
       "path": "source/lawspace/scientific_verification.py",
       "sha256": "670660024536f5b98d1a7723e187c81bd47f380c07de6111c1294933093bda51",
       "size": 50904
+    },
+    {
+      "path": "source/lawspace/source_capabilities.py",
+      "sha256": "c6162e6dd3657b590063b58116a294945e8009aa73bd99d311338b8d141d68f9",
+      "size": 9280
     },
     {
       "path": "source/lawspace/superk_atmospheric_likelihood.py",
@@ -2191,12 +2226,17 @@
       "path": "tests/test_universal_scientific_portfolio.py",
       "sha256": "e762b0d46e20f7b9924e60ff5e1853003b5f11a79a9ae8908b7dd1267b9ff655",
       "size": 6301
+    },
+    {
+      "path": "tests/test_world_expansion_domain_consolidation.py",
+      "sha256": "a5524b277b41ecad53ac7242479268365ec139b6de9753d369dec7a862a9187d",
+      "size": 5500
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "06df241aa19496bf6425908873754e2aafad2757e3ab3e782ef14ee671d2c55b",
+  "current_state_qualification_digest": "d64f2bd1ae55127ef26b1a81efcb758cfe8dee428767f9e83a800d642aff6e0d",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "6d36187aef56bc8949cde22bb71eef6f9706cd46ab93bbeaa095d09479f17be0",
+  "digest": "c89795791c622ab4951efee98359ee43ccdbcfda60a883f5fce55bcd1b19900b",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

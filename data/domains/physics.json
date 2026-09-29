@@ -1,0 +1,46 @@
+{
+  "schema": "phi-domain-plugin-manifest/v1",
+  "domain_id": "physics",
+  "domain_role": "natural_science",
+  "builtin_domain_consolidation": true,
+  "description_ru": "Консолидация physics, particle и nuclear маршрутов без копирования правил продвижения.",
+  "axis_schema_version": "2.8.0",
+  "common_rules_owner": "COMMON-SCIENTIFIC-RULES/1.0.0",
+  "axes": [
+    {
+      "axis_id": "interaction_sector",
+      "description_ru": "Сектор взаимодействия для particle/nuclear постановок",
+      "value_kind": "TEXT",
+      "allowed_values": [],
+      "required_for": [],
+      "forbidden_for": [],
+      "provenance": "FINAL-008_DOMAIN_CONSOLIDATION"
+    },
+    {
+      "axis_id": "data_regime",
+      "description_ru": "Тип данных и режим их применимости для физического исследования",
+      "value_kind": "TEXT",
+      "allowed_values": [],
+      "required_for": [],
+      "forbidden_for": [],
+      "provenance": "FINAL-008_DOMAIN_CONSOLIDATION"
+    }
+  ],
+  "entity_profiles": [
+    {
+      "profile_id": "particle_physics_observation",
+      "allowed_axes": ["interaction_sector", "data_regime"],
+      "required_axes": ["interaction_sector"],
+      "forbidden_axes": []
+    },
+    {
+      "profile_id": "nuclear_observation",
+      "allowed_axes": ["interaction_sector", "data_regime"],
+      "required_axes": ["data_regime"],
+      "forbidden_axes": []
+    }
+  ],
+  "constraints": [],
+  "measurement_capabilities": [],
+  "owner": {}
+}

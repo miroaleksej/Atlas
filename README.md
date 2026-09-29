@@ -76,6 +76,35 @@ SOURCE_CAPABILITY
 
 Общий evaluator исполняет только frozen prediction forms и не имеет интерфейса refit на свежем holdout. JHTDB остаётся domain adapter/regression case. Несовместимый legacy numerical chart блокируется на preflight до получения target evidence. `make universal-experiment` квалифицирует механизм исполнения, но не устанавливает новый научный закон.
 
+## FINAL-008: расширение мира и консолидация доменов
+
+FINAL-008 добавляет не нового «умного владельца», а декларативный слой возможностей источников и доменных контрактов вокруг уже существующего universal execution runtime. Atlas теперь может сопоставить measurement intent с заранее объявленными providers и безопасно закрыться со статусом `NO_CAPABLE_PROVIDER`, если подходящего инструмента нет.
+
+В `data/source_providers/providers.json` зарегистрированы capability contracts для NASA Exoplanet Archive PS, ESA Gaia Archive TAP/TAP+ DR3, MAST/STScI TAP и JHTDB current local REST path. Контракт описывает не только endpoint, а домены, типы наблюдаемых, поддерживаемые оси, query schema, разрешение, доступность неопределённостей, режим аутентификации, лимиты, формат артефакта и требуемый режим WORLD attestation. Главное правило остаётся:
+
+```text
+Atlas выбирает provider из реестра, но не изобретает provider.
+```
+
+Публичный WORLD trust store находится в `data/world_trust/attestors.json`. Он намеренно не содержит private key и пока не содержит активного attestor: независимый signer должен быть развёрнут вне репозитория, повторно получить canonical artifact, сверить SHA-256 и только затем подписать evidence. Поэтому текущее состояние готово принимать WORLD signatures, но не подделывает независимое подтверждение.
+
+Домены astronomy, mechanics/turbulence, physics/particle/nuclear и materials science получили consolidation manifests в `data/domains/*.json`. Эти manifests объявляют domain axes, profiles и measurement capabilities, но не копируют scientific verification, promotion rules, `ESTABLISHED_LAW` или WORLD trust. Built-in manifests не заменяют существующие реестры осей и не меняют их counts; они делают путь `Question → Hypothesis → Experiment → Evidence → Revision` единым для разных наук.
+
+Read-only API:
+
+```text
+get_source_provider_capability_registry
+match_source_provider
+get_world_trust_registry
+plan_world_evidence_campaign
+```
+
+Проверка слоя:
+
+```bash
+pytest -q -p no:cacheprovider tests/test_world_expansion_domain_consolidation.py
+```
+
 ## Автономное рождение языка представлений
 
 Когда несколько зафиксированных попыток уточнить оси, binding-объекты или операторы оставляют устойчивый остаток и не дают заметного закрытия цели, Atlas может сформировать гипотезу `REPRESENTATION_CLASS_INADEQUACY_HYPOTHESIS`. Это не доказательство невозможности старого представления, а контролируемый сигнал: текущий язык мог быть недостаточным для структуры данных.

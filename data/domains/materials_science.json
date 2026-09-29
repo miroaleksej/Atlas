@@ -1,0 +1,40 @@
+{
+  "schema": "phi-domain-plugin-manifest/v1",
+  "domain_id": "materials_science",
+  "domain_role": "natural_science",
+  "builtin_domain_consolidation": true,
+  "description_ru": "Консолидация materials маршрутов: домен объявляет сущности и измерения, но не правила истинности.",
+  "axis_schema_version": "2.8.0",
+  "common_rules_owner": "COMMON-SCIENTIFIC-RULES/1.0.0",
+  "axes": [
+    {
+      "axis_id": "material_entity",
+      "description_ru": "Материальный объект или класс вещества",
+      "value_kind": "TEXT",
+      "allowed_values": [],
+      "required_for": [],
+      "forbidden_for": [],
+      "provenance": "FINAL-008_DOMAIN_CONSOLIDATION"
+    },
+    {
+      "axis_id": "characterization_method",
+      "description_ru": "Метод экспериментальной или архивной характеризации материала",
+      "value_kind": "TEXT",
+      "allowed_values": [],
+      "required_for": [],
+      "forbidden_for": [],
+      "provenance": "FINAL-008_DOMAIN_CONSOLIDATION"
+    }
+  ],
+  "entity_profiles": [
+    {
+      "profile_id": "materials_observation",
+      "allowed_axes": ["material_entity", "characterization_method"],
+      "required_axes": ["material_entity"],
+      "forbidden_axes": []
+    }
+  ],
+  "constraints": [],
+  "measurement_capabilities": [],
+  "owner": {}
+}

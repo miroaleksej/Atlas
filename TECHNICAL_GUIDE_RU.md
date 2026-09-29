@@ -71,6 +71,67 @@ make universal-experiment
 
 JHTDB подключён как domain adapter/regression case. Legacy child freeze с неполным numerical chart должен блокироваться на preflight до target evaluation; это корректный gap, а не повод изобретать недостающие grid parameters post hoc. PASS этого слоя квалифицирует универсальность исполнения, но не устанавливает новый закон и не аутентифицирует исторический порядок acquisition.
 
+## FINAL-008: source providers, WORLD trust и evidence campaign
+
+FINAL-008 расширяет не научный owner, а входной слой мира. Capability contracts находятся в `data/source_providers/providers.json` и проверяются модулем `source.lawspace.source_capabilities`. Каждый provider объявляет:
+
+```text
+provider_id
+source_class
+domains
+observable_types
+supported_axes
+query_schema
+spatial_temporal_resolution
+uncertainty_available
+authentication_mode
+cost_rate_limit
+artifact_format
+world_attestation_mode
+```
+
+Поддерживаемые на этом этапе реальные sources: NASA Exoplanet Archive PS, ESA Gaia TAP/TAP+ DR3, MAST/STScI TAP и JHTDB current local REST path. Это не сетевой загрузчик и не автоматическая доверенность: matching только выбирает объявленный provider или возвращает `NO_CAPABLE_PROVIDER`.
+
+Пример read-only проверки:
+
+```python
+from source.lawspace.api import LawSpaceAPI
+
+api = LawSpaceAPI(".")
+print(api.match_source_provider({
+    "domain_id": "astronomy",
+    "needed_observable": "stellar_parallax",
+    "require_uncertainty": True,
+})["selected_provider"]["provider_id"])
+```
+
+Evidence campaign планирует порядок U4→U5-заявок, где scientific value высока, а missing evidence получаемо из объявленного provider:
+
+```python
+api.plan_world_evidence_campaign([{
+    "candidate_id": "candidate-A",
+    "u_stage": "U4",
+    "scientific_value": 0.9,
+    "missing_evidence": [{
+        "domain_id": "astronomy",
+        "needed_observable": "stellar_parallax",
+        "require_uncertainty": True,
+    }],
+}])
+```
+
+План не получает данные, не мутирует реестр и не продвигает закон; он только связывает candidate → needed observable → capable provider. Если provider отсутствует, результатом является `NO_CAPABLE_PROVIDER`, а не вымышленный endpoint.
+
+Публичный trust store находится в `data/world_trust/attestors.json`. Private key должен быть создан и храниться вне Atlas. В репозитории допустимы только public key metadata, key id, role, provider scope, validity и revocation state. Текущий реестр пустой, поэтому `world_attestation_ready=false`: Atlas готов к независимому attestor, но не имитирует WORLD evidence.
+
+Built-in domain consolidation manifests лежат рядом с plugin manifests в `data/domains/`. Для astronomy, mechanics/turbulence, physics/particle/nuclear и materials science они описывают profiles и measurement capabilities, но не заменяют встроенные axis registries и не получают generic scientific rules. Запрещены `scientific_promotion_rules`, `world_trust`, `ESTABLISHED_LAW` и другие полномочия истинности.
+
+Проверка:
+
+```bash
+pytest -q -p no:cacheprovider tests/test_world_expansion_domain_consolidation.py
+```
+
 ## Родословная семейства гипотез
 
 В `AdaptiveResearchKernelOwner` семейство задаётся через `hypothesis_family`: стабильные `family_id`, `statement`, `preserved_invariants` и открытые вопросы представления. Предыдущий результат передаётся как `hypothesis_family_lineage` или внутри `previous_state`. Полный предыдущий объект, его дайджест и неизменность смысла семейства проверяются; новый ID не используется для молчаливой подмены старого семейства.

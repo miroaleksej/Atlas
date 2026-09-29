@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 426
+Controlled files: 434
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -21,8 +21,12 @@ Controlled files: 426
 - `data/cognitive_state.json`
 - `data/constants/registry.json`
 - `data/domains/README.md`
+- `data/domains/astronomy.json`
 - `data/domains/domain_manifest.template.json.txt`
+- `data/domains/materials_science.json`
+- `data/domains/mechanics.json`
 - `data/domains/pharmaceutical.json`
+- `data/domains/physics.json`
 - `data/external/SCIENTIFIC_DATA_CONTRACTS.json`
 - `data/external/aeronautics/dlr_olaf_gla_2024_digitized.json`
 - `data/external/aeronautics/dlr_olaf_public_multispeed_evidence_v6_26.json`
@@ -70,6 +74,7 @@ Controlled files: 426
 - `data/research_examples/pharma_candidate_pool_fixture_20260828.json`
 - `data/research_examples/tlr7_ad_context_evidence.json`
 - `data/runtime/EXECUTION_POLICY_CURRENT.json`
+- `data/source_providers/providers.json`
 - `data/source_snapshots/README.md`
 - `data/source_snapshots/aero_gust_residual_prior_art_v6_24.json`
 - `data/source_snapshots/aeronautics_primary_law_corpus_v6_15.json`
@@ -84,6 +89,7 @@ Controlled files: 426
 - `data/source_snapshots/si_codata_core.json`
 - `data/targets/large_qubit_realistic_emulator.json`
 - `data/trust/scientific_verifier_public_keys.json`
+- `data/world_trust/attestors.json`
 - `docs/ARCHITECTURE_DECISION_JOURNAL.md`
 - `docs/NEUTRINO_CURRENT_STATE.md`
 - `docs/PHI_RQG_MONOGRAPH_CURRENT_v3_6.docx`
@@ -376,6 +382,7 @@ Controlled files: 426
 - `source/lawspace/scientific_promotion.py`
 - `source/lawspace/scientific_rules.py`
 - `source/lawspace/scientific_verification.py`
+- `source/lawspace/source_capabilities.py`
 - `source/lawspace/superk_atmospheric_likelihood.py`
 - `source/lawspace/superk_solar_likelihood.py`
 - `source/lawspace/t2k_published_likelihood.py`
@@ -428,3 +435,4 @@ Controlled files: 426
 - `tests/test_unified_current.py`
 - `tests/test_universal_experiment_execution.py`
 - `tests/test_universal_scientific_portfolio.py`
+- `tests/test_world_expansion_domain_consolidation.py`

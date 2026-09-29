@@ -1,0 +1,18 @@
+{
+  "schema": "phi-world-trust-public-registry/v1",
+  "owner_id": "ATLAS-WORLD-TRUST-PUBLIC-REGISTRY/1.0.0",
+  "release_stage": "FINAL-008_WORLD_EXPANSION_DOMAIN_CONSOLIDATION",
+  "private_key_policy": {
+    "private_key_stored_in_atlas_repository": false,
+    "private_key_material_allowed_in_this_file": false,
+    "external_signer_required": true,
+    "signature_before_sha256_redownload_check_allowed": false
+  },
+  "attestors": [],
+  "empty_registry_semantics": {
+    "world_attestation_ready": false,
+    "trusted_world_evidence_count": 0,
+    "scientific_promotion_from_world_store_allowed": false,
+    "next_step": "register external WORLD attestor public key after signer is deployed outside Atlas"
+  }
+}

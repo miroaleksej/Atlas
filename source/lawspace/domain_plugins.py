@@ -30,9 +30,11 @@ class ScienceDomainPluginRegistry:
             rows.append({
                 "domain_id": domain_id,
                 "domain_role": doc.get("domain_role"),
+                "builtin_domain_consolidation": bool(doc.get("builtin_domain_consolidation", False)),
                 "axis_count": None if registry is None else registry.axis_count,
                 "owner": dict(doc.get("owner", {}) or {}),
                 "common_rules_owner": doc.get("common_rules_owner"),
+                "measurement_capability_count": len(doc.get("measurement_capabilities", ()) or ()),
             })
         return rows
 

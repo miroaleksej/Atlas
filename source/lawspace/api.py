@@ -26,6 +26,10 @@ class LawSpaceAPI:
     READ_TOOLS = READ_TOOLS + ("freeze_experiment_execution",)
     MUTATION_TOOLS = MUTATION_TOOLS + ("execute_frozen_experiment",)
     READ_TOOLS = READ_TOOLS + (
+        "get_source_provider_capability_registry", "match_source_provider",
+        "get_world_trust_registry", "plan_world_evidence_campaign",
+    )
+    READ_TOOLS = READ_TOOLS + (
         "get_phi_formal_mathematical_verification_contract", "compile_phi_semantic_proof_obligation", "synthesize_phi_semantic_bindings",
         "diagnose_phi_representation_class_failure", "birth_phi_representation_language", "birth_phi_meta_language_ontology",
         "decompose_phi_proof", "verify_phi_proof",
@@ -1203,6 +1207,24 @@ class LawSpaceAPI:
     def get_domain_plugin_contract(self, domain_id: str) -> Mapping[str, Any]:
         from .domain_plugins import ScienceDomainPluginRegistry
         return ScienceDomainPluginRegistry().get_domain_contract(domain_id)
+
+    def get_source_provider_capability_registry(self) -> Mapping[str, Any]:
+        from .source_capabilities import load_provider_capability_registry
+        return load_provider_capability_registry(self.runtime.root)
+
+    def match_source_provider(self, intent: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .source_capabilities import match_source_provider
+        return match_source_provider(intent, self.runtime.root)
+
+    def get_world_trust_registry(self) -> Mapping[str, Any]:
+        from .source_capabilities import load_world_trust_registry
+        return load_world_trust_registry(self.runtime.root)
+
+    def plan_world_evidence_campaign(
+        self, candidates: Sequence[Mapping[str, Any]], *, max_items: int = 10
+    ) -> Mapping[str, Any]:
+        from .source_capabilities import plan_world_evidence_campaign
+        return plan_world_evidence_campaign(candidates, self.runtime.root, max_items=max_items)
 
 
     def get_black_hole_lab_contract(self) -> Mapping[str, Any]:

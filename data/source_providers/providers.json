@@ -1,0 +1,144 @@
+{
+  "schema": "phi-source-provider-capability-registry/v1",
+  "owner_id": "ATLAS-SOURCE-PROVIDER-CAPABILITY-REGISTRY/1.0.0",
+  "release_stage": "FINAL-008_WORLD_EXPANSION_DOMAIN_CONSOLIDATION",
+  "selection_policy": {
+    "atlas_selects_provider": true,
+    "atlas_invents_provider": false,
+    "no_match_status": "NO_CAPABLE_PROVIDER",
+    "endpoint_guessing_allowed": false,
+    "provider_contract_required_before_typed_request": true
+  },
+  "providers": [
+    {
+      "provider_id": "NASA_EXOPLANET_ARCHIVE_PS",
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "domains": ["astronomy"],
+      "observable_types": [
+        "exoplanet_orbital_period",
+        "exoplanet_semimajor_axis",
+        "stellar_mass",
+        "stellar_radius",
+        "stellar_effective_temperature"
+      ],
+      "supported_axes": [
+        "time_system",
+        "observational_selection",
+        "source_morphology",
+        "gravitational_regime"
+      ],
+      "query_schema": {
+        "interface": "TAP/ADQL or archived CSV snapshot",
+        "requires_prefiltered_default_solution_for_world_confirmation": true,
+        "forbidden_shortcut": "PSCompPars composite replay cannot be promoted as fresh independent WORLD evidence"
+      },
+      "spatial_temporal_resolution": {
+        "spatial": "catalog object row",
+        "temporal": "published solution epoch/reference dependent"
+      },
+      "uncertainty_available": true,
+      "authentication_mode": "PUBLIC_ARCHIVE",
+      "cost_rate_limit": "provider policy dependent; offline snapshots are regression only",
+      "artifact_format": ["csv", "votable", "tap-result"],
+      "world_attestation_mode": "INDEPENDENT_REDOWNLOAD_AND_SHA256_REQUIRED"
+    },
+    {
+      "provider_id": "ESA_GAIA_ARCHIVE_TAP_PLUS_DR3",
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "domains": ["astronomy"],
+      "observable_types": [
+        "stellar_parallax",
+        "proper_motion",
+        "astrometric_solution",
+        "photometric_band_flux",
+        "radial_velocity"
+      ],
+      "supported_axes": [
+        "celestial_coordinate_system",
+        "epoch",
+        "time_system",
+        "angular_resolution",
+        "observational_selection"
+      ],
+      "query_schema": {
+        "interface": "TAP/TAP+ ADQL",
+        "canonical_request_fields": ["adql", "row_limit", "data_release", "selection_predicate"],
+        "current_declared_release": "DR3"
+      },
+      "spatial_temporal_resolution": {
+        "spatial": "catalog astrometric source",
+        "temporal": "Gaia data-release epoch model"
+      },
+      "uncertainty_available": true,
+      "authentication_mode": "PUBLIC_OR_ACCOUNT_FOR_ASYNC",
+      "cost_rate_limit": "TAP service quota and async-job policy",
+      "artifact_format": ["votable", "fits", "csv"],
+      "world_attestation_mode": "INDEPENDENT_TAP_REQUERY_AND_SHA256_REQUIRED"
+    },
+    {
+      "provider_id": "MAST_STSCI_TAP",
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "domains": ["astronomy"],
+      "observable_types": [
+        "time_series_photometry",
+        "spectral_observation",
+        "image_cutout",
+        "catalog_crossmatch",
+        "instrument_metadata"
+      ],
+      "supported_axes": [
+        "spectral_band",
+        "angular_resolution",
+        "survey_geometry",
+        "instrumental_response",
+        "observational_selection"
+      ],
+      "query_schema": {
+        "interface": "TAP ADQL sync/async",
+        "canonical_request_fields": ["adql", "service", "row_limit", "observation_collection"]
+      },
+      "spatial_temporal_resolution": {
+        "spatial": "instrument/catalog dependent",
+        "temporal": "exposure/campaign dependent"
+      },
+      "uncertainty_available": true,
+      "authentication_mode": "PUBLIC_OR_ACCOUNT_FOR_RESTRICTED_PRODUCTS",
+      "cost_rate_limit": "MAST service policy",
+      "artifact_format": ["votable", "fits", "csv", "json"],
+      "world_attestation_mode": "INDEPENDENT_TAP_REQUERY_AND_SHA256_REQUIRED"
+    },
+    {
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "domains": ["mechanics", "physics"],
+      "observable_types": [
+        "turbulent_velocity_field",
+        "pressure_field",
+        "velocity_gradient",
+        "dns_cutout",
+        "subgrid_scale_closure_target"
+      ],
+      "supported_axes": [
+        "flow_regime",
+        "turbulence_regime",
+        "dimensionless_regime",
+        "data_regime",
+        "falsification_metric"
+      ],
+      "query_schema": {
+        "interface": "JHTDB local REST cutout API",
+        "legacy_http_soap_redirect_sensitive": true,
+        "canonical_request_fields": ["dataset", "time_index", "x_range", "y_range", "z_range", "fields", "stride"]
+      },
+      "spatial_temporal_resolution": {
+        "spatial": "dataset grid dependent",
+        "temporal": "dataset snapshot/timepoint dependent"
+      },
+      "uncertainty_available": false,
+      "authentication_mode": "PUBLIC_TEST_TOKEN_OR_USER_TOKEN",
+      "cost_rate_limit": "sequential low-volume requests for public testing token",
+      "artifact_format": ["json", "npz"],
+      "world_attestation_mode": "INDEPENDENT_REDOWNLOAD_AND_SHA256_REQUIRED"
+    }
+  ]
+}
