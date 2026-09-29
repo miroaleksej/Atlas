@@ -1548,11 +1548,11 @@ Blind Navier–Stokes binding-invention control, using only the frozen problem s
 
 The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
 
-## Research-acceleration closure contract (FINAL-004)
+## Research-acceleration lifecycle contract
 
 `ScientificResearchCycleOwner` является единственным orchestration owner для
 перехода research -> U5 -> discriminating measurement request -> replay ->
-scientific promotion qualification. FINAL-004 не создаёт второго solver/runtime.
+scientific promotion qualification. Этот lifecycle не создаёт второго solver/runtime.
 
 Обязательные инварианты:
 

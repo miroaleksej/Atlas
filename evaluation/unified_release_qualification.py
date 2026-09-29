@@ -195,7 +195,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'function_language_birth_dynamic_null_replay': fl_checks.get('dynamic_language_birth_is_inside_permutation_null') is True,
       'research_triage_qualification_current': research_triage_qualification.get('all_pass') is True and research_triage_qualification.get('passed')==research_triage_qualification.get('total')==8,
       'research_acceleration_qualification_current': research_acceleration_qualification.get('status')=='PASS' and research_acceleration_qualification.get('passed')==research_acceleration_qualification.get('total') and all(raq_checks.values()),
-      'research_acceleration_orchestration_is_inside_scientific_research_cycle': raq_checks.get('scientific_research_cycle_owns_final004_progression') is True and raq_checks.get('autonomous_cycle_stops_before_human_or_canonical_mutation') is True,
+      'research_acceleration_orchestration_is_inside_scientific_research_cycle': raq_checks.get('scientific_research_cycle_owns_acceleration_progression') is True and raq_checks.get('autonomous_cycle_stops_before_human_or_canonical_mutation') is True,
       'research_acceleration_policy_v5_integrity_current': raq_checks.get('persisted_policy_v5_integrity_valid') is True,
       'research_triage_is_not_second_promotion_owner': triage_contract.get('authoritative_scientific_promotion_owner')=='SCIENTIFIC-PROMOTION-CORE' and triage_contract.get('manual_override_can_pass_u_gate') is False,
       'dynamic_confidence_tiers_are_fail_closed': rtq_checks.get('STRICT_TIER') is True and rtq_checks.get('EMPIRICAL_TIER') is True and rtq_checks.get('EXPLORATORY_BY_SMALL_N') is True and rtq_checks.get('EXPLORATORY_BY_NOISE') is True,

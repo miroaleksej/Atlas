@@ -150,7 +150,7 @@ def run(root=None, *, allow_blocked=False):
   'expert_weight_learning_scope':'SANDBOX_RANKING_ONLY',
  }
  caps['research_acceleration']={
-  'patch_id':'ATLAS-RESEARCH-RUNTIME-FINAL-004',
+  'capability_id':'RESEARCH-ACCELERATION-LIFECYCLE',
   'orchestration_owner':q.get('research_acceleration',{}).get('orchestration_owner'),
   'qualification_status':q.get('research_acceleration',{}).get('status'),
   'qualification_digest':q.get('research_acceleration',{}).get('digest'),
@@ -448,7 +448,7 @@ def run(root=None, *, allow_blocked=False):
  man['release_candidate_sealed']=qualification_passed
  man['collective_coordination']=q.get('ai_runtime',{}).get('collective_coordination_qualification',{})
  man['research_acceleration']={
-  'patch_id':'ATLAS-RESEARCH-RUNTIME-FINAL-004',
+  'capability_id':'RESEARCH-ACCELERATION-LIFECYCLE',
   'qualification':q.get('research_acceleration',{}),
   'execution_policy_schema':'phi-runtime-execution-policy/v5',
   'autonomous_cycle_owner':'SCIENTIFIC-RESEARCH-CYCLE/15.3.0',

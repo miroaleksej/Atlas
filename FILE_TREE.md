@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 437
+Controlled files: 423
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -12,7 +12,6 @@ Controlled files: 437
 - `MATHEMATICAL_BOOK.md`
 - `MATHEMATICAL_CONTRACT.md`
 - `Makefile`
-- `PATCH_MANIFEST_SCALE_INVARIANT_DNS_REPRESENTATION.json`
 - `README.md`
 - `RUN_TURBULENCE_DNS_CLOSURE_RU.md`
 - `TECHNICAL_GUIDE_RU.md`
@@ -150,7 +149,6 @@ Controlled files: 437
 - `evaluation/scientific_promotion_benchmark.py`
 - `evaluation/scientific_verification_qualification.py`
 - `evaluation/seal_audit.py`
-- `evaluation/spin2_odd_gauge_patch_qualification.py`
 - `evaluation/superk_atmospheric_likelihood_qualification.py`
 - `evaluation/superk_solar_likelihood_qualification.py`
 - `evaluation/t2k_likelihood_qualification.py`
@@ -295,24 +293,12 @@ Controlled files: 437
 - `reports/exoplanet/NASA_EXOPLANET_P3_LOCAL.json`
 - `reports/exoplanet/P2_RESULT_RU.md`
 - `reports/exoplanet/RESULT_RU.md`
-- `reports/history/version-control/ATLAS_15_23_CURRENT_QUALIFICATION_AFTER_ORCHESTRATION.json`
-- `reports/history/version-control/ATLAS_15_23_JOINT_QUALIFICATION.json`
-- `reports/history/version-control/ATLAS_15_23_REPLAY_PREPARE_AFTER_ORCHESTRATION.json`
-- `reports/history/version-control/SNAPSHOT_STATUS_15_23_0.json`
-- `reports/history/version-control/SNAPSHOT_STATUS_15_24_0.json`
 - `reports/p3/DISCRIMINATING_EXPERIMENT_QUALIFICATION.json`
 - `reports/p3/LONG_HORIZON_QUALIFICATION.json`
 - `reports/p3/REPRESENTATION_BIRTH_BENCHMARK.json`
 - `reports/p3/RESULT_RU.md`
 - `reports/p3/UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json`
 - `reports/p3/UNIVERSAL_PORTFOLIO_RESULT_RU.md`
-- `reports/runtime/FULL_REPLAY_PLAN_CURRENT.json`
-- `reports/runtime/full_replay_batches/batch_000.json`
-- `reports/runtime/full_replay_batches/batch_001.json`
-- `reports/runtime/full_replay_batches/batch_002.json`
-- `reports/runtime/full_replay_batches/batch_003.json`
-- `reports/runtime/full_replay_batches/batch_004.json`
-- `reports/runtime/full_replay_batches/batch_005.json`
 - `reports/turbulence/ATLAS_RANDOM20_REAUDIT_DISCOVERY_RECEIPT.json`
 - `reports/turbulence/ATLAS_RANDOM20_SGS_CHILD_FORMS_FREEZE.json`
 - `reports/turbulence/ATLAS_RANDOM20_SGS_HYPOTHESIS_FAMILY_FREEZE.json`
@@ -419,8 +405,7 @@ Controlled files: 437
 - `tests/test_hierarchical_confirmation_boundary.py`
 - `tests/test_hypothesis_family_lineage.py`
 - `tests/test_jhtdb_freeze_integrity.py`
-- `tests/test_jhtdb_fresh_observational_v5.py`
-- `tests/test_jhtdb_fresh_observational_v5_2.py`
+- `tests/test_jhtdb_observational_adapter.py`
 - `tests/test_observational_round_integrity.py`
 - `tests/test_permutation_eprocess_current.py`
 - `tests/test_promotion_confirmation.py`
@@ -432,6 +417,7 @@ Controlled files: 437
 - `tests/test_science_atlas_core.py`
 - `tests/test_scientific_axis_space_current.py`
 - `tests/test_scientific_exploitation_current.py`
+- `tests/test_semantic_router.py`
 - `tests/test_source_capability_observational_archive.py`
 - `tests/test_tensor_axisymmetric_current.py`
 - `tests/test_turbulence_dns_closure_experiment.py`

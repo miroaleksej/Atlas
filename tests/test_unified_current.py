@@ -17,6 +17,7 @@ from source.lawspace.mathematical_invention import MathematicalInventionKernel
 from source.lawspace.theory_compiler import TheoryCompilerKernel
 from source.lawspace.knowledge_evolution import CrossDomainBridgeOwner
 from source.lawspace.schema import digest_payload
+from evaluation.release_files import is_local_artifact
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -113,15 +114,17 @@ def test_current_api_exposes_adaptive_kernel_and_preserves_domain_surfaces():
 
 def test_current_release_tree_and_book_are_single_authority():
     assert not (ROOT/'docs/history').exists()
-    hist = ROOT/'reports/history'
-    if hist.exists():
-        assert [p.name for p in hist.iterdir()] == ['version-control']
-        assert all(p.is_file() for p in (hist/'version-control').iterdir())
+    assert not (ROOT/'reports/history').exists()
     books = list(ROOT.glob('MATHEMATICAL_BOOK*.md'))
     assert books == [ROOT/'MATHEMATICAL_BOOK.md']
     text = books[0].read_text(encoding='utf-8')
     assert 'CURRENT 0.15.29.0' in text
     assert 'Adaptive Research Kernel' in text
+
+
+def test_transactional_replay_receipts_are_not_sealed_release_files():
+    assert is_local_artifact(ROOT / 'reports/runtime/FULL_REPLAY_PLAN_CURRENT.json', ROOT)
+    assert is_local_artifact(ROOT / 'reports/runtime/full_replay_batches/batch_000.json', ROOT)
 
 
 def test_global_axis_space_is_open_ended_not_619_fundamental():

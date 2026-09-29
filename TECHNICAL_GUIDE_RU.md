@@ -98,8 +98,7 @@ JHTDB подключён как domain adapter/regression case. Legacy child fre
 python -m evaluation.run_fresh_jhtdb_sgs_observational_experiment --dry-run
 pytest -q -p no:cacheprovider tests/test_hypothesis_family_lineage.py \
   tests/test_source_capability_observational_archive.py \
-  tests/test_jhtdb_fresh_observational_v5.py \
-  tests/test_jhtdb_fresh_observational_v5_2.py \
+  tests/test_jhtdb_observational_adapter.py \
   tests/test_jhtdb_freeze_integrity.py
 ```
 
@@ -2327,9 +2326,9 @@ Blind Navier–Stokes binding-invention control, using only the frozen problem s
 
 The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
 
-## FINAL-004 — замыкание в ScientificResearchCycleOwner
+## Research acceleration в ScientificResearchCycleOwner
 
-FINAL-004 не запускается отдельным orchestrator. В `run_autonomous()` после
+Research-acceleration lifecycle не запускается отдельным orchestrator. В `run_autonomous()` после
 основного research cycle вызывается progression существующих owners. Вход в U5
 явный: `u5_candidate` должен содержать собственный
 `scientific_verification_bundle` и необходимые progression fields. Недостающие

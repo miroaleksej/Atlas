@@ -7374,21 +7374,21 @@ This removes accidental rare fragments without predeclaring the desired developm
 
 ## 3. Fail-closed primary domain grounding
 
-Let \(S_d(Q)\) be the existing semantic score of domain \(d\) for question \(Q\). A primary domain is now admitted only if
+Let \(S_d(Q)\) be the semantic score of domain \(d\) for question \(Q\). Formula variables, bare numerals, short service words and domain-generic concepts are not admissible grounding evidence. A domain is admitted only if
 
-\[S_d(Q)\ge 8\]
+\[S_d(Q)\ge 10\]
 
-and at least one specific grounding source exists:
+and the typed grounding predicate holds:
 
-\[I_d\lor A_d\lor O_d,\]
+\[I_d\;\lor\;|A_d|\ge2\;\lor\;(|A_d|\ge1\land O_d),\]
 
-where \(I_d\) is a domain-identifier match, \(A_d\) a non-generic axis match, and \(O_d\) a rare owner-only concept. Generic cross-domain/meta concepts may still contribute ranking weight after grounding but cannot create the grounding event.
+where \(I_d\) is a domain-identifier match, \(A_d\) is the set of non-generic typed-axis matches, and \(O_d\) is supporting owner-corpus evidence. Owner evidence is eligible only in the domain where its registered corpus count is maximal and can never establish a domain without a registry anchor. Generic cross-domain/meta concepts may still contribute ranking weight after grounding but cannot create the grounding event.
 
 Therefore a meta-question may validly return
 
 \[required\_domains=\varnothing\]
 
-while retaining matched architecture capabilities. This is preferred to forcing UNKNOWN into the nearest physical domain.
+with `domain_routing_status = VOID_UNGROUNDED` while retaining matched architecture capabilities. This is preferred to forcing UNKNOWN into the nearest physical domain.
 
 ## 4. Qualification boundary
 
@@ -8259,10 +8259,10 @@ Blind Navier–Stokes binding-invention control, using only the frozen problem s
 
 The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
 
-## FINAL-004 closure: единый research runtime
+## Единый research-acceleration lifecycle
 
-FINAL-004 теперь является не параллельным набором сервисов, а продолжением
-`ScientificResearchCycleOwner`.  Каноническая цепочка состояний задаётся как
+Research acceleration является не параллельным набором сервисов, а продолжением
+`ScientificResearchCycleOwner`. Каноническая цепочка состояний задаётся как
 
 \[
 S_0=\mathrm{SEARCH}\to
@@ -8301,7 +8301,7 @@ falsification или scientific-verification inputs, они не выводят�
 объявленного либо ранее замороженного experiment cost budget. Сам запрос на
 измерение не считается результатом измерения.
 
-Следовательно, после closure выполняется инвариант
+Следовательно, в текущем lifecycle выполняется инвариант
 
 \[
 \boxed{

@@ -24,6 +24,8 @@ import uuid
 from pathlib import Path
 from typing import Any, Mapping
 
+from source.lawspace.execution_policy import DEFAULT_POLICY as AUTHORIZATION_POLICY_DEFAULTS, POLICY_SCHEMA
+
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = "phi-full-current-replay/v14"
 OWNER_ID = "FULL-CURRENT-REPLAY-QUALIFICATION/0.15.29.0"
@@ -52,7 +54,8 @@ REPLAY_SURFACE_PATHS = (
 )
 
 DEFAULT_POLICY: dict[str, Any] = {
-    "schema": "phi-runtime-execution-policy/v3",
+    **AUTHORIZATION_POLICY_DEFAULTS,
+    "schema": POLICY_SCHEMA,
     "policy_id": "TRANSACTIONAL_SMALL_BATCH_FRESH_PROCESS_TEMPFILE",
     "max_parallel_surfaces": 1,
     "max_nodes_per_surface": 10,
@@ -112,6 +115,11 @@ def _validate_policy(raw: Mapping[str, Any], *, source: str) -> dict[str, Any]:
     embedded = policy.pop("digest", None)
     if embedded is not None and embedded != digest_payload(policy):
         raise ValueError(f"runtime execution policy digest mismatch: {source}")
+    if str(policy.get("schema", "")) != POLICY_SCHEMA:
+        raise ValueError(
+            f"runtime execution policy schema mismatch: expected {POLICY_SCHEMA}, "
+            f"got {policy.get('schema')!r}"
+        )
     timeout = int(policy.get("surface_timeout_seconds", 240))
     batch = int(policy.get("max_nodes_per_surface", 10))
     if timeout < 10 or timeout > 3600:

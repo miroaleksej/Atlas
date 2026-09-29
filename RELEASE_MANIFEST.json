@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 437,
+  "controlled_file_count": 423,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -79,8 +79,8 @@
     },
     {
       "path": "ACCEPTANCE_REPORT.md",
-      "sha256": "a3b9e7132a5377008990b35f9e17129c611f49baa1e0e6670f26b04a5313752c",
-      "size": 91420
+      "sha256": "ce809a4e91ca344e0e5cd8d23d0d0e44cdfdca0dbf041f63612390bb655f942b",
+      "size": 91728
     },
     {
       "path": "ATLAS_MCP_GATEWAY_RU.md",
@@ -89,8 +89,8 @@
     },
     {
       "path": "CLAIM_BOUNDARY.md",
-      "sha256": "a4166b8a139c2d23e9cd06220f689e3cdd9135953932bb10ecb027084e24ec59",
-      "size": 69019
+      "sha256": "d9b51c42038b18cbe64691e526c33cb48f9028df4e1d68c75df5984a56719ffe",
+      "size": 69007
     },
     {
       "path": "LICENSE.md",
@@ -99,13 +99,13 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "f1b1ae64bfaa5e73fc2a6679b642e7aaac1ce7ad4932644a1d9fb73b94247b51",
-      "size": 372269
+      "sha256": "03e13a2ca9c7473940b36554e1d776b938bbc5733e7063fbde3faa0fa3aa1e8a",
+      "size": 372620
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
-      "sha256": "5ef81d108404faa19e8c9adadc42829ebadd8c8d47710d78f93198c81124b919",
-      "size": 122118
+      "sha256": "a52a19d91fb139ee6aad417da93d07772196268d58b6101be843956df20496cf",
+      "size": 122117
     },
     {
       "path": "Makefile",
@@ -113,14 +113,9 @@
       "size": 6867
     },
     {
-      "path": "PATCH_MANIFEST_SCALE_INVARIANT_DNS_REPRESENTATION.json",
-      "sha256": "187678305c218b3cfca966594b3940cd7bc2aaba565ae931c04058a0d84f0a7f",
-      "size": 4535
-    },
-    {
       "path": "README.md",
-      "sha256": "2d2ba1d4f28b571fe8eda6ecc817de604c70937edba98910061f921e593a90fe",
-      "size": 151701
+      "sha256": "bba18dca557991e9939442240cee54e81ebfb159addb7e815c9bdc56ccbdfce9",
+      "size": 152305
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -129,13 +124,13 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "450a9d8dced43b226dafcc2dd528172a19dd94953d3f6af52e0d11a442ddcb2e",
-      "size": 212429
+      "sha256": "c28a4e292d122881fab9747b998388a20f0c3e31a64e88f88ff15c57582b07df",
+      "size": 212390
     },
     {
       "path": "capabilities.json",
-      "sha256": "415a07e881c728b20973ceae8cc0f2131cc6c6efb3ea126cc4751c4c8e604fbe",
-      "size": 24340
+      "sha256": "15d2ccadcb99c93ff3caadd8d46d0f5e84ce47eaae64a18e78bf4d3d7754ab00",
+      "size": 24348
     },
     {
       "path": "data/axes/canonical_dynamic_axes.json",
@@ -404,8 +399,8 @@
     },
     {
       "path": "data/runtime/EXECUTION_POLICY_CURRENT.json",
-      "sha256": "49f067cf427d060e07eb71419db58ab47f120855c4e2beb5d0a5d6e543605d8f",
-      "size": 1309
+      "sha256": "ab03c9e26aa9927c62c7857565f656591027fc6309f9cd906e4b6587b1924aef",
+      "size": 1253
     },
     {
       "path": "data/source_snapshots/README.md",
@@ -519,8 +514,8 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "b39be658da683b51b9a95fab4c24cb1cabef5b38bc8f475179328712650003df",
-      "size": 49842
+      "sha256": "a746fd54216b69052175831364ce02e9dc66302ea48191377d4d4b7ed7ade135",
+      "size": 49850
     },
     {
       "path": "evaluation/closed_loop_research_experiment.py",
@@ -589,8 +584,8 @@
     },
     {
       "path": "evaluation/full_replay_qualification.py",
-      "sha256": "ad2d88cec29e0930b73513d27b41324240788899ccc8e10815046d7514cf5a75",
-      "size": 18518
+      "sha256": "aa75eb8f16254e4eec0009511a990a763cdee5ec1d1e59f1ae57c5f28d3b8882",
+      "size": 18863
     },
     {
       "path": "evaluation/function_language_birth_qualification.py",
@@ -729,8 +724,8 @@
     },
     {
       "path": "evaluation/release_files.py",
-      "sha256": "3bb3e8c75bda7e40917d3ad3cbc704bcf492883892d65707c408a88135e79c70",
-      "size": 1318
+      "sha256": "baea909f787752762828e7f33995c6c053693bbc7c709538b12d2d164a12734d",
+      "size": 1400
     },
     {
       "path": "evaluation/representation_birth_novelty_benchmark.py",
@@ -739,8 +734,8 @@
     },
     {
       "path": "evaluation/research_acceleration_qualification.py",
-      "sha256": "88751e753d3d6c02ed08f3bac86f378f4aca05040112078f579646b4f7f6b201",
-      "size": 9923
+      "sha256": "2ab859461f125332779f39371f67837f5922671457f1e15bd8c4979e54eb7a04",
+      "size": 9946
     },
     {
       "path": "evaluation/research_proof_qualification.py",
@@ -803,11 +798,6 @@
       "size": 4400
     },
     {
-      "path": "evaluation/spin2_odd_gauge_patch_qualification.py",
-      "sha256": "4684c4c6abf74f18413d536a3bef67d366729734c47d7a221c975870cf6074a7",
-      "size": 4445
-    },
-    {
       "path": "evaluation/superk_atmospheric_likelihood_qualification.py",
       "sha256": "5df8061a2f985c8fd962f0e501771668f24ec2afddf39422ee96ae3eea8ffa36",
       "size": 1095
@@ -839,8 +829,8 @@
     },
     {
       "path": "evaluation/unified_release_qualification.py",
-      "sha256": "29dd10811064d85c594491f0cb70827cec36f53590a31a23015224d6b4aca26f",
-      "size": 43270
+      "sha256": "7e001f0fad4d391bf9e8d6dba4ba37f9a5064bc8bc5497f907a091fea1ee00aa",
+      "size": 43274
     },
     {
       "path": "evaluation/universal_experiment_qualification.py",
@@ -1528,31 +1518,6 @@
       "size": 4077
     },
     {
-      "path": "reports/history/version-control/ATLAS_15_23_CURRENT_QUALIFICATION_AFTER_ORCHESTRATION.json",
-      "sha256": "96d294caace3233ec6c45dc381855a28bc774986ba2b4d932bc2abac76dc4173",
-      "size": 154830
-    },
-    {
-      "path": "reports/history/version-control/ATLAS_15_23_JOINT_QUALIFICATION.json",
-      "sha256": "7f89ab85a5a6f8f3d8975e30a6c0e38d4394616cc9ade0c8d0dd9d992f0d3ab6",
-      "size": 143
-    },
-    {
-      "path": "reports/history/version-control/ATLAS_15_23_REPLAY_PREPARE_AFTER_ORCHESTRATION.json",
-      "sha256": "5a40127999da0645c974025e9bd4f068d026908f3fb8d5f4fbdcdec8f9140270",
-      "size": 22412
-    },
-    {
-      "path": "reports/history/version-control/SNAPSHOT_STATUS_15_23_0.json",
-      "sha256": "183c146a136bfeb542a7bdc5d58b29926d6e00d48214b1134e23dc0da618f8f9",
-      "size": 2813
-    },
-    {
-      "path": "reports/history/version-control/SNAPSHOT_STATUS_15_24_0.json",
-      "sha256": "87c263ddb806a7ef513b4f904724b8f33d0dab59d3c5308e70f13fc6b18e4d6c",
-      "size": 3106
-    },
-    {
       "path": "reports/p3/DISCRIMINATING_EXPERIMENT_QUALIFICATION.json",
       "sha256": "cf119762832abba3df06e65eb78ab8cc1d0131525e0f0a1f71be2457fab95918",
       "size": 101062
@@ -1581,41 +1546,6 @@
       "path": "reports/p3/UNIVERSAL_PORTFOLIO_RESULT_RU.md",
       "sha256": "59162f60efb58af804e59b9a1851dc4d7f9dd89a9bd72d3ef13535fbd8d32193",
       "size": 5534
-    },
-    {
-      "path": "reports/runtime/FULL_REPLAY_PLAN_CURRENT.json",
-      "sha256": "5a40127999da0645c974025e9bd4f068d026908f3fb8d5f4fbdcdec8f9140270",
-      "size": 22412
-    },
-    {
-      "path": "reports/runtime/full_replay_batches/batch_000.json",
-      "sha256": "1e77880614f3d6048fbca2fc4969bbe229e654a7ece0bfe9ae5d4b0c9a74cf72",
-      "size": 1244
-    },
-    {
-      "path": "reports/runtime/full_replay_batches/batch_001.json",
-      "sha256": "6fce97f371384e70387b68444c134cd10f496965a022ee95eea2f6f8b02f989a",
-      "size": 1262
-    },
-    {
-      "path": "reports/runtime/full_replay_batches/batch_002.json",
-      "sha256": "d18243e735d9ff5c78db9f25a2c9ad2c054aed3f96aa2e05003f108e79ee7e1f",
-      "size": 1247
-    },
-    {
-      "path": "reports/runtime/full_replay_batches/batch_003.json",
-      "sha256": "af327ef442b7ccf186309a462cb71d1d20a9a6f3439b46861c3d4a47580574ea",
-      "size": 1270
-    },
-    {
-      "path": "reports/runtime/full_replay_batches/batch_004.json",
-      "sha256": "9f1906f3efc6e7cadc2e56f10e4e7c051f01c5df8b35c44b6624eb795bf7d466",
-      "size": 1231
-    },
-    {
-      "path": "reports/runtime/full_replay_batches/batch_005.json",
-      "sha256": "52328f4340a461974e04ec9de32f6ffde7495b50b28357cb7df4180199601aa7",
-      "size": 1261
     },
     {
       "path": "reports/turbulence/ATLAS_RANDOM20_REAUDIT_DISCOVERY_RECEIPT.json",
@@ -1929,8 +1859,8 @@
     },
     {
       "path": "source/lawspace/research_cycle.py",
-      "sha256": "5cd9f01c6a4a94c0e7e66cb22b12070e1ec7b4435029ddc7eb2c2f4cda3b3182",
-      "size": 399258
+      "sha256": "8c729206704572c7905c9f36f8e5157da94706e8edcc4740433cc3d77beed065",
+      "size": 402257
     },
     {
       "path": "source/lawspace/research_progression_gates.py",
@@ -2148,14 +2078,9 @@
       "size": 4631
     },
     {
-      "path": "tests/test_jhtdb_fresh_observational_v5.py",
-      "sha256": "ecefca1ade4c017581dad223f9a82b3b6ae76a455e94ec89ed4de33203eaad81",
-      "size": 1476
-    },
-    {
-      "path": "tests/test_jhtdb_fresh_observational_v5_2.py",
-      "sha256": "2dcd0b382e515f342cd67c6d35117a0b43637a29515be97308a0ef17cca0a65b",
-      "size": 1383
+      "path": "tests/test_jhtdb_observational_adapter.py",
+      "sha256": "f82369ee8612d394f557b9448464dc3640c9928a644aa572fd5a7187826f6170",
+      "size": 3220
     },
     {
       "path": "tests/test_observational_round_integrity.py",
@@ -2179,13 +2104,13 @@
     },
     {
       "path": "tests/test_research_acceleration_end_to_end.py",
-      "sha256": "4143d554d8c52b65b941c5c2cf80a210da57805b8914451aaf94ce78bd80c410",
-      "size": 8182
+      "sha256": "02d2ed8668a2c06337f777b34da15db5ac40ce387508b0879c21d8ae4f23072c",
+      "size": 8154
     },
     {
       "path": "tests/test_research_acceleration_policy.py",
-      "sha256": "92fe5c6346b3cd30f3fdebfd30b738199518d641186acb6bdcf218f3bdef187a",
-      "size": 3039
+      "sha256": "60cdb2e45a8cc8b66a2867765b4788ae1c361ccfa307538b60a6a60178213a16",
+      "size": 3556
     },
     {
       "path": "tests/test_research_triage.py",
@@ -2213,6 +2138,11 @@
       "size": 5614
     },
     {
+      "path": "tests/test_semantic_router.py",
+      "sha256": "305f5d6aef4fbed0d80e0655162edba3f8e89674aca4fa5621a250de0931e097",
+      "size": 2134
+    },
+    {
       "path": "tests/test_source_capability_observational_archive.py",
       "sha256": "676c61f8e4fed75056408ca15399d6320acde2531af6c835c0c34ac4ec2ae416",
       "size": 5175
@@ -2234,8 +2164,8 @@
     },
     {
       "path": "tests/test_unified_current.py",
-      "sha256": "0bd677902dffc9907f0f16e9cc724329c3186a65ccd16b32377334e59dc4e714",
-      "size": 60705
+      "sha256": "fa261380319f299556b2484d8df781ffef91e645788271c17166f1dc427cbab9",
+      "size": 60866
     },
     {
       "path": "tests/test_universal_experiment_execution.py",
@@ -2249,9 +2179,9 @@
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "10a010f0e14a2755995ab72ef56022737e71ee81c874b09e085a9967b732f449",
+  "current_state_qualification_digest": "d77528cc558d8c8189dfaa8c8371896cb2216a86428ee58c77867fe168841378",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "2fdd27387e85a33f919950be49ed5059edae6338ad2b22d8741104c334332bbe",
+  "digest": "710d5b21584f0538b8bd8b8ebd463adda35710b357c736b3fd2c18867354d855",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -2374,9 +2304,9 @@
     "automatic_scientific_law_promotion": false,
     "autonomous_cycle_owner": "SCIENTIFIC-RESEARCH-CYCLE/15.3.0",
     "canonical_registry_mutated_by_autonomous_research": false,
+    "capability_id": "RESEARCH-ACCELERATION-LIFECYCLE",
     "execution_policy_schema": "phi-runtime-execution-policy/v5",
     "human_confirmation_required_before_canonical_mutation": true,
-    "patch_id": "ATLAS-RESEARCH-RUNTIME-FINAL-004",
     "qualification": {
       "automatic_scientific_law_promotion": false,
       "checks": {
@@ -2391,12 +2321,12 @@
         "human_gate_waits": true,
         "persisted_policy_v5_integrity_valid": true,
         "policy_valid": true,
-        "scientific_research_cycle_owns_final004_progression": true,
+        "scientific_research_cycle_owns_acceleration_progression": true,
         "tool_classification_preserves_truth_boundary": true,
         "u5_never_promotes": true,
         "world_missing_is_pending_not_fail": true
       },
-      "digest": "5607d4f57afe99505e5f7c7bf956f8df23c50a7bf3497362c0b2f08f9f7bf633",
+      "digest": "1dc6a81a9f74fa5c5819791e03d788a7871b5ee34cae1b164b0c5017c1d1504a",
       "human_confirmation_required_before_canonical_mutation": true,
       "orchestration_owner": "SCIENTIFIC-RESEARCH-CYCLE/15.3.0",
       "passed": 15,

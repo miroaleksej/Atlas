@@ -1,6 +1,7 @@
 from source.lawspace.execution_policy import POLICY_SCHEMA, load_execution_policy, validate_execution_policy
 from source.lawspace.research_progression_gates import ProgressionGateConfig, evaluate_progression_gates
 from source.lawspace.schema import digest_payload
+from evaluation.full_replay_qualification import DEFAULT_POLICY as FULL_REPLAY_DEFAULT_POLICY, _validate_policy
 
 
 def _policy():
@@ -79,4 +80,14 @@ def test_persisted_policy_rejects_digest_tampering(tmp_path):
         load_execution_policy(tmp_path)
         assert False, "tampered policy must fail closed"
     except PermissionError:
+        pass
+
+
+def test_full_replay_uses_current_policy_schema_and_rejects_stale_schema():
+    assert FULL_REPLAY_DEFAULT_POLICY["schema"] == POLICY_SCHEMA
+    stale = {**FULL_REPLAY_DEFAULT_POLICY, "schema": "phi-runtime-execution-policy/v3"}
+    try:
+        _validate_policy(stale, source="test-stale-policy")
+        assert False, "full replay must reject stale policy schemas"
+    except ValueError:
         pass

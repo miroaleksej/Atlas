@@ -165,10 +165,10 @@ def run_release_qualification(root: str | Path | None = None):
     )
     progression_src = inspect.getsource(ScientificResearchCycleOwner._research_acceleration_progression)
     autonomous_src = inspect.getsource(ScientificResearchCycleOwner.run_autonomous)
-    checks["scientific_research_cycle_owns_final004_progression"] = (
-        "_final004_u5().attempt_one" in progression_src
-        and "_final004_autopilot().design" in progression_src
-        and "_final004_human_gate().qualify" in progression_src
+    checks["scientific_research_cycle_owns_acceleration_progression"] = (
+        "_get_u5_scheduler().attempt_one" in progression_src
+        and "_get_experiment_autopilot().design" in progression_src
+        and "_get_promotion_authorization().qualify" in progression_src
         and ".commit(" not in progression_src
         and "research_acceleration = self._research_acceleration_progression" in autonomous_src
     )

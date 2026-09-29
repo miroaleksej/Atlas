@@ -112,14 +112,14 @@ def _passport_payload(auth, receipt):
             "scientific_promotion_receipt_hash": receipt["OUTPUT_HASH"],
             "scientific_verification_digest": receipt["scientific_verification"]["verification_digest"],
             "human_authorization_digest": auth["digest"],
-            "source_id": "FINAL004-E2E-QUALIFICATION-CONTROL",
+            "source_id": "RESEARCH-ACCELERATION-E2E-QUALIFICATION-CONTROL",
         },
         digest="",
     ).finalized()
     return dataclasses.asdict(promoted)
 
 
-def test_final004_closed_progression_to_canonical_reload_and_reseal(tmp_path):
+def test_integrated_progression_to_canonical_reload_and_reseal(tmp_path):
     # This is a controlled orchestration regression.  The verifier receipt models
     # the boundary after central cryptographic/world verification; it is not a
     # claim that this synthetic test generated real world evidence.
@@ -129,9 +129,9 @@ def test_final004_closed_progression_to_canonical_reload_and_reseal(tmp_path):
 
     owner = object.__new__(ScientificResearchCycleOwner)
     owner.runtime = type("Runtime", (), {"root": tmp_path, "catalog": type("Catalog", (), {"passports": {}})()})()
-    owner._final004_u5_scheduler = U5AttemptScheduler(verifier=verifier)
-    owner._final004_experiment_autopilot = DiscriminatingExperimentAutopilotOwner(tmp_path, kernel=FakeExperimentKernel())
-    owner._final004_promotion_authorization = HumanGatedPromotionAuthorizationOwner(promotion_core=core)
+    owner._u5_scheduler = U5AttemptScheduler(verifier=verifier)
+    owner._experiment_autopilot = DiscriminatingExperimentAutopilotOwner(tmp_path, kernel=FakeExperimentKernel())
+    owner._promotion_authorization = HumanGatedPromotionAuthorizationOwner(promotion_core=core)
 
     cycle = {"competitive_set": {"candidates": []}, "information_gain": {"experiments": []}}
     request = {
@@ -155,7 +155,7 @@ def test_final004_closed_progression_to_canonical_reload_and_reseal(tmp_path):
     assert qualified["promotion_qualification"]["mutation_performed"] is False
     assert qualified["claim_boundary"]["canonical_registry_mutated_by_autonomous_research"] is False
 
-    gate = owner._final004_promotion_authorization
+    gate = owner._promotion_authorization
     q = qualified["promotion_qualification"]
     attestation = {
         "attestor_id": "HUMAN-E2E",

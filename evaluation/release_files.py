@@ -25,10 +25,10 @@ LOCAL_FILE_NAMES = frozenset({
     "HIDDEN_TERM_RESIDUAL_DISCOVERY_PROVENANCE_SEAL_REFERENCE_PASS.json",
     "TURBULENCE_DNS_CLOSURE_CURRENT.json",
     "TURBULENCE_DNS_SCALE_INVARIANT_CURRENT.json",
-    "TURBULENCE_DNS_SCALE_INVARIANT_PATCH_QUALIFICATION.json",
     "turbulence_dns_closure_manifest.real.json",
 })
 LOCAL_SUFFIXES = frozenset({".pyc", ".pyo"})
+LOCAL_RELATIVE_PREFIXES = (("reports", "runtime"),)
 
 
 def is_local_artifact(path: Path, root: Path) -> bool:
@@ -36,6 +36,7 @@ def is_local_artifact(path: Path, root: Path) -> bool:
     relative = path.relative_to(root)
     return bool(
         any(part in LOCAL_DIRECTORY_NAMES or part.endswith(".egg-info") for part in relative.parts)
+        or any(relative.parts[:len(prefix)] == prefix for prefix in LOCAL_RELATIVE_PREFIXES)
         or relative.name in LOCAL_FILE_NAMES
         or relative.suffix in LOCAL_SUFFIXES
     )

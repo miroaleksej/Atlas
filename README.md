@@ -1218,7 +1218,7 @@ Atlas was run against its own architecture using the existing reflexive, develop
 
 1. **Reflexive-loop liveness** — collective coordination recomputed the same candidate-independent oracle for every architecture/world pair. Oracle values are now frozen once per world and reused. Selection criteria and architecture scores are unchanged.
 2. **Developmental lexical obligations** — rare API/domain fragments could become obligations merely because they occurred twice. Obligations are now derived from repeated capability features after removing API morphology, live domain identifiers and highly concentrated lexical neighbourhoods; ranking prefers features supported across multiple executable action families.
-3. **Meta/UNKNOWN semantic grounding** — generic concepts such as `representation`, `effect`, `architecture`, `memory`, `resource`, `transition` and `coordination` can rank an already grounded domain but cannot establish a physical domain by themselves. The primary domain now requires a specific identifier, specific axis anchor or rare owner-only concept.
+3. **Meta/UNKNOWN semantic grounding** — generic concepts such as `representation`, `effect`, `architecture`, `memory`, `resource`, `transition` and `coordination` can rank an already grounded domain but cannot establish a physical domain by themselves. Formula variables, numerals and short service words are removed from the scientific signal. A domain now requires its identifier, two typed axis concepts, or one typed axis plus owner-corpus support; owner prose can never select a domain by itself. If no domain passes this gate, the router returns `VOID_UNGROUNDED`.
 
 Observed qualification after the patch:
 
@@ -1229,6 +1229,13 @@ Observed qualification after the patch:
 - universal experiment execution: **PASS_UNIVERSAL_EXECUTION_QUALIFICATION**.
 
 A full reflexive cycle that previously exceeded 180 s in this environment now completed in approximately 22.6 s and reached `COMMIT_REFLEXIVE_ARCHITECTURE_TRANSITION`. This is an internal architecture qualification, not evidence of AGI, global optimality or autonomous arbitrary source rewriting.
+
+Manual CLI regression probes additionally cover the front-door routing failure
+found on 2026-09-29. An abstract continuous functional equation now selects only
+`mathematics`; a Navier–Stokes regularity question selects only `physics`; an
+enzyme-mutation question selects `biology` and `chemistry`; an untyped unknown
+process returns `VOID_UNGROUNDED`. These checks validate routing discipline, not
+the truth or solvability of the submitted scientific question.
 
 
 
@@ -1400,10 +1407,10 @@ Blind Navier–Stokes binding-invention control, using only the frozen problem s
 
 The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
 
-### FINAL-004: research acceleration замкнут в основном цикле
+### Research acceleration в основном цикле
 
-Начиная с текущего closure patch, `ScientificResearchCycleOwner` оркестрирует
-существующие FINAL-004 owners как одну цепочку: `research -> U5 -> при
+`ScientificResearchCycleOwner` оркестрирует специализированные owners как одну
+цепочку: `research -> U5 -> при
 U5_DATA_PENDING discriminating experiment -> MEASUREMENT_REQUEST -> повторный
 цикл после world evidence -> scientific promotion qualification`. При
 `LAW_CANDIDATE` автономная работа останавливается на

@@ -1067,11 +1067,22 @@ Post-refinement focused qualifications:
 - Universal Experiment Execution: **PASS**;
 - Python source syntax: **212/212 PASS**.
 
-A complete repository `pytest` rerun was started after this refinement but did
-not finish within the 260-second sandbox limit; 44 progress tests had completed
-without a reported failure when the process was terminated by the runtime limit.
-Therefore the historical **221/221** receipt above remains historical and is not
-reused as a post-refinement full-suite PASS.
+A complete repository `pytest` rerun after the refinement and semantic-router
+correction completed with bytecode and cache disabled: **258/258 PASS** in
+184.00 seconds. The same inventory was then replayed in 26 isolated fresh-process
+batches by `make full`; the aggregate status is
+`PASS_FULL_CURRENT_258_OF_258` with `historical_nodes=[]`. Runtime batch receipts
+were inspected and removed after aggregation because they are reproducible local
+diagnostics, not sealed scientific state.
+
+The front-door regression found by manual CLI audit is also closed. Abstract
+functional equations no longer route through aeronautics owner prose; short
+formula variables and service words are excluded from the scientific signal,
+owner text cannot select a domain without a typed registry anchor, and an
+ungrounded question returns `VOID_UNGROUNDED`. Four dedicated tests cover
+mathematics, Navier–Stokes, biology/chemistry and untyped VOID routing. A direct
+CLI replay of the functional-equation probe selected only `mathematics` and
+entered the open-ended mathematical frontier without claiming a solution.
 
 Scientific boundary: autonomous mathematical search is now open-ended and
 gap-driven, but no implementation can guarantee that every global question is
@@ -1125,11 +1136,15 @@ Blind Navier–Stokes binding-invention control, using only the frozen problem s
 The universal proof-mechanism memory now seeds 23 domain-neutral mechanisms. New mechanisms are `PM-BINDING-INVENTION`, `PM-BINDING-VALIDATION`, and `PM-STATEMENT-GROUNDED-BINDING`. Reuse transfers the verification mechanism only; it never transfers theorem truth.
 
 
-Current regression note: all targeted/core qualifications after binding invention passed (Mathematical Invention 76/76; Knowledge Evolution 38/38; Autonomous Research 56/56; Adaptive Axis 25/25; Research Proof 10/10; ScienceAtlas Core 10/10; Long-Horizon 30/30; Collective 19/19; Developmental 30/30; Reflexive 41/41; Universal Execution PASS; Python syntax 212/212). Two monolithic full-repository pytest attempts produced no FAIL output but exceeded wall-clock budgets (360 s after 44 tests in verbose localization; 600 s in a clean-session attempt). Therefore the current release does not claim a fresh monolithic 221/221 PASS; the previous semantic-obligation-compiler release's 221/221 result is historical evidence only.
+Current regression note: after runtime convergence and cleanup the monolithic
+repository suite passed `254/254`. The transactional fresh-process replay also
+passed `254/254` in 26 deterministic batches and reported
+`historical_nodes=[]`. Runtime replay receipts remain external generated
+artifacts and are not part of the sealed release.
 
-## FINAL-004 closure acceptance
+## Research-acceleration lifecycle acceptance
 
-Closure patch переводит FINAL-004 из набора API-доступных механизмов в единый
+Research-acceleration механизмы входят в единый
 `ScientificResearchCycleOwner` lifecycle без нового solver. Проверяемая граница:
 `U5_DATA_PENDING -> MEASUREMENT_REQUEST -> U5_PASS ->
 AWAITING_HUMAN_CONFIRMATION`; autonomous runtime не выполняет human confirmation

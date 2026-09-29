@@ -659,7 +659,7 @@ born obligation
 
 `SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT` may be described as constructing concrete research-local candidate contents for typed mathematical binding gaps. It is not permissible to claim that a generated function space is the correct function space, that a generated energy is coercive, that an invariant candidate is invariant, that a witness family contains a valid witness, or that a generated blow-up criterion is true until the corresponding validation/proof obligations have actually been discharged. Statement-grounded operator/domain/signature evidence is not a proof of the surrounding theorem.
 
-## Research acceleration and canonical promotion boundary (FINAL-004)
+## Research acceleration and canonical promotion boundary
 
 Atlas deliberately separates **search**, **verification**, **engineering use**,
 **human authorization**, and **canonical scientific-law registration**.

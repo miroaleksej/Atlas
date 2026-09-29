@@ -1264,16 +1264,19 @@ _LANGUAGE_EQUIVALENTS: Mapping[str, tuple[str, ...]] = {
     "noise": ("noise", "шум", "шумом", "шумов"),
     "neutrino": ("neutrino", "нейтрино"),
     "oscillation": ("oscillation", "oscillations", "осцилл"),
+    "periodic": ("periodic", "oscillation", "oscillations", "oscillatory", "период", "осцилл"),
     "mass": ("mass", "масса", "масс"),
     "spectrum": ("spectrum", "spectral", "спектр"),
     "biology": ("biology", "biological", "биолог"),
-    "genotype": ("genotype", "генотип"),
+    "genotype": ("genotype", "mutation", "mutant", "genetic", "генотип", "мутац", "генетич"),
+    "biological": ("biological", "biology", "enzyme", "enzymatic", "биолог", "энзим", "фермент"),
     "regulatory": ("regulatory", "регулятор"),
     "homeostasis": ("homeostasis", "гомеост"),
     "cell": ("cell", "cellular", "клет"),
     "dynamics": ("dynamics", "dynamic", "динамик"),
     "chemistry": ("chemistry", "chemical", "хими", "химичес"),
     "reaction": ("reaction", "reactive", "реакц"),
+    "temperature": ("temperature", "temperatures", "thermal", "температур", "теплов"),
     "transport": ("transport", "перенос", "транспорт"),
     "field": ("field", "полев", "поле", "поля"),
     "mechanics": ("mechanics", "mechanical", "механик"),
@@ -1286,7 +1289,12 @@ _LANGUAGE_EQUIVALENTS: Mapping[str, tuple[str, ...]] = {
     "kernel": ("kernel", "ядр"),
     "constraint": ("constraint", "ограничен"),
     "coupling": ("coupling", "связност", "сопряж", "связанн"),
-    "continuum": ("continuum", "контину"),
+    "continuum": ("continuum", "fluid", "incompressible", "navier", "stokes", "контину", "жидкост", "несжимаем"),
+    "equation": ("equation", "equations", "pde", "ode", "navier", "stokes", "уравнен"),
+    "regularity": ("regularity", "regular", "smooth", "singular", "singularity", "singularities", "регуляр", "гладк", "сингуляр"),
+    "topological": ("topological", "topology", "continuous", "continuity", "тополог", "непрерыв"),
+    "existence": ("existence", "exist", "exists", "существ"),
+    "proof": ("proof", "prove", "refute", "доказ", "опроверг"),
     "thermo": ("thermo", "термодин"),
 }
 
@@ -1297,7 +1305,8 @@ _LANGUAGE_EQUIVALENTS: Mapping[str, tuple[str, ...]] = {
 _SEMANTIC_GENERIC_CONCEPTS = {
     "state", "model", "information", "interaction", "communication", "measurement",
     "experiment", "uncertainty", "stability", "local", "multiple", "loss", "preserve",
-    "control", "mass", "spectrum", "dynamics", "noise",
+    "control", "mass", "spectrum", "dynamics", "noise", "energy", "rate",
+    "function", "process", "solution", "domain", "global", "time",
     # Cross-domain/meta-scientific concepts cannot by themselves establish a
     # physical domain.  They remain useful for ranking after a domain-specific
     # anchor exists.
@@ -1305,6 +1314,17 @@ _SEMANTIC_GENERIC_CONCEPTS = {
     "memory", "resource", "open", "developmental", "transition", "coordination",
 }
 _SEMANTIC_META_CONCEPTS = {"research", "find", "explain"}
+_SEMANTIC_STOP_CONCEPTS = {
+    # Syntactic words, formula variables and bare numerals are not scientific
+    # evidence.  Keeping them in the owner corpus previously let identifiers
+    # such as ``a`` and ``r`` route an abstract mathematical question to
+    # aeronautics.
+    "a", "an", "and", "are", "as", "at", "be", "by", "do", "does", "every",
+    "for", "from", "has", "have", "in", "into", "is", "it", "known", "no",
+    "not", "of", "on", "or", "such", "than", "that", "the", "their", "there",
+    "these", "this", "to", "two", "under", "unknown", "was", "were", "whether",
+    "which", "with", "without", "x", "y", "z", "f", "g", "r",
+}
 
 
 def _identifier_terms(value: str) -> set[str]:
@@ -1331,13 +1351,19 @@ def _semantic_signal_concepts(text: str) -> set[str]:
     unrelated owner prose while retaining deterministic cross-language routing.
     """
     raw = _tokens(str(text).replace("_", " "))
-    signal = {token for token in raw if token.isascii()}
+    signal = {
+        token for token in raw
+        if token.isascii()
+        and len(token) >= 3
+        and not token.isdigit()
+        and token not in _SEMANTIC_STOP_CONCEPTS
+    }
     for canonical, aliases in _LANGUAGE_EQUIVALENTS.items():
         for token in raw:
             if any(token == alias or (len(alias) >= 4 and token.startswith(alias)) for alias in aliases):
                 signal.add(canonical)
                 break
-    return signal - _SEMANTIC_META_CONCEPTS
+    return signal - _SEMANTIC_META_CONCEPTS - _SEMANTIC_STOP_CONCEPTS
 
 
 class SemanticTypedQuestionOwner:
@@ -1421,6 +1447,10 @@ class SemanticTypedQuestionOwner:
             ))
             for concept in _semantic_signal_concepts(owner_text):
                 owner_concept_counts[passport.domain_id][concept] = owner_concept_counts[passport.domain_id].get(concept, 0) + 1
+        owner_concept_max_count: dict[str, int] = {}
+        for counts in owner_concept_counts.values():
+            for concept, count in counts.items():
+                owner_concept_max_count[concept] = max(owner_concept_max_count.get(concept, 0), count)
 
         axis_rows: list[dict[str, Any]] = []
         domain_rows: list[dict[str, Any]] = []
@@ -1464,15 +1494,38 @@ class SemanticTypedQuestionOwner:
                 count = int(owner_concept_counts[domain_id].get(concept, 0))
                 if count <= 0:
                     continue
+                # Imported provenance may mention another science.  Owner text
+                # supports only the domain in which that concept has its
+                # strongest registered corpus grounding; incidental mentions
+                # in other domains do not become routing evidence.
+                if count < int(owner_concept_max_count.get(concept, 0)):
+                    continue
                 owner_only_matches[concept] = count
-                best_by_concept[concept] = max(best_by_concept.get(concept, 0.0), float(min(8, 2 + 2 * count)))
+
+            # Owner prose is supporting evidence only.  It may refine a domain
+            # already anchored in the typed registry, but must never assign a
+            # domain by itself.
+            registry_anchor = bool(identifier_matches or axis_specific_matches)
+            if registry_anchor:
+                for concept, count in owner_only_matches.items():
+                    best_by_concept[concept] = max(
+                        best_by_concept.get(concept, 0.0),
+                        float(min(8, 2 + 2 * count)),
+                    )
 
             specific_evidence = {c for c in best_by_concept if c not in _SEMANTIC_GENERIC_CONCEPTS}
             domain_score = sum(best_by_concept.values()) + 2.0 * len(specific_evidence)
-            if domain_score > 0.0:
+            grounded_for_selection = bool(
+                identifier_matches
+                or len(axis_specific_matches) >= 2
+                or (axis_specific_matches and owner_only_matches)
+            )
+            if domain_score > 0.0 or owner_only_matches:
                 domain_rows.append({
                     "domain_id": domain_id,
                     "score": domain_score,
+                    "grounded_for_selection": grounded_for_selection,
+                    "registry_anchor_present": registry_anchor,
                     "identifier_matches": sorted(identifier_matches),
                     "axis_matches": sorted(axis_all_matches),
                     "specific_axis_matches": sorted(axis_specific_matches),
@@ -1488,24 +1541,13 @@ class SemanticTypedQuestionOwner:
         domain_rows.sort(key=lambda row: (-float(row["score"]), str(row["domain_id"])))
         axis_rows.sort(key=lambda row: (-float(row["score"]), str(row["qualified_axis_id"])))
         selected_domains: list[str] = []
-        max_domain = float(domain_rows[0]["score"]) if domain_rows else 0.0
-        primary_specific = bool(
-            domain_rows
-            and (
-                domain_rows[0]["identifier_matches"]
-                or domain_rows[0]["specific_axis_matches"]
-                or domain_rows[0]["owner_only_matches"]
-            )
-        )
-        if domain_rows and max_domain >= 8.0 and primary_specific:
-            selected_domains.append(str(domain_rows[0]["domain_id"]))
-            for row in domain_rows[1:]:
+        grounded_rows = [row for row in domain_rows if row["grounded_for_selection"]]
+        max_domain = float(grounded_rows[0]["score"]) if grounded_rows else 0.0
+        if grounded_rows and max_domain >= 10.0:
+            selected_domains.append(str(grounded_rows[0]["domain_id"]))
+            for row in grounded_rows[1:]:
                 score = float(row["score"])
                 if score < max(10.0, 0.55 * max_domain):
-                    continue
-                has_identifier_anchor = bool(row["identifier_matches"])
-                specific_axis_count = len(row["specific_axis_matches"])
-                if not (has_identifier_anchor or specific_axis_count >= 2):
                     continue
                 selected_domains.append(str(row["domain_id"]))
                 if len(selected_domains) >= 3:
@@ -1549,7 +1591,8 @@ class SemanticTypedQuestionOwner:
         elif "explain" in concepts:
             intent = "EXPLANATORY_RESEARCH"
 
-        status = "SEMANTIC_TYPED_IR_READY" if selected_domains or capability_rows else "SEMANTIC_TYPED_IR_LOW_CONFIDENCE"
+        routing_status = "GROUNDED" if selected_domains else "VOID_UNGROUNDED"
+        status = "SEMANTIC_TYPED_IR_READY" if selected_domains else "SEMANTIC_TYPED_IR_VOID"
         payload = {
             "schema": "phi-semantic-typed-question/v2",
             "owner": self.owner_id,
@@ -1562,6 +1605,7 @@ class SemanticTypedQuestionOwner:
             "constraint_concepts": sorted(constraint_concepts),
             "constraints": constraints,
             "required_domains": selected_domains,
+            "domain_routing_status": routing_status,
             "target_axis_ids": [str(row["qualified_axis_id"]) for row in selected_axes],
             "required_observables": sorted({str(row["axis_id"]) for row in selected_axes}),
             "axis_relevance": selected_axes,
@@ -1570,12 +1614,13 @@ class SemanticTypedQuestionOwner:
             "capability_gap_detected": any(bool(row["gap_or_open"]) for row in capability_rows),
             "status": status,
             "grounding_contract": {
-                "primary_domain_min_score": 8.0,
+                "primary_domain_min_score": 10.0,
                 "secondary_domain_relative_score": 0.55,
-                "secondary_requires_identifier_or_two_specific_axes": True,
-                "owner_text_can_ground_only_concepts_absent_from_registry_identifiers": True,
+                "domain_requires_identifier_two_specific_axes_or_axis_plus_owner_support": True,
+                "owner_text_can_select_domain_without_registry_anchor": False,
+                "owner_text_can_support_registry_grounded_domain": True,
                 "generic_concept_volume_cannot_create_domain_answer": True,
-                "primary_domain_requires_specific_anchor": True,
+                "void_returned_when_no_domain_is_grounded": True,
             },
             "claim_boundary": {
                 "typed_intent_is_scientific_answer": False,
@@ -4775,33 +4820,33 @@ class ScientificResearchCycleOwner:
         self.eig = DomainNeutralInformationGainOwner()
         self.novelty = PostDerivationNoveltyOwner()
         self.question_interpreter = SemanticTypedQuestionOwner(runtime)
-        # FINAL-004 owners are lazy: the authoritative research owner owns the
-        # progression, while the specialized owners retain verification/design/
-        # authorization authority.  No second research orchestrator is created.
-        self._final004_u5_scheduler = None
-        self._final004_experiment_autopilot = None
-        self._final004_promotion_authorization = None
+        # Lifecycle collaborators are lazy: this research owner orchestrates the
+        # progression, while specialized owners retain verification, experiment
+        # design, and authorization authority. No second orchestrator exists.
+        self._u5_scheduler = None
+        self._experiment_autopilot = None
+        self._promotion_authorization = None
 
-    def _final004_u5(self):
-        if self._final004_u5_scheduler is None:
+    def _get_u5_scheduler(self):
+        if self._u5_scheduler is None:
             from .u5_attempt_scheduler import U5AttemptScheduler
-            self._final004_u5_scheduler = U5AttemptScheduler(self.runtime.root)
-        return self._final004_u5_scheduler
+            self._u5_scheduler = U5AttemptScheduler(self.runtime.root)
+        return self._u5_scheduler
 
-    def _final004_autopilot(self):
-        if self._final004_experiment_autopilot is None:
+    def _get_experiment_autopilot(self):
+        if self._experiment_autopilot is None:
             from .discriminating_experiment_autopilot import DiscriminatingExperimentAutopilotOwner
-            self._final004_experiment_autopilot = DiscriminatingExperimentAutopilotOwner(self.runtime.root)
-        return self._final004_experiment_autopilot
+            self._experiment_autopilot = DiscriminatingExperimentAutopilotOwner(self.runtime.root)
+        return self._experiment_autopilot
 
-    def _final004_human_gate(self):
-        if self._final004_promotion_authorization is None:
+    def _get_promotion_authorization(self):
+        if self._promotion_authorization is None:
             from .promotion_confirmation import HumanGatedPromotionAuthorizationOwner
-            self._final004_promotion_authorization = HumanGatedPromotionAuthorizationOwner(
+            self._promotion_authorization = HumanGatedPromotionAuthorizationOwner(
                 self.runtime.root,
                 trusted_evidence_owners=tuple(self.runtime.catalog.passports),
             )
-        return self._final004_promotion_authorization
+        return self._promotion_authorization
 
     @staticmethod
     def _research_acceleration_not_entered() -> Mapping[str, Any]:
@@ -4828,7 +4873,7 @@ class ScientificResearchCycleOwner:
         cycle: Mapping[str, Any],
         request: Mapping[str, Any],
     ) -> Mapping[str, Any]:
-        """Close FINAL-004 inside the existing research owner without auto-promotion.
+        """Advance the integrated research lifecycle without auto-promotion.
 
         Entry is explicit through ``u5_candidate``.  The candidate must carry its
         own scientific-verification bundle and progression evidence; this method
@@ -4844,7 +4889,7 @@ class ScientificResearchCycleOwner:
             return self._research_acceleration_not_entered()
 
         candidate = dict(raw_candidate)
-        u5_receipt = dict(self._final004_u5().attempt_one(candidate))
+        u5_receipt = dict(self._get_u5_scheduler().attempt_one(candidate))
         u5_result = dict(u5_receipt.get("result") or {})
         outcome = str(u5_result.get("outcome", "U5_BLOCKED"))
         status = outcome
@@ -4887,7 +4932,7 @@ class ScientificResearchCycleOwner:
                 status = "U5_DATA_PENDING_EXPERIMENT_BUDGET_REQUIRED"
                 next_required = "DECLARE_OR_REUSE_FROZEN_EXPERIMENT_COST_BUDGET"
             else:
-                experiment_design = dict(self._final004_autopilot().design(
+                experiment_design = dict(self._get_experiment_autopilot().design(
                     question=question,
                     candidate_theory=dict(candidate_theory),
                     baseline_theories=tuple(baselines),
@@ -4905,7 +4950,7 @@ class ScientificResearchCycleOwner:
                 status = "U5_PASS_PROMOTION_REQUEST_REQUIRED"
                 next_required = "PROVIDE_CURRENT_SCIENTIFIC_PROMOTION_REQUEST"
             else:
-                promotion_qualification = dict(self._final004_human_gate().qualify(dict(promotion_request)))
+                promotion_qualification = dict(self._get_promotion_authorization().qualify(dict(promotion_request)))
                 if promotion_qualification.get("status") == "AWAITING_HUMAN_CONFIRMATION":
                     status = "AWAITING_HUMAN_CONFIRMATION"
                     next_required = "OBTAIN_DIGEST_BOUND_HUMAN_CANONICAL_MUTATION_AUTHORIZATION"
@@ -4969,7 +5014,7 @@ class ScientificResearchCycleOwner:
             "atlas_native_claim_authority": CLAIM_FIREWALL_OWNER,
             "assistant_can_stamp_atlas_native": False,
             "scientific_promotion_owner": "SCIENTIFIC-PROMOTION-CORE/9.2.0",
-            "research_acceleration_orchestration": "FINAL-004_CLOSED_IN_THIS_OWNER",
+            "research_acceleration_orchestration": "INTEGRATED_IN_THIS_OWNER",
             "u5_owner": "U5-ATTEMPT-SCHEDULER",
             "discriminating_experiment_owner": "DISCRIMINATING-EXPERIMENT-AUTOPILOT",
             "human_authorization_boundary": "AWAITING_HUMAN_CONFIRMATION_NO_AUTOMATIC_CANONICAL_MUTATION",
