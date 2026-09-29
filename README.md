@@ -76,6 +76,14 @@ SOURCE_CAPABILITY
 
 Общий evaluator исполняет только frozen prediction forms и не имеет интерфейса refit на свежем holdout. JHTDB остаётся domain adapter/regression case. Несовместимый legacy numerical chart блокируется на preflight до получения target evidence. `make universal-experiment` квалифицирует механизм исполнения, но не устанавливает новый научный закон.
 
+## Автономное рождение языка представлений
+
+Когда несколько зафиксированных попыток уточнить оси, binding-объекты или операторы оставляют устойчивый остаток и не дают заметного закрытия цели, Atlas может сформировать гипотезу `REPRESENTATION_CLASS_INADEQUACY_HYPOTHESIS`. Это не доказательство невозможности старого представления, а контролируемый сигнал: текущий язык мог быть недостаточным для структуры данных.
+
+После такого сигнала `PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0` строит research-local representation class из минимального языка: carrier, relations, operations, equivalence, observation map, candidate invariants и composition rules. Идентификатор класса content-addressed и имеет вид `BORN-R-*`; класс не выбирается из каталога известных графов, топологий или тензоров и не попадает в canonical registry.
+
+Рождение принимается только после проверки, что это не простое переименование: born representation должен улучшить frozen holdout goal closure относительно axis-only ablation. Даже принятый класс остаётся локальным исследовательским инструментом: `RESEARCH_LOCAL_REPRESENTATION_CLASS != CANONICAL_AXIS != SCIENTIFIC_LAW`.
+
 ## Level 3: рождение языка операторов
 
 В текущем Atlas Mathematical Invention Kernel способен сформировать локальный операторный язык до поиска структуры PDE. На вход поступают sampled primitive fields, размерности и слабые meta-primitives — локальный перенос, линейная суперпозиция, поточечное умножение, обращение и типизация размерностей. Готовый каталог `D`, `D²`, именованных членов PDE или само уравнение в blind request не передаются.
@@ -119,6 +127,7 @@ Atlas отвечает на более узкий и строгий вопрос
 - [Границы научных утверждений](#границы-научных-утверждений)
 - [Архитектура](#архитектура)
 - [Универсальный слой выполнения экспериментов](#универсальный-слой-выполнения-экспериментов)
+- [Автономное рождение языка представлений](#автономное-рождение-языка-представлений)
 - [Authorship, Intellectual Property and Collaboration Boundary](#authorship-intellectual-property-and-collaboration-boundary)
 - [Licensing](#licensing)
 - [Математическая основа](#математическая-основа)

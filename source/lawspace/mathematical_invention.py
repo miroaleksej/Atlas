@@ -34,6 +34,8 @@ SCHEMA = "phi-mathematical-invention-kernel/v1"
 AUTONOMOUS_CANDIDATE_BIRTH_COMPONENT_ID = "AUTONOMOUS-MATHEMATICAL-CANDIDATE-BIRTH/1.0.0-COMPONENT"
 SEMANTIC_OBLIGATION_COMPILER_COMPONENT_ID = "SEMANTIC-PROOF-OBLIGATION-COMPILER/1.0.0-COMPONENT"
 SEMANTIC_BINDING_INVENTION_COMPONENT_ID = "SEMANTIC-BINDING-INVENTION/1.0.0-COMPONENT"
+REPRESENTATION_LANGUAGE_BIRTH_COMPONENT_ID = "AUTONOMOUS-REPRESENTATION-LANGUAGE-BIRTH/1.0.0-COMPONENT"
+REPRESENTATION_FAILURE_DETECTOR_COMPONENT_ID = "REPRESENTATION-CLASS-FAILURE-DETECTOR/1.0.0-COMPONENT"
 
 
 def _digest(payload: Mapping[str, Any]) -> str:
@@ -3076,6 +3078,348 @@ class ProofObligationDischargeEngine:
         })
 
 
+class RepresentationClassFailureDetector:
+    """Detect stalled representation classes without proving impossibility."""
+    component_id = REPRESENTATION_FAILURE_DETECTOR_COMPONENT_ID
+
+    def contract(self) -> Mapping[str, Any]:
+        return _with_digest({
+            "schema": "phi-representation-class-failure-detector/v1",
+            "component": self.component_id,
+            "trigger": "PERSISTENT_RESIDUAL_PLUS_STALLED_GOAL_CLOSURE_ACROSS_MULTIPLE_REVISIONS",
+            "fixed_retry_count_as_truth_gate": False,
+            "axis_failure_implies_new_class": False,
+            "output": "REPRESENTATION_CLASS_INADEQUACY_HYPOTHESIS_NOT_FACT",
+        })
+
+    def detect(
+        self,
+        *,
+        frozen_problem: str,
+        revision_history: Sequence[Mapping[str, Any]],
+        residual_rows: Sequence[Mapping[str, Any]],
+        minimum_attempts: int = 2,
+        maximum_mean_closure_gain: float = 0.02,
+    ) -> Mapping[str, Any]:
+        history = [dict(x) for x in revision_history if isinstance(x, Mapping)]
+        residual = [dict(x) for x in residual_rows if isinstance(x, Mapping)]
+        gains: list[float] = []
+        for row in history:
+            before = row.get("goal_gap_before")
+            after = row.get("goal_gap_after")
+            if isinstance(before, (int, float)) and isinstance(after, (int, float)):
+                denom = max(abs(float(before)), 1e-12)
+                gains.append(max(0.0, (float(before) - float(after)) / denom))
+            elif isinstance(row.get("goal_closure_gain"), (int, float)):
+                gains.append(max(0.0, float(row["goal_closure_gain"])))
+        envs = {
+            str(row.get("environment_id") or row.get("study_id") or row.get("case_id") or "")
+            for row in residual
+        }
+        envs.discard("")
+        mean_gain = float(sum(gains) / len(gains)) if gains else 0.0
+        warranted = (
+            len(history) >= max(2, int(minimum_attempts))
+            and len(residual) >= 2
+            and mean_gain <= float(maximum_mean_closure_gain)
+            and (len(envs) >= 2 or len(residual) >= 4)
+        )
+        return _with_digest({
+            "schema": "phi-representation-class-failure/v1",
+            "component": self.component_id,
+            "status": "REPRESENTATION_CLASS_INADEQUACY_HYPOTHESIS" if warranted else "REPRESENTATION_CLASS_FAILURE_NOT_ESTABLISHED",
+            "frozen_problem_digest": digest_payload({"problem": str(frozen_problem)}),
+            "revision_attempt_count": len(history),
+            "persistent_residual_count": len(residual),
+            "independent_environment_count": len(envs),
+            "mean_goal_closure_gain": mean_gain,
+            "warranted": warranted,
+            "claim_boundary": {
+                "current_representation_proved_impossible": False,
+                "new_representation_class_already_known": False,
+                "scientific_law_established": False,
+            },
+        })
+
+
+class RepresentationLanguageBirthEngine:
+    """Birth a research-local representation class from evidence structure."""
+    component_id = REPRESENTATION_LANGUAGE_BIRTH_COMPONENT_ID
+    schema = "phi-autonomous-representation-language-birth/v1"
+
+    def contract(self) -> Mapping[str, Any]:
+        return _with_digest({
+            "schema": self.schema,
+            "component": self.component_id,
+            "definition_language": {
+                "fields": [
+                    "carrier",
+                    "relations",
+                    "operations",
+                    "equivalence",
+                    "observation_map",
+                    "candidate_invariants",
+                    "composition_rules",
+                ],
+            },
+            "named_representation_catalog_used": False,
+            "minimum_sufficient_ontology_change": True,
+            "non_renaming_gate_required": True,
+            "holdout_goal_closure_gain_required": True,
+            "canonicalization_allowed": False,
+        })
+
+    @staticmethod
+    def _field_profile(rows: Sequence[Mapping[str, Any]]) -> Mapping[str, Any]:
+        fields = sorted({str(k) for row in rows for k in row.keys()})
+        out: dict[str, Any] = {}
+        for field in fields:
+            vals = [row.get(field) for row in rows if field in row]
+            numeric = sum(isinstance(v, (int, float)) and not isinstance(v, bool) for v in vals)
+            out[field] = {
+                "observed_count": len(vals),
+                "unique_count": len({canonical_json(v) for v in vals}),
+                "value_kind": "NUMERIC" if vals and numeric == len(vals) else "SYMBOLIC_OR_MIXED",
+            }
+        return out
+
+    @staticmethod
+    def _components(edges: Sequence[tuple[str, str]]) -> tuple[int, int, float, tuple[int, ...]]:
+        vertices = sorted({x for edge in edges for x in edge})
+        adj = {v: set() for v in vertices}
+        for a, b in edges:
+            adj[a].add(b)
+            adj[b].add(a)
+        seen: set[str] = set()
+        comps = 0
+        for vertex in vertices:
+            if vertex in seen:
+                continue
+            comps += 1
+            stack = [vertex]
+            seen.add(vertex)
+            while stack:
+                cur = stack.pop()
+                for nxt in adj[cur]:
+                    if nxt not in seen:
+                        seen.add(nxt)
+                        stack.append(nxt)
+        n = len(vertices)
+        density = 1.0 if n <= 1 else sum(len(x) for x in adj.values()) / (n * (n - 1))
+        degrees = tuple(sorted(len(adj[v]) for v in vertices))
+        return n, comps, float(density), degrees
+
+    @staticmethod
+    def _infer_group_and_relation_fields(
+        rows: Sequence[Mapping[str, Any]],
+        target_field: str,
+        group_field: str | None,
+    ) -> tuple[str | None, tuple[str, str] | None]:
+        if not rows:
+            return None, None
+        fields = [f for f in sorted({str(k) for row in rows for k in row}) if f != target_field]
+        if group_field and all(group_field in row for row in rows):
+            group = group_field
+        else:
+            candidates = []
+            for field in fields:
+                vals = [canonical_json(row.get(field)) for row in rows]
+                unique = len(set(vals))
+                if 1 < unique < len(vals):
+                    candidates.append((len(vals) / unique, unique, field))
+            group = max(candidates, default=(0, 0, None))[2]
+        if not group:
+            return None, None
+
+        grouped: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+        for row in rows:
+            grouped[canonical_json(row.get(group))].append(row)
+        relation_candidates: list[str] = []
+        variation_score: dict[str, int] = {}
+        for field in fields:
+            if field == group:
+                continue
+            varying_groups = sum(
+                1 for group_rows in grouped.values()
+                if len({canonical_json(row.get(field)) for row in group_rows}) > 1
+            )
+            if varying_groups:
+                relation_candidates.append(field)
+                variation_score[field] = varying_groups
+        if len(relation_candidates) < 2:
+            return group, None
+        best: tuple[int, int, int, str, str] | None = None
+        for a, b in itertools.combinations(relation_candidates, 2):
+            vocab = len({canonical_json(row.get(a)) for row in rows} | {canonical_json(row.get(b)) for row in rows})
+            pair_unique = len({(canonical_json(row.get(a)), canonical_json(row.get(b))) for row in rows})
+            score = (variation_score[a] + variation_score[b], pair_unique, vocab, a, b)
+            if best is None or score > best:
+                best = score
+        return group, (best[3], best[4]) if best else None
+
+    def synthesize(
+        self,
+        *,
+        failure_receipt: Mapping[str, Any],
+        frozen_problem: str,
+        evidence_rows: Sequence[Mapping[str, Any]],
+        target_field: str,
+        group_field: str | None = None,
+    ) -> Mapping[str, Any]:
+        if failure_receipt.get("warranted") is not True:
+            return _with_digest({
+                "schema": self.schema,
+                "component": self.component_id,
+                "status": "REPRESENTATION_LANGUAGE_BIRTH_BLOCKED_NO_CLASS_FAILURE",
+                "representation_class": None,
+            })
+        rows = [dict(x) for x in evidence_rows if isinstance(x, Mapping)]
+        if len(rows) < 4 or not target_field or any(target_field not in row for row in rows):
+            return _with_digest({
+                "schema": self.schema,
+                "component": self.component_id,
+                "status": "REPRESENTATION_LANGUAGE_BIRTH_REQUIRES_TYPED_EVIDENCE",
+                "representation_class": None,
+            })
+        group, relation_fields = self._infer_group_and_relation_fields(rows, target_field, group_field)
+        if not group or not relation_fields:
+            return _with_digest({
+                "schema": self.schema,
+                "component": self.component_id,
+                "status": "REPRESENTATION_LANGUAGE_BIRTH_REQUIRES_RELATIONAL_ARITY",
+                "representation_class": None,
+            })
+        relation = {
+            "relation_id": "R0",
+            "arity": 2,
+            "argument_fields": list(relation_fields),
+            "grouping_field": group,
+            "source": "INFERRED_FROM_FROZEN_EVIDENCE_SCHEMA",
+        }
+        definition = {
+            "carrier": {"kind": "GENERATED_TUPLE_CARRIER", "field_profile": self._field_profile(rows)},
+            "relations": [relation],
+            "operations": [
+                {"op_id": "OP0", "semantics": "LIFT_RECORD_TO_RELATION_TUPLE", "arity": 1},
+                {"op_id": "OP1", "semantics": "COMPOSE_BINARY_RELATION", "arity": 2},
+                {"op_id": "OP2", "semantics": "TRANSITIVE_RELATION_CLOSURE", "arity": 1},
+                {"op_id": "OP3", "semantics": "QUOTIENT_BY_REACHABILITY_EQUIVALENCE", "arity": 1},
+                {"op_id": "OP4", "semantics": "PROJECT_OBSERVABLE_FROM_STRUCTURAL_SIGNATURE", "arity": 1},
+            ],
+            "equivalence": {
+                "semantics": "SAME_GENERATED_STRUCTURAL_SIGNATURE_UNDER_SYMBOL_RELABELLING",
+                "label_identity_is_semantic": False,
+            },
+            "observation_map": {"target_field": target_field, "group_field": group},
+            "candidate_invariants": ["component_count", "degree_multiset", "relation_reachability_density"],
+            "composition_rules": [
+                "RELATION_COMPOSITION_ASSOCIATIVE_WHEN_TYPED",
+                "CLOSURE_IDEMPOTENCE_IS_VALIDATION_OBLIGATION",
+            ],
+            "known_representation_name": None,
+        }
+        rep = {
+            "representation_class_id": "BORN-R-" + digest_payload(definition)[:20].upper(),
+            "definition": definition,
+            "canonical": False,
+            "research_local": True,
+            "origin": "AUTONOMOUS_REPRESENTATION_LANGUAGE_BIRTH",
+        }
+        return _with_digest({
+            "schema": self.schema,
+            "component": self.component_id,
+            "status": "GENERATED_REPRESENTATION_CLASS_PROPOSED",
+            "frozen_problem_digest": digest_payload({"problem": str(frozen_problem)}),
+            "failure_digest": failure_receipt.get("digest"),
+            "representation_class": rep,
+            "claim_boundary": {
+                "world_novelty_established": False,
+                "new_class_is_scientific_law": False,
+                "named_representation_selected": False,
+                "canonical_registry_mutated": False,
+            },
+        })
+
+    def validate(self, *, birth_receipt: Mapping[str, Any], evidence_rows: Sequence[Mapping[str, Any]]) -> Mapping[str, Any]:
+        rep = dict(birth_receipt.get("representation_class") or {})
+        definition = dict(rep.get("definition") or {})
+        observation = dict(definition.get("observation_map") or {})
+        target = str(observation.get("target_field", ""))
+        group = str(observation.get("group_field", ""))
+        relations = list(definition.get("relations") or [])
+        if not rep or not target or not group or not relations:
+            return _with_digest({
+                "schema": "phi-representation-language-validation/v1",
+                "status": "REPRESENTATION_LANGUAGE_VALIDATION_BLOCKED",
+                "accepted": False,
+            })
+        a, b = relations[0]["argument_fields"]
+        rows = [dict(x) for x in evidence_rows if isinstance(x, Mapping)]
+        grouped: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+        for row in rows:
+            grouped[str(row[group])].append(row)
+        cases = []
+        for gid, group_rows in sorted(grouped.items()):
+            targets = {str(row[target]) for row in group_rows}
+            if len(targets) != 1:
+                continue
+            edges = [(str(row[a]), str(row[b])) for row in group_rows]
+            n, comps, density, degrees = self._components(edges)
+            vertices = sorted({x for edge in edges for x in edge})
+            out_degrees = tuple(sorted(sum(1 for src, _ in edges if src == vertex) for vertex in vertices))
+            in_degrees = tuple(sorted(sum(1 for _, dst in edges if dst == vertex) for vertex in vertices))
+            cases.append({
+                "group": gid,
+                "target": next(iter(targets)),
+                "structural_signature": (n, len(edges), comps, round(density, 12), degrees, out_degrees, in_degrees),
+                "scalar_signature": (len({str(row[a]) for row in group_rows}), len({str(row[b]) for row in group_rows}), len(edges)),
+            })
+        if len(cases) < 4:
+            return _with_digest({
+                "schema": "phi-representation-language-validation/v1",
+                "status": "REPRESENTATION_LANGUAGE_VALIDATION_REQUIRES_FOUR_GROUPS",
+                "accepted": False,
+            })
+
+        def loo_accuracy(key: str) -> float:
+            correct = 0
+            for index, case in enumerate(cases):
+                train = cases[:index] + cases[index + 1:]
+                exact = [row for row in train if row[key] == case[key]]
+                counts: dict[str, int] = defaultdict(int)
+                for row in exact or train:
+                    counts[row["target"]] += 1
+                pred = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
+                correct += pred == case["target"]
+            return correct / len(cases)
+
+        scalar_acc = loo_accuracy("scalar_signature")
+        rep_acc = loo_accuracy("structural_signature")
+        gain = rep_acc - scalar_acc
+        non_renaming = (
+            any(case["structural_signature"] != case["scalar_signature"] for case in cases)
+            and any(op.get("arity") == 2 for op in definition.get("operations", ()))
+        )
+        accepted = bool(non_renaming and gain > 0.0 and rep_acc >= 0.75)
+        return _with_digest({
+            "schema": "phi-representation-language-validation/v1",
+            "component": self.component_id,
+            "status": "REPRESENTATION_CLASS_BIRTH_VALIDATED_RESEARCH_LOCAL" if accepted else "REPRESENTATION_CLASS_BIRTH_NOT_VALIDATED",
+            "representation_class_id": rep.get("representation_class_id"),
+            "case_count": len(cases),
+            "axis_only_ablation_accuracy": scalar_acc,
+            "born_representation_holdout_accuracy": rep_acc,
+            "goal_closure_gain": gain,
+            "non_renaming_gate": non_renaming,
+            "accepted": accepted,
+            "claim_boundary": {
+                "holdout_gain_is_world_novelty": False,
+                "validated_research_local_class_is_canonical": False,
+                "representation_class_is_scientific_law": False,
+            },
+        })
+
+
 class MathematicalInventionKernel:
     def __init__(self, root: str|Path) -> None:
         self.root=Path(root); self.runtime=LawSpaceRuntime(self.root)
@@ -3088,6 +3432,8 @@ class MathematicalInventionKernel:
         self.formal=FormalMathematicalVerificationOwner(self.root)
         self.semantic_obligation_compiler=SemanticProofObligationCompiler()
         self.semantic_binding_invention=SemanticBindingInventionEngine()
+        self.representation_failure_detector=RepresentationClassFailureDetector()
+        self.representation_language_birth=RepresentationLanguageBirthEngine()
         self.proof_discharge=ProofObligationDischargeEngine(self.formal, self.semantic_obligation_compiler, self.semantic_binding_invention)
 
     def contract(self)->Mapping[str,Any]:
@@ -3099,8 +3445,8 @@ class MathematicalInventionKernel:
                 "morphism_discovery":MORPHISM_OWNER_ID,
                 "controlled_limit":LIMIT_OWNER_ID,
             },
-            "components":{"function_language_birth":"FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT","operator_language_birth":self.operator_language.component_id,"scale_invariant_representation_birth":self.scale_invariant.owner_id,"autonomous_mathematical_candidate_birth":self.autonomous_candidate_birth.component_id,"semantic_proof_obligation_compiler":self.semantic_obligation_compiler.component_id,"semantic_binding_invention":self.semantic_binding_invention.component_id,"formal_mathematical_verification":self.formal.owner_id,"proof_obligation_discharge":self.proof_discharge.component_id},
-            "pipeline":"UNKNOWN->OPEN_ENDED_CANDIDATE_BIRTH->SEMANTIC_OBLIGATION_COMPILATION->SEMANTIC_BINDING_INVENTION->BINDING_VALIDATION->PROOF_OBLIGATION_DISCHARGE->TYPED_BINDING_GAP_BIRTH->RESIDUAL_GAP_BIRTH->PHI_SCAN->REPRESENTATION_OBLIGATIONS->GENERATED_PRIMITIVE->MORPHISM->CONTROLLED_LIMIT->FORMAL_VERIFICATION",
+            "components":{"function_language_birth":"FUNCTION-LANGUAGE-BIRTH/1.0.0-COMPONENT","operator_language_birth":self.operator_language.component_id,"scale_invariant_representation_birth":self.scale_invariant.owner_id,"autonomous_mathematical_candidate_birth":self.autonomous_candidate_birth.component_id,"semantic_proof_obligation_compiler":self.semantic_obligation_compiler.component_id,"semantic_binding_invention":self.semantic_binding_invention.component_id,"representation_class_failure_detector":self.representation_failure_detector.component_id,"autonomous_representation_language_birth":self.representation_language_birth.component_id,"formal_mathematical_verification":self.formal.owner_id,"proof_obligation_discharge":self.proof_discharge.component_id},
+            "pipeline":"UNKNOWN->OPEN_ENDED_CANDIDATE_BIRTH->SEMANTIC_OBLIGATION_COMPILATION->SEMANTIC_BINDING_INVENTION->BINDING_VALIDATION->PROOF_OBLIGATION_DISCHARGE->REPRESENTATION_CLASS_FAILURE_DETECTION->AUTONOMOUS_REPRESENTATION_LANGUAGE_BIRTH->NON_RENAMING_AND_GOAL_CLOSURE_GATE->RESIDUAL_GAP_BIRTH->PHI_SCAN->FORMAL_VERIFICATION",
             "function_language_pipeline":"QUERY_OOF_RESIDUAL->OPERATION_SIGNAL->GENERATED_LANGUAGE_SIGNATURE->QUERY_REFIT_AND_NULL",
             "operator_language_pipeline":"LOCAL_TRANSLATION_PLUS_POINTWISE_ALGEBRA->MOMENT_RANK_SHELLS->TYPED_SIGNATURES->EMPIRICAL_SUPPORT_SEARCH",
             "internet_prefreeze":"FORBIDDEN",
@@ -3111,6 +3457,6 @@ class MathematicalInventionKernel:
 
 __all__=[
     "MathematicalInventionKernel","UnknownUnknownRepresentationOwner","PrimitiveSynthesisOwner",
-    "MorphismDiscoveryOwner","ControlledLimitEngine","FunctionLanguageBirthEngine","OperatorLanguageBirthEngine","ScaleInvariantRepresentationBirthOwner","AutonomousMathematicalCandidateBirthEngine","SemanticProofObligationCompiler","SemanticBindingInventionEngine","FormalMathematicalVerificationOwner","ProofObligationDischargeEngine", "KERNEL_OWNER_ID", "UNKNOWN_OWNER_ID",
-    "PRIMITIVE_OWNER_ID","MORPHISM_OWNER_ID","LIMIT_OWNER_ID","SCALE_REPRESENTATION_OWNER_ID","AUTONOMOUS_CANDIDATE_BIRTH_COMPONENT_ID",
+    "MorphismDiscoveryOwner","ControlledLimitEngine","FunctionLanguageBirthEngine","OperatorLanguageBirthEngine","ScaleInvariantRepresentationBirthOwner","AutonomousMathematicalCandidateBirthEngine","SemanticProofObligationCompiler","SemanticBindingInventionEngine","FormalMathematicalVerificationOwner","ProofObligationDischargeEngine","RepresentationClassFailureDetector","RepresentationLanguageBirthEngine", "KERNEL_OWNER_ID", "UNKNOWN_OWNER_ID",
+    "PRIMITIVE_OWNER_ID","MORPHISM_OWNER_ID","LIMIT_OWNER_ID","SCALE_REPRESENTATION_OWNER_ID","AUTONOMOUS_CANDIDATE_BIRTH_COMPONENT_ID","REPRESENTATION_LANGUAGE_BIRTH_COMPONENT_ID","REPRESENTATION_FAILURE_DETECTOR_COMPONENT_ID",
 ]

@@ -27,6 +27,28 @@ def _primitive(carrier,observe,update,name):
     return {"primitive_id":name,"primitive":core,"digest":digest_payload(core)}
 
 
+def _representation_language_rows():
+    rows = []
+    cases = [
+        ("path-a", "chain", [("a", "b"), ("b", "c")]),
+        ("path-b", "chain", [("x", "y"), ("y", "z")]),
+        ("pair-a", "disconnected", [("a", "b"), ("c", "d")]),
+        ("pair-b", "disconnected", [("w", "x"), ("y", "z")]),
+        ("path-c", "chain", [("m", "n"), ("n", "o")]),
+        ("pair-c", "disconnected", [("m", "n"), ("o", "p")]),
+    ]
+    for trial, label, edges in cases:
+        for src, dst in edges:
+            rows.append({
+                "trial": trial,
+                "src": src,
+                "dst": dst,
+                "environment_id": trial,
+                "label": label,
+            })
+    return rows
+
+
 def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     root=Path(root or Path(__file__).resolve().parents[1]); kernel=MathematicalInventionKernel(root)
     evidence=[
@@ -149,11 +171,49 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       obligation={"obligation_id":"SEM-OP","kind":"DERIVE_FROZEN_GOAL_OR_PROVE_BRANCH_IMPOSSIBLE","status":"UNRESOLVED","semantic_claim":typed_operator_claim,"semantic_role":"FROZEN_GOAL"},
       candidate={"candidate_id":"SEM-OP-C","representation_family_id":"SEM-OP-R","semantic_context":{"frozen_problem_statement":typed_operator_claim}},
     )
+    representation_rows = _representation_language_rows()
+    representation_failure = kernel.representation_failure_detector.detect(
+      frozen_problem="classify frozen relation outcomes",
+      revision_history=[
+        {"revision_kind":"ADAPTIVE_CONTEXT_AXIS","goal_closure_gain":0.0},
+        {"revision_kind":"BINDING_REFINEMENT","goal_closure_gain":0.0},
+      ],
+      residual_rows=representation_rows,
+    )
+    representation_failure_weak = kernel.representation_failure_detector.detect(
+      frozen_problem="single revision is not enough",
+      revision_history=[{"revision_kind":"ADAPTIVE_CONTEXT_AXIS","goal_closure_gain":0.0}],
+      residual_rows=representation_rows,
+    )
+    representation_birth = kernel.representation_language_birth.synthesize(
+      failure_receipt=representation_failure,
+      frozen_problem="classify frozen relation outcomes",
+      evidence_rows=representation_rows,
+      target_field="label",
+      group_field="trial",
+    )
+    representation_birth_blocked = kernel.representation_language_birth.synthesize(
+      failure_receipt=representation_failure_weak,
+      frozen_problem="single revision is not enough",
+      evidence_rows=representation_rows,
+      target_field="label",
+      group_field="trial",
+    )
+    representation_validation = kernel.representation_language_birth.validate(
+      birth_receipt=representation_birth,
+      evidence_rows=representation_rows,
+    )
     checks={
       "kernel_owner_contract":kernel.contract()["owner_id"]=="PHI-MATHEMATICAL-INVENTION-KERNEL/1.5.0",
       "semantic_binding_invention_is_kernel_component":kernel.contract()["components"].get("semantic_binding_invention")==kernel.semantic_binding_invention.component_id and kernel.semantic_binding_invention.contract().get("authority")==kernel.contract()["owner_id"],
       "semantic_obligation_compiler_is_kernel_component":kernel.contract()["components"].get("semantic_proof_obligation_compiler")==kernel.semantic_obligation_compiler.component_id and kernel.semantic_obligation_compiler.contract().get("authority")==kernel.contract()["owner_id"],
       "proof_discharge_is_kernel_component":kernel.contract()["components"].get("proof_obligation_discharge")==kernel.proof_discharge.component_id and kernel.proof_discharge.contract().get("authority")==kernel.contract()["owner_id"],
+      "representation_failure_detector_is_kernel_component":kernel.contract()["components"].get("representation_class_failure_detector")==kernel.representation_failure_detector.component_id and kernel.representation_failure_detector.contract().get("component")==kernel.representation_failure_detector.component_id,
+      "representation_language_birth_is_kernel_component":kernel.contract()["components"].get("autonomous_representation_language_birth")==kernel.representation_language_birth.component_id and kernel.representation_language_birth.contract().get("canonicalization_allowed") is False,
+      "representation_class_failure_requires_stalled_history":representation_failure["status"]=="REPRESENTATION_CLASS_INADEQUACY_HYPOTHESIS" and representation_failure_weak["status"]=="REPRESENTATION_CLASS_FAILURE_NOT_ESTABLISHED",
+      "representation_language_birth_is_research_local_content_addressed":representation_birth["status"]=="GENERATED_REPRESENTATION_CLASS_PROPOSED" and representation_birth["representation_class"]["representation_class_id"].startswith("BORN-R-") and representation_birth["representation_class"]["canonical"] is False and representation_birth["representation_class"]["research_local"] is True,
+      "representation_language_birth_blocks_without_failure":representation_birth_blocked["status"]=="REPRESENTATION_LANGUAGE_BIRTH_BLOCKED_NO_CLASS_FAILURE",
+      "representation_language_validation_requires_non_renaming_gain":representation_validation["status"]=="REPRESENTATION_CLASS_BIRTH_VALIDATED_RESEARCH_LOCAL" and representation_validation["non_renaming_gate"] is True and representation_validation["goal_closure_gain"]>0.0 and representation_validation["accepted"] is True,
       "semantic_exact_identity_autocompiles_and_executes":any(r.get("obligation_id")=="SEM-O1" and r.get("method")=="EXACT_SYMBOLIC_IDENTITY" and r.get("discharged") is True for r in semantic_discharge["results"]),
       "semantic_finite_universal_autocompiles_and_executes":any(r.get("obligation_id")=="SEM-O2" and r.get("method")=="FINITE_EXHAUSTIVE_BOOLEAN" and r.get("discharged") is True for r in semantic_discharge["results"]),
       "semantic_high_level_claim_stays_typed_unresolved":semantic_blocked["status"]=="BLOCKED_BINDING_HYPOTHESES_REQUIRE_VALIDATION" and semantic_blocked["semantic_compilation"]["status"]=="TYPED_FORMAL_SCHEMA_COMPILED_REQUIRES_BINDINGS" and len(semantic_blocked["semantic_compilation"]["missing_bindings"])>=3,

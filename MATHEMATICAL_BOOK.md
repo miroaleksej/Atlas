@@ -5714,6 +5714,45 @@ Primitive-field PASS квалифицирует цепочку
 
 Он не квалифицирует полное математическое изобретение произвольной differential grammar. Набор primitive operations пока существует как безопасная domain-neutral grammar внутри Theory Compiler. Следующий уровень должен разрешить Mathematical Invention Kernel рождать новые operation families при residual, если текущие `D`, `D^2`, product и reciprocal-product primitives недостаточны.
 
+## 4.1. Representation-class failure and research-local language birth
+
+Let the current representation language be \(R_k\), the unresolved goal gap be \(G_k\), and the normalized goal-closure gain of revision \(i\) be
+
+\[
+\gamma_i=\max\left(0,\frac{G_i^{before}-G_i^{after}}{\max(|G_i^{before}|,\epsilon)}\right).
+\]
+
+`REPRESENTATION-CLASS-FAILURE-DETECTOR/1.0.0-COMPONENT` may emit only a hypothesis of class inadequacy:
+
+\[
+\operatorname{mean}_i\gamma_i \le \gamma_{\max},
+\]
+
+with multiple recorded revisions and persistent residual evidence across independent cases or environments. This does not prove that \(R_k\) is impossible, nor that a new representation is world-novel.
+
+When that hypothesis is warranted, `AUTONOMOUS-REPRESENTATION-LANGUAGE-BIRTH/1.0.0-COMPONENT` constructs a local definition
+
+\[
+R_{born}=(C,\mathcal R,\mathcal O,\sim,\Omega,\mathcal I,\mathcal C),
+\]
+
+where \(C\) is a generated carrier, \(\mathcal R\) typed relations, \(\mathcal O\) operations, \(\sim\) an equivalence rule, \(\Omega\) an observation map, \(\mathcal I\) candidate invariants and \(\mathcal C\) composition rules. The class receives a content-addressed `BORN-R-*` identifier and remains research-local.
+
+Acceptance requires a non-renaming gate and positive frozen holdout gain over an axis-only ablation:
+
+\[
+\Delta_{closure}
+= Score(R_{born})-Score(R_{axis-only}) > 0.
+\]
+
+Therefore
+
+```text
+REPRESENTATION_CLASS_BIRTH_VALIDATED_RESEARCH_LOCAL
+!= CANONICAL_REGISTRY_MUTATION
+!= SCIENTIFIC_LAW_PROMOTION
+```
+
 ## 5. Рождение operator language из translation algebra
 
 Level 3 заменяет заранее заданный differential alphabet более слабой конструкцией. Пусть локальный chart содержит координату `q` и sampled field `f(q)`. Базовым объектом является операция локального сдвига

@@ -6420,6 +6420,58 @@ class ScientificResearchCycleOwner:
             }
             representation["digest"] = digest_payload(representation)
 
+        representation_class_failure = {
+            "schema": AUTONOMOUS_RESEARCH_SCHEMA,
+            "component": invention.representation_failure_detector.component_id,
+            "status": "REPRESENTATION_CLASS_FAILURE_DETECTION_NOT_REQUESTED",
+            "warranted": False,
+            "claim_boundary": {"scientific_law_established": False},
+        }
+        representation_class_failure["digest"] = digest_payload(representation_class_failure)
+        representation_language_birth = {
+            "schema": AUTONOMOUS_RESEARCH_SCHEMA,
+            "component": invention.representation_language_birth.component_id,
+            "status": "AUTONOMOUS_REPRESENTATION_LANGUAGE_BIRTH_NOT_ENTERED",
+            "representation_class": None,
+            "claim_boundary": {
+                "canonical_registry_mutated": False,
+                "scientific_law_established": False,
+            },
+        }
+        representation_language_birth["digest"] = digest_payload(representation_language_birth)
+        representation_language_validation = {
+            "schema": "phi-representation-language-validation/v1",
+            "component": invention.representation_language_birth.component_id,
+            "status": "REPRESENTATION_LANGUAGE_VALIDATION_NOT_ENTERED",
+            "accepted": False,
+            "claim_boundary": {"validated_research_local_class_is_canonical": False},
+        }
+        representation_language_validation["digest"] = digest_payload(representation_language_validation)
+        representation_revision_history = tuple(
+            dict(row) for row in req.get("representation_revision_history", ())
+            if isinstance(row, Mapping)
+        )
+        representation_target_field = str(req.get("representation_target_field", "")).strip()
+        if representation_revision_history and evidence_rows and representation_target_field:
+            frozen_problem = str(req.get("frozen_problem") or question)
+            representation_class_failure = invention.representation_failure_detector.detect(
+                frozen_problem=frozen_problem,
+                revision_history=representation_revision_history,
+                residual_rows=evidence_rows,
+            )
+            representation_language_birth = invention.representation_language_birth.synthesize(
+                failure_receipt=representation_class_failure,
+                frozen_problem=frozen_problem,
+                evidence_rows=evidence_rows,
+                target_field=representation_target_field,
+                group_field=str(req.get("representation_group_field", "") or "") or None,
+            )
+            if representation_language_birth.get("status") == "GENERATED_REPRESENTATION_CLASS_PROPOSED":
+                representation_language_validation = invention.representation_language_birth.validate(
+                    birth_receipt=representation_language_birth,
+                    evidence_rows=evidence_rows,
+                )
+
         transition_rows = tuple(dict(row) for row in req.get("transition_rows", ()))
         if representation.get("status") == "PROPOSE_GENERATED_REPRESENTATION_SIGNATURE" and transition_rows:
             primitive = invention.primitive.synthesize(
@@ -6455,13 +6507,21 @@ class ScientificResearchCycleOwner:
                 if isinstance(row, Mapping) and row.get("axis_id")
             ]
             research_axis_ids = list(dict.fromkeys(research_axis_ids + born_axis_ids))
+        research_local_representation_class_ids = []
+        if representation_language_validation.get("accepted") is True:
+            representation_class_id = representation_language_birth.get("representation_class", {}).get("representation_class_id")
+            if representation_class_id:
+                research_local_representation_class_ids.append(str(representation_class_id))
         environment_id = str(req.get("environment_id") or ("autonomous-research-" + digest_payload(question)[:12]))
         heartbeat = resident.heartbeat({
             "environment_id": environment_id,
             "root_goal": {"goal_id": "GOAL-" + digest_payload(question)[:16].upper(), "statement": question},
             "cognitive_episode": {
                 "representation_route": "MATHEMATICAL_INVENTION" if cycle_gap else "EXISTING_REPRESENTATION",
-                "research_region": {"research_local_axis_ids": research_axis_ids},
+                "research_region": {
+                    "research_local_axis_ids": research_axis_ids,
+                    "research_local_representation_class_ids": research_local_representation_class_ids,
+                },
                 "portfolio_space_gap": portfolio_space_gap,
                 "research_cycle_digest": cycle.get("digest"),
                 "typed_question_digest": typed.get("digest"),
@@ -6506,6 +6566,9 @@ class ScientificResearchCycleOwner:
         elif mathematical_frontier_active:
             status = "AUTONOMOUS_RESEARCH_OPEN_ENDED_MATHEMATICAL_FRONTIER_ACTIVE"
             next_required = "CONTINUE_FROM_FROZEN_MATHEMATICAL_SEARCH_CURSOR_AND_DISCHARGE_OR_REFUTE_PROOF_OBLIGATIONS"
+        elif representation_language_validation.get("accepted") is True:
+            status = "AUTONOMOUS_RESEARCH_REPRESENTATION_LANGUAGE_BORN_RESEARCH_LOCAL"
+            next_required = "USE_RESEARCH_LOCAL_REPRESENTATION_CLASS_IN_NEXT_FROZEN_VALIDATION_ROUND"
         elif cycle.get("information_gain", {}).get("status") == "EIG_RANKED" and cycle.get("experiment", {}).get("selected_experiment_id"):
             status = "AUTONOMOUS_RESEARCH_EXPERIMENT_SELECTED"
             next_required = "EXECUTE_OR_INGEST_SELECTED_EXPERIMENT"
@@ -6536,6 +6599,9 @@ class ScientificResearchCycleOwner:
             "open_world": open_world,
             "learned_world_action": learned_action,
             "representation_invention": representation,
+            "representation_class_failure": representation_class_failure,
+            "representation_language_birth": representation_language_birth,
+            "representation_language_validation": representation_language_validation,
             "primitive_synthesis": primitive,
             "formal_mathematical_verification": formal_verification,
             "formal_kernel_handoff": formal_handoff,
@@ -6570,6 +6636,7 @@ class ScientificResearchCycleOwner:
                 "search_budget_exhaustion_is_epistemic_solution": False,
                 "open_ended_search_guarantees_eventual_solution": False,
                 "research_local_axis_birth_is_canonical_axis_admission": False,
+                "research_local_representation_class_is_canonical": False,
                 "blocked_proof_obligation_is_discharged": False,
                 "proof_obligation_priority_is_truth_probability": False,
             },

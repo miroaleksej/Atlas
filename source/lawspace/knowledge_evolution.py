@@ -1728,6 +1728,9 @@ class UniversalProofMechanismMemoryOwner:
             ("PM-BINDING-INVENTION", "SEMANTIC_BINDING_OBJECT_INVENTION", "Turn typed semantic binding gaps into concrete research-local mathematical objects such as generated seminorm/energy families, invariant candidates, witness/obstruction families, comparison functionals and breakdown criteria; these remain hypotheses until validated."),
             ("PM-BINDING-VALIDATION", "BINDING_OBJECT_VALIDATION_GATE", "Require provenance alignment, well-typedness and discrimination/closure evidence before a generated binding object can resolve its typed gap."),
             ("PM-STATEMENT-GROUNDED-BINDING", "FROZEN_STATEMENT_BINDING_GROUNDING", "Permit operator, function-signature or domain bindings to be grounded only when their content is explicitly recoverable from the frozen typed statement; grounding is not theorem proof."),
+            ("PM-REPRESENTATION-CLASS-FAILURE", "REPRESENTATION_CLASS_INADEQUACY_DETECTION", "Escalate beyond axis, binding or operator refinement only after persistent residuals and multiple revisions fail to reduce the frozen goal gap materially."),
+            ("PM-REPRESENTATION-LANGUAGE-BIRTH", "RESEARCH_LOCAL_REPRESENTATION_LANGUAGE_BIRTH", "Construct carrier, relations, operations, equivalence, observation map, invariants and composition rules as a content-addressed local representation class rather than selecting a named class from a catalogue."),
+            ("PM-NON-RENAMING-GOAL-CLOSURE", "NON_RENAMING_HOLDOUT_GOAL_CLOSURE_GATE", "Accept a born representation class only when it is not merely a relabelling and improves frozen holdout goal closure over an axis-only ablation."),
         ]
         out = []
         for mechanism_id, mechanism_type, description in rows:

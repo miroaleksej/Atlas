@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 423
+Controlled files: 424
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -387,6 +387,7 @@ Controlled files: 423
 - `static/index.html`
 - `tests/test_abs_power_parameterized_birth.py`
 - `tests/test_adaptive_axis_discovery.py`
+- `tests/test_autonomous_representation_language_birth.py`
 - `tests/test_canonical_law_transaction.py`
 - `tests/test_closed_loop_research.py`
 - `tests/test_curvature_memory_current.py`

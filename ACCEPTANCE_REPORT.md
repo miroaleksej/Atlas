@@ -6,6 +6,17 @@ The current receipt explicitly preserves
 separately, and leaves causal establishment fail-closed without an authoritative
 causal evidence path.
 
+## Autonomous representation-language birth acceptance
+
+The Mathematical Invention kernel now includes a representation-class failure
+detector and a research-local representation-language birth component. A class
+can be proposed only after repeated stalled revisions with persistent residual
+evidence, and accepted only when a content-addressed `BORN-R-*` representation
+passes a non-renaming holdout gate with positive goal-closure gain over an
+axis-only ablation. Accepted classes remain research-local; no canonical
+registry mutation, scientific law promotion, AGI claim or world novelty claim is
+made by this mechanism.
+
 ## Primitive-field adaptive-axis acceptance
 
 The integrated primitive-field control passes `34/34` checks with status

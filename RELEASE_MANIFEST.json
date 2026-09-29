@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 423,
+  "controlled_file_count": 424,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -79,8 +79,8 @@
     },
     {
       "path": "ACCEPTANCE_REPORT.md",
-      "sha256": "ce809a4e91ca344e0e5cd8d23d0d0e44cdfdca0dbf041f63612390bb655f942b",
-      "size": 91728
+      "sha256": "ae0409a2a9cb692021521fa0570d40c4aa9c085c8288ce8abbd6abf7f75e55af",
+      "size": 92353
     },
     {
       "path": "ATLAS_MCP_GATEWAY_RU.md",
@@ -99,8 +99,8 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "03e13a2ca9c7473940b36554e1d776b938bbc5733e7063fbde3faa0fa3aa1e8a",
-      "size": 372620
+      "sha256": "1c8f9dd31d8ca02c5a3627541aca6c0cf2aae8f1cb09aad6c10936f081a43714",
+      "size": 374129
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "bba18dca557991e9939442240cee54e81ebfb159addb7e815c9bdc56ccbdfce9",
-      "size": 152305
+      "sha256": "cae29fdaad0e9639c958ebcbba21419a132a98c602a3adb27b1de3a699d8505a",
+      "size": 154212
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -129,7 +129,7 @@
     },
     {
       "path": "capabilities.json",
-      "sha256": "15d2ccadcb99c93ff3caadd8d46d0f5e84ce47eaae64a18e78bf4d3d7754ab00",
+      "sha256": "ef0ea36ad44006252c38ae8cbb06e94e309d83afac9a0b661a10dcc172b40fba",
       "size": 24348
     },
     {
@@ -624,8 +624,8 @@
     },
     {
       "path": "evaluation/mathematical_invention_qualification.py",
-      "sha256": "f65d470812367110b6528a2495355568bf3842de58c87b6fa08a7d1a2c720d68",
-      "size": 26782
+      "sha256": "2dc3fa7f777e93a1d7df099a27e00689dc37cbeaff15095443b0df7fe5b1f14a",
+      "size": 30636
     },
     {
       "path": "evaluation/navier_stokes_blind_experiment.py",
@@ -1749,8 +1749,8 @@
     },
     {
       "path": "source/lawspace/knowledge_evolution.py",
-      "sha256": "969caa6485a3cd161f775318d9654d4cd63d409f11fa4ce50d7c4b00433a7209",
-      "size": 120138
+      "sha256": "712b028e93371c64221cc8f692bb874bf9aad1a15c6d87bb758b19f257355947",
+      "size": 120936
     },
     {
       "path": "source/lawspace/law_discovery.py",
@@ -1764,8 +1764,8 @@
     },
     {
       "path": "source/lawspace/mathematical_invention.py",
-      "sha256": "d32a5cb258065719838280cb6fd8cb7bcf5dde89f58d218a6f53deb84ce8457b",
-      "size": 179226
+      "sha256": "2355d08194452cd19f530ff7329c9f83d8825a222d688c587d5ae50a5b44fae5",
+      "size": 195860
     },
     {
       "path": "source/lawspace/measurement_adapters.py",
@@ -1859,8 +1859,8 @@
     },
     {
       "path": "source/lawspace/research_cycle.py",
-      "sha256": "8c729206704572c7905c9f36f8e5157da94706e8edcc4740433cc3d77beed065",
-      "size": 402257
+      "sha256": "58ce7ebb7b6a96ca6f3c8928c48e6589097f239a65f714d2a28c0468f3d9bb62",
+      "size": 406321
     },
     {
       "path": "source/lawspace/research_progression_gates.py",
@@ -1986,6 +1986,11 @@
       "path": "tests/test_adaptive_axis_discovery.py",
       "sha256": "be8b76d991f519b2090ae3d8b244661a2d31dc4e0dc2003b354a17d7429bfdad",
       "size": 21931
+    },
+    {
+      "path": "tests/test_autonomous_representation_language_birth.py",
+      "sha256": "fb0f1c48e21fab3de41c78d6967753eeab629791c4333fcdcbf8926f2e449875",
+      "size": 4335
     },
     {
       "path": "tests/test_canonical_law_transaction.py",
@@ -2179,9 +2184,9 @@
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "d77528cc558d8c8189dfaa8c8371896cb2216a86428ee58c77867fe168841378",
+  "current_state_qualification_digest": "dafd9a0040bef87cb7a4de26edc8989e8a7e8cea2c56db40ee589b26fd63f980",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "710d5b21584f0538b8bd8b8ebd463adda35710b357c736b3fd2c18867354d855",
+  "digest": "418afd5b4999f3d14ad70413fc6cf734cd4bd9771690db00a082e1acb119e1dc",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
