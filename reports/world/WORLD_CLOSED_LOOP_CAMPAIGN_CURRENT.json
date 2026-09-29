@@ -1,0 +1,122 @@
+{
+  "active_world_attestor_count": 0,
+  "campaign_plan_digest": "37b95ad21c7b0fb159d5a55d5ac0314818b6a0d68b1ea8f529b3c612c5dc9d3c",
+  "candidate_specs_with_measurement_intents": 102,
+  "claim_boundary": {
+    "atlas_may_invent_provider": false,
+    "empty_world_trust_store_can_update_world_model": false,
+    "provider_match_is_world_evidence": false,
+    "retrospective_frontier_planning_is_independent_attestation": false
+  },
+  "digest": "b89e080348f748c62fce9961c120c4c9b82b8ebd033305a0233cfa4f80a9cf3f",
+  "episodes": [
+    {
+      "artifact_acquired": false,
+      "candidate_id": "SUBSPACE-1BB180E9901D07B0325B",
+      "independently_attested": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "representation_update_allowed": false,
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "status": "WORLD_ATTESTATION_BLOCKED_NO_ACTIVE_ATTESTOR",
+      "world_model_update_allowed": false
+    },
+    {
+      "artifact_acquired": false,
+      "candidate_id": "SUBSPACE-1F213D75771C7EBE3D24",
+      "independently_attested": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "representation_update_allowed": false,
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "status": "WORLD_ATTESTATION_BLOCKED_NO_ACTIVE_ATTESTOR",
+      "world_model_update_allowed": false
+    },
+    {
+      "artifact_acquired": false,
+      "candidate_id": "SUBSPACE-19A74046A7D81C316CBF",
+      "independently_attested": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "representation_update_allowed": false,
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "status": "WORLD_ATTESTATION_BLOCKED_NO_ACTIVE_ATTESTOR",
+      "world_model_update_allowed": false
+    },
+    {
+      "artifact_acquired": false,
+      "candidate_id": "SUBSPACE-00E6309E6E7C46E9C7DA",
+      "independently_attested": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "representation_update_allowed": false,
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "status": "WORLD_ATTESTATION_BLOCKED_NO_ACTIVE_ATTESTOR",
+      "world_model_update_allowed": false
+    },
+    {
+      "artifact_acquired": false,
+      "candidate_id": "SUBSPACE-034B8BDE07CB9AEE7EAB",
+      "independently_attested": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "representation_update_allowed": false,
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "status": "WORLD_ATTESTATION_BLOCKED_NO_ACTIVE_ATTESTOR",
+      "world_model_update_allowed": false
+    },
+    {
+      "artifact_acquired": false,
+      "candidate_id": "SUBSPACE-21D02D484666D7AFA837",
+      "independently_attested": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "representation_update_allowed": false,
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "status": "WORLD_ATTESTATION_BLOCKED_NO_ACTIVE_ATTESTOR",
+      "world_model_update_allowed": false
+    },
+    {
+      "artifact_acquired": false,
+      "candidate_id": "SUBSPACE-083F78F9AC7B7459EFD4",
+      "independently_attested": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "representation_update_allowed": false,
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "status": "WORLD_ATTESTATION_BLOCKED_NO_ACTIVE_ATTESTOR",
+      "world_model_update_allowed": false
+    },
+    {
+      "artifact_acquired": false,
+      "candidate_id": "SUBSPACE-1FF0A108A4ECADE62361",
+      "independently_attested": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "representation_update_allowed": false,
+      "source_class": "OBSERVATIONAL_ARCHIVE",
+      "status": "WORLD_ATTESTATION_BLOCKED_NO_ACTIVE_ATTESTOR",
+      "world_model_update_allowed": false
+    }
+  ],
+  "external_data_fetched": false,
+  "frontier_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
+  "frontier_rows_examined": 500,
+  "independently_attested_episode_count": 0,
+  "mutation_performed": false,
+  "provider_matched_episode_count": 8,
+  "provider_registry_digest": "a925267beb38cc359de4e082592246cba2ef10749677f72bd18511e51a971448",
+  "representation_world_model_after": {
+    "canonical_axis_count": 655,
+    "digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+    "domain_axis_digest": "569ed74e7e14054855903f5b3108c3311339af25befe288556c22de8a637947f",
+    "knowledge_state_digest": "ff92ca736622311a9459403edf9bdd668e021574fab5ab519c16c2852025dfec",
+    "schema": "phi-representation-world-model-state-digest/v1",
+    "world_attestation_count": 0
+  },
+  "representation_world_model_before": {
+    "canonical_axis_count": 655,
+    "digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+    "domain_axis_digest": "569ed74e7e14054855903f5b3108c3311339af25befe288556c22de8a637947f",
+    "knowledge_state_digest": "ff92ca736622311a9459403edf9bdd668e021574fab5ab519c16c2852025dfec",
+    "schema": "phi-representation-world-model-state-digest/v1",
+    "world_attestation_count": 0
+  },
+  "representation_world_model_changed": false,
+  "schema": "phi-world-closed-loop-campaign-run/v1",
+  "scientific_promotion_allowed": false,
+  "status": "CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED",
+  "world_trust_registry_digest": "c44b210138931d40af6cc0f2b400deb655ff489ff8e49e4b8ab90de52926f335"
+}

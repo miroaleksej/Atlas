@@ -97,7 +97,10 @@ get_source_provider_capability_registry
 match_source_provider
 get_world_trust_registry
 plan_world_evidence_campaign
+run_world_closed_loop_campaign
 ```
+
+`run_world_closed_loop_campaign` читает текущий frontier, строит measurement intents для candidates, сопоставляет их с provider registry и проверяет WORLD trust gate. При пустом trust store результатом будет `CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED`: provider-matched episodes могут быть найдены, но `independently_attested_episode_count=0`, внешние данные не скачиваются, а representation/world model не изменяется. Это намеренная защита от подмены независимой аттестации локальным replay.
 
 Проверка слоя:
 

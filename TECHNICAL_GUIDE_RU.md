@@ -122,6 +122,17 @@ api.plan_world_evidence_campaign([{
 
 План не получает данные, не мутирует реестр и не продвигает закон; он только связывает candidate → needed observable → capable provider. Если provider отсутствует, результатом является `NO_CAPABLE_PROVIDER`, а не вымышленный endpoint.
 
+Закрытый цикл по текущему frontier запускается read-only:
+
+```bash
+python -m evaluation.world_closed_loop_campaign \
+  --max-frontier-rows 500 \
+  --max-campaign-items 8 \
+  --out reports/world/WORLD_CLOSED_LOOP_CAMPAIGN_CURRENT.json
+```
+
+Если в `data/world_trust/attestors.json` нет активного внешнего attestor, корректный результат — `CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED`. В этом состоянии Atlas уже показывает, какие candidates имеют capable provider, но не создаёт independently attested research episodes, не скачивает внешние данные и не меняет representation/world model. После регистрации внешнего public key и получения signed evidence этот же gate должен перейти к настоящим episodes; локальный replay или provider match не засчитываются.
+
 Публичный trust store находится в `data/world_trust/attestors.json`. Private key должен быть создан и храниться вне Atlas. В репозитории допустимы только public key metadata, key id, role, provider scope, validity и revocation state. Текущий реестр пустой, поэтому `world_attestation_ready=false`: Atlas готов к независимому attestor, но не имитирует WORLD evidence.
 
 Built-in domain consolidation manifests лежат рядом с plugin manifests в `data/domains/`. Для astronomy, mechanics/turbulence, physics/particle/nuclear и materials science они описывают profiles и measurement capabilities, но не заменяют встроенные axis registries и не получают generic scientific rules. Запрещены `scientific_promotion_rules`, `world_trust`, `ESTABLISHED_LAW` и другие полномочия истинности.

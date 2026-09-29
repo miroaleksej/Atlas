@@ -16,6 +16,7 @@ from .schema import digest_payload
 PROVIDER_REGISTRY_SCHEMA = "phi-source-provider-capability-registry/v1"
 WORLD_TRUST_SCHEMA = "phi-world-trust-public-registry/v1"
 CAMPAIGN_SCHEMA = "phi-world-evidence-campaign-plan/v1"
+RUN_SCHEMA = "phi-world-closed-loop-campaign-run/v1"
 
 
 def _root(root: str | Path | None = None) -> Path:
@@ -197,4 +198,172 @@ def plan_world_evidence_campaign(
         "scientific_promotion_allowed": False,
         "atlas_invents_provider": False,
         "private_key_in_repository": False,
+    })
+
+
+def _sha256_file(path: Path) -> str:
+    import hashlib
+
+    h = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _frontier_path(root: str | Path | None = None) -> Path:
+    return _root(root) / "data" / "frontiers" / "ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl"
+
+
+def _frontier_rows(root: str | Path | None = None, *, limit: int = 200) -> list[Mapping[str, Any]]:
+    rows: list[Mapping[str, Any]] = []
+    path = _frontier_path(root)
+    with path.open(encoding="utf-8") as stream:
+        for line in stream:
+            if not line.strip():
+                continue
+            rows.append(json.loads(line))
+            if len(rows) >= limit:
+                break
+    return rows
+
+
+def _frontier_intents(row: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+    domains = set(str(x) for x in row.get("domain_ids", ()) or ())
+    payload = row.get("payload", {}) if isinstance(row.get("payload"), Mapping) else {}
+    axes = set(str(x) for x in payload.get("axis_ids", ()) or ())
+    intents: list[Mapping[str, Any]] = []
+    if "astronomy" in domains:
+        intents.append({
+            "domain_id": "astronomy",
+            "needed_observable": "stellar_parallax",
+            "source_class": "OBSERVATIONAL_ARCHIVE",
+            "require_uncertainty": True,
+        })
+    if "mechanics" in domains or any("turbulence" in axis or "flow_regime" in axis for axis in axes):
+        intents.append({
+            "domain_id": "mechanics",
+            "needed_observable": "velocity_gradient",
+            "source_class": "OBSERVATIONAL_ARCHIVE",
+        })
+    if "physics" in domains and any("data_regime" in axis for axis in axes):
+        intents.append({
+            "domain_id": "physics",
+            "needed_observable": "turbulent_velocity_field",
+            "source_class": "OBSERVATIONAL_ARCHIVE",
+        })
+    if "materials_science" in domains:
+        intents.append({
+            "domain_id": "materials_science",
+            "needed_observable": "materials_characterization",
+            "source_class": "OBSERVATIONAL_ARCHIVE",
+            "require_uncertainty": True,
+        })
+    return intents
+
+
+def _representation_world_state(root: str | Path | None = None) -> Mapping[str, Any]:
+    from .domains import DOMAIN_REGISTRIES, canonical_axis_count
+    from .knowledge_evolution import KnowledgeEvolutionKernel
+
+    state = KnowledgeEvolutionKernel(_root(root)).state()
+    domain_axes = {
+        domain_id: sorted(reg.axes)
+        for domain_id, reg in sorted(DOMAIN_REGISTRIES.items())
+    }
+    payload = {
+        "schema": "phi-representation-world-model-state-digest/v1",
+        "canonical_axis_count": canonical_axis_count(),
+        "domain_axis_digest": digest_payload(domain_axes),
+        "knowledge_state_digest": digest_payload(state),
+        "world_attestation_count": len(state.get("world_attestations", ())),
+    }
+    return _with_digest(payload)
+
+
+def run_world_closed_loop_campaign(
+    root: str | Path | None = None,
+    *,
+    max_frontier_rows: int = 200,
+    max_campaign_items: int = 10,
+) -> Mapping[str, Any]:
+    """Plan a real-provider frontier campaign and stop before fake attestation.
+
+    The function uses the current persistent frontier and declared provider
+    registry.  It does not fetch external data and does not mutate representation
+    or world models.  Independently attested episodes can only appear after an
+    external WORLD signer is registered and actual signed evidence is supplied.
+    """
+    root_path = _root(root)
+    if int(max_frontier_rows) < 1 or int(max_campaign_items) < 1:
+        raise ValueError("campaign limits must be >= 1")
+    before = _representation_world_state(root_path)
+    frontier_rows = _frontier_rows(root_path, limit=int(max_frontier_rows))
+    candidate_specs = []
+    for row in frontier_rows:
+        intents = _frontier_intents(row)
+        if not intents:
+            continue
+        payload = row.get("payload", {}) if isinstance(row.get("payload"), Mapping) else {}
+        candidate_specs.append({
+            "candidate_id": row.get("candidate_id"),
+            "u_stage": (row.get("promotion_path") or {}).get("next_gate", "U5"),
+            "scientific_value": float(payload.get("applicability_contract", {}).get("applicability_score", 0.0) or 0.0),
+            "missing_evidence": intents,
+        })
+    plan = plan_world_evidence_campaign(candidate_specs, root_path, max_items=int(max_campaign_items))
+    trust = load_world_trust_registry(root_path)
+    active_attestors = [
+        row for row in trust.get("attestors", ())
+        if isinstance(row, Mapping) and str(row.get("revocation_state", "ACTIVE")).upper() != "REVOKED"
+    ]
+    episodes = []
+    for row in plan.get("selected", ()):
+        if row.get("status") != "EVIDENCE_OBTAINABLE":
+            continue
+        provider = row["matches"][0]["selected_provider"]
+        episodes.append({
+            "candidate_id": row["candidate_id"],
+            "provider_id": provider["provider_id"],
+            "source_class": provider["source_class"],
+            "status": "WORLD_ATTESTATION_BLOCKED_NO_ACTIVE_ATTESTOR" if not active_attestors else "READY_FOR_EXTERNAL_ACQUISITION_AND_ATTESTATION",
+            "artifact_acquired": False,
+            "independently_attested": False,
+            "representation_update_allowed": False,
+            "world_model_update_allowed": False,
+        })
+    after = _representation_world_state(root_path)
+    attested = [row for row in episodes if row["independently_attested"] is True]
+    status = (
+        "CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED"
+        if episodes and not active_attestors
+        else "CAMPAIGN_READY_FOR_EXTERNAL_ACQUISITION"
+        if episodes
+        else "CAMPAIGN_BLOCKED_NO_CAPABLE_PROVIDER"
+    )
+    return _with_digest({
+        "schema": RUN_SCHEMA,
+        "status": status,
+        "frontier_ledger_sha256": _sha256_file(_frontier_path(root_path)),
+        "frontier_rows_examined": len(frontier_rows),
+        "candidate_specs_with_measurement_intents": len(candidate_specs),
+        "provider_matched_episode_count": len(episodes),
+        "independently_attested_episode_count": len(attested),
+        "episodes": episodes,
+        "campaign_plan_digest": plan["digest"],
+        "provider_registry_digest": plan["source_provider_registry"]["digest"],
+        "world_trust_registry_digest": trust["digest"],
+        "active_world_attestor_count": len(active_attestors),
+        "representation_world_model_before": before,
+        "representation_world_model_after": after,
+        "representation_world_model_changed": before["digest"] != after["digest"],
+        "mutation_performed": False,
+        "external_data_fetched": False,
+        "scientific_promotion_allowed": False,
+        "claim_boundary": {
+            "provider_match_is_world_evidence": False,
+            "retrospective_frontier_planning_is_independent_attestation": False,
+            "empty_world_trust_store_can_update_world_model": False,
+            "atlas_may_invent_provider": False,
+        },
     })

@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 434
+Controlled files: 436
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -164,6 +164,7 @@ Controlled files: 434
 - `evaluation/u5_attempt_batch.py`
 - `evaluation/unified_release_qualification.py`
 - `evaluation/universal_experiment_qualification.py`
+- `evaluation/world_closed_loop_campaign.py`
 - `examples/JHTDB_ISOTROPIC8192_PUBLIC_METADATA_FREEZE.json`
 - `examples/JHTDB_REAL_DNS_DOWNLOAD_PLAN.json`
 - `examples/JHTDB_SGS_OBSERVATIONAL_ARCHIVE_REQUEST.json`
@@ -312,6 +313,7 @@ Controlled files: 434
 - `reports/turbulence/JHTDB_SGS_FRESH_ACQUISITION_RECEIPT.json`
 - `reports/turbulence/JHTDB_SGS_OBSERVATIONAL_PROTOCOL_FROZEN.json`
 - `reports/turbulence/V3_INTEGRATION_RU.md`
+- `reports/world/WORLD_CLOSED_LOOP_CAMPAIGN_CURRENT.json`
 - `source/__init__.py`
 - `source/lawspace/__init__.py`
 - `source/lawspace/adaptive_axis.py`

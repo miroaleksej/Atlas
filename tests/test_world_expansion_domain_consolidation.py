@@ -10,6 +10,7 @@ from source.lawspace.source_capabilities import (
     load_world_trust_registry,
     match_source_provider,
     plan_world_evidence_campaign,
+    run_world_closed_loop_campaign,
 )
 
 
@@ -130,3 +131,24 @@ def test_final008_api_surfaces_are_read_only():
     }])
     assert campaign["selected"][0]["status"] == "EVIDENCE_OBTAINABLE"
     assert campaign["private_key_in_repository"] is False
+
+
+def test_world_closed_loop_campaign_uses_frontier_but_blocks_without_attestor():
+    result = run_world_closed_loop_campaign(ROOT, max_frontier_rows=500, max_campaign_items=8)
+    assert result["status"] == "CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED"
+    assert result["frontier_rows_examined"] == 500
+    assert result["provider_matched_episode_count"] > 0
+    assert result["independently_attested_episode_count"] == 0
+    assert result["active_world_attestor_count"] == 0
+    assert result["representation_world_model_changed"] is False
+    assert result["external_data_fetched"] is False
+    assert result["mutation_performed"] is False
+    assert all(row["status"] == "WORLD_ATTESTATION_BLOCKED_NO_ACTIVE_ATTESTOR" for row in result["episodes"])
+    assert result["claim_boundary"]["empty_world_trust_store_can_update_world_model"] is False
+
+
+def test_world_closed_loop_campaign_api_exposes_same_gate():
+    api = LawSpaceAPI(ROOT)
+    result = api.run_world_closed_loop_campaign(max_frontier_rows=500, max_campaign_items=8)
+    assert result["status"] == "CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED"
+    assert result["independently_attested_episode_count"] == 0

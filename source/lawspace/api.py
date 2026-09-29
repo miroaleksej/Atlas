@@ -28,6 +28,7 @@ class LawSpaceAPI:
     READ_TOOLS = READ_TOOLS + (
         "get_source_provider_capability_registry", "match_source_provider",
         "get_world_trust_registry", "plan_world_evidence_campaign",
+        "run_world_closed_loop_campaign",
     )
     READ_TOOLS = READ_TOOLS + (
         "get_phi_formal_mathematical_verification_contract", "compile_phi_semantic_proof_obligation", "synthesize_phi_semantic_bindings",
@@ -1225,6 +1226,16 @@ class LawSpaceAPI:
     ) -> Mapping[str, Any]:
         from .source_capabilities import plan_world_evidence_campaign
         return plan_world_evidence_campaign(candidates, self.runtime.root, max_items=max_items)
+
+    def run_world_closed_loop_campaign(
+        self, *, max_frontier_rows: int = 200, max_campaign_items: int = 10
+    ) -> Mapping[str, Any]:
+        from .source_capabilities import run_world_closed_loop_campaign
+        return run_world_closed_loop_campaign(
+            self.runtime.root,
+            max_frontier_rows=max_frontier_rows,
+            max_campaign_items=max_campaign_items,
+        )
 
 
     def get_black_hole_lab_contract(self) -> Mapping[str, Any]:
