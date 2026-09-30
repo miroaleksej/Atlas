@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 442
+Controlled files: 444
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -122,6 +122,7 @@ Controlled files: 442
 - `evaluation/long_horizon_blind_cycle_qualification.py`
 - `evaluation/mathematical_invention_qualification.py`
 - `evaluation/meta_language_ontology_birth_qualification.py`
+- `evaluation/module_usage_audit.py`
 - `evaluation/navier_stokes_blind_experiment.py`
 - `evaluation/neutrino_external_constraints_qualification.py`
 - `evaluation/neutrino_global_qualification.py`
@@ -294,6 +295,7 @@ Controlled files: 442
 - `pyproject.toml`
 - `reports/ATLAS_FRONTIER_SCAN_CURRENT.json`
 - `reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json`
+- `reports/MODULE_USAGE_AUDIT_CURRENT.json`
 - `reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md`
 - `reports/exoplanet/NASA_EXOPLANET_2026_LOCAL_RUN.json`
 - `reports/exoplanet/NASA_EXOPLANET_AVAILABILITY_LOCAL.json`

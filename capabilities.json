@@ -164,7 +164,7 @@
     "python_api": "advance_adaptive_research",
     "repeated_group_stability": true
   },
-  "digest": "c99e1b95a9afa2b4208057f4343c9da2a72ed28e85c576b0c10b6ab388e7822e",
+  "digest": "0b7f89d5e66d07cabe29bf6960b5b3c4324788233c1d0bfcf43adfad0b6916bf",
   "eda_chip_design": {
     "atlas_beats_baselines_established": false,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -379,7 +379,7 @@
     "representation_activation_is_causal_establishment": false,
     "sealed_holdout_used_for_axis_selection": false
   },
-  "qualification_digest": "918d8bd1fa53f825cd5c0738c31db88ddf263682610b9ed4208cc9130ab40177",
+  "qualification_digest": "1420ec586c95bb70dcfb719038a602e962bdcef5a9452ee631c8a099f56eaa72",
   "qualification_runtime_convergence": {
     "candidate_false_count": 0,
     "direct_numeric_core_can_bypass_unified_path": false,
@@ -544,7 +544,7 @@
   "state": {
     "active_frontier_candidate_count": 4106,
     "baseline_candidate_registry_count": 0,
-    "current_research_report_count": 2,
+    "current_research_report_count": 3,
     "evidence_registry_count": 0,
     "generated_quantum_route_count": 0,
     "historical_calculation_receipts_restored": 0,

@@ -1,0 +1,2111 @@
+{
+  "claim_boundary": {
+    "audit_activates_all_modules_for_every_question": false,
+    "module_inventory_is_scientific_evidence": false,
+    "sealed_diagnostic_may_be_deleted_without_lineage_review": false,
+    "unused_by_python_means_scientifically_false": false
+  },
+  "digest": "a6866f0efceaf2c04e85b1491df5b69613e905d83c9270dc7187a5032039ae76",
+  "documented_diagnostic_modules": [
+    "source.lawspace.pi_genesis_bridge"
+  ],
+  "evaluation_module_count": 73,
+  "import_failure_count": 0,
+  "modules": [
+    {
+      "artifact_reference_count": 10,
+      "digest": "3740b832549eecb3b4ff4bf517a4477a699b6539b4db55683e97e55272e61a86",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.adaptive_axis",
+      "path": "source/lawspace/adaptive_axis.py",
+      "python_reference_count": 10,
+      "sample_artifact_references": [
+        "MATHEMATICAL_BOOK.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json",
+        "reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_CURRENT.json",
+        "reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_PROVENANCE_SEAL_REFERENCE_PASS.json",
+        "reports/NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json",
+        "reports/NAVIER_STOKES_OPERATOR_LANGUAGE_INVENTION_CURRENT.json",
+        "reports/NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json",
+        "reports/TURBULENCE_DNS_SCALE_INVARIANT_CURRENT.json",
+        "reports/exoplanet/NASA_EXOPLANET_2026_LOCAL_RUN.json"
+      ],
+      "sample_python_references": [
+        "evaluation/adaptive_axis_research_qualification.py",
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/build/lib/scienceatlas_ai/atlas_bridge.py",
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai/atlas_bridge.py",
+        "source/lawspace/atomic_frontier.py",
+        "source/lawspace/cognitive_core.py",
+        "source/lawspace/einstein_dynamics.py",
+        "source/lawspace/periodic_reconstruction.py",
+        "source/lawspace/research_cycle.py",
+        "source/lawspace/scientific_rules.py",
+        "tests/test_adaptive_axis_discovery.py"
+      ],
+      "source_reference_count": 6,
+      "status": "TEST_COVERED_RUNTIME",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 17,
+      "digest": "87bd8975e87c8d5d725e4fee8a38c29d8efb3516ee71483d97253a5f0ae2ce38",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.aeronautics",
+      "path": "source/lawspace/aeronautics.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "data/external/aeronautics/dlr_olaf_gla_2024_digitized.json",
+        "data/external/aeronautics/dlr_olaf_public_multispeed_evidence_v6_26.json",
+        "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+        "data/frontiers/ATLAS_DOVETAIL_STATE_CURRENT.json",
+        "data/frontiers/ATLAS_SCIENTIFIC_EXPLOITATION_CURRENT.json",
+        "data/knowledge/knowledge_evolution_state.json",
+        "data/manifests/aeronautics_primary_law_corpus_v6_15.json",
+        "data/measurement_requests/ATLAS_MEASUREMENT_REQUESTS_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "tests/test_unified_current.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "13b1e45f362398c5384e6be06ef488e34e3bab5bfacdcf6a22e90017f26c1c9c",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.algebraic_experiment",
+      "path": "source/lawspace/algebraic_experiment.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/algebraic_neutrino_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 2,
+      "digest": "9af2dca20d8c86d73496e00a61f6705ab6b1099245c4bade93f156a1f79f90eb",
+      "evaluation_reference_count": 15,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.api",
+      "path": "source/lawspace/api.py",
+      "python_reference_count": 31,
+      "sample_artifact_references": [
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md"
+      ],
+      "sample_python_references": [
+        "evaluation/autonomous_research_orchestration_qualification.py",
+        "evaluation/axis_modeling_realdata_qualification.py",
+        "evaluation/exoplanet_nasa2026_blind_experiment.py",
+        "evaluation/first_atlas_native_experiment.py",
+        "evaluation/lawspace_qualification.py",
+        "evaluation/meta_language_ontology_birth_qualification.py",
+        "evaluation/navier_stokes_blind_experiment.py",
+        "evaluation/pharmaceutical_semantic_closure_qualification.py",
+        "evaluation/representation_birth_novelty_benchmark.py",
+        "evaluation/research_acceleration_qualification.py",
+        "evaluation/science_atlas_core_qualification.py",
+        "evaluation/scientific_exploitation_qualification.py"
+      ],
+      "source_reference_count": 2,
+      "status": "TEST_COVERED_RUNTIME",
+      "test_reference_count": 11
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "902b32820ab94ffcb0d07e19984faca2810611424a88de7f4008136acb4b8e4c",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.atomic_dirac_evaluator",
+      "path": "source/lawspace/atomic_dirac_evaluator.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [
+        "MATHEMATICAL_CONTRACT.md"
+      ],
+      "sample_python_references": [
+        "source/lawspace/atomic_frontier.py",
+        "source/lawspace/atomic_scf_evaluator.py"
+      ],
+      "source_reference_count": 2,
+      "status": "INTERNAL_RUNTIME_SUPPORT",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 7,
+      "digest": "2197d63fa08706d5673c9368df8dbfd75d174a364877cb8c7276f4ee39b43b92",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.atomic_frontier",
+      "path": "source/lawspace/atomic_frontier.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "reports/runtime/ATOMIC_OPERATOR_PROBE_CYCLE_CURRENT.json",
+        "reports/runtime/ATOMIC_VARIABLE_PARTICLE_SELF_CONSISTENT_CYCLE_CURRENT.json",
+        "reports/runtime/THEORY_COMPILER_QUALIFICATION_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "source/lawspace/api.py",
+        "tests/test_electronic_state_space_current.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "95cf8a937d7869b498dc7a04da5800a189902b0a5f4d782d3251fe011eb2ffa4",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.atomic_scf_evaluator",
+      "path": "source/lawspace/atomic_scf_evaluator.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [
+        "MATHEMATICAL_CONTRACT.md"
+      ],
+      "sample_python_references": [
+        "source/lawspace/atomic_frontier.py",
+        "tests/test_electronic_state_space_current.py"
+      ],
+      "source_reference_count": 1,
+      "status": "TEST_COVERED_RUNTIME",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 4,
+      "digest": "ffeb5a52ef10f359a7497391461c454f3d1cb10c57b247364813edad7ad08945",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.axis_modeling",
+      "path": "source/lawspace/axis_modeling.py",
+      "python_reference_count": 6,
+      "sample_artifact_references": [
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/axis_modeling_realdata_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/closed_loop_research.py",
+        "source/lawspace/cognitive_core.py",
+        "source/lawspace/resident_cognitive.py",
+        "tests/test_adaptive_axis_discovery.py"
+      ],
+      "source_reference_count": 4,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "6f85d0ce84e551528a7348c7072f74cbaa5e553d4b1b073310cddc5d5b610d50",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.black_hole",
+      "path": "source/lawspace/black_hole.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "source/lawspace/api.py",
+        "source/lawspace/candidates.py",
+        "source/lawspace/einstein_dynamics.py",
+        "tests/test_unified_current.py"
+      ],
+      "source_reference_count": 3,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 34,
+      "digest": "3a29b540fdf1309e262765d1718ed7cb7565694b8f8d74cca57fd18fcfee5797",
+      "evaluation_reference_count": 4,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.candidates",
+      "path": "source/lawspace/candidates.py",
+      "python_reference_count": 19,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/external/aeronautics/dlr_olaf_public_multispeed_evidence_v6_26.json",
+        "data/external/neutrino/metadata/dayabay_official_README.md",
+        "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+        "data/frontiers/ATLAS_DOVETAIL_STATE_CURRENT.json",
+        "data/frontiers/ATLAS_POSTFREEZE_PRIOR_ART_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/autonomous_research_orchestration_qualification.py",
+        "evaluation/knowledge_evolution_qualification.py",
+        "evaluation/lawspace_qualification.py",
+        "evaluation/unified_release_qualification.py",
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/build/lib/scienceatlas_ai/atlas_bridge.py",
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai/atlas_bridge.py",
+        "interfaces/phi_compiler_cli.py",
+        "source/lawspace/api.py",
+        "source/lawspace/atomic_frontier.py",
+        "source/lawspace/developmental_open_endedness.py",
+        "source/lawspace/discriminating_experiment.py",
+        "source/lawspace/generation_transition.py"
+      ],
+      "source_reference_count": 11,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "c7405e3137a0592ddf51120755d01380b8555616d1af75cefcf66ac1d40f2f5c",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.canonical_law_transaction",
+      "path": "source/lawspace/canonical_law_transaction.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [
+        "data/runtime/EXECUTION_POLICY_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/research_acceleration_qualification.py",
+        "source/lawspace/api.py",
+        "tests/test_canonical_law_transaction.py",
+        "tests/test_research_acceleration_end_to_end.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 2
+    },
+    {
+      "artifact_reference_count": 28,
+      "digest": "f1880b4cba61702a32b3144bae9a7f8302d093728279be11325af74649cf66d9",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.catalog",
+      "path": "source/lawspace/catalog.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/domains/astronomy.json",
+        "data/formal_contracts/toller_distributional_vertex_v4_1.json",
+        "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+        "data/knowledge/knowledge_evolution_state.json",
+        "data/observations/nasa_exoplanet/PROVENANCE.json"
+      ],
+      "sample_python_references": [
+        "source/lawspace/candidates.py",
+        "source/lawspace/canonical_law_transaction.py",
+        "source/lawspace/runtime.py"
+      ],
+      "source_reference_count": 3,
+      "status": "INTERNAL_RUNTIME_SUPPORT",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 5,
+      "digest": "a7eef04c94ffce3f13f1d0fdec268cc6d4e3a11729fd3054dad0fc577a070204",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.closed_loop_research",
+      "path": "source/lawspace/closed_loop_research.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md",
+        "reports/exoplanet/P2_RESULT_RU.md"
+      ],
+      "sample_python_references": [
+        "evaluation/closed_loop_research_experiment.py",
+        "source/lawspace/api.py",
+        "source/lawspace/source_capabilities.py",
+        "tests/test_closed_loop_research.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "a750f9c443b2d6fae1ab2038a5a71cd7139a2edce3cc17f166c2985143c6ea27",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.cognitive_core",
+      "path": "source/lawspace/cognitive_core.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [
+        "data/cognitive_state.json"
+      ],
+      "sample_python_references": [
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/resident_cognitive.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 8,
+      "digest": "df9b73556e0a5238a4457bef1af7059a5637ab49dbe194ad379be27da53f7aa1",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.collective_coordination",
+      "path": "source/lawspace/collective_coordination.py",
+      "python_reference_count": 5,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "docs/ARCHITECTURE_DECISION_JOURNAL.md",
+        "invariants.json"
+      ],
+      "sample_python_references": [
+        "evaluation/collective_coordination_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/generation_transition.py",
+        "source/lawspace/resident_cognitive.py",
+        "tests/test_unified_current.py"
+      ],
+      "source_reference_count": 3,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 4,
+      "digest": "2587eace6bec3a93afa0e3c950cb8d38479dbfce80bf5190307fe05535c5200d",
+      "evaluation_reference_count": 2,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.constraint_atlas",
+      "path": "source/lawspace/constraint_atlas.py",
+      "python_reference_count": 6,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "reports/ATLAS_FRONTIER_SCAN_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/lawspace_qualification.py",
+        "evaluation/science_atlas_core_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/research_cycle.py",
+        "tests/test_unified_current.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 6,
+      "digest": "7a9c065c44c08310acb04fc0606fbfd40ae6045449a8cd8bdcbdc4472067d750",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.dayabay_full_likelihood",
+      "path": "source/lawspace/dayabay_full_likelihood.py",
+      "python_reference_count": 5,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "MATHEMATICAL_BOOK.md",
+        "data/external/SCIENTIFIC_DATA_CONTRACTS.json",
+        "data/frontiers/ATLAS_SCIENTIFIC_EXPLOITATION_CURRENT.json",
+        "data/knowledge/knowledge_evolution_state.json",
+        "reports/ATLAS_FRONTIER_SCAN_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/dayabay_likelihood_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/knowledge_evolution.py",
+        "source/lawspace/neutrino_global_combination.py"
+      ],
+      "source_reference_count": 3,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "d486c7f6fb8abdbf07cd8650331d516973e232bea0ae93d88f3ef966222a5b68",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.developmental_open_endedness",
+      "path": "source/lawspace/developmental_open_endedness.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [
+        "TECHNICAL_GUIDE_RU.md"
+      ],
+      "sample_python_references": [
+        "evaluation/developmental_open_endedness_qualification.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 4,
+      "digest": "881bd59013208858adaba995896ec5003a92d77f13a62060001ceb6eff859077",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.dimensional_law_birth",
+      "path": "source/lawspace/dimensional_law_birth.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [
+        "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+        "data/frontiers/ATLAS_POSTFREEZE_PRIOR_ART_CURRENT.json",
+        "data/frontiers/ATLAS_SCALAR_LAW_BIRTH_CURRENT.json",
+        "data/knowledge/knowledge_evolution_state.json"
+      ],
+      "sample_python_references": [
+        "source/lawspace/candidates.py",
+        "source/lawspace/query_research.py"
+      ],
+      "source_reference_count": 2,
+      "status": "INTERNAL_RUNTIME_SUPPORT",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 18,
+      "digest": "4f5022b9f6b7f93b6b7c85429e3cb43b7b94a523d682a783e449465d5f39600a",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.discriminating_experiment",
+      "path": "source/lawspace/discriminating_experiment.py",
+      "python_reference_count": 5,
+      "sample_artifact_references": [
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+        "data/runtime/EXECUTION_POLICY_CURRENT.json",
+        "reports/ATLAS_FRONTIER_SCAN_CURRENT.json",
+        "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json",
+        "reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_CURRENT.json",
+        "reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_PROVENANCE_SEAL_REFERENCE_PASS.json",
+        "reports/NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json",
+        "reports/NAVIER_STOKES_OPERATOR_LANGUAGE_INVENTION_CURRENT.json",
+        "reports/NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json",
+        "reports/TURBULENCE_DNS_SCALE_INVARIANT_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/discriminating_experiment_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/discriminating_experiment_autopilot.py",
+        "source/lawspace/long_horizon_scientific_cycle.py",
+        "source/lawspace/reflexive_architecture.py"
+      ],
+      "source_reference_count": 4,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 5,
+      "digest": "dcbf6bb45f1c4b8bc998c9e69551c64a11302b96817bf343260878622af19d7c",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.discriminating_experiment_autopilot",
+      "path": "source/lawspace/discriminating_experiment_autopilot.py",
+      "python_reference_count": 6,
+      "sample_artifact_references": [
+        "TECHNICAL_GUIDE_RU.md",
+        "reports/world/EXISTING_CLOSED_LOOP_INTEGRATION_AUDIT_CURRENT.json",
+        "reports/world/REQUIRED_EVIDENCE_ROUTES_CURRENT.json",
+        "reports/world/UNIVERSAL_OBLIGATION_EXECUTION_LOOP_CURRENT.json",
+        "reports/world/UNIVERSAL_REQUIRED_EVIDENCE_LOOP_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/research_acceleration_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/research_cycle.py",
+        "source/lawspace/source_capabilities.py",
+        "tests/test_discriminating_experiment_autopilot.py",
+        "tests/test_research_acceleration_end_to_end.py"
+      ],
+      "source_reference_count": 3,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 2
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "b084f696f40f4cdb88b0761bfe85a2136c264eda4d6106bdadd4b4080c499788",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.domain_plugins",
+      "path": "source/lawspace/domain_plugins.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [
+        "TECHNICAL_GUIDE_RU.md"
+      ],
+      "sample_python_references": [
+        "source/lawspace/api.py",
+        "tests/test_domain_plugin_architecture.py",
+        "tests/test_world_expansion_domain_consolidation.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 2
+    },
+    {
+      "artifact_reference_count": 28,
+      "digest": "41f832ab81bcd4fa864b6173f69c27c033c8a6a366ac985830bfbf01f10953b9",
+      "evaluation_reference_count": 18,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.domains",
+      "path": "source/lawspace/domains.py",
+      "python_reference_count": 41,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "ATLAS_MCP_GATEWAY_RU.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "data/axes/canonical_dynamic_axes.json",
+        "data/domains/README.md",
+        "data/domains/astronomy.json",
+        "data/domains/domain_manifest.template.json.txt",
+        "data/domains/materials_science.json",
+        "data/domains/mechanics.json"
+      ],
+      "sample_python_references": [
+        "evaluation/adaptive_axis_research_qualification.py",
+        "evaluation/autonomous_research_orchestration_qualification.py",
+        "evaluation/axis_modeling_realdata_qualification.py",
+        "evaluation/build_release_controls.py",
+        "evaluation/developmental_open_endedness_qualification.py",
+        "evaluation/discriminating_experiment_qualification.py",
+        "evaluation/generation_transition_qualification.py",
+        "evaluation/knowledge_evolution_qualification.py",
+        "evaluation/long_horizon_blind_cycle_qualification.py",
+        "evaluation/mathematical_invention_qualification.py",
+        "evaluation/pharmaceutical_semantic_closure_qualification.py",
+        "evaluation/pharmaceutical_semantic_qualification.py"
+      ],
+      "source_reference_count": 18,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 4
+    },
+    {
+      "artifact_reference_count": 6,
+      "digest": "ad5d09ca4dae797fb3ecf9195f5a0053e3a972ba0f060d5974e8f681c87db2fd",
+      "evaluation_reference_count": 3,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.eda_chip_design",
+      "path": "source/lawspace/eda_chip_design.py",
+      "python_reference_count": 5,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json"
+      ],
+      "sample_python_references": [
+        "evaluation/build_release_controls.py",
+        "evaluation/eda_chip_pilot.py",
+        "evaluation/unified_release_qualification.py",
+        "source/lawspace/api.py",
+        "tests/test_eda_chip_design.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "6d89f988dc7aa8b2dce4d6fd1d13a13ad530edc397be6b8e4e85b60b8237cbaf",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.einstein_dynamics",
+      "path": "source/lawspace/einstein_dynamics.py",
+      "python_reference_count": 6,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/rotating_cubic_euler_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/research_cycle.py",
+        "tests/test_curvature_memory_current.py",
+        "tests/test_tensor_axisymmetric_current.py",
+        "tests/test_unified_current.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 3
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "3fc98bfff13a78ce41ee988e216adbc00cc0f301e1527e07f8196478ea67dc02",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.engineering_model_acceptance",
+      "path": "source/lawspace/engineering_model_acceptance.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [
+        "data/runtime/EXECUTION_POLICY_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/research_acceleration_qualification.py",
+        "source/lawspace/api.py",
+        "tests/test_engineering_model_acceptance.py",
+        "tests/test_engineering_model_ledger.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 2
+    },
+    {
+      "artifact_reference_count": 5,
+      "digest": "3ea7d71705db8e4579b310b849c8b450d2abac57ac8d778c48e47f8770219e2a",
+      "evaluation_reference_count": 2,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.execution_policy",
+      "path": "source/lawspace/execution_policy.py",
+      "python_reference_count": 9,
+      "sample_artifact_references": [
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/runtime/EXECUTION_POLICY_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/full_replay_qualification.py",
+        "evaluation/research_acceleration_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/canonical_law_transaction.py",
+        "source/lawspace/discriminating_experiment_autopilot.py",
+        "source/lawspace/engineering_model_acceptance.py",
+        "source/lawspace/promotion_confirmation.py",
+        "source/lawspace/u5_attempt_scheduler.py",
+        "tests/test_research_acceleration_policy.py"
+      ],
+      "source_reference_count": 6,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 8,
+      "digest": "e070b8679de8c27e5ee88186027d78996f9c6c893863e14100fa337ee8d8e4a1",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.experiment_execution",
+      "path": "source/lawspace/experiment_execution.py",
+      "python_reference_count": 5,
+      "sample_artifact_references": [
+        "ATLAS_MCP_GATEWAY_RU.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+        "reports/p3/UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json",
+        "reports/world/EXISTING_CLOSED_LOOP_GLUE_CURRENT.json",
+        "reports/world/EXISTING_CLOSED_LOOP_INTEGRATION_AUDIT_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/universal_experiment_qualification.py",
+        "source/lawspace/long_horizon_scientific_cycle.py",
+        "source/lawspace/resident_cognitive.py",
+        "source/lawspace/source_capabilities.py",
+        "tests/test_universal_experiment_execution.py"
+      ],
+      "source_reference_count": 3,
+      "status": "TEST_COVERED_RUNTIME",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "ea0de4a012520b11301ef2d4eaae07b63c2bcb2763ce89945516069725eea468",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.experiment_portfolio",
+      "path": "source/lawspace/experiment_portfolio.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [
+        "TECHNICAL_GUIDE_RU.md"
+      ],
+      "sample_python_references": [
+        "evaluation/post_gate_experiment_portfolio_qualification.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "0c0fe1de3fce556009496cc6d208bddc1dc5ce6371b6fcaa6801d8763c247d59",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.formal_contracts",
+      "path": "source/lawspace/formal_contracts.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [
+        "data/manifests/formal_analysis_contracts_v4_1.json"
+      ],
+      "sample_python_references": [
+        "source/lawspace/candidates.py",
+        "source/lawspace/runtime.py",
+        "source/phi_compiler_owner.py"
+      ],
+      "source_reference_count": 2,
+      "status": "INTERNAL_RUNTIME_SUPPORT",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "35dd3c471b327d927802e1ce2eeaa6e6a4fe877bbac4cdf2633d8cd3d02e0754",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.generation_transition",
+      "path": "source/lawspace/generation_transition.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/generation_transition_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/reflexive_architecture.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 2,
+      "digest": "cccc32cf8a17df49169f04da593e8678c8f5c2ea02fdb30b3df7c5f5a49e724a",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.katrin_spectral_likelihood",
+      "path": "source/lawspace/katrin_spectral_likelihood.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [
+        "data/external/SCIENTIFIC_DATA_CONTRACTS.json",
+        "docs/NEUTRINO_CURRENT_STATE.md"
+      ],
+      "sample_python_references": [
+        "evaluation/katrin_likelihood_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/neutrino_global_combination.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 13,
+      "digest": "3446672f7d998b6da22c1bac3c6fd4cd810e35e6e0f5db28c845906850427e73",
+      "evaluation_reference_count": 5,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.knowledge_evolution",
+      "path": "source/lawspace/knowledge_evolution.py",
+      "python_reference_count": 12,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "MATHEMATICAL_BOOK.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+        "data/frontiers/ATLAS_SCIENTIFIC_EXPLOITATION_CURRENT.json",
+        "data/knowledge/knowledge_evolution_state.json",
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/INSTALL_INTO_ATLAS.md",
+        "reports/ATLAS_FRONTIER_SCAN_CURRENT.json",
+        "reports/p3/LONG_HORIZON_QUALIFICATION.json",
+        "reports/world/EXISTING_CLOSED_LOOP_INTEGRATION_AUDIT_CURRENT.json",
+        "reports/world/REQUIRED_EVIDENCE_ROUTES_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/knowledge_evolution_qualification.py",
+        "evaluation/lawspace_qualification.py",
+        "evaluation/meta_language_ontology_birth_qualification.py",
+        "evaluation/scientific_exploitation_qualification.py",
+        "evaluation/unified_release_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/long_horizon_scientific_cycle.py",
+        "source/lawspace/research_cycle.py",
+        "source/lawspace/scientific_exploitation.py",
+        "source/lawspace/source_capabilities.py",
+        "tests/test_scientific_exploitation_current.py",
+        "tests/test_unified_current.py"
+      ],
+      "source_reference_count": 5,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 2
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "a344817ead43269c973daaa82b78e348a0632b95917b5bc7b0cff0187e723498",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.law_discovery",
+      "path": "source/lawspace/law_discovery.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [
+        "TECHNICAL_GUIDE_RU.md"
+      ],
+      "sample_python_references": [
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/build/lib/scienceatlas_ai/atlas_bridge.py",
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai/atlas_bridge.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 4,
+      "digest": "49725b0977b4b8e717aa834068a2084c24380ae7255c3a24129f0c83877ad9a0",
+      "evaluation_reference_count": 4,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.long_horizon_scientific_cycle",
+      "path": "source/lawspace/long_horizon_scientific_cycle.py",
+      "python_reference_count": 11,
+      "sample_artifact_references": [
+        "ATLAS_MCP_GATEWAY_RU.md",
+        "reports/exoplanet/NASA_EXOPLANET_P3_LOCAL.json",
+        "reports/p3/LONG_HORIZON_QUALIFICATION.json",
+        "reports/p3/UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json"
+      ],
+      "sample_python_references": [
+        "evaluation/exoplanet_availability_adaptive.py",
+        "evaluation/long_horizon_blind_cycle_qualification.py",
+        "evaluation/representation_birth_novelty_benchmark.py",
+        "evaluation/universal_experiment_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/research_cycle.py",
+        "tests/test_jhtdb_freeze_integrity.py",
+        "tests/test_observational_round_integrity.py",
+        "tests/test_unified_current.py",
+        "tests/test_universal_experiment_execution.py",
+        "tests/test_universal_scientific_portfolio.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 5
+    },
+    {
+      "artifact_reference_count": 19,
+      "digest": "72a3f8c38e707719e7cf39070c4f8522050cb9d569d5c367714db64b733b5f02",
+      "evaluation_reference_count": 6,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.mathematical_invention",
+      "path": "source/lawspace/mathematical_invention.py",
+      "python_reference_count": 18,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "ATLAS_MCP_GATEWAY_RU.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/frontiers/ATLAS_QUERY_RESEARCH_CURRENT.json",
+        "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json",
+        "reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_CURRENT.json",
+        "reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_PROVENANCE_SEAL_REFERENCE_PASS.json",
+        "reports/NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/discriminating_experiment_qualification.py",
+        "evaluation/exoplanet_language_shell_exploratory.py",
+        "evaluation/long_horizon_blind_cycle_qualification.py",
+        "evaluation/mathematical_invention_qualification.py",
+        "evaluation/meta_language_ontology_birth_qualification.py",
+        "evaluation/theory_compiler_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/developmental_open_endedness.py",
+        "source/lawspace/query_research.py",
+        "source/lawspace/reflexive_architecture.py",
+        "source/lawspace/research_cycle.py",
+        "source/lawspace/scientific_exploitation.py"
+      ],
+      "source_reference_count": 7,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 5
+    },
+    {
+      "artifact_reference_count": 2,
+      "digest": "81033483c4cbc2549f7d25a0590cecaf1a9f193e14181addfde738cd397e04bf",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.measurement_adapters",
+      "path": "source/lawspace/measurement_adapters.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [
+        "ATLAS_MCP_GATEWAY_RU.md",
+        "invariants.json"
+      ],
+      "sample_python_references": [
+        "evaluation/universal_experiment_qualification.py",
+        "tests/test_universal_experiment_execution.py"
+      ],
+      "source_reference_count": 0,
+      "status": "TEST_COVERED_RUNTIME",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "03b73f9fcc357e0daf12ba056e40d3ef9d693874c206d84bdd56f05b27909c47",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.model_selection",
+      "path": "source/lawspace/model_selection.py",
+      "python_reference_count": 1,
+      "sample_artifact_references": [
+        "MATHEMATICAL_BOOK.md"
+      ],
+      "sample_python_references": [
+        "evaluation/physical_model_selection_bench.py"
+      ],
+      "source_reference_count": 0,
+      "status": "EVALUATION_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 14,
+      "digest": "0c889e34a6a3da8ccaff63eb28686b49ad47b225c99ed46063de9d7f8b23412a",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.neutrino",
+      "path": "source/lawspace/neutrino.py",
+      "python_reference_count": 7,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "data/constants/registry.json",
+        "data/external/SCIENTIFIC_DATA_CONTRACTS.json",
+        "data/external/neutrino/metadata/dayabay_official_README.md",
+        "data/frontiers/ATLAS_SCIENTIFIC_EXPLOITATION_CURRENT.json",
+        "data/knowledge/knowledge_evolution_state.json",
+        "data/manifests/neutrino_multidomain_lawspace_v5_7.json",
+        "data/passports/known_laws.jsonl",
+        "data/passports/neutrino_intersection_laws.json"
+      ],
+      "sample_python_references": [
+        "evaluation/neutrino_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/neutrino_global_combination.py",
+        "source/lawspace/neutrino_real_data.py",
+        "source/lawspace/research_cycle.py",
+        "tests/test_unified_current.py"
+      ],
+      "source_reference_count": 4,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "824709b411901236679f1f6c2d21f36c7b986d7f44c66b1f55abd8eac424582f",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.neutrino_external_constraints",
+      "path": "source/lawspace/neutrino_external_constraints.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/neutrino_external_constraints_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/neutrino_global_combination.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 1,
+      "digest": "c4485fcee9197818cec33234ad2aca4307a806044b8862bf2789ae0564449303",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.neutrino_global_combination",
+      "path": "source/lawspace/neutrino_global_combination.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [
+        "docs/NEUTRINO_CURRENT_STATE.md"
+      ],
+      "sample_python_references": [
+        "evaluation/neutrino_global_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/neutrino_real_data.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "0a73eb0b1ee97fa04d6615ded918f5da434556b96684daf16df1646abd93ac37",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.neutrino_real_data",
+      "path": "source/lawspace/neutrino_real_data.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/neutrino_real_data_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "a31c9928c98cdeda490861ce2b6cd867138457ed8023d25444cc00790c9b19fb",
+      "evaluation_reference_count": 3,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.particle_candidate_dossiers",
+      "path": "source/lawspace/particle_candidate_dossiers.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/particle_candidate_dossier_qualification.py",
+        "evaluation/particle_space_census_qualification.py",
+        "evaluation/scientific_verification_qualification.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "8199a1cd9223b897f2060960e61e2e078977eb7925b3155095d1e4223c27a845",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.particle_collider",
+      "path": "source/lawspace/particle_collider.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/particle_space_collider_qualification.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "bf0c197558be1251c7df25d49ad92940bb953b77ac7b92526cbeb673d9ac4838",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.particle_space",
+      "path": "source/lawspace/particle_space.py",
+      "python_reference_count": 6,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/particle_space_census_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/particle_candidate_dossiers.py",
+        "source/lawspace/particle_collider.py",
+        "source/lawspace/research_cycle.py",
+        "tests/test_unified_current.py"
+      ],
+      "source_reference_count": 4,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 2,
+      "digest": "f0fdfc2e21d1a80e45a691b1f7192c98928b0470a79aa8eaaae143747b97da18",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.periodic_reconstruction",
+      "path": "source/lawspace/periodic_reconstruction.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md"
+      ],
+      "sample_python_references": [
+        "source/lawspace/api.py",
+        "source/lawspace/atomic_frontier.py",
+        "source/lawspace/candidates.py"
+      ],
+      "source_reference_count": 3,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 11,
+      "digest": "fc0e902af2274c4996646610e14cf72bac170a60f12ab99177dcbaa513809788",
+      "evaluation_reference_count": 3,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.pharmaceutical",
+      "path": "source/lawspace/pharmaceutical.py",
+      "python_reference_count": 5,
+      "sample_artifact_references": [
+        "MATHEMATICAL_BOOK.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "data/axes/canonical_dynamic_axes.json",
+        "data/domains/pharmaceutical.json",
+        "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+        "data/frontiers/ATLAS_DOVETAIL_STATE_CURRENT.json",
+        "data/pharmaceutical/conference_2024_source_catalog_v8_3.json",
+        "data/pharmaceutical/metformin_renal_function_pk_summary_v7_9.json",
+        "data/pharmaceutical/pharma_known_controls_v7_8.json",
+        "reports/ATLAS_FRONTIER_SCAN_CURRENT.json",
+        "reports/p3/LONG_HORIZON_QUALIFICATION.json"
+      ],
+      "sample_python_references": [
+        "evaluation/pharmaceutical_semantic_closure_qualification.py",
+        "evaluation/pharmaceutical_semantic_qualification.py",
+        "evaluation/scientific_verification_qualification.py",
+        "source/lawspace/api.py",
+        "tests/test_unified_current.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "65d1be99e2534d9302fa41fa734f74cd9fbc588eb4fc18a3cdb4948dc0758965",
+      "evaluation_reference_count": 2,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.pharmaceutical_problem_atlas",
+      "path": "source/lawspace/pharmaceutical_problem_atlas.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/build_pharmaceutical_problem_atlas_v8_3.py",
+        "evaluation/pharmaceutical_semantic_closure_qualification.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 2,
+      "digest": "61e92c6f2d3179381ebcf47c6ad3b7cc3f2372be057e0c570f29de16d010a3ca",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.pi_genesis_bridge",
+      "path": "source/lawspace/pi_genesis_bridge.py",
+      "python_reference_count": 0,
+      "sample_artifact_references": [
+        "MATHEMATICAL_BOOK.md",
+        "data/frontiers/ATLAS_SCALAR_LAW_BIRTH_CURRENT.json"
+      ],
+      "sample_python_references": [],
+      "source_reference_count": 0,
+      "status": "SEALED_ARTIFACT_OR_DOCUMENTED_DIAGNOSTIC",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "4e0c24313bbc786a4a2e776437ff4a75cfdfd7f81b74d379e4664eee78c4cfda",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.promotion_confirmation",
+      "path": "source/lawspace/promotion_confirmation.py",
+      "python_reference_count": 7,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/research_acceleration_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/canonical_law_transaction.py",
+        "source/lawspace/research_cycle.py",
+        "tests/test_canonical_law_transaction.py",
+        "tests/test_promotion_confirmation.py",
+        "tests/test_research_acceleration_end_to_end.py"
+      ],
+      "source_reference_count": 3,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 3
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "2749c14bc01a67d76c5fac953fc60c4461b5d4a7d8b1d042c3bc2caa34ea7d3f",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.prospective_external_validation",
+      "path": "source/lawspace/prospective_external_validation.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/prospective_external_validation_qualification.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 2,
+      "digest": "66d8bdfcd647ce4b00471776c7911420e940dcf2fb8111825a290211b68587b5",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.quantum_vacuum",
+      "path": "source/lawspace/quantum_vacuum.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [
+        "data/manifests/quantum_vacuum_primary_corpus_v6_16.json",
+        "data/passports/quantum_vacuum_gravity_intersection_laws.json"
+      ],
+      "sample_python_references": [
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "tests/test_unified_current.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 7,
+      "digest": "a2a34220c47ae8cc675403a6818c0975f86c1eb7152cd2edbadc0f1d2b8e8623",
+      "evaluation_reference_count": 2,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.query_research",
+      "path": "source/lawspace/query_research.py",
+      "python_reference_count": 7,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "capabilities.json",
+        "data/frontiers/ATLAS_QUERY_RESEARCH_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/exoplanet_language_shell_exploratory.py",
+        "evaluation/function_language_birth_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/eda_chip_design.py",
+        "tests/test_abs_power_parameterized_birth.py",
+        "tests/test_function_language_birth.py",
+        "tests/test_query_driven_research_current.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 3
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "6d8634690001e08455c4f3a10fc0581f5e31fdfa4dfdbbfe37e3661907787597",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.reflexive_architecture",
+      "path": "source/lawspace/reflexive_architecture.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/reflexive_architecture_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/developmental_open_endedness.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 20,
+      "digest": "12c2b7070e9237bae06d57b648b658357ab5b7f66fcddc79e68660e3a4627172",
+      "evaluation_reference_count": 9,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.research_cycle",
+      "path": "source/lawspace/research_cycle.py",
+      "python_reference_count": 28,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "ATLAS_MCP_GATEWAY_RU.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+        "reports/ATLAS_FRONTIER_SCAN_CURRENT.json",
+        "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json",
+        "reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_CURRENT.json",
+        "reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_PROVENANCE_SEAL_REFERENCE_PASS.json"
+      ],
+      "sample_python_references": [
+        "evaluation/adaptive_axis_research_qualification.py",
+        "evaluation/autonomous_research_orchestration_qualification.py",
+        "evaluation/axis_modeling_realdata_qualification.py",
+        "evaluation/exoplanet_nasa2026_blind_experiment.py",
+        "evaluation/freeze_observational_archive_protocol.py",
+        "evaluation/research_acceleration_qualification.py",
+        "evaluation/science_atlas_core_qualification.py",
+        "evaluation/scientific_verification_qualification.py",
+        "evaluation/unified_release_qualification.py",
+        "source/lawspace/adaptive_axis.py",
+        "source/lawspace/api.py",
+        "source/lawspace/atomic_frontier.py"
+      ],
+      "source_reference_count": 12,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 7
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "b5d481cf35196d15707933db812569949613a1793c26bc981a8a71828d880eed",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.research_progression_gates",
+      "path": "source/lawspace/research_progression_gates.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "source/lawspace/u5_attempt_scheduler.py",
+        "tests/test_research_acceleration_policy.py"
+      ],
+      "source_reference_count": 1,
+      "status": "TEST_COVERED_RUNTIME",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 5,
+      "digest": "8c52765b188a5de31b900a95a983e2892316a7049c295ac2305d1dd65bfb9d35",
+      "evaluation_reference_count": 2,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.research_triage",
+      "path": "source/lawspace/research_triage.py",
+      "python_reference_count": 5,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/runtime/EXECUTION_POLICY_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/build_release_controls.py",
+        "evaluation/research_triage_qualification.py",
+        "source/lawspace/api.py",
+        "tests/test_research_triage.py",
+        "tests/test_sandbox_profiles.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 2
+    },
+    {
+      "artifact_reference_count": 4,
+      "digest": "86aec53100dc8be6f9e40cb654b426318a04354604ad71da8ee3d57b3893a44d",
+      "evaluation_reference_count": 2,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.resident_cognitive",
+      "path": "source/lawspace/resident_cognitive.py",
+      "python_reference_count": 10,
+      "sample_artifact_references": [
+        "ATLAS_MCP_GATEWAY_RU.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "reports/p3/UNIVERSAL_EXPERIMENT_EXECUTION_QUALIFICATION.json"
+      ],
+      "sample_python_references": [
+        "evaluation/build_release_controls.py",
+        "evaluation/unified_release_qualification.py",
+        "interfaces/joint_qualification.py",
+        "interfaces/phi_compiler_cli.py",
+        "source/lawspace/api.py",
+        "source/lawspace/experiment_execution.py",
+        "source/lawspace/research_cycle.py",
+        "source/lawspace/source_capabilities.py",
+        "tests/test_unified_current.py",
+        "tests/test_world_expansion_domain_consolidation.py"
+      ],
+      "source_reference_count": 4,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 2
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "6ac84857122138b13f1c61106c1d20aff72b120899487a85cc24b1391c7dfc5c",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.resource_theory",
+      "path": "source/lawspace/resource_theory.py",
+      "python_reference_count": 2,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/resource_theory_qualification.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 29,
+      "digest": "b6febf027e789a05e70b3b44408887e18f4c1cfd2872b238dd8994d40d973189",
+      "evaluation_reference_count": 7,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.runtime",
+      "path": "source/lawspace/runtime.py",
+      "python_reference_count": 35,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "ATLAS_MCP_GATEWAY_RU.md",
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/domains/README.md",
+        "data/passports/computational_methods.jsonl",
+        "data/runtime/EXECUTION_POLICY_CURRENT.json",
+        "data/targets/large_qubit_realistic_emulator.json"
+      ],
+      "sample_python_references": [
+        "evaluation/autonomous_research_orchestration_qualification.py",
+        "evaluation/build_release_controls.py",
+        "evaluation/knowledge_evolution_qualification.py",
+        "evaluation/lawspace_qualification.py",
+        "evaluation/science_atlas_core_qualification.py",
+        "evaluation/scientific_exploitation_qualification.py",
+        "evaluation/unified_release_qualification.py",
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/build/lib/scienceatlas_ai/atlas_bridge.py",
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai/atlas_bridge.py",
+        "interfaces/joint_qualification.py",
+        "interfaces/phi_compiler_cli.py",
+        "source/lawspace/api.py"
+      ],
+      "source_reference_count": 19,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 5
+    },
+    {
+      "artifact_reference_count": 124,
+      "digest": "c9194323d52e049d3d3b80077e2bec71bca9206c7bf5a6ef30fa8d39daa3978a",
+      "evaluation_reference_count": 46,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.schema",
+      "path": "source/lawspace/schema.py",
+      "python_reference_count": 113,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "ATLAS_MCP_GATEWAY_RU.md",
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/axes/canonical_dynamic_axes.json",
+        "data/benchmarks/law_lattice_v0_2_mass_blind_partitions.json",
+        "data/cognitive_state.json",
+        "data/domains/README.md"
+      ],
+      "sample_python_references": [
+        "evaluation/adaptive_axis_research_qualification.py",
+        "evaluation/autonomous_research_orchestration_qualification.py",
+        "evaluation/axis_modeling_realdata_qualification.py",
+        "evaluation/build_release_controls.py",
+        "evaluation/closed_loop_research_experiment.py",
+        "evaluation/collective_coordination_qualification.py",
+        "evaluation/developmental_open_endedness_qualification.py",
+        "evaluation/discriminating_experiment_qualification.py",
+        "evaluation/exoplanet_availability_adaptive.py",
+        "evaluation/exoplanet_language_shell_exploratory.py",
+        "evaluation/exoplanet_nasa2026_blind_experiment.py",
+        "evaluation/first_atlas_native_experiment.py"
+      ],
+      "source_reference_count": 56,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 8
+    },
+    {
+      "artifact_reference_count": 2,
+      "digest": "be382393012b2e54ef16503b273b0aa12f7ddd39dde4380662ca345b4019f68a",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.science_atlas_core",
+      "path": "source/lawspace/science_atlas_core.py",
+      "python_reference_count": 7,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "TECHNICAL_GUIDE_RU.md"
+      ],
+      "sample_python_references": [
+        "evaluation/science_atlas_core_qualification.py",
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/build/lib/scienceatlas_ai/atlas_bridge.py",
+        "extensions/ATLAS_AI_RESEARCH_EXTENSION_v0_10_0/src/scienceatlas_ai/atlas_bridge.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/constraint_atlas.py",
+        "tests/test_science_atlas_core.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 3,
+      "digest": "8e43b587d11fde8f90eb5a5bec5733b4fb9e48d76d4a49fb9ade273b34137236",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.scientific_axis_space",
+      "path": "source/lawspace/scientific_axis_space.py",
+      "python_reference_count": 3,
+      "sample_artifact_references": [
+        "MATHEMATICAL_BOOK.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "invariants.json"
+      ],
+      "sample_python_references": [
+        "evaluation/lawspace_qualification.py",
+        "source/lawspace/api.py",
+        "tests/test_scientific_axis_space_current.py"
+      ],
+      "source_reference_count": 1,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 6,
+      "digest": "452c0eb73a40a7d2c9c8ea087654603590aac196f9d3942abd7e39cf98541dd3",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.scientific_data_ingestion",
+      "path": "source/lawspace/scientific_data_ingestion.py",
+      "python_reference_count": 9,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "data/external/SCIENTIFIC_DATA_CONTRACTS.json",
+        "reports/ATLAS_FRONTIER_SCAN_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/scientific_data_ingestion_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/dayabay_full_likelihood.py",
+        "source/lawspace/katrin_spectral_likelihood.py",
+        "source/lawspace/knowledge_evolution.py",
+        "source/lawspace/superk_atmospheric_likelihood.py",
+        "source/lawspace/superk_solar_likelihood.py",
+        "source/lawspace/t2k_published_likelihood.py"
+      ],
+      "source_reference_count": 7,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 9,
+      "digest": "fb1c8ae2ea1f887dfa462fa8693f4c9fe30ee7ac6001b9a05fabbaff1c7d2a1d",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.scientific_exploitation",
+      "path": "source/lawspace/scientific_exploitation.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "MATHEMATICAL_BOOK.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "data/frontiers/ATLAS_SCIENTIFIC_EXPLOITATION_CURRENT.json",
+        "reports/ATLAS_FRONTIER_SCAN_CURRENT.json",
+        "reports/world/EXISTING_CLOSED_LOOP_INTEGRATION_AUDIT_CURRENT.json",
+        "reports/world/REQUIRED_EVIDENCE_ROUTES_CURRENT.json",
+        "reports/world/UNIVERSAL_OBLIGATION_EXECUTION_LOOP_CURRENT.json",
+        "reports/world/UNIVERSAL_REQUIRED_EVIDENCE_LOOP_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/lawspace_qualification.py",
+        "source/lawspace/research_cycle.py",
+        "source/lawspace/source_capabilities.py",
+        "tests/test_scientific_exploitation_current.py"
+      ],
+      "source_reference_count": 2,
+      "status": "TEST_COVERED_RUNTIME",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 27,
+      "digest": "20b08364abcc771f2227821d7e5bb380bfcf7d472ebcc54cfd64734fd35f97f2",
+      "evaluation_reference_count": 3,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.scientific_promotion",
+      "path": "source/lawspace/scientific_promotion.py",
+      "python_reference_count": 14,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "capabilities.json",
+        "data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+        "data/frontiers/ATLAS_SCIENTIFIC_EXPLOITATION_CURRENT.json",
+        "data/knowledge/knowledge_evolution_state.json",
+        "data/trust/scientific_verifier_public_keys.json",
+        "data/world_trust/attestors.json"
+      ],
+      "sample_python_references": [
+        "evaluation/lawspace_qualification.py",
+        "evaluation/scientific_exploitation_qualification.py",
+        "evaluation/scientific_promotion_benchmark.py",
+        "source/lawspace/api.py",
+        "source/lawspace/canonical_law_transaction.py",
+        "source/lawspace/promotion_confirmation.py",
+        "source/lawspace/research_cycle.py",
+        "source/lawspace/scientific_exploitation.py",
+        "source/lawspace/scientific_rules.py",
+        "source/lawspace/source_capabilities.py",
+        "tests/test_adaptive_axis_discovery.py",
+        "tests/test_canonical_law_transaction.py"
+      ],
+      "source_reference_count": 7,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 4
+    },
+    {
+      "artifact_reference_count": 13,
+      "digest": "897616a6a72b578e932e83dd855bca43c4e04365b6920927a3d944dc218cb87a",
+      "evaluation_reference_count": 0,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.scientific_rules",
+      "path": "source/lawspace/scientific_rules.py",
+      "python_reference_count": 9,
+      "sample_artifact_references": [
+        "ACCEPTANCE_REPORT.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "README.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "data/domains/README.md",
+        "data/domains/astronomy.json",
+        "data/domains/domain_manifest.template.json.txt",
+        "data/domains/materials_science.json",
+        "data/domains/mechanics.json",
+        "data/domains/pharmaceutical.json",
+        "data/domains/physics.json"
+      ],
+      "sample_python_references": [
+        "source/lawspace/api.py",
+        "source/lawspace/black_hole.py",
+        "source/lawspace/constraint_atlas.py",
+        "source/lawspace/domain_plugins.py",
+        "source/lawspace/knowledge_evolution.py",
+        "source/lawspace/particle_collider.py",
+        "source/lawspace/pharmaceutical.py",
+        "tests/test_adaptive_axis_discovery.py",
+        "tests/test_domain_plugin_architecture.py"
+      ],
+      "source_reference_count": 7,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 2
+    },
+    {
+      "artifact_reference_count": 4,
+      "digest": "713e688b4ab76c2e244a2e62f40a73e9d7455562071dd70bd5e49f0f28d5e2df",
+      "evaluation_reference_count": 4,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.scientific_verification",
+      "path": "source/lawspace/scientific_verification.py",
+      "python_reference_count": 14,
+      "sample_artifact_references": [
+        "TECHNICAL_GUIDE_RU.md",
+        "data/trust/scientific_verifier_public_keys.json",
+        "reports/world/EXISTING_CLOSED_LOOP_INTEGRATION_AUDIT_CURRENT.json",
+        "reports/world/UNIVERSAL_REQUIRED_EVIDENCE_LOOP_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/knowledge_evolution_qualification.py",
+        "evaluation/pharmaceutical_semantic_closure_qualification.py",
+        "evaluation/scientific_promotion_benchmark.py",
+        "evaluation/scientific_verification_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/knowledge_evolution.py",
+        "source/lawspace/particle_candidate_dossiers.py",
+        "source/lawspace/pharmaceutical.py",
+        "source/lawspace/pharmaceutical_problem_atlas.py",
+        "source/lawspace/research_cycle.py",
+        "source/lawspace/scientific_promotion.py",
+        "source/lawspace/scientific_rules.py"
+      ],
+      "source_reference_count": 10,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 7,
+      "digest": "a6abae8f824a34742a9faca4a69037e28b581960349ed89c958bd7cc68802c4c",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.source_capabilities",
+      "path": "source/lawspace/source_capabilities.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [
+        "TECHNICAL_GUIDE_RU.md",
+        "data/source_providers/providers.json",
+        "data/world_trust/attestors.json",
+        "reports/world/REQUIRED_EVIDENCE_ROUTES_CURRENT.json",
+        "reports/world/UNIVERSAL_OBLIGATION_EXECUTION_LOOP_CURRENT.json",
+        "reports/world/UNIVERSAL_REQUIRED_EVIDENCE_LOOP_CURRENT.json",
+        "reports/world/WORLD_CLOSED_LOOP_CAMPAIGN_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/world_closed_loop_campaign.py",
+        "source/lawspace/api.py",
+        "source/lawspace/research_cycle.py",
+        "tests/test_world_expansion_domain_consolidation.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 2,
+      "digest": "84745febd844d42a9cc6d182dde478f3d02ba7dd5574f9d58425cd0a24a229b8",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.superk_atmospheric_likelihood",
+      "path": "source/lawspace/superk_atmospheric_likelihood.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [
+        "data/external/SCIENTIFIC_DATA_CONTRACTS.json",
+        "docs/NEUTRINO_CURRENT_STATE.md"
+      ],
+      "sample_python_references": [
+        "evaluation/superk_atmospheric_likelihood_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/neutrino_global_combination.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 2,
+      "digest": "f4fe4cdf0d28346702fd2c64036487ab993740572fcdc3e31e37af154e12a827",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.superk_solar_likelihood",
+      "path": "source/lawspace/superk_solar_likelihood.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [
+        "data/external/SCIENTIFIC_DATA_CONTRACTS.json",
+        "docs/NEUTRINO_CURRENT_STATE.md"
+      ],
+      "sample_python_references": [
+        "evaluation/superk_solar_likelihood_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/neutrino_global_combination.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 2,
+      "digest": "1dd13497b7d6b6f2d1129ea049f333dee7a2461f975975d0928bccc069f75020",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.t2k_published_likelihood",
+      "path": "source/lawspace/t2k_published_likelihood.py",
+      "python_reference_count": 4,
+      "sample_artifact_references": [
+        "data/external/SCIENTIFIC_DATA_CONTRACTS.json",
+        "docs/NEUTRINO_CURRENT_STATE.md"
+      ],
+      "sample_python_references": [
+        "evaluation/t2k_likelihood_qualification.py",
+        "interfaces/joint_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/neutrino_global_combination.py"
+      ],
+      "source_reference_count": 2,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 0
+    },
+    {
+      "artifact_reference_count": 0,
+      "digest": "7dd0fedb6c3747d37e684f706330c16ec4c7cd1a3280705f514808a5baff5ec8",
+      "evaluation_reference_count": 1,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.tensor_geometry",
+      "path": "source/lawspace/tensor_geometry.py",
+      "python_reference_count": 5,
+      "sample_artifact_references": [],
+      "sample_python_references": [
+        "evaluation/rotating_cubic_euler_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/einstein_dynamics.py",
+        "source/lawspace/research_cycle.py",
+        "tests/test_tensor_axisymmetric_current.py"
+      ],
+      "source_reference_count": 3,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 1
+    },
+    {
+      "artifact_reference_count": 18,
+      "digest": "6db0d87514b3b695ac7684c7469a3b4a8c07d8b21443815d0d28b904af5c97a0",
+      "evaluation_reference_count": 7,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.theory_compiler",
+      "path": "source/lawspace/theory_compiler.py",
+      "python_reference_count": 21,
+      "sample_artifact_references": [
+        "CLAIM_BOUNDARY.md",
+        "MATHEMATICAL_BOOK.md",
+        "MATHEMATICAL_CONTRACT.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json",
+        "reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_CURRENT.json",
+        "reports/HIDDEN_TERM_RESIDUAL_DISCOVERY_PROVENANCE_SEAL_REFERENCE_PASS.json",
+        "reports/NAVIER_STOKES_BLIND_EXPERIMENT_CURRENT.json",
+        "reports/NAVIER_STOKES_OPERATOR_LANGUAGE_INVENTION_CURRENT.json",
+        "reports/NAVIER_STOKES_PRIMITIVE_FIELD_CURRENT.json",
+        "reports/TURBULENCE_DNS_SCALE_INVARIANT_CURRENT.json",
+        "reports/exoplanet/NASA_EXOPLANET_2026_LOCAL_RUN.json"
+      ],
+      "sample_python_references": [
+        "evaluation/discriminating_experiment_qualification.py",
+        "evaluation/exoplanet_availability_adaptive.py",
+        "evaluation/jhtdb_execution_adapter.py",
+        "evaluation/long_horizon_blind_cycle_qualification.py",
+        "evaluation/representation_birth_novelty_benchmark.py",
+        "evaluation/theory_compiler_qualification.py",
+        "evaluation/universal_experiment_qualification.py",
+        "source/lawspace/api.py",
+        "source/lawspace/atomic_frontier.py",
+        "source/lawspace/developmental_open_endedness.py",
+        "source/lawspace/discriminating_experiment.py",
+        "source/lawspace/reflexive_architecture.py"
+      ],
+      "source_reference_count": 7,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 7
+    },
+    {
+      "artifact_reference_count": 4,
+      "digest": "6354a46a42b4f3486bdf35dc9370298bbbffcc2f3051cdc70bf5e6f5d8c73c6d",
+      "evaluation_reference_count": 2,
+      "import_status": {
+        "status": "IMPORT_OK"
+      },
+      "module": "source.lawspace.u5_attempt_scheduler",
+      "path": "source/lawspace/u5_attempt_scheduler.py",
+      "python_reference_count": 7,
+      "sample_artifact_references": [
+        "CLAIM_BOUNDARY.md",
+        "TECHNICAL_GUIDE_RU.md",
+        "reports/world/EXISTING_CLOSED_LOOP_GLUE_CURRENT.json",
+        "reports/world/EXISTING_CLOSED_LOOP_INTEGRATION_AUDIT_CURRENT.json"
+      ],
+      "sample_python_references": [
+        "evaluation/research_acceleration_qualification.py",
+        "evaluation/u5_attempt_batch.py",
+        "source/lawspace/api.py",
+        "source/lawspace/research_cycle.py",
+        "source/lawspace/source_capabilities.py",
+        "tests/test_research_acceleration_end_to_end.py",
+        "tests/test_u5_attempt_scheduler.py"
+      ],
+      "source_reference_count": 3,
+      "status": "PUBLIC_API_ROUTED",
+      "test_reference_count": 2
+    }
+  ],
+  "parse_errors": [],
+  "retirement_review_count": 0,
+  "retirement_review_modules": [],
+  "schema": "phi-module-usage-audit/v1",
+  "source_module_count": 75,
+  "status": "MODULE_USAGE_AUDIT_PASS_NO_UNREFERENCED_SOURCE_MODULES",
+  "status_counts": {
+    "EVALUATION_ROUTED": 1,
+    "INTERNAL_RUNTIME_SUPPORT": 4,
+    "PUBLIC_API_ROUTED": 62,
+    "SEALED_ARTIFACT_OR_DOCUMENTED_DIAGNOSTIC": 1,
+    "TEST_COVERED_RUNTIME": 7
+  },
+  "test_module_count": 43
+}

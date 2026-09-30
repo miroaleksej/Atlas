@@ -78,6 +78,7 @@ def _genesis_ledger_checks() -> dict[str, bool]:
 RELEASE='0.15.29.0'; OWNER_ID='UNIFIED-CURRENT-QUALIFICATION/0.15.29.0'
 REAL_REPORT='reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json'
 FRONTIER_REPORT='reports/ATLAS_FRONTIER_SCAN_CURRENT.json'
+MODULE_USAGE_REPORT='reports/MODULE_USAGE_AUDIT_CURRENT.json'
 DEEP_RESEARCH_DOCUMENTATION='reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md'
 FRONTIER_LEDGER='data/frontiers/ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl'
 PRIOR_ART_RECEIPT='data/frontiers/ATLAS_POSTFREEZE_PRIOR_ART_CURRENT.json'
@@ -107,7 +108,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
     # The imported Markdown study is documentation, not a third locally replayed
     # scientific receipt. It remains a controlled file in the release seal.
     report_files=sorted(str(p.relative_to(root)) for p in (root/'reports').glob('*') if p.is_file() and not is_local_artifact(p,root) and str(p.relative_to(root)) != DEEP_RESEARCH_DOCUMENTATION)
-    allowed_reports={REAL_REPORT,FRONTIER_REPORT}; unexpected_reports=sorted(set(report_files)-allowed_reports)
+    allowed_reports={REAL_REPORT,FRONTIER_REPORT,MODULE_USAGE_REPORT}; unexpected_reports=sorted(set(report_files)-allowed_reports)
     frontier_files=sorted(str(p.relative_to(root)) for p in _files(root,'data/frontiers'))
     allowed_frontier_files={FRONTIER_LEDGER,PRIOR_ART_RECEIPT,DOVETAIL_STATE,'data/frontiers/ATLAS_SCIENTIFIC_EXPLOITATION_CURRENT.json',EPROCESS_REPORT,SCALAR_LAW_REPORT,QUERY_RESEARCH_REPORT}
 
@@ -244,7 +245,7 @@ def run_release_qualification(root: str|Path|None=None)->dict[str,Any]:
       'generated_quantum_routes_empty': len(runtime.quantum_method_routes)==0,
       'active_frontier_store_is_single_current_ledger': set(frontier_files)==allowed_frontier_files,
       'ai_feynman_100_removed': not feynman_present,
-      'exactly_two_current_research_reports': set(report_files)==allowed_reports,
+      'exactly_three_current_research_reports': set(report_files)==allowed_reports,
       'old_control_report_not_persisted': not (root/OLD_CONTROL_REPORT).exists(),
       'no_unexpected_report_residue': not unexpected_reports,
       'real_blind_experiment_receipt_passes': stored_real.get('status')=='PASS_FIRST_BLIND_REAL_PHYSICS_EXPERIMENT' and stored_real.get('passed')==stored_real.get('total')==18 and all(stored_real.get('checks',{}).values()),

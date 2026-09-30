@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 442,
+  "controlled_file_count": 444,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -129,7 +129,7 @@
     },
     {
       "path": "capabilities.json",
-      "sha256": "085900cada140f29dd23f011408b56c736ee3cde5a174d364c3a5311f8b538e4",
+      "sha256": "b9655f9d02fb662c4b7caae58969a6db8a59880f2f8a6dcbd43d405da92d1983",
       "size": 25310
     },
     {
@@ -544,7 +544,7 @@
     },
     {
       "path": "evaluation/build_release_controls.py",
-      "sha256": "0c29b3438d23ee7ae716ba959318c0196d51ad544e3a0cb9134a68e1db3722ee",
+      "sha256": "c20f711329af88a591c73cbbdc543b64d12f19058c23c43ecae475f26ea412c6",
       "size": 50727
     },
     {
@@ -661,6 +661,11 @@
       "path": "evaluation/meta_language_ontology_birth_qualification.py",
       "sha256": "1e4b2b11138b446dfbea2ba021869432f0897c8efde2f135f5f907df56fa453d",
       "size": 9435
+    },
+    {
+      "path": "evaluation/module_usage_audit.py",
+      "sha256": "7139324f47b41232dc6837e74c55edb6b10b0cda7e7fba67891de327cb364e32",
+      "size": 9983
     },
     {
       "path": "evaluation/navier_stokes_blind_experiment.py",
@@ -864,8 +869,8 @@
     },
     {
       "path": "evaluation/unified_release_qualification.py",
-      "sha256": "23dc093bf0728ecc9084696d75e5af6b9e9adce50aa973ea85490d26bcc96cc2",
-      "size": 44631
+      "sha256": "5e461fc09d6694fd7384412624f516066b8ffc55ef19959f20ed7702a4cf7932",
+      "size": 44715
     },
     {
       "path": "evaluation/universal_experiment_qualification.py",
@@ -1521,6 +1526,11 @@
       "path": "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json",
       "sha256": "4075a32151693ce49f902283e30fa2f7e1a295e1c9d9b4a8d084b47a5fe80082",
       "size": 814380
+    },
+    {
+      "path": "reports/MODULE_USAGE_AUDIT_CURRENT.json",
+      "sha256": "839555d255e666a24a926da38843ec66522d766abc50ce85423f7e19d726550a",
+      "size": 81187
     },
     {
       "path": "reports/NASA_EXOPLANET_2026_BLIND_CURRENT.md",
@@ -2254,8 +2264,8 @@
     },
     {
       "path": "tests/test_unified_current.py",
-      "sha256": "88468e9fb908a698f220e8e1ffe7fabe6ba3a2aa8b111f48c351a5c09e4aa41b",
-      "size": 61556
+      "sha256": "c466c83fadc529d9721acf68113cde95bc61a18709e4cdc574197f10091ced93",
+      "size": 62465
     },
     {
       "path": "tests/test_universal_experiment_execution.py",
@@ -2274,9 +2284,9 @@
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "918d8bd1fa53f825cd5c0738c31db88ddf263682610b9ed4208cc9130ab40177",
+  "current_state_qualification_digest": "1420ec586c95bb70dcfb719038a602e962bdcef5a9452ee631c8a099f56eaa72",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "5259151dc3eed8fb54862382e28d953c8b6b43cdbc7e38dc70faa788a67db3ed",
+  "digest": "c3ed067e353ef281f3ea2c455681abaa15caa432dc15178d1bb76a30b72fe3a4",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

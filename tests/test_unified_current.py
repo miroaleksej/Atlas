@@ -457,6 +457,24 @@ def test_every_current_source_module_imports_cleanly():
     assert connectivity["within_family_all_pass"] is True
 
 
+def test_module_usage_audit_has_no_forgotten_source_modules():
+    from evaluation.module_usage_audit import run_module_usage_audit
+
+    audit = run_module_usage_audit(ROOT)
+    assert audit["schema"] == "phi-module-usage-audit/v1"
+    assert audit["status"] == "MODULE_USAGE_AUDIT_PASS_NO_UNREFERENCED_SOURCE_MODULES"
+    assert audit["source_module_count"] >= 75
+    assert audit["import_failure_count"] == 0
+    assert audit["retirement_review_count"] == 0
+    assert audit["claim_boundary"]["audit_activates_all_modules_for_every_question"] is False
+    assert audit["claim_boundary"]["sealed_diagnostic_may_be_deleted_without_lineage_review"] is False
+
+    by_module = {row["module"]: row for row in audit["modules"]}
+    bridge = by_module["source.lawspace.pi_genesis_bridge"]
+    assert bridge["status"] == "SEALED_ARTIFACT_OR_DOCUMENTED_DIAGNOSTIC"
+    assert bridge["artifact_reference_count"] > 0
+
+
 def test_post118_identifiability_is_set_valued_and_relativistic_axis_active():
     result = LawSpaceAPI(ROOT).run_post118_configuration_identifiability_experiment_design()
     assert result["status"] == "PASS_OPEN_ENDED_SYMBOLIC_FRONTIER_VIEW"
