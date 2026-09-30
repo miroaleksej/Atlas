@@ -383,6 +383,168 @@ def _candidate_ids(state: Mapping[str, Any], section: str) -> set[str]:
     }
 
 
+def _candidate_rows_by_id(root: Path, *, limit: int) -> dict[str, Mapping[str, Any]]:
+    return {
+        str(row.get("candidate_id")): row
+        for row in _frontier_rows(root, limit=limit)
+        if str(row.get("candidate_id", "")).strip()
+    }
+
+
+def _state_rows_by_candidate(state: Mapping[str, Any], section: str) -> dict[str, Mapping[str, Any]]:
+    out: dict[str, Mapping[str, Any]] = {}
+    for row in state.get(section, ()):
+        if not isinstance(row, Mapping):
+            continue
+        cid = str(row.get("candidate_id", ""))
+        if cid and cid not in out:
+            out[cid] = row
+    return out
+
+
+def run_existing_lowering_projection_preflight(
+    root: str | Path | None = None,
+    *,
+    max_frontier_rows: int = 500,
+    max_campaign_items: int = 8,
+) -> Mapping[str, Any]:
+    """Classify provider-matched episodes through existing lowering/projection gates.
+
+    This is a read-only mass preflight for the already existing owners.  It does
+    not synthesize a response projection when the hypothesis has no declared
+    response observable contract, and it does not freeze a prediction lowering
+    without a frozen response projection.
+    """
+    from .knowledge_evolution import KnowledgeEvolutionKernel
+
+    root_path = _root(root)
+    if int(max_frontier_rows) < 1 or int(max_campaign_items) < 1:
+        raise ValueError("preflight limits must be >= 1")
+    state = KnowledgeEvolutionKernel(root_path).state()
+    campaign = run_world_closed_loop_campaign(
+        root_path,
+        max_frontier_rows=int(max_frontier_rows),
+        max_campaign_items=int(max_campaign_items),
+    )
+    frontier = _candidate_rows_by_id(root_path, limit=int(max_frontier_rows))
+    hypotheses = _state_rows_by_candidate(state, "hypothesis_materializations")
+    lowerings = _state_rows_by_candidate(state, "candidate_prediction_lowerings")
+    projections = _state_rows_by_candidate(state, "candidate_response_projections")
+    bindings = _state_rows_by_candidate(state, "candidate_world_bindings")
+
+    counts = {
+        "episode_count": 0,
+        "frontier_ready": 0,
+        "provider_matched": 0,
+        "u4_materialized": 0,
+        "u4_materialization_required": 0,
+        "response_observable_contract_ready": 0,
+        "response_observable_contract_required": 0,
+        "world_binding_ready": 0,
+        "world_binding_required": 0,
+        "response_projection_ready": 0,
+        "response_projection_required": 0,
+        "prediction_lowering_ready": 0,
+        "prediction_lowering_required": 0,
+        "ready_for_frozen_runtime": 0,
+    }
+    receipts: list[dict[str, Any]] = []
+    for episode in campaign.get("episodes", ()):
+        if not isinstance(episode, Mapping):
+            continue
+        cid = str(episode.get("candidate_id", ""))
+        candidate = frontier.get(cid, {})
+        hypothesis = hypotheses.get(cid, {})
+        measurement_contract = dict((hypothesis.get("measurement_contract", {}) or {})) if isinstance(hypothesis, Mapping) else {}
+        response_observable_ids = tuple(str(x) for x in measurement_contract.get("response_observable_ids", ()) if str(x).strip())
+        provider_matched = bool(episode.get("provider_id"))
+        frontier_ready = cid in frontier
+        u4_ready = cid in hypotheses
+        observable_ready = bool(response_observable_ids)
+        binding_ready = cid in bindings
+        projection_ready = cid in projections
+        lowering_ready = cid in lowerings
+        counts["episode_count"] += 1
+        counts["frontier_ready"] += int(frontier_ready)
+        counts["provider_matched"] += int(provider_matched)
+        counts["u4_materialized"] += int(u4_ready)
+        counts["u4_materialization_required"] += int(not u4_ready)
+        counts["response_observable_contract_ready"] += int(observable_ready)
+        counts["response_observable_contract_required"] += int(u4_ready and not observable_ready)
+        counts["world_binding_ready"] += int(binding_ready)
+        counts["world_binding_required"] += int(u4_ready and observable_ready and not binding_ready)
+        counts["response_projection_ready"] += int(projection_ready)
+        counts["response_projection_required"] += int(u4_ready and observable_ready and binding_ready and not projection_ready)
+        counts["prediction_lowering_ready"] += int(lowering_ready)
+        counts["prediction_lowering_required"] += int(projection_ready and not lowering_ready)
+        counts["ready_for_frozen_runtime"] += int(provider_matched and projection_ready and lowering_ready)
+
+        if not frontier_ready:
+            terminal_status = "BLOCKED_FRONTIER_RECORD_NOT_IN_WINDOW"
+        elif not provider_matched:
+            terminal_status = "BLOCKED_NO_CAPABLE_PROVIDER"
+        elif not u4_ready:
+            terminal_status = "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+        elif not observable_ready:
+            terminal_status = "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
+        elif not binding_ready:
+            terminal_status = "BLOCKED_CANDIDATE_WORLD_BINDING_REQUIRED"
+        elif not projection_ready:
+            terminal_status = "BLOCKED_RESPONSE_PROJECTION_FREEZE_REQUIRED"
+        elif not lowering_ready:
+            terminal_status = "BLOCKED_PREDICTION_LOWERING_REQUIRED"
+        else:
+            terminal_status = "READY_FOR_FROZEN_RUNTIME_WORLD_ATTESTATION_GATE"
+
+        receipts.append(_with_digest({
+            "schema": "phi-existing-lowering-projection-preflight-episode/v1",
+            "candidate_id": cid,
+            "provider_id": episode.get("provider_id"),
+            "candidate_record_digest": candidate.get("record_digest") if isinstance(candidate, Mapping) else None,
+            "hypothesis_digest": hypothesis.get("digest") if isinstance(hypothesis, Mapping) else None,
+            "response_observable_ids": response_observable_ids,
+            "checks": {
+                "FRONTIER_RECORD_READY": frontier_ready,
+                "PROVIDER_MATCHED": provider_matched,
+                "U4_HYPOTHESIS_MATERIALIZED": u4_ready,
+                "RESPONSE_OBSERVABLE_CONTRACT_DECLARED": observable_ready,
+                "CANDIDATE_WORLD_BINDING_READY": binding_ready,
+                "RESPONSE_PROJECTION_FROZEN": projection_ready,
+                "PREDICTION_LOWERING_FROZEN": lowering_ready,
+            },
+            "terminal_status": terminal_status,
+            "claim_boundary": {
+                "preflight_is_world_evidence": False,
+                "preflight_mutates_knowledge_state": False,
+                "missing_projection_may_be_faked": False,
+                "prediction_lowering_without_projection_allowed": False,
+            },
+        }))
+
+    status = (
+        "LOWERING_PROJECTION_PREFLIGHT_READY_FOR_FROZEN_RUNTIME"
+        if counts["ready_for_frozen_runtime"] == counts["episode_count"] and counts["episode_count"] > 0
+        else "LOWERING_PROJECTION_PREFLIGHT_CLASSIFIED_EXISTING_GAPS"
+    )
+    return _with_digest({
+        "schema": "phi-existing-lowering-projection-preflight/v1",
+        "status": status,
+        "campaign_digest": campaign.get("digest"),
+        "frontier_ledger_sha256": campaign.get("frontier_ledger_sha256"),
+        "counts": counts,
+        "episodes": receipts,
+        "external_data_fetched": False,
+        "knowledge_state_mutated": False,
+        "scientific_promotion_allowed": False,
+        "claim_boundary": {
+            "uses_existing_owners_only": True,
+            "preflight_can_replace_u4_materialization": False,
+            "preflight_can_replace_response_projection": False,
+            "preflight_can_replace_world_attestation": False,
+        },
+    })
+
+
 def run_existing_closed_loop_glue(
     root: str | Path | None = None,
     *,
@@ -408,6 +570,16 @@ def run_existing_closed_loop_glue(
         max_frontier_rows=int(max_frontier_rows),
         max_campaign_items=int(max_campaign_items),
     )
+    preflight = run_existing_lowering_projection_preflight(
+        root_path,
+        max_frontier_rows=int(max_frontier_rows),
+        max_campaign_items=int(max_campaign_items),
+    )
+    preflight_by_candidate = {
+        str(row.get("candidate_id")): row
+        for row in preflight.get("episodes", ())
+        if isinstance(row, Mapping)
+    }
     frontier_ids = {
         str(row.get("candidate_id"))
         for row in _frontier_rows(root_path, limit=int(max_frontier_rows))
@@ -442,6 +614,7 @@ def run_existing_closed_loop_glue(
         if not isinstance(episode, Mapping):
             continue
         cid = str(episode.get("candidate_id", ""))
+        preflight_episode = dict(preflight_by_candidate.get(cid, {}))
         stages: list[dict[str, Any]] = []
 
         frontier_ready = cid in frontier_ids
@@ -456,22 +629,33 @@ def run_existing_closed_loop_glue(
 
         lowering_ready = cid in lowering_ids
         counts["prediction_lowering_ready"] += int(lowering_ready)
-        if u4_ready and not lowering_ready:
+        projection_ready = cid in projection_ids
+        if projection_ready and not lowering_ready:
             counts["blocked_prediction_lowering_required"] += 1
         stages.append({
             "stage": "PREDICTION_LOWERING",
-            "status": "READY" if lowering_ready else ("BLOCKED_PREDICTION_LOWERING_REQUIRED" if u4_ready else "WAITING_FOR_U4_MATERIALIZATION"),
+            "status": (
+                "READY" if lowering_ready
+                else "BLOCKED_PREDICTION_LOWERING_REQUIRED" if projection_ready
+                else "WAITING_FOR_RESPONSE_PROJECTION" if u4_ready
+                else "WAITING_FOR_U4_MATERIALIZATION"
+            ),
         })
 
-        projection_ready = cid in projection_ids
         counts["response_projection_ready"] += int(projection_ready)
         if lowering_ready and not projection_ready:
             counts["blocked_response_projection_required"] += 1
         elif u4_ready and not projection_ready:
             counts["blocked_response_projection_required"] += 1
+        response_projection_block = (
+            "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
+            if str(preflight_episode.get("terminal_status", "")) == "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
+            else "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        )
         stages.append({
             "stage": "RESPONSE_PROJECTION",
-            "status": "READY" if projection_ready else ("BLOCKED_RESPONSE_PROJECTION_REQUIRED" if u4_ready else "WAITING_FOR_U4_MATERIALIZATION"),
+            "status": "READY" if projection_ready else (response_projection_block if u4_ready else "WAITING_FOR_U4_MATERIALIZATION"),
+            "lowering_projection_preflight_status": preflight_episode.get("terminal_status"),
         })
 
         provider_ready = bool(episode.get("provider_id"))
@@ -485,10 +669,15 @@ def run_existing_closed_loop_glue(
 
         runtime_bound = provider_ready
         counts["bound_to_frozen_execution_runtime"] += int(runtime_bound)
+        frozen_block = (
+            "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+            if str(preflight_episode.get("terminal_status", "")) == "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+            else response_projection_block
+        )
         frozen_status = (
             "READY_FOR_FROZEN_PROTOCOL_COMPILATION"
             if projection_ready and provider_ready
-            else "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+            else frozen_block
             if provider_ready
             else "BLOCKED_PROVIDER_REQUIRED"
         )
@@ -532,6 +721,7 @@ def run_existing_closed_loop_glue(
             "candidate_id": cid,
             "provider_id": episode.get("provider_id"),
             "terminal_status": terminal,
+            "lowering_projection_preflight_digest": preflight_episode.get("digest"),
             "stages": stages,
             "external_data_fetched": False,
             "knowledge_state_mutated": False,
@@ -547,6 +737,7 @@ def run_existing_closed_loop_glue(
         "schema": "phi-existing-closed-loop-glue-run/v1",
         "status": status,
         "campaign_digest": campaign.get("digest"),
+        "lowering_projection_preflight_digest": preflight.get("digest"),
         "frontier_ledger_sha256": campaign.get("frontier_ledger_sha256"),
         "episode_count": len(receipts),
         "counts": counts,
@@ -601,6 +792,11 @@ def audit_existing_closed_loop_integration(
         max_campaign_items=int(max_campaign_items),
     )
     glue = run_existing_closed_loop_glue(
+        root_path,
+        max_frontier_rows=int(max_frontier_rows),
+        max_campaign_items=int(max_campaign_items),
+    )
+    preflight = run_existing_lowering_projection_preflight(
         root_path,
         max_frontier_rows=int(max_frontier_rows),
         max_campaign_items=int(max_campaign_items),
@@ -715,13 +911,25 @@ def audit_existing_closed_loop_integration(
             "stage": "PREDICTION_LOWERING",
             "existing_system": "ScientificExploitation + KnowledgeEvolutionKernel.candidate_prediction_lowerings",
             "status": "UNDERUSED" if materialized and lowerings < materialized else "READY",
-            "observed": {"candidate_prediction_lowerings": lowerings, "gap_to_materialized_hypotheses": max(0, materialized - lowerings)},
+            "observed": {
+                "candidate_prediction_lowerings": lowerings,
+                "gap_to_materialized_hypotheses": max(0, materialized - lowerings),
+                "matched_episode_prediction_lowering_ready": preflight.get("counts", {}).get("prediction_lowering_ready", 0),
+                "matched_episode_prediction_lowering_required": preflight.get("counts", {}).get("prediction_lowering_required", 0),
+            },
         },
         {
             "stage": "RESPONSE_PROJECTION",
             "existing_system": "KnowledgeEvolutionKernel.candidate_response_projections",
             "status": "UNDERUSED" if materialized and projections < materialized else "READY",
-            "observed": {"candidate_response_projections": projections, "gap_to_materialized_hypotheses": max(0, materialized - projections)},
+            "observed": {
+                "candidate_response_projections": projections,
+                "gap_to_materialized_hypotheses": max(0, materialized - projections),
+                "matched_episode_u4_materialized": preflight.get("counts", {}).get("u4_materialized", 0),
+                "matched_episode_u4_required": preflight.get("counts", {}).get("u4_materialization_required", 0),
+                "matched_episode_response_observable_contract_required": preflight.get("counts", {}).get("response_observable_contract_required", 0),
+                "matched_episode_response_projection_ready": preflight.get("counts", {}).get("response_projection_ready", 0),
+            },
         },
         {
             "stage": "PROVIDER_MATCHING",
@@ -771,6 +979,10 @@ def audit_existing_closed_loop_integration(
         gap_order.append("MASS_U4_TO_PREDICTION_LOWERING_NOT_SCALED")
     if projections < materialized:
         gap_order.append("PREDICTION_LOWERING_TO_RESPONSE_PROJECTION_NOT_SCALED")
+    if int(preflight.get("counts", {}).get("response_observable_contract_required", 0) or 0) > 0:
+        gap_order.append("MATCHED_U4_EPISODES_REQUIRE_RESPONSE_OBSERVABLE_CONTRACT")
+    if int(preflight.get("counts", {}).get("u4_materialization_required", 0) or 0) > 0:
+        gap_order.append("MATCHED_PROVIDER_EPISODES_REQUIRE_U4_MATERIALIZATION")
     if provider_matches < int(campaign.get("candidate_specs_with_measurement_intents", 0)):
         gap_order.append("MEASUREMENT_INTENT_TO_PROVIDER_MATCH_PARTIAL")
     if glue.get("universal_execution_runtime_bound_to_frontier_campaign") is not True:
@@ -791,6 +1003,8 @@ def audit_existing_closed_loop_integration(
         "state_counts": state_counts,
         "campaign_digest": campaign.get("digest"),
         "campaign_status": campaign.get("status"),
+        "lowering_projection_preflight_digest": preflight.get("digest"),
+        "lowering_projection_preflight_status": preflight.get("status"),
         "glue_run_digest": glue.get("digest"),
         "glue_run_status": glue.get("status"),
         "primary_bottlenecks_in_order": gap_order,

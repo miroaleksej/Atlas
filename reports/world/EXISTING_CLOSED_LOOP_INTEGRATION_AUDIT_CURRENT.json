@@ -7,9 +7,9 @@
     "provider_match_is_attestation": false,
     "underused_existing_systems_should_be_reused_before_new_owners": true
   },
-  "digest": "522ee6e5d9532030528c3813611b5ada15ad4e142e34d727a570e71e44fe01bb",
+  "digest": "9e2d0fa4724550e35498121f3771a118ca3f8b7c9572c810b8d6b666aba37677",
   "frontier_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
-  "glue_run_digest": "82ab2fc3b0d3e9d212a6dd2ee5b6f6bdbf89be5e6b05fea400c439a0c72174e1",
+  "glue_run_digest": "3f48a37dec1edd995e9a5fcedc9f9e8c6538ac2006551d7b4fc2b8fd5be3061a",
   "glue_run_status": "EXISTING_GLUE_EXECUTED_FAIL_CLOSED_PRE_WORLD",
   "integration_policy": {
     "external_data_fetched": false,
@@ -19,9 +19,13 @@
     "reuse_existing_owners_only": true,
     "scientific_promotion_allowed": false
   },
+  "lowering_projection_preflight_digest": "e6118e71702410b8152bf7a5640ba48206d6f171e10f62d2055f327cf62e2776",
+  "lowering_projection_preflight_status": "LOWERING_PROJECTION_PREFLIGHT_CLASSIFIED_EXISTING_GAPS",
   "primary_bottlenecks_in_order": [
     "MASS_U4_TO_PREDICTION_LOWERING_NOT_SCALED",
     "PREDICTION_LOWERING_TO_RESPONSE_PROJECTION_NOT_SCALED",
+    "MATCHED_U4_EPISODES_REQUIRE_RESPONSE_OBSERVABLE_CONTRACT",
+    "MATCHED_PROVIDER_EPISODES_REQUIRE_U4_MATERIALIZATION",
     "MEASUREMENT_INTENT_TO_PROVIDER_MATCH_PARTIAL",
     "FROZEN_EXECUTION_WAITING_FOR_RESPONSE_PROJECTION",
     "WORLD_TRUST_EMPTY",
@@ -57,7 +61,9 @@
       "existing_system": "ScientificExploitation + KnowledgeEvolutionKernel.candidate_prediction_lowerings",
       "observed": {
         "candidate_prediction_lowerings": 1,
-        "gap_to_materialized_hypotheses": 446
+        "gap_to_materialized_hypotheses": 446,
+        "matched_episode_prediction_lowering_ready": 0,
+        "matched_episode_prediction_lowering_required": 0
       },
       "stage": "PREDICTION_LOWERING",
       "status": "UNDERUSED"
@@ -66,7 +72,11 @@
       "existing_system": "KnowledgeEvolutionKernel.candidate_response_projections",
       "observed": {
         "candidate_response_projections": 1,
-        "gap_to_materialized_hypotheses": 446
+        "gap_to_materialized_hypotheses": 446,
+        "matched_episode_response_observable_contract_required": 2,
+        "matched_episode_response_projection_ready": 0,
+        "matched_episode_u4_materialized": 2,
+        "matched_episode_u4_required": 6
       },
       "stage": "RESPONSE_PROJECTION",
       "status": "UNDERUSED"

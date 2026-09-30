@@ -100,13 +100,16 @@ plan_world_evidence_campaign
 run_world_closed_loop_campaign
 audit_existing_closed_loop_integration
 run_existing_closed_loop_glue
+run_existing_lowering_projection_preflight
 ```
 
 `run_world_closed_loop_campaign` читает текущий frontier, строит measurement intents для candidates, сопоставляет их с provider registry и проверяет WORLD trust gate. При пустом trust store результатом будет `CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED`: provider-matched episodes могут быть найдены, но `independently_attested_episode_count=0`, внешние данные не скачиваются, а representation/world model не изменяется. Это намеренная защита от подмены независимой аттестации локальным replay.
 
 `run_existing_closed_loop_glue` выполняет read-only склейку уже существующих частей: `frontier/provider campaign → FrozenExperimentExecution`. Он не создаёт нового scientific owner, не получает внешние данные и не мутирует knowledge state. В текущем снимке восемь JHTDB-matched episodes уже привязаны к frozen runtime, но маршрут корректно останавливается до acquisition: для этих candidates отсутствуют масштабированные `prediction_lowering`/`response_projection`, а WORLD trust store пустой.
 
-`audit_existing_closed_loop_integration` выполняет read-only ревизию уже имеющихся систем Atlas и собирает единую карту маршрута `frontier → U4 materialization → prediction lowering → response projection → provider matching → frozen execution → WORLD attestation → U5 replay → representation revision`. Текущий отчёт показывает не отсутствие механизмов, а неполную замкнутость маршрута: 447 materialized hypotheses и 683 scalar law materializations уже есть, frozen execution runtime связан с frontier campaign, но только по одному lowering/projection/measurement/discrimination и 0 WORLD attestations. Поэтому главный следующий инженерный шаг — масштабировать существующие lowering/projection owners и затем подключить независимый WORLD attestor, а не создавать параллельный научный движок.
+`run_existing_lowering_projection_preflight` массово классифицирует эти provider-matched episodes через уже существующие gates `U4 materialization → response observable contract → candidate world binding → frozen response projection → prediction lowering`. Он намеренно не создаёт projection там, где гипотеза не объявила response observable contract, и не freeze-ит lowering без frozen projection. Текущий результат: 8 episodes классифицированы, 2 уже U4-materialized, 6 требуют U4 materialization, а обе U4-ready записи требуют явный response-observable contract перед projection/lowering.
+
+`audit_existing_closed_loop_integration` выполняет read-only ревизию уже имеющихся систем Atlas и собирает единую карту маршрута `frontier → U4 materialization → prediction lowering → response projection → provider matching → frozen execution → WORLD attestation → U5 replay → representation revision`. Текущий отчёт показывает не отсутствие механизмов, а неполную замкнутость маршрута: 447 materialized hypotheses и 683 scalar law materializations уже есть, frozen execution runtime связан с frontier campaign, но только по одному lowering/projection/measurement/discrimination и 0 WORLD attestations. Поэтому главный следующий инженерный шаг — материализовать оставшиеся matched episodes до U4 и добавить declared response observable contracts для U4-ready episodes, затем freeze-ить projections/lowerings через существующие owners.
 
 Проверка слоя:
 

@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 438,
+  "controlled_file_count": 439,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "c4030b03196d6bf48fbfd2f998bacc34bf5e84fe284d0ab64d04c60560543d45",
-      "size": 161763
+      "sha256": "821ba6cf7d5e6c317a9af717ee49e4c8c2ed9177654171200a66c497b1eb4021",
+      "size": 162589
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -124,12 +124,12 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "163d9b184179b796f462444f20226861fb121d38b34993e81d482f76ad659a47",
-      "size": 219698
+      "sha256": "e7e923c7aea98628f2ae8a02cc1e715018c746452ce0f0e19db736cd5b5c1bef",
+      "size": 220201
     },
     {
       "path": "capabilities.json",
-      "sha256": "0ebc70b117f4586c97bbf0d9c52a080591cbd605d780b2b88ed1f458250bc460",
+      "sha256": "d41e581d3f7af5eb634eb6593a0d71123131aa3fd9b7f7fd05e9477da99e7c89",
       "size": 25310
     },
     {
@@ -874,8 +874,8 @@
     },
     {
       "path": "evaluation/world_closed_loop_campaign.py",
-      "sha256": "f1426b6a30ddd139dad1f4de14534ec6bff696209816ce78927c82ec55ce41be",
-      "size": 2628
+      "sha256": "40d3fc1c49ad5c15b4cc971b7ea20c0064a9c1e4ab5bc84b585a2db1b9b3d587",
+      "size": 3375
     },
     {
       "path": "examples/JHTDB_ISOTROPIC8192_PUBLIC_METADATA_FREEZE.json",
@@ -1619,13 +1619,18 @@
     },
     {
       "path": "reports/world/EXISTING_CLOSED_LOOP_GLUE_CURRENT.json",
-      "sha256": "877a78b5f78d2588c078a6a11934968d8af47309268eb4bf17c59c8ff5edd2da",
-      "size": 19092
+      "sha256": "8f557a6739f0c619d33b602a0c1f724092cf2e158a8ab0143048ad52f103a1fc",
+      "size": 20884
     },
     {
       "path": "reports/world/EXISTING_CLOSED_LOOP_INTEGRATION_AUDIT_CURRENT.json",
-      "sha256": "615bd642ccfd807eeaf0cf78799584498c8114d754dc120e91e7cbbce72408a9",
-      "size": 9558
+      "sha256": "a32ba721fad27339f2b815ed1588720876884a76501ea80be1f661b599d0829e",
+      "size": 10219
+    },
+    {
+      "path": "reports/world/EXISTING_LOWERING_PROJECTION_PREFLIGHT_CURRENT.json",
+      "sha256": "7c5e3c719153857f46e51b468f65c4457985591df0da42d44fd60acf5a78ef5d",
+      "size": 10145
     },
     {
       "path": "reports/world/WORLD_CLOSED_LOOP_CAMPAIGN_CURRENT.json",
@@ -1659,8 +1664,8 @@
     },
     {
       "path": "source/lawspace/api.py",
-      "sha256": "9a3a7b23df3fc2b5d493671b0b401f870fd0e088c39f91fe869cec70509deb14",
-      "size": 149759
+      "sha256": "c527af762b9352548fbaa0c63bbe1f481f80896e8917507318d09f0cf50da10c",
+      "size": 150245
     },
     {
       "path": "source/lawspace/atomic_dirac_evaluator.py",
@@ -1984,8 +1989,8 @@
     },
     {
       "path": "source/lawspace/source_capabilities.py",
-      "sha256": "98cd4b7e8699c42fa992d9c04944d17a303694119046e629b718eed248151e71",
-      "size": 38167
+      "sha256": "8715d0bddd5d6d589d7b1bd0983e4e39bb590389fad06feccdf06530a98417d3",
+      "size": 48636
     },
     {
       "path": "source/lawspace/superk_atmospheric_likelihood.py",
@@ -2249,14 +2254,14 @@
     },
     {
       "path": "tests/test_world_expansion_domain_consolidation.py",
-      "sha256": "82844af25a5498b3cb72375a43803c62fb24264b10fa003fbb7111e4c26afa64",
-      "size": 11042
+      "sha256": "99a03543c963d66ae71fdb5c5d70158fe2557bc756515851d9179929feac02f9",
+      "size": 13011
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "5f0d22c51675624a6ec70fd69009656777f5bc3f1dfcac851f7f45f1587a3e16",
+  "current_state_qualification_digest": "9f1b5a0d943f8e8521e0aacf39864ae7470994cf5e73ba196053bc93d717e9e9",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "9699d1a16573a54f5f34de12fe94760f27524493230a6a04a442e419e9cb5ebc",
+  "digest": "112f151441b8ff7e7634934e2a52b5d98dd4e9fae6ec407e52fb5ddc7d63c758",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

@@ -29,7 +29,7 @@ class LawSpaceAPI:
         "get_source_provider_capability_registry", "match_source_provider",
         "get_world_trust_registry", "plan_world_evidence_campaign",
         "run_world_closed_loop_campaign", "audit_existing_closed_loop_integration",
-        "run_existing_closed_loop_glue",
+        "run_existing_closed_loop_glue", "run_existing_lowering_projection_preflight",
     )
     READ_TOOLS = READ_TOOLS + (
         "get_phi_formal_mathematical_verification_contract", "compile_phi_semantic_proof_obligation", "synthesize_phi_semantic_bindings",
@@ -1253,6 +1253,16 @@ class LawSpaceAPI:
     ) -> Mapping[str, Any]:
         from .source_capabilities import run_existing_closed_loop_glue
         return run_existing_closed_loop_glue(
+            self.runtime.root,
+            max_frontier_rows=max_frontier_rows,
+            max_campaign_items=max_campaign_items,
+        )
+
+    def run_existing_lowering_projection_preflight(
+        self, *, max_frontier_rows: int = 500, max_campaign_items: int = 8
+    ) -> Mapping[str, Any]:
+        from .source_capabilities import run_existing_lowering_projection_preflight
+        return run_existing_lowering_projection_preflight(
             self.runtime.root,
             max_frontier_rows=max_frontier_rows,
             max_campaign_items=max_campaign_items,

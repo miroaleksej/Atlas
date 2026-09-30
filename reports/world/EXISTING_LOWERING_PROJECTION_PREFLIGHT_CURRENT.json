@@ -1,0 +1,234 @@
+{
+  "campaign_digest": "b89e080348f748c62fce9961c120c4c9b82b8ebd033305a0233cfa4f80a9cf3f",
+  "claim_boundary": {
+    "preflight_can_replace_response_projection": false,
+    "preflight_can_replace_u4_materialization": false,
+    "preflight_can_replace_world_attestation": false,
+    "uses_existing_owners_only": true
+  },
+  "counts": {
+    "episode_count": 8,
+    "frontier_ready": 8,
+    "prediction_lowering_ready": 0,
+    "prediction_lowering_required": 0,
+    "provider_matched": 8,
+    "ready_for_frozen_runtime": 0,
+    "response_observable_contract_ready": 0,
+    "response_observable_contract_required": 2,
+    "response_projection_ready": 0,
+    "response_projection_required": 0,
+    "u4_materialization_required": 6,
+    "u4_materialized": 2,
+    "world_binding_ready": 0,
+    "world_binding_required": 0
+  },
+  "digest": "e6118e71702410b8152bf7a5640ba48206d6f171e10f62d2055f327cf62e2776",
+  "episodes": [
+    {
+      "candidate_id": "SUBSPACE-1BB180E9901D07B0325B",
+      "candidate_record_digest": "7bbf779d6508e9247fbcb53685bdccd9702621e2a02ce4c33c69ff5e5139fe16",
+      "checks": {
+        "CANDIDATE_WORLD_BINDING_READY": false,
+        "FRONTIER_RECORD_READY": true,
+        "PREDICTION_LOWERING_FROZEN": false,
+        "PROVIDER_MATCHED": true,
+        "RESPONSE_OBSERVABLE_CONTRACT_DECLARED": false,
+        "RESPONSE_PROJECTION_FROZEN": false,
+        "U4_HYPOTHESIS_MATERIALIZED": true
+      },
+      "claim_boundary": {
+        "missing_projection_may_be_faked": false,
+        "prediction_lowering_without_projection_allowed": false,
+        "preflight_is_world_evidence": false,
+        "preflight_mutates_knowledge_state": false
+      },
+      "digest": "06d7edccbe5b6dd2f7e8eb6746f445df5644a13c31e809dfe64edf7f7ac747a3",
+      "hypothesis_digest": "c0d25b4326b7939da6af6001833cef463aeaf9e264cac6f3075b569bc29ef7e7",
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "response_observable_ids": [],
+      "schema": "phi-existing-lowering-projection-preflight-episode/v1",
+      "terminal_status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-1F213D75771C7EBE3D24",
+      "candidate_record_digest": "75225792fb5e8d76b6c60a3c677837406aa10930ccae403ddc83de65807496b6",
+      "checks": {
+        "CANDIDATE_WORLD_BINDING_READY": false,
+        "FRONTIER_RECORD_READY": true,
+        "PREDICTION_LOWERING_FROZEN": false,
+        "PROVIDER_MATCHED": true,
+        "RESPONSE_OBSERVABLE_CONTRACT_DECLARED": false,
+        "RESPONSE_PROJECTION_FROZEN": false,
+        "U4_HYPOTHESIS_MATERIALIZED": true
+      },
+      "claim_boundary": {
+        "missing_projection_may_be_faked": false,
+        "prediction_lowering_without_projection_allowed": false,
+        "preflight_is_world_evidence": false,
+        "preflight_mutates_knowledge_state": false
+      },
+      "digest": "f327fff2da75b365749537785ea2bb1fbb1a37a3c3cfc870340b0418243784f2",
+      "hypothesis_digest": "7ec36d3e7e5ad115be5202a014df7ab0d1778910ff0f25386765d319c592a251",
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "response_observable_ids": [],
+      "schema": "phi-existing-lowering-projection-preflight-episode/v1",
+      "terminal_status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-19A74046A7D81C316CBF",
+      "candidate_record_digest": "380dd63bb0d6f1d8b77412829e1d47295c87323bea21a286d4515f7e874dae72",
+      "checks": {
+        "CANDIDATE_WORLD_BINDING_READY": false,
+        "FRONTIER_RECORD_READY": true,
+        "PREDICTION_LOWERING_FROZEN": false,
+        "PROVIDER_MATCHED": true,
+        "RESPONSE_OBSERVABLE_CONTRACT_DECLARED": false,
+        "RESPONSE_PROJECTION_FROZEN": false,
+        "U4_HYPOTHESIS_MATERIALIZED": false
+      },
+      "claim_boundary": {
+        "missing_projection_may_be_faked": false,
+        "prediction_lowering_without_projection_allowed": false,
+        "preflight_is_world_evidence": false,
+        "preflight_mutates_knowledge_state": false
+      },
+      "digest": "6301932b6572d3ef6108470c97e112ef6671ee1468c121ba6480133cb5b2cd63",
+      "hypothesis_digest": null,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "response_observable_ids": [],
+      "schema": "phi-existing-lowering-projection-preflight-episode/v1",
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-00E6309E6E7C46E9C7DA",
+      "candidate_record_digest": "b7ab67f2a83eca3b6fc72da97c8c920a3445b1af93760bd1a5d4a51b8171fc26",
+      "checks": {
+        "CANDIDATE_WORLD_BINDING_READY": false,
+        "FRONTIER_RECORD_READY": true,
+        "PREDICTION_LOWERING_FROZEN": false,
+        "PROVIDER_MATCHED": true,
+        "RESPONSE_OBSERVABLE_CONTRACT_DECLARED": false,
+        "RESPONSE_PROJECTION_FROZEN": false,
+        "U4_HYPOTHESIS_MATERIALIZED": false
+      },
+      "claim_boundary": {
+        "missing_projection_may_be_faked": false,
+        "prediction_lowering_without_projection_allowed": false,
+        "preflight_is_world_evidence": false,
+        "preflight_mutates_knowledge_state": false
+      },
+      "digest": "67b88605f640c2eed12f65d1b0e6d1e78882bcfd091505fd411e0dfa47e05e62",
+      "hypothesis_digest": null,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "response_observable_ids": [],
+      "schema": "phi-existing-lowering-projection-preflight-episode/v1",
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-034B8BDE07CB9AEE7EAB",
+      "candidate_record_digest": "27876808098984aa77f76fa8636ba37733ad105c6182c30db028b76cea974cfc",
+      "checks": {
+        "CANDIDATE_WORLD_BINDING_READY": false,
+        "FRONTIER_RECORD_READY": true,
+        "PREDICTION_LOWERING_FROZEN": false,
+        "PROVIDER_MATCHED": true,
+        "RESPONSE_OBSERVABLE_CONTRACT_DECLARED": false,
+        "RESPONSE_PROJECTION_FROZEN": false,
+        "U4_HYPOTHESIS_MATERIALIZED": false
+      },
+      "claim_boundary": {
+        "missing_projection_may_be_faked": false,
+        "prediction_lowering_without_projection_allowed": false,
+        "preflight_is_world_evidence": false,
+        "preflight_mutates_knowledge_state": false
+      },
+      "digest": "8959fbf4f0df52bc39fc47deceef98f1605d3456da48771089054b8d72799166",
+      "hypothesis_digest": null,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "response_observable_ids": [],
+      "schema": "phi-existing-lowering-projection-preflight-episode/v1",
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-21D02D484666D7AFA837",
+      "candidate_record_digest": "4d148cd9f89a6fe2149c3ca2f69f6279bfebe11b1256f0355ecda3b05f7360a7",
+      "checks": {
+        "CANDIDATE_WORLD_BINDING_READY": false,
+        "FRONTIER_RECORD_READY": true,
+        "PREDICTION_LOWERING_FROZEN": false,
+        "PROVIDER_MATCHED": true,
+        "RESPONSE_OBSERVABLE_CONTRACT_DECLARED": false,
+        "RESPONSE_PROJECTION_FROZEN": false,
+        "U4_HYPOTHESIS_MATERIALIZED": false
+      },
+      "claim_boundary": {
+        "missing_projection_may_be_faked": false,
+        "prediction_lowering_without_projection_allowed": false,
+        "preflight_is_world_evidence": false,
+        "preflight_mutates_knowledge_state": false
+      },
+      "digest": "ec29ca3cc7208165540f860f43ab7b8808e30ce47abda133ae4139d6ac9c5db4",
+      "hypothesis_digest": null,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "response_observable_ids": [],
+      "schema": "phi-existing-lowering-projection-preflight-episode/v1",
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-083F78F9AC7B7459EFD4",
+      "candidate_record_digest": "9b430810661d2d449d5b77647e3f59d56e573c90a6ef5ad5ababdaef724136dd",
+      "checks": {
+        "CANDIDATE_WORLD_BINDING_READY": false,
+        "FRONTIER_RECORD_READY": true,
+        "PREDICTION_LOWERING_FROZEN": false,
+        "PROVIDER_MATCHED": true,
+        "RESPONSE_OBSERVABLE_CONTRACT_DECLARED": false,
+        "RESPONSE_PROJECTION_FROZEN": false,
+        "U4_HYPOTHESIS_MATERIALIZED": false
+      },
+      "claim_boundary": {
+        "missing_projection_may_be_faked": false,
+        "prediction_lowering_without_projection_allowed": false,
+        "preflight_is_world_evidence": false,
+        "preflight_mutates_knowledge_state": false
+      },
+      "digest": "d49def0d5eb25667ff4450c55ad70957d2e7b92815b9641a150654772719aa78",
+      "hypothesis_digest": null,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "response_observable_ids": [],
+      "schema": "phi-existing-lowering-projection-preflight-episode/v1",
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-1FF0A108A4ECADE62361",
+      "candidate_record_digest": "b6bdba31a07620494b31e53da70173074fee3d8866ed2901cf4c5ef09bbd3602",
+      "checks": {
+        "CANDIDATE_WORLD_BINDING_READY": false,
+        "FRONTIER_RECORD_READY": true,
+        "PREDICTION_LOWERING_FROZEN": false,
+        "PROVIDER_MATCHED": true,
+        "RESPONSE_OBSERVABLE_CONTRACT_DECLARED": false,
+        "RESPONSE_PROJECTION_FROZEN": false,
+        "U4_HYPOTHESIS_MATERIALIZED": false
+      },
+      "claim_boundary": {
+        "missing_projection_may_be_faked": false,
+        "prediction_lowering_without_projection_allowed": false,
+        "preflight_is_world_evidence": false,
+        "preflight_mutates_knowledge_state": false
+      },
+      "digest": "b19e368d34bb3308f7da5d2e879a8b2a385cfcaedecf697761e6859d7a477912",
+      "hypothesis_digest": null,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "response_observable_ids": [],
+      "schema": "phi-existing-lowering-projection-preflight-episode/v1",
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    }
+  ],
+  "external_data_fetched": false,
+  "frontier_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
+  "knowledge_state_mutated": false,
+  "schema": "phi-existing-lowering-projection-preflight/v1",
+  "scientific_promotion_allowed": false,
+  "status": "LOWERING_PROJECTION_PREFLIGHT_CLASSIFIED_EXISTING_GAPS"
+}

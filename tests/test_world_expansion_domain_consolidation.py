@@ -12,6 +12,7 @@ from source.lawspace.source_capabilities import (
     match_source_provider,
     plan_world_evidence_campaign,
     run_existing_closed_loop_glue,
+    run_existing_lowering_projection_preflight,
     run_world_closed_loop_campaign,
 )
 
@@ -176,8 +177,11 @@ def test_existing_closed_loop_integration_audit_reuses_underused_systems_fail_cl
     assert result["state_counts"]["world_attestations"] == 0
     assert "MASS_U4_TO_PREDICTION_LOWERING_NOT_SCALED" in result["primary_bottlenecks_in_order"]
     assert "UNIVERSAL_EXECUTION_RUNTIME_NOT_BOUND_TO_FRONTIER_CAMPAIGN" not in result["primary_bottlenecks_in_order"]
+    assert "MATCHED_U4_EPISODES_REQUIRE_RESPONSE_OBSERVABLE_CONTRACT" in result["primary_bottlenecks_in_order"]
+    assert "MATCHED_PROVIDER_EPISODES_REQUIRE_U4_MATERIALIZATION" in result["primary_bottlenecks_in_order"]
     assert "FROZEN_EXECUTION_WAITING_FOR_RESPONSE_PROJECTION" in result["primary_bottlenecks_in_order"]
     assert "WORLD_TRUST_EMPTY" in result["primary_bottlenecks_in_order"]
+    assert result["lowering_projection_preflight_status"] == "LOWERING_PROJECTION_PREFLIGHT_CLASSIFIED_EXISTING_GAPS"
     assert result["glue_run_status"] == "EXISTING_GLUE_EXECUTED_FAIL_CLOSED_PRE_WORLD"
     route = {row["stage"]: row for row in result["route"]}
     assert route["FROZEN_EXECUTION"]["status"] == "BOUND_TO_FRONTIER_CAMPAIGN_WAITING_FOR_RESPONSE_PROJECTION"
@@ -203,7 +207,10 @@ def test_existing_closed_loop_glue_binds_runtime_to_frontier_but_stops_pre_world
     assert result["knowledge_state_mutated"] is False
     assert result["counts"]["provider_matched"] == 8
     assert result["counts"]["bound_to_frozen_execution_runtime"] == 8
+    assert result["counts"]["blocked_prediction_lowering_required"] == 0
+    assert result["counts"]["blocked_response_projection_required"] == 2
     assert result["counts"]["blocked_world_attestor_required"] == 8
+    assert result["lowering_projection_preflight_digest"]
     assert any(
         stage["stage"] == "FROZEN_EXECUTION_RUNTIME"
         and stage["runtime_bound_to_frontier_provider_route"] is True
@@ -216,13 +223,34 @@ def test_existing_closed_loop_glue_updates_audit_runtime_gap():
     result = audit_existing_closed_loop_integration(ROOT, max_frontier_rows=500, max_campaign_items=8)
     assert "UNIVERSAL_EXECUTION_RUNTIME_NOT_BOUND_TO_FRONTIER_CAMPAIGN" not in result["primary_bottlenecks_in_order"]
     assert "FROZEN_EXECUTION_WAITING_FOR_RESPONSE_PROJECTION" in result["primary_bottlenecks_in_order"]
+    assert "MATCHED_U4_EPISODES_REQUIRE_RESPONSE_OBSERVABLE_CONTRACT" in result["primary_bottlenecks_in_order"]
     route = {row["stage"]: row for row in result["route"]}
     assert route["FROZEN_EXECUTION"]["status"] == "BOUND_TO_FRONTIER_CAMPAIGN_WAITING_FOR_RESPONSE_PROJECTION"
     assert result["glue_run_status"] == "EXISTING_GLUE_EXECUTED_FAIL_CLOSED_PRE_WORLD"
 
 
+def test_existing_lowering_projection_preflight_classifies_all_matched_episodes():
+    result = run_existing_lowering_projection_preflight(ROOT, max_frontier_rows=500, max_campaign_items=8)
+    assert result["status"] == "LOWERING_PROJECTION_PREFLIGHT_CLASSIFIED_EXISTING_GAPS"
+    assert result["knowledge_state_mutated"] is False
+    assert result["external_data_fetched"] is False
+    assert result["counts"]["episode_count"] == 8
+    assert result["counts"]["provider_matched"] == 8
+    assert result["counts"]["u4_materialized"] == 2
+    assert result["counts"]["u4_materialization_required"] == 6
+    assert result["counts"]["response_observable_contract_required"] == 2
+    assert result["counts"]["ready_for_frozen_runtime"] == 0
+    statuses = {row["terminal_status"] for row in result["episodes"]}
+    assert "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED" in statuses
+    assert "BLOCKED_U4_MATERIALIZATION_REQUIRED" in statuses
+    assert result["claim_boundary"]["preflight_can_replace_response_projection"] is False
+
+
 def test_existing_closed_loop_glue_api_exposed():
     api = LawSpaceAPI(ROOT)
     assert "run_existing_closed_loop_glue" in api.READ_TOOLS
+    assert "run_existing_lowering_projection_preflight" in api.READ_TOOLS
     result = api.run_existing_closed_loop_glue(max_frontier_rows=500, max_campaign_items=8)
     assert result["universal_execution_runtime_bound_to_frontier_campaign"] is True
+    preflight = api.run_existing_lowering_projection_preflight(max_frontier_rows=500, max_campaign_items=8)
+    assert preflight["counts"]["episode_count"] == 8

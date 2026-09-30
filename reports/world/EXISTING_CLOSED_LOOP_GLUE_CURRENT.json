@@ -7,7 +7,7 @@
     "world_attestation_may_be_faked_locally": false
   },
   "counts": {
-    "blocked_prediction_lowering_required": 2,
+    "blocked_prediction_lowering_required": 0,
     "blocked_response_projection_required": 2,
     "blocked_u4_materialization_required": 6,
     "blocked_world_attestor_required": 8,
@@ -22,14 +22,15 @@
     "response_projection_ready": 0,
     "u4_materialized": 2
   },
-  "digest": "82ab2fc3b0d3e9d212a6dd2ee5b6f6bdbf89be5e6b05fea400c439a0c72174e1",
+  "digest": "3f48a37dec1edd995e9a5fcedc9f9e8c6538ac2006551d7b4fc2b8fd5be3061a",
   "episode_count": 8,
   "episodes": [
     {
       "candidate_id": "SUBSPACE-1BB180E9901D07B0325B",
-      "digest": "5ec3e36294901ff464ff7850f72ccb4eff1fdda3c7dbf6608d2f1f9b54c115c4",
+      "digest": "3381730df48762c3045488de80f438b4a6303ea9ae3a9cf99e50537490992ed7",
       "external_data_fetched": false,
       "knowledge_state_mutated": false,
+      "lowering_projection_preflight_digest": "06d7edccbe5b6dd2f7e8eb6746f445df5644a13c31e809dfe64edf7f7ac747a3",
       "provider_id": "JHTDB_LOCAL_REST_CURRENT",
       "schema": "phi-existing-closed-loop-glue-episode/v1",
       "scientific_promotion_allowed": false,
@@ -44,11 +45,12 @@
         },
         {
           "stage": "PREDICTION_LOWERING",
-          "status": "BLOCKED_PREDICTION_LOWERING_REQUIRED"
+          "status": "WAITING_FOR_RESPONSE_PROJECTION"
         },
         {
+          "lowering_projection_preflight_status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED",
           "stage": "RESPONSE_PROJECTION",
-          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+          "status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
         },
         {
           "provider_id": "JHTDB_LOCAL_REST_CURRENT",
@@ -72,7 +74,7 @@
             "THEORY_REVISION"
           ],
           "stage": "FROZEN_EXECUTION_RUNTIME",
-          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+          "status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
         },
         {
           "stage": "EXISTING_MEASUREMENT_MEMORY",
@@ -89,13 +91,14 @@
           "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0"
         }
       ],
-      "terminal_status": "BLOCKED_PREDICTION_LOWERING_REQUIRED"
+      "terminal_status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
     },
     {
       "candidate_id": "SUBSPACE-1F213D75771C7EBE3D24",
-      "digest": "750be12ea9c0c53a90c5b1926ee09d5a0a4fa6bdd4ccefcd250de58107d60f2b",
+      "digest": "bbe02d3cb2a8ce487b3254215960b6892211a526f0da58168cb8eba6320a68a6",
       "external_data_fetched": false,
       "knowledge_state_mutated": false,
+      "lowering_projection_preflight_digest": "f327fff2da75b365749537785ea2bb1fbb1a37a3c3cfc870340b0418243784f2",
       "provider_id": "JHTDB_LOCAL_REST_CURRENT",
       "schema": "phi-existing-closed-loop-glue-episode/v1",
       "scientific_promotion_allowed": false,
@@ -110,11 +113,12 @@
         },
         {
           "stage": "PREDICTION_LOWERING",
-          "status": "BLOCKED_PREDICTION_LOWERING_REQUIRED"
+          "status": "WAITING_FOR_RESPONSE_PROJECTION"
         },
         {
+          "lowering_projection_preflight_status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED",
           "stage": "RESPONSE_PROJECTION",
-          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+          "status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
         },
         {
           "provider_id": "JHTDB_LOCAL_REST_CURRENT",
@@ -138,7 +142,7 @@
             "THEORY_REVISION"
           ],
           "stage": "FROZEN_EXECUTION_RUNTIME",
-          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+          "status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
         },
         {
           "stage": "EXISTING_MEASUREMENT_MEMORY",
@@ -155,13 +159,14 @@
           "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0"
         }
       ],
-      "terminal_status": "BLOCKED_PREDICTION_LOWERING_REQUIRED"
+      "terminal_status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED"
     },
     {
       "candidate_id": "SUBSPACE-19A74046A7D81C316CBF",
-      "digest": "c7cffdc790a7ac20a39bd852364a271b548194ba618a51634d90b57e7db58fae",
+      "digest": "11f7da9670bfebb06e31fd3c7a97d09991d464867e582c0cb3b2920ada242316",
       "external_data_fetched": false,
       "knowledge_state_mutated": false,
+      "lowering_projection_preflight_digest": "6301932b6572d3ef6108470c97e112ef6671ee1468c121ba6480133cb5b2cd63",
       "provider_id": "JHTDB_LOCAL_REST_CURRENT",
       "schema": "phi-existing-closed-loop-glue-episode/v1",
       "scientific_promotion_allowed": false,
@@ -179,6 +184,7 @@
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
         {
+          "lowering_projection_preflight_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
           "stage": "RESPONSE_PROJECTION",
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
@@ -204,7 +210,7 @@
             "THEORY_REVISION"
           ],
           "stage": "FROZEN_EXECUTION_RUNTIME",
-          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
         },
         {
           "stage": "EXISTING_MEASUREMENT_MEMORY",
@@ -225,9 +231,10 @@
     },
     {
       "candidate_id": "SUBSPACE-00E6309E6E7C46E9C7DA",
-      "digest": "c24b716227121ba3bd28cda4eba33836e1367b33529551ec572fd9edf5be683f",
+      "digest": "a7cf7587c1c45c271e0988c68f0db768b312cfb4cc0a5755842d7193f8a4fa78",
       "external_data_fetched": false,
       "knowledge_state_mutated": false,
+      "lowering_projection_preflight_digest": "67b88605f640c2eed12f65d1b0e6d1e78882bcfd091505fd411e0dfa47e05e62",
       "provider_id": "JHTDB_LOCAL_REST_CURRENT",
       "schema": "phi-existing-closed-loop-glue-episode/v1",
       "scientific_promotion_allowed": false,
@@ -245,6 +252,7 @@
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
         {
+          "lowering_projection_preflight_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
           "stage": "RESPONSE_PROJECTION",
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
@@ -270,7 +278,7 @@
             "THEORY_REVISION"
           ],
           "stage": "FROZEN_EXECUTION_RUNTIME",
-          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
         },
         {
           "stage": "EXISTING_MEASUREMENT_MEMORY",
@@ -291,9 +299,10 @@
     },
     {
       "candidate_id": "SUBSPACE-034B8BDE07CB9AEE7EAB",
-      "digest": "179c9669e6685c1adc06b459a57ae05de7da4bd9e38837868d226364b30298d6",
+      "digest": "4fae2052849c18077af78a3a50b04dad0e839bda3a8091f0f9e58a5f785cd558",
       "external_data_fetched": false,
       "knowledge_state_mutated": false,
+      "lowering_projection_preflight_digest": "8959fbf4f0df52bc39fc47deceef98f1605d3456da48771089054b8d72799166",
       "provider_id": "JHTDB_LOCAL_REST_CURRENT",
       "schema": "phi-existing-closed-loop-glue-episode/v1",
       "scientific_promotion_allowed": false,
@@ -311,6 +320,7 @@
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
         {
+          "lowering_projection_preflight_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
           "stage": "RESPONSE_PROJECTION",
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
@@ -336,7 +346,7 @@
             "THEORY_REVISION"
           ],
           "stage": "FROZEN_EXECUTION_RUNTIME",
-          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
         },
         {
           "stage": "EXISTING_MEASUREMENT_MEMORY",
@@ -357,9 +367,10 @@
     },
     {
       "candidate_id": "SUBSPACE-21D02D484666D7AFA837",
-      "digest": "00896ae8763c29c9027207845db8f19268653fe6ec5f21ddcfe68d5de04ba13f",
+      "digest": "6639ed6fa1d6f8c6fa9493b114b16ff84d6a6baa57b49f182d39ae4da465819e",
       "external_data_fetched": false,
       "knowledge_state_mutated": false,
+      "lowering_projection_preflight_digest": "ec29ca3cc7208165540f860f43ab7b8808e30ce47abda133ae4139d6ac9c5db4",
       "provider_id": "JHTDB_LOCAL_REST_CURRENT",
       "schema": "phi-existing-closed-loop-glue-episode/v1",
       "scientific_promotion_allowed": false,
@@ -377,6 +388,7 @@
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
         {
+          "lowering_projection_preflight_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
           "stage": "RESPONSE_PROJECTION",
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
@@ -402,7 +414,7 @@
             "THEORY_REVISION"
           ],
           "stage": "FROZEN_EXECUTION_RUNTIME",
-          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
         },
         {
           "stage": "EXISTING_MEASUREMENT_MEMORY",
@@ -423,9 +435,10 @@
     },
     {
       "candidate_id": "SUBSPACE-083F78F9AC7B7459EFD4",
-      "digest": "0f8743dce349009197e9f118e5287e3fa92b78fde324e8c5459bec062cc0ec73",
+      "digest": "3cf25d1ee0504eb320ee1d3982107809dc2600c702149f83c46a5224f327131b",
       "external_data_fetched": false,
       "knowledge_state_mutated": false,
+      "lowering_projection_preflight_digest": "d49def0d5eb25667ff4450c55ad70957d2e7b92815b9641a150654772719aa78",
       "provider_id": "JHTDB_LOCAL_REST_CURRENT",
       "schema": "phi-existing-closed-loop-glue-episode/v1",
       "scientific_promotion_allowed": false,
@@ -443,6 +456,7 @@
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
         {
+          "lowering_projection_preflight_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
           "stage": "RESPONSE_PROJECTION",
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
@@ -468,7 +482,7 @@
             "THEORY_REVISION"
           ],
           "stage": "FROZEN_EXECUTION_RUNTIME",
-          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
         },
         {
           "stage": "EXISTING_MEASUREMENT_MEMORY",
@@ -489,9 +503,10 @@
     },
     {
       "candidate_id": "SUBSPACE-1FF0A108A4ECADE62361",
-      "digest": "d96796744b8a21d5f739b1307015d7a8ff5b2701476a960d0ee199ce72babf44",
+      "digest": "84545ad81438871b75053b16346251da8cf0e3301c8d889ceaa4b3cbd20e6321",
       "external_data_fetched": false,
       "knowledge_state_mutated": false,
+      "lowering_projection_preflight_digest": "b19e368d34bb3308f7da5d2e879a8b2a385cfcaedecf697761e6859d7a477912",
       "provider_id": "JHTDB_LOCAL_REST_CURRENT",
       "schema": "phi-existing-closed-loop-glue-episode/v1",
       "scientific_promotion_allowed": false,
@@ -509,6 +524,7 @@
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
         {
+          "lowering_projection_preflight_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
           "stage": "RESPONSE_PROJECTION",
           "status": "WAITING_FOR_U4_MATERIALIZATION"
         },
@@ -534,7 +550,7 @@
             "THEORY_REVISION"
           ],
           "stage": "FROZEN_EXECUTION_RUNTIME",
-          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
         },
         {
           "stage": "EXISTING_MEASUREMENT_MEMORY",
@@ -557,6 +573,7 @@
   "external_data_fetched": false,
   "frontier_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
   "knowledge_state_mutated": false,
+  "lowering_projection_preflight_digest": "e6118e71702410b8152bf7a5640ba48206d6f171e10f62d2055f327cf62e2776",
   "private_key_created_or_stored": false,
   "route_closed_through_existing_systems": true,
   "route_complete_to_world_boundary_count": 0,

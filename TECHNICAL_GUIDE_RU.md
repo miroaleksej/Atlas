@@ -153,7 +153,17 @@ python -m evaluation.world_closed_loop_campaign \
   --out reports/world/EXISTING_CLOSED_LOOP_GLUE_CURRENT.json
 ```
 
-Он не создаёт нового scientific owner и не получает внешние данные. Отчёт перечисляет существующие механизмы `ScientificExploitation`, `DiscriminatingExperimentAutopilot`, `FrozenExperimentExecution`, `ClosedLoopResearch`, `SourceProviderCapabilityRegistry`, `ScientificVerificationCore`, `WorldAttestationOwner`, `U5AttemptScheduler`, `ScientificPromotionCore` и `KnowledgeEvolutionKernel`, затем показывает, где маршрут фактически обрывается. В текущем состоянии основные разрывы: массовый U4-frontier ещё не масштабирован в prediction lowering/response projection, frozen execution runtime уже привязан к frontier campaign для восьми JHTDB-matched episodes, WORLD trust пустой, а U5 replay не имеет WORLD evidence.
+Отдельный preflight для existing lowering/projection owners классифицирует те же episodes до попытки frozen execution:
+
+```bash
+python -m evaluation.world_closed_loop_campaign \
+  --run-lowering-projection-preflight \
+  --max-frontier-rows 500 \
+  --max-campaign-items 8 \
+  --out reports/world/EXISTING_LOWERING_PROJECTION_PREFLIGHT_CURRENT.json
+```
+
+Он не создаёт нового scientific owner и не получает внешние данные. Отчёт перечисляет существующие механизмы `ScientificExploitation`, `DiscriminatingExperimentAutopilot`, `FrozenExperimentExecution`, `ClosedLoopResearch`, `SourceProviderCapabilityRegistry`, `ScientificVerificationCore`, `WorldAttestationOwner`, `U5AttemptScheduler`, `ScientificPromotionCore` и `KnowledgeEvolutionKernel`, затем показывает, где маршрут фактически обрывается. В текущем состоянии основные разрывы: из восьми JHTDB-matched episodes две уже U4-materialized, шесть требуют U4 materialization, а обе U4-ready записи требуют явный response-observable contract перед frozen response projection и prediction lowering. Frozen execution runtime уже привязан к frontier campaign, WORLD trust пустой, а U5 replay не имеет WORLD evidence.
 
 Публичный trust store находится в `data/world_trust/attestors.json`. Private key должен быть создан и храниться вне Atlas. В репозитории допустимы только public key metadata, key id, role, provider scope, validity и revocation state. Текущий реестр пустой, поэтому `world_attestation_ready=false`: Atlas готов к независимому attestor, но не имитирует WORLD evidence.
 
