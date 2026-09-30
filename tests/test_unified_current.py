@@ -125,6 +125,9 @@ def test_current_release_tree_and_book_are_single_authority():
 def test_transactional_replay_receipts_are_not_sealed_release_files():
     assert is_local_artifact(ROOT / 'reports/runtime/FULL_REPLAY_PLAN_CURRENT.json', ROOT)
     assert is_local_artifact(ROOT / 'reports/runtime/full_replay_batches/batch_000.json', ROOT)
+    assert is_local_artifact(ROOT / 'reports/runtime/THEORY_COMPILER_QUALIFICATION_CURRENT.json', ROOT)
+    assert is_local_artifact(ROOT / 'reports/runtime/ATOMIC_OPERATOR_PROBE_CYCLE_CURRENT.json', ROOT)
+    assert is_local_artifact(ROOT / 'reports/runtime/ATOMIC_VARIABLE_PARTICLE_SELF_CONSISTENT_CYCLE_CURRENT.json', ROOT)
 
 
 def test_global_axis_space_is_open_ended_not_619_fundamental():
@@ -233,6 +236,10 @@ def test_assistant_cannot_assign_atlas_native_claim_origin():
 def test_representation_gap_can_synthesize_executable_operator_without_named_law():
     qualification = LawSpaceAPI(ROOT).run_phi_theory_compiler_qualification()
     assert qualification['status'] == 'PASS_PHI_THEORY_COMPILER_QUALIFICATION'
+    assert (ROOT / 'reports/runtime/THEORY_COMPILER_QUALIFICATION_CURRENT.json').exists()
+    assert not (ROOT / 'reports/THEORY_COMPILER_QUALIFICATION_CURRENT.json').exists()
+    assert not (ROOT / 'reports/ATOMIC_OPERATOR_PROBE_CYCLE_CURRENT.json').exists()
+    assert not (ROOT / 'reports/ATOMIC_VARIABLE_PARTICLE_SELF_CONSISTENT_CYCLE_CURRENT.json').exists()
     checks = {row['check']: row['status'] for row in qualification['checks']}
     assert checks['operator_candidate_synthesized'] == 'PASS'
     assert checks['operator_holdout_never_used_for_term_selection'] == 'PASS'

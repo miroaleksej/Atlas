@@ -4,7 +4,7 @@ from __future__ import annotations
 import copy
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 import numpy as np
 
@@ -16,6 +16,15 @@ from source.lawspace.api import LawSpaceAPI
 
 SCHEMA = "phi-theory-compiler-qualification/v3"
 RELEASE = "15.2.8"
+
+
+def _write_runtime_report(root: Path, name: str, payload: Mapping[str, Any]) -> None:
+    path = root / "reports" / "runtime" / name
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _history_rows():
@@ -490,7 +499,7 @@ def run_release_qualification(root: str|Path|None=None) -> dict[str,Any]:
         },
     }
     payload["digest"] = digest_payload(payload)
-    (root / "reports" / "THEORY_COMPILER_QUALIFICATION_CURRENT.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True)+"\n", encoding="utf-8")
+    _write_runtime_report(root, "THEORY_COMPILER_QUALIFICATION_CURRENT.json", payload)
     atomic_probe_report = {
         "schema":"phi-atomic-operator-probe-cycle/v3",
         "release":RELEASE,
@@ -544,7 +553,7 @@ def run_release_qualification(root: str|Path|None=None) -> dict[str,Any]:
         },
     }
     atomic_probe_report["digest"] = digest_payload(atomic_probe_report)
-    (root / "reports" / "ATOMIC_OPERATOR_PROBE_CYCLE_CURRENT.json").write_text(json.dumps(atomic_probe_report, ensure_ascii=False, indent=2, sort_keys=True)+"\n", encoding="utf-8")
+    _write_runtime_report(root, "ATOMIC_OPERATOR_PROBE_CYCLE_CURRENT.json", atomic_probe_report)
     variable_particle_report = {
         "schema":"phi-atomic-variable-particle-self-consistent-cycle/v1",
         "release":RELEASE,
@@ -586,7 +595,7 @@ def run_release_qualification(root: str|Path|None=None) -> dict[str,Any]:
         },
     }
     variable_particle_report["digest"] = digest_payload(variable_particle_report)
-    (root / "reports" / "ATOMIC_VARIABLE_PARTICLE_SELF_CONSISTENT_CYCLE_CURRENT.json").write_text(json.dumps(variable_particle_report, ensure_ascii=False, indent=2, sort_keys=True)+"\n", encoding="utf-8")
+    _write_runtime_report(root, "ATOMIC_VARIABLE_PARTICLE_SELF_CONSISTENT_CYCLE_CURRENT.json", variable_particle_report)
     return payload
 
 
