@@ -375,6 +375,198 @@ def run_world_closed_loop_campaign(
     })
 
 
+def _candidate_ids(state: Mapping[str, Any], section: str) -> set[str]:
+    return {
+        str(row.get("candidate_id"))
+        for row in state.get(section, ())
+        if isinstance(row, Mapping) and str(row.get("candidate_id", "")).strip()
+    }
+
+
+def run_existing_closed_loop_glue(
+    root: str | Path | None = None,
+    *,
+    max_frontier_rows: int = 500,
+    max_campaign_items: int = 8,
+) -> Mapping[str, Any]:
+    """Execute the internal glue path across already-existing Atlas systems.
+
+    This runner does not create a new scientific owner and does not acquire
+    external data.  It binds the frontier/provider campaign to the existing
+    frozen-experiment runtime as an explicit stage in the route, then stops
+    per candidate at the first missing precondition.
+    """
+    from .experiment_execution import SCHEMA as EXPERIMENT_EXECUTION_SCHEMA, STAGES as EXPERIMENT_EXECUTION_STAGES
+    from .knowledge_evolution import KnowledgeEvolutionKernel
+
+    root_path = _root(root)
+    if int(max_frontier_rows) < 1 or int(max_campaign_items) < 1:
+        raise ValueError("glue limits must be >= 1")
+    state = KnowledgeEvolutionKernel(root_path).state()
+    campaign = run_world_closed_loop_campaign(
+        root_path,
+        max_frontier_rows=int(max_frontier_rows),
+        max_campaign_items=int(max_campaign_items),
+    )
+    frontier_ids = {
+        str(row.get("candidate_id"))
+        for row in _frontier_rows(root_path, limit=int(max_frontier_rows))
+        if str(row.get("candidate_id", "")).strip()
+    }
+    materialized_ids = _candidate_ids(state, "hypothesis_materializations")
+    lowering_ids = _candidate_ids(state, "candidate_prediction_lowerings")
+    projection_ids = _candidate_ids(state, "candidate_response_projections")
+    measurement_ids = _candidate_ids(state, "candidate_measurement_executions")
+    discrimination_ids = _candidate_ids(state, "candidate_prediction_discriminations")
+    active_attestors = int(campaign.get("active_world_attestor_count", 0) or 0)
+
+    receipts: list[dict[str, Any]] = []
+    counts = {
+        "frontier_ready": 0,
+        "u4_materialized": 0,
+        "prediction_lowering_ready": 0,
+        "response_projection_ready": 0,
+        "measurement_execution_seen": 0,
+        "prediction_discrimination_seen": 0,
+        "provider_matched": 0,
+        "bound_to_frozen_execution_runtime": 0,
+        "ready_for_external_acquisition": 0,
+        "blocked_u4_materialization_required": 0,
+        "blocked_prediction_lowering_required": 0,
+        "blocked_response_projection_required": 0,
+        "blocked_world_attestor_required": 0,
+        "blocked_world_evidence_required": 0,
+    }
+
+    for episode in campaign.get("episodes", ()):
+        if not isinstance(episode, Mapping):
+            continue
+        cid = str(episode.get("candidate_id", ""))
+        stages: list[dict[str, Any]] = []
+
+        frontier_ready = cid in frontier_ids
+        counts["frontier_ready"] += int(frontier_ready)
+        stages.append({"stage": "FRONTIER", "status": "READY" if frontier_ready else "BLOCKED_FRONTIER_RECORD_NOT_IN_WINDOW"})
+
+        u4_ready = cid in materialized_ids
+        counts["u4_materialized"] += int(u4_ready)
+        if not u4_ready:
+            counts["blocked_u4_materialization_required"] += 1
+        stages.append({"stage": "U4_MATERIALIZATION", "status": "READY" if u4_ready else "BLOCKED_U4_MATERIALIZATION_REQUIRED"})
+
+        lowering_ready = cid in lowering_ids
+        counts["prediction_lowering_ready"] += int(lowering_ready)
+        if u4_ready and not lowering_ready:
+            counts["blocked_prediction_lowering_required"] += 1
+        stages.append({
+            "stage": "PREDICTION_LOWERING",
+            "status": "READY" if lowering_ready else ("BLOCKED_PREDICTION_LOWERING_REQUIRED" if u4_ready else "WAITING_FOR_U4_MATERIALIZATION"),
+        })
+
+        projection_ready = cid in projection_ids
+        counts["response_projection_ready"] += int(projection_ready)
+        if lowering_ready and not projection_ready:
+            counts["blocked_response_projection_required"] += 1
+        elif u4_ready and not projection_ready:
+            counts["blocked_response_projection_required"] += 1
+        stages.append({
+            "stage": "RESPONSE_PROJECTION",
+            "status": "READY" if projection_ready else ("BLOCKED_RESPONSE_PROJECTION_REQUIRED" if u4_ready else "WAITING_FOR_U4_MATERIALIZATION"),
+        })
+
+        provider_ready = bool(episode.get("provider_id"))
+        counts["provider_matched"] += int(provider_ready)
+        stages.append({
+            "stage": "PROVIDER_MATCHING",
+            "status": "READY" if provider_ready else "BLOCKED_NO_CAPABLE_PROVIDER",
+            "provider_id": episode.get("provider_id"),
+            "source_class": episode.get("source_class"),
+        })
+
+        runtime_bound = provider_ready
+        counts["bound_to_frozen_execution_runtime"] += int(runtime_bound)
+        frozen_status = (
+            "READY_FOR_FROZEN_PROTOCOL_COMPILATION"
+            if projection_ready and provider_ready
+            else "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+            if provider_ready
+            else "BLOCKED_PROVIDER_REQUIRED"
+        )
+        stages.append({
+            "stage": "FROZEN_EXECUTION_RUNTIME",
+            "status": frozen_status,
+            "runtime_schema": EXPERIMENT_EXECUTION_SCHEMA,
+            "runtime_stages": list(EXPERIMENT_EXECUTION_STAGES),
+            "runtime_bound_to_frontier_provider_route": runtime_bound,
+        })
+
+        measurement_seen = cid in measurement_ids
+        discrimination_seen = cid in discrimination_ids
+        counts["measurement_execution_seen"] += int(measurement_seen)
+        counts["prediction_discrimination_seen"] += int(discrimination_seen)
+        stages.append({
+            "stage": "EXISTING_MEASUREMENT_MEMORY",
+            "status": "FOUND_PRIOR_MEASUREMENT_EXECUTION" if measurement_seen else "NO_PRIOR_MEASUREMENT_EXECUTION_FOR_THIS_CANDIDATE",
+        })
+
+        if projection_ready and provider_ready and active_attestors > 0:
+            world_status = "READY_FOR_EXTERNAL_ACQUISITION_AND_WORLD_ATTESTATION"
+            counts["ready_for_external_acquisition"] += 1
+        elif active_attestors == 0:
+            world_status = "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+            counts["blocked_world_attestor_required"] += 1
+        else:
+            world_status = "BLOCKED_FROZEN_EXECUTION_PRECONDITION_REQUIRED"
+        stages.append({"stage": "WORLD_ATTESTATION", "status": world_status, "active_world_attestor_count": active_attestors})
+
+        counts["blocked_world_evidence_required"] += 1
+        stages.append({
+            "stage": "U5_REPLAY",
+            "status": "BLOCKED_WORLD_EVIDENCE_REQUIRED",
+            "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0",
+        })
+
+        terminal = next((row["status"] for row in stages if str(row["status"]).startswith("BLOCKED_")), "READY_FOR_EXTERNAL_ACQUISITION")
+        receipts.append(_with_digest({
+            "schema": "phi-existing-closed-loop-glue-episode/v1",
+            "candidate_id": cid,
+            "provider_id": episode.get("provider_id"),
+            "terminal_status": terminal,
+            "stages": stages,
+            "external_data_fetched": False,
+            "knowledge_state_mutated": False,
+            "scientific_promotion_allowed": False,
+        }))
+
+    status = (
+        "EXISTING_GLUE_EXECUTED_TO_WORLD_BOUNDARY"
+        if counts["ready_for_external_acquisition"] > 0
+        else "EXISTING_GLUE_EXECUTED_FAIL_CLOSED_PRE_WORLD"
+    )
+    return _with_digest({
+        "schema": "phi-existing-closed-loop-glue-run/v1",
+        "status": status,
+        "campaign_digest": campaign.get("digest"),
+        "frontier_ledger_sha256": campaign.get("frontier_ledger_sha256"),
+        "episode_count": len(receipts),
+        "counts": counts,
+        "episodes": receipts,
+        "universal_execution_runtime_bound_to_frontier_campaign": counts["bound_to_frozen_execution_runtime"] > 0,
+        "route_closed_through_existing_systems": True,
+        "route_complete_to_world_boundary_count": counts["ready_for_external_acquisition"],
+        "external_data_fetched": False,
+        "knowledge_state_mutated": False,
+        "private_key_created_or_stored": False,
+        "scientific_promotion_allowed": False,
+        "claim_boundary": {
+            "glue_run_is_world_evidence": False,
+            "runtime_binding_is_artifact_acquisition": False,
+            "missing_lowering_or_projection_may_be_skipped": False,
+            "world_attestation_may_be_faked_locally": False,
+        },
+    })
+
+
 def audit_existing_closed_loop_integration(
     root: str | Path | None = None,
     *,
@@ -404,6 +596,11 @@ def audit_existing_closed_loop_integration(
 
     state = KnowledgeEvolutionKernel(root_path).state()
     campaign = run_world_closed_loop_campaign(
+        root_path,
+        max_frontier_rows=int(max_frontier_rows),
+        max_campaign_items=int(max_campaign_items),
+    )
+    glue = run_existing_closed_loop_glue(
         root_path,
         max_frontier_rows=int(max_frontier_rows),
         max_campaign_items=int(max_campaign_items),
@@ -452,7 +649,7 @@ def audit_existing_closed_loop_integration(
             "owner": EXPERIMENT_EXECUTION_SCHEMA,
             "role": "contract runtime for source capability, acquisition, adapter, frozen evaluation and adjudication",
             "stages": list(EXPERIMENT_EXECUTION_STAGES),
-            "status": "PRESENT",
+            "status": "PRESENT_BOUND_TO_FRONTIER_CAMPAIGN_BY_GLUE_RUNNER",
         },
         {
             "system_id": "CLOSED-LOOP-AXIS-RESEARCH",
@@ -539,8 +736,12 @@ def audit_existing_closed_loop_integration(
         {
             "stage": "FROZEN_EXECUTION",
             "existing_system": "experiment_execution.freeze_protocol/acquire_evidence/evaluate_frozen_predictions",
-            "status": "AVAILABLE_NOT_BOUND_TO_FRONTIER_CAMPAIGN",
-            "observed": {"runtime_stages": list(EXPERIMENT_EXECUTION_STAGES)},
+            "status": "BOUND_TO_FRONTIER_CAMPAIGN_WAITING_FOR_RESPONSE_PROJECTION",
+            "observed": {
+                "runtime_stages": list(EXPERIMENT_EXECUTION_STAGES),
+                "bound_episode_count": glue.get("counts", {}).get("bound_to_frozen_execution_runtime", 0),
+                "route_complete_to_world_boundary_count": glue.get("route_complete_to_world_boundary_count", 0),
+            },
         },
         {
             "stage": "WORLD_ATTESTATION",
@@ -572,7 +773,10 @@ def audit_existing_closed_loop_integration(
         gap_order.append("PREDICTION_LOWERING_TO_RESPONSE_PROJECTION_NOT_SCALED")
     if provider_matches < int(campaign.get("candidate_specs_with_measurement_intents", 0)):
         gap_order.append("MEASUREMENT_INTENT_TO_PROVIDER_MATCH_PARTIAL")
-    gap_order.append("UNIVERSAL_EXECUTION_RUNTIME_NOT_BOUND_TO_FRONTIER_CAMPAIGN")
+    if glue.get("universal_execution_runtime_bound_to_frontier_campaign") is not True:
+        gap_order.append("UNIVERSAL_EXECUTION_RUNTIME_NOT_BOUND_TO_FRONTIER_CAMPAIGN")
+    if int(glue.get("route_complete_to_world_boundary_count", 0) or 0) == 0:
+        gap_order.append("FROZEN_EXECUTION_WAITING_FOR_RESPONSE_PROJECTION")
     if active_attestors == 0:
         gap_order.append("WORLD_TRUST_EMPTY")
     if attested == 0:
@@ -587,6 +791,8 @@ def audit_existing_closed_loop_integration(
         "state_counts": state_counts,
         "campaign_digest": campaign.get("digest"),
         "campaign_status": campaign.get("status"),
+        "glue_run_digest": glue.get("digest"),
+        "glue_run_status": glue.get("status"),
         "primary_bottlenecks_in_order": gap_order,
         "integration_policy": {
             "new_scientific_owner_created": False,

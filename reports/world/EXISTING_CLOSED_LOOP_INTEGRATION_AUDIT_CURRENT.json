@@ -7,8 +7,10 @@
     "provider_match_is_attestation": false,
     "underused_existing_systems_should_be_reused_before_new_owners": true
   },
-  "digest": "7bce2ad7ea32eb03ba6ea35d0103832659d11ea21f39e78121bf41aabcb3badb",
+  "digest": "522ee6e5d9532030528c3813611b5ada15ad4e142e34d727a570e71e44fe01bb",
   "frontier_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
+  "glue_run_digest": "82ab2fc3b0d3e9d212a6dd2ee5b6f6bdbf89be5e6b05fea400c439a0c72174e1",
+  "glue_run_status": "EXISTING_GLUE_EXECUTED_FAIL_CLOSED_PRE_WORLD",
   "integration_policy": {
     "external_data_fetched": false,
     "knowledge_state_mutated": false,
@@ -21,7 +23,7 @@
     "MASS_U4_TO_PREDICTION_LOWERING_NOT_SCALED",
     "PREDICTION_LOWERING_TO_RESPONSE_PROJECTION_NOT_SCALED",
     "MEASUREMENT_INTENT_TO_PROVIDER_MATCH_PARTIAL",
-    "UNIVERSAL_EXECUTION_RUNTIME_NOT_BOUND_TO_FRONTIER_CAMPAIGN",
+    "FROZEN_EXECUTION_WAITING_FOR_RESPONSE_PROJECTION",
     "WORLD_TRUST_EMPTY",
     "U5_REPLAY_HAS_NO_WORLD_EVIDENCE"
   ],
@@ -82,6 +84,8 @@
     {
       "existing_system": "experiment_execution.freeze_protocol/acquire_evidence/evaluate_frozen_predictions",
       "observed": {
+        "bound_episode_count": 8,
+        "route_complete_to_world_boundary_count": 0,
         "runtime_stages": [
           "SOURCE_CAPABILITY",
           "FREEZE_EXPERIMENT",
@@ -96,7 +100,7 @@
         ]
       },
       "stage": "FROZEN_EXECUTION",
-      "status": "AVAILABLE_NOT_BOUND_TO_FRONTIER_CAMPAIGN"
+      "status": "BOUND_TO_FRONTIER_CAMPAIGN_WAITING_FOR_RESPONSE_PROJECTION"
     },
     {
       "existing_system": "WorldAttestationOwner + data/world_trust/attestors.json",
@@ -183,7 +187,7 @@
         "ADJUDICATE",
         "THEORY_REVISION"
       ],
-      "status": "PRESENT",
+      "status": "PRESENT_BOUND_TO_FRONTIER_CAMPAIGN_BY_GLUE_RUNNER",
       "system_id": "FROZEN-EXPERIMENT-EXECUTION"
     },
     {

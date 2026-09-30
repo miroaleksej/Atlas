@@ -143,7 +143,17 @@ python -m evaluation.world_closed_loop_campaign \
   --out reports/world/EXISTING_CLOSED_LOOP_INTEGRATION_AUDIT_CURRENT.json
 ```
 
-Она не создаёт нового scientific owner и не получает внешние данные. Отчёт перечисляет существующие механизмы `ScientificExploitation`, `DiscriminatingExperimentAutopilot`, `FrozenExperimentExecution`, `ClosedLoopResearch`, `SourceProviderCapabilityRegistry`, `ScientificVerificationCore`, `WorldAttestationOwner`, `U5AttemptScheduler`, `ScientificPromotionCore` и `KnowledgeEvolutionKernel`, затем показывает, где маршрут фактически обрывается. В текущем состоянии основные разрывы: массовый U4-frontier ещё не масштабирован в prediction lowering/response projection, universal execution runtime доступен, но не привязан к frontier campaign, WORLD trust пустой, а U5 replay не имеет WORLD evidence.
+Исполняемый read-only glue-runner запускает уже найденные provider-matched episodes через существующую frozen runtime boundary:
+
+```bash
+python -m evaluation.world_closed_loop_campaign \
+  --run-existing-glue \
+  --max-frontier-rows 500 \
+  --max-campaign-items 8 \
+  --out reports/world/EXISTING_CLOSED_LOOP_GLUE_CURRENT.json
+```
+
+Он не создаёт нового scientific owner и не получает внешние данные. Отчёт перечисляет существующие механизмы `ScientificExploitation`, `DiscriminatingExperimentAutopilot`, `FrozenExperimentExecution`, `ClosedLoopResearch`, `SourceProviderCapabilityRegistry`, `ScientificVerificationCore`, `WorldAttestationOwner`, `U5AttemptScheduler`, `ScientificPromotionCore` и `KnowledgeEvolutionKernel`, затем показывает, где маршрут фактически обрывается. В текущем состоянии основные разрывы: массовый U4-frontier ещё не масштабирован в prediction lowering/response projection, frozen execution runtime уже привязан к frontier campaign для восьми JHTDB-matched episodes, WORLD trust пустой, а U5 replay не имеет WORLD evidence.
 
 Публичный trust store находится в `data/world_trust/attestors.json`. Private key должен быть создан и храниться вне Atlas. В репозитории допустимы только public key metadata, key id, role, provider scope, validity и revocation state. Текущий реестр пустой, поэтому `world_attestation_ready=false`: Atlas готов к независимому attestor, но не имитирует WORLD evidence.
 

@@ -7,6 +7,7 @@ from pathlib import Path
 
 from source.lawspace.source_capabilities import (
     audit_existing_closed_loop_integration,
+    run_existing_closed_loop_glue,
     run_world_closed_loop_campaign,
 )
 
@@ -30,16 +31,33 @@ def audit(root: str | Path = ROOT, *, max_frontier_rows: int = 500, max_campaign
     )
 
 
+def glue(root: str | Path = ROOT, *, max_frontier_rows: int = 500, max_campaign_items: int = 8):
+    return run_existing_closed_loop_glue(
+        root,
+        max_frontier_rows=max_frontier_rows,
+        max_campaign_items=max_campaign_items,
+    )
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--root", default=str(ROOT))
     ap.add_argument("--max-frontier-rows", type=int, default=200)
     ap.add_argument("--max-campaign-items", type=int, default=10)
     ap.add_argument("--audit-existing-systems", action="store_true")
+    ap.add_argument("--run-existing-glue", action="store_true")
     ap.add_argument("--out")
     ns = ap.parse_args()
+    if ns.audit_existing_systems and ns.run_existing_glue:
+        raise SystemExit("--audit-existing-systems and --run-existing-glue are mutually exclusive")
     if ns.audit_existing_systems:
         result = audit(
+            ns.root,
+            max_frontier_rows=ns.max_frontier_rows,
+            max_campaign_items=ns.max_campaign_items,
+        )
+    elif ns.run_existing_glue:
+        result = glue(
             ns.root,
             max_frontier_rows=ns.max_frontier_rows,
             max_campaign_items=ns.max_campaign_items,

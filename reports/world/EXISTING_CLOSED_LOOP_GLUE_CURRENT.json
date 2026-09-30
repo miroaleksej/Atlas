@@ -1,0 +1,567 @@
+{
+  "campaign_digest": "b89e080348f748c62fce9961c120c4c9b82b8ebd033305a0233cfa4f80a9cf3f",
+  "claim_boundary": {
+    "glue_run_is_world_evidence": false,
+    "missing_lowering_or_projection_may_be_skipped": false,
+    "runtime_binding_is_artifact_acquisition": false,
+    "world_attestation_may_be_faked_locally": false
+  },
+  "counts": {
+    "blocked_prediction_lowering_required": 2,
+    "blocked_response_projection_required": 2,
+    "blocked_u4_materialization_required": 6,
+    "blocked_world_attestor_required": 8,
+    "blocked_world_evidence_required": 8,
+    "bound_to_frozen_execution_runtime": 8,
+    "frontier_ready": 8,
+    "measurement_execution_seen": 0,
+    "prediction_discrimination_seen": 0,
+    "prediction_lowering_ready": 0,
+    "provider_matched": 8,
+    "ready_for_external_acquisition": 0,
+    "response_projection_ready": 0,
+    "u4_materialized": 2
+  },
+  "digest": "82ab2fc3b0d3e9d212a6dd2ee5b6f6bdbf89be5e6b05fea400c439a0c72174e1",
+  "episode_count": 8,
+  "episodes": [
+    {
+      "candidate_id": "SUBSPACE-1BB180E9901D07B0325B",
+      "digest": "5ec3e36294901ff464ff7850f72ccb4eff1fdda3c7dbf6608d2f1f9b54c115c4",
+      "external_data_fetched": false,
+      "knowledge_state_mutated": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "schema": "phi-existing-closed-loop-glue-episode/v1",
+      "scientific_promotion_allowed": false,
+      "stages": [
+        {
+          "stage": "FRONTIER",
+          "status": "READY"
+        },
+        {
+          "stage": "U4_MATERIALIZATION",
+          "status": "READY"
+        },
+        {
+          "stage": "PREDICTION_LOWERING",
+          "status": "BLOCKED_PREDICTION_LOWERING_REQUIRED"
+        },
+        {
+          "stage": "RESPONSE_PROJECTION",
+          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        },
+        {
+          "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+          "source_class": "OBSERVATIONAL_ARCHIVE",
+          "stage": "PROVIDER_MATCHING",
+          "status": "READY"
+        },
+        {
+          "runtime_bound_to_frontier_provider_route": true,
+          "runtime_schema": "phi-frozen-experiment-execution/v1",
+          "runtime_stages": [
+            "SOURCE_CAPABILITY",
+            "FREEZE_EXPERIMENT",
+            "FREEZE_SAMPLES",
+            "FREEZE_HYPOTHESES_FORMS",
+            "ACQUIRE_EVIDENCE",
+            "VERIFY_PROVENANCE",
+            "MEASUREMENT_ADAPTER",
+            "EVALUATE_FROZEN_PREDICTIONS",
+            "ADJUDICATE",
+            "THEORY_REVISION"
+          ],
+          "stage": "FROZEN_EXECUTION_RUNTIME",
+          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        },
+        {
+          "stage": "EXISTING_MEASUREMENT_MEMORY",
+          "status": "NO_PRIOR_MEASUREMENT_EXECUTION_FOR_THIS_CANDIDATE"
+        },
+        {
+          "active_world_attestor_count": 0,
+          "stage": "WORLD_ATTESTATION",
+          "status": "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+        },
+        {
+          "stage": "U5_REPLAY",
+          "status": "BLOCKED_WORLD_EVIDENCE_REQUIRED",
+          "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0"
+        }
+      ],
+      "terminal_status": "BLOCKED_PREDICTION_LOWERING_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-1F213D75771C7EBE3D24",
+      "digest": "750be12ea9c0c53a90c5b1926ee09d5a0a4fa6bdd4ccefcd250de58107d60f2b",
+      "external_data_fetched": false,
+      "knowledge_state_mutated": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "schema": "phi-existing-closed-loop-glue-episode/v1",
+      "scientific_promotion_allowed": false,
+      "stages": [
+        {
+          "stage": "FRONTIER",
+          "status": "READY"
+        },
+        {
+          "stage": "U4_MATERIALIZATION",
+          "status": "READY"
+        },
+        {
+          "stage": "PREDICTION_LOWERING",
+          "status": "BLOCKED_PREDICTION_LOWERING_REQUIRED"
+        },
+        {
+          "stage": "RESPONSE_PROJECTION",
+          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        },
+        {
+          "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+          "source_class": "OBSERVATIONAL_ARCHIVE",
+          "stage": "PROVIDER_MATCHING",
+          "status": "READY"
+        },
+        {
+          "runtime_bound_to_frontier_provider_route": true,
+          "runtime_schema": "phi-frozen-experiment-execution/v1",
+          "runtime_stages": [
+            "SOURCE_CAPABILITY",
+            "FREEZE_EXPERIMENT",
+            "FREEZE_SAMPLES",
+            "FREEZE_HYPOTHESES_FORMS",
+            "ACQUIRE_EVIDENCE",
+            "VERIFY_PROVENANCE",
+            "MEASUREMENT_ADAPTER",
+            "EVALUATE_FROZEN_PREDICTIONS",
+            "ADJUDICATE",
+            "THEORY_REVISION"
+          ],
+          "stage": "FROZEN_EXECUTION_RUNTIME",
+          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        },
+        {
+          "stage": "EXISTING_MEASUREMENT_MEMORY",
+          "status": "NO_PRIOR_MEASUREMENT_EXECUTION_FOR_THIS_CANDIDATE"
+        },
+        {
+          "active_world_attestor_count": 0,
+          "stage": "WORLD_ATTESTATION",
+          "status": "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+        },
+        {
+          "stage": "U5_REPLAY",
+          "status": "BLOCKED_WORLD_EVIDENCE_REQUIRED",
+          "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0"
+        }
+      ],
+      "terminal_status": "BLOCKED_PREDICTION_LOWERING_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-19A74046A7D81C316CBF",
+      "digest": "c7cffdc790a7ac20a39bd852364a271b548194ba618a51634d90b57e7db58fae",
+      "external_data_fetched": false,
+      "knowledge_state_mutated": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "schema": "phi-existing-closed-loop-glue-episode/v1",
+      "scientific_promotion_allowed": false,
+      "stages": [
+        {
+          "stage": "FRONTIER",
+          "status": "READY"
+        },
+        {
+          "stage": "U4_MATERIALIZATION",
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+        },
+        {
+          "stage": "PREDICTION_LOWERING",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "stage": "RESPONSE_PROJECTION",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+          "source_class": "OBSERVATIONAL_ARCHIVE",
+          "stage": "PROVIDER_MATCHING",
+          "status": "READY"
+        },
+        {
+          "runtime_bound_to_frontier_provider_route": true,
+          "runtime_schema": "phi-frozen-experiment-execution/v1",
+          "runtime_stages": [
+            "SOURCE_CAPABILITY",
+            "FREEZE_EXPERIMENT",
+            "FREEZE_SAMPLES",
+            "FREEZE_HYPOTHESES_FORMS",
+            "ACQUIRE_EVIDENCE",
+            "VERIFY_PROVENANCE",
+            "MEASUREMENT_ADAPTER",
+            "EVALUATE_FROZEN_PREDICTIONS",
+            "ADJUDICATE",
+            "THEORY_REVISION"
+          ],
+          "stage": "FROZEN_EXECUTION_RUNTIME",
+          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        },
+        {
+          "stage": "EXISTING_MEASUREMENT_MEMORY",
+          "status": "NO_PRIOR_MEASUREMENT_EXECUTION_FOR_THIS_CANDIDATE"
+        },
+        {
+          "active_world_attestor_count": 0,
+          "stage": "WORLD_ATTESTATION",
+          "status": "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+        },
+        {
+          "stage": "U5_REPLAY",
+          "status": "BLOCKED_WORLD_EVIDENCE_REQUIRED",
+          "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0"
+        }
+      ],
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-00E6309E6E7C46E9C7DA",
+      "digest": "c24b716227121ba3bd28cda4eba33836e1367b33529551ec572fd9edf5be683f",
+      "external_data_fetched": false,
+      "knowledge_state_mutated": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "schema": "phi-existing-closed-loop-glue-episode/v1",
+      "scientific_promotion_allowed": false,
+      "stages": [
+        {
+          "stage": "FRONTIER",
+          "status": "READY"
+        },
+        {
+          "stage": "U4_MATERIALIZATION",
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+        },
+        {
+          "stage": "PREDICTION_LOWERING",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "stage": "RESPONSE_PROJECTION",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+          "source_class": "OBSERVATIONAL_ARCHIVE",
+          "stage": "PROVIDER_MATCHING",
+          "status": "READY"
+        },
+        {
+          "runtime_bound_to_frontier_provider_route": true,
+          "runtime_schema": "phi-frozen-experiment-execution/v1",
+          "runtime_stages": [
+            "SOURCE_CAPABILITY",
+            "FREEZE_EXPERIMENT",
+            "FREEZE_SAMPLES",
+            "FREEZE_HYPOTHESES_FORMS",
+            "ACQUIRE_EVIDENCE",
+            "VERIFY_PROVENANCE",
+            "MEASUREMENT_ADAPTER",
+            "EVALUATE_FROZEN_PREDICTIONS",
+            "ADJUDICATE",
+            "THEORY_REVISION"
+          ],
+          "stage": "FROZEN_EXECUTION_RUNTIME",
+          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        },
+        {
+          "stage": "EXISTING_MEASUREMENT_MEMORY",
+          "status": "NO_PRIOR_MEASUREMENT_EXECUTION_FOR_THIS_CANDIDATE"
+        },
+        {
+          "active_world_attestor_count": 0,
+          "stage": "WORLD_ATTESTATION",
+          "status": "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+        },
+        {
+          "stage": "U5_REPLAY",
+          "status": "BLOCKED_WORLD_EVIDENCE_REQUIRED",
+          "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0"
+        }
+      ],
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-034B8BDE07CB9AEE7EAB",
+      "digest": "179c9669e6685c1adc06b459a57ae05de7da4bd9e38837868d226364b30298d6",
+      "external_data_fetched": false,
+      "knowledge_state_mutated": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "schema": "phi-existing-closed-loop-glue-episode/v1",
+      "scientific_promotion_allowed": false,
+      "stages": [
+        {
+          "stage": "FRONTIER",
+          "status": "READY"
+        },
+        {
+          "stage": "U4_MATERIALIZATION",
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+        },
+        {
+          "stage": "PREDICTION_LOWERING",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "stage": "RESPONSE_PROJECTION",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+          "source_class": "OBSERVATIONAL_ARCHIVE",
+          "stage": "PROVIDER_MATCHING",
+          "status": "READY"
+        },
+        {
+          "runtime_bound_to_frontier_provider_route": true,
+          "runtime_schema": "phi-frozen-experiment-execution/v1",
+          "runtime_stages": [
+            "SOURCE_CAPABILITY",
+            "FREEZE_EXPERIMENT",
+            "FREEZE_SAMPLES",
+            "FREEZE_HYPOTHESES_FORMS",
+            "ACQUIRE_EVIDENCE",
+            "VERIFY_PROVENANCE",
+            "MEASUREMENT_ADAPTER",
+            "EVALUATE_FROZEN_PREDICTIONS",
+            "ADJUDICATE",
+            "THEORY_REVISION"
+          ],
+          "stage": "FROZEN_EXECUTION_RUNTIME",
+          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        },
+        {
+          "stage": "EXISTING_MEASUREMENT_MEMORY",
+          "status": "NO_PRIOR_MEASUREMENT_EXECUTION_FOR_THIS_CANDIDATE"
+        },
+        {
+          "active_world_attestor_count": 0,
+          "stage": "WORLD_ATTESTATION",
+          "status": "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+        },
+        {
+          "stage": "U5_REPLAY",
+          "status": "BLOCKED_WORLD_EVIDENCE_REQUIRED",
+          "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0"
+        }
+      ],
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-21D02D484666D7AFA837",
+      "digest": "00896ae8763c29c9027207845db8f19268653fe6ec5f21ddcfe68d5de04ba13f",
+      "external_data_fetched": false,
+      "knowledge_state_mutated": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "schema": "phi-existing-closed-loop-glue-episode/v1",
+      "scientific_promotion_allowed": false,
+      "stages": [
+        {
+          "stage": "FRONTIER",
+          "status": "READY"
+        },
+        {
+          "stage": "U4_MATERIALIZATION",
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+        },
+        {
+          "stage": "PREDICTION_LOWERING",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "stage": "RESPONSE_PROJECTION",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+          "source_class": "OBSERVATIONAL_ARCHIVE",
+          "stage": "PROVIDER_MATCHING",
+          "status": "READY"
+        },
+        {
+          "runtime_bound_to_frontier_provider_route": true,
+          "runtime_schema": "phi-frozen-experiment-execution/v1",
+          "runtime_stages": [
+            "SOURCE_CAPABILITY",
+            "FREEZE_EXPERIMENT",
+            "FREEZE_SAMPLES",
+            "FREEZE_HYPOTHESES_FORMS",
+            "ACQUIRE_EVIDENCE",
+            "VERIFY_PROVENANCE",
+            "MEASUREMENT_ADAPTER",
+            "EVALUATE_FROZEN_PREDICTIONS",
+            "ADJUDICATE",
+            "THEORY_REVISION"
+          ],
+          "stage": "FROZEN_EXECUTION_RUNTIME",
+          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        },
+        {
+          "stage": "EXISTING_MEASUREMENT_MEMORY",
+          "status": "NO_PRIOR_MEASUREMENT_EXECUTION_FOR_THIS_CANDIDATE"
+        },
+        {
+          "active_world_attestor_count": 0,
+          "stage": "WORLD_ATTESTATION",
+          "status": "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+        },
+        {
+          "stage": "U5_REPLAY",
+          "status": "BLOCKED_WORLD_EVIDENCE_REQUIRED",
+          "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0"
+        }
+      ],
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-083F78F9AC7B7459EFD4",
+      "digest": "0f8743dce349009197e9f118e5287e3fa92b78fde324e8c5459bec062cc0ec73",
+      "external_data_fetched": false,
+      "knowledge_state_mutated": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "schema": "phi-existing-closed-loop-glue-episode/v1",
+      "scientific_promotion_allowed": false,
+      "stages": [
+        {
+          "stage": "FRONTIER",
+          "status": "READY"
+        },
+        {
+          "stage": "U4_MATERIALIZATION",
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+        },
+        {
+          "stage": "PREDICTION_LOWERING",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "stage": "RESPONSE_PROJECTION",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+          "source_class": "OBSERVATIONAL_ARCHIVE",
+          "stage": "PROVIDER_MATCHING",
+          "status": "READY"
+        },
+        {
+          "runtime_bound_to_frontier_provider_route": true,
+          "runtime_schema": "phi-frozen-experiment-execution/v1",
+          "runtime_stages": [
+            "SOURCE_CAPABILITY",
+            "FREEZE_EXPERIMENT",
+            "FREEZE_SAMPLES",
+            "FREEZE_HYPOTHESES_FORMS",
+            "ACQUIRE_EVIDENCE",
+            "VERIFY_PROVENANCE",
+            "MEASUREMENT_ADAPTER",
+            "EVALUATE_FROZEN_PREDICTIONS",
+            "ADJUDICATE",
+            "THEORY_REVISION"
+          ],
+          "stage": "FROZEN_EXECUTION_RUNTIME",
+          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        },
+        {
+          "stage": "EXISTING_MEASUREMENT_MEMORY",
+          "status": "NO_PRIOR_MEASUREMENT_EXECUTION_FOR_THIS_CANDIDATE"
+        },
+        {
+          "active_world_attestor_count": 0,
+          "stage": "WORLD_ATTESTATION",
+          "status": "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+        },
+        {
+          "stage": "U5_REPLAY",
+          "status": "BLOCKED_WORLD_EVIDENCE_REQUIRED",
+          "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0"
+        }
+      ],
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    },
+    {
+      "candidate_id": "SUBSPACE-1FF0A108A4ECADE62361",
+      "digest": "d96796744b8a21d5f739b1307015d7a8ff5b2701476a960d0ee199ce72babf44",
+      "external_data_fetched": false,
+      "knowledge_state_mutated": false,
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "schema": "phi-existing-closed-loop-glue-episode/v1",
+      "scientific_promotion_allowed": false,
+      "stages": [
+        {
+          "stage": "FRONTIER",
+          "status": "READY"
+        },
+        {
+          "stage": "U4_MATERIALIZATION",
+          "status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+        },
+        {
+          "stage": "PREDICTION_LOWERING",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "stage": "RESPONSE_PROJECTION",
+          "status": "WAITING_FOR_U4_MATERIALIZATION"
+        },
+        {
+          "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+          "source_class": "OBSERVATIONAL_ARCHIVE",
+          "stage": "PROVIDER_MATCHING",
+          "status": "READY"
+        },
+        {
+          "runtime_bound_to_frontier_provider_route": true,
+          "runtime_schema": "phi-frozen-experiment-execution/v1",
+          "runtime_stages": [
+            "SOURCE_CAPABILITY",
+            "FREEZE_EXPERIMENT",
+            "FREEZE_SAMPLES",
+            "FREEZE_HYPOTHESES_FORMS",
+            "ACQUIRE_EVIDENCE",
+            "VERIFY_PROVENANCE",
+            "MEASUREMENT_ADAPTER",
+            "EVALUATE_FROZEN_PREDICTIONS",
+            "ADJUDICATE",
+            "THEORY_REVISION"
+          ],
+          "stage": "FROZEN_EXECUTION_RUNTIME",
+          "status": "BLOCKED_RESPONSE_PROJECTION_REQUIRED"
+        },
+        {
+          "stage": "EXISTING_MEASUREMENT_MEMORY",
+          "status": "NO_PRIOR_MEASUREMENT_EXECUTION_FOR_THIS_CANDIDATE"
+        },
+        {
+          "active_world_attestor_count": 0,
+          "stage": "WORLD_ATTESTATION",
+          "status": "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
+        },
+        {
+          "stage": "U5_REPLAY",
+          "status": "BLOCKED_WORLD_EVIDENCE_REQUIRED",
+          "u5_replay_owner": "U5-ATTEMPT-SCHEDULER/1.2.0"
+        }
+      ],
+      "terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED"
+    }
+  ],
+  "external_data_fetched": false,
+  "frontier_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
+  "knowledge_state_mutated": false,
+  "private_key_created_or_stored": false,
+  "route_closed_through_existing_systems": true,
+  "route_complete_to_world_boundary_count": 0,
+  "schema": "phi-existing-closed-loop-glue-run/v1",
+  "scientific_promotion_allowed": false,
+  "status": "EXISTING_GLUE_EXECUTED_FAIL_CLOSED_PRE_WORLD",
+  "universal_execution_runtime_bound_to_frontier_campaign": true
+}

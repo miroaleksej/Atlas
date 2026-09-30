@@ -11,6 +11,7 @@ from source.lawspace.source_capabilities import (
     load_world_trust_registry,
     match_source_provider,
     plan_world_evidence_campaign,
+    run_existing_closed_loop_glue,
     run_world_closed_loop_campaign,
 )
 
@@ -174,9 +175,12 @@ def test_existing_closed_loop_integration_audit_reuses_underused_systems_fail_cl
     assert result["state_counts"]["hypothesis_materializations"] == 447
     assert result["state_counts"]["world_attestations"] == 0
     assert "MASS_U4_TO_PREDICTION_LOWERING_NOT_SCALED" in result["primary_bottlenecks_in_order"]
+    assert "UNIVERSAL_EXECUTION_RUNTIME_NOT_BOUND_TO_FRONTIER_CAMPAIGN" not in result["primary_bottlenecks_in_order"]
+    assert "FROZEN_EXECUTION_WAITING_FOR_RESPONSE_PROJECTION" in result["primary_bottlenecks_in_order"]
     assert "WORLD_TRUST_EMPTY" in result["primary_bottlenecks_in_order"]
+    assert result["glue_run_status"] == "EXISTING_GLUE_EXECUTED_FAIL_CLOSED_PRE_WORLD"
     route = {row["stage"]: row for row in result["route"]}
-    assert route["FROZEN_EXECUTION"]["status"] == "AVAILABLE_NOT_BOUND_TO_FRONTIER_CAMPAIGN"
+    assert route["FROZEN_EXECUTION"]["status"] == "BOUND_TO_FRONTIER_CAMPAIGN_WAITING_FOR_RESPONSE_PROJECTION"
     assert route["WORLD_ATTESTATION"]["status"] == "BLOCKED_NO_ACTIVE_EXTERNAL_ATTESTOR"
     assert route["U5_REPLAY"]["status"] == "BLOCKED_WORLD_EVIDENCE_REQUIRED"
 
@@ -187,3 +191,38 @@ def test_existing_closed_loop_integration_audit_api_exposed():
     result = api.audit_existing_closed_loop_integration(max_frontier_rows=500, max_campaign_items=8)
     assert result["status"] == "EXISTING_SYSTEMS_AUDITED_FAIL_CLOSED"
     assert result["integration_policy"]["external_data_fetched"] is False
+
+
+def test_existing_closed_loop_glue_binds_runtime_to_frontier_but_stops_pre_world():
+    result = run_existing_closed_loop_glue(ROOT, max_frontier_rows=500, max_campaign_items=8)
+    assert result["status"] == "EXISTING_GLUE_EXECUTED_FAIL_CLOSED_PRE_WORLD"
+    assert result["route_closed_through_existing_systems"] is True
+    assert result["universal_execution_runtime_bound_to_frontier_campaign"] is True
+    assert result["route_complete_to_world_boundary_count"] == 0
+    assert result["external_data_fetched"] is False
+    assert result["knowledge_state_mutated"] is False
+    assert result["counts"]["provider_matched"] == 8
+    assert result["counts"]["bound_to_frozen_execution_runtime"] == 8
+    assert result["counts"]["blocked_world_attestor_required"] == 8
+    assert any(
+        stage["stage"] == "FROZEN_EXECUTION_RUNTIME"
+        and stage["runtime_bound_to_frontier_provider_route"] is True
+        for episode in result["episodes"]
+        for stage in episode["stages"]
+    )
+
+
+def test_existing_closed_loop_glue_updates_audit_runtime_gap():
+    result = audit_existing_closed_loop_integration(ROOT, max_frontier_rows=500, max_campaign_items=8)
+    assert "UNIVERSAL_EXECUTION_RUNTIME_NOT_BOUND_TO_FRONTIER_CAMPAIGN" not in result["primary_bottlenecks_in_order"]
+    assert "FROZEN_EXECUTION_WAITING_FOR_RESPONSE_PROJECTION" in result["primary_bottlenecks_in_order"]
+    route = {row["stage"]: row for row in result["route"]}
+    assert route["FROZEN_EXECUTION"]["status"] == "BOUND_TO_FRONTIER_CAMPAIGN_WAITING_FOR_RESPONSE_PROJECTION"
+    assert result["glue_run_status"] == "EXISTING_GLUE_EXECUTED_FAIL_CLOSED_PRE_WORLD"
+
+
+def test_existing_closed_loop_glue_api_exposed():
+    api = LawSpaceAPI(ROOT)
+    assert "run_existing_closed_loop_glue" in api.READ_TOOLS
+    result = api.run_existing_closed_loop_glue(max_frontier_rows=500, max_campaign_items=8)
+    assert result["universal_execution_runtime_bound_to_frontier_campaign"] is True
