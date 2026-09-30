@@ -1,6 +1,6 @@
 # FILE TREE — CURRENT 0.15.29.0
 
-Controlled files: 444
+Controlled files: 445
 
 - `.github/workflows/atlas-chip-gcd-pilot.yml`
 - `.github/workflows/exoplanet-g-example.yml`
@@ -15,6 +15,7 @@ Controlled files: 444
 - `README.md`
 - `RUN_TURBULENCE_DNS_CLOSURE_RU.md`
 - `TECHNICAL_GUIDE_RU.md`
+- `TEST_ROLE_AUDIT_RU.md`
 - `capabilities.json`
 - `data/axes/canonical_dynamic_axes.json`
 - `data/benchmarks/law_lattice_v0_2_mass_blind_partitions.json`

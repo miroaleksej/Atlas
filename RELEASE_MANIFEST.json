@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 444,
+  "controlled_file_count": 445,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -126,6 +126,11 @@
       "path": "TECHNICAL_GUIDE_RU.md",
       "sha256": "0083d226cb4fa808cec8f446da63a69a73b30d7a0ca2cff929ae2230f6279d1f",
       "size": 225946
+    },
+    {
+      "path": "TEST_ROLE_AUDIT_RU.md",
+      "sha256": "208e6017ee8e3f313b98bd8a8a9f961be22783dafe84596305280c7aa216034f",
+      "size": 7889
     },
     {
       "path": "capabilities.json",
@@ -2286,7 +2291,7 @@
   "current_state_failed_checks": [],
   "current_state_qualification_digest": "1420ec586c95bb70dcfb719038a602e962bdcef5a9452ee631c8a099f56eaa72",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "c3ed067e353ef281f3ea2c455681abaa15caa432dc15178d1bb76a30b72fe3a4",
+  "digest": "b826e2790df527be776c3af65327ca603a08c171eb13efc7502306e92193127b",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
