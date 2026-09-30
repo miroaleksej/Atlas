@@ -8384,3 +8384,83 @@ falsification или scientific-verification inputs, они не выводят�
 
 и `PASS_CURRENT_STATE_15_29_0` теперь включает отдельную qualification этого
 инварианта и целостности execution-policy v5.
+
+## Universal Adaptive Research Mind
+
+Состояние исследовательского интеллекта Atlas в момент `t` можно записать как
+
+\[
+M_t=(H_t,B_t,W_t,\mathcal R_t,\mathcal C_t,\Pi_t,F_t),
+\]
+
+где `H_t` — конкурирующие гипотезы, `B_t` — состояние неопределённости,
+`W_t` — обученная только на post-freeze опыте модель `P(o|a,h,c,t)`,
+`\mathcal R_t` — доступные представления, `\mathcal C_t` — capabilities,
+`\Pi_t` — стратегия исследования, `F_t` — persistent frontier.
+
+Universal Research Kernel строит обязательства
+
+\[
+\mathcal O_t=\operatorname{Obligations}(H_t,E_t,\mathcal R_t,\mathcal C_t),
+\]
+
+а Mind выбирает допустимый следующий шаг. Obligation определяется отсутствующим
+научным объектом или доказательством, а не названием предметной области. Provider
+registry только проверяет, может ли источник выполнить уже выведенный evidence
+need; он не выбирает observable за claim.
+
+Для разрешённых действий learned world model может оценивать expected information
+ gain
+
+\[
+IG(a)=H(B_t)-\mathbb E_{o\sim P(o|a,H_t,W_t)}[H(B_{t+1}|o,a)].
+\]
+
+Но выбор cognitive goal упорядочен fail-closed:
+
+\[
+(\text{blocks-progress},\;\text{residual-pressure},\;IG).
+\]
+
+Сначала устраняется обязательство, без которого дальнейший цикл логически
+недопустим; затем устойчивый residual; и только среди совместимых действий
+используется EIG. Это не truth score.
+
+Опыт допускается в learning memory только при
+
+\[
+postfreeze\_binding(e_t)=1,
+\qquad
+prefreeze\_truth\_exposed(e_t)=0.
+\]
+
+После admission:
+
+\[
+D_{t+1}=D_t\cup\{e_t\},
+\qquad
+W_{t+1}=\operatorname{FitAndCalibrate}(D_{t+1}).
+\]
+
+Если support, calibration, OOD или drift gates не проходят, likelihoods не
+используются как будто они достоверны. Если `IG_max≈0`, модель OOD,
+`CAPABILITY_GAP` сохраняется или held-out residual устойчив, Atlas формирует
+representation pressure:
+
+\[
+r_t\rightarrow AxisBirth\rightarrow Function/OperatorBirth
+\rightarrow RepresentationLanguageBirth\rightarrow OntologyBirth.
+\]
+
+Рождённый объект остаётся research-local до post-freeze validation и независимого
+evidence. Итоговый переход:
+
+\[
+M_t\rightarrow\mathcal O_t\rightarrow Plan_t\rightarrow Action_t
+\rightarrow Evidence_t\rightarrow Learn_t\rightarrow Verify_t
+\rightarrow Residual_t\rightarrow Birth/Revision_t\rightarrow M_{t+1}.
+\]
+
+Так разделяются интеллект и научная власть: Mind может учиться, перепланировать и
+расширять представление, но не может объявить собственную гипотезу истинной без
+существующих evidence/verification/promotion gates.

@@ -1,0 +1,410 @@
+{
+  "blocked_or_pending_count": 8,
+  "claim_boundary": {
+    "capability_gap_is_failed_science": false,
+    "execution_loop_is_scientific_promotion": false,
+    "external_world_substituted_by_local_receipt": false
+  },
+  "compiled_loop_digest": "be6280814dc751a81fbbb537d33fe3addc0e842610fd3cb8d32bdb5fb892389e",
+  "digest": "a725bac0451e85730b628c74662e894bb859a6ea496428efb48c6602644a80db",
+  "external_data_fetched": false,
+  "knowledge_state_mutated": false,
+  "schema": "phi-universal-obligation-execution-loop/v1",
+  "scientific_promotion_allowed": false,
+  "status": "UNIVERSAL_OBLIGATION_EXECUTION_STEPPED_FAIL_CLOSED",
+  "step_count": 8,
+  "steps": [
+    {
+      "candidate_id": "SUBSPACE-1BB180E9901D07B0325B",
+      "capability_id": "claim-observable-measurement-contract",
+      "claim_boundary": {
+        "missing_owner_or_input_means_false_hypothesis": false,
+        "one_step_executes_more_than_next_obligation": false,
+        "research_local_birth_is_canonical": false,
+        "world_boundary_is_crossed_without_attestation": false
+      },
+      "digest": "ebb3751506009b426db5faf010cc79fc81d93e155fc027acea081e4ff06161e2",
+      "execution_status": "OWNER_INPUT_CONTRACT_COMPILED_FAIL_CLOSED",
+      "external_data_fetched": false,
+      "input_state_digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+      "knowledge_state_mutated": false,
+      "next_obligation": "EVIDENCE_VERIFICATION",
+      "obligation_id": "OBL-ED697D15BC55222CC0F5",
+      "owner_input_contract": {
+        "action_type": "declare_response_observable_contract",
+        "candidate_id": "SUBSPACE-1BB180E9901D07B0325B",
+        "capability_id": "claim-observable-measurement-contract",
+        "obligation_type": "OBSERVABLE_CONTRACT",
+        "required_evidence_schema": "phi-response-observable-contract/v1",
+        "source_obligation_digest": "ba4d9d06e7f7f2c5b63c74671bf6494ffeabd89239681023a508818e03e5b9d0"
+      },
+      "produced_object": {
+        "candidate_id": "SUBSPACE-1BB180E9901D07B0325B",
+        "owner_input_contract": {
+          "action_type": "declare_response_observable_contract",
+          "candidate_id": "SUBSPACE-1BB180E9901D07B0325B",
+          "capability_id": "claim-observable-measurement-contract",
+          "obligation_type": "OBSERVABLE_CONTRACT",
+          "required_evidence_schema": "phi-response-observable-contract/v1",
+          "source_obligation_digest": "ba4d9d06e7f7f2c5b63c74671bf6494ffeabd89239681023a508818e03e5b9d0"
+        },
+        "research_local": false,
+        "schema": "phi-response-observable-contract/v1"
+      },
+      "produced_object_digest": "5d5b14480e238491866e11b8733e6a9364202738c10a8079031d3630906c2ac6",
+      "residual": {
+        "kind": "REQUIRED_EVIDENCE_PENDING",
+        "policy": "if no observable can be declared, emit REPRESENTATION_BIRTH",
+        "present": true
+      },
+      "schema": "phi-universal-obligation-execution-step/v1",
+      "scientific_promotion_allowed": false,
+      "selected_owner": "DiscriminatingExperimentAutopilotOwner",
+      "state_transition_allowed": false,
+      "verification_status": "VERIFICATION_PENDING_REQUIRED_EVIDENCE"
+    },
+    {
+      "candidate_id": "SUBSPACE-1F213D75771C7EBE3D24",
+      "capability_id": "claim-observable-measurement-contract",
+      "claim_boundary": {
+        "missing_owner_or_input_means_false_hypothesis": false,
+        "one_step_executes_more_than_next_obligation": false,
+        "research_local_birth_is_canonical": false,
+        "world_boundary_is_crossed_without_attestation": false
+      },
+      "digest": "b1851c9f1d97753f5f85277d9b2c93694ae5ef7f113b5d4e09838ed725b393de",
+      "execution_status": "OWNER_INPUT_CONTRACT_COMPILED_FAIL_CLOSED",
+      "external_data_fetched": false,
+      "input_state_digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+      "knowledge_state_mutated": false,
+      "next_obligation": "EVIDENCE_VERIFICATION",
+      "obligation_id": "OBL-61860AECDFF2B917655F",
+      "owner_input_contract": {
+        "action_type": "declare_response_observable_contract",
+        "candidate_id": "SUBSPACE-1F213D75771C7EBE3D24",
+        "capability_id": "claim-observable-measurement-contract",
+        "obligation_type": "OBSERVABLE_CONTRACT",
+        "required_evidence_schema": "phi-response-observable-contract/v1",
+        "source_obligation_digest": "bbdbc30744099f7f0d12686a0936cb4de10533324b8fbfcf30e869e0d3409d8c"
+      },
+      "produced_object": {
+        "candidate_id": "SUBSPACE-1F213D75771C7EBE3D24",
+        "owner_input_contract": {
+          "action_type": "declare_response_observable_contract",
+          "candidate_id": "SUBSPACE-1F213D75771C7EBE3D24",
+          "capability_id": "claim-observable-measurement-contract",
+          "obligation_type": "OBSERVABLE_CONTRACT",
+          "required_evidence_schema": "phi-response-observable-contract/v1",
+          "source_obligation_digest": "bbdbc30744099f7f0d12686a0936cb4de10533324b8fbfcf30e869e0d3409d8c"
+        },
+        "research_local": false,
+        "schema": "phi-response-observable-contract/v1"
+      },
+      "produced_object_digest": "c3d2d5613b4f97699d29192ffc46e0008fd704e2888a911ce2366c38c9fe5398",
+      "residual": {
+        "kind": "REQUIRED_EVIDENCE_PENDING",
+        "policy": "if no observable can be declared, emit REPRESENTATION_BIRTH",
+        "present": true
+      },
+      "schema": "phi-universal-obligation-execution-step/v1",
+      "scientific_promotion_allowed": false,
+      "selected_owner": "DiscriminatingExperimentAutopilotOwner",
+      "state_transition_allowed": false,
+      "verification_status": "VERIFICATION_PENDING_REQUIRED_EVIDENCE"
+    },
+    {
+      "candidate_id": "SUBSPACE-19A74046A7D81C316CBF",
+      "capability_id": "typed-hypothesis-materialization",
+      "claim_boundary": {
+        "missing_owner_or_input_means_false_hypothesis": false,
+        "one_step_executes_more_than_next_obligation": false,
+        "research_local_birth_is_canonical": false,
+        "world_boundary_is_crossed_without_attestation": false
+      },
+      "digest": "b9af8e38484c41d19e64e1bd18e507b7441aefaceeb678a1a93b0d3fc7e2bba5",
+      "execution_status": "OWNER_INPUT_CONTRACT_COMPILED_FAIL_CLOSED",
+      "external_data_fetched": false,
+      "input_state_digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+      "knowledge_state_mutated": false,
+      "next_obligation": "EVIDENCE_VERIFICATION",
+      "obligation_id": "OBL-031C5F7132C4ADC4F031",
+      "owner_input_contract": {
+        "action_type": "compile_typed_hypothesis",
+        "candidate_id": "SUBSPACE-19A74046A7D81C316CBF",
+        "capability_id": "typed-hypothesis-materialization",
+        "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "source_obligation_digest": "2c717410ef3ce9b6d447869a134eeff67cfdf6cfa8328a9ac177ca08abcb2755"
+      },
+      "produced_object": {
+        "candidate_id": "SUBSPACE-19A74046A7D81C316CBF",
+        "owner_input_contract": {
+          "action_type": "compile_typed_hypothesis",
+          "candidate_id": "SUBSPACE-19A74046A7D81C316CBF",
+          "capability_id": "typed-hypothesis-materialization",
+          "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+          "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+          "source_obligation_digest": "2c717410ef3ce9b6d447869a134eeff67cfdf6cfa8328a9ac177ca08abcb2755"
+        },
+        "research_local": false,
+        "schema": "phi-u4-hypothesis-materialization/v1"
+      },
+      "produced_object_digest": "ec2a04dbd07ef8971be6b4f14bfdced922c621f157c2085e1095eb9f2efc8f4c",
+      "residual": {
+        "kind": "REQUIRED_EVIDENCE_PENDING",
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "present": true
+      },
+      "schema": "phi-universal-obligation-execution-step/v1",
+      "scientific_promotion_allowed": false,
+      "selected_owner": "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+      "state_transition_allowed": false,
+      "verification_status": "VERIFICATION_PENDING_REQUIRED_EVIDENCE"
+    },
+    {
+      "candidate_id": "SUBSPACE-00E6309E6E7C46E9C7DA",
+      "capability_id": "typed-hypothesis-materialization",
+      "claim_boundary": {
+        "missing_owner_or_input_means_false_hypothesis": false,
+        "one_step_executes_more_than_next_obligation": false,
+        "research_local_birth_is_canonical": false,
+        "world_boundary_is_crossed_without_attestation": false
+      },
+      "digest": "bc609b8fab9df38889dce3bb21c5c73370953ca07ef76054206ea7f5e265b4d1",
+      "execution_status": "OWNER_INPUT_CONTRACT_COMPILED_FAIL_CLOSED",
+      "external_data_fetched": false,
+      "input_state_digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+      "knowledge_state_mutated": false,
+      "next_obligation": "EVIDENCE_VERIFICATION",
+      "obligation_id": "OBL-22B2DA284069A8ABDFD4",
+      "owner_input_contract": {
+        "action_type": "compile_typed_hypothesis",
+        "candidate_id": "SUBSPACE-00E6309E6E7C46E9C7DA",
+        "capability_id": "typed-hypothesis-materialization",
+        "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "source_obligation_digest": "30fe72402c35f1321d0ed2927fe7b41816632a26386001d2e0d0292b89e7ef7b"
+      },
+      "produced_object": {
+        "candidate_id": "SUBSPACE-00E6309E6E7C46E9C7DA",
+        "owner_input_contract": {
+          "action_type": "compile_typed_hypothesis",
+          "candidate_id": "SUBSPACE-00E6309E6E7C46E9C7DA",
+          "capability_id": "typed-hypothesis-materialization",
+          "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+          "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+          "source_obligation_digest": "30fe72402c35f1321d0ed2927fe7b41816632a26386001d2e0d0292b89e7ef7b"
+        },
+        "research_local": false,
+        "schema": "phi-u4-hypothesis-materialization/v1"
+      },
+      "produced_object_digest": "a350c46bb0deaadb7c90918a19f18dabd2143c9a6a921f0ef1a78c6f15fd5e0b",
+      "residual": {
+        "kind": "REQUIRED_EVIDENCE_PENDING",
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "present": true
+      },
+      "schema": "phi-universal-obligation-execution-step/v1",
+      "scientific_promotion_allowed": false,
+      "selected_owner": "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+      "state_transition_allowed": false,
+      "verification_status": "VERIFICATION_PENDING_REQUIRED_EVIDENCE"
+    },
+    {
+      "candidate_id": "SUBSPACE-034B8BDE07CB9AEE7EAB",
+      "capability_id": "typed-hypothesis-materialization",
+      "claim_boundary": {
+        "missing_owner_or_input_means_false_hypothesis": false,
+        "one_step_executes_more_than_next_obligation": false,
+        "research_local_birth_is_canonical": false,
+        "world_boundary_is_crossed_without_attestation": false
+      },
+      "digest": "23451b41516eb94d07a7e6ddac1fb49b318b2bc66bed9339bd3681980d204bee",
+      "execution_status": "OWNER_INPUT_CONTRACT_COMPILED_FAIL_CLOSED",
+      "external_data_fetched": false,
+      "input_state_digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+      "knowledge_state_mutated": false,
+      "next_obligation": "EVIDENCE_VERIFICATION",
+      "obligation_id": "OBL-E17BEC18178042C5762C",
+      "owner_input_contract": {
+        "action_type": "compile_typed_hypothesis",
+        "candidate_id": "SUBSPACE-034B8BDE07CB9AEE7EAB",
+        "capability_id": "typed-hypothesis-materialization",
+        "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "source_obligation_digest": "e955eff1a97f1a4fac70220b228cb008567562fdb0a9c3daedefc3ce59d87775"
+      },
+      "produced_object": {
+        "candidate_id": "SUBSPACE-034B8BDE07CB9AEE7EAB",
+        "owner_input_contract": {
+          "action_type": "compile_typed_hypothesis",
+          "candidate_id": "SUBSPACE-034B8BDE07CB9AEE7EAB",
+          "capability_id": "typed-hypothesis-materialization",
+          "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+          "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+          "source_obligation_digest": "e955eff1a97f1a4fac70220b228cb008567562fdb0a9c3daedefc3ce59d87775"
+        },
+        "research_local": false,
+        "schema": "phi-u4-hypothesis-materialization/v1"
+      },
+      "produced_object_digest": "ab62ca8efd1b61646587b216862067cd6fc084445e45fddc0ccfc8626e22ca89",
+      "residual": {
+        "kind": "REQUIRED_EVIDENCE_PENDING",
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "present": true
+      },
+      "schema": "phi-universal-obligation-execution-step/v1",
+      "scientific_promotion_allowed": false,
+      "selected_owner": "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+      "state_transition_allowed": false,
+      "verification_status": "VERIFICATION_PENDING_REQUIRED_EVIDENCE"
+    },
+    {
+      "candidate_id": "SUBSPACE-21D02D484666D7AFA837",
+      "capability_id": "typed-hypothesis-materialization",
+      "claim_boundary": {
+        "missing_owner_or_input_means_false_hypothesis": false,
+        "one_step_executes_more_than_next_obligation": false,
+        "research_local_birth_is_canonical": false,
+        "world_boundary_is_crossed_without_attestation": false
+      },
+      "digest": "5cecd03c80861fa7939ec5f43275c86d64fcd808107b94d2bebe097d9420378c",
+      "execution_status": "OWNER_INPUT_CONTRACT_COMPILED_FAIL_CLOSED",
+      "external_data_fetched": false,
+      "input_state_digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+      "knowledge_state_mutated": false,
+      "next_obligation": "EVIDENCE_VERIFICATION",
+      "obligation_id": "OBL-5A8F33CFCD2DD668E222",
+      "owner_input_contract": {
+        "action_type": "compile_typed_hypothesis",
+        "candidate_id": "SUBSPACE-21D02D484666D7AFA837",
+        "capability_id": "typed-hypothesis-materialization",
+        "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "source_obligation_digest": "1d783db534930306830fafe8c446556793e1744fb39d473576a535e23133d5b0"
+      },
+      "produced_object": {
+        "candidate_id": "SUBSPACE-21D02D484666D7AFA837",
+        "owner_input_contract": {
+          "action_type": "compile_typed_hypothesis",
+          "candidate_id": "SUBSPACE-21D02D484666D7AFA837",
+          "capability_id": "typed-hypothesis-materialization",
+          "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+          "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+          "source_obligation_digest": "1d783db534930306830fafe8c446556793e1744fb39d473576a535e23133d5b0"
+        },
+        "research_local": false,
+        "schema": "phi-u4-hypothesis-materialization/v1"
+      },
+      "produced_object_digest": "7848209f889036061ea39ad479ed337e76dc726318a3b851f223f871155a5818",
+      "residual": {
+        "kind": "REQUIRED_EVIDENCE_PENDING",
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "present": true
+      },
+      "schema": "phi-universal-obligation-execution-step/v1",
+      "scientific_promotion_allowed": false,
+      "selected_owner": "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+      "state_transition_allowed": false,
+      "verification_status": "VERIFICATION_PENDING_REQUIRED_EVIDENCE"
+    },
+    {
+      "candidate_id": "SUBSPACE-083F78F9AC7B7459EFD4",
+      "capability_id": "typed-hypothesis-materialization",
+      "claim_boundary": {
+        "missing_owner_or_input_means_false_hypothesis": false,
+        "one_step_executes_more_than_next_obligation": false,
+        "research_local_birth_is_canonical": false,
+        "world_boundary_is_crossed_without_attestation": false
+      },
+      "digest": "8d753bcf02d67d3b6707e3f7ea4098b2ed437d5c0d4134525cc6212d3438d7b3",
+      "execution_status": "OWNER_INPUT_CONTRACT_COMPILED_FAIL_CLOSED",
+      "external_data_fetched": false,
+      "input_state_digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+      "knowledge_state_mutated": false,
+      "next_obligation": "EVIDENCE_VERIFICATION",
+      "obligation_id": "OBL-A6FB58CA14B39D71F971",
+      "owner_input_contract": {
+        "action_type": "compile_typed_hypothesis",
+        "candidate_id": "SUBSPACE-083F78F9AC7B7459EFD4",
+        "capability_id": "typed-hypothesis-materialization",
+        "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "source_obligation_digest": "ca1974bcedb4b000648ba7a9cb7aa1216b3d6eab00c6b4766d85d73d9c9d654b"
+      },
+      "produced_object": {
+        "candidate_id": "SUBSPACE-083F78F9AC7B7459EFD4",
+        "owner_input_contract": {
+          "action_type": "compile_typed_hypothesis",
+          "candidate_id": "SUBSPACE-083F78F9AC7B7459EFD4",
+          "capability_id": "typed-hypothesis-materialization",
+          "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+          "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+          "source_obligation_digest": "ca1974bcedb4b000648ba7a9cb7aa1216b3d6eab00c6b4766d85d73d9c9d654b"
+        },
+        "research_local": false,
+        "schema": "phi-u4-hypothesis-materialization/v1"
+      },
+      "produced_object_digest": "7c7857a01157959a0fe68378399e6b1c33be0ea87696ad9522e196621ce88d6a",
+      "residual": {
+        "kind": "REQUIRED_EVIDENCE_PENDING",
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "present": true
+      },
+      "schema": "phi-universal-obligation-execution-step/v1",
+      "scientific_promotion_allowed": false,
+      "selected_owner": "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+      "state_transition_allowed": false,
+      "verification_status": "VERIFICATION_PENDING_REQUIRED_EVIDENCE"
+    },
+    {
+      "candidate_id": "SUBSPACE-1FF0A108A4ECADE62361",
+      "capability_id": "typed-hypothesis-materialization",
+      "claim_boundary": {
+        "missing_owner_or_input_means_false_hypothesis": false,
+        "one_step_executes_more_than_next_obligation": false,
+        "research_local_birth_is_canonical": false,
+        "world_boundary_is_crossed_without_attestation": false
+      },
+      "digest": "9aa4bcf0dc482ccd4f79cfca6009a23352c1e544ff0de966e74170879a1a72f4",
+      "execution_status": "OWNER_INPUT_CONTRACT_COMPILED_FAIL_CLOSED",
+      "external_data_fetched": false,
+      "input_state_digest": "778f6c68576c7f2b33e69ddd4e3ca696e5e5a3a31df8d4f838b17d2bbfe5b256",
+      "knowledge_state_mutated": false,
+      "next_obligation": "EVIDENCE_VERIFICATION",
+      "obligation_id": "OBL-E15289012A70E6726079",
+      "owner_input_contract": {
+        "action_type": "compile_typed_hypothesis",
+        "candidate_id": "SUBSPACE-1FF0A108A4ECADE62361",
+        "capability_id": "typed-hypothesis-materialization",
+        "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "source_obligation_digest": "2e1011c13cc6889e951a831d646d4a9a0f8b4d53f3a74be146d23ab9a69d85d7"
+      },
+      "produced_object": {
+        "candidate_id": "SUBSPACE-1FF0A108A4ECADE62361",
+        "owner_input_contract": {
+          "action_type": "compile_typed_hypothesis",
+          "candidate_id": "SUBSPACE-1FF0A108A4ECADE62361",
+          "capability_id": "typed-hypothesis-materialization",
+          "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+          "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+          "source_obligation_digest": "2e1011c13cc6889e951a831d646d4a9a0f8b4d53f3a74be146d23ab9a69d85d7"
+        },
+        "research_local": false,
+        "schema": "phi-u4-hypothesis-materialization/v1"
+      },
+      "produced_object_digest": "964d243188ef172b36408facf5a4294899f0b15732ae40dabce9d432ff69fc6a",
+      "residual": {
+        "kind": "REQUIRED_EVIDENCE_PENDING",
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "present": true
+      },
+      "schema": "phi-universal-obligation-execution-step/v1",
+      "scientific_promotion_allowed": false,
+      "selected_owner": "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+      "state_transition_allowed": false,
+      "verification_status": "VERIFICATION_PENDING_REQUIRED_EVIDENCE"
+    }
+  ]
+}

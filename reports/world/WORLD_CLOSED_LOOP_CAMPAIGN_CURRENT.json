@@ -1,14 +1,14 @@
 {
   "active_world_attestor_count": 0,
-  "campaign_plan_digest": "37b95ad21c7b0fb159d5a55d5ac0314818b6a0d68b1ea8f529b3c612c5dc9d3c",
-  "candidate_specs_with_measurement_intents": 102,
+  "campaign_plan_digest": "43b3179f886e36fec33618d9c5a23398a51c5edcfd98ead124522cbd51422217",
+  "candidate_specs_with_measurement_intents": 500,
   "claim_boundary": {
     "atlas_may_invent_provider": false,
     "empty_world_trust_store_can_update_world_model": false,
     "provider_match_is_world_evidence": false,
     "retrospective_frontier_planning_is_independent_attestation": false
   },
-  "digest": "b89e080348f748c62fce9961c120c4c9b82b8ebd033305a0233cfa4f80a9cf3f",
+  "digest": "debdb5a204896c6d9a86939afe8d331287085f644e86ce998c7a27db3ae3d13f",
   "episodes": [
     {
       "artifact_acquired": false,

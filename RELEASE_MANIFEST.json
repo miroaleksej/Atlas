@@ -60,7 +60,7 @@
     },
     "status": "PASS_COLLECTIVE_COORDINATION_QUALIFICATION"
   },
-  "controlled_file_count": 441,
+  "controlled_file_count": 442,
   "controlled_files": [
     {
       "path": ".github/workflows/atlas-chip-gcd-pilot.yml",
@@ -99,8 +99,8 @@
     },
     {
       "path": "MATHEMATICAL_BOOK.md",
-      "sha256": "03036a060066eec2c10ae7b77a237718eb117c6675b95486cdb9621b576616f6",
-      "size": 375514
+      "sha256": "14ebbc71b438880fe587b8402ca3529a8b5a48085264d4528445161cdebb0de9",
+      "size": 378895
     },
     {
       "path": "MATHEMATICAL_CONTRACT.md",
@@ -114,8 +114,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "6cd7d7126a4f5d9132401d0d97b4eb4f7d2d194a04e1bcbafbdf5184fa5e659d",
-      "size": 164670
+      "sha256": "feae7fecd8af781dd2b662107497b64c748cc9a65b6a01f644e95bc33ebc89aa",
+      "size": 167570
     },
     {
       "path": "RUN_TURBULENCE_DNS_CLOSURE_RU.md",
@@ -124,12 +124,12 @@
     },
     {
       "path": "TECHNICAL_GUIDE_RU.md",
-      "sha256": "b476f6db5de3c52b85d9bb84a134de9e22365712219629698173fbb60e16007d",
-      "size": 222936
+      "sha256": "0083d226cb4fa808cec8f446da63a69a73b30d7a0ca2cff929ae2230f6279d1f",
+      "size": 225946
     },
     {
       "path": "capabilities.json",
-      "sha256": "658fe96c1ba493814049634768db3ada80761cf0721cfbca69cfffa7502bd0a7",
+      "sha256": "085900cada140f29dd23f011408b56c736ee3cde5a174d364c3a5311f8b538e4",
       "size": 25310
     },
     {
@@ -874,8 +874,8 @@
     },
     {
       "path": "evaluation/world_closed_loop_campaign.py",
-      "sha256": "7d6616c7ffa6c6128329b3349cfd1b3e3e169103c06caf97e84248a96eee6d1f",
-      "size": 4798
+      "sha256": "b72e2c216545bd58dc9208d6471c2a236f5a3ba66fab0de52a55d2bf1bff93af",
+      "size": 5536
     },
     {
       "path": "examples/JHTDB_ISOTROPIC8192_PUBLIC_METADATA_FREEZE.json",
@@ -1634,17 +1634,22 @@
     },
     {
       "path": "reports/world/REQUIRED_EVIDENCE_ROUTES_CURRENT.json",
-      "sha256": "dcf81562eeb5d3cc4c87b7e3b6ab2171cb7e0d44f6dd0a00c72bc6b81ac91c41",
+      "sha256": "37e990321a11c37f6525ce3c1dee11bbaa0ef0e480593cddce2249364bdd687e",
       "size": 21427
     },
     {
+      "path": "reports/world/UNIVERSAL_OBLIGATION_EXECUTION_LOOP_CURRENT.json",
+      "sha256": "e63e767d7907ecf4ed7ab49b86a628bc97ed64bcff2f463f895e2a1d2107ab37",
+      "size": 20827
+    },
+    {
       "path": "reports/world/UNIVERSAL_REQUIRED_EVIDENCE_LOOP_CURRENT.json",
-      "sha256": "d4bb2bf77eb763730220a100c96359d821976810e29aad3fd5845ea639d6b9ed",
-      "size": 20372
+      "sha256": "d9832afea8b345ddb5c052f39bbac5cb2b10d8136b654e4f2acc798f35282918",
+      "size": 22550
     },
     {
       "path": "reports/world/WORLD_CLOSED_LOOP_CAMPAIGN_CURRENT.json",
-      "sha256": "b5cba8e31fb4c12de00f733d829e6b218694056b0d5c4f13973f80d77660cbe4",
+      "sha256": "887c84e0c09229434f52a75656b61692f18373e6ffcc85a22d2add708cd06fd0",
       "size": 5216
     },
     {
@@ -1674,8 +1679,8 @@
     },
     {
       "path": "source/lawspace/api.py",
-      "sha256": "0667e843698e948e8e2f6593e9ba9b296c0cd298d85c758a81bbd3376b59ee37",
-      "size": 151315
+      "sha256": "26634c75c571440f37551f685664d1394a5304add5ea1530df1947d2bc3a82a4",
+      "size": 152631
     },
     {
       "path": "source/lawspace/atomic_dirac_evaluator.py",
@@ -1929,8 +1934,8 @@
     },
     {
       "path": "source/lawspace/research_cycle.py",
-      "sha256": "641781f82ee4374378b114fcdb49d5af997d488e5d1b77fc08a5cc205f2822bd",
-      "size": 409344
+      "sha256": "8e6dd26a00335eb88ea21c937c4f658e71030366c3be4d705de4b4d6a5bbc5d9",
+      "size": 418283
     },
     {
       "path": "source/lawspace/research_progression_gates.py",
@@ -1944,8 +1949,8 @@
     },
     {
       "path": "source/lawspace/resident_cognitive.py",
-      "sha256": "b9fb71ddb236b039695bdab358098b720cc71ff218523543eaf0de8db6453c7c",
-      "size": 135540
+      "sha256": "5deb7a9a7d937494f5a4edb54e578d5d9379e6d69a46aa5f5b60b89f220a1ab0",
+      "size": 140660
     },
     {
       "path": "source/lawspace/resource_theory.py",
@@ -1999,8 +2004,8 @@
     },
     {
       "path": "source/lawspace/source_capabilities.py",
-      "sha256": "e11ab73ab8393f9193cf1beb9b74b87a38b7c31310aa135b7a1953d0236b2add",
-      "size": 80208
+      "sha256": "0a424d95a49a8f329a0741ebc2241ee71994dea160463521caeab848fbbb29be",
+      "size": 98195
     },
     {
       "path": "source/lawspace/superk_atmospheric_likelihood.py",
@@ -2264,14 +2269,14 @@
     },
     {
       "path": "tests/test_world_expansion_domain_consolidation.py",
-      "sha256": "b5852d1bf368681c2df210aa8b2341be639835785ef8a77dace958526c7da190",
-      "size": 19330
+      "sha256": "14ac8c5b33bfd91f7e3cb1d31891d8cceab56e8e2fff4662015637358324f2ac",
+      "size": 27122
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "c5232bb8ff0e6836cfb78c3cc2793cf95572aff204c1a55b48c98173c26e3747",
+  "current_state_qualification_digest": "918d8bd1fa53f825cd5c0738c31db88ddf263682610b9ed4208cc9130ab40177",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "7f257247ee36f06743034e423658030ef83c0994a392aac0e9b5e4bbfacbfa63",
+  "digest": "5259151dc3eed8fb54862382e28d953c8b6b43cdbc7e38dc70faa788a67db3ed",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",

@@ -465,6 +465,10 @@ class DynamicGoalGraphOwner:
         concept_status = str(concept_result.get("status", ""))
         operator_status = str(operator_result.get("status", ""))
         desired: list[tuple[str, str, float]] = []
+        universal_obligations = [
+            dict(row) for row in cognitive_episode.get("universal_obligations", ())
+            if isinstance(row, Mapping) and str(row.get("obligation_type", "")).strip()
+        ]
         if rep_route == "GENERATED_AXIS_MODELING":
             desired.append(("GROUND_GENERATED_REPRESENTATION", "obtain independent grounding for the generated representation", 0.95))
         if concept_status == "PROVISIONAL_GROUNDED_CONCEPT":
@@ -487,6 +491,38 @@ class DynamicGoalGraphOwner:
             row["status"] = "ACTIVE"
             rows[gid] = row
 
+        current_obligation_goal_ids: set[str] = set()
+        for obligation in universal_obligations:
+            obligation_type = str(obligation.get("obligation_type", "CAPABILITY_GAP"))
+            candidate_id = str(obligation.get("candidate_id", "UNSPECIFIED"))
+            gid = "GOAL-" + digest_payload({
+                "parent": root_id,
+                "obligation": obligation_type,
+                "candidate_id": candidate_id,
+                "obligation_digest": obligation.get("digest"),
+            })[:20].upper()
+            current_obligation_goal_ids.add(gid)
+            planning = dict(obligation.get("planning") or {})
+            capability = dict(obligation.get("capability") or {})
+            row = rows.get(gid) or {
+                "goal_id": gid,
+                "goal_class": "RESOLVE_RESEARCH_OBLIGATION",
+                "statement": f"resolve {obligation_type} for {candidate_id}",
+                "parent_goal_id": root_id,
+                "status": "ACTIVE",
+                "priority": 1.0,
+            }
+            row.update({
+                "status": "ACTIVE",
+                "obligation": obligation,
+                "planning_features": planning,
+                "capability_id": capability.get("capability_id"),
+            })
+            rows[gid] = row
+        for row in rows.values():
+            if row.get("goal_class") == "RESOLVE_RESEARCH_OBLIGATION" and row.get("goal_id") not in current_obligation_goal_ids:
+                row["status"] = "SATISFIED_OR_SUPERSEDED"
+
         # Goals are allowed to change state as their evidence target is achieved.
         for row in rows.values():
             if row.get("goal_class") == "GROUND_GENERATED_REPRESENTATION" and concept_status in {"PROVISIONAL_GROUNDED_CONCEPT", "PROMOTED_GROUNDED_CONCEPT"}:
@@ -496,12 +532,26 @@ class DynamicGoalGraphOwner:
 
         ordered = sorted(rows.values(), key=lambda x: (-float(x.get("priority", 0.0)), str(x.get("goal_id"))))
         active = [x for x in ordered if x.get("status") == "ACTIVE"]
+        obligation_active = [x for x in active if x.get("goal_class") == "RESOLVE_RESEARCH_OBLIGATION"]
+        if obligation_active:
+            def _obligation_planning_key(row: Mapping[str, Any]) -> tuple[int, float, float, str]:
+                planning = dict(row.get("planning_features") or {})
+                return (
+                    -int(bool(planning.get("blocks_progress", False))),
+                    -float(planning.get("residual_pressure", 0.0) or 0.0),
+                    -float(planning.get("expected_information_gain_bits", 0.0) or 0.0),
+                    str(row.get("goal_id", "")),
+                )
+            selected_goal_id = sorted(obligation_active, key=_obligation_planning_key)[0]["goal_id"]
+        else:
+            selected_goal_id = active[0]["goal_id"] if active else root_id
         payload = {
             "owner": self.owner_id,
             "status": "GOAL_GRAPH_UPDATED",
             "goals": ordered,
             "active_goal_ids": [x["goal_id"] for x in active],
-            "selected_goal_id": active[0]["goal_id"] if active else root_id,
+            "selected_goal_id": selected_goal_id,
+            "selected_by_universal_obligation_planning": bool(obligation_active),
             "goals_may_change_with_evidence": True,
         }
         payload["digest"] = digest_payload(payload)
@@ -523,6 +573,7 @@ class OntologyAwarePlannerOwner:
         by_id = {str(x.get("goal_id")): dict(x) for x in goal_graph.get("goals", ())}
         goal = by_id.get(selected, {})
         gclass = str(goal.get("goal_class", "ROOT_RESEARCH_INTENT"))
+        obligation = dict(goal.get("obligation") or {}) if isinstance(goal.get("obligation"), Mapping) else {}
         ontology_digest = digest_payload([
             {"concept_id": x.get("concept_id"), "revision": x.get("revision"), "status": x.get("status"), "axes": x.get("support_axis_ids")}
             for x in concepts
@@ -553,7 +604,26 @@ class OntologyAwarePlannerOwner:
                 {"owner": GOAL_ACTION_OWNER_ID, "operation": "choose"},
             ],
         }
-        steps = step_map.get(gclass, step_map["ROOT_RESEARCH_INTENT"])
+        if obligation:
+            capability = dict(obligation.get("capability") or {})
+            action_type = str(capability.get("action_type") or "preserve_capability_gap_for_birth")
+            owners = [str(owner) for owner in capability.get("owners", ()) if str(owner)]
+            steps = [
+                {
+                    "owner": owner,
+                    "operation": action_type,
+                    "capability_id": capability.get("capability_id"),
+                    "obligation_type": obligation.get("obligation_type"),
+                }
+                for owner in owners
+            ] or [{
+                "owner": ScientificResearchCycleOwner.owner_id,
+                "operation": "preserve_capability_gap_for_birth",
+                "capability_id": capability.get("capability_id", "capability-gap"),
+                "obligation_type": obligation.get("obligation_type", "CAPABILITY_GAP"),
+            }]
+        else:
+            steps = step_map.get(gclass, step_map["ROOT_RESEARCH_INTENT"])
         previous = dict(previous_plans[-1]) if previous_plans else None
         changed = bool(previous) and (previous.get("ontology_digest") != ontology_digest or previous.get("capability_digest") != capability_digest or previous.get("goal_id") != selected)
         plan = {
@@ -565,6 +635,8 @@ class OntologyAwarePlannerOwner:
             "ontology_digest": ontology_digest,
             "capability_digest": capability_digest,
             "steps": steps,
+            "universal_obligation_digest": obligation.get("digest") if obligation else None,
+            "planning_features": dict(goal.get("planning_features") or {}),
             "contingencies": {
                 "representation_failure": AxisModelingOwner.owner_id,
                 "identifiability_failure": ScientificResearchCycleOwner.owner_id,
@@ -591,6 +663,10 @@ class SelfModelFeedbackOwner:
                 "can_replan_after_ontology_change": True,
                 "can_change_goal_graph_from_evidence": True,
                 "can_compile_typed_skill_macro": bool(compiled),
+                "can_route_universal_research_obligations": bool(cognitive_episode.get("universal_obligations")),
+                "can_plan_from_typed_obligation_capabilities": bool(cognitive_episode.get("universal_obligations")),
+                "can_learn_postfreeze_world_action_model": True,
+                "can_trigger_representation_birth_from_residual": True,
             },
             "current_limits": {
                 "general_world_actuation_available": False,
@@ -1314,9 +1390,27 @@ class ResidentCognitiveOrganism:
         demoted=False
         if drift.get("status")=="WORLD_ACTION_MODEL_DRIFT_DETECTED" and versions:
             versions[-1]["status"]="WORLD_ACTION_MODEL_DEMOTED_DRIFT"; versions[-1]["demotion_receipt_digest"]=drift.get("digest"); demoted=True
-            state["world_action_model_versions"]=versions; state["world_action_drift_events"]=[*state.get("world_action_drift_events",()),drift]; self.state.commit(state)
-        fit=self.learn_contextual_nonstationary_world_action_model(commit=commit,min_pair_support=min_pair_support)
-        out={"owner":self.owner_id,"status":"ONLINE_WORLD_MODEL_UPDATED","drift":drift,"fit":fit,"previous_model_demoted":demoted}; out["digest"]=digest_payload(out); return out
+            state["world_action_model_versions"]=versions; state["world_action_drift_events"]=[*state.get("world_action_drift_events",()),drift]
+            if commit: self.state.commit(state)
+        contextual_fit=self.learn_contextual_nonstationary_world_action_model(commit=commit,min_pair_support=min_pair_support)
+        stationary_fallback=None
+        fit=contextual_fit
+        if contextual_fit.get("status")!="CONTEXTUAL_NONSTATIONARY_WORLD_MODEL_CALIBRATED":
+            stationary_fallback=self.learn_world_action_model(commit=commit,min_pair_support=min_pair_support)
+            if stationary_fallback.get("status")=="WORLD_ACTION_MODEL_CALIBRATED":
+                fit=stationary_fallback
+        model_ready=fit.get("status") in {"CONTEXTUAL_NONSTATIONARY_WORLD_MODEL_CALIBRATED","WORLD_ACTION_MODEL_CALIBRATED"}
+        out={
+            "owner":self.owner_id,
+            "status":"ONLINE_WORLD_MODEL_UPDATED" if model_ready else "ONLINE_WORLD_MODEL_UPDATE_BLOCKED_INSUFFICIENT_CALIBRATED_SUPPORT",
+            "drift":drift,
+            "fit":fit,
+            "contextual_fit":contextual_fit,
+            "stationary_fallback_fit":stationary_fallback,
+            "previous_model_demoted":demoted,
+            "fallback_policy":"CONTEXTUAL_THEN_STATIONARY_POSTFREEZE_CALIBRATED_ONLY",
+        }
+        out["digest"]=digest_payload(out); return out
 
     def select_action_from_contextual_world_model(self, freeze: Mapping[str,Any], request: Mapping[str,Any]) -> Mapping[str,Any]:
         result=self.select_action_from_learned_world_model(freeze,request)

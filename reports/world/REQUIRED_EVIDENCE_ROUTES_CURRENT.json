@@ -4,7 +4,7 @@
     "EXPERIMENT_EVIDENCE_RUNTIME",
     "PROMOTION_TRUST_CORE"
   ],
-  "campaign_digest": "b89e080348f748c62fce9961c120c4c9b82b8ebd033305a0233cfa4f80a9cf3f",
+  "campaign_digest": "debdb5a204896c6d9a86939afe8d331287085f644e86ce998c7a27db3ae3d13f",
   "claim_boundary": {
     "missing_receipts_may_be_fabricated": false,
     "route_compilation_changes_representation": false,
@@ -25,12 +25,12 @@
     "ready_for_external_acquisition": 0,
     "routes": 8
   },
-  "digest": "56a12db5b6bac97668b465da043d88b0dd6203b670a407388b00579e0ffe9d0f",
+  "digest": "e3c7774d9156112daedaa80869a7a891cb7b36d79224c8728a44d6db5bdaef43",
   "external_data_fetched": false,
   "frontier_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
-  "glue_run_digest": "3f48a37dec1edd995e9a5fcedc9f9e8c6538ac2006551d7b4fc2b8fd5be3061a",
+  "glue_run_digest": "128597d8a188922f0f18a6743a741dae872f4869314c453685dafc127636357e",
   "knowledge_state_mutated": false,
-  "lowering_projection_preflight_digest": "e6118e71702410b8152bf7a5640ba48206d6f171e10f62d2055f327cf62e2776",
+  "lowering_projection_preflight_digest": "0be45ce85453d92d814fe1112235555ee2e6f88d5baba5e717c1fde41d5d897d",
   "route_count": 8,
   "routes": [
     {

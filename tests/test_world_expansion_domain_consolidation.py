@@ -5,10 +5,13 @@ import pytest
 from source.lawspace.api import LawSpaceAPI
 from source.lawspace.domains import DOMAIN_REGISTRIES, load_domain_plugin_manifests
 from source.lawspace.domain_plugins import ScienceDomainPluginRegistry
+from source.lawspace.resident_cognitive import DynamicGoalGraphOwner, OntologyAwarePlannerOwner
 from source.lawspace.source_capabilities import (
     audit_existing_closed_loop_integration,
     compile_required_evidence_routes,
     compile_universal_required_evidence_loop,
+    derive_semantic_evidence_needs,
+    run_universal_obligation_execution_loop,
     load_provider_capability_registry,
     load_world_trust_registry,
     match_source_provider,
@@ -318,9 +321,11 @@ def test_universal_required_evidence_loop_routes_current_frontier_without_domain
         "REQUIRED_EVIDENCE_ROUTE",
         "OBLIGATION",
         "RESOLVE_CAPABILITY",
+        "MIND_PLAN",
         "ACTION_OR_GAP",
         "WORLD_OR_PROOF_OR_COMPUTATION",
         "EVIDENCE",
+        "LEARNING_UPDATE",
         "INDEPENDENT_VERIFICATION",
         "RESIDUAL_ATTRIBUTION",
         "REVISION_OR_BIRTH",
@@ -360,3 +365,166 @@ def test_universal_required_evidence_loop_api_exposed():
     result = api.compile_universal_required_evidence_loop(max_frontier_rows=500, max_campaign_items=8)
     assert result["obligation_count"] == 8
     assert result["status"] == "UNIVERSAL_REQUIRED_EVIDENCE_LOOP_COMPILED"
+
+
+def test_semantic_evidence_need_derivation_uses_claim_axes_not_domain_dispatch():
+    candidate = {
+        "candidate_id": "GENERIC-FLOW",
+        "domain_ids": ["totally_new_domain_name"],
+        "payload": {
+            "axis_ids": ["unknown_science.turbulence_regime", "unknown_science.data_regime"],
+            "applicability_contract": {
+                "status": "REPRESENTATION_AND_WORLD_ATTESTATION_REQUIRED",
+                "next_requirement": "bind the observer to measurable data before promotion",
+            },
+            "unbound_axis_ids": ["unknown_science.data_regime"],
+        },
+        "promotion_path": {
+            "gates": {
+                "U5_COLLAPSE_OR_INVARIANCE": {
+                    "pass": False,
+                    "required_evidence": ["world measurement evidence"],
+                }
+            }
+        },
+    }
+    needs = derive_semantic_evidence_needs(candidate)
+    assert needs["schema"] == "phi-semantic-evidence-need-derivation/v1"
+    assert needs["core_domain_dispatch_used"] is False
+    assert needs["claim_boundary"]["domain_name_selects_observable"] is False
+    assert any(row["axis_id"] == "turbulence_regime" for row in needs["intents"])
+    assert all("domain_id" not in row for row in needs["intents"])
+    match = match_source_provider(needs["intents"][0], ROOT)
+    assert match["atlas_invented_provider"] is False
+
+
+def test_universal_adaptive_mind_routes_learning_action_and_representation_without_domain_names():
+    result = compile_universal_required_evidence_loop(
+        ROOT,
+        candidate_specs=[
+            {
+                "candidate_id": "GENERIC-ACTION",
+                "required_obligation": "TYPED_WORLD_ACTION",
+                "planning_features": {
+                    "blocks_progress": True,
+                    "expected_information_gain_bits": 0.75,
+                    "residual_pressure": 0.0,
+                    "source": "CONTROL_EIG",
+                },
+            },
+            {
+                "candidate_id": "GENERIC-LEARNING",
+                "required_obligation": "LEARNING_UPDATE",
+                "planning_features": {
+                    "blocks_progress": True,
+                    "expected_information_gain_bits": 0.0,
+                    "residual_pressure": 0.5,
+                    "source": "CONTROL_SUPPORT_GAP",
+                },
+            },
+            {
+                "candidate_id": "GENERIC-REPRESENTATION",
+                "required_obligation": "REPRESENTATION_BIRTH",
+                "planning_features": {
+                    "blocks_progress": True,
+                    "expected_information_gain_bits": 0.0,
+                    "residual_pressure": 2.0,
+                    "source": "CONTROL_RESIDUAL",
+                },
+            },
+        ],
+    )
+    by_id = {row["candidate_id"]: row for row in result["obligations"]}
+    assert by_id["GENERIC-ACTION"]["capability"]["capability_id"] == "typed-world-action"
+    assert by_id["GENERIC-LEARNING"]["capability"]["capability_id"] == "postfreeze-world-model-learning"
+    assert by_id["GENERIC-REPRESENTATION"]["capability"]["capability_id"] == "representation-birth"
+    assert by_id["GENERIC-ACTION"]["planning"]["expected_information_gain_bits"] == pytest.approx(0.75)
+    assert all(row["domain_conditionals_used"] is False for row in result["obligations"])
+    assert result["routing_policy"]["mind_plans_from_typed_obligations_not_domain_names"] is True
+    assert result["routing_policy"]["learning_requires_postfreeze_resolved_experience"] is True
+
+
+def test_resident_planner_consumes_universal_obligation_capabilities_without_parallel_owner():
+    loop = compile_universal_required_evidence_loop(
+        ROOT,
+        candidate_specs=[
+            {
+                "candidate_id": "GENERIC-ACTION",
+                "required_obligation": "TYPED_WORLD_ACTION",
+                "planning_features": {
+                    "blocks_progress": True,
+                    "expected_information_gain_bits": 0.9,
+                    "residual_pressure": 0.0,
+                },
+            },
+            {
+                "candidate_id": "GENERIC-REPRESENTATION",
+                "required_obligation": "REPRESENTATION_BIRTH",
+                "planning_features": {
+                    "blocks_progress": True,
+                    "expected_information_gain_bits": 0.0,
+                    "residual_pressure": 2.0,
+                },
+            },
+        ],
+    )
+    goals = DynamicGoalGraphOwner().update(
+        (),
+        root_goal={"goal_id": "GENERIC-ROOT", "statement": "resolve an unknown research problem"},
+        concept_result={"status": "CONCEPT_GROUNDING_INSUFFICIENT_FAIL_CLOSED"},
+        operator_result={"status": "NO_QUALIFIED_SKILL_TO_COMPILE"},
+        cognitive_episode={
+            "representation_route": "EXISTING_REPRESENTATION",
+            "universal_obligations": loop["obligations"],
+        },
+    )
+    selected = next(row for row in goals["goals"] if row["goal_id"] == goals["selected_goal_id"])
+    assert selected["goal_class"] == "RESOLVE_RESEARCH_OBLIGATION"
+    assert selected["obligation"]["obligation_type"] == "REPRESENTATION_BIRTH"
+    assert goals["selected_by_universal_obligation_planning"] is True
+    plan = OntologyAwarePlannerOwner().plan(
+        goal_graph=goals,
+        concepts=(),
+        operators=(),
+        previous_plans=(),
+    )
+    assert plan["universal_obligation_digest"] == selected["obligation"]["digest"]
+    assert plan["steps"]
+    assert all(step.get("owner") and step.get("operation") for step in plan["steps"])
+    assert any(step.get("capability_id") == "representation-birth" for step in plan["steps"])
+    assert plan["claim_boundary"]["planner_can_bypass_owner_gates"] is False
+
+
+def test_universal_obligation_execution_loop_produces_typed_one_step_receipts():
+    result = run_universal_obligation_execution_loop(
+        ROOT,
+        candidate_specs=[
+            {
+                "candidate_id": "GENERIC-PROOF",
+                "required_obligation": "PROOF_OBLIGATION",
+                "statement": "for all x in {1,2,3}, x=x",
+            },
+            {"candidate_id": "GENERIC-WORLD", "required_obligation": "WORLD_ATTESTATION"},
+            {"candidate_id": "GENERIC-GAP", "missing_object": "unknown_future_capability"},
+        ],
+    )
+    assert result["schema"] == "phi-universal-obligation-execution-loop/v1"
+    assert result["status"] == "UNIVERSAL_OBLIGATION_EXECUTION_STEPPED_FAIL_CLOSED"
+    assert result["step_count"] == 3
+    by_id = {row["candidate_id"]: row for row in result["steps"]}
+    assert by_id["GENERIC-PROOF"]["execution_status"] == "PROOF_OBLIGATION_COMPILED_BY_EXISTING_FORMAL_OWNER"
+    assert by_id["GENERIC-WORLD"]["execution_status"] == "BLOCKED_AT_EXTERNAL_OR_AUTHORIZED_ACTION_BOUNDARY"
+    assert by_id["GENERIC-GAP"]["execution_status"] == "CAPABILITY_GAP_PRESERVED_FOR_BIRTH"
+    assert all(row["state_transition_allowed"] is False for row in result["steps"])
+    assert result["external_data_fetched"] is False
+    assert result["knowledge_state_mutated"] is False
+
+
+def test_universal_execution_api_exposed():
+    api = LawSpaceAPI(ROOT)
+    assert "derive_semantic_evidence_needs" in api.READ_TOOLS
+    assert "run_universal_obligation_execution_loop" in api.READ_TOOLS
+    result = api.run_universal_obligation_execution_loop(
+        candidate_specs=[{"candidate_id": "GENERIC-GAP", "missing_object": "unknown_future_capability"}]
+    )
+    assert result["steps"][0]["execution_status"] == "CAPABILITY_GAP_PRESERVED_FOR_BIRTH"

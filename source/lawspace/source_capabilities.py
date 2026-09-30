@@ -19,6 +19,8 @@ CAMPAIGN_SCHEMA = "phi-world-evidence-campaign-plan/v1"
 RUN_SCHEMA = "phi-world-closed-loop-campaign-run/v1"
 REQUIRED_EVIDENCE_ROUTE_SCHEMA = "phi-required-evidence-route-compiler/v1"
 UNIVERSAL_REQUIRED_EVIDENCE_LOOP_SCHEMA = "phi-universal-required-evidence-execution-loop/v1"
+SEMANTIC_EVIDENCE_NEED_SCHEMA = "phi-semantic-evidence-need-derivation/v1"
+UNIVERSAL_OBLIGATION_EXECUTION_SCHEMA = "phi-universal-obligation-execution-step/v1"
 
 
 def _root(root: str | Path | None = None) -> Path:
@@ -236,38 +238,123 @@ def _frontier_row_count(root: str | Path | None = None) -> int:
         return sum(1 for line in stream if line.strip())
 
 
-def _frontier_intents(row: Mapping[str, Any]) -> list[Mapping[str, Any]]:
-    domains = set(str(x) for x in row.get("domain_ids", ()) or ())
+def _semantic_tokens_from_candidate(row: Mapping[str, Any]) -> list[str]:
     payload = row.get("payload", {}) if isinstance(row.get("payload"), Mapping) else {}
-    axes = set(str(x) for x in payload.get("axis_ids", ()) or ())
+    promotion = row.get("promotion_path", {}) if isinstance(row.get("promotion_path"), Mapping) else {}
+    tokens: list[str] = []
+    for axis in payload.get("axis_ids", ()) or ():
+        text = str(axis)
+        tokens.append(text)
+        tokens.append(text.rsplit(".", 1)[-1])
+    for key in ("required_observables", "observables", "measurement_obligations", "missing_evidence"):
+        value = payload.get(key)
+        if isinstance(value, str):
+            tokens.append(value)
+        elif isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+            tokens.extend(str(x) for x in value)
+    for gate in (promotion.get("gates", {}) or {}).values():
+        if not isinstance(gate, Mapping):
+            continue
+        for item in gate.get("required_evidence", ()) or ():
+            tokens.append(str(item))
+        tokens.append(str(gate.get("reason", "")))
+        tokens.append(str(gate.get("status", "")))
+    app = payload.get("applicability_contract", {}) if isinstance(payload.get("applicability_contract"), Mapping) else {}
+    tokens.extend(str(app.get(key, "")) for key in ("status", "next_requirement", "measurement_projection_status"))
+    return [token for token in dict.fromkeys(t.strip() for t in tokens) if token]
+
+
+def derive_semantic_evidence_needs(row: Mapping[str, Any]) -> Mapping[str, Any]:
+    """Derive evidence needs from candidate semantics, not from provider/domain dispatch.
+
+    Providers may later declare whether they can satisfy a need.  This function
+    only reads the frozen candidate contract: axes, required-evidence text,
+    promotion gates and applicability status.  Domain labels are preserved as
+    metadata outside the intent and never choose the observable.
+    """
+    cid = str(row.get("candidate_id") or "")
+    payload = row.get("payload", {}) if isinstance(row.get("payload"), Mapping) else {}
+    promotion = row.get("promotion_path", {}) if isinstance(row.get("promotion_path"), Mapping) else {}
+    tokens = _semantic_tokens_from_candidate(row)
+    lower_tokens = " ".join(tokens).casefold()
     intents: list[Mapping[str, Any]] = []
-    if "astronomy" in domains:
+    seen: set[tuple[str, str]] = set()
+
+    def add_need(observable: str, *, axis_id: str | None = None, source: str, require_uncertainty: bool = False) -> None:
+        observable = str(observable).strip()
+        axis = str(axis_id or observable).strip()
+        if not observable or not axis:
+            return
+        key = (observable, axis)
+        if key in seen:
+            return
+        seen.add(key)
         intents.append({
-            "domain_id": "astronomy",
-            "needed_observable": "stellar_parallax",
+            "needed_observable": observable,
+            "axis_id": axis,
             "source_class": "OBSERVATIONAL_ARCHIVE",
-            "require_uncertainty": True,
+            "require_uncertainty": bool(require_uncertainty),
+            "evidence_need_source": source,
+            "derived_from_claim_semantics": True,
+            "core_domain_dispatch_used": False,
         })
-    if "mechanics" in domains or any("turbulence" in axis or "flow_regime" in axis for axis in axes):
-        intents.append({
-            "domain_id": "mechanics",
-            "needed_observable": "velocity_gradient",
-            "source_class": "OBSERVATIONAL_ARCHIVE",
-        })
-    if "physics" in domains and any("data_regime" in axis for axis in axes):
-        intents.append({
-            "domain_id": "physics",
-            "needed_observable": "turbulent_velocity_field",
-            "source_class": "OBSERVATIONAL_ARCHIVE",
-        })
-    if "materials_science" in domains:
-        intents.append({
-            "domain_id": "materials_science",
-            "needed_observable": "materials_characterization",
-            "source_class": "OBSERVATIONAL_ARCHIVE",
-            "require_uncertainty": True,
-        })
-    return intents
+
+    for axis in payload.get("axis_ids", ()) or ():
+        axis_text = str(axis)
+        short = axis_text.rsplit(".", 1)[-1]
+        if short:
+            add_need(short, axis_id=short, source="typed_axis")
+    for observable in payload.get("required_observables", ()) or ():
+        add_need(str(observable), source="declared_required_observable")
+    for observable in payload.get("observables", ()) or ():
+        add_need(str(observable), source="declared_observable")
+    if "uncertainty" in lower_tokens or "неопредел" in lower_tokens:
+        for intent in list(intents):
+            if not intent.get("require_uncertainty"):
+                updated = dict(intent)
+                updated["require_uncertainty"] = True
+                updated["evidence_need_source"] = str(intent.get("evidence_need_source")) + "+uncertainty_requirement"
+                key = (str(updated["needed_observable"]), str(updated["axis_id"]))
+                intents[intents.index(intent)] = updated
+                seen.add(key)
+    app = payload.get("applicability_contract", {}) if isinstance(payload.get("applicability_contract"), Mapping) else {}
+    status = str(app.get("status", "") or "")
+    if status in {"OBSERVER_OR_PARAMETERIZATION_REQUIRED", "REPRESENTATION_AND_WORLD_ATTESTATION_REQUIRED"}:
+        for axis in payload.get("unbound_axis_ids", ()) or ():
+            short = str(axis).rsplit(".", 1)[-1]
+            add_need(short, axis_id=short, source="unbound_observer_or_parameterization")
+    gates = promotion.get("gates", {}) if isinstance(promotion.get("gates"), Mapping) else {}
+    for gate_id, gate in gates.items():
+        if not isinstance(gate, Mapping) or gate.get("pass") is True:
+            continue
+        for item in gate.get("required_evidence", ()) or ():
+            text = str(item).casefold()
+            # Only convert explicit measurement/observation requirements to
+            # source-provider intents; type/proof gaps remain obligations.
+            if any(word in text for word in ("measurement", "observation", "world", "data", "evidence", "измер", "наблюд", "данн")):
+                for token in _semantic_tokens_from_candidate(row):
+                    short = token.rsplit(".", 1)[-1]
+                    if short and len(short) > 2:
+                        add_need(short, axis_id=short, source=f"promotion_gate:{gate_id}")
+                break
+    return _with_digest({
+        "schema": SEMANTIC_EVIDENCE_NEED_SCHEMA,
+        "candidate_id": cid,
+        "status": "SEMANTIC_EVIDENCE_NEEDS_DERIVED" if intents else "SEMANTIC_EVIDENCE_NEEDS_NOT_DERIVED_NO_MEASUREMENT_OBLIGATION",
+        "intents": intents,
+        "token_count": len(tokens),
+        "core_domain_dispatch_used": False,
+        "claim_boundary": {
+            "provider_declares_what_claim_needs": False,
+            "domain_name_selects_observable": False,
+            "evidence_need_is_world_evidence": False,
+        },
+    })
+
+
+def _frontier_intents(row: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+    """Compatibility wrapper for semantic evidence-need derivation."""
+    return list(derive_semantic_evidence_needs(row).get("intents", ()))
 
 
 def _representation_world_state(root: str | Path | None = None) -> Mapping[str, Any]:
@@ -924,6 +1011,26 @@ _UNIVERSAL_CAPABILITY_REGISTRY = {
         "birth_path": ("retry_backoff_transport", "adapter_repair"),
         "frontier_continuation": "artifact digest feeds independent verification",
     },
+    "TYPED_WORLD_ACTION": {
+        "capability_id": "typed-world-action",
+        "owners": ("ResidentCognitiveOrganism.prepare_typed_world_action", "TypedWorldActionAdapterOwner", "FrozenExperimentExecution"),
+        "action_type": "prepare_execute_and_bind_typed_world_action",
+        "required_evidence_schema": "phi-typed-world-action-result/v1",
+        "verifier": "TypedWorldActionAdapterOwner.bind_result",
+        "residual_policy": "unresolved or OOD action result returns to learning or representation birth",
+        "birth_path": ("measurement_adapter_birth", "representation_birth", "operator_birth"),
+        "frontier_continuation": "bound action result becomes post-freeze evidence; no action result is scientific promotion",
+    },
+    "LEARNING_UPDATE": {
+        "capability_id": "postfreeze-world-model-learning",
+        "owners": ("ResidentCognitiveOrganism.record_world_action_experience", "ResidentCognitiveOrganism.online_update_world_action_model"),
+        "action_type": "validate_record_and_update_postfreeze_world_action_model",
+        "required_evidence_schema": "phi-postfreeze-resolved-world-action-experience/v1",
+        "verifier": "LearnedWorldActionModelOwner.validate_experience",
+        "residual_policy": "insufficient support or drift remains an explicit learning gap; pre-freeze truth leakage is rejected",
+        "birth_path": ("experience_acquisition", "model_family_birth", "representation_birth"),
+        "frontier_continuation": "calibrated learned likelihoods may inform EIG but never establish scientific truth",
+    },
     "WORLD_ATTESTATION": {
         "capability_id": "world-attestation",
         "owners": ("WorldAttestationOwner", "ScientificVerificationCore"),
@@ -1032,9 +1139,18 @@ def _universal_loop_receipt(record: Mapping[str, Any], *, source: str) -> Mappin
     obligation = _normalize_universal_obligation(record)
     capability = dict(_UNIVERSAL_CAPABILITY_REGISTRY.get(obligation, _UNIVERSAL_CAPABILITY_REGISTRY["CAPABILITY_GAP"]))
     resolved = obligation != "CAPABILITY_GAP"
+    planning_raw = record.get("planning_features") if isinstance(record.get("planning_features"), Mapping) else {}
+    try:
+        expected_information_gain_bits = max(0.0, float(planning_raw.get("expected_information_gain_bits", 0.0) or 0.0))
+    except (TypeError, ValueError):
+        expected_information_gain_bits = 0.0
+    try:
+        residual_pressure = max(0.0, float(planning_raw.get("residual_pressure", 0.0) or 0.0))
+    except (TypeError, ValueError):
+        residual_pressure = 0.0
     current_layer = (
         "DISCOVERY_SEARCH_CORE"
-        if obligation in {"TYPED_HYPOTHESIS_MATERIALIZATION", "SEMANTIC_BRIDGE_BIRTH", "REPRESENTATION_BIRTH", "FRONTIER_CONTINUATION", "CAPABILITY_GAP", "PROOF_OBLIGATION"}
+        if obligation in {"TYPED_HYPOTHESIS_MATERIALIZATION", "SEMANTIC_BRIDGE_BIRTH", "REPRESENTATION_BIRTH", "FRONTIER_CONTINUATION", "CAPABILITY_GAP", "PROOF_OBLIGATION", "LEARNING_UPDATE"}
         else "PROMOTION_TRUST_CORE"
         if obligation in {"WORLD_ATTESTATION", "EVIDENCE_VERIFICATION", "RESIDUAL_ATTRIBUTION"}
         else "EXPERIMENT_EVIDENCE_RUNTIME"
@@ -1047,6 +1163,13 @@ def _universal_loop_receipt(record: Mapping[str, Any], *, source: str) -> Mappin
         "current_layer": current_layer,
         "capability_resolution_status": "CAPABILITY_RESOLVED" if resolved else "CAPABILITY_GAP",
         "capability": capability,
+        "planning": {
+            "blocks_progress": bool(planning_raw.get("blocks_progress", False)),
+            "expected_information_gain_bits": expected_information_gain_bits,
+            "residual_pressure": residual_pressure,
+            "source": str(planning_raw.get("source", "UNIVERSAL_RESEARCH_STATE")),
+            "truth_probability_claimed": False,
+        },
         "action": {
             "action_type": capability["action_type"],
             "executes_now": False,
@@ -1147,9 +1270,11 @@ def compile_universal_required_evidence_loop(
             "REQUIRED_EVIDENCE_ROUTE",
             "OBLIGATION",
             "RESOLVE_CAPABILITY",
+            "MIND_PLAN",
             "ACTION_OR_GAP",
             "WORLD_OR_PROOF_OR_COMPUTATION",
             "EVIDENCE",
+            "LEARNING_UPDATE",
             "INDEPENDENT_VERIFICATION",
             "RESIDUAL_ATTRIBUTION",
             "REVISION_OR_BIRTH",
@@ -1164,6 +1289,10 @@ def compile_universal_required_evidence_loop(
             "capability_gap_becomes_birth_input": True,
             "residual_returns_to_discovery": True,
             "verified_new_capabilities_become_cross_domain_memory": True,
+            "mind_plans_from_typed_obligations_not_domain_names": True,
+            "learning_requires_postfreeze_resolved_experience": True,
+            "learned_likelihoods_may_rank_actions_but_never_establish_truth": True,
+            "representation_birth_remains_research_local_until_verified": True,
         },
         "external_data_fetched": False,
         "knowledge_state_mutated": False,
@@ -1173,6 +1302,204 @@ def compile_universal_required_evidence_loop(
             "universal_loop_replaces_scientific_owners": False,
             "provider_match_is_world_evidence": False,
             "synthetic_evidence_can_replace_world": False,
+        },
+    })
+
+
+def execute_universal_obligation_step(
+    root: str | Path | None = None,
+    *,
+    obligation_record: Mapping[str, Any],
+) -> Mapping[str, Any]:
+    """Execute one safe, typed obligation step through an existing owner boundary.
+
+    The step is intentionally single-obligation and fail-closed.  It may compile
+    an owner input contract or run a read-only verifier/compiler where all inputs
+    are present.  It never fetches external data, never stores WORLD signatures,
+    and never grants scientific promotion.
+    """
+    root_path = _root(root)
+    source = str(obligation_record.get("source", "explicit_obligation_execution"))
+    obligation = (
+        dict(obligation_record)
+        if obligation_record.get("schema") == "phi-universal-required-evidence-obligation/v1"
+        else dict(_universal_loop_receipt(obligation_record, source=source))
+    )
+    capability = dict(obligation.get("capability") or {})
+    obligation_type = str(obligation.get("obligation_type", "CAPABILITY_GAP"))
+    candidate_id = str(obligation.get("candidate_id", "UNSPECIFIED"))
+    owners = [str(x) for x in capability.get("owners", ()) if str(x)]
+    selected_owner = owners[0] if owners else "UniversalResearchKernel"
+    input_state_digest = _representation_world_state(root_path)["digest"]
+    owner_input_contract = {
+        "candidate_id": candidate_id,
+        "obligation_type": obligation_type,
+        "capability_id": capability.get("capability_id", "capability-gap"),
+        "required_evidence_schema": capability.get("required_evidence_schema"),
+        "action_type": capability.get("action_type"),
+        "source_obligation_digest": obligation.get("digest"),
+    }
+    produced_object: Mapping[str, Any]
+    execution_status = "OWNER_INPUT_CONTRACT_COMPILED_FAIL_CLOSED"
+    verification_status = "VERIFICATION_PENDING_REQUIRED_EVIDENCE"
+    next_obligation = "EVIDENCE_VERIFICATION"
+    state_transition_allowed = False
+    residual = {
+        "present": True,
+        "kind": "REQUIRED_EVIDENCE_PENDING",
+        "policy": capability.get("residual_policy", "preserve residual for next obligation"),
+    }
+
+    if obligation_type == "CAPABILITY_GAP":
+        execution_status = "CAPABILITY_GAP_PRESERVED_FOR_BIRTH"
+        verification_status = "GAP_CLASSIFIED_NOT_SCIENTIFIC_FAILURE"
+        produced_object = {
+            "schema": "phi-capability-gap/v1",
+            "candidate_id": candidate_id,
+            "birth_path": list(capability.get("birth_path", ())),
+            "research_local": True,
+        }
+        next_obligation = "REPRESENTATION_BIRTH"
+    elif obligation_type in {"EXTERNAL_ARTIFACT_ACQUISITION", "WORLD_ATTESTATION", "TYPED_WORLD_ACTION"}:
+        execution_status = "BLOCKED_AT_EXTERNAL_OR_AUTHORIZED_ACTION_BOUNDARY"
+        verification_status = "EXTERNAL_EVIDENCE_OR_AUTHORIZATION_REQUIRED"
+        produced_object = {
+            "schema": capability.get("required_evidence_schema"),
+            "candidate_id": candidate_id,
+            "prepared_boundary": True,
+            "external_data_fetched": False,
+            "authorization_or_attestation_required": True,
+        }
+        next_obligation = "WORLD_ATTESTATION" if obligation_type != "WORLD_ATTESTATION" else "EVIDENCE_VERIFICATION"
+    elif obligation_type == "SOURCE_CAPABILITY":
+        intent = obligation_record.get("measurement_intent") if isinstance(obligation_record.get("measurement_intent"), Mapping) else None
+        intent = intent or obligation_record.get("intent") if isinstance(obligation_record.get("intent"), Mapping) else intent
+        if intent:
+            produced_object = match_source_provider(intent, root_path)
+            execution_status = "SOURCE_CAPABILITY_MATCH_EXECUTED"
+            verification_status = "PROVIDER_CAPABILITY_RESOLVED" if produced_object.get("status") == "CAPABLE_PROVIDER_SELECTED" else "NO_CAPABLE_PROVIDER"
+            next_obligation = "EXTERNAL_ARTIFACT_ACQUISITION" if produced_object.get("status") == "CAPABLE_PROVIDER_SELECTED" else "CAPABILITY_GAP"
+        else:
+            execution_status = "SOURCE_CAPABILITY_BLOCKED_MEASUREMENT_INTENT_REQUIRED"
+            verification_status = "MISSING_TYPED_MEASUREMENT_INTENT"
+            produced_object = {"schema": "phi-source-provider-match/v1", "status": "MEASUREMENT_INTENT_REQUIRED"}
+            next_obligation = "OBSERVABLE_CONTRACT"
+    elif obligation_type == "PROOF_OBLIGATION":
+        from .mathematical_invention import MathematicalInventionKernel
+
+        semantic_claim = (
+            obligation_record.get("semantic_claim")
+            or obligation_record.get("statement")
+            or obligation_record.get("claim")
+            or f"Resolve proof obligation for {candidate_id}"
+        )
+        compiler = MathematicalInventionKernel(root_path).semantic_obligation_compiler
+        produced_object = compiler.compile(
+            obligation={
+                "obligation_id": "OBL-" + digest_payload(obligation)[:20].upper(),
+                "semantic_claim": semantic_claim,
+            },
+            candidate={"candidate_id": candidate_id, "semantic_context": obligation_record.get("semantic_context", {})},
+        )
+        execution_status = "PROOF_OBLIGATION_COMPILED_BY_EXISTING_FORMAL_OWNER"
+        verification_status = (
+            "EXECUTABLE_PROOF_SPEC_AVAILABLE"
+            if produced_object.get("executable_verification")
+            else "PROOF_OBLIGATION_REQUIRES_BINDINGS_OR_EXTERNAL_PROOF"
+        )
+        next_obligation = "EVIDENCE_VERIFICATION" if produced_object.get("executable_verification") else "CAPABILITY_GAP"
+    elif obligation_type == "LEARNING_UPDATE":
+        experience = obligation_record.get("world_action_experience")
+        if isinstance(experience, Mapping):
+            from .resident_cognitive import LearnedWorldActionModelOwner
+
+            produced_object = LearnedWorldActionModelOwner().validate_experience(experience)
+            execution_status = "POSTFREEZE_EXPERIENCE_VALIDATED_READ_ONLY"
+            verification_status = str(produced_object.get("status", "EXPERIENCE_VALIDATION_RESULT"))
+            next_obligation = "FRONTIER_CONTINUATION" if produced_object.get("status") == "WORLD_ACTION_EXPERIENCE_ADMITTED" else "LEARNING_UPDATE"
+        else:
+            execution_status = "LEARNING_UPDATE_BLOCKED_EXPERIENCE_REQUIRED"
+            verification_status = "NO_POSTFREEZE_RESOLVED_EXPERIENCE"
+            produced_object = {"schema": "phi-postfreeze-resolved-world-action-experience/v1", "status": "EXPERIENCE_REQUIRED"}
+            next_obligation = "LEARNING_UPDATE"
+    else:
+        produced_object = {
+            "schema": capability.get("required_evidence_schema"),
+            "candidate_id": candidate_id,
+            "owner_input_contract": owner_input_contract,
+            "research_local": obligation_type in {"REPRESENTATION_BIRTH", "SEMANTIC_BRIDGE_BIRTH"},
+        }
+        if obligation_type in {"REPRESENTATION_BIRTH", "SEMANTIC_BRIDGE_BIRTH"}:
+            execution_status = "RESEARCH_LOCAL_BIRTH_INPUT_PREPARED"
+            verification_status = "POSTFREEZE_VALIDATION_REQUIRED_BEFORE_REUSE"
+            next_obligation = "EVIDENCE_VERIFICATION"
+
+    produced_object_digest = digest_payload(produced_object)
+    receipt = {
+        "schema": UNIVERSAL_OBLIGATION_EXECUTION_SCHEMA,
+        "obligation_id": "OBL-" + digest_payload(obligation)[:20].upper(),
+        "candidate_id": candidate_id,
+        "input_state_digest": input_state_digest,
+        "capability_id": capability.get("capability_id", "capability-gap"),
+        "selected_owner": selected_owner,
+        "owner_input_contract": owner_input_contract,
+        "execution_status": execution_status,
+        "produced_object": produced_object,
+        "produced_object_digest": produced_object_digest,
+        "verification_status": verification_status,
+        "residual": residual,
+        "next_obligation": next_obligation,
+        "state_transition_allowed": state_transition_allowed,
+        "external_data_fetched": False,
+        "knowledge_state_mutated": False,
+        "scientific_promotion_allowed": False,
+        "claim_boundary": {
+            "one_step_executes_more_than_next_obligation": False,
+            "missing_owner_or_input_means_false_hypothesis": False,
+            "world_boundary_is_crossed_without_attestation": False,
+            "research_local_birth_is_canonical": False,
+        },
+    }
+    return _with_digest(receipt)
+
+
+def run_universal_obligation_execution_loop(
+    root: str | Path | None = None,
+    *,
+    candidate_specs: Sequence[Mapping[str, Any]] | None = None,
+    max_frontier_rows: int = 500,
+    max_campaign_items: int = 8,
+    max_execution_steps: int | None = None,
+) -> Mapping[str, Any]:
+    """Compile the universal loop and execute exactly one safe step per item."""
+    compiled = compile_universal_required_evidence_loop(
+        root,
+        candidate_specs=candidate_specs,
+        max_frontier_rows=max_frontier_rows,
+        max_campaign_items=max_campaign_items,
+    )
+    obligations = list(compiled.get("obligations", ()))
+    limit = len(obligations) if max_execution_steps is None else max(0, int(max_execution_steps))
+    steps = [
+        execute_universal_obligation_step(root, obligation_record=row)
+        for row in obligations[:limit]
+        if isinstance(row, Mapping)
+    ]
+    blocked = [row for row in steps if str(row.get("execution_status", "")).startswith("BLOCKED") or "REQUIRED" in str(row.get("verification_status", ""))]
+    return _with_digest({
+        "schema": "phi-universal-obligation-execution-loop/v1",
+        "status": "UNIVERSAL_OBLIGATION_EXECUTION_STEPPED_FAIL_CLOSED",
+        "compiled_loop_digest": compiled.get("digest"),
+        "step_count": len(steps),
+        "blocked_or_pending_count": len(blocked),
+        "steps": steps,
+        "external_data_fetched": False,
+        "knowledge_state_mutated": False,
+        "scientific_promotion_allowed": False,
+        "claim_boundary": {
+            "execution_loop_is_scientific_promotion": False,
+            "external_world_substituted_by_local_receipt": False,
+            "capability_gap_is_failed_science": False,
         },
     })
 

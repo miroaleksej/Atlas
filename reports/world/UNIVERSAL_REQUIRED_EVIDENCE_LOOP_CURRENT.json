@@ -1,6 +1,6 @@
 {
   "capability_gap_count": 0,
-  "capability_registry_digest": "34d58eefd3098c94968f0226f1c59236cef11c4bf6d412be81344da0e2f48662",
+  "capability_registry_digest": "7e1ac079e77afa73a22b9e83fd436a681d8fca58666a93bc71a092b9db5ae187",
   "claim_boundary": {
     "provider_match_is_world_evidence": false,
     "synthetic_evidence_can_replace_world": false,
@@ -18,9 +18,9 @@
       "TYPED_HYPOTHESIS_MATERIALIZATION": 6
     }
   },
-  "digest": "136c0e9e1d0a126813f4db8db3ec15f845bc37b87d602b8eac4ac5d1625768dc",
+  "digest": "be6280814dc751a81fbbb537d33fe3addc0e842610fd3cb8d32bdb5fb892389e",
   "external_data_fetched": false,
-  "input_digest": "56a12db5b6bac97668b465da043d88b0dd6203b670a407388b00579e0ffe9d0f",
+  "input_digest": "e3c7774d9156112daedaa80869a7a891cb7b36d79224c8728a44d6db5bdaef43",
   "input_source": "required_evidence_routes",
   "knowledge_state_mutated": false,
   "loop": [
@@ -29,9 +29,11 @@
     "REQUIRED_EVIDENCE_ROUTE",
     "OBLIGATION",
     "RESOLVE_CAPABILITY",
+    "MIND_PLAN",
     "ACTION_OR_GAP",
     "WORLD_OR_PROOF_OR_COMPUTATION",
     "EVIDENCE",
+    "LEARNING_UPDATE",
     "INDEPENDENT_VERIFICATION",
     "RESIDUAL_ATTRIBUTION",
     "REVISION_OR_BIRTH",
@@ -71,7 +73,7 @@
         "world_is_replaced_by_synthetic_evidence": false
       },
       "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
-      "digest": "da94c68af8f7da26db8a43480618d6280d68c102031eb44eef7d5ecdfc62c320",
+      "digest": "ba4d9d06e7f7f2c5b63c74671bf6494ffeabd89239681023a508818e03e5b9d0",
       "domain_conditionals_used": false,
       "evidence": {
         "required_schema": "phi-response-observable-contract/v1",
@@ -80,6 +82,13 @@
       },
       "frontier_continuation": "candidate advances only after frozen observable contract exists",
       "obligation_type": "OBSERVABLE_CONTRACT",
+      "planning": {
+        "blocks_progress": false,
+        "expected_information_gain_bits": 0.0,
+        "residual_pressure": 0.0,
+        "source": "UNIVERSAL_RESEARCH_STATE",
+        "truth_probability_claimed": false
+      },
       "residual": {
         "birth_path": [
           "axis_birth",
@@ -128,7 +137,7 @@
         "world_is_replaced_by_synthetic_evidence": false
       },
       "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
-      "digest": "0ed9f49e34525db10bef92a848e7abb14d36ba5dceddc913e4e0d93b614dfcd9",
+      "digest": "bbdbc30744099f7f0d12686a0936cb4de10533324b8fbfcf30e869e0d3409d8c",
       "domain_conditionals_used": false,
       "evidence": {
         "required_schema": "phi-response-observable-contract/v1",
@@ -137,6 +146,13 @@
       },
       "frontier_continuation": "candidate advances only after frozen observable contract exists",
       "obligation_type": "OBSERVABLE_CONTRACT",
+      "planning": {
+        "blocks_progress": false,
+        "expected_information_gain_bits": 0.0,
+        "residual_pressure": 0.0,
+        "source": "UNIVERSAL_RESEARCH_STATE",
+        "truth_probability_claimed": false
+      },
       "residual": {
         "birth_path": [
           "axis_birth",
@@ -185,7 +201,7 @@
         "world_is_replaced_by_synthetic_evidence": false
       },
       "current_layer": "DISCOVERY_SEARCH_CORE",
-      "digest": "90a056bd46c440890bce1288225b180d45700ed6a6a950da300e12be34d8df5c",
+      "digest": "2c717410ef3ce9b6d447869a134eeff67cfdf6cfa8328a9ac177ca08abcb2755",
       "domain_conditionals_used": false,
       "evidence": {
         "required_schema": "phi-u4-hypothesis-materialization/v1",
@@ -194,6 +210,13 @@
       },
       "frontier_continuation": "frontier retains candidate with explicit next obligation",
       "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "planning": {
+        "blocks_progress": false,
+        "expected_information_gain_bits": 0.0,
+        "residual_pressure": 0.0,
+        "source": "UNIVERSAL_RESEARCH_STATE",
+        "truth_probability_claimed": false
+      },
       "residual": {
         "birth_path": [
           "representation_birth",
@@ -241,7 +264,7 @@
         "world_is_replaced_by_synthetic_evidence": false
       },
       "current_layer": "DISCOVERY_SEARCH_CORE",
-      "digest": "aa8ff7a56ca68933106475854a7afe45b460f99e9d56d2f60f5ae1b8e40c39c6",
+      "digest": "30fe72402c35f1321d0ed2927fe7b41816632a26386001d2e0d0292b89e7ef7b",
       "domain_conditionals_used": false,
       "evidence": {
         "required_schema": "phi-u4-hypothesis-materialization/v1",
@@ -250,6 +273,13 @@
       },
       "frontier_continuation": "frontier retains candidate with explicit next obligation",
       "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "planning": {
+        "blocks_progress": false,
+        "expected_information_gain_bits": 0.0,
+        "residual_pressure": 0.0,
+        "source": "UNIVERSAL_RESEARCH_STATE",
+        "truth_probability_claimed": false
+      },
       "residual": {
         "birth_path": [
           "representation_birth",
@@ -297,7 +327,7 @@
         "world_is_replaced_by_synthetic_evidence": false
       },
       "current_layer": "DISCOVERY_SEARCH_CORE",
-      "digest": "91ebe59d94453e589a32c8326ece7f0622aa8334582b7ca6f3243a938bc4380e",
+      "digest": "e955eff1a97f1a4fac70220b228cb008567562fdb0a9c3daedefc3ce59d87775",
       "domain_conditionals_used": false,
       "evidence": {
         "required_schema": "phi-u4-hypothesis-materialization/v1",
@@ -306,6 +336,13 @@
       },
       "frontier_continuation": "frontier retains candidate with explicit next obligation",
       "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "planning": {
+        "blocks_progress": false,
+        "expected_information_gain_bits": 0.0,
+        "residual_pressure": 0.0,
+        "source": "UNIVERSAL_RESEARCH_STATE",
+        "truth_probability_claimed": false
+      },
       "residual": {
         "birth_path": [
           "representation_birth",
@@ -353,7 +390,7 @@
         "world_is_replaced_by_synthetic_evidence": false
       },
       "current_layer": "DISCOVERY_SEARCH_CORE",
-      "digest": "5508a49f4e3fe7027fff5a4a12e3eeb25f6074c602a8d507a226da550e4c95e9",
+      "digest": "1d783db534930306830fafe8c446556793e1744fb39d473576a535e23133d5b0",
       "domain_conditionals_used": false,
       "evidence": {
         "required_schema": "phi-u4-hypothesis-materialization/v1",
@@ -362,6 +399,13 @@
       },
       "frontier_continuation": "frontier retains candidate with explicit next obligation",
       "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "planning": {
+        "blocks_progress": false,
+        "expected_information_gain_bits": 0.0,
+        "residual_pressure": 0.0,
+        "source": "UNIVERSAL_RESEARCH_STATE",
+        "truth_probability_claimed": false
+      },
       "residual": {
         "birth_path": [
           "representation_birth",
@@ -409,7 +453,7 @@
         "world_is_replaced_by_synthetic_evidence": false
       },
       "current_layer": "DISCOVERY_SEARCH_CORE",
-      "digest": "4994a6850d3bdd3b38ad0cb261494d41c5a4aa822586276a497302de3ad4455a",
+      "digest": "ca1974bcedb4b000648ba7a9cb7aa1216b3d6eab00c6b4766d85d73d9c9d654b",
       "domain_conditionals_used": false,
       "evidence": {
         "required_schema": "phi-u4-hypothesis-materialization/v1",
@@ -418,6 +462,13 @@
       },
       "frontier_continuation": "frontier retains candidate with explicit next obligation",
       "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "planning": {
+        "blocks_progress": false,
+        "expected_information_gain_bits": 0.0,
+        "residual_pressure": 0.0,
+        "source": "UNIVERSAL_RESEARCH_STATE",
+        "truth_probability_claimed": false
+      },
       "residual": {
         "birth_path": [
           "representation_birth",
@@ -465,7 +516,7 @@
         "world_is_replaced_by_synthetic_evidence": false
       },
       "current_layer": "DISCOVERY_SEARCH_CORE",
-      "digest": "cc875d38c5a7256e34ceb3e1f4c8c94d9a9fbf105a525af0bc51de8d12c65005",
+      "digest": "2e1011c13cc6889e951a831d646d4a9a0f8b4d53f3a74be146d23ab9a69d85d7",
       "domain_conditionals_used": false,
       "evidence": {
         "required_schema": "phi-u4-hypothesis-materialization/v1",
@@ -474,6 +525,13 @@
       },
       "frontier_continuation": "frontier retains candidate with explicit next obligation",
       "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "planning": {
+        "blocks_progress": false,
+        "expected_information_gain_bits": 0.0,
+        "residual_pressure": 0.0,
+        "source": "UNIVERSAL_RESEARCH_STATE",
+        "truth_probability_claimed": false
+      },
       "residual": {
         "birth_path": [
           "representation_birth",
@@ -494,6 +552,10 @@
     "capability_gap_becomes_birth_input": true,
     "domain_adapters_only_describe_quantities_actions_evidence": true,
     "domain_specific_if_branches_allowed": false,
+    "learned_likelihoods_may_rank_actions_but_never_establish_truth": true,
+    "learning_requires_postfreeze_resolved_experience": true,
+    "mind_plans_from_typed_obligations_not_domain_names": true,
+    "representation_birth_remains_research_local_until_verified": true,
     "residual_returns_to_discovery": true,
     "route_determined_by_scientific_obligation_not_domain": true,
     "verified_new_capabilities_become_cross_domain_memory": true

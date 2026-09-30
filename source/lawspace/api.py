@@ -31,6 +31,8 @@ class LawSpaceAPI:
         "run_world_closed_loop_campaign", "audit_existing_closed_loop_integration",
         "run_existing_closed_loop_glue", "run_existing_lowering_projection_preflight",
         "compile_required_evidence_routes", "compile_universal_required_evidence_loop",
+        "derive_semantic_evidence_needs", "execute_universal_obligation_step",
+        "run_universal_obligation_execution_loop",
     )
     READ_TOOLS = READ_TOOLS + (
         "get_phi_formal_mathematical_verification_contract", "compile_phi_semantic_proof_obligation", "synthesize_phi_semantic_bindings",
@@ -1292,6 +1294,31 @@ class LawSpaceAPI:
             candidate_specs=candidate_specs,
             max_frontier_rows=max_frontier_rows,
             max_campaign_items=max_campaign_items,
+        )
+
+    def derive_semantic_evidence_needs(self, candidate: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .source_capabilities import derive_semantic_evidence_needs
+        return derive_semantic_evidence_needs(candidate)
+
+    def execute_universal_obligation_step(self, obligation_record: Mapping[str, Any]) -> Mapping[str, Any]:
+        from .source_capabilities import execute_universal_obligation_step
+        return execute_universal_obligation_step(self.runtime.root, obligation_record=obligation_record)
+
+    def run_universal_obligation_execution_loop(
+        self,
+        candidate_specs: Sequence[Mapping[str, Any]] | None = None,
+        *,
+        max_frontier_rows: int = 500,
+        max_campaign_items: int = 8,
+        max_execution_steps: int | None = None,
+    ) -> Mapping[str, Any]:
+        from .source_capabilities import run_universal_obligation_execution_loop
+        return run_universal_obligation_execution_loop(
+            self.runtime.root,
+            candidate_specs=candidate_specs,
+            max_frontier_rows=max_frontier_rows,
+            max_campaign_items=max_campaign_items,
+            max_execution_steps=max_execution_steps,
         )
 
 

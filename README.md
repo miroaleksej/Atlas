@@ -103,6 +103,9 @@ run_existing_closed_loop_glue
 run_existing_lowering_projection_preflight
 compile_required_evidence_routes
 compile_universal_required_evidence_loop
+derive_semantic_evidence_needs
+execute_universal_obligation_step
+run_universal_obligation_execution_loop
 ```
 
 `run_world_closed_loop_campaign` читает текущий frontier, строит measurement intents для candidates, сопоставляет их с provider registry и проверяет WORLD trust gate. При пустом trust store результатом будет `CAMPAIGN_BLOCKED_WORLD_ATTESTOR_REQUIRED`: provider-matched episodes могут быть найдены, но `independently_attested_episode_count=0`, внешние данные не скачиваются, а representation/world model не изменяется. Это намеренная защита от подмены независимой аттестации локальным replay.
@@ -115,7 +118,26 @@ compile_universal_required_evidence_loop
 
 `compile_universal_required_evidence_loop` поднимает этот route graph на общий уровень `Question → Frontier → RequiredEvidenceRoute → Obligation → Capability → Evidence → Verification → Residual → Revision/Birth → Frontier`. Это не JHTDB-ветка и не workflow-движок: маршрут определяется типом научного обязательства (`OBSERVABLE_CONTRACT`, `PROOF_OBLIGATION`, `WORLD_ATTESTATION`, `REPRESENTATION_BIRTH`, `CAPABILITY_GAP` и т.д.), а не названием домена. Domain adapters описывают только величины, действия и evidence schemas. Если capability отсутствует, Atlas сохраняет `CAPABILITY_GAP` как вход для рождения метода/адаптера/представления, а не объявляет гипотезу ложной. Residual всегда возвращается в discovery/frontier, а verified new capability может стать повторно используемой cross-domain памятью.
 
+`derive_semantic_evidence_needs` устраняет последний предметный dispatch из frontier→provider пути: claim/candidate contract сам задаёт, какое evidence требуется, через axes, required evidence, promotion gates и applicability status. Provider registry только отвечает, может ли источник удовлетворить уже выведенный intent; он не выбирает observable за claim и не превращает имя домена в научное требование.
+
+`run_universal_obligation_execution_loop` выполняет один безопасный шаг для каждого obligation через существующего owner или boundary. Receipt содержит `obligation_id`, `candidate_id`, `input_state_digest`, `capability_id`, `selected_owner`, `owner_input_contract`, `execution_status`, `produced_object_digest`, `verification_status`, `residual`, `next_obligation` и `state_transition_allowed`. WORLD/action boundaries остаются закрытыми без внешней аттестации; proof obligations идут через formal/semantic proof owner; capability gaps становятся входом birth-механизмов.
+
 `audit_existing_closed_loop_integration` выполняет read-only ревизию уже имеющихся систем Atlas и собирает единую карту маршрута `frontier → U4 materialization → prediction lowering → response projection → provider matching → frozen execution → WORLD attestation → U5 replay → representation revision`. Текущий отчёт показывает не отсутствие механизмов, а неполную замкнутость маршрута: 447 materialized hypotheses и 683 scalar law materializations уже есть, frozen execution runtime связан с frontier campaign, но только по одному lowering/projection/measurement/discrimination и 0 WORLD attestations. Поэтому главный следующий инженерный шаг — материализовать оставшиеся matched episodes до U4 и добавить declared response observable contracts для U4-ready episodes, затем freeze-ить projections/lowerings через существующие owners.
+
+## Universal Adaptive Research Mind: ИИ внутри общего исследовательского цикла
+
+Atlas разделяет научную власть и интеллект. `Universal Research Kernel` контролирует obligations, evidence schemas, verification gates и promotion boundaries. `ResidentCognitiveOrganism` остаётся Mind-слоем: принимает universal obligations как динамические цели, строит planner steps из capability receipts, учится только на разрешённом post-freeze world-action experience и возвращает residual в representation/operator/ontology birth.
+
+Петля:
+
+```text
+Question → Frontier → Hypotheses → Universal Obligation
+→ Mind Plan → Typed Action / Proof / Computation
+→ Evidence → Learning → Verification → Residual
+→ Representation/Operator Birth → Frontier′
+```
+
+Learning не является продвижением закона. Learned likelihoods могут ранжировать действия и expected information gain, но не становятся probability of truth. Если learned model недостаточно поддержана, OOD или residual устойчив, Atlas формирует representation pressure и возвращается к существующим birth-механизмам; новый объект остаётся research-local до независимой проверки.
 
 Проверка слоя:
 

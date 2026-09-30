@@ -187,6 +187,33 @@ python -m evaluation.world_closed_loop_campaign \
 
 Он фиксирует общий цикл `Question → Frontier → RequiredEvidenceRoute → Obligation → Capability → Evidence → Verification → Residual → Revision/Birth → Frontier`. В этом слое нет веток вида `if JHTDB`, `if astronomy` или `if PDE`: route определяется только типом научного обязательства и его evidence schema. Domain adapter имеет право описать наблюдаемые, источник, единицы, action и формат evidence, но не получает права продвижения закона и не заменяет WORLD trust. Если подходящей capability нет, результатом становится `CAPABILITY_GAP`, который возвращается в discovery как задача рождения метода, адаптера, представления, operator language или semantic bridge. Residual сохраняется и направляется обратно в frontier; verified new capability может стать reusable cross-domain памятью только после своей проверки.
 
+One-step execution receipt для universal obligations запускается так:
+
+```bash
+python -m evaluation.world_closed_loop_campaign \
+  --run-universal-obligation-execution-loop \
+  --max-frontier-rows 500 \
+  --max-campaign-items 8 \
+  --out reports/world/UNIVERSAL_OBLIGATION_EXECUTION_LOOP_CURRENT.json
+```
+
+Этот режим не скачивает внешние данные и не мутирует knowledge state. Он выполняет только следующий допустимый шаг: proof obligation компилируется существующим formal/semantic owner, source capability вызывает provider matcher, WORLD/action boundary закрывается до аттестации, а `CAPABILITY_GAP` сохраняется как birth input. Каждый step выдаёт typed receipt с `obligation_id`, `selected_owner`, `owner_input_contract`, `execution_status`, `verification_status`, `residual` и `next_obligation`.
+
+Semantic evidence-need derivation находится перед provider matching. Claim/candidate contract определяет требуемое evidence по axes, required-evidence gates и applicability status; provider registry только отвечает, может ли источник выполнить уже выведенный intent. Ядро не должно выбирать observable по имени `JHTDB`, `astronomy`, `PDE` или любой другой области.
+
+### Universal Adaptive Research Mind — эксплуатационный контракт
+
+Новый контур не создаёт параллельного scientific owner. Он связывает существующие компоненты:
+
+- `ScientificResearchCycleOwner` — orchestration owner научного цикла;
+- `ResidentCognitiveOrganism` — persistent Mind: goal graph, planner, self-model, learned world-action model;
+- `compile_universal_required_evidence_loop` — domain-neutral obligation/capability contract;
+- `run_universal_obligation_execution_loop` — один безопасный step через существующего owner или boundary;
+- `MathematicalInventionKernel` и `AxisModelingOwner` — representation/function/operator/ontology birth;
+- существующие verification, WORLD attestation, U5 и promotion owners — без обхода gates.
+
+В `run_autonomous_research` можно передать `world_action_experience` или `world_action_experiences`. Запись принимается в learning memory только после проверки post-freeze binding и запрета pre-freeze truth exposure. Полученные likelihoods используются только для EIG/action ranking и не являются вероятностью истинности. Если model support недостаточен или action OOD, Mind создаёт representation pressure и возвращает residual в birth route.
+
 Audit-отчёт перечисляет существующие механизмы `ScientificExploitation`, `DiscriminatingExperimentAutopilot`, `FrozenExperimentExecution`, `ClosedLoopResearch`, `SourceProviderCapabilityRegistry`, `ScientificVerificationCore`, `WorldAttestationOwner`, `U5AttemptScheduler`, `ScientificPromotionCore` и `KnowledgeEvolutionKernel`, затем показывает, где маршрут фактически обрывается. В текущем состоянии основные разрывы: из восьми JHTDB-matched episodes две уже U4-materialized, шесть требуют U4 materialization, а обе U4-ready записи требуют явный response-observable contract перед frozen response projection и prediction lowering. Frozen execution runtime уже привязан к frontier campaign, WORLD trust пустой, а U5 replay не имеет WORLD evidence.
 
 Публичный trust store находится в `data/world_trust/attestors.json`. Private key должен быть создан и храниться вне Atlas. В репозитории допустимы только public key metadata, key id, role, provider scope, validity и revocation state. Текущий реестр пустой, поэтому `world_attestation_ready=false`: Atlas готов к независимому attestor, но не имитирует WORLD evidence.

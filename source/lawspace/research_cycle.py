@@ -6259,6 +6259,59 @@ class ScientificResearchCycleOwner:
             "include_all_connected_owners": include_connected,
             "activate_bridge_open_axes": bool(req.get("activate_bridge_open_axes", False)),
         })
+        experience_inputs: list[dict[str, Any]] = []
+        one_experience = req.get("world_action_experience")
+        if isinstance(one_experience, Mapping):
+            experience_inputs.append(dict(one_experience))
+        experience_inputs.extend(
+            dict(row) for row in req.get("world_action_experiences", ()) if isinstance(row, Mapping)
+        )
+        learning_records: list[Mapping[str, Any]] = []
+        commit_resident_state = bool(req.get("commit_resident_state", True))
+        if experience_inputs and commit_resident_state:
+            learning_records = [
+                resident.record_world_action_experience(row, commit=True) for row in experience_inputs
+            ]
+            recorded_count = sum(row.get("status") == "WORLD_ACTION_EXPERIENCE_RECORDED" for row in learning_records)
+            model_update = (
+                resident.online_update_world_action_model(
+                    commit=True,
+                    min_pair_support=int(req.get("world_model_min_pair_support", 3) or 3),
+                )
+                if recorded_count
+                else {"owner": resident.owner_id, "status": "LEARNING_UPDATE_BLOCKED_NO_ADMITTED_EXPERIENCE"}
+            )
+        elif experience_inputs:
+            learning_records = [resident.world_action_model.validate_experience(row) for row in experience_inputs]
+            recorded_count = 0
+            model_update = {
+                "owner": resident.owner_id,
+                "status": "LEARNING_UPDATE_PREVIEW_ONLY_RESIDENT_COMMIT_DISABLED",
+                "reason": "post-freeze experience is validated but not persisted when commit_resident_state is false",
+            }
+        else:
+            recorded_count = 0
+            model_update = {"owner": resident.owner_id, "status": "LEARNING_UPDATE_NOT_ENTERED_NO_NEW_EXPERIENCE"}
+        if "digest" not in model_update:
+            model_update["digest"] = digest_payload(model_update)
+        learning_update = {
+            "schema": "phi-adaptive-research-learning-update/v1",
+            "owner": resident.owner_id,
+            "status": (
+                "POSTFREEZE_WORLD_MODEL_LEARNING_ATTEMPTED" if recorded_count
+                else "POSTFREEZE_WORLD_MODEL_LEARNING_NOT_READY"
+            ),
+            "input_experience_count": len(experience_inputs),
+            "recorded_experience_count": recorded_count,
+            "experience_receipts": learning_records,
+            "model_update": model_update,
+            "claim_boundary": {
+                "prefreeze_truth_labels_allowed": False,
+                "unresolved_experience_is_scientific_truth": False,
+                "learned_likelihood_is_scientific_law": False,
+            },
+        }
+        learning_update["digest"] = digest_payload(learning_update)
         candidate_ids = [str(row.get("candidate_id")) for row in cycle.get("competitive_set", {}).get("candidates", ())]
         if candidate_ids:
             learned_action = resident.select_action_from_contextual_world_model(
@@ -6275,6 +6328,12 @@ class ScientificResearchCycleOwner:
                 "selected_action": None,
             }
             learned_action["digest"] = digest_payload(learned_action)
+
+        learned_action_status = str(learned_action.get("status", ""))
+        learned_action_representation_pressure = (
+            learned_action_status in {"EXPAND_GENERATED_REPRESENTATION", "WORLD_ACTION_MODEL_OOD_UNCERTAIN"}
+            or str(learned_action.get("fallback", "")) == "COLLECT_GROUNDING_OR_EXPAND_REPRESENTATION"
+        )
 
         # Mathematical invention is entered only from an actual gap/failure receipt.
         # No transition evidence is synthesized here.  Reuse the kernel instance
@@ -6392,6 +6451,7 @@ class ScientificResearchCycleOwner:
             or cycle.get("information_gain", {}).get("status") != "EIG_RANKED"
             or bool(typed.get("capability_gap_detected"))
             or portfolio_space_gap
+            or learned_action_representation_pressure
         )
         if mathematical_frontier_active:
             representation = {
@@ -6529,6 +6589,87 @@ class ScientificResearchCycleOwner:
             }
             primitive["digest"] = digest_payload(primitive)
 
+        mind_subject_id = "RESEARCH-CYCLE-" + digest_payload({"question": question, "candidate_ids": candidate_ids})[:20].upper()
+        mind_specs: list[dict[str, Any]] = []
+        unresolved_proof_count = len(discharge.get("unresolved_obligation_seeds", ()))
+        if isinstance(proof_artifact_raw, Mapping) and formal_verification.get("verified") is not True:
+            mind_specs.append({
+                "candidate_id": mind_subject_id,
+                "required_obligation": "PROOF_OBLIGATION",
+                "planning_features": {
+                    "blocks_progress": True,
+                    "residual_pressure": float(max(1, unresolved_proof_count)),
+                    "expected_information_gain_bits": 0.0,
+                    "source": "FORMAL_VERIFICATION_RESIDUAL",
+                },
+            })
+        selected_world_action = learned_action.get("selected_action")
+        if isinstance(selected_world_action, Mapping):
+            mind_specs.append({
+                "candidate_id": mind_subject_id,
+                "required_obligation": "TYPED_WORLD_ACTION",
+                "planning_features": {
+                    "blocks_progress": True,
+                    "residual_pressure": 0.0,
+                    "expected_information_gain_bits": float(selected_world_action.get("expected_information_gain_bits", 0.0) or 0.0),
+                    "source": "LEARNED_WORLD_MODEL_EIG",
+                },
+            })
+        elif learned_action_status in {
+            "NO_CALIBRATED_WORLD_ACTION_MODEL",
+            "WORLD_ACTION_MODEL_INSUFFICIENT_SUPPORT",
+            "LEARNED_WORLD_MODEL_CONTEXT_OOD",
+        }:
+            mind_specs.append({
+                "candidate_id": mind_subject_id,
+                "required_obligation": "LEARNING_UPDATE",
+                "planning_features": {
+                    "blocks_progress": True,
+                    "residual_pressure": 0.5,
+                    "expected_information_gain_bits": 0.0,
+                    "source": "LEARNED_WORLD_MODEL_SUPPORT_GAP",
+                },
+            })
+        if cycle_gap:
+            mind_specs.append({
+                "candidate_id": mind_subject_id,
+                "required_obligation": "REPRESENTATION_BIRTH",
+                "planning_features": {
+                    "blocks_progress": True,
+                    "residual_pressure": 1.0 + float(len(evidence_rows) > 0),
+                    "expected_information_gain_bits": 0.0,
+                    "source": "REPRESENTATION_OR_IDENTIFIABILITY_GAP",
+                },
+            })
+        acceleration_status = str(research_acceleration.get("status", ""))
+        if acceleration_status == "MEASUREMENT_REQUEST_READY" and not isinstance(selected_world_action, Mapping):
+            experiments = cycle.get("information_gain", {}).get("experiments", ())
+            mind_specs.append({
+                "candidate_id": mind_subject_id,
+                "required_obligation": "EXTERNAL_ARTIFACT_ACQUISITION",
+                "planning_features": {
+                    "blocks_progress": True,
+                    "residual_pressure": 0.0,
+                    "expected_information_gain_bits": float(experiments[0].get("expected_information_gain_bits", 0.0) or 0.0) if experiments else 0.0,
+                    "source": "U5_MEASUREMENT_REQUEST",
+                },
+            })
+        if not mind_specs:
+            mind_specs.append({
+                "candidate_id": mind_subject_id,
+                "required_obligation": "FRONTIER_CONTINUATION",
+                "planning_features": {
+                    "blocks_progress": False,
+                    "residual_pressure": 0.0,
+                    "expected_information_gain_bits": 0.0,
+                    "source": "NO_IMMEDIATE_BLOCKER",
+                },
+            })
+        from .source_capabilities import compile_universal_required_evidence_loop
+        adaptive_obligation_loop = compile_universal_required_evidence_loop(
+            self.runtime.root, candidate_specs=tuple(mind_specs)
+        )
+
         research_axis_ids = [
             str(row.get("qualified_axis_id"))
             for row in cycle.get("owner_axis_space", {}).get("axis_rows", ())
@@ -6569,10 +6710,34 @@ class ScientificResearchCycleOwner:
                 "formal_verification_status": formal_verification.get("status"),
                 "external_formal_attestation_digest": external_formal_attestation.get("digest"),
                 "external_formal_attestation_status": external_formal_attestation.get("status"),
+                "universal_required_evidence_loop_digest": adaptive_obligation_loop.get("digest"),
+                "universal_obligations": list(adaptive_obligation_loop.get("obligations", ())),
+                "learning_update_digest": learning_update.get("digest"),
+                "learned_world_action_digest": learned_action.get("digest"),
             },
             "axis_ids": research_axis_ids,
             "grounding": dict(req.get("grounding", {})),
         }, commit=bool(req.get("commit_resident_state", True)))
+
+        adaptive_intelligence = {
+            "schema": "phi-universal-adaptive-research-mind/v1",
+            "owner": self.owner_id,
+            "status": "ADAPTIVE_MIND_BOUND_TO_UNIVERSAL_RESEARCH_LOOP",
+            "learning_update": learning_update,
+            "learned_world_action": learned_action,
+            "universal_required_evidence_loop": adaptive_obligation_loop,
+            "selected_goal_id": heartbeat.get("goal_graph", {}).get("selected_goal_id"),
+            "selected_plan": heartbeat.get("plan"),
+            "representation_pressure": learned_action_representation_pressure or cycle_gap,
+            "claim_boundary": {
+                "mind_plan_is_scientific_truth": False,
+                "learned_likelihood_is_truth_probability": False,
+                "planner_can_bypass_scientific_owner_gates": False,
+                "capability_gap_is_failed_science": False,
+                "representation_birth_is_canonical_without_verification": False,
+            },
+        }
+        adaptive_intelligence["digest"] = digest_payload(adaptive_intelligence)
 
         counterexample_found = next((row for row in counterexample_receipts if row.get("counterexample_found") is True), None)
         if counterexample_found is not None:
@@ -6641,6 +6806,7 @@ class ScientificResearchCycleOwner:
             "persistent_portfolio": cycle.get("persistent_portfolio", {}),
             "open_world": open_world,
             "learned_world_action": learned_action,
+            "adaptive_intelligence": adaptive_intelligence,
             "representation_invention": representation,
             "representation_class_failure": representation_class_failure,
             "representation_language_birth": representation_language_birth,
@@ -6685,6 +6851,9 @@ class ScientificResearchCycleOwner:
                 "research_local_meta_language_ontology_is_canonical": False,
                 "blocked_proof_obligation_is_discharged": False,
                 "proof_obligation_priority_is_truth_probability": False,
+                "adaptive_mind_plan_is_scientific_truth": False,
+                "learned_world_model_may_use_prefreeze_truth": False,
+                "universal_obligation_plan_bypasses_scientific_owner_gates": False,
             },
         }
         payload["digest"] = digest_payload(payload)
