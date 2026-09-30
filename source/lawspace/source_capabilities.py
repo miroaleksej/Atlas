@@ -17,6 +17,7 @@ PROVIDER_REGISTRY_SCHEMA = "phi-source-provider-capability-registry/v1"
 WORLD_TRUST_SCHEMA = "phi-world-trust-public-registry/v1"
 CAMPAIGN_SCHEMA = "phi-world-evidence-campaign-plan/v1"
 RUN_SCHEMA = "phi-world-closed-loop-campaign-run/v1"
+REQUIRED_EVIDENCE_ROUTE_SCHEMA = "phi-required-evidence-route-compiler/v1"
 
 
 def _root(root: str | Path | None = None) -> Path:
@@ -541,6 +542,289 @@ def run_existing_lowering_projection_preflight(
             "preflight_can_replace_u4_materialization": False,
             "preflight_can_replace_response_projection": False,
             "preflight_can_replace_world_attestation": False,
+        },
+    })
+
+
+def _route_from_preflight_status(status: str, *, active_attestors: int) -> Mapping[str, Any]:
+    route_table: dict[str, Mapping[str, Any]] = {
+        "BLOCKED_FRONTIER_RECORD_NOT_IN_WINDOW": {
+            "current_stage": "FRONTIER_WINDOW_MISSING",
+            "current_layer": "DISCOVERY_SEARCH_CORE",
+            "next_required_object": "frontier_candidate_record",
+            "blocked_reason": "candidate is not present in the inspected frontier window",
+            "eligible_existing_modules": [
+                "ATLAS_ACTIVE_CANDIDATES_CURRENT.jsonl",
+                "CandidateGenerationPipeline/6.27.0",
+            ],
+        },
+        "BLOCKED_NO_CAPABLE_PROVIDER": {
+            "current_stage": "MEASUREMENT_INTENT_COMPILED",
+            "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
+            "next_required_object": "source_capability_provider_match",
+            "blocked_reason": "measurement intent has no declared capable source provider",
+            "eligible_existing_modules": [
+                "SourceProviderCapabilityRegistry",
+                "match_source_provider",
+            ],
+        },
+        "BLOCKED_U4_MATERIALIZATION_REQUIRED": {
+            "current_stage": "PROVIDER_MATCHED",
+            "current_layer": "DISCOVERY_SEARCH_CORE",
+            "next_required_object": "u4_hypothesis_materialization",
+            "blocked_reason": "provider-matched frontier candidate has not been materialized as a typed U4 hypothesis",
+            "eligible_existing_modules": [
+                "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+                "KnowledgeEvolutionKernel.hypothesis_materializations",
+                "qualify_frontier_promotion_path",
+            ],
+        },
+        "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED": {
+            "current_stage": "U4_READY",
+            "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
+            "next_required_object": "response_observable_contract",
+            "blocked_reason": "typed U4 hypothesis has no declared response observable ids for frozen projection",
+            "eligible_existing_modules": [
+                "KnowledgeEvolutionKernel.hypothesis_materializations.measurement_contract",
+                "DiscriminatingExperimentAutopilotOwner",
+                "assess_phi_candidate_response_projection",
+            ],
+        },
+        "BLOCKED_CANDIDATE_WORLD_BINDING_REQUIRED": {
+            "current_stage": "RESPONSE_OBSERVABLE_CONTRACT_READY",
+            "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
+            "next_required_object": "candidate_world_binding",
+            "blocked_reason": "response observable contract exists but candidate is not bound to a world/data contract",
+            "eligible_existing_modules": [
+                "KnowledgeEvolutionKernel.candidate_world_bindings",
+                "assess_phi_candidate_world_binding",
+                "commit_phi_candidate_world_binding",
+            ],
+        },
+        "BLOCKED_RESPONSE_PROJECTION_FREEZE_REQUIRED": {
+            "current_stage": "WORLD_BINDING_READY",
+            "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
+            "next_required_object": "frozen_response_projection",
+            "blocked_reason": "world binding exists but response projection is not frozen",
+            "eligible_existing_modules": [
+                "KnowledgeEvolutionKernel.candidate_response_projections",
+                "assess_phi_candidate_response_projection",
+                "commit_phi_candidate_response_projection",
+            ],
+        },
+        "BLOCKED_PREDICTION_LOWERING_REQUIRED": {
+            "current_stage": "RESPONSE_PROJECTION_READY",
+            "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
+            "next_required_object": "prediction_lowering",
+            "blocked_reason": "frozen response projection exists but candidate prediction lowering is not frozen",
+            "eligible_existing_modules": [
+                "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+                "KnowledgeEvolutionKernel.candidate_prediction_lowerings",
+            ],
+        },
+    }
+    if status == "READY_FOR_FROZEN_RUNTIME_WORLD_ATTESTATION_GATE":
+        if active_attestors > 0:
+            return {
+                "current_stage": "FROZEN_RUNTIME_READY",
+                "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
+                "next_required_object": "external_artifact_acquisition",
+                "blocked_reason": None,
+                "eligible_existing_modules": [
+                    "freeze_experiment_execution",
+                    "execute_frozen_experiment",
+                    "ScientificVerificationCore",
+                ],
+            }
+        return {
+            "current_stage": "FROZEN_RUNTIME_READY",
+            "current_layer": "PROMOTION_TRUST_CORE",
+            "next_required_object": "active_world_attestor",
+            "blocked_reason": "WORLD trust registry has no active external attestor",
+            "eligible_existing_modules": [
+                "data/world_trust/attestors.json",
+                "WorldAttestationOwner",
+                "ScientificVerificationCore",
+            ],
+        }
+    return route_table.get(status, {
+        "current_stage": "UNKNOWN_ROUTE_STAGE",
+        "current_layer": "DISCOVERY_SEARCH_CORE",
+        "next_required_object": "route_diagnosis",
+        "blocked_reason": f"unmapped preflight terminal status: {status}",
+        "eligible_existing_modules": ["compile_required_evidence_routes"],
+    })
+
+
+def _candidate_route_policy(candidate: Mapping[str, Any]) -> Mapping[str, Any]:
+    payload = candidate.get("payload", {}) if isinstance(candidate.get("payload"), Mapping) else {}
+    applicability = payload.get("applicability_contract", {}) if isinstance(payload.get("applicability_contract"), Mapping) else {}
+    candidate_class = str(candidate.get("candidate_class") or payload.get("candidate_class") or "")
+    axis_ids = tuple(str(x) for x in payload.get("axis_ids", ()) if str(x).strip())
+    if str(applicability.get("measurement_projection_status", "")) == "REQUIRES_CANDIDATE_WORLD_BINDING_OWNER":
+        selected_route = "typed_hypothesis_measurement_projection_route"
+    elif "SCALAR" in candidate_class.upper():
+        selected_route = "scalar_pi_route"
+    elif int(payload.get("nullity", 0) or 0) > 1:
+        selected_route = "multi_pi_function_form_route"
+    elif axis_ids:
+        selected_route = "adaptive_subspace_route"
+    else:
+        selected_route = "generic_frontier_route"
+    return {
+        "selected_route": selected_route,
+        "candidate_class": candidate_class,
+        "axis_count": len(axis_ids),
+        "applicability_status": applicability.get("status"),
+        "data_binding_ready": bool(applicability.get("data_binding_ready", False)),
+        "routing_rules": {
+            "p_equals_1": "scalar_pi_route",
+            "p_greater_than_1": "multi_pi_function_form_route",
+            "residual_present": "representation_birth_route",
+            "provider_matched": "evidence_route",
+            "no_active_world_attestor": "fail_closed_promotion_trust_route",
+        },
+    }
+
+
+def compile_required_evidence_routes(
+    root: str | Path | None = None,
+    *,
+    max_frontier_rows: int = 500,
+    max_campaign_items: int = 8,
+) -> Mapping[str, Any]:
+    """Compile one read-only route graph from current candidates to evidence gates.
+
+    The compiler is intentionally a dispatcher, not a new scientific owner.  It
+    reuses the existing frontier campaign, lowering/projection preflight and
+    closed-loop glue diagnostics to identify the next required object for each
+    provider-matched candidate without activating every subsystem or fabricating
+    missing receipts.
+    """
+    root_path = _root(root)
+    if int(max_frontier_rows) < 1 or int(max_campaign_items) < 1:
+        raise ValueError("route compiler limits must be >= 1")
+    campaign = run_world_closed_loop_campaign(
+        root_path,
+        max_frontier_rows=int(max_frontier_rows),
+        max_campaign_items=int(max_campaign_items),
+    )
+    preflight = run_existing_lowering_projection_preflight(
+        root_path,
+        max_frontier_rows=int(max_frontier_rows),
+        max_campaign_items=int(max_campaign_items),
+    )
+    glue = run_existing_closed_loop_glue(
+        root_path,
+        max_frontier_rows=int(max_frontier_rows),
+        max_campaign_items=int(max_campaign_items),
+    )
+    frontier = _candidate_rows_by_id(root_path, limit=int(max_frontier_rows))
+    active_attestors = int(campaign.get("active_world_attestor_count", 0) or 0)
+    glue_by_candidate = {
+        str(row.get("candidate_id")): row
+        for row in glue.get("episodes", ())
+        if isinstance(row, Mapping)
+    }
+    routes: list[dict[str, Any]] = []
+    layer_counts = {
+        "DISCOVERY_SEARCH_CORE": 0,
+        "EXPERIMENT_EVIDENCE_RUNTIME": 0,
+        "PROMOTION_TRUST_CORE": 0,
+    }
+    next_object_counts: dict[str, int] = {}
+    ready_for_runtime = 0
+    for row in preflight.get("episodes", ()):
+        if not isinstance(row, Mapping):
+            continue
+        cid = str(row.get("candidate_id", ""))
+        terminal_status = str(row.get("terminal_status", ""))
+        route_step = dict(_route_from_preflight_status(terminal_status, active_attestors=active_attestors))
+        current_layer = str(route_step["current_layer"])
+        layer_counts[current_layer] = layer_counts.get(current_layer, 0) + 1
+        next_object = str(route_step["next_required_object"])
+        next_object_counts[next_object] = next_object_counts.get(next_object, 0) + 1
+        ready = terminal_status == "READY_FOR_FROZEN_RUNTIME_WORLD_ATTESTATION_GATE" and active_attestors > 0
+        ready_for_runtime += int(ready)
+        candidate = frontier.get(cid, {})
+        routes.append(_with_digest({
+            "schema": "phi-required-evidence-route/v1",
+            "candidate_id": cid,
+            "provider_id": row.get("provider_id"),
+            "route_policy": _candidate_route_policy(candidate) if isinstance(candidate, Mapping) else {},
+            "current_stage": route_step["current_stage"],
+            "current_layer": current_layer,
+            "next_required_object": next_object,
+            "eligible_existing_modules": tuple(route_step["eligible_existing_modules"]),
+            "blocked_reason": route_step["blocked_reason"],
+            "preflight_terminal_status": terminal_status,
+            "glue_terminal_status": glue_by_candidate.get(cid, {}).get("terminal_status"),
+            "no_new_module_required": True,
+            "activate_all_modules": False,
+            "route_layers": {
+                "A_DISCOVERY_SEARCH_CORE": {
+                    "purpose": "hypothesis, coordinate, representation and U4 materialization",
+                    "active_for_this_candidate": current_layer == "DISCOVERY_SEARCH_CORE",
+                },
+                "B_EXPERIMENT_EVIDENCE_RUNTIME": {
+                    "purpose": "response observable, projection, source/provider, frozen execution and evidence acquisition",
+                    "active_for_this_candidate": current_layer == "EXPERIMENT_EVIDENCE_RUNTIME",
+                },
+                "C_PROMOTION_TRUST_CORE": {
+                    "purpose": "WORLD attestation, U5 replay, representation revision and promotion gates",
+                    "active_for_this_candidate": current_layer == "PROMOTION_TRUST_CORE",
+                },
+            },
+            "claim_boundary": {
+                "route_compiler_is_scientific_owner": False,
+                "route_compiler_executes_measurement": False,
+                "route_compiler_mutates_knowledge_state": False,
+                "route_compiler_can_skip_missing_gate": False,
+            },
+        }))
+    status = (
+        "REQUIRED_EVIDENCE_ROUTES_READY_FOR_EXTERNAL_ACQUISITION"
+        if routes and ready_for_runtime == len(routes)
+        else "REQUIRED_EVIDENCE_ROUTES_COMPILED_WITH_FAIL_CLOSED_NEXT_STEPS"
+        if routes
+        else "REQUIRED_EVIDENCE_ROUTES_BLOCKED_NO_PROVIDER_MATCHED_EPISODES"
+    )
+    return _with_digest({
+        "schema": REQUIRED_EVIDENCE_ROUTE_SCHEMA,
+        "status": status,
+        "campaign_digest": campaign.get("digest"),
+        "lowering_projection_preflight_digest": preflight.get("digest"),
+        "glue_run_digest": glue.get("digest"),
+        "frontier_ledger_sha256": campaign.get("frontier_ledger_sha256"),
+        "route_count": len(routes),
+        "counts": {
+            "routes": len(routes),
+            "ready_for_external_acquisition": ready_for_runtime,
+            "by_current_layer": layer_counts,
+            "by_next_required_object": dict(sorted(next_object_counts.items())),
+            "provider_matched_episode_count": campaign.get("provider_matched_episode_count", 0),
+            "active_world_attestor_count": active_attestors,
+        },
+        "routes": routes,
+        "architecture_layers": [
+            "DISCOVERY_SEARCH_CORE",
+            "EXPERIMENT_EVIDENCE_RUNTIME",
+            "PROMOTION_TRUST_CORE",
+        ],
+        "routing_policy": {
+            "single_universal_route_graph": True,
+            "new_scientific_owner_created": False,
+            "use_existing_modules_before_new_code": True,
+            "activate_all_modules_for_every_question": False,
+            "delete_historical_tests_without_replacement": False,
+        },
+        "external_data_fetched": False,
+        "knowledge_state_mutated": False,
+        "scientific_promotion_allowed": False,
+        "claim_boundary": {
+            "route_match_is_world_evidence": False,
+            "route_compilation_changes_representation": False,
+            "missing_receipts_may_be_fabricated": False,
         },
     })
 

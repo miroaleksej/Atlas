@@ -7,6 +7,7 @@ from source.lawspace.domains import DOMAIN_REGISTRIES, load_domain_plugin_manife
 from source.lawspace.domain_plugins import ScienceDomainPluginRegistry
 from source.lawspace.source_capabilities import (
     audit_existing_closed_loop_integration,
+    compile_required_evidence_routes,
     load_provider_capability_registry,
     load_world_trust_registry,
     match_source_provider,
@@ -246,11 +247,48 @@ def test_existing_lowering_projection_preflight_classifies_all_matched_episodes(
     assert result["claim_boundary"]["preflight_can_replace_response_projection"] is False
 
 
+def test_required_evidence_route_compiler_unifies_existing_modules_without_new_owner():
+    result = compile_required_evidence_routes(ROOT, max_frontier_rows=500, max_campaign_items=8)
+    assert result["schema"] == "phi-required-evidence-route-compiler/v1"
+    assert result["status"] == "REQUIRED_EVIDENCE_ROUTES_COMPILED_WITH_FAIL_CLOSED_NEXT_STEPS"
+    assert result["route_count"] == 8
+    assert result["counts"]["provider_matched_episode_count"] == 8
+    assert result["counts"]["ready_for_external_acquisition"] == 0
+    assert result["routing_policy"]["single_universal_route_graph"] is True
+    assert result["routing_policy"]["new_scientific_owner_created"] is False
+    assert result["routing_policy"]["activate_all_modules_for_every_question"] is False
+    assert result["routing_policy"]["delete_historical_tests_without_replacement"] is False
+    assert result["claim_boundary"]["route_compilation_changes_representation"] is False
+    assert result["knowledge_state_mutated"] is False
+    assert result["external_data_fetched"] is False
+
+    assert result["architecture_layers"] == [
+        "DISCOVERY_SEARCH_CORE",
+        "EXPERIMENT_EVIDENCE_RUNTIME",
+        "PROMOTION_TRUST_CORE",
+    ]
+    assert result["counts"]["by_current_layer"]["DISCOVERY_SEARCH_CORE"] == 6
+    assert result["counts"]["by_current_layer"]["EXPERIMENT_EVIDENCE_RUNTIME"] == 2
+    assert result["counts"]["by_next_required_object"]["u4_hypothesis_materialization"] == 6
+    assert result["counts"]["by_next_required_object"]["response_observable_contract"] == 2
+
+    by_candidate = {row["candidate_id"]: row for row in result["routes"]}
+    assert by_candidate["SUBSPACE-1BB180E9901D07B0325B"]["current_stage"] == "U4_READY"
+    assert by_candidate["SUBSPACE-1BB180E9901D07B0325B"]["next_required_object"] == "response_observable_contract"
+    assert "DiscriminatingExperimentAutopilotOwner" in by_candidate["SUBSPACE-1BB180E9901D07B0325B"]["eligible_existing_modules"]
+    assert by_candidate["SUBSPACE-19A74046A7D81C316CBF"]["next_required_object"] == "u4_hypothesis_materialization"
+    assert by_candidate["SUBSPACE-19A74046A7D81C316CBF"]["no_new_module_required"] is True
+    assert all(row["activate_all_modules"] is False for row in result["routes"])
+
+
 def test_existing_closed_loop_glue_api_exposed():
     api = LawSpaceAPI(ROOT)
     assert "run_existing_closed_loop_glue" in api.READ_TOOLS
     assert "run_existing_lowering_projection_preflight" in api.READ_TOOLS
+    assert "compile_required_evidence_routes" in api.READ_TOOLS
     result = api.run_existing_closed_loop_glue(max_frontier_rows=500, max_campaign_items=8)
     assert result["universal_execution_runtime_bound_to_frontier_campaign"] is True
     preflight = api.run_existing_lowering_projection_preflight(max_frontier_rows=500, max_campaign_items=8)
     assert preflight["counts"]["episode_count"] == 8
+    routes = api.compile_required_evidence_routes(max_frontier_rows=500, max_campaign_items=8)
+    assert routes["route_count"] == 8

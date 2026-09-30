@@ -163,7 +163,19 @@ python -m evaluation.world_closed_loop_campaign \
   --out reports/world/EXISTING_LOWERING_PROJECTION_PREFLIGHT_CURRENT.json
 ```
 
-Он не создаёт нового scientific owner и не получает внешние данные. Отчёт перечисляет существующие механизмы `ScientificExploitation`, `DiscriminatingExperimentAutopilot`, `FrozenExperimentExecution`, `ClosedLoopResearch`, `SourceProviderCapabilityRegistry`, `ScientificVerificationCore`, `WorldAttestationOwner`, `U5AttemptScheduler`, `ScientificPromotionCore` и `KnowledgeEvolutionKernel`, затем показывает, где маршрут фактически обрывается. В текущем состоянии основные разрывы: из восьми JHTDB-matched episodes две уже U4-materialized, шесть требуют U4 materialization, а обе U4-ready записи требуют явный response-observable contract перед frozen response projection и prediction lowering. Frozen execution runtime уже привязан к frontier campaign, WORLD trust пустой, а U5 replay не имеет WORLD evidence.
+Единый route compiler поверх уже существующих систем запускается так:
+
+```bash
+python -m evaluation.world_closed_loop_campaign \
+  --compile-required-evidence-routes \
+  --max-frontier-rows 500 \
+  --max-campaign-items 8 \
+  --out reports/world/REQUIRED_EVIDENCE_ROUTES_CURRENT.json
+```
+
+Он не создаёт нового scientific owner и не получает внешние данные. Его задача — не “задействовать всё”, а выбрать следующий обязательный объект для каждого candidate: `u4_hypothesis_materialization`, `response_observable_contract`, `candidate_world_binding`, `frozen_response_projection`, `prediction_lowering`, external artifact или WORLD attestor. Маршрут явно разделён на три слоя: `DISCOVERY_SEARCH_CORE`, `EXPERIMENT_EVIDENCE_RUNTIME` и `PROMOTION_TRUST_CORE`. Текущий результат: 8 routes, 6 находятся в discovery/search слое и требуют U4 materialization, 2 находятся в experiment/evidence слое и требуют явный response-observable contract; ни один route не готов к external acquisition.
+
+Audit-отчёт перечисляет существующие механизмы `ScientificExploitation`, `DiscriminatingExperimentAutopilot`, `FrozenExperimentExecution`, `ClosedLoopResearch`, `SourceProviderCapabilityRegistry`, `ScientificVerificationCore`, `WorldAttestationOwner`, `U5AttemptScheduler`, `ScientificPromotionCore` и `KnowledgeEvolutionKernel`, затем показывает, где маршрут фактически обрывается. В текущем состоянии основные разрывы: из восьми JHTDB-matched episodes две уже U4-materialized, шесть требуют U4 materialization, а обе U4-ready записи требуют явный response-observable contract перед frozen response projection и prediction lowering. Frozen execution runtime уже привязан к frontier campaign, WORLD trust пустой, а U5 replay не имеет WORLD evidence.
 
 Публичный trust store находится в `data/world_trust/attestors.json`. Private key должен быть создан и храниться вне Atlas. В репозитории допустимы только public key metadata, key id, role, provider scope, validity и revocation state. Текущий реестр пустой, поэтому `world_attestation_ready=false`: Atlas готов к независимому attestor, но не имитирует WORLD evidence.
 

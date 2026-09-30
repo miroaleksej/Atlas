@@ -1,0 +1,471 @@
+{
+  "architecture_layers": [
+    "DISCOVERY_SEARCH_CORE",
+    "EXPERIMENT_EVIDENCE_RUNTIME",
+    "PROMOTION_TRUST_CORE"
+  ],
+  "campaign_digest": "b89e080348f748c62fce9961c120c4c9b82b8ebd033305a0233cfa4f80a9cf3f",
+  "claim_boundary": {
+    "missing_receipts_may_be_fabricated": false,
+    "route_compilation_changes_representation": false,
+    "route_match_is_world_evidence": false
+  },
+  "counts": {
+    "active_world_attestor_count": 0,
+    "by_current_layer": {
+      "DISCOVERY_SEARCH_CORE": 6,
+      "EXPERIMENT_EVIDENCE_RUNTIME": 2,
+      "PROMOTION_TRUST_CORE": 0
+    },
+    "by_next_required_object": {
+      "response_observable_contract": 2,
+      "u4_hypothesis_materialization": 6
+    },
+    "provider_matched_episode_count": 8,
+    "ready_for_external_acquisition": 0,
+    "routes": 8
+  },
+  "digest": "56a12db5b6bac97668b465da043d88b0dd6203b670a407388b00579e0ffe9d0f",
+  "external_data_fetched": false,
+  "frontier_ledger_sha256": "a88885f6b7ed9251641bb71ff8a30ba509ee5682d520150fe1999252fe302891",
+  "glue_run_digest": "3f48a37dec1edd995e9a5fcedc9f9e8c6538ac2006551d7b4fc2b8fd5be3061a",
+  "knowledge_state_mutated": false,
+  "lowering_projection_preflight_digest": "e6118e71702410b8152bf7a5640ba48206d6f171e10f62d2055f327cf62e2776",
+  "route_count": 8,
+  "routes": [
+    {
+      "activate_all_modules": false,
+      "blocked_reason": "typed U4 hypothesis has no declared response observable ids for frozen projection",
+      "candidate_id": "SUBSPACE-1BB180E9901D07B0325B",
+      "claim_boundary": {
+        "route_compiler_can_skip_missing_gate": false,
+        "route_compiler_executes_measurement": false,
+        "route_compiler_is_scientific_owner": false,
+        "route_compiler_mutates_knowledge_state": false
+      },
+      "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
+      "current_stage": "U4_READY",
+      "digest": "f101cd43e7618928950c709bd6e78d65cf1e4b9d6113bac2880934e114986dc6",
+      "eligible_existing_modules": [
+        "KnowledgeEvolutionKernel.hypothesis_materializations.measurement_contract",
+        "DiscriminatingExperimentAutopilotOwner",
+        "assess_phi_candidate_response_projection"
+      ],
+      "glue_terminal_status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED",
+      "next_required_object": "response_observable_contract",
+      "no_new_module_required": true,
+      "preflight_terminal_status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED",
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "route_layers": {
+        "A_DISCOVERY_SEARCH_CORE": {
+          "active_for_this_candidate": false,
+          "purpose": "hypothesis, coordinate, representation and U4 materialization"
+        },
+        "B_EXPERIMENT_EVIDENCE_RUNTIME": {
+          "active_for_this_candidate": true,
+          "purpose": "response observable, projection, source/provider, frozen execution and evidence acquisition"
+        },
+        "C_PROMOTION_TRUST_CORE": {
+          "active_for_this_candidate": false,
+          "purpose": "WORLD attestation, U5 replay, representation revision and promotion gates"
+        }
+      },
+      "route_policy": {
+        "applicability_status": "READY_FOR_TYPED_HYPOTHESIS_MEASUREMENT_PROJECTION_REQUIRED",
+        "axis_count": 4,
+        "candidate_class": "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER",
+        "data_binding_ready": false,
+        "routing_rules": {
+          "no_active_world_attestor": "fail_closed_promotion_trust_route",
+          "p_equals_1": "scalar_pi_route",
+          "p_greater_than_1": "multi_pi_function_form_route",
+          "provider_matched": "evidence_route",
+          "residual_present": "representation_birth_route"
+        },
+        "selected_route": "typed_hypothesis_measurement_projection_route"
+      },
+      "schema": "phi-required-evidence-route/v1"
+    },
+    {
+      "activate_all_modules": false,
+      "blocked_reason": "typed U4 hypothesis has no declared response observable ids for frozen projection",
+      "candidate_id": "SUBSPACE-1F213D75771C7EBE3D24",
+      "claim_boundary": {
+        "route_compiler_can_skip_missing_gate": false,
+        "route_compiler_executes_measurement": false,
+        "route_compiler_is_scientific_owner": false,
+        "route_compiler_mutates_knowledge_state": false
+      },
+      "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
+      "current_stage": "U4_READY",
+      "digest": "0eb6f7f62c6025542c97ac9ada290b8abdc8ee19e88da4ca81abf8c50b573902",
+      "eligible_existing_modules": [
+        "KnowledgeEvolutionKernel.hypothesis_materializations.measurement_contract",
+        "DiscriminatingExperimentAutopilotOwner",
+        "assess_phi_candidate_response_projection"
+      ],
+      "glue_terminal_status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED",
+      "next_required_object": "response_observable_contract",
+      "no_new_module_required": true,
+      "preflight_terminal_status": "BLOCKED_RESPONSE_OBSERVABLE_CONTRACT_REQUIRED",
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "route_layers": {
+        "A_DISCOVERY_SEARCH_CORE": {
+          "active_for_this_candidate": false,
+          "purpose": "hypothesis, coordinate, representation and U4 materialization"
+        },
+        "B_EXPERIMENT_EVIDENCE_RUNTIME": {
+          "active_for_this_candidate": true,
+          "purpose": "response observable, projection, source/provider, frozen execution and evidence acquisition"
+        },
+        "C_PROMOTION_TRUST_CORE": {
+          "active_for_this_candidate": false,
+          "purpose": "WORLD attestation, U5 replay, representation revision and promotion gates"
+        }
+      },
+      "route_policy": {
+        "applicability_status": "READY_FOR_TYPED_HYPOTHESIS_MEASUREMENT_PROJECTION_REQUIRED",
+        "axis_count": 8,
+        "candidate_class": "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER",
+        "data_binding_ready": false,
+        "routing_rules": {
+          "no_active_world_attestor": "fail_closed_promotion_trust_route",
+          "p_equals_1": "scalar_pi_route",
+          "p_greater_than_1": "multi_pi_function_form_route",
+          "provider_matched": "evidence_route",
+          "residual_present": "representation_birth_route"
+        },
+        "selected_route": "typed_hypothesis_measurement_projection_route"
+      },
+      "schema": "phi-required-evidence-route/v1"
+    },
+    {
+      "activate_all_modules": false,
+      "blocked_reason": "provider-matched frontier candidate has not been materialized as a typed U4 hypothesis",
+      "candidate_id": "SUBSPACE-19A74046A7D81C316CBF",
+      "claim_boundary": {
+        "route_compiler_can_skip_missing_gate": false,
+        "route_compiler_executes_measurement": false,
+        "route_compiler_is_scientific_owner": false,
+        "route_compiler_mutates_knowledge_state": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "current_stage": "PROVIDER_MATCHED",
+      "digest": "f85db4874985961f25934bf42c9c6319dbc044c45549ba529ef8a892310637cf",
+      "eligible_existing_modules": [
+        "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+        "KnowledgeEvolutionKernel.hypothesis_materializations",
+        "qualify_frontier_promotion_path"
+      ],
+      "glue_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "next_required_object": "u4_hypothesis_materialization",
+      "no_new_module_required": true,
+      "preflight_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "route_layers": {
+        "A_DISCOVERY_SEARCH_CORE": {
+          "active_for_this_candidate": true,
+          "purpose": "hypothesis, coordinate, representation and U4 materialization"
+        },
+        "B_EXPERIMENT_EVIDENCE_RUNTIME": {
+          "active_for_this_candidate": false,
+          "purpose": "response observable, projection, source/provider, frozen execution and evidence acquisition"
+        },
+        "C_PROMOTION_TRUST_CORE": {
+          "active_for_this_candidate": false,
+          "purpose": "WORLD attestation, U5 replay, representation revision and promotion gates"
+        }
+      },
+      "route_policy": {
+        "applicability_status": "TYPED_CROSS_DOMAIN_BRIDGE_REQUIRED",
+        "axis_count": 37,
+        "candidate_class": "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER",
+        "data_binding_ready": false,
+        "routing_rules": {
+          "no_active_world_attestor": "fail_closed_promotion_trust_route",
+          "p_equals_1": "scalar_pi_route",
+          "p_greater_than_1": "multi_pi_function_form_route",
+          "provider_matched": "evidence_route",
+          "residual_present": "representation_birth_route"
+        },
+        "selected_route": "typed_hypothesis_measurement_projection_route"
+      },
+      "schema": "phi-required-evidence-route/v1"
+    },
+    {
+      "activate_all_modules": false,
+      "blocked_reason": "provider-matched frontier candidate has not been materialized as a typed U4 hypothesis",
+      "candidate_id": "SUBSPACE-00E6309E6E7C46E9C7DA",
+      "claim_boundary": {
+        "route_compiler_can_skip_missing_gate": false,
+        "route_compiler_executes_measurement": false,
+        "route_compiler_is_scientific_owner": false,
+        "route_compiler_mutates_knowledge_state": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "current_stage": "PROVIDER_MATCHED",
+      "digest": "7c3a4fe72c27733c96a57bbc2e725c924eb06281e4c9379aa68aedf5262f20e7",
+      "eligible_existing_modules": [
+        "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+        "KnowledgeEvolutionKernel.hypothesis_materializations",
+        "qualify_frontier_promotion_path"
+      ],
+      "glue_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "next_required_object": "u4_hypothesis_materialization",
+      "no_new_module_required": true,
+      "preflight_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "route_layers": {
+        "A_DISCOVERY_SEARCH_CORE": {
+          "active_for_this_candidate": true,
+          "purpose": "hypothesis, coordinate, representation and U4 materialization"
+        },
+        "B_EXPERIMENT_EVIDENCE_RUNTIME": {
+          "active_for_this_candidate": false,
+          "purpose": "response observable, projection, source/provider, frozen execution and evidence acquisition"
+        },
+        "C_PROMOTION_TRUST_CORE": {
+          "active_for_this_candidate": false,
+          "purpose": "WORLD attestation, U5 replay, representation revision and promotion gates"
+        }
+      },
+      "route_policy": {
+        "applicability_status": "OBSERVER_OR_PARAMETERIZATION_REQUIRED",
+        "axis_count": 22,
+        "candidate_class": "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER",
+        "data_binding_ready": false,
+        "routing_rules": {
+          "no_active_world_attestor": "fail_closed_promotion_trust_route",
+          "p_equals_1": "scalar_pi_route",
+          "p_greater_than_1": "multi_pi_function_form_route",
+          "provider_matched": "evidence_route",
+          "residual_present": "representation_birth_route"
+        },
+        "selected_route": "typed_hypothesis_measurement_projection_route"
+      },
+      "schema": "phi-required-evidence-route/v1"
+    },
+    {
+      "activate_all_modules": false,
+      "blocked_reason": "provider-matched frontier candidate has not been materialized as a typed U4 hypothesis",
+      "candidate_id": "SUBSPACE-034B8BDE07CB9AEE7EAB",
+      "claim_boundary": {
+        "route_compiler_can_skip_missing_gate": false,
+        "route_compiler_executes_measurement": false,
+        "route_compiler_is_scientific_owner": false,
+        "route_compiler_mutates_knowledge_state": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "current_stage": "PROVIDER_MATCHED",
+      "digest": "a5ad7e0b7c438a2c3407bee48b28f3b0d5b7e6daf6c7f3159df51e7894312771",
+      "eligible_existing_modules": [
+        "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+        "KnowledgeEvolutionKernel.hypothesis_materializations",
+        "qualify_frontier_promotion_path"
+      ],
+      "glue_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "next_required_object": "u4_hypothesis_materialization",
+      "no_new_module_required": true,
+      "preflight_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "route_layers": {
+        "A_DISCOVERY_SEARCH_CORE": {
+          "active_for_this_candidate": true,
+          "purpose": "hypothesis, coordinate, representation and U4 materialization"
+        },
+        "B_EXPERIMENT_EVIDENCE_RUNTIME": {
+          "active_for_this_candidate": false,
+          "purpose": "response observable, projection, source/provider, frozen execution and evidence acquisition"
+        },
+        "C_PROMOTION_TRUST_CORE": {
+          "active_for_this_candidate": false,
+          "purpose": "WORLD attestation, U5 replay, representation revision and promotion gates"
+        }
+      },
+      "route_policy": {
+        "applicability_status": "OBSERVER_OR_PARAMETERIZATION_REQUIRED",
+        "axis_count": 19,
+        "candidate_class": "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER",
+        "data_binding_ready": false,
+        "routing_rules": {
+          "no_active_world_attestor": "fail_closed_promotion_trust_route",
+          "p_equals_1": "scalar_pi_route",
+          "p_greater_than_1": "multi_pi_function_form_route",
+          "provider_matched": "evidence_route",
+          "residual_present": "representation_birth_route"
+        },
+        "selected_route": "typed_hypothesis_measurement_projection_route"
+      },
+      "schema": "phi-required-evidence-route/v1"
+    },
+    {
+      "activate_all_modules": false,
+      "blocked_reason": "provider-matched frontier candidate has not been materialized as a typed U4 hypothesis",
+      "candidate_id": "SUBSPACE-21D02D484666D7AFA837",
+      "claim_boundary": {
+        "route_compiler_can_skip_missing_gate": false,
+        "route_compiler_executes_measurement": false,
+        "route_compiler_is_scientific_owner": false,
+        "route_compiler_mutates_knowledge_state": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "current_stage": "PROVIDER_MATCHED",
+      "digest": "7a58cc2ffd0065afea529d31a20e5791e5350bc8569dbe3fe1f3fc8c1c3b893d",
+      "eligible_existing_modules": [
+        "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+        "KnowledgeEvolutionKernel.hypothesis_materializations",
+        "qualify_frontier_promotion_path"
+      ],
+      "glue_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "next_required_object": "u4_hypothesis_materialization",
+      "no_new_module_required": true,
+      "preflight_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "route_layers": {
+        "A_DISCOVERY_SEARCH_CORE": {
+          "active_for_this_candidate": true,
+          "purpose": "hypothesis, coordinate, representation and U4 materialization"
+        },
+        "B_EXPERIMENT_EVIDENCE_RUNTIME": {
+          "active_for_this_candidate": false,
+          "purpose": "response observable, projection, source/provider, frozen execution and evidence acquisition"
+        },
+        "C_PROMOTION_TRUST_CORE": {
+          "active_for_this_candidate": false,
+          "purpose": "WORLD attestation, U5 replay, representation revision and promotion gates"
+        }
+      },
+      "route_policy": {
+        "applicability_status": "OBSERVER_OR_PARAMETERIZATION_REQUIRED",
+        "axis_count": 18,
+        "candidate_class": "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER",
+        "data_binding_ready": false,
+        "routing_rules": {
+          "no_active_world_attestor": "fail_closed_promotion_trust_route",
+          "p_equals_1": "scalar_pi_route",
+          "p_greater_than_1": "multi_pi_function_form_route",
+          "provider_matched": "evidence_route",
+          "residual_present": "representation_birth_route"
+        },
+        "selected_route": "typed_hypothesis_measurement_projection_route"
+      },
+      "schema": "phi-required-evidence-route/v1"
+    },
+    {
+      "activate_all_modules": false,
+      "blocked_reason": "provider-matched frontier candidate has not been materialized as a typed U4 hypothesis",
+      "candidate_id": "SUBSPACE-083F78F9AC7B7459EFD4",
+      "claim_boundary": {
+        "route_compiler_can_skip_missing_gate": false,
+        "route_compiler_executes_measurement": false,
+        "route_compiler_is_scientific_owner": false,
+        "route_compiler_mutates_knowledge_state": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "current_stage": "PROVIDER_MATCHED",
+      "digest": "dda10b61cc2f5d4855808fcf0ad3c90275cff65cabb3a9b4db4c8b4b0f598ee7",
+      "eligible_existing_modules": [
+        "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+        "KnowledgeEvolutionKernel.hypothesis_materializations",
+        "qualify_frontier_promotion_path"
+      ],
+      "glue_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "next_required_object": "u4_hypothesis_materialization",
+      "no_new_module_required": true,
+      "preflight_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "route_layers": {
+        "A_DISCOVERY_SEARCH_CORE": {
+          "active_for_this_candidate": true,
+          "purpose": "hypothesis, coordinate, representation and U4 materialization"
+        },
+        "B_EXPERIMENT_EVIDENCE_RUNTIME": {
+          "active_for_this_candidate": false,
+          "purpose": "response observable, projection, source/provider, frozen execution and evidence acquisition"
+        },
+        "C_PROMOTION_TRUST_CORE": {
+          "active_for_this_candidate": false,
+          "purpose": "WORLD attestation, U5 replay, representation revision and promotion gates"
+        }
+      },
+      "route_policy": {
+        "applicability_status": "OBSERVER_OR_PARAMETERIZATION_REQUIRED",
+        "axis_count": 13,
+        "candidate_class": "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER",
+        "data_binding_ready": false,
+        "routing_rules": {
+          "no_active_world_attestor": "fail_closed_promotion_trust_route",
+          "p_equals_1": "scalar_pi_route",
+          "p_greater_than_1": "multi_pi_function_form_route",
+          "provider_matched": "evidence_route",
+          "residual_present": "representation_birth_route"
+        },
+        "selected_route": "typed_hypothesis_measurement_projection_route"
+      },
+      "schema": "phi-required-evidence-route/v1"
+    },
+    {
+      "activate_all_modules": false,
+      "blocked_reason": "provider-matched frontier candidate has not been materialized as a typed U4 hypothesis",
+      "candidate_id": "SUBSPACE-1FF0A108A4ECADE62361",
+      "claim_boundary": {
+        "route_compiler_can_skip_missing_gate": false,
+        "route_compiler_executes_measurement": false,
+        "route_compiler_is_scientific_owner": false,
+        "route_compiler_mutates_knowledge_state": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "current_stage": "PROVIDER_MATCHED",
+      "digest": "c34e3c570a5b801f519615840dca9fd6efe03f6f04cfd326686d3bc6d412f988",
+      "eligible_existing_modules": [
+        "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+        "KnowledgeEvolutionKernel.hypothesis_materializations",
+        "qualify_frontier_promotion_path"
+      ],
+      "glue_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "next_required_object": "u4_hypothesis_materialization",
+      "no_new_module_required": true,
+      "preflight_terminal_status": "BLOCKED_U4_MATERIALIZATION_REQUIRED",
+      "provider_id": "JHTDB_LOCAL_REST_CURRENT",
+      "route_layers": {
+        "A_DISCOVERY_SEARCH_CORE": {
+          "active_for_this_candidate": true,
+          "purpose": "hypothesis, coordinate, representation and U4 materialization"
+        },
+        "B_EXPERIMENT_EVIDENCE_RUNTIME": {
+          "active_for_this_candidate": false,
+          "purpose": "response observable, projection, source/provider, frozen execution and evidence acquisition"
+        },
+        "C_PROMOTION_TRUST_CORE": {
+          "active_for_this_candidate": false,
+          "purpose": "WORLD attestation, U5 replay, representation revision and promotion gates"
+        }
+      },
+      "route_policy": {
+        "applicability_status": "OBSERVER_OR_PARAMETERIZATION_REQUIRED",
+        "axis_count": 13,
+        "candidate_class": "ADAPTIVE_MULTIDIMENSIONAL_SUBSPACE_FRONTIER",
+        "data_binding_ready": false,
+        "routing_rules": {
+          "no_active_world_attestor": "fail_closed_promotion_trust_route",
+          "p_equals_1": "scalar_pi_route",
+          "p_greater_than_1": "multi_pi_function_form_route",
+          "provider_matched": "evidence_route",
+          "residual_present": "representation_birth_route"
+        },
+        "selected_route": "typed_hypothesis_measurement_projection_route"
+      },
+      "schema": "phi-required-evidence-route/v1"
+    }
+  ],
+  "routing_policy": {
+    "activate_all_modules_for_every_question": false,
+    "delete_historical_tests_without_replacement": false,
+    "new_scientific_owner_created": false,
+    "single_universal_route_graph": true,
+    "use_existing_modules_before_new_code": true
+  },
+  "schema": "phi-required-evidence-route-compiler/v1",
+  "scientific_promotion_allowed": false,
+  "status": "REQUIRED_EVIDENCE_ROUTES_COMPILED_WITH_FAIL_CLOSED_NEXT_STEPS"
+}
