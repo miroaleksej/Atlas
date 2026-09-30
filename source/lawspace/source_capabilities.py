@@ -18,6 +18,7 @@ WORLD_TRUST_SCHEMA = "phi-world-trust-public-registry/v1"
 CAMPAIGN_SCHEMA = "phi-world-evidence-campaign-plan/v1"
 RUN_SCHEMA = "phi-world-closed-loop-campaign-run/v1"
 REQUIRED_EVIDENCE_ROUTE_SCHEMA = "phi-required-evidence-route-compiler/v1"
+UNIVERSAL_REQUIRED_EVIDENCE_LOOP_SCHEMA = "phi-universal-required-evidence-execution-loop/v1"
 
 
 def _root(root: str | Path | None = None) -> Path:
@@ -825,6 +826,353 @@ def compile_required_evidence_routes(
             "route_match_is_world_evidence": False,
             "route_compilation_changes_representation": False,
             "missing_receipts_may_be_fabricated": False,
+        },
+    })
+
+
+_NEXT_OBJECT_TO_OBLIGATION = {
+    "u4_hypothesis_materialization": "TYPED_HYPOTHESIS_MATERIALIZATION",
+    "response_observable_contract": "OBSERVABLE_CONTRACT",
+    "candidate_world_binding": "WORLD_BINDING",
+    "frozen_response_projection": "RESPONSE_PROJECTION",
+    "prediction_lowering": "PREDICTION_LOWERING",
+    "source_capability_provider_match": "SOURCE_CAPABILITY",
+    "external_artifact_acquisition": "EXTERNAL_ARTIFACT_ACQUISITION",
+    "active_world_attestor": "WORLD_ATTESTATION",
+    "frontier_candidate_record": "FRONTIER_CONTINUATION",
+    "route_diagnosis": "CAPABILITY_GAP",
+}
+
+
+_STATUS_TO_OBLIGATION = {
+    "TYPED_CROSS_DOMAIN_BRIDGE_REQUIRED": "SEMANTIC_BRIDGE_BIRTH",
+    "READY_FOR_TYPED_HYPOTHESIS_MEASUREMENT_PROJECTION_REQUIRED": "TYPED_HYPOTHESIS_MATERIALIZATION",
+    "OBSERVER_OR_PARAMETERIZATION_REQUIRED": "REPRESENTATION_BIRTH",
+    "NO_CAPABLE_PROVIDER": "SOURCE_CAPABILITY",
+    "CAPABILITY_GAP": "CAPABILITY_GAP",
+}
+
+
+_UNIVERSAL_CAPABILITY_REGISTRY = {
+    "TYPED_HYPOTHESIS_MATERIALIZATION": {
+        "capability_id": "typed-hypothesis-materialization",
+        "owners": ("SCIENTIFIC-EXPLOITATION-ORCHESTRATOR", "ScientificPromotionCore", "KnowledgeEvolutionKernel"),
+        "action_type": "compile_typed_hypothesis",
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "verifier": "ScientificPromotionCore.U0_U4",
+        "residual_policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "birth_path": ("representation_birth", "semantic_bridge_birth"),
+        "frontier_continuation": "frontier retains candidate with explicit next obligation",
+    },
+    "OBSERVABLE_CONTRACT": {
+        "capability_id": "claim-observable-measurement-contract",
+        "owners": ("DiscriminatingExperimentAutopilotOwner", "KnowledgeEvolutionKernel"),
+        "action_type": "declare_response_observable_contract",
+        "required_evidence_schema": "phi-response-observable-contract/v1",
+        "verifier": "ScientificVerificationCore.contract_digest_check",
+        "residual_policy": "if no observable can be declared, emit REPRESENTATION_BIRTH",
+        "birth_path": ("axis_birth", "observable_birth", "representation_birth"),
+        "frontier_continuation": "candidate advances only after frozen observable contract exists",
+    },
+    "WORLD_BINDING": {
+        "capability_id": "candidate-world-binding",
+        "owners": ("KnowledgeEvolutionKernel",),
+        "action_type": "bind_candidate_to_world_data_contract",
+        "required_evidence_schema": "phi-candidate-world-binding/v1",
+        "verifier": "ScientificVerificationCore.source_binding_check",
+        "residual_policy": "unbound quantities return to capability/provider resolution",
+        "birth_path": ("measurement_adapter_contract", "source_capability"),
+        "frontier_continuation": "candidate remains pre-execution until binding is digest-bound",
+    },
+    "RESPONSE_PROJECTION": {
+        "capability_id": "frozen-response-projection",
+        "owners": ("DiscriminatingExperimentAutopilotOwner", "KnowledgeEvolutionKernel"),
+        "action_type": "freeze_candidate_response_projection",
+        "required_evidence_schema": "phi-candidate-response-projection/v1",
+        "verifier": "ScientificVerificationCore.projection_freeze_check",
+        "residual_policy": "projection residual can request observable or representation birth",
+        "birth_path": ("axis_birth", "function_language_birth"),
+        "frontier_continuation": "projection digest becomes input to frozen execution runtime",
+    },
+    "PREDICTION_LOWERING": {
+        "capability_id": "prediction-lowering",
+        "owners": ("SCIENTIFIC-EXPLOITATION-ORCHESTRATOR", "KnowledgeEvolutionKernel"),
+        "action_type": "lower_prediction_to_frozen_response_space",
+        "required_evidence_schema": "phi-candidate-prediction-lowering/v1",
+        "verifier": "ScientificVerificationCore.lowering_digest_check",
+        "residual_policy": "lowering residual returns to hypothesis/function representation",
+        "birth_path": ("function_language_birth", "operator_birth"),
+        "frontier_continuation": "lowered prediction becomes frozen evaluation input",
+    },
+    "SOURCE_CAPABILITY": {
+        "capability_id": "source-capability-resolution",
+        "owners": ("SourceProviderCapabilityRegistry",),
+        "action_type": "resolve_provider_for_typed_measurement_intent",
+        "required_evidence_schema": "phi-source-provider-match/v1",
+        "verifier": "ScientificVerificationCore.provider_capability_check",
+        "residual_policy": "unmatched intent becomes CAPABILITY_GAP rather than failed science",
+        "birth_path": ("measurement_adapter_contract", "provider_registration"),
+        "frontier_continuation": "candidate waits for provider or adapter without changing truth state",
+    },
+    "EXTERNAL_ARTIFACT_ACQUISITION": {
+        "capability_id": "external-artifact-acquisition",
+        "owners": ("FrozenExperimentExecution", "EvidenceAcquisitionOwner"),
+        "action_type": "acquire_frozen_external_artifact",
+        "required_evidence_schema": "phi-frozen-experiment-evidence/v1",
+        "verifier": "ScientificVerificationCore.evidence_authenticity_check",
+        "residual_policy": "artifact mismatch becomes verification residual, not refit permission",
+        "birth_path": ("retry_backoff_transport", "adapter_repair"),
+        "frontier_continuation": "artifact digest feeds independent verification",
+    },
+    "WORLD_ATTESTATION": {
+        "capability_id": "world-attestation",
+        "owners": ("WorldAttestationOwner", "ScientificVerificationCore"),
+        "action_type": "verify_independent_world_signature",
+        "required_evidence_schema": "phi-world-attestation/v1",
+        "verifier": "external_ed25519_world_attestor",
+        "residual_policy": "missing attestor is fail-closed trust residual",
+        "birth_path": ("world_trust_registration",),
+        "frontier_continuation": "no representation update before attested evidence",
+    },
+    "EVIDENCE_VERIFICATION": {
+        "capability_id": "evidence-verification",
+        "owners": ("ScientificVerificationCore",),
+        "action_type": "verify_evidence_against_frozen_claim",
+        "required_evidence_schema": "phi-scientific-evidence-verification/v1",
+        "verifier": "ScientificVerificationCore",
+        "residual_policy": "verification residual enters U5 replay or representation revision",
+        "birth_path": ("verification_method_birth",),
+        "frontier_continuation": "verified evidence becomes U5 input",
+    },
+    "RESIDUAL_ATTRIBUTION": {
+        "capability_id": "residual-attribution",
+        "owners": ("ClosedLoopResearchOwner", "AxisModelingOwner", "MathematicalInventionKernel"),
+        "action_type": "attribute_residual_to_missing_object",
+        "required_evidence_schema": "phi-residual-attribution/v1",
+        "verifier": "heldout_residual_replay",
+        "residual_policy": "residual is preserved and routed to birth or rejection",
+        "birth_path": ("axis_birth", "operator_birth", "method_birth", "ontology_birth"),
+        "frontier_continuation": "residual-born object re-enters frontier as candidate capability",
+    },
+    "REPRESENTATION_BIRTH": {
+        "capability_id": "representation-birth",
+        "owners": ("MathematicalInventionKernel", "AxisModelingOwner", "birth_phi_representation_language"),
+        "action_type": "birth_missing_representation_or_axis",
+        "required_evidence_schema": "phi-representation-birth-candidate/v1",
+        "verifier": "postfreeze_holdout_and_claim_boundary",
+        "residual_policy": "new representation is research-local until promoted by evidence",
+        "birth_path": ("axis_birth", "function_language_birth", "operator_birth", "ontology_birth"),
+        "frontier_continuation": "born representation expands capability set only after verification",
+    },
+    "SEMANTIC_BRIDGE_BIRTH": {
+        "capability_id": "semantic-bridge-birth",
+        "owners": ("discover_phi_cross_domain_bridges", "COMMON-SCIENTIFIC-RULES/1.0.0"),
+        "action_type": "birth_or_qualify_typed_semantic_bridge",
+        "required_evidence_schema": "phi-typed-semantic-bridge/v1",
+        "verifier": "typed_dimension_role_compatibility_check",
+        "residual_policy": "unbridged relation remains typed gap, not false candidate",
+        "birth_path": ("semantic_bridge_birth", "ontology_birth"),
+        "frontier_continuation": "bridge candidate feeds reusable cross-domain capability",
+    },
+    "PROOF_OBLIGATION": {
+        "capability_id": "formal-proof-obligation",
+        "owners": ("compile_phi_semantic_proof_obligation", "verify_phi_proof", "run_phi_lean_kernel"),
+        "action_type": "compile_and_verify_formal_proof_obligation",
+        "required_evidence_schema": "phi-formal-proof-obligation/v1",
+        "verifier": "external_or_kernel_formal_verifier",
+        "residual_policy": "failed proof obligation returns counterexample/residual region",
+        "birth_path": ("proof_mechanism_birth", "counterexample_search"),
+        "frontier_continuation": "verified proof evidence can feed mathematical frontier",
+    },
+    "FRONTIER_CONTINUATION": {
+        "capability_id": "frontier-continuation",
+        "owners": ("CandidateGenerationPipeline/6.27.0",),
+        "action_type": "continue_frontier_after_obligation_state",
+        "required_evidence_schema": "phi-frontier-continuation/v1",
+        "verifier": "frontier_ledger_digest_check",
+        "residual_policy": "unknown frontier state is retained as open candidate",
+        "birth_path": ("frontier_expansion",),
+        "frontier_continuation": "candidate remains in fair dovetail traversal",
+    },
+    "CAPABILITY_GAP": {
+        "capability_id": "capability-gap",
+        "owners": ("UniversalResearchKernel", "MathematicalInventionKernel", "AxisModelingOwner"),
+        "action_type": "classify_missing_capability_for_birth",
+        "required_evidence_schema": "phi-capability-gap/v1",
+        "verifier": "gap_is_not_failed_science_claim_boundary",
+        "residual_policy": "gap is preserved as birth input",
+        "birth_path": ("representation_birth", "operator_birth", "method_birth", "measurement_adapter_birth"),
+        "frontier_continuation": "capability gap becomes a research-local birth task",
+    },
+}
+
+
+def _normalize_universal_obligation(record: Mapping[str, Any]) -> str:
+    explicit = str(record.get("required_obligation") or record.get("obligation_type") or "").strip().upper()
+    if explicit:
+        return explicit if explicit in _UNIVERSAL_CAPABILITY_REGISTRY else "CAPABILITY_GAP"
+    next_object = str(record.get("next_required_object") or record.get("missing_object") or "").strip()
+    if next_object:
+        return _NEXT_OBJECT_TO_OBLIGATION.get(next_object, "CAPABILITY_GAP")
+    status = str(
+        record.get("applicability_status")
+        or record.get("status")
+        or record.get("preflight_terminal_status")
+        or ""
+    ).strip()
+    if status in _STATUS_TO_OBLIGATION:
+        return _STATUS_TO_OBLIGATION[status]
+    if status.startswith("BLOCKED_"):
+        return _NEXT_OBJECT_TO_OBLIGATION.get(str(record.get("next_required_object", "")), "CAPABILITY_GAP")
+    return "CAPABILITY_GAP"
+
+
+def _universal_loop_receipt(record: Mapping[str, Any], *, source: str) -> Mapping[str, Any]:
+    cid = str(record.get("candidate_id") or record.get("claim_id") or record.get("problem_id") or "UNSPECIFIED")
+    obligation = _normalize_universal_obligation(record)
+    capability = dict(_UNIVERSAL_CAPABILITY_REGISTRY.get(obligation, _UNIVERSAL_CAPABILITY_REGISTRY["CAPABILITY_GAP"]))
+    resolved = obligation != "CAPABILITY_GAP"
+    current_layer = (
+        "DISCOVERY_SEARCH_CORE"
+        if obligation in {"TYPED_HYPOTHESIS_MATERIALIZATION", "SEMANTIC_BRIDGE_BIRTH", "REPRESENTATION_BIRTH", "FRONTIER_CONTINUATION", "CAPABILITY_GAP", "PROOF_OBLIGATION"}
+        else "PROMOTION_TRUST_CORE"
+        if obligation in {"WORLD_ATTESTATION", "EVIDENCE_VERIFICATION", "RESIDUAL_ATTRIBUTION"}
+        else "EXPERIMENT_EVIDENCE_RUNTIME"
+    )
+    return _with_digest({
+        "schema": "phi-universal-required-evidence-obligation/v1",
+        "candidate_id": cid,
+        "source": source,
+        "obligation_type": obligation,
+        "current_layer": current_layer,
+        "capability_resolution_status": "CAPABILITY_RESOLVED" if resolved else "CAPABILITY_GAP",
+        "capability": capability,
+        "action": {
+            "action_type": capability["action_type"],
+            "executes_now": False,
+            "requires_external_world": obligation in {"EXTERNAL_ARTIFACT_ACQUISITION", "WORLD_ATTESTATION"},
+        },
+        "evidence": {
+            "required_schema": capability["required_evidence_schema"],
+            "synthetic_substitution_allowed": False,
+            "verification_independent_from_candidate_generator": True,
+        },
+        "verification": {
+            "verifier": capability["verifier"],
+            "same_mechanism_as_candidate_generator": False,
+        },
+        "residual": {
+            "preserved": True,
+            "policy": capability["residual_policy"],
+            "birth_path": tuple(capability["birth_path"]),
+        },
+        "frontier_continuation": capability["frontier_continuation"],
+        "domain_conditionals_used": False,
+        "claim_boundary": {
+            "obligation_is_domain_specific": False,
+            "capability_gap_is_scientific_failure": False,
+            "world_is_replaced_by_synthetic_evidence": False,
+            "route_loop_is_scientific_promotion": False,
+        },
+    })
+
+
+def compile_universal_required_evidence_loop(
+    root: str | Path | None = None,
+    *,
+    candidate_specs: Sequence[Mapping[str, Any]] | None = None,
+    max_frontier_rows: int = 500,
+    max_campaign_items: int = 8,
+) -> Mapping[str, Any]:
+    """Compile the universal research loop from obligations to reusable capabilities.
+
+    This read-only loop is deliberately not a workflow engine and contains no
+    domain-specific branches.  It resolves typed obligations against the current
+    Atlas capability/owner registry, preserves gaps as birth tasks, and routes
+    residuals back into discovery/frontier continuation.
+    """
+    root_path = _root(root)
+    if int(max_frontier_rows) < 1 or int(max_campaign_items) < 1:
+        raise ValueError("universal loop limits must be >= 1")
+    if candidate_specs is None:
+        route_report = compile_required_evidence_routes(
+            root_path,
+            max_frontier_rows=int(max_frontier_rows),
+            max_campaign_items=int(max_campaign_items),
+        )
+        input_records = tuple(route_report.get("routes", ()))
+        input_digest = route_report.get("digest")
+        input_source = "required_evidence_routes"
+    else:
+        input_records = tuple(row for row in candidate_specs if isinstance(row, Mapping))
+        input_digest = digest_payload(input_records)
+        input_source = "explicit_candidate_specs"
+
+    obligations = [
+        _universal_loop_receipt(row, source=input_source)
+        for row in input_records
+    ]
+    by_obligation: dict[str, int] = {}
+    by_layer: dict[str, int] = {
+        "DISCOVERY_SEARCH_CORE": 0,
+        "EXPERIMENT_EVIDENCE_RUNTIME": 0,
+        "PROMOTION_TRUST_CORE": 0,
+    }
+    gaps = 0
+    for row in obligations:
+        obligation = str(row["obligation_type"])
+        by_obligation[obligation] = by_obligation.get(obligation, 0) + 1
+        layer = str(row["current_layer"])
+        by_layer[layer] = by_layer.get(layer, 0) + 1
+        gaps += int(row["capability_resolution_status"] == "CAPABILITY_GAP")
+
+    return _with_digest({
+        "schema": UNIVERSAL_REQUIRED_EVIDENCE_LOOP_SCHEMA,
+        "status": (
+            "UNIVERSAL_REQUIRED_EVIDENCE_LOOP_HAS_CAPABILITY_GAPS"
+            if gaps
+            else "UNIVERSAL_REQUIRED_EVIDENCE_LOOP_COMPILED"
+        ),
+        "input_source": input_source,
+        "input_digest": input_digest,
+        "obligation_count": len(obligations),
+        "capability_gap_count": gaps,
+        "counts": {
+            "by_obligation_type": dict(sorted(by_obligation.items())),
+            "by_layer": by_layer,
+        },
+        "loop": [
+            "QUESTION",
+            "FRONTIER",
+            "REQUIRED_EVIDENCE_ROUTE",
+            "OBLIGATION",
+            "RESOLVE_CAPABILITY",
+            "ACTION_OR_GAP",
+            "WORLD_OR_PROOF_OR_COMPUTATION",
+            "EVIDENCE",
+            "INDEPENDENT_VERIFICATION",
+            "RESIDUAL_ATTRIBUTION",
+            "REVISION_OR_BIRTH",
+            "FRONTIER_CONTINUATION",
+        ],
+        "obligations": obligations,
+        "capability_registry_digest": digest_payload(_UNIVERSAL_CAPABILITY_REGISTRY),
+        "routing_policy": {
+            "route_determined_by_scientific_obligation_not_domain": True,
+            "domain_specific_if_branches_allowed": False,
+            "domain_adapters_only_describe_quantities_actions_evidence": True,
+            "capability_gap_becomes_birth_input": True,
+            "residual_returns_to_discovery": True,
+            "verified_new_capabilities_become_cross_domain_memory": True,
+        },
+        "external_data_fetched": False,
+        "knowledge_state_mutated": False,
+        "scientific_promotion_allowed": False,
+        "claim_boundary": {
+            "universal_loop_is_workflow_engine": False,
+            "universal_loop_replaces_scientific_owners": False,
+            "provider_match_is_world_evidence": False,
+            "synthetic_evidence_can_replace_world": False,
         },
     })
 

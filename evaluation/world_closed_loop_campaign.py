@@ -8,6 +8,7 @@ from pathlib import Path
 from source.lawspace.source_capabilities import (
     audit_existing_closed_loop_integration,
     compile_required_evidence_routes,
+    compile_universal_required_evidence_loop,
     run_existing_closed_loop_glue,
     run_existing_lowering_projection_preflight,
     run_world_closed_loop_campaign,
@@ -57,6 +58,14 @@ def routes(root: str | Path = ROOT, *, max_frontier_rows: int = 500, max_campaig
     )
 
 
+def universal_loop(root: str | Path = ROOT, *, max_frontier_rows: int = 500, max_campaign_items: int = 8):
+    return compile_universal_required_evidence_loop(
+        root,
+        max_frontier_rows=max_frontier_rows,
+        max_campaign_items=max_campaign_items,
+    )
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--root", default=str(ROOT))
@@ -66,6 +75,7 @@ def main() -> None:
     ap.add_argument("--run-existing-glue", action="store_true")
     ap.add_argument("--run-lowering-projection-preflight", action="store_true")
     ap.add_argument("--compile-required-evidence-routes", action="store_true")
+    ap.add_argument("--compile-universal-required-evidence-loop", action="store_true")
     ap.add_argument("--out")
     ns = ap.parse_args()
     selected_modes = [
@@ -73,9 +83,10 @@ def main() -> None:
         ns.run_existing_glue,
         ns.run_lowering_projection_preflight,
         ns.compile_required_evidence_routes,
+        ns.compile_universal_required_evidence_loop,
     ]
     if sum(bool(x) for x in selected_modes) > 1:
-        raise SystemExit("--audit-existing-systems, --run-existing-glue, --run-lowering-projection-preflight and --compile-required-evidence-routes are mutually exclusive")
+        raise SystemExit("--audit-existing-systems, --run-existing-glue, --run-lowering-projection-preflight, --compile-required-evidence-routes and --compile-universal-required-evidence-loop are mutually exclusive")
     if ns.audit_existing_systems:
         result = audit(
             ns.root,
@@ -96,6 +107,12 @@ def main() -> None:
         )
     elif ns.compile_required_evidence_routes:
         result = routes(
+            ns.root,
+            max_frontier_rows=ns.max_frontier_rows,
+            max_campaign_items=ns.max_campaign_items,
+        )
+    elif ns.compile_universal_required_evidence_loop:
+        result = universal_loop(
             ns.root,
             max_frontier_rows=ns.max_frontier_rows,
             max_campaign_items=ns.max_campaign_items,

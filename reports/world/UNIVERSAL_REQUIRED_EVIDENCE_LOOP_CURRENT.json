@@ -1,0 +1,504 @@
+{
+  "capability_gap_count": 0,
+  "capability_registry_digest": "34d58eefd3098c94968f0226f1c59236cef11c4bf6d412be81344da0e2f48662",
+  "claim_boundary": {
+    "provider_match_is_world_evidence": false,
+    "synthetic_evidence_can_replace_world": false,
+    "universal_loop_is_workflow_engine": false,
+    "universal_loop_replaces_scientific_owners": false
+  },
+  "counts": {
+    "by_layer": {
+      "DISCOVERY_SEARCH_CORE": 6,
+      "EXPERIMENT_EVIDENCE_RUNTIME": 2,
+      "PROMOTION_TRUST_CORE": 0
+    },
+    "by_obligation_type": {
+      "OBSERVABLE_CONTRACT": 2,
+      "TYPED_HYPOTHESIS_MATERIALIZATION": 6
+    }
+  },
+  "digest": "136c0e9e1d0a126813f4db8db3ec15f845bc37b87d602b8eac4ac5d1625768dc",
+  "external_data_fetched": false,
+  "input_digest": "56a12db5b6bac97668b465da043d88b0dd6203b670a407388b00579e0ffe9d0f",
+  "input_source": "required_evidence_routes",
+  "knowledge_state_mutated": false,
+  "loop": [
+    "QUESTION",
+    "FRONTIER",
+    "REQUIRED_EVIDENCE_ROUTE",
+    "OBLIGATION",
+    "RESOLVE_CAPABILITY",
+    "ACTION_OR_GAP",
+    "WORLD_OR_PROOF_OR_COMPUTATION",
+    "EVIDENCE",
+    "INDEPENDENT_VERIFICATION",
+    "RESIDUAL_ATTRIBUTION",
+    "REVISION_OR_BIRTH",
+    "FRONTIER_CONTINUATION"
+  ],
+  "obligation_count": 8,
+  "obligations": [
+    {
+      "action": {
+        "action_type": "declare_response_observable_contract",
+        "executes_now": false,
+        "requires_external_world": false
+      },
+      "candidate_id": "SUBSPACE-1BB180E9901D07B0325B",
+      "capability": {
+        "action_type": "declare_response_observable_contract",
+        "birth_path": [
+          "axis_birth",
+          "observable_birth",
+          "representation_birth"
+        ],
+        "capability_id": "claim-observable-measurement-contract",
+        "frontier_continuation": "candidate advances only after frozen observable contract exists",
+        "owners": [
+          "DiscriminatingExperimentAutopilotOwner",
+          "KnowledgeEvolutionKernel"
+        ],
+        "required_evidence_schema": "phi-response-observable-contract/v1",
+        "residual_policy": "if no observable can be declared, emit REPRESENTATION_BIRTH",
+        "verifier": "ScientificVerificationCore.contract_digest_check"
+      },
+      "capability_resolution_status": "CAPABILITY_RESOLVED",
+      "claim_boundary": {
+        "capability_gap_is_scientific_failure": false,
+        "obligation_is_domain_specific": false,
+        "route_loop_is_scientific_promotion": false,
+        "world_is_replaced_by_synthetic_evidence": false
+      },
+      "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
+      "digest": "da94c68af8f7da26db8a43480618d6280d68c102031eb44eef7d5ecdfc62c320",
+      "domain_conditionals_used": false,
+      "evidence": {
+        "required_schema": "phi-response-observable-contract/v1",
+        "synthetic_substitution_allowed": false,
+        "verification_independent_from_candidate_generator": true
+      },
+      "frontier_continuation": "candidate advances only after frozen observable contract exists",
+      "obligation_type": "OBSERVABLE_CONTRACT",
+      "residual": {
+        "birth_path": [
+          "axis_birth",
+          "observable_birth",
+          "representation_birth"
+        ],
+        "policy": "if no observable can be declared, emit REPRESENTATION_BIRTH",
+        "preserved": true
+      },
+      "schema": "phi-universal-required-evidence-obligation/v1",
+      "source": "required_evidence_routes",
+      "verification": {
+        "same_mechanism_as_candidate_generator": false,
+        "verifier": "ScientificVerificationCore.contract_digest_check"
+      }
+    },
+    {
+      "action": {
+        "action_type": "declare_response_observable_contract",
+        "executes_now": false,
+        "requires_external_world": false
+      },
+      "candidate_id": "SUBSPACE-1F213D75771C7EBE3D24",
+      "capability": {
+        "action_type": "declare_response_observable_contract",
+        "birth_path": [
+          "axis_birth",
+          "observable_birth",
+          "representation_birth"
+        ],
+        "capability_id": "claim-observable-measurement-contract",
+        "frontier_continuation": "candidate advances only after frozen observable contract exists",
+        "owners": [
+          "DiscriminatingExperimentAutopilotOwner",
+          "KnowledgeEvolutionKernel"
+        ],
+        "required_evidence_schema": "phi-response-observable-contract/v1",
+        "residual_policy": "if no observable can be declared, emit REPRESENTATION_BIRTH",
+        "verifier": "ScientificVerificationCore.contract_digest_check"
+      },
+      "capability_resolution_status": "CAPABILITY_RESOLVED",
+      "claim_boundary": {
+        "capability_gap_is_scientific_failure": false,
+        "obligation_is_domain_specific": false,
+        "route_loop_is_scientific_promotion": false,
+        "world_is_replaced_by_synthetic_evidence": false
+      },
+      "current_layer": "EXPERIMENT_EVIDENCE_RUNTIME",
+      "digest": "0ed9f49e34525db10bef92a848e7abb14d36ba5dceddc913e4e0d93b614dfcd9",
+      "domain_conditionals_used": false,
+      "evidence": {
+        "required_schema": "phi-response-observable-contract/v1",
+        "synthetic_substitution_allowed": false,
+        "verification_independent_from_candidate_generator": true
+      },
+      "frontier_continuation": "candidate advances only after frozen observable contract exists",
+      "obligation_type": "OBSERVABLE_CONTRACT",
+      "residual": {
+        "birth_path": [
+          "axis_birth",
+          "observable_birth",
+          "representation_birth"
+        ],
+        "policy": "if no observable can be declared, emit REPRESENTATION_BIRTH",
+        "preserved": true
+      },
+      "schema": "phi-universal-required-evidence-obligation/v1",
+      "source": "required_evidence_routes",
+      "verification": {
+        "same_mechanism_as_candidate_generator": false,
+        "verifier": "ScientificVerificationCore.contract_digest_check"
+      }
+    },
+    {
+      "action": {
+        "action_type": "compile_typed_hypothesis",
+        "executes_now": false,
+        "requires_external_world": false
+      },
+      "candidate_id": "SUBSPACE-19A74046A7D81C316CBF",
+      "capability": {
+        "action_type": "compile_typed_hypothesis",
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "capability_id": "typed-hypothesis-materialization",
+        "frontier_continuation": "frontier retains candidate with explicit next obligation",
+        "owners": [
+          "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+          "ScientificPromotionCore",
+          "KnowledgeEvolutionKernel"
+        ],
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "residual_policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "verifier": "ScientificPromotionCore.U0_U4"
+      },
+      "capability_resolution_status": "CAPABILITY_RESOLVED",
+      "claim_boundary": {
+        "capability_gap_is_scientific_failure": false,
+        "obligation_is_domain_specific": false,
+        "route_loop_is_scientific_promotion": false,
+        "world_is_replaced_by_synthetic_evidence": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "digest": "90a056bd46c440890bce1288225b180d45700ed6a6a950da300e12be34d8df5c",
+      "domain_conditionals_used": false,
+      "evidence": {
+        "required_schema": "phi-u4-hypothesis-materialization/v1",
+        "synthetic_substitution_allowed": false,
+        "verification_independent_from_candidate_generator": true
+      },
+      "frontier_continuation": "frontier retains candidate with explicit next obligation",
+      "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "residual": {
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "preserved": true
+      },
+      "schema": "phi-universal-required-evidence-obligation/v1",
+      "source": "required_evidence_routes",
+      "verification": {
+        "same_mechanism_as_candidate_generator": false,
+        "verifier": "ScientificPromotionCore.U0_U4"
+      }
+    },
+    {
+      "action": {
+        "action_type": "compile_typed_hypothesis",
+        "executes_now": false,
+        "requires_external_world": false
+      },
+      "candidate_id": "SUBSPACE-00E6309E6E7C46E9C7DA",
+      "capability": {
+        "action_type": "compile_typed_hypothesis",
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "capability_id": "typed-hypothesis-materialization",
+        "frontier_continuation": "frontier retains candidate with explicit next obligation",
+        "owners": [
+          "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+          "ScientificPromotionCore",
+          "KnowledgeEvolutionKernel"
+        ],
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "residual_policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "verifier": "ScientificPromotionCore.U0_U4"
+      },
+      "capability_resolution_status": "CAPABILITY_RESOLVED",
+      "claim_boundary": {
+        "capability_gap_is_scientific_failure": false,
+        "obligation_is_domain_specific": false,
+        "route_loop_is_scientific_promotion": false,
+        "world_is_replaced_by_synthetic_evidence": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "digest": "aa8ff7a56ca68933106475854a7afe45b460f99e9d56d2f60f5ae1b8e40c39c6",
+      "domain_conditionals_used": false,
+      "evidence": {
+        "required_schema": "phi-u4-hypothesis-materialization/v1",
+        "synthetic_substitution_allowed": false,
+        "verification_independent_from_candidate_generator": true
+      },
+      "frontier_continuation": "frontier retains candidate with explicit next obligation",
+      "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "residual": {
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "preserved": true
+      },
+      "schema": "phi-universal-required-evidence-obligation/v1",
+      "source": "required_evidence_routes",
+      "verification": {
+        "same_mechanism_as_candidate_generator": false,
+        "verifier": "ScientificPromotionCore.U0_U4"
+      }
+    },
+    {
+      "action": {
+        "action_type": "compile_typed_hypothesis",
+        "executes_now": false,
+        "requires_external_world": false
+      },
+      "candidate_id": "SUBSPACE-034B8BDE07CB9AEE7EAB",
+      "capability": {
+        "action_type": "compile_typed_hypothesis",
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "capability_id": "typed-hypothesis-materialization",
+        "frontier_continuation": "frontier retains candidate with explicit next obligation",
+        "owners": [
+          "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+          "ScientificPromotionCore",
+          "KnowledgeEvolutionKernel"
+        ],
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "residual_policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "verifier": "ScientificPromotionCore.U0_U4"
+      },
+      "capability_resolution_status": "CAPABILITY_RESOLVED",
+      "claim_boundary": {
+        "capability_gap_is_scientific_failure": false,
+        "obligation_is_domain_specific": false,
+        "route_loop_is_scientific_promotion": false,
+        "world_is_replaced_by_synthetic_evidence": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "digest": "91ebe59d94453e589a32c8326ece7f0622aa8334582b7ca6f3243a938bc4380e",
+      "domain_conditionals_used": false,
+      "evidence": {
+        "required_schema": "phi-u4-hypothesis-materialization/v1",
+        "synthetic_substitution_allowed": false,
+        "verification_independent_from_candidate_generator": true
+      },
+      "frontier_continuation": "frontier retains candidate with explicit next obligation",
+      "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "residual": {
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "preserved": true
+      },
+      "schema": "phi-universal-required-evidence-obligation/v1",
+      "source": "required_evidence_routes",
+      "verification": {
+        "same_mechanism_as_candidate_generator": false,
+        "verifier": "ScientificPromotionCore.U0_U4"
+      }
+    },
+    {
+      "action": {
+        "action_type": "compile_typed_hypothesis",
+        "executes_now": false,
+        "requires_external_world": false
+      },
+      "candidate_id": "SUBSPACE-21D02D484666D7AFA837",
+      "capability": {
+        "action_type": "compile_typed_hypothesis",
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "capability_id": "typed-hypothesis-materialization",
+        "frontier_continuation": "frontier retains candidate with explicit next obligation",
+        "owners": [
+          "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+          "ScientificPromotionCore",
+          "KnowledgeEvolutionKernel"
+        ],
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "residual_policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "verifier": "ScientificPromotionCore.U0_U4"
+      },
+      "capability_resolution_status": "CAPABILITY_RESOLVED",
+      "claim_boundary": {
+        "capability_gap_is_scientific_failure": false,
+        "obligation_is_domain_specific": false,
+        "route_loop_is_scientific_promotion": false,
+        "world_is_replaced_by_synthetic_evidence": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "digest": "5508a49f4e3fe7027fff5a4a12e3eeb25f6074c602a8d507a226da550e4c95e9",
+      "domain_conditionals_used": false,
+      "evidence": {
+        "required_schema": "phi-u4-hypothesis-materialization/v1",
+        "synthetic_substitution_allowed": false,
+        "verification_independent_from_candidate_generator": true
+      },
+      "frontier_continuation": "frontier retains candidate with explicit next obligation",
+      "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "residual": {
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "preserved": true
+      },
+      "schema": "phi-universal-required-evidence-obligation/v1",
+      "source": "required_evidence_routes",
+      "verification": {
+        "same_mechanism_as_candidate_generator": false,
+        "verifier": "ScientificPromotionCore.U0_U4"
+      }
+    },
+    {
+      "action": {
+        "action_type": "compile_typed_hypothesis",
+        "executes_now": false,
+        "requires_external_world": false
+      },
+      "candidate_id": "SUBSPACE-083F78F9AC7B7459EFD4",
+      "capability": {
+        "action_type": "compile_typed_hypothesis",
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "capability_id": "typed-hypothesis-materialization",
+        "frontier_continuation": "frontier retains candidate with explicit next obligation",
+        "owners": [
+          "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+          "ScientificPromotionCore",
+          "KnowledgeEvolutionKernel"
+        ],
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "residual_policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "verifier": "ScientificPromotionCore.U0_U4"
+      },
+      "capability_resolution_status": "CAPABILITY_RESOLVED",
+      "claim_boundary": {
+        "capability_gap_is_scientific_failure": false,
+        "obligation_is_domain_specific": false,
+        "route_loop_is_scientific_promotion": false,
+        "world_is_replaced_by_synthetic_evidence": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "digest": "4994a6850d3bdd3b38ad0cb261494d41c5a4aa822586276a497302de3ad4455a",
+      "domain_conditionals_used": false,
+      "evidence": {
+        "required_schema": "phi-u4-hypothesis-materialization/v1",
+        "synthetic_substitution_allowed": false,
+        "verification_independent_from_candidate_generator": true
+      },
+      "frontier_continuation": "frontier retains candidate with explicit next obligation",
+      "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "residual": {
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "preserved": true
+      },
+      "schema": "phi-universal-required-evidence-obligation/v1",
+      "source": "required_evidence_routes",
+      "verification": {
+        "same_mechanism_as_candidate_generator": false,
+        "verifier": "ScientificPromotionCore.U0_U4"
+      }
+    },
+    {
+      "action": {
+        "action_type": "compile_typed_hypothesis",
+        "executes_now": false,
+        "requires_external_world": false
+      },
+      "candidate_id": "SUBSPACE-1FF0A108A4ECADE62361",
+      "capability": {
+        "action_type": "compile_typed_hypothesis",
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "capability_id": "typed-hypothesis-materialization",
+        "frontier_continuation": "frontier retains candidate with explicit next obligation",
+        "owners": [
+          "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR",
+          "ScientificPromotionCore",
+          "KnowledgeEvolutionKernel"
+        ],
+        "required_evidence_schema": "phi-u4-hypothesis-materialization/v1",
+        "residual_policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "verifier": "ScientificPromotionCore.U0_U4"
+      },
+      "capability_resolution_status": "CAPABILITY_RESOLVED",
+      "claim_boundary": {
+        "capability_gap_is_scientific_failure": false,
+        "obligation_is_domain_specific": false,
+        "route_loop_is_scientific_promotion": false,
+        "world_is_replaced_by_synthetic_evidence": false
+      },
+      "current_layer": "DISCOVERY_SEARCH_CORE",
+      "digest": "cc875d38c5a7256e34ceb3e1f4c8c94d9a9fbf105a525af0bc51de8d12c65005",
+      "domain_conditionals_used": false,
+      "evidence": {
+        "required_schema": "phi-u4-hypothesis-materialization/v1",
+        "synthetic_substitution_allowed": false,
+        "verification_independent_from_candidate_generator": true
+      },
+      "frontier_continuation": "frontier retains candidate with explicit next obligation",
+      "obligation_type": "TYPED_HYPOTHESIS_MATERIALIZATION",
+      "residual": {
+        "birth_path": [
+          "representation_birth",
+          "semantic_bridge_birth"
+        ],
+        "policy": "if U4 cannot bind typed quantities, emit SEMANTIC_BRIDGE_BIRTH or REPRESENTATION_BIRTH",
+        "preserved": true
+      },
+      "schema": "phi-universal-required-evidence-obligation/v1",
+      "source": "required_evidence_routes",
+      "verification": {
+        "same_mechanism_as_candidate_generator": false,
+        "verifier": "ScientificPromotionCore.U0_U4"
+      }
+    }
+  ],
+  "routing_policy": {
+    "capability_gap_becomes_birth_input": true,
+    "domain_adapters_only_describe_quantities_actions_evidence": true,
+    "domain_specific_if_branches_allowed": false,
+    "residual_returns_to_discovery": true,
+    "route_determined_by_scientific_obligation_not_domain": true,
+    "verified_new_capabilities_become_cross_domain_memory": true
+  },
+  "schema": "phi-universal-required-evidence-execution-loop/v1",
+  "scientific_promotion_allowed": false,
+  "status": "UNIVERSAL_REQUIRED_EVIDENCE_LOOP_COMPILED"
+}

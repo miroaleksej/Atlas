@@ -8,6 +8,7 @@ from source.lawspace.domain_plugins import ScienceDomainPluginRegistry
 from source.lawspace.source_capabilities import (
     audit_existing_closed_loop_integration,
     compile_required_evidence_routes,
+    compile_universal_required_evidence_loop,
     load_provider_capability_registry,
     load_world_trust_registry,
     match_source_provider,
@@ -292,3 +293,70 @@ def test_existing_closed_loop_glue_api_exposed():
     assert preflight["counts"]["episode_count"] == 8
     routes = api.compile_required_evidence_routes(max_frontier_rows=500, max_campaign_items=8)
     assert routes["route_count"] == 8
+
+
+def test_universal_required_evidence_loop_routes_current_frontier_without_domain_branches():
+    result = compile_universal_required_evidence_loop(ROOT, max_frontier_rows=500, max_campaign_items=8)
+    assert result["schema"] == "phi-universal-required-evidence-execution-loop/v1"
+    assert result["status"] == "UNIVERSAL_REQUIRED_EVIDENCE_LOOP_COMPILED"
+    assert result["obligation_count"] == 8
+    assert result["capability_gap_count"] == 0
+    assert result["input_source"] == "required_evidence_routes"
+    assert result["counts"]["by_obligation_type"]["TYPED_HYPOTHESIS_MATERIALIZATION"] == 6
+    assert result["counts"]["by_obligation_type"]["OBSERVABLE_CONTRACT"] == 2
+    assert result["routing_policy"]["route_determined_by_scientific_obligation_not_domain"] is True
+    assert result["routing_policy"]["domain_specific_if_branches_allowed"] is False
+    assert result["routing_policy"]["domain_adapters_only_describe_quantities_actions_evidence"] is True
+    assert result["routing_policy"]["capability_gap_becomes_birth_input"] is True
+    assert result["routing_policy"]["residual_returns_to_discovery"] is True
+    assert result["claim_boundary"]["universal_loop_replaces_scientific_owners"] is False
+    assert result["knowledge_state_mutated"] is False
+    assert result["external_data_fetched"] is False
+    assert result["loop"] == [
+        "QUESTION",
+        "FRONTIER",
+        "REQUIRED_EVIDENCE_ROUTE",
+        "OBLIGATION",
+        "RESOLVE_CAPABILITY",
+        "ACTION_OR_GAP",
+        "WORLD_OR_PROOF_OR_COMPUTATION",
+        "EVIDENCE",
+        "INDEPENDENT_VERIFICATION",
+        "RESIDUAL_ATTRIBUTION",
+        "REVISION_OR_BIRTH",
+        "FRONTIER_CONTINUATION",
+    ]
+    assert all(row["domain_conditionals_used"] is False for row in result["obligations"])
+    assert all(row["action"]["executes_now"] is False for row in result["obligations"])
+
+
+def test_universal_required_evidence_loop_accepts_generic_obligations_and_preserves_gaps():
+    result = compile_universal_required_evidence_loop(
+        ROOT,
+        candidate_specs=[
+            {"candidate_id": "GENERIC-OBS", "required_obligation": "OBSERVABLE_CONTRACT"},
+            {"candidate_id": "GENERIC-PROOF", "required_obligation": "PROOF_OBLIGATION"},
+            {"candidate_id": "GENERIC-BRIDGE", "applicability_status": "TYPED_CROSS_DOMAIN_BRIDGE_REQUIRED"},
+            {"candidate_id": "GENERIC-UNKNOWN", "missing_object": "unknown_future_capability"},
+        ],
+    )
+    assert result["schema"] == "phi-universal-required-evidence-execution-loop/v1"
+    assert result["status"] == "UNIVERSAL_REQUIRED_EVIDENCE_LOOP_HAS_CAPABILITY_GAPS"
+    assert result["input_source"] == "explicit_candidate_specs"
+    assert result["obligation_count"] == 4
+    assert result["capability_gap_count"] == 1
+    by_candidate = {row["candidate_id"]: row for row in result["obligations"]}
+    assert by_candidate["GENERIC-OBS"]["obligation_type"] == "OBSERVABLE_CONTRACT"
+    assert by_candidate["GENERIC-PROOF"]["obligation_type"] == "PROOF_OBLIGATION"
+    assert by_candidate["GENERIC-BRIDGE"]["obligation_type"] == "SEMANTIC_BRIDGE_BIRTH"
+    assert by_candidate["GENERIC-UNKNOWN"]["obligation_type"] == "CAPABILITY_GAP"
+    assert "measurement_adapter_birth" in by_candidate["GENERIC-UNKNOWN"]["residual"]["birth_path"]
+    assert all(row["domain_conditionals_used"] is False for row in result["obligations"])
+
+
+def test_universal_required_evidence_loop_api_exposed():
+    api = LawSpaceAPI(ROOT)
+    assert "compile_universal_required_evidence_loop" in api.READ_TOOLS
+    result = api.compile_universal_required_evidence_loop(max_frontier_rows=500, max_campaign_items=8)
+    assert result["obligation_count"] == 8
+    assert result["status"] == "UNIVERSAL_REQUIRED_EVIDENCE_LOOP_COMPILED"
