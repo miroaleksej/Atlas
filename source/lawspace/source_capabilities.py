@@ -21,6 +21,7 @@ REQUIRED_EVIDENCE_ROUTE_SCHEMA = "phi-required-evidence-route-compiler/v1"
 UNIVERSAL_REQUIRED_EVIDENCE_LOOP_SCHEMA = "phi-universal-required-evidence-execution-loop/v1"
 SEMANTIC_EVIDENCE_NEED_SCHEMA = "phi-semantic-evidence-need-derivation/v1"
 UNIVERSAL_OBLIGATION_EXECUTION_SCHEMA = "phi-universal-obligation-execution-step/v1"
+EPISTEMIC_METABOLISM_SCHEMA = "phi-epistemic-metabolism-cycle/v1"
 
 
 def _root(root: str | Path | None = None) -> Path:
@@ -1500,6 +1501,140 @@ def run_universal_obligation_execution_loop(
             "execution_loop_is_scientific_promotion": False,
             "external_world_substituted_by_local_receipt": False,
             "capability_gap_is_failed_science": False,
+        },
+    })
+
+
+def _metabolism_growth_vector(compiled: Mapping[str, Any], execution: Mapping[str, Any]) -> Mapping[str, Any]:
+    obligations = [row for row in compiled.get("obligations", ()) if isinstance(row, Mapping)]
+    steps = [row for row in execution.get("steps", ()) if isinstance(row, Mapping)]
+    by_type = dict(compiled.get("counts", {}).get("by_obligation_type", {}) or {})
+    by_layer = dict(compiled.get("counts", {}).get("by_layer", {}) or {})
+    next_obligations: dict[str, int] = {}
+    residual_kinds: dict[str, int] = {}
+    for row in steps:
+        nxt = str(row.get("next_obligation", "UNSPECIFIED"))
+        next_obligations[nxt] = next_obligations.get(nxt, 0) + 1
+        residual = row.get("residual") if isinstance(row.get("residual"), Mapping) else {}
+        kind = str(residual.get("kind", "UNSPECIFIED"))
+        residual_kinds[kind] = residual_kinds.get(kind, 0) + 1
+
+    missing = []
+    if by_type.get("TYPED_HYPOTHESIS_MATERIALIZATION", 0):
+        missing.append({
+            "missing_object": "typed_u4_hypothesis_materialization",
+            "count": by_type.get("TYPED_HYPOTHESIS_MATERIALIZATION", 0),
+            "growth_axis": "semantic_binding_and_u4_materialization",
+        })
+    if by_type.get("OBSERVABLE_CONTRACT", 0):
+        missing.append({
+            "missing_object": "response_observable_contract",
+            "count": by_type.get("OBSERVABLE_CONTRACT", 0),
+            "growth_axis": "measurement_semantics_and_response_projection",
+        })
+    if by_type.get("WORLD_ATTESTATION", 0) or next_obligations.get("WORLD_ATTESTATION", 0):
+        missing.append({
+            "missing_object": "independent_world_attestation",
+            "count": by_type.get("WORLD_ATTESTATION", 0) + next_obligations.get("WORLD_ATTESTATION", 0),
+            "growth_axis": "world_trust",
+        })
+    if compiled.get("capability_gap_count", 0):
+        missing.append({
+            "missing_object": "new_capability_or_adapter",
+            "count": compiled.get("capability_gap_count", 0),
+            "growth_axis": "capability_birth",
+        })
+
+    if not missing and obligations:
+        missing.append({
+            "missing_object": "external_evidence_or_verification",
+            "count": len(obligations),
+            "growth_axis": "evidence_execution",
+        })
+
+    return {
+        "schema": "phi-epistemic-growth-vector/v1",
+        "obligation_distribution": by_type,
+        "layer_distribution": by_layer,
+        "next_obligation_distribution": dict(sorted(next_obligations.items())),
+        "residual_distribution": dict(sorted(residual_kinds.items())),
+        "missing_objects": missing,
+        "recommended_next_growth_order": [
+            row["growth_axis"] for row in missing
+        ],
+    }
+
+
+def run_epistemic_metabolism_cycle(
+    root: str | Path | None = None,
+    *,
+    candidate_specs: Sequence[Mapping[str, Any]] | None = None,
+    max_frontier_rows: int = 500,
+    max_campaign_items: int = 8,
+    max_execution_steps: int | None = None,
+) -> Mapping[str, Any]:
+    """Run a read-only Atlas self-gap metabolism cycle.
+
+    The cycle is the concrete form of the research-organism idea: it ingests the
+    current frontier or explicit candidate specs, compiles typed obligations,
+    resolves each obligation through existing owners, executes at most one safe
+    step, preserves residuals, and returns the next growth vector.  It does not
+    create a new scientific owner, fetch external data, mutate knowledge state,
+    or grant promotion.
+    """
+    compiled = compile_universal_required_evidence_loop(
+        root,
+        candidate_specs=candidate_specs,
+        max_frontier_rows=max_frontier_rows,
+        max_campaign_items=max_campaign_items,
+    )
+    execution = run_universal_obligation_execution_loop(
+        root,
+        candidate_specs=candidate_specs,
+        max_frontier_rows=max_frontier_rows,
+        max_campaign_items=max_campaign_items,
+        max_execution_steps=max_execution_steps,
+    )
+    growth = _metabolism_growth_vector(compiled, execution)
+    status = (
+        "EPISTEMIC_METABOLISM_CYCLE_PRESERVED_RESIDUALS_FAIL_CLOSED"
+        if execution.get("blocked_or_pending_count", 0)
+        else "EPISTEMIC_METABOLISM_CYCLE_READY_FOR_NEXT_EVIDENCE"
+    )
+    return _with_digest({
+        "schema": EPISTEMIC_METABOLISM_SCHEMA,
+        "status": status,
+        "definition": "unknown_to_typed_obligation_to_existing_owner_step_to_residual_to_next_growth",
+        "cycle": [
+            "UNKNOWN_OR_FRONTIER_CANDIDATE",
+            "TYPED_GAP",
+            "RESEARCH_OBLIGATION",
+            "EXISTING_OWNER_ROUTE",
+            "SAFE_ONE_STEP_EXECUTION",
+            "RESIDUAL_CLASSIFICATION",
+            "NEXT_GROWTH_VECTOR",
+            "FRONTIER_CONTINUATION",
+        ],
+        "compiled_loop_digest": compiled.get("digest"),
+        "execution_loop_digest": execution.get("digest"),
+        "obligation_count": compiled.get("obligation_count", 0),
+        "executed_step_count": execution.get("step_count", 0),
+        "blocked_or_pending_count": execution.get("blocked_or_pending_count", 0),
+        "capability_gap_count": compiled.get("capability_gap_count", 0),
+        "growth_vector": growth,
+        "compiled_loop": compiled,
+        "execution_loop": execution,
+        "external_data_fetched": False,
+        "knowledge_state_mutated": False,
+        "scientific_promotion_allowed": False,
+        "new_scientific_owner_created": False,
+        "claim_boundary": {
+            "metabolism_cycle_is_agi_claim": False,
+            "metabolism_cycle_is_scientific_promotion": False,
+            "residual_is_failure": False,
+            "missing_world_evidence_can_be_fabricated": False,
+            "new_representation_is_canonical_without_evidence": False,
+            "all_modules_must_activate_for_every_problem": False,
         },
     })
 

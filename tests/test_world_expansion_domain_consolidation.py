@@ -11,6 +11,7 @@ from source.lawspace.source_capabilities import (
     compile_required_evidence_routes,
     compile_universal_required_evidence_loop,
     derive_semantic_evidence_needs,
+    run_epistemic_metabolism_cycle,
     run_universal_obligation_execution_loop,
     load_provider_capability_registry,
     load_world_trust_registry,
@@ -528,3 +529,41 @@ def test_universal_execution_api_exposed():
         candidate_specs=[{"candidate_id": "GENERIC-GAP", "missing_object": "unknown_future_capability"}]
     )
     assert result["steps"][0]["execution_status"] == "CAPABILITY_GAP_PRESERVED_FOR_BIRTH"
+
+
+def test_epistemic_metabolism_cycle_turns_unknowns_into_obligations_without_promotion():
+    result = run_epistemic_metabolism_cycle(ROOT, max_frontier_rows=500, max_campaign_items=8, max_execution_steps=8)
+    assert result["schema"] == "phi-epistemic-metabolism-cycle/v1"
+    assert result["status"] == "EPISTEMIC_METABOLISM_CYCLE_PRESERVED_RESIDUALS_FAIL_CLOSED"
+    assert result["definition"] == "unknown_to_typed_obligation_to_existing_owner_step_to_residual_to_next_growth"
+    assert result["obligation_count"] == 8
+    assert result["executed_step_count"] == 8
+    assert result["external_data_fetched"] is False
+    assert result["knowledge_state_mutated"] is False
+    assert result["scientific_promotion_allowed"] is False
+    assert result["new_scientific_owner_created"] is False
+    assert result["claim_boundary"]["metabolism_cycle_is_agi_claim"] is False
+    assert result["claim_boundary"]["residual_is_failure"] is False
+    growth = result["growth_vector"]
+    assert growth["schema"] == "phi-epistemic-growth-vector/v1"
+    assert growth["obligation_distribution"]["TYPED_HYPOTHESIS_MATERIALIZATION"] == 6
+    assert growth["obligation_distribution"]["OBSERVABLE_CONTRACT"] == 2
+    assert any(row["missing_object"] == "typed_u4_hypothesis_materialization" for row in growth["missing_objects"])
+    assert any(row["missing_object"] == "response_observable_contract" for row in growth["missing_objects"])
+
+
+def test_epistemic_metabolism_cycle_preserves_capability_gap_as_birth_input_and_api_exposes_it():
+    api = LawSpaceAPI(ROOT)
+    assert "run_epistemic_metabolism_cycle" in api.READ_TOOLS
+    result = api.run_epistemic_metabolism_cycle(
+        candidate_specs=[{"candidate_id": "IDEAL-AI-GAP", "missing_object": "unknown_future_capability"}],
+        max_execution_steps=1,
+    )
+    assert result["schema"] == "phi-epistemic-metabolism-cycle/v1"
+    assert result["capability_gap_count"] == 1
+    assert result["executed_step_count"] == 1
+    step = result["execution_loop"]["steps"][0]
+    assert step["execution_status"] == "CAPABILITY_GAP_PRESERVED_FOR_BIRTH"
+    assert step["next_obligation"] == "REPRESENTATION_BIRTH"
+    assert result["growth_vector"]["missing_objects"][0]["growth_axis"] == "capability_birth"
+    assert result["claim_boundary"]["new_representation_is_canonical_without_evidence"] is False

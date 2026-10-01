@@ -32,7 +32,7 @@ class LawSpaceAPI:
         "run_existing_closed_loop_glue", "run_existing_lowering_projection_preflight",
         "compile_required_evidence_routes", "compile_universal_required_evidence_loop",
         "derive_semantic_evidence_needs", "execute_universal_obligation_step",
-        "run_universal_obligation_execution_loop",
+        "run_universal_obligation_execution_loop", "run_epistemic_metabolism_cycle",
     )
     READ_TOOLS = READ_TOOLS + (
         "get_phi_formal_mathematical_verification_contract", "compile_phi_semantic_proof_obligation", "synthesize_phi_semantic_bindings",
@@ -1314,6 +1314,23 @@ class LawSpaceAPI:
     ) -> Mapping[str, Any]:
         from .source_capabilities import run_universal_obligation_execution_loop
         return run_universal_obligation_execution_loop(
+            self.runtime.root,
+            candidate_specs=candidate_specs,
+            max_frontier_rows=max_frontier_rows,
+            max_campaign_items=max_campaign_items,
+            max_execution_steps=max_execution_steps,
+        )
+
+    def run_epistemic_metabolism_cycle(
+        self,
+        candidate_specs: Sequence[Mapping[str, Any]] | None = None,
+        *,
+        max_frontier_rows: int = 500,
+        max_campaign_items: int = 8,
+        max_execution_steps: int | None = None,
+    ) -> Mapping[str, Any]:
+        from .source_capabilities import run_epistemic_metabolism_cycle
+        return run_epistemic_metabolism_cycle(
             self.runtime.root,
             candidate_specs=candidate_specs,
             max_frontier_rows=max_frontier_rows,
