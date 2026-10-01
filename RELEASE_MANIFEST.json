@@ -18,7 +18,7 @@
     "verified_required_permutations": 319,
     "verified_stop": "DEFERRED_RESOURCE"
   },
-  "blind_real_physics_experiment_digest": "742d68b8e0485f91ea4c4d7a091d8b392dc313d6663d04b7e4112c2d0dd03dec",
+  "blind_real_physics_experiment_digest": "403b3059e08aab4280760f1118960042c3ed8127108d47078b782de70e60b3a4",
   "collective_coordination": {
     "digest": "b846dd7407318c14241144ce784132e3c6d729f1eb62da3b0a2c41df27453728",
     "holdout": {
@@ -134,7 +134,7 @@
     },
     {
       "path": "capabilities.json",
-      "sha256": "311dea5d44d1ce5e61c2df5d7ebbe81a6bba9ac77d187eca7e531618cc7af319",
+      "sha256": "ba8dbd441b2a9594994ba3f023b9f065734c92456cc135464d2c42503025febe",
       "size": 25310
     },
     {
@@ -259,8 +259,8 @@
     },
     {
       "path": "data/frontiers/ATLAS_SCIENTIFIC_EXPLOITATION_CURRENT.json",
-      "sha256": "45235b0f8e706856ea99507c5f374f25fc9cc525b31f1d700fd54c7182e1fc5f",
-      "size": 5335035
+      "sha256": "145c7645cb0d603c9a7ce8f4a5656774b8615485e8ca61b98c54a72ac9ef83ce",
+      "size": 6877691
     },
     {
       "path": "data/frontiers/PERMUTATION_EPROCESS_QUALIFICATION_CURRENT.json",
@@ -1524,13 +1524,13 @@
     },
     {
       "path": "reports/ATLAS_FRONTIER_SCAN_CURRENT.json",
-      "sha256": "f1f524adb250dbe6aa755f0a5b4e0f1de7ea303057b2ad6edc4d97a4c89594f0",
+      "sha256": "d81b662251b4d929a74c22a2edb4e071031bb68f32b24ddba2fd9110dc7a9ec3",
       "size": 3008885
     },
     {
       "path": "reports/BLIND_REAL_PHYSICS_EXPERIMENT_CURRENT.json",
-      "sha256": "4075a32151693ce49f902283e30fa2f7e1a295e1c9d9b4a8d084b47a5fe80082",
-      "size": 814380
+      "sha256": "e1dc5dc33c65c6c88bda8d6fce8f06948056b8b2add4e6f6abf3734ac138ded2",
+      "size": 838336
     },
     {
       "path": "reports/MODULE_USAGE_AUDIT_CURRENT.json",
@@ -2019,8 +2019,8 @@
     },
     {
       "path": "source/lawspace/source_capabilities.py",
-      "sha256": "1daadf980e430034ec97d7687cca8843f831f87c682b528861e2c9bb1763bc72",
-      "size": 113839
+      "sha256": "c686a76555b899c08a4a380caa75968080b4965f2431915d9702feccc68ceb37",
+      "size": 119345
     },
     {
       "path": "source/lawspace/superk_atmospheric_likelihood.py",
@@ -2284,14 +2284,14 @@
     },
     {
       "path": "tests/test_world_expansion_domain_consolidation.py",
-      "sha256": "2919e6dca65dfec108fbc8de69459a81a3ea8f2b489cb841c03012dbf7ce1587",
-      "size": 31684
+      "sha256": "965202483ce91520e338cd20c7df743a7d8ea44c90985c7f4aa68d843b3e253b",
+      "size": 32565
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "c494f35e37a3d756c7ab18b08baad78cf0d2ff51bae757bb23c28ff4399f25ce",
+  "current_state_qualification_digest": "a4f153f94e844523a858a5f520a52e782bd7ab67ff088f88017a08f09de6c2c2",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "ce67d72418cb5eae204d34b712915ad56f0331a46bb8965de9cc696c838673c4",
+  "digest": "b940a5bf2be802f678f2e09c712f6e5d48174d1fd80541a20eed361ef6749a2e",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
@@ -2340,7 +2340,7 @@
     "workflow_orfs_git_commit": "be0dca0b1fd41df54792b3012350cd52bccd99bb",
     "world_backend": "OpenROAD Flow Scripts + Yosys + OpenROAD + KLayout"
   },
-  "frontier_scan_digest": "c6692aae39202f5db8588dd407da82a79b159d85c009b20e639e1778d02b6384",
+  "frontier_scan_digest": "21690b6fc6eba820a9a3c7bd822987568a295ed706a6958586c9cf4079975364",
   "low_frequency_gust_anomaly_digest": "9df11440defb554739a40e793d36d5ddb0457c8cb435ed783a21c0af3c2799ed",
   "owner": "RELEASE-CONTROLS/0.15.29.0",
   "permutation_eprocess": {
@@ -2444,7 +2444,7 @@
       "total": 15
     }
   },
-  "research_freeze_digest": "00c497b3f262117f8eac856a8f3e05938ae6487d8bef65e372fe7e5db62a09df",
+  "research_freeze_digest": "77835d602ef60ce7ff02e7a3d28457a7d470414079607dd397e6c07f83788450",
   "research_state_policy": {
     "ai_feynman_100_preserved": false,
     "all_axes_required_per_candidate": false,

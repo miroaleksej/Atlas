@@ -9,15 +9,15 @@
         "required_receipt_fields_present": true,
         "result_digest_bound": true
       },
-      "digest": "7b8e23615c98e9f73495f08265c356505d2e3e4f8d24ed43504665d710cc3a8e",
-      "execution_receipt_digest": "ae05a607c8b627e2ecf7914047e084f4a17e572e10a2ee82be8140a7a644196a",
+      "digest": "e87ca155e686fdc064aef3919fa37661644537eec29e6ac5511a8f5954d9b89c",
+      "execution_receipt_digest": "f445d973b0aca214f8e027ee468b6ef23b98a69534f6298c3c6fbd51100383e5",
       "origin": "ATLAS_NATIVE",
       "owner": "CLAIM-PROVENANCE-FIREWALL/15.2.8",
       "payload": {
         "best_candidate_id": "H-DCAA79F64AC3A95D94CF",
         "status": "REPRESENTATION_GAP_OPERATOR_PROBE_PROTOCOL_FROZEN_AWAITING_ATTESTED_RESPONSES"
       },
-      "result_digest": "c9c2b318efa700d08240ac44f0088025c536e3ae87a31ed547f002ff42f47739",
+      "result_digest": "8c3d73d19e3da788f7ac28482316bb6566b212f78705c2e0d38643c433e8f9c9",
       "schema": "phi-claim-provenance-firewall/v1",
       "scientific_truth_established": false,
       "statement": "Atlas research cycle DLR-OLAF-FIRST-BLIND-REAL-PHYSICS-001 produced status REPRESENTATION_GAP_OPERATOR_PROBE_PROTOCOL_FROZEN_AWAITING_ATTESTED_RESPONSES; best hypothesis is c0 + c1*mode_proximity + c2*mode_proximity^2 + c3*control_state + c4*control_state*mode_proximity + c5*control_state^2 + c6*wind_speed + c7*wind_speed*mode_proximity + c8*wind_speed*control_state + c9*wind_speed^2 + c10*gust_frequency + c11*gust_frequency*mode_proximity + c12*gust_frequency*control_state + c13*gust_frequency*wind_speed + c14*gust_frequency^2",
@@ -27,12 +27,16 @@
       "activated_axes": [
         "mode_proximity"
       ],
+      "activated_but_not_effective_support_axes": [],
       "activation_was_residual_driven": true,
       "automatic_causal_axis_selection_allowed": false,
       "causal_ready_axes": [],
       "causal_status": "CAUSALLY_NOT_ESTABLISHED",
       "causally_established_axes": [],
       "dormant_axes_offered": [
+        "mode_proximity"
+      ],
+      "effective_support_axes": [
         "mode_proximity"
       ],
       "improvement": {
@@ -44,31 +48,63 @@
         "relative_improvement": 0.4928910335842648
       },
       "representation_activated_does_not_equal_causally_established": true,
+      "representation_activation_is_effective_formula_support": false,
       "representation_status": "REPRESENTATION_ACTIVATED"
     },
     "axis_birth_search": {
+      "activated_but_not_effective_support_axes": [],
       "activation_requires_discovery_holdout_improvement": true,
+      "activation_requires_group_stability": true,
       "candidate_signal_axes": [
         "mode_proximity"
       ],
-      "digest": "5d0be7c90a7fb362c1ecad7aca4b85fd6337ec1b1bf0709fab4237b9bd95f89a",
+      "digest": "2b2c1e81f805607b604e09b99779b11a6d3cddf0a74c70992a02b967e1a4cf57",
       "direct_residual_scores": {
         "mode_proximity": 0.4481976819181841
       },
+      "effective_support_axes": [
+        "mode_proximity"
+      ],
+      "external_stability_evidence_count": 1,
+      "final_selection_stability": {
+        "axes": [
+          "mode_proximity"
+        ],
+        "digest": "d4de384dfcdf93d9d9b8e44d6f42178c67f5d0d226b291d5a62c05487f6d6d03",
+        "fractional_improvement": 0.7014964922882362,
+        "independent_validation": true,
+        "passes": true,
+        "schema": "phi-axis-birth-external-stability/v1",
+        "sealed_holdout_used": false,
+        "source_digest": "39bdea96368e033fb24fd4ae1549cb1b4dd8645e25cc7be979f8eee65e70429e",
+        "source_owner": "AXIS-MODELING/8.0.0",
+        "source_receipt_is_world_attestation": false,
+        "source_receipt_verified": true
+      },
       "fixed_axis_count_per_cycle": null,
+      "joint_zone_full_effective_support_required": true,
+      "joint_zone_requires_stable_single_axis_parent": false,
+      "joint_zone_search_enabled": false,
       "multi_axis_birth_allowed": true,
       "partition_information_scores": {
         "mode_proximity": 0.09997387160064565
       },
       "policy": "ADAPTIVE_MINIMAL_CARDINALITY_SUBSET_SEARCH",
+      "representation_activation_is_effective_formula_support": false,
       "resource_budget_is_scientific_cardinality_ceiling": false,
+      "sealed_holdout_used_for_activation_or_stability": false,
       "search_strategy": "EXHAUSTIVE_CARDINALITY_SHELLS",
       "selected_axes": [
         "mode_proximity"
       ],
       "selected_cardinality": 1,
-      "selected_trial_digest": "e53d22c559267c6ba291cb10d2b6b3886fa9f4abc0c8e76ff17e86d71ac5b070",
+      "selected_trial_digest": "fb160e0234b0a5c606487c4c26cb52d2256e13b8f843de2ea2e3a23d8715289e",
+      "selection_contract": "MARGINAL_GAIN_PLUS_GROUP_STABILITY_PLUS_PARSIMONY",
       "signal_axis_count": 1,
+      "stability_folds": 4,
+      "stability_gate": "screen: positive_fraction>=0.75 AND median_relative_gain-1.4826*MAD>0; selection: repeated discovery-group ensemble with majority partition pass and positive pooled robust margin",
+      "stability_repeats_for_zone_selection": 5,
+      "stability_stop": false,
       "trial_budget": 2048,
       "trial_budget_exhausted": false,
       "trial_count": 1,
@@ -79,11 +115,27 @@
           ],
           "best_hypothesis_id": "H-DCAA79F64AC3A95D94CF",
           "cardinality": 1,
-          "digest": "e53d22c559267c6ba291cb10d2b6b3886fa9f4abc0c8e76ff17e86d71ac5b070",
+          "digest": "fb160e0234b0a5c606487c4c26cb52d2256e13b8f843de2ea2e3a23d8715289e",
+          "group_stability": {
+            "axes": [
+              "mode_proximity"
+            ],
+            "digest": "d4de384dfcdf93d9d9b8e44d6f42178c67f5d0d226b291d5a62c05487f6d6d03",
+            "fractional_improvement": 0.7014964922882362,
+            "independent_validation": true,
+            "passes": true,
+            "schema": "phi-axis-birth-external-stability/v1",
+            "sealed_holdout_used": false,
+            "source_digest": "39bdea96368e033fb24fd4ae1549cb1b4dd8645e25cc7be979f8eee65e70429e",
+            "source_owner": "AXIS-MODELING/8.0.0",
+            "source_receipt_is_world_attestation": false,
+            "source_receipt_verified": true
+          },
           "holdout_nrmse": 0.3473280402362027,
           "hypothesis_space_digest": "aeeae3dbc6c97ca1c152f8a2f779814c36c67edd23429fe46dacd905eadbfb79",
           "improved": true,
-          "reaches_fit_gate": false
+          "reaches_fit_gate": false,
+          "stable_improvement": true
         }
       ]
     },
@@ -94,8 +146,10 @@
       "atlas_generated_probe_inputs": true,
       "atlas_result_is_scientific_law": false,
       "automatic_causal_axis_selection_allowed_without_causal_evidence": false,
+      "axis_activation_requires_group_stability": true,
       "axis_activation_requires_residual_evidence": true,
       "axis_birth_cardinality_is_adaptive": true,
+      "axis_selection_uses_parsimony": true,
       "causal_establishment_requires_separate_authoritative_evidence": true,
       "dormant_axis_inserted_into_initial_formula": false,
       "executable_candidate_execution_establishes_world_law": false,
@@ -108,10 +162,12 @@
       "multi_axis_birth_allowed": true,
       "representation_activation_is_causal_establishment": false,
       "representation_activation_is_causal_proof": false,
-      "sealed_holdout_used_for_axis_activation": false
+      "representation_activation_is_effective_formula_support": false,
+      "sealed_holdout_used_for_axis_activation": false,
+      "sealed_holdout_used_for_axis_stability": false
     },
-    "code_digest": "ddde165b39b26ddaeac32dab132fbd0f4dbbdb9d1ef95861bcd806e42308dc13",
-    "digest": "ae05a607c8b627e2ecf7914047e084f4a17e572e10a2ee82be8140a7a644196a",
+    "code_digest": "e79d3f7bc764d9a838006f835cddefd616b98708eb1cccf06c1262513f11c4e7",
+    "digest": "f445d973b0aca214f8e027ee468b6ef23b98a69534f6298c3c6fbd51100383e5",
     "discriminating_experiment": {
       "digest": "ddc28f2a4e471ea768223ed3216d0b0c98b4bc22a182be54939248c805e03e90",
       "invented_likelihoods": false,
@@ -15522,7 +15578,7 @@
       "status": "HYPOTHESIS_SPACE_FROZEN_FOR_CURRENT_COMPLEXITY_SHELL",
       "target_variable": "wrbm_db"
     },
-    "input_digest": "80e9896cb2fe103acee039aaf94d96f0136f5fdfa311db3e66411e0e22d804d5",
+    "input_digest": "0461922a69a57eab21974bb48c7a6d3753c6a60cada48d9a4d733b79fcb15079",
     "mathematical_invention": {
       "active_evidence_modes": [
         "latent",
@@ -15587,6 +15643,7 @@
       "schema": "phi-mathematical-invention-kernel/v1",
       "status": "PROPOSE_GENERATED_REPRESENTATION_SIGNATURE"
     },
+    "observational_probe_design": null,
     "observations_origin": "PUBLIC_MEASURED_DIGITIZED",
     "operator_probe_design": {
       "candidate_grammar_term_count": 7,
@@ -27144,6 +27201,7 @@
       "activated_axis_variables": [
         "mode_proximity"
       ],
+      "activated_but_not_effective_support_axis_variables": [],
       "automatic_causal_axis_selection_allowed": false,
       "axis_activation_improvement": {
         "absolute_improvement": 0.33758992264489174,
@@ -27729,6 +27787,9 @@
         "control_state",
         "mode_proximity"
       ],
+      "effective_support_axis_variables": [
+        "mode_proximity"
+      ],
       "executable_candidate_id": null,
       "executable_id": null,
       "executable_representation_status": "EXECUTABLE_SYNTHESIS_REQUIRES_OPERATOR_PROBES",
@@ -27750,10 +27811,298 @@
         ],
         "best_hypothesis_id": "H-DCAA79F64AC3A95D94CF",
         "complexity_level": 3,
+        "effective_support_predictor_variables": [
+          "gust_frequency",
+          "wind_speed",
+          "control_state",
+          "mode_proximity"
+        ],
         "previous_state_digest": "",
         "problem_id": "DLR-OLAF-FIRST-BLIND-REAL-PHYSICS-001",
         "remaining_dormant_axis_variables": [],
         "research_local_axes": {
+          "DERIVED-1B8D9AD45B718CE82088": {
+            "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+            "axis_id": "DERIVED-1B8D9AD45B718CE82088",
+            "canonical": false,
+            "canonical_registry_mutated": false,
+            "causally_established": false,
+            "digest": "4a717a5344dabdecdb18c86e8dfa352d1818d737091962d75a204e892ea15a9c",
+            "dimension": [
+              0.0,
+              0.0,
+              -2.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "exponents": {
+              "gust_frequency": 2
+            },
+            "expression": "gust_frequency^2",
+            "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            "promotion_required_for_canonical_registration": true,
+            "source_axis_ids": [
+              "gust_frequency"
+            ],
+            "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+          },
+          "DERIVED-27066F05C41E494F98A8": {
+            "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+            "axis_id": "DERIVED-27066F05C41E494F98A8",
+            "canonical": false,
+            "canonical_registry_mutated": false,
+            "causally_established": false,
+            "digest": "95aa72a4e4dc46b032d1383fc0f1f793ef16d34e5a3b9ab341713196f6edf0ba",
+            "dimension": [
+              1.0,
+              0.0,
+              -1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "exponents": {
+              "mode_proximity": 1,
+              "wind_speed": 1
+            },
+            "expression": "wind_speed*mode_proximity",
+            "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            "promotion_required_for_canonical_registration": true,
+            "source_axis_ids": [
+              "mode_proximity",
+              "wind_speed"
+            ],
+            "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+          },
+          "DERIVED-3FF5366B47D0A8629B4F": {
+            "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+            "axis_id": "DERIVED-3FF5366B47D0A8629B4F",
+            "canonical": false,
+            "canonical_registry_mutated": false,
+            "causally_established": false,
+            "digest": "362a60f4cba4b2051dad614fd889a7c3a80ea3265fe1622f430dca33fbad5cd3",
+            "dimension": [
+              0.0,
+              0.0,
+              -1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "exponents": {
+              "gust_frequency": 1,
+              "mode_proximity": 1
+            },
+            "expression": "gust_frequency*mode_proximity",
+            "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            "promotion_required_for_canonical_registration": true,
+            "source_axis_ids": [
+              "gust_frequency",
+              "mode_proximity"
+            ],
+            "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+          },
+          "DERIVED-69685012CE948DA15F26": {
+            "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+            "axis_id": "DERIVED-69685012CE948DA15F26",
+            "canonical": false,
+            "canonical_registry_mutated": false,
+            "causally_established": false,
+            "digest": "b650bd8b83866690848eda26287e0d557abcec7ec5334636e28c40a9bb08a9cf",
+            "dimension": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "exponents": {
+              "control_state": 2
+            },
+            "expression": "control_state^2",
+            "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            "promotion_required_for_canonical_registration": true,
+            "source_axis_ids": [
+              "control_state"
+            ],
+            "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+          },
+          "DERIVED-88E63D82DDAFFE114442": {
+            "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+            "axis_id": "DERIVED-88E63D82DDAFFE114442",
+            "canonical": false,
+            "canonical_registry_mutated": false,
+            "causally_established": false,
+            "digest": "4c476745a1e23c30c52fe3bf7b28e5858f9ff5a2c1c60638e62351747ea22ab2",
+            "dimension": [
+              1.0,
+              0.0,
+              -1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "exponents": {
+              "control_state": 1,
+              "wind_speed": 1
+            },
+            "expression": "wind_speed*control_state",
+            "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            "promotion_required_for_canonical_registration": true,
+            "source_axis_ids": [
+              "control_state",
+              "wind_speed"
+            ],
+            "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+          },
+          "DERIVED-8C55E24E453028786281": {
+            "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+            "axis_id": "DERIVED-8C55E24E453028786281",
+            "canonical": false,
+            "canonical_registry_mutated": false,
+            "causally_established": false,
+            "digest": "5e53524c594f2843f90ed961181f5af5ee2ee5d48edd4b5fcaa989cc164c13c0",
+            "dimension": [
+              0.0,
+              0.0,
+              -1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "exponents": {
+              "control_state": 1,
+              "gust_frequency": 1
+            },
+            "expression": "gust_frequency*control_state",
+            "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            "promotion_required_for_canonical_registration": true,
+            "source_axis_ids": [
+              "control_state",
+              "gust_frequency"
+            ],
+            "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+          },
+          "DERIVED-97517D143B0312D6CDD9": {
+            "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+            "axis_id": "DERIVED-97517D143B0312D6CDD9",
+            "canonical": false,
+            "canonical_registry_mutated": false,
+            "causally_established": false,
+            "digest": "b8082d53a354e7aa6c8f74d60135cc819be5b085d8648ee7141f82db872512a8",
+            "dimension": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "exponents": {
+              "control_state": 1,
+              "mode_proximity": 1
+            },
+            "expression": "control_state*mode_proximity",
+            "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            "promotion_required_for_canonical_registration": true,
+            "source_axis_ids": [
+              "control_state",
+              "mode_proximity"
+            ],
+            "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+          },
+          "DERIVED-BB2E81D39615E5A0E757": {
+            "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+            "axis_id": "DERIVED-BB2E81D39615E5A0E757",
+            "canonical": false,
+            "canonical_registry_mutated": false,
+            "causally_established": false,
+            "digest": "c6c8b98d4e56e2a99273545e883142122d8132d24dde0542e714b7f4f0a27a06",
+            "dimension": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "exponents": {
+              "mode_proximity": 2
+            },
+            "expression": "mode_proximity^2",
+            "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            "promotion_required_for_canonical_registration": true,
+            "source_axis_ids": [
+              "mode_proximity"
+            ],
+            "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+          },
+          "DERIVED-BE646C14A987C07898B9": {
+            "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+            "axis_id": "DERIVED-BE646C14A987C07898B9",
+            "canonical": false,
+            "canonical_registry_mutated": false,
+            "causally_established": false,
+            "digest": "593f8b59831bb825083a741a73d7e8cc0535663c5b3464274a58dbc74ac3eab0",
+            "dimension": [
+              2.0,
+              0.0,
+              -2.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "exponents": {
+              "wind_speed": 2
+            },
+            "expression": "wind_speed^2",
+            "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            "promotion_required_for_canonical_registration": true,
+            "source_axis_ids": [
+              "wind_speed"
+            ],
+            "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+          },
+          "DERIVED-F161EC56E8CECC356789": {
+            "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+            "axis_id": "DERIVED-F161EC56E8CECC356789",
+            "canonical": false,
+            "canonical_registry_mutated": false,
+            "causally_established": false,
+            "digest": "f0732d0c88732f91ae1c71d3266747a007b16a2bcfc0cc952f74bef5f660fe39",
+            "dimension": [
+              1.0,
+              0.0,
+              -2.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "exponents": {
+              "gust_frequency": 1,
+              "wind_speed": 1
+            },
+            "expression": "gust_frequency*wind_speed",
+            "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+            "promotion_required_for_canonical_registration": true,
+            "source_axis_ids": [
+              "gust_frequency",
+              "wind_speed"
+            ],
+            "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+          },
           "control_state": {
             "activation_state": "ACTIVE_MODEL_AXIS",
             "axis_id": "control_state",
@@ -27773,6 +28122,7 @@
             "axis_id": "control_state__bin",
             "canonical": false,
             "causal_establishment_state": "CAUSALLY_NOT_ESTABLISHED",
+            "effective_formula_support_state": "NOT_IN_EFFECTIVE_SUPPORT",
             "evidence_digest": "6fbd62e09985334e267ed20642daf7bed1c52649f029595351151f94988abf2e",
             "identifiability_status": "CONFOUNDED_PARTITION_NOT_CAUSALLY_IDENTIFIED",
             "information_gain_bits": 0.12242642555070415,
@@ -27784,6 +28134,7 @@
             "axis_id": "control_state__square_bin",
             "canonical": false,
             "causal_establishment_state": "CAUSALLY_NOT_ESTABLISHED",
+            "effective_formula_support_state": "NOT_IN_EFFECTIVE_SUPPORT",
             "evidence_digest": "6fbd62e09985334e267ed20642daf7bed1c52649f029595351151f94988abf2e",
             "identifiability_status": "CONFOUNDED_PARTITION_NOT_CAUSALLY_IDENTIFIED",
             "information_gain_bits": 0.12242642555070415,
@@ -27809,6 +28160,7 @@
             "axis_id": "gust_frequency__bin",
             "canonical": false,
             "causal_establishment_state": "CAUSALLY_NOT_ESTABLISHED",
+            "effective_formula_support_state": "NOT_IN_EFFECTIVE_SUPPORT",
             "evidence_digest": "6fbd62e09985334e267ed20642daf7bed1c52649f029595351151f94988abf2e",
             "identifiability_status": "CONFOUNDED_PARTITION_NOT_CAUSALLY_IDENTIFIED",
             "information_gain_bits": 0.11299054378961104,
@@ -27820,6 +28172,7 @@
             "axis_id": "gust_frequency__square_bin",
             "canonical": false,
             "causal_establishment_state": "CAUSALLY_NOT_ESTABLISHED",
+            "effective_formula_support_state": "NOT_IN_EFFECTIVE_SUPPORT",
             "evidence_digest": "6fbd62e09985334e267ed20642daf7bed1c52649f029595351151f94988abf2e",
             "identifiability_status": "CONFOUNDED_PARTITION_NOT_CAUSALLY_IDENTIFIED",
             "information_gain_bits": 0.11299054378961104,
@@ -27831,6 +28184,7 @@
             "axis_id": "gust_frequency__x__control_state",
             "canonical": false,
             "causal_establishment_state": "CAUSALLY_NOT_ESTABLISHED",
+            "effective_formula_support_state": "NOT_IN_EFFECTIVE_SUPPORT",
             "evidence_digest": "6fbd62e09985334e267ed20642daf7bed1c52649f029595351151f94988abf2e",
             "identifiability_status": "PARTITION_DISTINCT_BUT_NOT_CAUSALLY_PROVEN",
             "information_gain_bits": 0.12469919406479224,
@@ -27842,6 +28196,7 @@
             "axis_id": "gust_frequency__x__wind_speed",
             "canonical": false,
             "causal_establishment_state": "CAUSALLY_NOT_ESTABLISHED",
+            "effective_formula_support_state": "NOT_IN_EFFECTIVE_SUPPORT",
             "evidence_digest": "6fbd62e09985334e267ed20642daf7bed1c52649f029595351151f94988abf2e",
             "identifiability_status": "PARTITION_DISTINCT_BUT_NOT_CAUSALLY_PROVEN",
             "information_gain_bits": 0.012660678127344172,
@@ -27849,7 +28204,7 @@
             "representation_activation_state": "REPRESENTATION_CANDIDATE"
           },
           "mode_proximity": {
-            "activation_state": "ACTIVE_MODEL_AXIS",
+            "activation_state": "EFFECTIVE_MODEL_SUPPORT_AXIS",
             "axis_id": "mode_proximity",
             "canonical": false,
             "causal_establishment_state": "CAUSALLY_NOT_ESTABLISHED",
@@ -27862,6 +28217,7 @@
               0.0,
               0.0
             ],
+            "effective_formula_support_state": "EFFECTIVE_SUPPORT",
             "evidence_digest": "6fbd62e09985334e267ed20642daf7bed1c52649f029595351151f94988abf2e",
             "identifiability_status": "PARTITION_DISTINCT_BUT_NOT_CAUSALLY_PROVEN",
             "information_gain_bits": 0.10908713743328469,
@@ -27887,6 +28243,7 @@
             "axis_id": "wind_speed__bin",
             "canonical": false,
             "causal_establishment_state": "CAUSALLY_NOT_ESTABLISHED",
+            "effective_formula_support_state": "NOT_IN_EFFECTIVE_SUPPORT",
             "evidence_digest": "6fbd62e09985334e267ed20642daf7bed1c52649f029595351151f94988abf2e",
             "identifiability_status": "CONFOUNDED_PARTITION_NOT_CAUSALLY_IDENTIFIED",
             "information_gain_bits": 0.05130736609496056,
@@ -27898,6 +28255,7 @@
             "axis_id": "wind_speed__square_bin",
             "canonical": false,
             "causal_establishment_state": "CAUSALLY_NOT_ESTABLISHED",
+            "effective_formula_support_state": "NOT_IN_EFFECTIVE_SUPPORT",
             "evidence_digest": "6fbd62e09985334e267ed20642daf7bed1c52649f029595351151f94988abf2e",
             "identifiability_status": "CONFOUNDED_PARTITION_NOT_CAUSALLY_IDENTIFIED",
             "information_gain_bits": 0.05130736609496056,
@@ -27909,6 +28267,7 @@
             "axis_id": "wind_speed__x__control_state",
             "canonical": false,
             "causal_establishment_state": "CAUSALLY_NOT_ESTABLISHED",
+            "effective_formula_support_state": "NOT_IN_EFFECTIVE_SUPPORT",
             "evidence_digest": "6fbd62e09985334e267ed20642daf7bed1c52649f029595351151f94988abf2e",
             "identifiability_status": "PARTITION_DISTINCT_BUT_NOT_CAUSALLY_PROVEN",
             "information_gain_bits": 0.18934034563805469,
@@ -27930,7 +28289,7 @@
             "origin": "OBSERVED_TARGET"
           }
         },
-        "state_digest": "277e8fe5a7689f38019afd4f005da3b0bac39d869b5918390359e0511d986745",
+        "state_digest": "eb46c5e549d2be5a1a63bcb8c5e44c5cde2ee7444d1dbb06f0580ab2f6e13097",
         "surviving_hypothesis_ids": [
           "H-DCAA79F64AC3A95D94CF",
           "H-86EA17294261AFA4CDB0",
@@ -27946,11 +28305,19 @@
           "H-BE472975BF520EED1A52"
         ]
       },
+      "observational_protocol_digest": null,
       "representation_activated_axis_variables": [
         "mode_proximity"
       ],
       "representation_activated_does_not_equal_causally_established": true,
       "representation_activation_is_causal_establishment": false,
+      "representation_activation_is_effective_formula_support": false,
+      "representation_predictor_variables": [
+        "gust_frequency",
+        "wind_speed",
+        "control_state",
+        "mode_proximity"
+      ],
       "representation_status": "REPRESENTATION_ACTIVATED",
       "research_local_axis_candidates": [
         "wind_speed__x__control_state",
@@ -27964,6 +28331,291 @@
         "wind_speed__square_bin",
         "gust_frequency__x__wind_speed"
       ],
+      "research_local_derived_axis_births": [
+        {
+          "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+          "axis_id": "DERIVED-BB2E81D39615E5A0E757",
+          "canonical": false,
+          "canonical_registry_mutated": false,
+          "causally_established": false,
+          "digest": "c6c8b98d4e56e2a99273545e883142122d8132d24dde0542e714b7f4f0a27a06",
+          "dimension": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exponents": {
+            "mode_proximity": 2
+          },
+          "expression": "mode_proximity^2",
+          "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+          "promotion_required_for_canonical_registration": true,
+          "source_axis_ids": [
+            "mode_proximity"
+          ],
+          "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+        },
+        {
+          "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+          "axis_id": "DERIVED-97517D143B0312D6CDD9",
+          "canonical": false,
+          "canonical_registry_mutated": false,
+          "causally_established": false,
+          "digest": "b8082d53a354e7aa6c8f74d60135cc819be5b085d8648ee7141f82db872512a8",
+          "dimension": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exponents": {
+            "control_state": 1,
+            "mode_proximity": 1
+          },
+          "expression": "control_state*mode_proximity",
+          "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+          "promotion_required_for_canonical_registration": true,
+          "source_axis_ids": [
+            "control_state",
+            "mode_proximity"
+          ],
+          "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+        },
+        {
+          "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+          "axis_id": "DERIVED-69685012CE948DA15F26",
+          "canonical": false,
+          "canonical_registry_mutated": false,
+          "causally_established": false,
+          "digest": "b650bd8b83866690848eda26287e0d557abcec7ec5334636e28c40a9bb08a9cf",
+          "dimension": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exponents": {
+            "control_state": 2
+          },
+          "expression": "control_state^2",
+          "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+          "promotion_required_for_canonical_registration": true,
+          "source_axis_ids": [
+            "control_state"
+          ],
+          "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+        },
+        {
+          "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+          "axis_id": "DERIVED-27066F05C41E494F98A8",
+          "canonical": false,
+          "canonical_registry_mutated": false,
+          "causally_established": false,
+          "digest": "95aa72a4e4dc46b032d1383fc0f1f793ef16d34e5a3b9ab341713196f6edf0ba",
+          "dimension": [
+            1.0,
+            0.0,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exponents": {
+            "mode_proximity": 1,
+            "wind_speed": 1
+          },
+          "expression": "wind_speed*mode_proximity",
+          "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+          "promotion_required_for_canonical_registration": true,
+          "source_axis_ids": [
+            "mode_proximity",
+            "wind_speed"
+          ],
+          "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+        },
+        {
+          "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+          "axis_id": "DERIVED-88E63D82DDAFFE114442",
+          "canonical": false,
+          "canonical_registry_mutated": false,
+          "causally_established": false,
+          "digest": "4c476745a1e23c30c52fe3bf7b28e5858f9ff5a2c1c60638e62351747ea22ab2",
+          "dimension": [
+            1.0,
+            0.0,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exponents": {
+            "control_state": 1,
+            "wind_speed": 1
+          },
+          "expression": "wind_speed*control_state",
+          "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+          "promotion_required_for_canonical_registration": true,
+          "source_axis_ids": [
+            "control_state",
+            "wind_speed"
+          ],
+          "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+        },
+        {
+          "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+          "axis_id": "DERIVED-BE646C14A987C07898B9",
+          "canonical": false,
+          "canonical_registry_mutated": false,
+          "causally_established": false,
+          "digest": "593f8b59831bb825083a741a73d7e8cc0535663c5b3464274a58dbc74ac3eab0",
+          "dimension": [
+            2.0,
+            0.0,
+            -2.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exponents": {
+            "wind_speed": 2
+          },
+          "expression": "wind_speed^2",
+          "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+          "promotion_required_for_canonical_registration": true,
+          "source_axis_ids": [
+            "wind_speed"
+          ],
+          "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+        },
+        {
+          "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+          "axis_id": "DERIVED-3FF5366B47D0A8629B4F",
+          "canonical": false,
+          "canonical_registry_mutated": false,
+          "causally_established": false,
+          "digest": "362a60f4cba4b2051dad614fd889a7c3a80ea3265fe1622f430dca33fbad5cd3",
+          "dimension": [
+            0.0,
+            0.0,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exponents": {
+            "gust_frequency": 1,
+            "mode_proximity": 1
+          },
+          "expression": "gust_frequency*mode_proximity",
+          "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+          "promotion_required_for_canonical_registration": true,
+          "source_axis_ids": [
+            "gust_frequency",
+            "mode_proximity"
+          ],
+          "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+        },
+        {
+          "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+          "axis_id": "DERIVED-8C55E24E453028786281",
+          "canonical": false,
+          "canonical_registry_mutated": false,
+          "causally_established": false,
+          "digest": "5e53524c594f2843f90ed961181f5af5ee2ee5d48edd4b5fcaa989cc164c13c0",
+          "dimension": [
+            0.0,
+            0.0,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exponents": {
+            "control_state": 1,
+            "gust_frequency": 1
+          },
+          "expression": "gust_frequency*control_state",
+          "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+          "promotion_required_for_canonical_registration": true,
+          "source_axis_ids": [
+            "control_state",
+            "gust_frequency"
+          ],
+          "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+        },
+        {
+          "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+          "axis_id": "DERIVED-F161EC56E8CECC356789",
+          "canonical": false,
+          "canonical_registry_mutated": false,
+          "causally_established": false,
+          "digest": "f0732d0c88732f91ae1c71d3266747a007b16a2bcfc0cc952f74bef5f660fe39",
+          "dimension": [
+            1.0,
+            0.0,
+            -2.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exponents": {
+            "gust_frequency": 1,
+            "wind_speed": 1
+          },
+          "expression": "gust_frequency*wind_speed",
+          "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+          "promotion_required_for_canonical_registration": true,
+          "source_axis_ids": [
+            "gust_frequency",
+            "wind_speed"
+          ],
+          "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+        },
+        {
+          "activation_state": "RESEARCH_LOCAL_DERIVED_CANDIDATE",
+          "axis_id": "DERIVED-1B8D9AD45B718CE82088",
+          "canonical": false,
+          "canonical_registry_mutated": false,
+          "causally_established": false,
+          "digest": "4a717a5344dabdecdb18c86e8dfa352d1818d737091962d75a204e892ea15a9c",
+          "dimension": [
+            0.0,
+            0.0,
+            -2.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exponents": {
+            "gust_frequency": 2
+          },
+          "expression": "gust_frequency^2",
+          "origin": "SELECTED_HYPOTHESIS_COMPOSITE_TERM",
+          "promotion_required_for_canonical_registration": true,
+          "source_axis_ids": [
+            "gust_frequency"
+          ],
+          "status": "RESEARCH_LOCAL_DERIVED_AXIS_CANDIDATE"
+        }
+      ],
+      "research_local_derived_axis_count": 10,
       "scientific_law_established": false,
       "sealed_holdout_evaluation": {
         "count": 0,
@@ -27972,10 +28624,24 @@
         "rmse": null,
         "status": "SEALED_HOLDOUT_NOT_AVAILABLE"
       },
+      "source_capability_class": "FORWARD_ORACLE",
+      "source_capability_digest": "7bff9cd753d75be8ea881e8db2d5670b0c4f0562965ad20ce2faa73b6b8f43b7",
       "status": "REPRESENTATION_GAP_OPERATOR_PROBE_PROTOCOL_FROZEN_AWAITING_ATTESTED_RESPONSES"
     },
-    "result_digest": "c9c2b318efa700d08240ac44f0088025c536e3ae87a31ed547f002ff42f47739",
-    "schema": "phi-adaptive-research-kernel/v2"
+    "result_digest": "8c3d73d19e3da788f7ac28482316bb6566b212f78705c2e0d38643c433e8f9c9",
+    "schema": "phi-adaptive-research-kernel/v2",
+    "source_capability": {
+      "arbitrary_state_probe_protocol_allowed": true,
+      "class": "FORWARD_ORACLE",
+      "digest": "7bff9cd753d75be8ea881e8db2d5670b0c4f0562965ad20ce2faa73b6b8f43b7",
+      "explicitly_declared": false,
+      "legacy_assumption_used": true,
+      "natural_sample_freeze_required": false,
+      "schema": "phi-scientific-source-capability/v1",
+      "source_id": null,
+      "supports_arbitrary_state_intervention": true,
+      "supports_natural_sample_retrieval": false
+    }
   },
   "adaptive_sealed_holdout_evaluation": {
     "count": 8,
@@ -29920,7 +30586,7 @@
     "reason": "Digitized public Figure-23 data lack declared measurement uncertainty/raw synchronized DAQ; the blind result is a reproducible rediscovery/representation result, not a new-law claim.",
     "scientific_promotion_allowed": false
   },
-  "digest": "742d68b8e0485f91ea4c4d7a091d8b392dc313d6663d04b7e4112c2d0dd03dec",
+  "digest": "403b3059e08aab4280760f1118960042c3ed8127108d47078b782de70e60b3a4",
   "owner": "BLIND-REAL-PHYSICS-QUALIFICATION/15.8.0",
   "passed": 18,
   "postfreeze_reconciliation": {
@@ -29931,7 +30597,7 @@
     "independent_source_sha256": "0bdc412e36429f3df93afecc99ce0d51bc2266de5a0dc8724387b29c42496ef9",
     "new_axis_claim_allowed": false,
     "performed_after_research_freeze": true,
-    "research_freeze_digest": "00c497b3f262117f8eac856a8f3e05938ae6487d8bef65e372fe7e5db62a09df",
+    "research_freeze_digest": "77835d602ef60ce7ff02e7a3d28457a7d470414079607dd397e6c07f83788450",
     "status": "BLIND_REDISCOVERY_MATCHES_EXISTING_FLEXIBLE_MODE"
   },
   "precommit": {
@@ -29959,11 +30625,11 @@
   "problem_id": "DLR-OLAF-FIRST-BLIND-REAL-PHYSICS-001",
   "release": "15.8.0",
   "research_freeze": {
-    "adaptive_claim_digest": "7b8e23615c98e9f73495f08265c356505d2e3e4f8d24ed43504665d710cc3a8e",
-    "adaptive_kernel_receipt_digest": "ae05a607c8b627e2ecf7914047e084f4a17e572e10a2ee82be8140a7a644196a",
+    "adaptive_claim_digest": "e87ca155e686fdc064aef3919fa37661644537eec29e6ac5511a8f5954d9b89c",
+    "adaptive_kernel_receipt_digest": "f445d973b0aca214f8e027ee468b6ef23b98a69534f6298c3c6fbd51100383e5",
     "axis_modeling_digest": "39bdea96368e033fb24fd4ae1549cb1b4dd8645e25cc7be979f8eee65e70429e",
-    "code_digest": "5145afa9767e2fe2382b8e5fa7157c0e2cf8d70b6ef36629bdb392732d3b779d",
-    "digest": "00c497b3f262117f8eac856a8f3e05938ae6487d8bef65e372fe7e5db62a09df",
+    "code_digest": "56d94947d9bf7a29f5152e030055d7b812448fe099f20cca6bef4746185a3419",
+    "digest": "77835d602ef60ce7ff02e7a3d28457a7d470414079607dd397e6c07f83788450",
     "discriminator_digest": "1618d0c76cd04231c1293f64e37d598e8e04feb942afa9e479b4dbe5f84b7202",
     "known_flexible_mode_reference_consumed_before_freeze": false,
     "partition_precommit_digest": "ba20e3f37bbff01b71b11c434ad7f0a4f6bf73e8b325a27d9fd2cc6996c7a13b",

@@ -1657,6 +1657,114 @@ def _harmonic_mean(values: Sequence[float], *, epsilon: float = 1e-9) -> float:
     return _clamp01(len(vals) / sum(1.0 / v for v in vals))
 
 
+def _ideal_ai_user_work_audit(
+    axes: Mapping[str, float],
+    candidates: Sequence[Mapping[str, Any]],
+    selected_formula_id: str | None,
+    missing_growth_objects: Sequence[Mapping[str, Any]],
+) -> Mapping[str, Any]:
+    """Explain the formula search as a user-facing work audit.
+
+    This keeps the metric honest: high frontier pressure is useful as a planner
+    signal, but it must not be confused with an already-working ideal AI.
+    """
+    works_ideally: list[Mapping[str, Any]] = []
+    errors_or_incomplete: list[Mapping[str, Any]] = []
+
+    axis_labels = {
+        "O_obligationization": "Atlas turns frontier gaps into typed obligations",
+        "C_capability_resolution": "Atlas maps obligations to existing capability routes",
+        "X_safe_owner_step": "Atlas executes only safe owner steps",
+        "R_residual_preservation": "Atlas preserves unresolved residuals instead of erasing them",
+        "P_promotion_discipline": "Atlas blocks promotion and mutation without evidence",
+        "M_lineage_memory": "Atlas keeps digest-linked lineage memory",
+    }
+    for axis_id, label in axis_labels.items():
+        value = _clamp01(float(axes.get(axis_id, 0.0)))
+        if value >= 0.99:
+            works_ideally.append({
+                "axis": axis_id,
+                "status": "WORKS_IDEALLY_FOR_CURRENT_INPUT",
+                "score": value,
+                "evidence": label,
+            })
+
+    if _clamp01(float(axes.get("C_capability_resolution", 0.0))) < 0.99:
+        errors_or_incomplete.append({
+            "axis": "C_capability_resolution",
+            "status": "CAPABILITY_GAP",
+            "score": _clamp01(float(axes.get("C_capability_resolution", 0.0))),
+            "user_visible_error": "Atlas found an obligation that no existing capability or adapter can execute",
+            "required_debug_action": "birth or register a capability route before pretending the research path is executable",
+        })
+    if _clamp01(float(axes.get("T_world_trust", 0.0))) <= 0.0:
+        errors_or_incomplete.append({
+            "axis": "T_world_trust",
+            "status": "BLOCKING_GAP",
+            "score": _clamp01(float(axes.get("T_world_trust", 0.0))),
+            "user_visible_error": "Atlas cannot independently attest world evidence yet",
+            "required_debug_action": "connect an active WORLD attestor; do not mutate the world model before that",
+        })
+    if _clamp01(float(axes.get("V_evidence_closure", 0.0))) <= 0.0:
+        errors_or_incomplete.append({
+            "axis": "V_evidence_closure",
+            "status": "BLOCKING_GAP",
+            "score": _clamp01(float(axes.get("V_evidence_closure", 0.0))),
+            "user_visible_error": "safe steps preserved residuals but did not close external evidence",
+            "required_debug_action": "lower at least one matched route to acquired, verified evidence",
+        })
+    for axis_id, label, action in (
+        (
+            "B_semantic_binding",
+            "candidate semantics are not fully bound to typed U4 hypotheses",
+            "materialize missing typed hypotheses before treating the route as executable",
+        ),
+        (
+            "Q_response_projection",
+            "not every obligation has a response observable contract",
+            "compile missing response observables before measurement execution",
+        ),
+    ):
+        value = _clamp01(float(axes.get(axis_id, 0.0)))
+        if value < 0.99:
+            errors_or_incomplete.append({
+                "axis": axis_id,
+                "status": "INCOMPLETE_ROUTE",
+                "score": value,
+                "user_visible_error": label,
+                "required_debug_action": action,
+            })
+
+    candidate_by_id = {str(row.get("formula_id")): row for row in candidates if isinstance(row, Mapping)}
+    frontier = candidate_by_id.get("F4_FRONTIER_PRESSURE", {})
+    selected = candidate_by_id.get(str(selected_formula_id), {})
+    if float(frontier.get("current_score", 0.0) or 0.0) > float(selected.get("current_score", 0.0) or 0.0):
+        errors_or_incomplete.append({
+            "axis": "formula_interpretation",
+            "status": "MISLEADING_IF_READ_AS_SUCCESS",
+            "score": _clamp01(float(frontier.get("current_score", 0.0) or 0.0)),
+            "user_visible_error": "frontier pressure is high because unresolved work remains, not because the AI is complete",
+            "required_debug_action": "keep F4 as planner pressure only; select F3 as the architecture metric",
+        })
+
+    return {
+        "schema": "phi-ideal-ai-user-work-audit/v1",
+        "overall_verdict": (
+            "WORKS_AS_FAIL_CLOSED_RESEARCH_ORGANISM_BUT_NOT_AS_WORLD_LEARNING_AI_YET"
+            if errors_or_incomplete else "WORKS_AS_CURRENTLY_REQUESTED_WITH_NO_BLOCKING_GAPS"
+        ),
+        "works_ideally": works_ideally,
+        "errors_or_incomplete": errors_or_incomplete,
+        "debug_actions_applied": [
+            "separated planner pressure from ideal-architecture selection",
+            "made missing WORLD trust and evidence closure explicit",
+            "kept formula output read-only and research-local",
+            "preserved missing growth objects as next obligations",
+        ],
+        "missing_growth_objects_considered": list(missing_growth_objects),
+    }
+
+
 def search_ideal_ai_formula_candidates(
     root: str | Path | None = None,
     *,
@@ -1795,6 +1903,12 @@ def search_ideal_ai_formula_candidates(
     missing = list(growth.get("missing_objects", ()) or ())
     if world_missing:
         missing.append({"missing_object": "active_world_attestor", "growth_axis": "world_trust", "count": 1})
+    user_work_audit = _ideal_ai_user_work_audit(
+        axes,
+        candidates,
+        selected.get("formula_id"),
+        missing,
+    )
     return _with_digest({
         "schema": IDEAL_AI_FORMULA_SEARCH_SCHEMA,
         "status": "IDEAL_AI_FORMULA_CANDIDATES_COMPARED",
@@ -1809,6 +1923,7 @@ def search_ideal_ai_formula_candidates(
         },
         "formula_candidates": candidates,
         "parameters": axes,
+        "user_work_audit": user_work_audit,
         "missing_growth_objects": missing,
         "metabolism_digest": metabolism.get("digest"),
         "world_trust_registry_digest": trust.get("digest"),

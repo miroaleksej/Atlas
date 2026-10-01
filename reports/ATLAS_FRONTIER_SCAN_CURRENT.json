@@ -1214,7 +1214,7 @@
     "scientific_data_ingestion_owner": "SCIENTIFIC-DATA-INGESTION/5.11.0",
     "world_attestation_count": 0
   },
-  "digest": "c6692aae39202f5db8588dd407da82a79b159d85c009b20e639e1778d02b6384",
+  "digest": "21690b6fc6eba820a9a3c7bd822987568a295ed706a6958586c9cf4079975364",
   "fair_open_ended_traversal": {
     "dovetail_continuation_candidate_count": 2175,
     "environment_epoch": 7,
@@ -10423,14 +10423,14 @@
       "audit_uses_world_data": false
     },
     "composable_multi_owner_complete_count": 286,
-    "digest": "c7accb0b28f17c6b4af7fe26e1b7dee66883375bc9ad713537e5fd2ead747c41",
+    "digest": "6d6631ab72cf7b476c319955a9d3e08acaedbc298a72d3ad4b17575e1892646b",
     "interpretation": {
       "composable_multi_owner": "the union of existing source-law passports covers every candidate axis and at least one declares a forward observable; an explicit composition contract is still missing",
       "not_a_global_u1_u2_gate": true,
       "strict_single_owner": "one existing source-law passport covers every candidate axis and declares a parsed relation plus observable"
     },
     "no_forward_owner_or_complete_mapping_count": 4,
-    "owner": "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR/1.4.0",
+    "owner": "SCIENTIFIC-EXPLOITATION-ORCHESTRATOR/1.5.0",
     "partial_axis_mapping_with_forward_owner_count": 134,
     "rows": [
       {

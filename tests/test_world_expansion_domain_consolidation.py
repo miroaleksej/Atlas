@@ -591,6 +591,14 @@ def test_ideal_ai_formula_search_compares_multiple_research_local_candidates():
     assert params["V_evidence_closure"] == pytest.approx(0.0)
     assert result["active_world_attestor_count"] == 0
     assert any(row["missing_object"] == "active_world_attestor" for row in result["missing_growth_objects"])
+    audit = result["user_work_audit"]
+    assert audit["schema"] == "phi-ideal-ai-user-work-audit/v1"
+    assert audit["overall_verdict"] == "WORKS_AS_FAIL_CLOSED_RESEARCH_ORGANISM_BUT_NOT_AS_WORLD_LEARNING_AI_YET"
+    assert any(row["axis"] == "P_promotion_discipline" for row in audit["works_ideally"])
+    assert any(row["axis"] == "T_world_trust" and row["status"] == "BLOCKING_GAP" for row in audit["errors_or_incomplete"])
+    assert any(row["axis"] == "V_evidence_closure" and row["status"] == "BLOCKING_GAP" for row in audit["errors_or_incomplete"])
+    assert any(row["axis"] == "formula_interpretation" for row in audit["errors_or_incomplete"])
+    assert "separated planner pressure from ideal-architecture selection" in audit["debug_actions_applied"]
     assert result["claim_boundary"]["formula_is_agi_proof"] is False
     assert result["claim_boundary"]["formula_is_scientific_law"] is False
     assert result["claim_boundary"]["formula_can_replace_world_evidence"] is False
@@ -607,3 +615,4 @@ def test_ideal_ai_formula_search_api_exposed_and_accepts_explicit_gap():
     assert result["selected_formula_id"] == "F3_EPISTEMIC_METABOLISM"
     assert result["parameters"]["C_capability_resolution"] == pytest.approx(0.0)
     assert any(row["missing_object"] == "new_capability_or_adapter" for row in result["missing_growth_objects"])
+    assert any(row["axis"] == "C_capability_resolution" for row in result["user_work_audit"]["errors_or_incomplete"])
