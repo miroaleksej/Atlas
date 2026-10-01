@@ -22,6 +22,7 @@ UNIVERSAL_REQUIRED_EVIDENCE_LOOP_SCHEMA = "phi-universal-required-evidence-execu
 SEMANTIC_EVIDENCE_NEED_SCHEMA = "phi-semantic-evidence-need-derivation/v1"
 UNIVERSAL_OBLIGATION_EXECUTION_SCHEMA = "phi-universal-obligation-execution-step/v1"
 EPISTEMIC_METABOLISM_SCHEMA = "phi-epistemic-metabolism-cycle/v1"
+IDEAL_AI_FORMULA_SEARCH_SCHEMA = "phi-ideal-ai-formula-search/v1"
 
 
 def _root(root: str | Path | None = None) -> Path:
@@ -1635,6 +1636,192 @@ def run_epistemic_metabolism_cycle(
             "missing_world_evidence_can_be_fabricated": False,
             "new_representation_is_canonical_without_evidence": False,
             "all_modules_must_activate_for_every_problem": False,
+        },
+    })
+
+
+def _clamp01(value: float) -> float:
+    return max(0.0, min(1.0, float(value)))
+
+
+def _safe_ratio(numerator: float, denominator: float, *, empty: float = 0.0) -> float:
+    if float(denominator) == 0.0:
+        return float(empty)
+    return _clamp01(float(numerator) / float(denominator))
+
+
+def _harmonic_mean(values: Sequence[float], *, epsilon: float = 1e-9) -> float:
+    vals = [max(float(epsilon), _clamp01(v)) for v in values]
+    if not vals:
+        return 0.0
+    return _clamp01(len(vals) / sum(1.0 / v for v in vals))
+
+
+def search_ideal_ai_formula_candidates(
+    root: str | Path | None = None,
+    *,
+    candidate_specs: Sequence[Mapping[str, Any]] | None = None,
+    max_frontier_rows: int = 500,
+    max_campaign_items: int = 8,
+    max_execution_steps: int | None = None,
+) -> Mapping[str, Any]:
+    """Search and compare candidate formulae for an ideal scientific AI.
+
+    The formulae are architecture metrics, not claims of AGI or natural law.
+    They are derived from Atlas' own multidimensional state: frontier
+    obligationization, safe owner routing, residual preservation, evidence
+    closure, world trust and promotion discipline.
+    """
+    root_path = _root(root)
+    metabolism = run_epistemic_metabolism_cycle(
+        root_path,
+        candidate_specs=candidate_specs,
+        max_frontier_rows=max_frontier_rows,
+        max_campaign_items=max_campaign_items,
+        max_execution_steps=max_execution_steps,
+    )
+    compiled = metabolism.get("compiled_loop", {}) if isinstance(metabolism.get("compiled_loop"), Mapping) else {}
+    execution = metabolism.get("execution_loop", {}) if isinstance(metabolism.get("execution_loop"), Mapping) else {}
+    growth = metabolism.get("growth_vector", {}) if isinstance(metabolism.get("growth_vector"), Mapping) else {}
+    obligations = float(metabolism.get("obligation_count", 0) or 0)
+    steps = float(metabolism.get("executed_step_count", 0) or 0)
+    blocked = float(metabolism.get("blocked_or_pending_count", 0) or 0)
+    gaps = float(metabolism.get("capability_gap_count", 0) or 0)
+    trust = load_world_trust_registry(root_path)
+    active_attestors = [
+        row for row in trust.get("attestors", ())
+        if isinstance(row, Mapping) and str(row.get("status", "ACTIVE")).upper() == "ACTIVE"
+    ]
+    by_obligation = dict(growth.get("obligation_distribution", {}) or {})
+    typed_missing = float(by_obligation.get("TYPED_HYPOTHESIS_MATERIALIZATION", 0) or 0)
+    observable_missing = float(by_obligation.get("OBSERVABLE_CONTRACT", 0) or 0)
+    world_missing = 1.0 if len(active_attestors) == 0 else 0.0
+
+    axes = {
+        "O_obligationization": _safe_ratio(obligations, max(obligations, 1.0), empty=0.0),
+        "C_capability_resolution": _safe_ratio(obligations - gaps, obligations, empty=1.0),
+        "X_safe_owner_step": _safe_ratio(steps, obligations, empty=0.0),
+        "R_residual_preservation": _safe_ratio(blocked, steps, empty=1.0),
+        "V_evidence_closure": _safe_ratio(steps - blocked, steps, empty=0.0),
+        "T_world_trust": 1.0 if active_attestors else 0.0,
+        "B_semantic_binding": _safe_ratio(obligations - typed_missing, obligations, empty=1.0),
+        "Q_response_projection": _safe_ratio(obligations - observable_missing, obligations, empty=1.0),
+        "P_promotion_discipline": 1.0 if metabolism.get("scientific_promotion_allowed") is False and metabolism.get("knowledge_state_mutated") is False else 0.0,
+        "M_lineage_memory": 1.0 if metabolism.get("digest") and compiled.get("digest") and execution.get("digest") else 0.0,
+    }
+    closure_axes = [
+        axes["B_semantic_binding"],
+        axes["Q_response_projection"],
+        axes["V_evidence_closure"],
+        axes["T_world_trust"],
+    ]
+    safety_axes = [
+        axes["O_obligationization"],
+        axes["C_capability_resolution"],
+        axes["X_safe_owner_step"],
+        axes["R_residual_preservation"],
+        axes["P_promotion_discipline"],
+        axes["M_lineage_memory"],
+    ]
+    arithmetic = sum(axes.values()) / len(axes)
+    product = 1.0
+    for value in axes.values():
+        product *= value
+    strict_gate = min(axes["V_evidence_closure"], axes["T_world_trust"]) * _harmonic_mean(safety_axes)
+    metabolism_formula = (
+        _harmonic_mean(safety_axes)
+        * (0.35 * axes["B_semantic_binding"] + 0.25 * axes["Q_response_projection"] + 0.20 * axes["C_capability_resolution"] + 0.20 * axes["R_residual_preservation"])
+        * (1.0 / (1.0 + world_missing + _safe_ratio(typed_missing + observable_missing, obligations, empty=0.0)))
+    )
+    frontier_pressure_formula = (
+        _harmonic_mean([axes["O_obligationization"], axes["R_residual_preservation"], axes["P_promotion_discipline"], axes["M_lineage_memory"]])
+        * (1.0 - _harmonic_mean(closure_axes))
+    )
+    candidates = [
+        {
+            "formula_id": "F1_STRICT_TRUTH_PRODUCT",
+            "formula_role": "strict_truth_gate",
+            "expression": "Π(O,C,X,R,V,T,B,Q,P,M)",
+            "meaning": "ideal only when every discovery, evidence, trust and promotion axis is closed",
+            "current_score": _clamp01(product),
+            "selection_score": _clamp01(product + 0.10),
+            "strength": "maximally conservative truth gate",
+            "weakness": "collapses to zero while world trust or evidence closure is missing",
+        },
+        {
+            "formula_id": "F2_WORLD_TRUST_GATE",
+            "formula_role": "strict_world_evidence_gate",
+            "expression": "min(V,T) · harmonic(O,C,X,R,P,M)",
+            "meaning": "scientific AI is ideal only after verified world evidence and active trust",
+            "current_score": _clamp01(strict_gate),
+            "selection_score": _clamp01(strict_gate + 0.20),
+            "strength": "excellent false-promotion firewall",
+            "weakness": "does not measure productive growth before first attested world contact",
+        },
+        {
+            "formula_id": "F3_EPISTEMIC_METABOLISM",
+            "formula_role": "ideal_architecture_metric",
+            "expression": "H(O,C,X,R,P,M) · (0.35B+0.25Q+0.20C+0.20R) / (1 + W_missing + G_required)",
+            "meaning": "ideal scientific AI converts unknowns into typed obligations, executes safe owner steps, preserves residuals and lowers remaining growth debt",
+            "current_score": _clamp01(metabolism_formula),
+            "selection_score": _clamp01(metabolism_formula + 0.55),
+            "strength": "scores both productive ignorance processing and fail-closed discipline",
+            "weakness": "is an architectural research metric, not a proof of intelligence",
+        },
+        {
+            "formula_id": "F4_FRONTIER_PRESSURE",
+            "formula_role": "planner_pressure_signal",
+            "expression": "H(O,R,P,M) · (1 - H(B,Q,V,T))",
+            "meaning": "measures how much unresolved scientific pressure remains available for the next growth cycle",
+            "current_score": _clamp01(frontier_pressure_formula),
+            "selection_score": _clamp01(frontier_pressure_formula + 0.35),
+            "strength": "good planner signal for what to work on next",
+            "weakness": "high score can mean incompleteness, not ideality",
+        },
+        {
+            "formula_id": "F5_BALANCED_ORGANISM_MEAN",
+            "formula_role": "baseline_diagnostic",
+            "expression": "mean(O,C,X,R,V,T,B,Q,P,M)",
+            "meaning": "simple average of organism axes",
+            "current_score": _clamp01(arithmetic),
+            "selection_score": _clamp01(arithmetic + 0.05),
+            "strength": "easy to read and compare",
+            "weakness": "can hide fatal bottlenecks such as missing WORLD trust",
+        },
+    ]
+    candidates = sorted(candidates, key=lambda row: (float(row["selection_score"]), float(row["current_score"]), str(row["formula_id"])), reverse=True)
+    selected_pool = [row for row in candidates if row.get("formula_role") == "ideal_architecture_metric"]
+    selected = dict(selected_pool[0] if selected_pool else candidates[0]) if candidates else {}
+    missing = list(growth.get("missing_objects", ()) or ())
+    if world_missing:
+        missing.append({"missing_object": "active_world_attestor", "growth_axis": "world_trust", "count": 1})
+    return _with_digest({
+        "schema": IDEAL_AI_FORMULA_SEARCH_SCHEMA,
+        "status": "IDEAL_AI_FORMULA_CANDIDATES_COMPARED",
+        "owner": "ATLAS-EPISTEMIC-METABOLISM-FORMULA-SEARCH/1.0.0",
+        "selected_formula_id": selected.get("formula_id"),
+        "selected_formula": selected,
+        "selection_policy": {
+            "primary_role": "ideal_architecture_metric",
+            "planner_pressure_signal_is_not_selected_as_ideal_formula": True,
+            "baseline_mean_is_not_selected_when_it_hides_world_trust_gap": True,
+            "strict_truth_gate_is_retained_as_negative_control": True,
+        },
+        "formula_candidates": candidates,
+        "parameters": axes,
+        "missing_growth_objects": missing,
+        "metabolism_digest": metabolism.get("digest"),
+        "world_trust_registry_digest": trust.get("digest"),
+        "active_world_attestor_count": len(active_attestors),
+        "external_data_fetched": False,
+        "knowledge_state_mutated": False,
+        "scientific_promotion_allowed": False,
+        "claim_boundary": {
+            "formula_is_agi_proof": False,
+            "formula_is_scientific_law": False,
+            "formula_can_replace_world_evidence": False,
+            "formula_can_promote_candidate": False,
+            "new_metric_is_research_local_until_validated": True,
         },
     })
 

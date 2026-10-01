@@ -13,6 +13,7 @@ from source.lawspace.source_capabilities import (
     derive_semantic_evidence_needs,
     run_epistemic_metabolism_cycle,
     run_universal_obligation_execution_loop,
+    search_ideal_ai_formula_candidates,
     load_provider_capability_registry,
     load_world_trust_registry,
     match_source_provider,
@@ -567,3 +568,42 @@ def test_epistemic_metabolism_cycle_preserves_capability_gap_as_birth_input_and_
     assert step["next_obligation"] == "REPRESENTATION_BIRTH"
     assert result["growth_vector"]["missing_objects"][0]["growth_axis"] == "capability_birth"
     assert result["claim_boundary"]["new_representation_is_canonical_without_evidence"] is False
+
+
+def test_ideal_ai_formula_search_compares_multiple_research_local_candidates():
+    result = search_ideal_ai_formula_candidates(ROOT, max_frontier_rows=500, max_campaign_items=8, max_execution_steps=8)
+    assert result["schema"] == "phi-ideal-ai-formula-search/v1"
+    assert result["status"] == "IDEAL_AI_FORMULA_CANDIDATES_COMPARED"
+    assert result["selected_formula_id"] == "F3_EPISTEMIC_METABOLISM"
+    assert len(result["formula_candidates"]) >= 5
+    assert {row["formula_id"] for row in result["formula_candidates"]}.issuperset({
+        "F1_STRICT_TRUTH_PRODUCT",
+        "F2_WORLD_TRUST_GATE",
+        "F3_EPISTEMIC_METABOLISM",
+        "F4_FRONTIER_PRESSURE",
+        "F5_BALANCED_ORGANISM_MEAN",
+    })
+    params = result["parameters"]
+    assert params["O_obligationization"] == pytest.approx(1.0)
+    assert params["X_safe_owner_step"] == pytest.approx(1.0)
+    assert params["P_promotion_discipline"] == pytest.approx(1.0)
+    assert params["T_world_trust"] == pytest.approx(0.0)
+    assert params["V_evidence_closure"] == pytest.approx(0.0)
+    assert result["active_world_attestor_count"] == 0
+    assert any(row["missing_object"] == "active_world_attestor" for row in result["missing_growth_objects"])
+    assert result["claim_boundary"]["formula_is_agi_proof"] is False
+    assert result["claim_boundary"]["formula_is_scientific_law"] is False
+    assert result["claim_boundary"]["formula_can_replace_world_evidence"] is False
+    assert result["scientific_promotion_allowed"] is False
+
+
+def test_ideal_ai_formula_search_api_exposed_and_accepts_explicit_gap():
+    api = LawSpaceAPI(ROOT)
+    assert "search_ideal_ai_formula_candidates" in api.READ_TOOLS
+    result = api.search_ideal_ai_formula_candidates(
+        candidate_specs=[{"candidate_id": "IDEAL-AI-GAP", "missing_object": "unknown_future_capability"}],
+        max_execution_steps=1,
+    )
+    assert result["selected_formula_id"] == "F3_EPISTEMIC_METABOLISM"
+    assert result["parameters"]["C_capability_resolution"] == pytest.approx(0.0)
+    assert any(row["missing_object"] == "new_capability_or_adapter" for row in result["missing_growth_objects"])

@@ -134,7 +134,7 @@
     },
     {
       "path": "capabilities.json",
-      "sha256": "e2ff5ec242f9aee00b848d9519d9b7c910821ae3ed1e521394cd70e7fa75b98f",
+      "sha256": "311dea5d44d1ce5e61c2df5d7ebbe81a6bba9ac77d187eca7e531618cc7af319",
       "size": 25310
     },
     {
@@ -1694,8 +1694,8 @@
     },
     {
       "path": "source/lawspace/api.py",
-      "sha256": "25bd68b9fd6c54413d33bcdb1fd4beaaafe28900bbbc6886059a6e3d9bc56315",
-      "size": 153308
+      "sha256": "7e3dbfa319697c4519d0c12946648ba661846b7485c953514e1ad0abdabd3305",
+      "size": 154009
     },
     {
       "path": "source/lawspace/atomic_dirac_evaluator.py",
@@ -2019,8 +2019,8 @@
     },
     {
       "path": "source/lawspace/source_capabilities.py",
-      "sha256": "c1b8d470f80e78797203e5db335b788afdc2bc439c4afacddbb7d4773afa06e4",
-      "size": 104132
+      "sha256": "1daadf980e430034ec97d7687cca8843f831f87c682b528861e2c9bb1763bc72",
+      "size": 113839
     },
     {
       "path": "source/lawspace/superk_atmospheric_likelihood.py",
@@ -2284,14 +2284,14 @@
     },
     {
       "path": "tests/test_world_expansion_domain_consolidation.py",
-      "sha256": "d8d3f96b5e8a46a9003f86773a38ddffb7c18b47130109b68d02b5fa27e19b82",
-      "size": 29504
+      "sha256": "2919e6dca65dfec108fbc8de69459a81a3ea8f2b489cb841c03012dbf7ce1587",
+      "size": 31684
     }
   ],
   "current_state_failed_checks": [],
-  "current_state_qualification_digest": "499b402ee5ebac2c73092d2f78444dcc9a49d23cc2aa99a39abe92cf957bc9c8",
+  "current_state_qualification_digest": "c494f35e37a3d756c7ab18b08baad78cf0d2ff51bae757bb23c28ff4399f25ce",
   "current_state_qualification_status": "PASS_CURRENT_STATE_15_29_0",
-  "digest": "77e28ff73f217663ae2aa8318ae383090a56e96c55d583bb3fee37553bb3129f",
+  "digest": "ce67d72418cb5eae204d34b712915ad56f0331a46bb8965de9cc696c838673c4",
   "eda_chip_design": {
     "atlas_beats_all_baselines": null,
     "backend_status_at_seal": "EDA_BACKEND_UNAVAILABLE",
