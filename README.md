@@ -1,5 +1,6 @@
 # Atlas — Autonomous Scientific Research System
-<img width="1590" height="948" alt="02_photocurrent_time_models" src="https://github.com/user-attachments/assets/c3a1bfd7-141e-4ff5-bc6a-1dfca2505f21" />
+<img width="1521" height="610" alt="09_phase_enstrophy_counterexample" src="https://github.com/user-attachments/assets/56b65ccb-3af9-4ba4-a045-84c1a57d69ab" />
+
 
 **Created and developed by Alexey Mironov**
 Independent research project · 2026
