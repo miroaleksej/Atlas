@@ -1,6 +1,5 @@
 # Atlas — Autonomous Scientific Research System
-<img width="1869" height="932" alt="07_multi_axis_optical_holdout" src="https://github.com/user-attachments/assets/6c3a90a6-5724-4e2d-857c-b19abba40f4b" />
-
+<img width="1590" height="948" alt="02_photocurrent_time_models" src="https://github.com/user-attachments/assets/c3a1bfd7-141e-4ff5-bc6a-1dfca2505f21" />
 
 **Created and developed by Alexey Mironov**
 Independent research project · 2026
