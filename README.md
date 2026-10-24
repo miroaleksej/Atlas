@@ -1,5 +1,6 @@
 # Atlas — Autonomous Scientific Research System
-<img width="1521" height="610" alt="09_phase_enstrophy_counterexample" src="https://github.com/user-attachments/assets/56b65ccb-3af9-4ba4-a045-84c1a57d69ab" />
+<img width="1864" height="856" alt="11_atlas_28_axis_model_shift" src="https://github.com/user-attachments/assets/096546a3-46dd-4a00-8871-25188a081bc5" />
+
 
 
 **Created and developed by Alexey Mironov**
