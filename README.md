@@ -1,5 +1,4 @@
 # Atlas — Autonomous Scientific Research System
-<img width="1567" height="757" alt="12_atlas_28_axis_missing_coordinate" src="https://github.com/user-attachments/assets/3d915b6e-755c-447e-a536-80a67788ce43" />
 
 **Created and developed by Alexey Mironov**
 Independent research project · 2026
