@@ -1,6 +1,5 @@
 # Atlas — Autonomous Scientific Research System
-
-<img width="1476" height="770" alt="10_operator_birth_counterexample" src="https://github.com/user-attachments/assets/dd7b4936-4465-4e98-a227-35502950d524" />
+<img width="1869" height="932" alt="07_multi_axis_optical_holdout" src="https://github.com/user-attachments/assets/6c3a90a6-5724-4e2d-857c-b19abba40f4b" />
 
 
 **Created and developed by Alexey Mironov**
