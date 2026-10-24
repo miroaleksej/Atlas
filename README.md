@@ -1,4 +1,9 @@
 # Atlas — Autonomous Scientific Research System
+<img width="1720" height="810" alt="08_atlas_research_cycle" src="https://github.com/user-attachments/assets/3fff0e9d-12d9-4a7b-a638-e7a629fa402f" />
+
+
+
+
 
 **Created and developed by Alexey Mironov**
 Independent research project · 2026
