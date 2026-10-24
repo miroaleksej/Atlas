@@ -1,9 +1,6 @@
 # Atlas — Autonomous Scientific Research System
-<img width="1720" height="810" alt="08_atlas_research_cycle" src="https://github.com/user-attachments/assets/3fff0e9d-12d9-4a7b-a638-e7a629fa402f" />
 
-
-
-
+<img width="1644" height="867" alt="05_neural_selection_cost" src="https://github.com/user-attachments/assets/6570856c-855c-4f0a-aa57-fac074b4c555" />
 
 **Created and developed by Alexey Mironov**
 Independent research project · 2026
